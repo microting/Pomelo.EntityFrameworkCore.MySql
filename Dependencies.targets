@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup Label="Common Versions">
     <EFCoreVersion>7.*</EFCoreVersion>
-    <AspNetCoreVersion>7.0.0</AspNetCoreVersion>
+    <AspNetCoreVersion>7.0.1</AspNetCoreVersion>
   </PropertyGroup>
 
   <ItemGroup Label="Dependencies">
