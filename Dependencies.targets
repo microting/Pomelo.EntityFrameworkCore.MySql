@@ -43,6 +43,6 @@
     <!-- Keep at the same level that the EF Core projects use. -->
     <PackageReference Update="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59" />
     <PackageReference Update="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
-    <PackageReference Update="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" />
+    <PackageReference Update="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
   </ItemGroup>
 </Project>
