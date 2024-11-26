@@ -122,5 +122,13 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
         /// </summary>
         public virtual MySqlDbContextOptionsBuilder EnableStringComparisonTranslations(bool enable = true)
             => WithOption(e => e.WithStringComparisonTranslations(enable));
+
+        /// <summary>
+        ///     Configures the context to translate using primitive collections. At the time of the Pomelo 8.0.0 release, MySQL Server can
+        ///     crash when using primitive collections with JSON and MariaDB support is incomplete. Support and translations in regards to
+        ///     this option can change at any time in the future. This optin is disabled by default. Enabled at your own risk.
+        /// </summary>
+        public virtual MySqlDbContextOptionsBuilder EnablePrimitiveCollectionsSupport(bool enable = true)
+            => WithOption(e => e.WithPrimitiveCollectionsSupport(enable));
     }
 }

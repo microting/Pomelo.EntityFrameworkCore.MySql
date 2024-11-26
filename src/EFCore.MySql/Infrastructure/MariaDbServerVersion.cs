@@ -15,7 +15,7 @@ namespace Microsoft.EntityFrameworkCore
     public class MariaDbServerVersion : ServerVersion
     {
         public static readonly string MariaDbTypeIdentifier = nameof(ServerType.MariaDb).ToLowerInvariant();
-        public static readonly ServerVersion LatestSupportedServerVersion = new MariaDbServerVersion(new Version(10, 9, 4));
+        public static readonly ServerVersion LatestSupportedServerVersion = new MariaDbServerVersion(new Version(11, 3, 2));
 
         public override ServerVersionSupport Supports { get; }
 
@@ -52,7 +52,7 @@ namespace Microsoft.EntityFrameworkCore
             public override bool DateTimeCurrentTimestamp => ServerVersion.Version >= new Version(10, 0, 1);
             public override bool DateTime6 => ServerVersion.Version >= new Version(10, 1, 2);
             public override bool LargerKeyLength => ServerVersion.Version >= new Version(10, 2, 2);
-            public override bool RenameIndex => false;
+            public override bool RenameIndex => ServerVersion.Version >= new Version(10, 5, 2);
             public override bool RenameColumn => ServerVersion.Version >= new Version(10, 5, 2);
             public override bool WindowFunctions => ServerVersion.Version >= new Version(10, 2, 0);
             public override bool FloatCast => false; // The implemented support drops some decimal places and rounds.
@@ -80,10 +80,21 @@ namespace Microsoft.EntityFrameworkCore
             public override bool ImplicitBoolCheckUsesIndex => ServerVersion.Version >= new Version(10, 0, 0); // Exact version has not been verified yet
             public override bool Sequences => ServerVersion.Version >= new Version(10, 3, 0);
             public override bool InformationSchemaCheckConstraintsTable => ServerVersion.Version >= new Version(10, 3, 10) ||
-                                                                           ServerVersion.Version.Major == 10 && ServerVersion.Version.Minor == 2 && ServerVersion.Version.Build >= 22;  // MySQL is missing the explicit TABLE_NAME column that MariaDB supports, so always join the TABLE_CONSTRAINTS table when accessing CHECK_CONSTRAINTS for any database server that supports CHECK_CONSTRAINTS.
+                                                                           ServerVersion.Version.Major == 10 && ServerVersion.Version.Minor == 2 && ServerVersion.Version.Build >= 22; // MySQL is missing the explicit TABLE_NAME column that MariaDB supports, so always join the TABLE_CONSTRAINTS table when accessing CHECK_CONSTRAINTS for any database server that supports CHECK_CONSTRAINTS.
             public override bool IdentifyJsonColumsByCheckConstraints => true;
             public override bool Returning => ServerVersion.Version >= new Version(10, 5, 0);
             public override bool CommonTableExpressions => ServerVersion.Version >= new Version(10, 2, 1);
+            public override bool LimitWithinInAllAnySomeSubquery => false;
+            public override bool LimitWithNonConstantValue => false;
+            public override bool JsonTable => ServerVersion.Version >= new Version(10, 6, 0); // Since there seems to be no implicit LATERAL support for JSON_TABLE, this is pretty useless except for cases where the JSON is provided by a parameter instead of a column of an outer table.
+            public override bool JsonValue => true;
+            public override bool Values => ServerVersion.Version >= new Version(10, 3, 3);
+            public override bool ValuesWithRows => false;
+            public override bool WhereSubqueryReferencesOuterQuery => false;
+
+            public override bool JsonTableImplementationStable => false;
+            public override bool JsonTableImplementationWithoutMariaDbBugs => false;
+            public override bool JsonTableImplementationWithAggregate => false; // All kinds of wrong results because of the missing LATERAL support, but without any error thrown by MariaDb. It usually just uses the first values of the first row of the outer table.
         }
     }
 }

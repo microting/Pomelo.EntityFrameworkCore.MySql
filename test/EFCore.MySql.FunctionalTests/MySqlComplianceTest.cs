@@ -22,9 +22,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             typeof(LoggingRelationalTestBase<,>),
 
             // We have our own JSON support for now
-            typeof(JsonUpdateTestBase<>),
+            typeof(AdHocJsonQueryTestBase),
             typeof(JsonQueryTestBase<>),
-            typeof(JsonQueryAdHocTestBase),
+            typeof(JsonTypesRelationalTestBase),
+            typeof(JsonTypesTestBase),
+            typeof(JsonUpdateTestBase<>),
+            typeof(OptionalDependentQueryTestBase<>),
         };
 
         protected override Assembly TargetAssembly { get; } = typeof(MySqlComplianceTest).Assembly;

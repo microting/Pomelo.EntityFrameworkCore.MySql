@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+    <PackageReference Include="Microsoft.CodeAnalysis" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" />
     <PackageReference Include="Moq" />
     <PackageReference Include="Newtonsoft.Json" />
@@ -41,6 +41,7 @@
 
   <ItemGroup Condition="'$(LocalMySqlConnectorRepository)' == ''">
     <PackageReference Include="MySqlConnector" />
+    <PackageReference Include="MySqlConnector.DependencyInjection" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(LocalEFCoreRepository)' != ''">
@@ -72,7 +73,10 @@
 
   <ItemGroup Condition="'$(LocalMySqlConnectorRepository)' != ''">
     <Reference Include="MySqlConnector">
-      <HintPath>$(LocalMySqlConnectorRepository)\src\MySqlConnector\bin\Debug\$(TargetFramework)\MySqlConnector.dll</HintPath>
+      <HintPath>$(LocalMySqlConnectorRepository)\artifacts\bin\MySqlConnector\debug_$(MySqlConnectorTargetFramework)\MySqlConnector.dll</HintPath>
+    </Reference>
+    <Reference Include="MySqlConnector.DependencyInjection">
+      <HintPath>$(LocalMySqlConnectorRepository)\artifacts\bin\MySqlConnector.DependencyInjection\debug_$(MySqlConnectorDependencyInjectionTargetFramework)\MySqlConnector.DependencyInjection.dll</HintPath>
     </Reference>
   </ItemGroup>
 

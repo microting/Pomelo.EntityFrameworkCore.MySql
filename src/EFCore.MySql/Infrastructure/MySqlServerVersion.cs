@@ -15,7 +15,7 @@ namespace Microsoft.EntityFrameworkCore
     public class MySqlServerVersion : ServerVersion
     {
         public static readonly string MySqlTypeIdentifier = nameof(ServerType.MySql).ToLowerInvariant();
-        public static readonly ServerVersion LatestSupportedServerVersion = new MySqlServerVersion(new Version(8, 0, 31));
+        public static readonly ServerVersion LatestSupportedServerVersion = new MySqlServerVersion(new Version(8, 0, 36));
 
         public override ServerVersionSupport Supports { get; }
 
@@ -75,18 +75,29 @@ namespace Microsoft.EntityFrameworkCore
             public override bool SpatialDistanceFunctionImplementsAndoyer => ServerVersion.Version >= new Version(8, 0, 0);
             public override bool SpatialDistanceSphereFunction => ServerVersion.Version >= new Version(8, 0, 0);
             public override bool SpatialGeographic => ServerVersion.Version >= new Version(8, 0, 0);
-            public override bool ExceptIntercept => false;
-            public override bool ExceptInterceptPrecedence => false;
+            public override bool ExceptIntercept => ServerVersion.Version >= new Version(8, 0, 31);
+            public override bool ExceptInterceptPrecedence => ServerVersion.Version >= new Version(8, 0, 31);
             public override bool JsonDataTypeEmulation => false;
             public override bool ImplicitBoolCheckUsesIndex => ServerVersion.Version >= new Version(8, 0, 0); // Exact version has not been verified yet
             public override bool MySqlBug96947Workaround => ServerVersion.Version >= new Version(5, 7, 0) &&
-                                                            ServerVersion.Version < new Version(8, 0, 25); // Exact version has not been verified yet, but it is 5.7.x and could very well be 5.7.0
+                                                            ServerVersion.Version < new Version(8, 0, 23); // Exact version has not been verified yet, but it is 5.7.x and could very well be 5.7.0
             public override bool MySqlBug104294Workaround => ServerVersion.Version >= new Version(8, 0, 0); // Exact version has not been determined yet
             public override bool FullTextParser => ServerVersion.Version >= new Version(5, 7, 3);
             public override bool InformationSchemaCheckConstraintsTable => ServerVersion.Version >= new Version(8, 0, 16); // MySQL is missing the explicit TABLE_NAME column that MariaDB supports, so always join the TABLE_CONSTRAINTS table when accessing CHECK_CONSTRAINTS for any database server that supports CHECK_CONSTRAINTS.
             public override bool MySqlBugLimit0Offset0ExistsWorkaround => true;
             public override bool DescendingIndexes => ServerVersion.Version >= new Version(8, 0, 1);
             public override bool CommonTableExpressions => ServerVersion.Version >= new Version(8, 0, 1);
+            public override bool LimitWithinInAllAnySomeSubquery => false;
+            public override bool LimitWithNonConstantValue => false;
+            public override bool JsonTable => ServerVersion.Version >= new Version(8, 0, 4);
+            public override bool JsonValue => ServerVersion.Version >= new Version(8, 0, 21);
+            public override bool Values => false;
+            public override bool ValuesWithRows => ServerVersion.Version >= new Version(8, 0, 19);
+            public override bool WhereSubqueryReferencesOuterQuery => false;
+
+            public override bool JsonTableImplementationStable => false;
+            public override bool JsonTableImplementationWithoutMySqlBugs => false; // Other non-fatal bugs regarding JSON_TABLE.
+            public override bool JsonTableImplementationUsingParameterAsSourceWithoutEngineCrash => false; // MySQL non-deterministically crashes when using a parameter with JSON as the source of a JSON_TABLE call.
         }
     }
 }

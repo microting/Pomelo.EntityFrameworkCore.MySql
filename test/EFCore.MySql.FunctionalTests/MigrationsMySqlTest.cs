@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -45,9 +44,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         }
 
         [ConditionalTheory(Skip = "TODO")]
-        public override Task Add_column_computed_with_collation()
+        public override Task Add_column_computed_with_collation(bool stored)
         {
-            return base.Add_column_computed_with_collation();
+            return base.Add_column_computed_with_collation(stored);
         }
 
         [ConditionalTheory(Skip = "TODO")]
@@ -270,12 +269,6 @@ SELECT ROW_COUNT();",
         }
 
         [ConditionalTheory(Skip = "TODO")]
-        public override Task Add_primary_key_int()
-        {
-            return base.Add_primary_key_int();
-        }
-
-        [ConditionalTheory(Skip = "TODO")]
         public override async Task Add_primary_key_string()
         {
             await base.Add_primary_key_string();
@@ -326,27 +319,7 @@ SELECT ROW_COUNT();",
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.Sequences))]
         public override async Task Alter_sequence_all_settings()
         {
-            await Test(
-                builder => builder.HasSequence<int>("foo"),
-                builder => { },
-                builder => builder.HasSequence<int>("foo")
-                    .StartsAt(-3)
-                    .IncrementsBy(2)
-                    .HasMin(-5)
-                    .HasMax(10)
-                    .IsCyclic(),
-                model =>
-                {
-                    var sequence = Assert.Single(model.Sequences);
-
-                    // Assert.Equal(-3, sequence.StartValue);
-                    Assert.Equal(1, sequence.StartValue); // Restarting doesn't change the scaffolded start value
-
-                    Assert.Equal(2, sequence.IncrementBy);
-                    Assert.Equal(-5, sequence.MinValue);
-                    Assert.Equal(10, sequence.MaxValue);
-                    Assert.True(sequence.IsCyclic);
-                });
+            await base.Alter_sequence_all_settings();
 
             AssertSql(
                 """
@@ -354,7 +327,7 @@ ALTER SEQUENCE `foo` INCREMENT BY 2 MINVALUE -5 MAXVALUE 10 CYCLE;
 """,
                 //
                 """
-ALTER SEQUENCE `foo` RESTART WITH -3;
+ALTER SEQUENCE `foo` START WITH -3 RESTART;
 """);
         }
 
@@ -362,6 +335,15 @@ ALTER SEQUENCE `foo` RESTART WITH -3;
         public override Task Alter_sequence_increment_by()
         {
             return base.Alter_sequence_increment_by();
+        }
+
+        [SupportedServerVersionCondition(nameof(ServerVersionSupport.Sequences))]
+        public override async Task Alter_sequence_restart_with()
+        {
+            await base.Alter_sequence_restart_with();
+
+            AssertSql(
+                @"ALTER SEQUENCE `foo` START WITH 3 RESTART;");
         }
 
         public override async Task Alter_table_add_comment_non_default_schema()
@@ -552,12 +534,35 @@ ALTER TABLE `TestSequenceMove` RENAME `TestSequenceSchema_TestSequenceMove`;
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.Sequences))]
         public override async Task Rename_sequence()
         {
-            await base.Rename_sequence();
+            if (OperatingSystem.IsWindows())
+            {
+                // On Windows, with `lower_case_table_names = 2`, renaming `TestSequence` to `testsequence` doesn't do anything, because
+                // `TestSequence` is internally being transformed to lower case, before it is processes further.
+                await Test(
+                    builder => { },
+                    builder => builder.HasSequence<int>("TestSequence"),
+                    builder => builder.HasSequence<int>("testsequence2"),
+                    builder => builder.RenameSequence(name: "TestSequence", newName: "testsequence2"),
+                    model =>
+                    {
+                        var sequence = Assert.Single(model.Sequences);
+                        Assert.Equal("testsequence2", sequence.Name);
+                    });
 
-            AssertSql(
+               AssertSql(
+"""
+ALTER TABLE `TestSequence` RENAME `testsequence2`;
+""");
+            }
+            else
+            {
+                await base.Rename_sequence();
+
+               AssertSql(
 """
 ALTER TABLE `TestSequence` RENAME `testsequence`;
 """);
+            }
         }
 
         [ConditionalTheory(Skip = "TODO")]
@@ -1296,6 +1301,47 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;",
                     Assert.Equal("Persons", table.Name);
                 },
                 withConventions: false);
+
+        #region ToJson
+
+        public override Task Create_table_with_json_column()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Create_table_with_json_column());
+
+        public override Task Create_table_with_json_column_explicit_json_column_names()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Create_table_with_json_column_explicit_json_column_names());
+
+        public override Task Rename_table_with_json_column()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Rename_table_with_json_column());
+
+        public override Task Add_json_columns_to_existing_table()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Add_json_columns_to_existing_table());
+
+        public override Task Convert_json_entities_to_regular_owned()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Convert_json_entities_to_regular_owned());
+
+        public override Task Convert_regular_owned_entities_to_json()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Convert_regular_owned_entities_to_json());
+
+        public override Task Convert_string_column_to_a_json_column_containing_reference()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Convert_string_column_to_a_json_column_containing_reference());
+
+        public override Task Convert_string_column_to_a_json_column_containing_required_reference()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Convert_string_column_to_a_json_column_containing_required_reference());
+
+        public override Task Convert_string_column_to_a_json_column_containing_collection()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Convert_string_column_to_a_json_column_containing_collection());
+
+        public override Task Drop_json_columns_from_existing_table()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Drop_json_columns_from_existing_table());
+
+        public override Task Rename_json_column()
+            => Assert.ThrowsAsync<NullReferenceException>(() => base.Rename_json_column());
+
+        #endregion ToJson
+
+        // The constraint name for a primary key is always PRIMARY in MySQL.
+        protected override bool AssertConstraintNames
+            => false;
 
         protected virtual string DefaultCollation => ((MySqlTestStore)Fixture.TestStore).DatabaseCollation;
 

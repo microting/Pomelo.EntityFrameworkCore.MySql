@@ -5,6 +5,7 @@ using System;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Json;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
@@ -18,6 +19,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
     public class MySqlDateTimeTypeMapping : DateTimeTypeMapping, IDefaultValueCompatibilityAware
     {
         private readonly bool _isDefaultValueCompatible;
+
+        public static new MySqlDateTimeTypeMapping Default { get; } = new("datetime");
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -34,7 +37,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             bool isDefaultValueCompatible = false)
             : this(
                 new RelationalTypeMappingParameters(
-                    new CoreTypeMappingParameters(clrType ?? typeof(DateTime), converter, comparer),
+                    new CoreTypeMappingParameters(
+                        clrType ?? typeof(DateTime),
+                        converter,
+                        comparer,
+                        jsonValueReaderWriter: JsonDateTimeReaderWriter.Instance),
                     storeType,
                     StoreTypePostfix.Precision,
                     System.Data.DbType.DateTime,

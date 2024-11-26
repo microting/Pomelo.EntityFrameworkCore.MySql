@@ -5,7 +5,8 @@ using System;
 using System.Data;
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore.Storage;
-using Pomelo.EntityFrameworkCore.MySql.Utilities;
+using Microsoft.EntityFrameworkCore.Storage.Json;
+using Pomelo.EntityFrameworkCore.MySql.Storage.Internal.Json;
 
 namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 {
@@ -18,6 +19,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         private const int MaxSize = 8000;
 
         private readonly int _maxSpecificSize;
+
+        public static new MySqlByteArrayTypeMapping Default { get; } = new();
 
         /// <summary>
         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
@@ -45,7 +48,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             bool fixedLength)
             : this(
                 new RelationalTypeMappingParameters(
-                    new CoreTypeMappingParameters(typeof(byte[])),
+                    new CoreTypeMappingParameters(
+                        typeof(byte[]),
+                        jsonValueReaderWriter: JsonByteArrayReaderWriter.Instance /* MySqlJsonByteArrayAsHexStringReaderWriter.Instance */),
                     storeType ?? GetBaseType(size, fixedLength),
                     GetStoreTypePostfix(size),
                     type,
@@ -109,6 +114,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// <returns>
         ///     The generated string.
         /// </returns>
-        protected override string GenerateNonNullSqlLiteral(object value) => ByteArrayFormatter.ToHex((byte[])value);
+        protected override string GenerateNonNullSqlLiteral(object value)
+            => value is byte[] { Length: > 0 } byteArray
+                ? "0x" + Convert.ToHexString(byteArray)
+                : "X''";
     }
 }

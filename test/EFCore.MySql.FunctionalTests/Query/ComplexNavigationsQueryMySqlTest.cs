@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 using Xunit.Abstractions;
@@ -81,11 +80,12 @@ LIMIT @__p_0");
             await Assert.ThrowsAsync<EqualException>(
                 async () => await base.Nested_SelectMany_correlated_with_join_table_correctly_translated_to_apply(async));
 
-            AssertSql(
-                @"SELECT `t0`.`l1Name`, `t0`.`l2Name`, `t0`.`l3Name`
+        AssertSql(
+"""
+SELECT `s0`.`l1Name`, `s0`.`l2Name`, `s0`.`l3Name`
 FROM `LevelOne` AS `l`
 LEFT JOIN LATERAL (
-    SELECT `t`.`l1Name`, `t`.`l2Name`, `t`.`l3Name`
+    SELECT `s`.`l1Name`, `s`.`l2Name`, `s`.`l3Name`
     FROM `LevelTwo` AS `l0`
     LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`Id`
     JOIN LATERAL (
@@ -93,9 +93,56 @@ LEFT JOIN LATERAL (
         FROM `LevelFour` AS `l2`
         LEFT JOIN `LevelThree` AS `l3` ON `l2`.`OneToOne_Optional_PK_Inverse4Id` = `l3`.`Id`
         WHERE `l1`.`Id` IS NOT NULL AND (`l1`.`Id` = `l2`.`OneToMany_Optional_Inverse4Id`)
-    ) AS `t` ON TRUE
+    ) AS `s` ON TRUE
     WHERE `l`.`Id` = `l0`.`OneToMany_Optional_Inverse2Id`
-) AS `t0` ON TRUE");
+) AS `s0` ON TRUE
+""");
+        }
+
+        public override async Task Method_call_on_optional_navigation_translates_to_null_conditional_properly_for_arguments(bool async)
+        {
+            await base.Method_call_on_optional_navigation_translates_to_null_conditional_properly_for_arguments(async);
+
+            AssertSql(
+"""
+SELECT `l`.`Id`, `l`.`Date`, `l`.`Name`, `l`.`OneToMany_Optional_Self_Inverse1Id`, `l`.`OneToMany_Required_Self_Inverse1Id`, `l`.`OneToOne_Optional_Self1Id`
+FROM `LevelOne` AS `l`
+LEFT JOIN `LevelTwo` AS `l0` ON `l`.`Id` = `l0`.`Level1_Optional_Id`
+WHERE `l0`.`Name` IS NOT NULL AND (LEFT(`l0`.`Name`, CHAR_LENGTH(`l0`.`Name`)) = `l0`.`Name`)
+""");
+        }
+
+        // CHECK: Flaky only on MySQL 5.7.
+        [SupportedServerVersionCondition("8.0.0-mysql", "0.0.0-mariadb")]
+        public override async Task Member_pushdown_with_multiple_collections(bool async)
+        {
+            await base.Member_pushdown_with_multiple_collections(async);
+
+        AssertSql(
+"""
+SELECT (
+    SELECT `l0`.`Name`
+    FROM `LevelThree` AS `l0`
+    WHERE (
+        SELECT `l1`.`Id`
+        FROM `LevelTwo` AS `l1`
+        WHERE `l`.`Id` = `l1`.`OneToMany_Optional_Inverse2Id`
+        ORDER BY `l1`.`Id`
+        LIMIT 1) IS NOT NULL AND (((
+        SELECT `l2`.`Id`
+        FROM `LevelTwo` AS `l2`
+        WHERE `l`.`Id` = `l2`.`OneToMany_Optional_Inverse2Id`
+        ORDER BY `l2`.`Id`
+        LIMIT 1) = `l0`.`OneToMany_Optional_Inverse3Id`) OR ((
+        SELECT `l2`.`Id`
+        FROM `LevelTwo` AS `l2`
+        WHERE `l`.`Id` = `l2`.`OneToMany_Optional_Inverse2Id`
+        ORDER BY `l2`.`Id`
+        LIMIT 1) IS NULL AND (`l0`.`OneToMany_Optional_Inverse3Id` IS NULL)))
+    ORDER BY `l0`.`Id`
+    LIMIT 1)
+FROM `LevelOne` AS `l`
+""");
         }
 
         private void AssertSql(params string[] expected)
