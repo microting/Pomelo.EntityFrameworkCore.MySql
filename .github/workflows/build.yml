@@ -151,59 +151,62 @@ jobs:
             throw "${{ env.databaseServerType }}:${{ env.databaseServerVersion }} docker container failed to start in ${waitMinutes} minutes"
             exit 1
           }
+      - name: Switch to Linux containers - Windows
+        if: ${{ env.os == 'windows' }}
+        shell: pwsh
+        run: |
+          # Ensure Docker is running in Linux mode
+          $settingsPath = "$env:APPDATA\Docker\settings.json"
+          if (Test-Path $settingsPath) {
+            $settings = Get-Content $settingsPath | ConvertFrom-Json
+            $settings.engine = "linux"
+            $settings | ConvertTo-Json -Depth 10 | Set-Content $settingsPath
+          } else {
+            Write-Error "Docker settings file not found at $settingsPath"
+          }
+          Stop-Process -Name "Docker Desktop" -Force
+          Start-Process -FilePath "Docker Desktop"
       - name: Install Database Server - Windows
         if: ${{ env.os == 'windows' }}
         shell: pwsh
         run: |
-          $mySqlServiceName = '${{ env.databaseServerType }}_${{ env.databaseServerVersion }}'
-          $lowerCaseTableNames = 2
-          $packageName = 'Pomelo.Chocolatey.${{ env.databaseServerType }}.Server'
-          $mySqlBinPath = "C:\tools\${packageName}\current\bin"
-          $mySqlIniPath = "C:\tools\${packageName}\current\my.ini"
-          $mySqlDataPath = 'C:\ProgramData\${{ env.databaseServerType }}\data'
+          $waitMinutes = 5
+          $pollingIntervalSeconds = 1
+          $started = $false
 
-          dir "$env:Temp\${{ env.databaseServerType }}\${{ env.databaseServerVersion }}" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName
+          # Ensure the cache directory exists
+          if (-not (Test-Path -Path './cache/database')) {
+            New-Item -ItemType Directory -Path './cache/database' | Out-Null
+          }
 
-          $service = Get-Service '*${{ env.databaseServerType }}*' -ErrorAction SilentlyContinue
-          if ($service -ne $null)
-          {
-            throw "A service for ${{ env.databaseServerType }} appears to already exist."
+          # Load Docker image if it exists, otherwise pull and save
+          $tarFilePath = "./cache/database/${{ env.databaseServerType }}_${{ env.databaseServerVersion }}.tar"
+          if (Test-Path -PathType Leaf $tarFilePath) {
+            docker load --input $tarFilePath
+          } else {
+            docker pull "${{ env.databaseServerType }}:${{ env.databaseServerVersion }}"
+            docker save -o $tarFilePath "${{ env.databaseServerType }}:${{ env.databaseServerVersion }}"
+          }
+
+          # Start the Docker container
+          docker run --name "${{ env.databaseServerType }}" -e MYSQL_ROOT_PASSWORD=Password12! -p 127.0.0.1:3306:3306 -d "${{ env.databaseServerType }}:${{ env.databaseServerVersion }}"
+
+          # Wait for the database to start
+          $startTime = Get-Date
+          while (-not $started -and ((Get-Date) - $startTime).TotalMinutes -lt $waitMinutes) {
+            try {
+              & "${{ env.clientCommandPrefix }}" --protocol=tcp -h localhost -P 3306 -u root -pPassword12! -e 'select 1;' | Out-Null
+              $started = $true
+            } catch {
+              Start-Sleep -Seconds $pollingIntervalSeconds
+            }
+          }
+
+          # Check if the database failed to start
+          if (-not $started) {
+            throw "${{ env.databaseServerType }}:${{ env.databaseServerVersion }} Docker container failed to start in $waitMinutes minutes"
             exit 1
           }
-
-          # choco config set cacheLocation '$(Pipeline.Workspace)/cache/database'
-          choco install $packageName '--version=${{ env.databaseServerVersion }}' --ignore-dependencies --source 'https://www.myget.org/F/pomelo/api/v2;https://community.chocolatey.org/api/v2' --params "/serviceName:$mySqlServiceName"
-
-          Get-Service '*${{ env.databaseServerType }}*' -ErrorAction SilentlyContinue
-          Stop-Service $mySqlServiceName -Verbose
-
-          echo "Update PATH environment variable"
-          $env:PATH = "$mySqlBinPath;$env:PATH"
-          echo "PATH=$env:PATH" >> $env:GITHUB_ENV
-
-          echo "Update configuration file"
-          "lower_case_table_names=$lowerCaseTableNames" >> $mySqlIniPath
-
-          Remove-Item $mySqlDataPath/* -Recurse -Force -Verbose
-
-          echo "Reinitialize database server"
-
-          if ('${{ env.databaseServerType }}' -eq 'mysql')
-          {
-            ${{ env.serverExecutable }} --defaults-file="$mySqlIniPath" --initialize-insecure
-          }
-          else
-          {
-            mysql_install_db --datadir="$mySqlDataPath"
-          }
-
-          Start-Service $mySqlServiceName -Verbose
-
-          echo "Setup credentials"
-          ${{ env.clientCommandPrefix }} -h localhost -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Password12!';"
-          ${{ env.clientCommandPrefix }} -h localhost -u root -pPassword12! -e "SELECT @@version;"
-
-          dir "$env:Temp\${packageName}\${{ env.databaseServerVersion }}" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName
       - name: Setup Database
         shell: pwsh
         run: ${{ env.clientCommandPrefix }} -u root -pPassword12! -e "SET GLOBAL sql_mode = '${{ env.sqlMode }}'; SET GLOBAL max_connections = ${{ env.maxConnections }};"
