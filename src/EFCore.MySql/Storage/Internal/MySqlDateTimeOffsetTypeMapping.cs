@@ -5,6 +5,7 @@ using System;
 using System.Data.Common;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Json;
 
 namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 {
@@ -18,6 +19,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
     {
         private readonly bool _isDefaultValueCompatible;
 
+        public static new MySqlDateTimeOffsetTypeMapping Default { get; } = new("datetime");
+
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
         ///     the same compatibility standards as public APIs. It may be changed or removed without notice in
@@ -30,7 +33,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             bool isDefaultValueCompatible = false)
             : this(
                 new RelationalTypeMappingParameters(
-                    new CoreTypeMappingParameters(typeof(DateTimeOffset)),
+                    new CoreTypeMappingParameters(
+                        typeof(DateTimeOffset),
+                        jsonValueReaderWriter: JsonDateTimeOffsetReaderWriter.Instance),
                     storeType,
                     StoreTypePostfix.Precision,
                     System.Data.DbType.DateTimeOffset,

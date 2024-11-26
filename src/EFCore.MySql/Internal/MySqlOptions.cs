@@ -2,6 +2,7 @@
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
+using System.Data.Common;
 using System.Linq;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal;
 using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
@@ -9,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.Extensions.DependencyInjection;
 using MySqlConnector;
 
 namespace Pomelo.EntityFrameworkCore.MySql.Internal
@@ -20,6 +23,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
         public MySqlOptions()
         {
             ConnectionSettings = new MySqlConnectionSettings();
+            DataSource = null;
             ServerVersion = null;
 
             // We explicitly use `utf8mb4` in all instances, where charset based calculations need to be done, but accessing annotations
@@ -46,6 +50,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
 
             LimitKeyedOrIndexedStringColumnLength = true;
             StringComparisonTranslations = false;
+            PrimitiveCollectionsSupport = false;
         }
 
         public virtual void Initialize(IDbContextOptions options)
@@ -53,7 +58,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
             var mySqlOptions = options.FindExtension<MySqlOptionsExtension>() ?? new MySqlOptionsExtension();
             var mySqlJsonOptions = (MySqlJsonOptionsExtension)options.Extensions.LastOrDefault(e => e is MySqlJsonOptionsExtension);
 
-            ConnectionSettings = GetConnectionSettings(mySqlOptions);
+            ConnectionSettings = GetConnectionSettings(mySqlOptions, options);
+            DataSource = mySqlOptions.DataSource;
             ServerVersion = mySqlOptions.ServerVersion ?? throw new InvalidOperationException($"The {nameof(ServerVersion)} has not been set.");
             NoBackslashEscapes = mySqlOptions.NoBackslashEscapes;
             ReplaceLineBreaksWithCharFunction = mySqlOptions.ReplaceLineBreaksWithCharFunction;
@@ -65,13 +71,32 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
             JsonChangeTrackingOptions = mySqlJsonOptions?.JsonChangeTrackingOptions ?? default;
             LimitKeyedOrIndexedStringColumnLength = mySqlOptions.LimitKeyedOrIndexedStringColumnLength;
             StringComparisonTranslations = mySqlOptions.StringComparisonTranslations;
+            PrimitiveCollectionsSupport = mySqlOptions.PrimitiveCollectionsSupport;
         }
 
         public virtual void Validate(IDbContextOptions options)
         {
             var mySqlOptions = options.FindExtension<MySqlOptionsExtension>() ?? new MySqlOptionsExtension();
             var mySqlJsonOptions = (MySqlJsonOptionsExtension)options.Extensions.LastOrDefault(e => e is MySqlJsonOptionsExtension);
-            var connectionSettings = GetConnectionSettings(mySqlOptions);
+            var connectionSettings = GetConnectionSettings(mySqlOptions, options);
+
+            //
+            // CHECK: To we have to ensure that the ApplicationServiceProvider itself is not replaced, because we rely on it in our
+            //        DbDataSource check, or is that not possible?
+            //
+
+            // Even though we only save a DbDataSource that has been explicitly set using the MySqlOptionsExtensions here in MySqlOptions,
+            // we will later also fall back to a DbDataSource that has been added as a service to the ApplicationServiceProvider, if no
+            // DbDataSource has been explicitly set here. We call that DbDataSource the "effective" DbDataSource and handle it in the same
+            // way we would handle a singleton option.
+            var effectiveDataSource = mySqlOptions.DataSource ??
+                                      options.FindExtension<CoreOptionsExtension>()?.ApplicationServiceProvider?.GetService<MySqlDataSource>();
+            if (effectiveDataSource is not null &&
+                !ReferenceEquals(DataSource, mySqlOptions.DataSource))
+            {
+                throw new InvalidOperationException(
+                    MySqlStrings.TwoDataSourcesInSameServiceProvider(nameof(DbContextOptionsBuilder.UseInternalServiceProvider)));
+            }
 
             if (!Equals(ServerVersion, mySqlOptions.ServerVersion))
             {
@@ -164,6 +189,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
                         nameof(MySqlDbContextOptionsBuilder.EnableStringComparisonTranslations),
                         nameof(DbContextOptionsBuilder.UseInternalServiceProvider)));
             }
+
+            if (!Equals(PrimitiveCollectionsSupport, mySqlOptions.PrimitiveCollectionsSupport))
+            {
+                throw new InvalidOperationException(
+                    CoreStrings.SingletonOptionChanged(
+                        nameof(MySqlDbContextOptionsBuilder.EnablePrimitiveCollectionsSupport),
+                        nameof(DbContextOptionsBuilder.UseInternalServiceProvider)));
+            }
         }
 
         protected virtual MySqlDefaultDataTypeMappings ApplyDefaultDataTypeMappings(MySqlDefaultDataTypeMappings defaultDataTypeMappings, MySqlConnectionSettings connectionSettings)
@@ -215,14 +248,17 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
             return defaultDataTypeMappings;
         }
 
-        private static MySqlConnectionSettings GetConnectionSettings(MySqlOptionsExtension relationalOptions)
+        private static MySqlConnectionSettings GetConnectionSettings(MySqlOptionsExtension relationalOptions, IDbContextOptions options)
             => relationalOptions.Connection != null
                 ? new MySqlConnectionSettings(relationalOptions.Connection)
-                : new MySqlConnectionSettings(relationalOptions.ConnectionString);
+                : new MySqlConnectionSettings(
+                    new NamedConnectionStringResolver(options)
+                        .ResolveConnectionString(relationalOptions.ConnectionString ?? string.Empty));
 
         protected virtual bool Equals(MySqlOptions other)
         {
             return Equals(ConnectionSettings, other.ConnectionSettings) &&
+                   ReferenceEquals(DataSource, other.DataSource) &&
                    Equals(ServerVersion, other.ServerVersion) &&
                    Equals(DefaultCharSet, other.DefaultCharSet) &&
                    Equals(NationalCharSet, other.NationalCharSet) &&
@@ -234,7 +270,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
                    IndexOptimizedBooleanColumns == other.IndexOptimizedBooleanColumns &&
                    JsonChangeTrackingOptions == other.JsonChangeTrackingOptions &&
                    LimitKeyedOrIndexedStringColumnLength == other.LimitKeyedOrIndexedStringColumnLength &&
-                   StringComparisonTranslations == other.StringComparisonTranslations;
+                   StringComparisonTranslations == other.StringComparisonTranslations &&
+                   PrimitiveCollectionsSupport == other.PrimitiveCollectionsSupport;
         }
 
         public override bool Equals(object obj)
@@ -262,6 +299,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
             var hashCode = new HashCode();
 
             hashCode.Add(ConnectionSettings);
+            hashCode.Add(DataSource?.ConnectionString);
             hashCode.Add(ServerVersion);
             hashCode.Add(DefaultCharSet);
             hashCode.Add(NationalCharSet);
@@ -274,11 +312,18 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
             hashCode.Add(JsonChangeTrackingOptions);
             hashCode.Add(LimitKeyedOrIndexedStringColumnLength);
             hashCode.Add(StringComparisonTranslations);
+            hashCode.Add(PrimitiveCollectionsSupport);
 
             return hashCode.ToHashCode();
         }
 
         public virtual MySqlConnectionSettings ConnectionSettings { get; private set; }
+
+        /// <summary>
+        /// If null, there might still be a `DbDataSource` in the ApplicationServiceProvider.
+        /// </summary>
+        public virtual DbDataSource DataSource { get; private set; }
+
         public virtual ServerVersion ServerVersion { get; private set; }
         public virtual CharSet DefaultCharSet { get; private set; }
         public virtual CharSet NationalCharSet { get; }
@@ -291,5 +336,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
         public virtual MySqlJsonChangeTrackingOptions JsonChangeTrackingOptions { get; private set; }
         public virtual bool LimitKeyedOrIndexedStringColumnLength { get; private set; }
         public virtual bool StringComparisonTranslations { get; private set; }
+        public virtual bool PrimitiveCollectionsSupport { get; private set; }
     }
 }

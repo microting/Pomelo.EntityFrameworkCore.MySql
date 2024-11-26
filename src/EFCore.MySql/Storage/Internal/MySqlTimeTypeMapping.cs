@@ -5,6 +5,7 @@ using System;
 using System.Globalization;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Json;
 
 namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 {
@@ -18,6 +19,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
     {
         private readonly bool _isDefaultValueCompatible;
 
+        public static MySqlTimeTypeMapping Default { get; } = new("time", typeof(TimeOnly));
+
         /// <summary>
         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -29,7 +32,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             bool isDefaultValueCompatible = false)
             : this(
                 new RelationalTypeMappingParameters(
-                    new CoreTypeMappingParameters(clrType),
+                    new CoreTypeMappingParameters(
+                        clrType,
+                        jsonValueReaderWriter: JsonTimeOnlyReaderWriter.Instance),
                     storeType,
                     StoreTypePostfix.Precision,
                     System.Data.DbType.Time,

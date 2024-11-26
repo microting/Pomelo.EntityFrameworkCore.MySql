@@ -2,19 +2,23 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.TestModels.Northwind;
 using Microsoft.EntityFrameworkCore.TestUtilities;
+using Microsoft.Extensions.DependencyInjection;
+using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities.DebugServices;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
-    public class NorthwindSplitIncludeNoTrackingQueryMySqlTest : NorthwindSplitIncludeNoTrackingQueryTestBase<NorthwindQueryMySqlFixture<NoopModelCustomizer>>
+    // We use our custom fixture here, to inject a custom debug services.
+    public class NorthwindSplitIncludeNoTrackingQueryMySqlTest : NorthwindSplitIncludeNoTrackingQueryTestBase<NorthwindSplitIncludeNoTrackingQueryMySqlTest.NorthwindSplitIncludeNoTrackingQueryMySqlFixture>
     {
-        public NorthwindSplitIncludeNoTrackingQueryMySqlTest(NorthwindQueryMySqlFixture<NoopModelCustomizer> fixture, ITestOutputHelper testOutputHelper)
+        public NorthwindSplitIncludeNoTrackingQueryMySqlTest(NorthwindSplitIncludeNoTrackingQueryMySqlFixture fixture, ITestOutputHelper testOutputHelper)
             : base(fixture)
         {
-            //TestSqlLoggerFactory.CaptureOutput(testOutputHelper);
+            Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
         public override Task Include_duplicate_collection_result_operator2(bool async)
@@ -32,8 +36,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 {
                     AssertInclude(e.c1, a.c1, new ExpectedInclude<Customer>(c => c.Orders));
                     AssertEqual(e.c2, a.c2);
-                },
-                entryCount: 8);
+                });
         }
 
         public override Task Repro9735(bool async)
@@ -45,8 +48,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                     .OrderBy(b => b.Customer.CustomerID != null)
                     .ThenBy(b => b.Customer != null ? b.Customer.CustomerID : string.Empty)
                     .ThenBy(b => b.EmployeeID) // Needs to be explicitly ordered by EmployeeID as well
-                    .Take(2),
-                entryCount: 6);
+                    .Take(2));
         }
 
         public override Task Include_collection_with_multiple_conditional_order_by(bool async)
@@ -59,8 +61,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                     .ThenBy(o => o.Customer != null ? o.Customer.City : string.Empty)
                     .ThenBy(b => b.EmployeeID) // Needs to be explicitly ordered by EmployeeID as well
                     .Take(5),
-                elementAsserter: (e, a) => AssertInclude(e, a, new ExpectedInclude<Order>(o => o.OrderDetails)),
-                entryCount: 14);
+                elementAsserter: (e, a) => AssertInclude(e, a, new ExpectedInclude<Order>(o => o.OrderDetails)));
         }
 
         [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
@@ -85,6 +86,15 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public override Task Include_duplicate_collection_result_operator(bool async)
         {
             return base.Include_duplicate_collection_result_operator(async);
+        }
+
+        public class NorthwindSplitIncludeNoTrackingQueryMySqlFixture : NorthwindQueryMySqlFixture<NoopModelCustomizer>
+        {
+            // We used our `DebugRelationalCommandBuilderFactory` implementation to track down a
+            // bug in Oracle's MySQL implementation, related to `SELECT ... ORDER BY (SELECT 1)`.
+            protected override IServiceCollection AddServices(IServiceCollection serviceCollection)
+                => base.AddServices(serviceCollection)
+                    .AddSingleton<IRelationalCommandBuilderFactory, DebugRelationalCommandBuilderFactory>();
         }
     }
 }

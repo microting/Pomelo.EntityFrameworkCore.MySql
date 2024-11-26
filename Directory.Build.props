@@ -13,19 +13,24 @@
     <PackageIcon>icon.png</PackageIcon>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <LangVersion>latest</LangVersion>
-    <DebugType>portable</DebugType>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PomeloTargetFrameworks>net6.0;net7.0</PomeloTargetFrameworks>
-    <PomeloTestTargetFramework>net7.0</PomeloTestTargetFramework>
-    <EfCoreTargetFramework>net6.0</EfCoreTargetFramework>
-    <EfCoreTestTargetFramework>net7.0</EfCoreTestTargetFramework>
+    <DebugType Condition="'$(DebugType)' == ''">portable</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PomeloTargetFramework>net8.0</PomeloTargetFramework>
+    <PomeloTestTargetFramework>net8.0</PomeloTestTargetFramework>
+    <EfCoreTargetFramework>net8.0</EfCoreTargetFramework>
+    <EfCoreTestTargetFramework>net8.0</EfCoreTestTargetFramework>
+    <MySqlConnectorTargetFramework>net8.0</MySqlConnectorTargetFramework>
+    <MySqlConnectorDependencyInjectionTargetFramework>net7.0</MySqlConnectorDependencyInjectionTargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
