@@ -2206,6 +2206,13 @@ WHERE (
         AssertSql();
     }
 
+    public override async Task Parameter_collection_ImmutableArray_of_ints_Contains_int(bool async)
+    {
+        await base.Parameter_collection_ImmutableArray_of_ints_Contains_int(async);
+
+        AssertSql();
+    }
+
     public override async Task Column_collection_Where_Union(bool async)
     {
         await base.Column_collection_Where_Union(async);
