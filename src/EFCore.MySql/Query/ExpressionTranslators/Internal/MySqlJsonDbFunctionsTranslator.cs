@@ -90,6 +90,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Internal
                         method.ReturnType,
                         _sqlExpressionFactory.FindMapping(method.ReturnType, "json"),
                         false),
+                nameof(MySqlJsonDbFunctionsExtensions.JsonOverlaps)
+                => _sqlExpressionFactory.NullableFunction(
+                    "JSON_OVERLAPS",
+                    new[] { Json(args[0]), args[1] },
+                    typeof(bool)),
                 nameof(MySqlJsonDbFunctionsExtensions.JsonContains)
                     => _sqlExpressionFactory.NullableFunction(
                         "JSON_CONTAINS",
@@ -127,9 +132,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Internal
                                 .Append(_sqlExpressionFactory.Constant("one"))
                                 .Append(args[1])
                                 .AppendIfTrue(
-                                    args.Length >= 3, () => args.Length >= 4
+                                    args.Length >= 3,
+                                    () => args.Length >= 4
                                         ? args[3]
-                                        : _sqlExpressionFactory.Constant(null, RelationalTypeMapping.NullMapping))
+                                        : _sqlExpressionFactory.Constant(null, typeof(string)))
                                 .AppendIfTrue(args.Length >= 3, () => args[2]),
                             typeof(bool),
                             null,

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.TestUtilities;
@@ -319,6 +320,72 @@ LIMIT 2");
 
         #region Functions
 
+        [ConditionalFact]
+        [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonOverlaps))]
+        public void JsonOverlaps_with_json_element()
+        {
+            using var ctx = CreateContext();
+            var element = JsonDocument.Parse(@"{""Name"": ""Joe"", ""Age"": -1}").RootElement;
+            var count = ctx.JsonEntities.Count(e =>
+                EF.Functions.JsonOverlaps(e.CustomerElement, element));
+
+            Assert.Equal(1, count);
+            AssertSql(
+                $@"@__element_1='{{""Name"":""Joe"",""Age"":-1}}' (Nullable = false) (Size = 4000)
+
+SELECT COUNT(*)
+FROM `JsonEntities` AS `j`
+WHERE JSON_OVERLAPS(`j`.`CustomerElement`, {InsertJsonConvert("@__element_1")})");
+        }
+
+        [ConditionalFact]
+        [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonOverlaps))]
+        public void JsonOverlaps_with_string()
+        {
+            using var ctx = CreateContext();
+            var count = ctx.JsonEntities.Count(e =>
+                EF.Functions.JsonOverlaps(e.CustomerElement, @"{""Name"": ""Joe"", ""Age"": -1}"));
+
+            Assert.Equal(1, count);
+            AssertSql(
+                @"SELECT COUNT(*)
+FROM `JsonEntities` AS `j`
+WHERE JSON_OVERLAPS(`j`.`CustomerElement`, '{""Name"": ""Joe"", ""Age"": -1}')");
+        }
+
+        [ConditionalFact]
+        [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonOverlaps))]
+        public void JsonOverlaps_using_JsonExtract_with_json_element()
+        {
+            using var ctx = CreateContext();
+            var element = JsonDocument.Parse(@"[3,-1]").RootElement;
+            var count = ctx.JsonEntities.Count(e =>
+                EF.Functions.JsonOverlaps(EF.Functions.JsonExtract<string[]>(e.CustomerElement, "$.Statistics.Nested.IntArray"), element));
+
+            Assert.Equal(1, count);
+            AssertSql(
+                $@"@__element_1='[3,-1]' (Nullable = false) (Size = 4000)
+
+SELECT COUNT(*)
+FROM `JsonEntities` AS `j`
+WHERE JSON_OVERLAPS(JSON_EXTRACT(`j`.`CustomerElement`, '$.Statistics.Nested.IntArray'), {InsertJsonConvert("@__element_1")})");
+        }
+
+        [ConditionalFact]
+        [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonOverlaps))]
+        public void JsonOverlaps_using_JsonExtract_with_json_string()
+        {
+            using var ctx = CreateContext();
+            var count = ctx.JsonEntities.Count(e =>
+                EF.Functions.JsonOverlaps(EF.Functions.JsonExtract<string[]>(e.CustomerElement, "$.Statistics.Nested.IntArray"), @"[3,-1]"));
+
+            Assert.Equal(1, count);
+            AssertSql(
+                $@"SELECT COUNT(*)
+FROM `JsonEntities` AS `j`
+WHERE JSON_OVERLAPS(JSON_EXTRACT(`j`.`CustomerElement`, '$.Statistics.Nested.IntArray'), '[3,-1]')");
+        }
+
         [Fact]
         public void JsonContains_with_json_element()
         {
@@ -476,7 +543,7 @@ LIMIT 2");
 
             public JsonDomQueryContext(DbContextOptions options) : base(options) {}
 
-            public static void Seed(JsonDomQueryContext context)
+            public static async Task SeedAsync(JsonDomQueryContext context)
             {
                 var (customer1, customer2, customer3) = (createCustomer1(), createCustomer2(), createCustomer3());
 
@@ -484,7 +551,7 @@ LIMIT 2");
                     new JsonEntity { Id = 1, CustomerDocument = customer1, CustomerElement = customer1.RootElement },
                     new JsonEntity { Id = 2, CustomerDocument = customer2, CustomerElement = customer2.RootElement },
                     new JsonEntity { Id = 3, CustomerDocument = customer3, CustomerElement = customer3.RootElement });
-                context.SaveChanges();
+                await context.SaveChangesAsync();
 
                 static JsonDocument createCustomer1() => JsonDocument.Parse(@"
                 {
@@ -564,7 +631,7 @@ LIMIT 2");
             protected override string StoreName => "JsonMicrosoftDomQueryTest";
             protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
             public TestSqlLoggerFactory TestSqlLoggerFactory => (TestSqlLoggerFactory)ListLoggerFactory;
-            protected override void Seed(JsonDomQueryContext context) => JsonDomQueryContext.Seed(context);
+            protected override Task SeedAsync(JsonDomQueryContext context) => JsonDomQueryContext.SeedAsync(context);
 
             protected override IServiceCollection AddServices(IServiceCollection serviceCollection)
             {
