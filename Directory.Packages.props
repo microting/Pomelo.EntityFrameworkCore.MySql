@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup Label="Common Versions">
-    <EFCoreVersion>[9.0.0,9.0.999]</EFCoreVersion>
+    <EFCoreVersion>[9.0.7, 9.0.999]</EFCoreVersion>
   </PropertyGroup>
 
   <ItemGroup Label="Dependencies">
