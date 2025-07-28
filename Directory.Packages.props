@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup Label="Common Versions">
-    <EFCoreVersion>[9.0.0,9.0.999]</EFCoreVersion>
+    <EFCoreVersion>[9.0.7, 9.0.999]</EFCoreVersion>
   </PropertyGroup>
 
   <ItemGroup Label="Dependencies">
@@ -12,7 +12,7 @@
     <PackageVersion Include="MySqlConnector" Version="2.4.0" />
     <PackageVersion Include="MySqlConnector.DependencyInjection" Version="2.4.0" />
 
-    <PackageVersion Include="NetTopologySuite" Version="2.5.0" />
+    <PackageVersion Include="NetTopologySuite" Version="2.6.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
 
     <PackageVersion Include="Castle.Core" Version="5.1.1" />
@@ -26,7 +26,7 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.0" /> <!-- CHECK: used? -->
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
     <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
