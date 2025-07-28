@@ -2163,7 +2163,59 @@ ALTER TABLE `Customers` ADD `Numbers` longtext CHARACTER SET utf8mb4 NOT NULL DE
         {
             await base.Add_required_primitve_collection_with_custom_converter_to_existing_table();
 
-            AssertSql();
+            AssertSql(
+                """
+                ALTER TABLE `Customers` ADD `Numbers` longtext CHARACTER SET utf8mb4 NOT NULL DEFAULT ('some numbers');
+                """);
+        }
+
+        // TODO implement the correct tests
+        public override async Task Multiop_drop_table_and_create_the_same_table_in_one_migration()
+        {
+            await base.Multiop_drop_table_and_create_the_same_table_in_one_migration();
+
+            AssertSql(
+                @"DROP TABLE `Customers`;",
+                @"CREATE TABLE `Customers` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `Name` longtext CHARACTER SET utf8mb4 NULL,
+    CONSTRAINT `PK_Customers` PRIMARY KEY (`Id`)
+) CHARACTER SET=utf8mb4;");
+        }
+
+        // TODO implement the correct tests
+        public override async Task Multiop_create_table_and_drop_it_in_one_migration()
+        {
+            await base.Multiop_create_table_and_drop_it_in_one_migration();
+
+            AssertSql(@"CREATE TABLE `Customers` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `Name` longtext CHARACTER SET utf8mb4 NULL,
+    CONSTRAINT `PK_Customers` PRIMARY KEY (`Id`)
+) CHARACTER SET=utf8mb4;", "DROP TABLE `Customers`;");
+        }
+
+        // TODO implement the correct tests
+        [ConditionalFact(Skip = "For this to work, either MySqlMigrator needs to be involved, or the primary key related stored procedures need to be handled by MySqlMigrationsSqlGenerator instead. The later is probably the way to go. We should move the primary key related stored procedures to its own service, so ti can be potentially be customized by users.")]
+        public override async Task Multiop_rename_table_and_drop()
+        {
+            await base.Multiop_rename_table_and_drop();
+
+            AssertSql(
+                """
+                ALTER TABLE `Customers` ADD `Numbers` longtext CHARACTER SET utf8mb4 NOT NULL DEFAULT ('some numbers');
+                """);
+        }
+        // TODO implement the correct tests
+        [ConditionalFact(Skip = "For this to work, either MySqlMigrator needs to be involved, or the primary key related stored procedures need to be handled by MySqlMigrationsSqlGenerator instead. The later is probably the way to go. We should move the primary key related stored procedures to its own service, so ti can be potentially be customized by users.")]
+        public override async Task Multiop_rename_table_and_create_new_table_with_the_old_name()
+        {
+            await base.Multiop_rename_table_and_create_new_table_with_the_old_name();
+
+            AssertSql(
+                """
+                ALTER TABLE `Customers` ADD `Numbers` longtext CHARACTER SET utf8mb4 NOT NULL DEFAULT ('some numbers');
+                """);
         }
 
         public override async Task Add_required_primitve_collection_with_custom_converter_and_custom_default_value_to_existing_table()

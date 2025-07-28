@@ -28,6 +28,39 @@ public class TPCGearsOfWarQueryMySqlTest : TPCGearsOfWarQueryRelationalTestBase<
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
+    // TODO: Create a test for this
+    public override async Task Coalesce_with_non_root_evaluatable_Convert(bool async)
+    {
+        await base.Coalesce_with_non_root_evaluatable_Convert(async);
+
+        AssertSql(
+            """
+            @__rank_0='1' (Nullable = true)
+
+            SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
+            FROM (
+                SELECT `g`.`Nickname`, `g`.`SquadId`, `g`.`AssignedCityName`, `g`.`CityOfBirthName`, `g`.`FullName`, `g`.`HasSoulPatch`, `g`.`LeaderNickname`, `g`.`LeaderSquadId`, `g`.`Rank`, 'Gear' AS `Discriminator`
+                FROM `Gears` AS `g`
+                UNION ALL
+                SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
+                FROM `Officers` AS `o`
+            ) AS `u`
+            WHERE @__rank_0 = `u`.`Rank`
+            """);
+    }
+
+    // TODO: Create a test for this
+    public override async Task Project_equality_with_value_converted_property(bool async)
+    {
+        await base.Project_equality_with_value_converted_property(async);
+
+        AssertSql(
+            """
+            SELECT `m`.`Difficulty` = 'Unknown'
+            FROM `Missions` AS `m`
+            """);
+    }
+
     public override async Task Entity_equality_empty(bool async)
     {
         await base.Entity_equality_empty(async);
@@ -6952,7 +6985,7 @@ INNER JOIN (
     FROM `LocustHordes` AS `l1`
     WHERE `l1`.`Name` = 'Swarm'
 ) AS `l2` ON `u`.`Name` = `l2`.`CommanderName`
-WHERE (`l2`.`Eradicated` = FALSE) OR (`l2`.`Eradicated` IS NULL)
+WHERE (`l2`.`Eradicated` <> TRUE) OR (`l2`.`Eradicated` IS NULL)
 """);
     }
 
@@ -6975,7 +7008,7 @@ LEFT JOIN (
     FROM `LocustHordes` AS `l1`
     WHERE `l1`.`Name` = 'Swarm'
 ) AS `l2` ON `u`.`Name` = `l2`.`CommanderName`
-WHERE (`l2`.`Eradicated` = FALSE) OR (`l2`.`Eradicated` IS NULL)
+WHERE (`l2`.`Eradicated` <> TRUE) OR (`l2`.`Eradicated` IS NULL)
 """);
     }
 
@@ -10334,7 +10367,7 @@ FROM (
 INNER JOIN `LocustHordes` AS `l1` ON `u`.`Name` = `l1`.`CommanderName`
 WHERE (CASE
     WHEN `l1`.`Name` = 'Locust' THEN TRUE
-END = FALSE) OR (CASE
+END <> TRUE) OR (CASE
     WHEN `l1`.`Name` = 'Locust' THEN TRUE
 END IS NULL)
 """);
