@@ -38,7 +38,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             // TODO: 9.0
             typeof(AdHocComplexTypeQueryTestBase),
             typeof(AdHocPrecompiledQueryRelationalTestBase),
-            typeof(JsonQueryRelationalTestBase<>),
             typeof(PrecompiledQueryRelationalTestBase),
             typeof(PrecompiledSqlPregenerationQueryRelationalTestBase),
 
@@ -48,7 +47,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
 
             // We have our own JSON support for now
             typeof(AdHocJsonQueryTestBase),
-            typeof(AdHocJsonQueryRelationalTestBase),
+            typeof(JsonQueryRelationalTestBase<>),
             typeof(JsonQueryTestBase<>),
             typeof(JsonTypesRelationalTestBase),
             typeof(JsonTypesTestBase),
