@@ -3,9 +3,9 @@
   <Import Project="Development.props" Condition="Exists('Development.props')" />
 
   <PropertyGroup>
-    <StrongNameKeyId>Pomelo.EntityFrameworkCore.MySql</StrongNameKeyId>
+    <StrongNameKeyId>Microting.EntityFrameworkCore.MySql</StrongNameKeyId>
     <PackageTags>pomelo;mysql;mariadb;Entity Framework Core;entity-framework-core;ef;efcore;ef core;orm;sql</PackageTags>
-    <Product>Pomelo.EntityFrameworkCore.MySql</Product>
+    <Product>Microting.EntityFrameworkCore.MySql</Product>
     <Authors>Laurents Meyer, Caleb Lloyd, Yuko Zheng</Authors>
     <Company>Pomelo Foundation</Company>
     <Copyright>Copyright $([System.DateTime]::Now.Year) © Pomelo Foundation</Copyright>
@@ -16,9 +16,9 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/microting/Pomelo.EntityFrameworkCore.MySql</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql</RepositoryUrl>
+    <RepositoryUrl>https://github.com/microting/Pomelo.EntityFrameworkCore.MySql</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup>
