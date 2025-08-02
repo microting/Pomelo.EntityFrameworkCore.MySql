@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageId>Microting.EntityFrameworkCore.MySql</PackageId>
     <Description>Pomelo's MySQL database provider for Entity Framework Core.</Description>
     <TargetFramework>$(PomeloTargetFramework)</TargetFramework>
     <AssemblyName>Pomelo.EntityFrameworkCore.MySql</AssemblyName>
