@@ -3,6 +3,7 @@
   <PropertyGroup>
     <Description>NetTopologySuite support for Pomelo's MySQL provider for Entity Framework Core.</Description>
     <TargetFramework>$(PomeloTargetFramework)</TargetFramework>
+    <PackageId>Microting.EntityFrameworkCore.MySql.NetTopologySuite</PackageId>
     <AssemblyName>Pomelo.EntityFrameworkCore.MySql.NetTopologySuite</AssemblyName>
     <RootNamespace>Pomelo.EntityFrameworkCore.MySql</RootNamespace>
     <IsPackable>true</IsPackable>
@@ -21,6 +22,14 @@
   <!-- CHECK: What is this doing? -->
   <ItemGroup>
     <None Include="build\**\*">
+      <Pack>True</Pack>
+      <PackagePath>build</PackagePath>
+    </None>
+    <None Update="build\netstandard2.0\Microting.EntityFrameworkCore.MySql.NetTopologySuite.targets">
+      <Pack>True</Pack>
+      <PackagePath>build</PackagePath>
+    </None>
+    <None Update="build\Microting.EntityFrameworkCore.MySql.NetTopologySuite.targets">
       <Pack>True</Pack>
       <PackagePath>build</PackagePath>
     </None>

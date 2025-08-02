@@ -3,6 +3,9 @@
   <Import Project="Development.props" Condition="Exists('Development.props')" />
 
   <PropertyGroup>
+    <RootNamespace>Pomelo</RootNamespace>
+    <AssemblyName>Pomelo</AssemblyName>
+    <Product>Pomelo</Product>
     <StrongNameKeyId>Pomelo.EntityFrameworkCore.MySql</StrongNameKeyId>
     <PackageTags>pomelo;mysql;mariadb;Entity Framework Core;entity-framework-core;ef;efcore;ef core;orm;sql</PackageTags>
     <Product>Pomelo.EntityFrameworkCore.MySql</Product>
@@ -16,9 +19,9 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/microting/Pomelo.EntityFrameworkCore.MySql</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql</RepositoryUrl>
+    <RepositoryUrl>https://github.com/microting/Pomelo.EntityFrameworkCore.MySql</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -26,12 +29,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PomeloTargetFramework>net8.0</PomeloTargetFramework>
+    <PomeloTargetFramework>net9.0</PomeloTargetFramework>
     <PomeloTestTargetFramework>net9.0</PomeloTestTargetFramework>
-    <EfCoreTargetFramework>net8.0</EfCoreTargetFramework>
+    <EfCoreTargetFramework>net9.0</EfCoreTargetFramework>
     <EfCoreTestTargetFramework>net9.0</EfCoreTestTargetFramework>
-    <MySqlConnectorTargetFramework>net8.0</MySqlConnectorTargetFramework>
-    <MySqlConnectorDependencyInjectionTargetFramework>net8.0</MySqlConnectorDependencyInjectionTargetFramework>
+    <MySqlConnectorTargetFramework>net9.0</MySqlConnectorTargetFramework>
+    <MySqlConnectorDependencyInjectionTargetFramework>net9.0</MySqlConnectorDependencyInjectionTargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
