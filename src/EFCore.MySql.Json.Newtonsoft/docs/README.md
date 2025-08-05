@@ -18,7 +18,7 @@ optionsBuilder.UseMySql(
 
 ## Related Packages
 
-* [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql)
+* [Microting.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql)
 * [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json)
 
 ## License
@@ -28,4 +28,5 @@ _Pomelo.EntityFrameworkCore.MySql.Json.Newtonsoft_ is released as open source un
 ## Feedback
 
 Checkout the originating [Github repository](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) before filing any new issues.
+
 Bug reports and contributions are welcome at our [GitHub repository](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql).

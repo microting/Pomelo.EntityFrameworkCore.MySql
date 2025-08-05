@@ -53,6 +53,7 @@ Currently tested versions are:
 
 Milestone | Status   | Release Date
 ----------|----------|-------------
+9.0.8 | Released | 2025-08-05
 9.0.0 | Released | 2025-08-05
 9.0.0-preview.3.efcore.9.0.0 | Released | 2025-02-23
 8.0.3 | Released | 2025-03-02

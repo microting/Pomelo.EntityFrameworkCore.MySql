@@ -18,7 +18,7 @@ optionsBuilder.UseMySql(
 
 ## Related Packages
 
-* [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql)
+* [Microting.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql)
 * [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
 
 ## License
@@ -28,4 +28,5 @@ _Pomelo.EntityFrameworkCore.MySql.NetTopologySuite_ is released as open source u
 ## Feedback
 
 Checkout the originating [Github repository](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) before filing any new issues.
+
 Bug reports and contributions are welcome at our [GitHub repository](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql).
