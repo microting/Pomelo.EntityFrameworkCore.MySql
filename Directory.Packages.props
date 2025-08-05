@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup Label="Common Versions">
-    <EFCoreVersion>[9.0.7,9.0.999]</EFCoreVersion>
+    <EFCoreVersion>[9.0.8, 9.0.999]</EFCoreVersion>
   </PropertyGroup>
   <ItemGroup Label="Dependencies">
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EFCoreVersion)" />
