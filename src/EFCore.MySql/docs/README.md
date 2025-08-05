@@ -47,10 +47,10 @@ public class Startup
 ## Related Packages
 
 * JSON support
-  * [Pomelo.EntityFrameworkCore.MySql.Json.Microsoft](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql.Json.Microsoft)
-  * [Pomelo.EntityFrameworkCore.MySql.Json.Newtonsoft](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql.Json.Newtonsoft)
+  * [Microting.EntityFrameworkCore.MySql.Json.Microsoft](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql.Json.Microsoft)
+  * [Microting.EntityFrameworkCore.MySql.Json.Newtonsoft](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql.Json.Newtonsoft)
 * Spatial support
-  * [Pomelo.EntityFrameworkCore.MySql.NetTopologySuite](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql.NetTopologySuite)
+  * [Microting.EntityFrameworkCore.MySql.NetTopologySuite](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql.NetTopologySuite)
 * Other Packages
   * [MySqlConnector](https://www.nuget.org/packages/MySqlConnector)
   * [Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
@@ -62,4 +62,5 @@ _Pomelo.EntityFrameworkCore.MySql_ is released as open source under the [MIT lic
 ## Feedback
 
 Checkout the originating [Github repository](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) before filing any new issues.
+
 Bug reports and contributions are welcome at our [GitHub repository](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql).
