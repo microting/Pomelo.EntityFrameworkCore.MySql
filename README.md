@@ -1,9 +1,13 @@
-# Pomelo.EntityFrameworkCore.MySql
+## DISCLAIMER!!!
+This is a fast moving version of [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql) intented to follow .net release cycle closely!
+There are no intentions for this package to implement new features. Feature requests needs to be directed at the originating [Github repository](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)
 
-[![Build status](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/actions/workflows/build.yml)
-[![Stable release feed for official builds](https://img.shields.io/nuget/v/Pomelo.EntityFrameworkCore.MySql.svg?style=flat-square&label=Stable)](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/) [![Prerelease feed for official builds](https://img.shields.io/nuget/vpre/Pomelo.EntityFrameworkCore.MySql.svg?style=flat-square&label=Prerelease)](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/)
-[![Nightly build feed for release builds](https://img.shields.io/myget/pomelo/vpre/Pomelo.EntityFrameworkCore.MySql.svg?label=Nightly)](https://www.myget.org/feed/pomelo/package/nuget/Pomelo.EntityFrameworkCore.MySql)
-[![Nightly build feed for debugging enabled builds](https://img.shields.io/myget/pomelo-debug/vpre/Pomelo.EntityFrameworkCore.MySql.svg?label=Debug)](https://www.myget.org/feed/pomelo-debug/package/nuget/Pomelo.EntityFrameworkCore.MySql)
+
+
+# Microting.EntityFrameworkCore.MySql
+
+[![Build status](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/actions/workflows/build.yml)
+[![Stable release feed for official builds](https://img.shields.io/nuget/v/Microting.EntityFrameworkCore.MySql.svg?style=flat-square&label=Stable)](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/)
 
 `Pomelo.EntityFrameworkCore.MySql` is the most popular Entity Framework Core provider for MySQL compatible databases. It supports EF Core up to its latest version and uses [MySqlConnector](https://mysqlconnector.net/) for high-performance database server communication.
 
@@ -15,7 +19,7 @@ The following versions of MySqlConnector, EF Core, .NET (Core), .NET Standard an
 
 Release | Branch                                                                                           | MySqlConnector     | EF Core | .NET (Core) | .NET Standard | .NET Framework
 --- |--------------------------------------------------------------------------------------------------|--------------------|:-------:|:-----------:| :---: | :---:
-[9.0.0-<br />preview.3.<br />efcore.9.0.0](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/9.0.0-preview.3.efcore.9.0.0) | [main](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/main)       | >= 2.4.0           |  9.0.x  |    8.0+     | - | -
+[9.0.0](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/9.0.0) | [master](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/main)       | >= 2.4.0           |  9.0.x  |    9.0+     | - | -
 [8.0.3](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/8.0.3) | [8.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/8.0-maint) | >= 2.3.5           |  8.0.x  |    8.0+     | - | -
 [7.0.0](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/7.0.0) | [7.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/7.0-maint) | >= 2.2.5           |  7.0.x  |    6.0+     | - | -
 [6.0.3](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/6.0.3) | [6.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/6.0-maint) | >= 2.1.2           |  6.0.x  |    6.0+     | - | -
@@ -24,10 +28,10 @@ Release | Branch                                                                
 
 ### Packages
 
-* [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/)
-* [Pomelo.EntityFrameworkCore.MySql.Json.Microsoft](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql.Json.Microsoft/)
-* [Pomelo.EntityFrameworkCore.MySql.Json.Newtonsoft](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql.Json.Newtonsoft/)
-* [Pomelo.EntityFrameworkCore.MySql.NetTopologySuite](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql.NetTopologySuite/)
+* [Microting.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/)
+* [Microting.EntityFrameworkCore.MySql.Json.Microsoft](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql.Json.Microsoft/)
+* [Microting.EntityFrameworkCore.MySql.Json.Newtonsoft](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql.Json.Newtonsoft/)
+* [Microting.EntityFrameworkCore.MySql.NetTopologySuite](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql.NetTopologySuite/)
 
 ### Supported Database Servers and Versions
 
@@ -49,7 +53,7 @@ Currently tested versions are:
 
 Milestone | Status   | Release Date
 ----------|----------|-------------
-9.0.0 | Planned | 2025-03 (see [#1841](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/issues/1841))
+9.0.0 | Released | 2025-08-05
 9.0.0-preview.3.efcore.9.0.0 | Released | 2025-02-23
 8.0.3 | Released | 2025-03-02
 7.0.0 | Released | 2023-01-16
@@ -96,7 +100,7 @@ All `.pdb` files use Source Link.
 Ensure that your `.csproj` file contains the following reference:
 
 ```xml
-<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
+<PackageReference Include="Microting.EntityFrameworkCore.MySql" Version="9.0.0" />
 ```
 
 ### 2. Services Configuration
@@ -135,7 +139,7 @@ View our [Configuration Options Wiki Page](https://github.com/PomeloFoundation/P
 
 ### 3. Sample Application
 
-Check out our [Integration Tests](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/main/test/EFCore.MySql.IntegrationTests) for an example repository that includes an ASP.NET Core MVC Application.
+Check out our [Integration Tests](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/main/test/EFCore.MySql.IntegrationTests) for an example repository that includes an ASP.NET Core MVC Application.
 
 There are also many complete and concise console application samples posted in the issue section (some of them can be found by searching for `Program.cs`).
 
