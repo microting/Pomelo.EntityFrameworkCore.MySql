@@ -4,6 +4,10 @@ _Pomelo.EntityFrameworkCore.MySql_ is the Entity Framework Core (EF Core) provid
 
 It is build on top of [MySqlConnector](https://github.com/mysql-net/MySqlConnector).
 
+## DISCLAIMER!!!
+This is a fast moving version of [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql) intented to follow .net release cycle closely!
+There are no intentions for this package to implement new features. Feature requests needs to be directed at the originating [Github repository](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)
+
 ## How to Use
 
 ```csharp
@@ -57,4 +61,5 @@ _Pomelo.EntityFrameworkCore.MySql_ is released as open source under the [MIT lic
 
 ## Feedback
 
-Bug reports and contributions are welcome at our [GitHub repository](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql).
+Checkout the originating [Github repository](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) before filing any new issues.
+Bug reports and contributions are welcome at our [GitHub repository](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql).
