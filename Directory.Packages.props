@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup Label="Common Versions">
-    <EFCoreVersion>[9.0.8,9.0.999]</EFCoreVersion>
+    <EFCoreVersion>[10.0.0-preview.7.25380.108,10.0.100]</EFCoreVersion>
   </PropertyGroup>
   <ItemGroup Label="Dependencies">
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EFCoreVersion)" />
@@ -12,19 +12,19 @@
     <PackageVersion Include="NetTopologySuite" Version="2.6.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="Castle.Core" Version="5.1.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.8" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(EFCoreVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="$(EFCoreVersion)" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.0" />
     <!--<PackageVersion Include="Microsoft.Bcl.HashCode" Version="1.1.1" />-->
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.8" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.8" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.8" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="$(EFCoreVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="$(EFCoreVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="$(EFCoreVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="$(EFCoreVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="$(EFCoreVersion)" />
     <!-- CHECK: used? -->
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="$(EFCoreVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="$(EFCoreVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
@@ -48,7 +48,7 @@
     <PackageVersion Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
     <!-- Needed when using EFCore.Design assembly from local EF Core repository. -->
-    <PackageVersion Include="Microsoft.CodeAnalysis" Version="4.10.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Features" Version="4.10.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.10.0" />
