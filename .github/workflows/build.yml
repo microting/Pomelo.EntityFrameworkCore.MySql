@@ -26,6 +26,10 @@ jobs:
         dbVersion:
           - 8.4.3-mysql
           - 8.0.40-mysql
+          - 12.0.2-mariadb
+          - 11.8.3-mariadb
+          - 11.8.2-mariadb
+          - 11.7.2-mariadb
           - 11.6.2-mariadb
           - 11.5.2-mariadb
           - 11.4.4-mariadb
@@ -35,7 +39,8 @@ jobs:
           - 10.5.27-mariadb
         os:
           - ubuntu-latest
-          - windows-latest
+          - windows-2022
+          - windows-2025
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -90,6 +95,21 @@ jobs:
 
           echo "github.event_name: ${{ github.event_name }}"
           echo "github.repository: ${{ github.repository }}"
+      - name: Check MariaDB-version (<= 11.6.2)
+        id: mariadb_guard
+        shell: pwsh
+        run: |
+          $type = '${{ env.databaseServerType }}'
+          $raw  = '${{ env.databaseServerVersion }}'        # eg '11.6.2' (without suffix)
+          if ($type -ne 'mariadb') {
+            "allow=true" >> $env:GITHUB_OUTPUT
+            exit 0
+          }
+          # remove  suffix (eg '-mariadb') and make semver concatination
+          $num = $raw -replace '[^\d\.].*$', ''
+          try { $v = [version]$num } catch { "allow=false" >> $env:GITHUB_OUTPUT; exit 0 }
+          $max = [version]'11.6.2'
+          if ($v -le $max) { "allow=true" >> $env:GITHUB_OUTPUT } else { "allow=false" >> $env:GITHUB_OUTPUT }
       - name: Cache - Database Image - Linux
         id: cache-databaseImage-linux
         uses: actions/cache@v4
@@ -147,7 +167,7 @@ jobs:
             exit 1
           }
       - name: Install Database Server - Windows
-        if: ${{ env.os == 'windows' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' }}
         shell: pwsh
         run: |
           $mySqlServiceName = '${{ env.databaseServerType }}_${{ env.databaseServerVersion }}'
@@ -200,94 +220,103 @@ jobs:
 
           dir "$env:Temp\${packageName}\${{ env.databaseServerVersion }}" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName
       - name: Setup Database
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: ${{ env.clientCommandPrefix }} -u root -pPassword12! -e "SET GLOBAL sql_mode = '${{ env.sqlMode }}'; SET GLOBAL max_connections = ${{ env.maxConnections }};"
       - name: Database Information
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: ${{ env.clientCommandPrefix }} -u root -pPassword12! -e 'SHOW VARIABLES;'
       - name: Setup .NET SDK
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
       - name: .NET Information
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           dotnet --info
       - name: Install EF Core Tools
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           dotnet tool restore
           dotnet ef --version
       - name: Restore dependencies
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: dotnet restore
       - name: Setup Solution
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           Copy-Item test/EFCore.MySql.FunctionalTests/config.json.example test/EFCore.MySql.FunctionalTests/config.json
           Copy-Item test/EFCore.MySql.IntegrationTests/appsettings.ci.json test/EFCore.MySql.IntegrationTests/appsettings.json
           Copy-Item test/EFCore.MySql.IntegrationTests/config.json.example test/EFCore.MySql.IntegrationTests/config.json
       - name: Setup Integration Tests
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           ./test/EFCore.MySql.IntegrationTests/scripts/rebuild.ps1
       - name: Build Solution
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           dotnet build -c Debug
           dotnet build -c Release
       - name: Functional Tests
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: dotnet test test/EFCore.MySql.FunctionalTests -c Debug --no-build --logger "GitHubActions;report-warnings=false" --verbosity detailed
       - name: Tests
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: dotnet test --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.Tests
       - name: Integration Tests - Applying migrations
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: dotnet run --project test/EFCore.MySql.IntegrationTests -c Release testMigrate
       - name: Integration Tests - Scaffolding
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: ./test/EFCore.MySql.IntegrationTests/scripts/scaffold.ps1
       - name: Integration Tests - With EF_BATCH_SIZE = 1
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           $env:EF_BATCH_SIZE = "1"
           dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests
       - name: Integration Tests - With EF_BATCH_SIZE = 10
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           $env:EF_BATCH_SIZE = "10"
           dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests
       - name: Integration Tests - With EF_BATCH_SIZE = 1
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           $env:EF_RETRY_ON_FAILURE = "3"
           dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests
       - name: Integration Tests - Legacy migrations
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: ./test/EFCore.MySql.IntegrationTests/scripts/legacy.ps1
       - name: Integration Tests - Building migrations with EF_DATABASE = pomelo_test2
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           $env:EF_DATABASE = "pomelo_test2"
           dotnet build ./test/EFCore.MySql.IntegrationTests -c Release
       - name: Integration Tests - Setup migrations with EF_DATABASE = pomelo_test2
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           $env:EF_DATABASE = "pomelo_test2"
           ./test/EFCore.MySql.IntegrationTests/scripts/rebuild.ps1
       - name: Integration Tests - With EF_DATABASE = pomelo_test2
-        if: ${{ env.skipTests != 'true' }}
+        if: ${{ env.os == 'windows' && steps.mariadb_guard.outputs.allow == 'true' || env.os != 'windows' }}
         shell: pwsh
         run: |
           $env:EF_DATABASE = "pomelo_test2"
