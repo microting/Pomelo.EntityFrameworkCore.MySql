@@ -1,9 +1,11 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.BulkUpdates;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 using Xunit.Abstractions;
@@ -94,26 +96,34 @@ WHERE (
 
     public override async Task Delete_GroupBy_Where_Select_First_3(bool async)
     {
-        // Not supported by MySQL:
-        //     Error Code: 1093. You can't specify target table 'c' for update in FROM clause
-        await Assert.ThrowsAsync<MySqlException>(
-            () => base.Delete_GroupBy_Where_Select_First_3(async));
+        if (AppConfig.ServerVersion.Type == ServerType.MariaDb &&
+            AppConfig.ServerVersion.Version >= new Version(11, 1))
+        {
+            await base.Delete_GroupBy_Where_Select_First_3(async);
 
-        AssertSql(
-"""
-DELETE `a`
-FROM `Animals` AS `a`
-WHERE `a`.`Id` IN (
-    SELECT (
-        SELECT `a1`.`Id`
-        FROM `Animals` AS `a1`
-        WHERE `a0`.`CountryId` = `a1`.`CountryId`
-        LIMIT 1)
-    FROM `Animals` AS `a0`
-    GROUP BY `a0`.`CountryId`
-    HAVING COUNT(*) < 3
-)
-""");
+            AssertSql(
+                """
+                DELETE `a`
+                FROM `Animals` AS `a`
+                WHERE `a`.`Id` IN (
+                    SELECT (
+                        SELECT `a1`.`Id`
+                        FROM `Animals` AS `a1`
+                        WHERE `a0`.`CountryId` = `a1`.`CountryId`
+                        LIMIT 1)
+                    FROM `Animals` AS `a0`
+                    GROUP BY `a0`.`CountryId`
+                    HAVING COUNT(*) < 3
+                )
+                """);
+        }
+        else
+        {
+            // Not supported by MySQL:
+            //     Error Code: 1093. You can't specify target table 'c' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_GroupBy_Where_Select_First_3(async));
+        }
     }
 
     public override async Task Delete_where_keyless_entity_mapped_to_sql_query(bool async)
