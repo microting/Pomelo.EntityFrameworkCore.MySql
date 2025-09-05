@@ -17,15 +17,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal
         {
         }
 
-        public MySqlQueryCompilationContext(
-            [NotNull] QueryCompilationContextDependencies dependencies,
-            [NotNull] RelationalQueryCompilationContextDependencies relationalDependencies,
-            bool async,
-            bool precompiling,
-            IReadOnlySet<string> nonNullableReferenceTypeParameters)
-            : base(dependencies, relationalDependencies, async, precompiling, nonNullableReferenceTypeParameters)
-        {
-        }
+
 
         public override bool IsBuffering
             => base.IsBuffering ||

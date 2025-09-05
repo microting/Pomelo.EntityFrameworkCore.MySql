@@ -53,7 +53,7 @@ public class MySqlModificationCommandBatch : AffectedCountModificationCommandBat
             var parameter = RelationalCommandBuilder.Parameters[parameterIndex];
 
             RelationalCommandBuilder.RemoveParameterAt(parameterIndex);
-            ParameterValues.Remove(parameter.InvariantName);
+            Parameters.Remove(parameter.InvariantName);
         }
 
         //
@@ -363,7 +363,7 @@ public class MySqlModificationCommandBatch : AffectedCountModificationCommandBat
                 columnModification.IsNullable,
                 direction);
 
-            ParameterValues.Add(name, value);
+            Parameters.Add(name, value);
 
             _pendingParameters++;
         }
