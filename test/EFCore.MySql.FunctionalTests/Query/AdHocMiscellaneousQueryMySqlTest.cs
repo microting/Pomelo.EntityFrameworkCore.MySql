@@ -15,8 +15,9 @@ public class AdHocMiscellaneousQueryMySqlTest : AdHocMiscellaneousQueryRelationa
 
     protected override void SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode mode)
     {
-        // Implementation for SetParameterizedCollectionMode if needed
-        // This method was added as abstract in EF Core 10
+        // Configure MySQL-specific parameterized collection handling
+        // The actual implementation would depend on what MySQL supports for this mode
+        // For now, just return without modification as MySQL may not need specific configuration
     }
 
     protected override Task Seed2951(Context2951 context)
