@@ -28,12 +28,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.OuterReferenceInMultiLevelSubquery))]
-        public override Task Contains_with_subquery_optional_navigation_and_constant_item(bool async)
+        public Task Contains_with_subquery_optional_navigation_and_constant_item(bool async)
         {
             return base.Contains_with_subquery_optional_navigation_and_constant_item(async);
         }
 
-        public override async Task SelectMany_subquery_with_custom_projection(bool async)
+        public async Task SelectMany_subquery_with_custom_projection(bool async)
         {
             // TODO: Fix test in EF Core upstream.
             //           ORDER BY `l`.`Id`
@@ -62,7 +62,7 @@ LIMIT @__p_0
 """);
         }
 
-        public override async Task Max_in_multi_level_nested_subquery(bool async)
+        public async Task Max_in_multi_level_nested_subquery(bool async)
         {
             await AssertQuery(
                 async,
@@ -153,7 +153,7 @@ ORDER BY `l6`.`Id`, `s`.`Id2`, `s`.`Id3`
 """);
         }
 
-        public override async Task Method_call_on_optional_navigation_translates_to_null_conditional_properly_for_arguments(bool async)
+        public async Task Method_call_on_optional_navigation_translates_to_null_conditional_properly_for_arguments(bool async)
         {
             await base.Method_call_on_optional_navigation_translates_to_null_conditional_properly_for_arguments(async);
 
@@ -171,14 +171,14 @@ WHERE `l1`.`Level2_Name` IS NOT NULL AND (LEFT(`l1`.`Level2_Name`, CHAR_LENGTH(`
         }
 
         [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/26104")]
-        public override Task GroupBy_aggregate_where_required_relationship(bool async)
+        public Task GroupBy_aggregate_where_required_relationship(bool async)
             => base.GroupBy_aggregate_where_required_relationship(async);
 
         [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/26104")]
-        public override Task GroupBy_aggregate_where_required_relationship_2(bool async)
+        public Task GroupBy_aggregate_where_required_relationship_2(bool async)
             => base.GroupBy_aggregate_where_required_relationship_2(async);
 
-        public override async Task GroupJoin_client_method_in_OrderBy(bool async)
+        public async Task GroupJoin_client_method_in_OrderBy(bool async)
         {
             await Assert.ThrowsAsync<InvalidOperationException>(
                 async () => await base.GroupJoin_client_method_in_OrderBy(async));
@@ -186,7 +186,7 @@ WHERE `l1`.`Level2_Name` IS NOT NULL AND (LEFT(`l1`.`Level2_Name`, CHAR_LENGTH(`
             AssertSql();
         }
 
-        public override async Task Join_with_result_selector_returning_queryable_throws_validation_error(bool async)
+        public async Task Join_with_result_selector_returning_queryable_throws_validation_error(bool async)
         {
             // Expression cannot be used for return type. Issue #23302.
             await Assert.ThrowsAsync<ArgumentException>(
@@ -196,7 +196,7 @@ WHERE `l1`.`Level2_Name` IS NOT NULL AND (LEFT(`l1`.`Level2_Name`, CHAR_LENGTH(`
         }
 
         [ConditionalTheory(Skip = "Does not throw an EqualException, but still does not work.")]
-        public override async Task Nested_SelectMany_correlated_with_join_table_correctly_translated_to_apply(bool async)
+        public async Task Nested_SelectMany_correlated_with_join_table_correctly_translated_to_apply(bool async)
         {
             // DefaultIfEmpty on child collection. Issue #19095.
             await Assert.ThrowsAsync<EqualException>(

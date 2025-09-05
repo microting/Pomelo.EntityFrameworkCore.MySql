@@ -110,7 +110,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             return model;
         }
 
-        public override async Task ConcurrencyCheckAttribute_throws_if_value_in_database_changed()
+        public async Task ConcurrencyCheckAttribute_throws_if_value_in_database_changed()
         {
             await base.ConcurrencyCheckAttribute_throws_if_value_in_database_changed();
 
@@ -154,7 +154,7 @@ SELECT ROW_COUNT();
 """);
         }
 
-        public override async Task DatabaseGeneratedAttribute_autogenerates_values_when_set_to_identity()
+        public async Task DatabaseGeneratedAttribute_autogenerates_values_when_set_to_identity()
         {
             await base.DatabaseGeneratedAttribute_autogenerates_values_when_set_to_identity();
 

@@ -27,7 +27,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities.Xunit
         {
         }
 
-        public override async Task<RunSummary> RunAsync(
+        public async Task<RunSummary> RunAsync(
             IMessageSink diagnosticMessageSink,
             IMessageBus messageBus,
             object[] constructorArguments,

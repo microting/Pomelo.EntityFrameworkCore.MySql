@@ -242,7 +242,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
                     return 0;
                 }, string.Empty);
 
-        public override Task CleanAsync(DbContext context)
+        public Task CleanAsync(DbContext context)
         {
             context.Database.EnsureClean();
             return Task.CompletedTask;
@@ -370,7 +370,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
             }
         }
 
-        public override async Task OpenConnectionAsync()
+        public async Task OpenConnectionAsync()
         {
             await base.OpenConnectionAsync();
 

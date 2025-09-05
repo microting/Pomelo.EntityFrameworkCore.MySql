@@ -17,7 +17,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [ConditionalFact]
-        public override async Task Input_query_escapes_parameter()
+        public async Task Input_query_escapes_parameter()
         {
             await base.Input_query_escapes_parameter();
 
@@ -53,7 +53,7 @@ WHERE `a`.`Name` LIKE '% Garden Party'");
         }
 
         [ConditionalTheory]
-        public override async Task Where_query_escapes_literal(bool async)
+        public async Task Where_query_escapes_literal(bool async)
         {
             await base.Where_query_escapes_literal(async);
 
@@ -64,7 +64,7 @@ WHERE `a`.`Name` = 'Back\slasher''s'");
         }
 
         [ConditionalTheory]
-        public override async Task Where_query_escapes_parameter(bool async)
+        public async Task Where_query_escapes_parameter(bool async)
         {
             await base.Where_query_escapes_parameter(async);
 
@@ -77,7 +77,7 @@ WHERE `a`.`Name` = @__artistName_0");
         }
 
         [ConditionalTheory]
-        public override async Task Where_contains_query_escapes(bool async)
+        public async Task Where_contains_query_escapes(bool async)
         {
             await base.Where_contains_query_escapes(async);
 

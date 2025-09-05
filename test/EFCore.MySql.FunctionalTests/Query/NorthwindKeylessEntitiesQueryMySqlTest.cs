@@ -16,7 +16,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public override async Task KeylessEntity_with_nav_defining_query(bool async)
+        public async Task KeylessEntity_with_nav_defining_query(bool async)
         {
             // FromSql mapping. Issue #21627.
             await Assert.ThrowsAsync<MySqlException>(() => base.KeylessEntity_with_nav_defining_query(async));

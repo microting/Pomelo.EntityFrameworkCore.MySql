@@ -19,13 +19,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             ClearLog();
         }
 
-        public override async Task Include_collection_with_last_no_orderby(bool async)
+        public async Task Include_collection_with_last_no_orderby(bool async)
             => Assert.Equal(
                 RelationalStrings.LastUsedWithoutOrderBy(nameof(Enumerable.Last)),
                 (await Assert.ThrowsAsync<InvalidOperationException>(
                     () => base.Include_collection_with_last_no_orderby(async))).Message);
 
-        public override Task Include_collection_with_multiple_conditional_order_by(bool async)
+        public Task Include_collection_with_multiple_conditional_order_by(bool async)
         {
             // The order of `Orders` can be different, because it is not explicitly sorted.
             // This is the case on MariaDB.
@@ -40,7 +40,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 elementAsserter: (e, a) => AssertInclude(e, a, new ExpectedInclude<Order>(o => o.OrderDetails)));
         }
 
-        public override Task Include_duplicate_collection_result_operator(bool async)
+        public Task Include_duplicate_collection_result_operator(bool async)
         {
             // The order of `Orders` can be different, because it is not explicitly sorted.
             // This is the case on MariaDB.
@@ -57,7 +57,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 });
         }
 
-        public override Task Include_duplicate_collection_result_operator2(bool async)
+        public Task Include_duplicate_collection_result_operator2(bool async)
         {
             // The order of `Orders` can be different, because it is not explicitly sorted.
             // The order of the end result can be different as well.
@@ -75,7 +75,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 });
         }
 
-        public override Task Repro9735(bool async)
+        public Task Repro9735(bool async)
         {
             return AssertQuery(
                 async,

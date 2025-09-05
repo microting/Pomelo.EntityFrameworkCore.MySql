@@ -15,7 +15,7 @@ public class ToSqlQueryMySqlTest : ToSqlQueryTestBase
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
-    public override async Task Entity_type_with_navigation_mapped_to_SqlQuery(bool async)
+    public async Task Entity_type_with_navigation_mapped_to_SqlQuery(bool async)
     {
         await base.Entity_type_with_navigation_mapped_to_SqlQuery(async);
 

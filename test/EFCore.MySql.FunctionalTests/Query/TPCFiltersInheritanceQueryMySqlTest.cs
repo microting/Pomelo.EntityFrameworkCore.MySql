@@ -22,7 +22,7 @@ public class TPCFiltersInheritanceQueryMySqlTest : TPCFiltersInheritanceQueryTes
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
-    public override async Task Can_use_of_type_animal(bool async)
+    public async Task Can_use_of_type_animal(bool async)
     {
         await base.Can_use_of_type_animal(async);
 
@@ -41,7 +41,7 @@ ORDER BY `u`.`Species`
 """);
     }
 
-    public override async Task Can_use_is_kiwi(bool async)
+    public async Task Can_use_is_kiwi(bool async)
     {
         await base.Can_use_is_kiwi(async);
 
@@ -56,7 +56,7 @@ WHERE `u`.`CountryId` = 1
 """);
     }
 
-    public override async Task Can_use_is_kiwi_with_other_predicate(bool async)
+    public async Task Can_use_is_kiwi_with_other_predicate(bool async)
     {
         await base.Can_use_is_kiwi_with_other_predicate(async);
 
@@ -74,7 +74,7 @@ WHERE (`u`.`CountryId` = 1) AND ((`u`.`Discriminator` = 'Kiwi') AND (`u`.`Countr
 """);
     }
 
-    public override async Task Can_use_is_kiwi_in_projection(bool async)
+    public async Task Can_use_is_kiwi_in_projection(bool async)
     {
         await base.Can_use_is_kiwi_in_projection(async);
 
@@ -92,7 +92,7 @@ WHERE `u`.`CountryId` = 1
 """);
     }
 
-    public override async Task Can_use_of_type_bird(bool async)
+    public async Task Can_use_of_type_bird(bool async)
     {
         await base.Can_use_of_type_bird(async);
 
@@ -111,7 +111,7 @@ ORDER BY `u`.`Species`
 """);
     }
 
-    public override async Task Can_use_of_type_bird_predicate(bool async)
+    public async Task Can_use_of_type_bird_predicate(bool async)
     {
         await base.Can_use_of_type_bird_predicate(async);
 
@@ -130,7 +130,7 @@ ORDER BY `u`.`Species`
 """);
     }
 
-    public override async Task Can_use_of_type_bird_with_projection(bool async)
+    public async Task Can_use_of_type_bird_with_projection(bool async)
     {
         await base.Can_use_of_type_bird_with_projection(async);
 
@@ -148,7 +148,7 @@ WHERE `u`.`CountryId` = 1
 """);
     }
 
-    public override async Task Can_use_of_type_bird_first(bool async)
+    public async Task Can_use_of_type_bird_first(bool async)
     {
         await base.Can_use_of_type_bird_first(async);
 
@@ -168,7 +168,7 @@ LIMIT 1
 """);
     }
 
-    public override async Task Can_use_of_type_kiwi(bool async)
+    public async Task Can_use_of_type_kiwi(bool async)
     {
         await base.Can_use_of_type_kiwi(async);
 
@@ -183,7 +183,7 @@ WHERE `u`.`CountryId` = 1
 """);
     }
 
-    public override async Task Can_use_derived_set(bool async)
+    public async Task Can_use_derived_set(bool async)
     {
         await base.Can_use_derived_set(async);
 
@@ -195,7 +195,7 @@ WHERE `e`.`CountryId` = 1
 """);
     }
 
-    public override async Task Can_use_IgnoreQueryFilters_and_GetDatabaseValues(bool async)
+    public async Task Can_use_IgnoreQueryFilters_and_GetDatabaseValues(bool async)
     {
         await base.Can_use_IgnoreQueryFilters_and_GetDatabaseValues(async);
 

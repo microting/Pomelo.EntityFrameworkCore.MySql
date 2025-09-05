@@ -22,7 +22,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         /// But since CustomerViewModel is private, we can't even override the test case properly.
         /// </summary>
         [ConditionalTheory(Skip = "Needs explicit ordering of views to work consistently with MySQL and MariaDB.")]
-        public override async Task SelectMany_with_client_eval_with_constructor(bool async)
+        public async Task SelectMany_with_client_eval_with_constructor(bool async)
         {
             // await AssertQuery(
             //     async,
@@ -58,9 +58,9 @@ ORDER BY `c`.`CustomerID`, `t0`.`OrderID0`, `t0`.`OrderID`");
         }
 
         // https://github.com/npgsql/efcore.pg/issues/2759
-        // public override Task Join_local_collection_int_closure_is_cached_correctly(bool async)
+        // public Task Join_local_collection_int_closure_is_cached_correctly(bool async)
         //     => Assert.ThrowsAsync<InvalidOperationException>(() => base.Join_local_collection_int_closure_is_cached_correctly(async));
-        public override async Task Join_local_collection_int_closure_is_cached_correctly(bool async)
+        public async Task Join_local_collection_int_closure_is_cached_correctly(bool async)
         {
             if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
             {

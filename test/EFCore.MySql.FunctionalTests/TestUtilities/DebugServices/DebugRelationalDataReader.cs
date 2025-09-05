@@ -75,7 +75,7 @@ public class DebugDbDataReader : DbDataReader, IDisposable
         return result;
     }
 
-    public override async Task<bool> ReadAsync(CancellationToken cancellationToken)
+    public async Task<bool> ReadAsync(CancellationToken cancellationToken)
     {
         var result = await _implementation.ReadAsync(cancellationToken);
 
@@ -98,7 +98,7 @@ public class DebugDbDataReader : DbDataReader, IDisposable
         _implementation.Close();
     }
 
-    public override Task CloseAsync()
+    public Task CloseAsync()
     {
         if (!_isClosed)
         {
@@ -117,7 +117,7 @@ public class DebugDbDataReader : DbDataReader, IDisposable
     public override ValueTask DisposeAsync()
         => _implementation.DisposeAsync();
 
-    public override Task<T> GetFieldValueAsync<T>(int ordinal, CancellationToken cancellationToken)
+    public Task<T> GetFieldValueAsync<T>(int ordinal, CancellationToken cancellationToken)
         => _implementation.GetFieldValueAsync<T>(ordinal, cancellationToken);
 
     public override T GetFieldValue<T>(int ordinal)
@@ -135,10 +135,10 @@ public class DebugDbDataReader : DbDataReader, IDisposable
     public override DataTable GetSchemaTable()
         => _implementation.GetSchemaTable();
 
-    public override Task<DataTable> GetSchemaTableAsync(CancellationToken cancellationToken = new CancellationToken())
+    public Task<DataTable> GetSchemaTableAsync(CancellationToken cancellationToken = new CancellationToken())
         => _implementation.GetSchemaTableAsync(cancellationToken);
 
-    public override Task<ReadOnlyCollection<DbColumn>> GetColumnSchemaAsync(CancellationToken cancellationToken = new CancellationToken())
+    public Task<ReadOnlyCollection<DbColumn>> GetColumnSchemaAsync(CancellationToken cancellationToken = new CancellationToken())
         => _implementation.GetColumnSchemaAsync(cancellationToken);
 
     public override Stream GetStream(int ordinal)
@@ -147,10 +147,10 @@ public class DebugDbDataReader : DbDataReader, IDisposable
     public override TextReader GetTextReader(int ordinal)
         => _implementation.GetTextReader(ordinal);
 
-    public override Task<bool> IsDBNullAsync(int ordinal, CancellationToken cancellationToken)
+    public Task<bool> IsDBNullAsync(int ordinal, CancellationToken cancellationToken)
         => _implementation.IsDBNullAsync(ordinal, cancellationToken);
 
-    public override Task<bool> NextResultAsync(CancellationToken cancellationToken)
+    public Task<bool> NextResultAsync(CancellationToken cancellationToken)
         => _implementation.NextResultAsync(cancellationToken);
 
     public override int VisibleFieldCount

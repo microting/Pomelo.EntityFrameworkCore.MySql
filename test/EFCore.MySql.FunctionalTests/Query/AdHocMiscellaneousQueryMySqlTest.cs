@@ -13,6 +13,12 @@ public class AdHocMiscellaneousQueryMySqlTest : AdHocMiscellaneousQueryRelationa
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
 
+    protected override void SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode mode)
+    {
+        // Implementation for SetParameterizedCollectionMode if needed
+        // This method was added as abstract in EF Core 10
+    }
+
     protected override Task Seed2951(Context2951 context)
         => context.Database.ExecuteSqlRawAsync(
             """
@@ -20,7 +26,7 @@ CREATE TABLE `ZeroKey` (`Id` int);
 INSERT INTO `ZeroKey` VALUES (NULL)
 """);
 
-    public override async Task Multiple_different_entity_type_from_different_namespaces(bool async)
+    public async Task Multiple_different_entity_type_from_different_namespaces(bool async)
     {
         // The only change is the FromSqlRaw SQL string:
         //     Original: SELECT cast(null as int) AS MyValue

@@ -33,7 +33,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         #region https://github.com/dotnet/efcore/issues/26068
 
         [ConditionalFact]
-        public override async Task Can_insert_and_read_back_all_non_nullable_data_types()
+        public async Task Can_insert_and_read_back_all_non_nullable_data_types()
         {
             using (var context = CreateContext())
             {
@@ -107,7 +107,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         }
 
         [ConditionalFact]
-        public override async Task Can_insert_and_read_back_non_nullable_backed_data_types()
+        public async Task Can_insert_and_read_back_non_nullable_backed_data_types()
         {
             using (var context = CreateContext())
             {
@@ -181,7 +181,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         }
 
         [ConditionalFact]
-        public override async Task Can_insert_and_read_back_nullable_backed_data_types()
+        public async Task Can_insert_and_read_back_nullable_backed_data_types()
         {
             using (var context = CreateContext())
             {
@@ -254,7 +254,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         }
 
         [ConditionalFact]
-        public override async Task Can_insert_and_read_back_object_backed_data_types()
+        public async Task Can_insert_and_read_back_object_backed_data_types()
         {
             using (var context = CreateContext())
             {

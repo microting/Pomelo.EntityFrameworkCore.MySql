@@ -15,7 +15,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Update;
 
 public class StoredProcedureUpdateMySqlTest : StoredProcedureUpdateTestBase
 {
-    public override async Task Insert_with_output_parameter(bool async)
+    public async Task Insert_with_output_parameter(bool async)
     {
         await base.Insert_with_output_parameter(
             async,
@@ -37,7 +37,7 @@ SELECT @_out_p0;
 """);
     }
 
-    public override async Task Insert_twice_with_output_parameter(bool async)
+    public async Task Insert_twice_with_output_parameter(bool async)
     {
         await base.Insert_twice_with_output_parameter(
             async,
@@ -63,7 +63,7 @@ SELECT @_out_p2;
 """);
     }
 
-    public override async Task Insert_with_result_column(bool async)
+    public async Task Insert_with_result_column(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(() => base.Insert_with_result_column(async, createSprocSql: ""));
@@ -71,7 +71,7 @@ SELECT @_out_p2;
         Assert.Equal(MySqlStrings.StoredProcedureResultColumnsNotSupported(nameof(Entity), nameof(Entity) + "_Insert"), exception.Message);
     }
 
-    public override async Task Insert_with_two_result_columns(bool async)
+    public async Task Insert_with_two_result_columns(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(() => base.Insert_with_two_result_columns(async, createSprocSql: ""));
@@ -81,7 +81,7 @@ SELECT @_out_p2;
                 nameof(EntityWithAdditionalProperty), nameof(EntityWithAdditionalProperty) + "_Insert"), exception.Message);
     }
 
-    public override async Task Insert_with_output_parameter_and_result_column(bool async)
+    public async Task Insert_with_output_parameter_and_result_column(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(
@@ -90,7 +90,7 @@ SELECT @_out_p2;
         Assert.Equal(MySqlStrings.StoredProcedureResultColumnsNotSupported(nameof(EntityWithAdditionalProperty), nameof(EntityWithAdditionalProperty) + "_Insert"), exception.Message);
     }
 
-    public override async Task Update(bool async)
+    public async Task Update(bool async)
     {
         await base.Update(
             async,
@@ -108,7 +108,7 @@ CALL `Entity_Update`(@p0, @p1);
 """);
     }
 
-    public override async Task Update_partial(bool async)
+    public async Task Update_partial(bool async)
     {
         await base.Update_partial(
             async,
@@ -127,7 +127,7 @@ CALL `EntityWithAdditionalProperty_Update`(@p0, @p1, @p2);
 """);
     }
 
-    public override async Task Update_with_output_parameter_and_rows_affected_result_column(bool async)
+    public async Task Update_with_output_parameter_and_rows_affected_result_column(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(
@@ -138,7 +138,7 @@ CALL `EntityWithAdditionalProperty_Update`(@p0, @p1, @p2);
                 nameof(EntityWithAdditionalProperty), nameof(EntityWithAdditionalProperty) + "_Update"), exception.Message);
     }
 
-    public override async Task Update_with_output_parameter_and_rows_affected_result_column_concurrency_failure(bool async)
+    public async Task Update_with_output_parameter_and_rows_affected_result_column_concurrency_failure(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(
@@ -149,7 +149,7 @@ CALL `EntityWithAdditionalProperty_Update`(@p0, @p1, @p2);
                 nameof(EntityWithAdditionalProperty), nameof(EntityWithAdditionalProperty) + "_Update"), exception.Message);
     }
 
-    public override async Task Delete(bool async)
+    public async Task Delete(bool async)
     {
         await base.Delete(
             async,
@@ -166,7 +166,7 @@ CALL `Entity_Delete`(@p0);
 """);
     }
 
-    public override async Task Delete_and_insert(bool async)
+    public async Task Delete_and_insert(bool async)
     {
         await base.Delete_and_insert(
             async,
@@ -195,7 +195,7 @@ SELECT @_out_p1;
 """);
     }
 
-    public override async Task Rows_affected_parameter(bool async)
+    public async Task Rows_affected_parameter(bool async)
     {
         await base.Rows_affected_parameter(
             async,
@@ -218,7 +218,7 @@ SELECT @_out_p0;
 """);
     }
 
-    public override async Task Rows_affected_parameter_and_concurrency_failure(bool async)
+    public async Task Rows_affected_parameter_and_concurrency_failure(bool async)
     {
         await base.Rows_affected_parameter_and_concurrency_failure(
             async,
@@ -241,7 +241,7 @@ SELECT @_out_p0;
 """);
     }
 
-    public override async Task Rows_affected_result_column(bool async)
+    public async Task Rows_affected_result_column(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(
@@ -250,7 +250,7 @@ SELECT @_out_p0;
         Assert.Equal(MySqlStrings.StoredProcedureResultColumnsNotSupported(nameof(Entity), nameof(Entity) + "_Update"), exception.Message);
     }
 
-    public override async Task Rows_affected_result_column_and_concurrency_failure(bool async)
+    public async Task Rows_affected_result_column_and_concurrency_failure(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(
@@ -259,7 +259,7 @@ SELECT @_out_p0;
         Assert.Equal(MySqlStrings.StoredProcedureResultColumnsNotSupported(nameof(Entity), nameof(Entity) + "_Update"), exception.Message);
     }
 
-    public override async Task Rows_affected_return_value(bool async)
+    public async Task Rows_affected_return_value(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(
@@ -268,7 +268,7 @@ SELECT @_out_p0;
         Assert.Equal(MySqlStrings.StoredProcedureReturnValueNotSupported(nameof(Entity), nameof(Entity) + "_Update"), exception.Message);
     }
 
-    public override async Task Rows_affected_return_value_and_concurrency_failure(bool async)
+    public async Task Rows_affected_return_value_and_concurrency_failure(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(
@@ -277,7 +277,7 @@ SELECT @_out_p0;
         Assert.Equal(MySqlStrings.StoredProcedureReturnValueNotSupported(nameof(Entity), nameof(Entity) + "_Update"), exception.Message);
     }
 
-    public override async Task Store_generated_concurrency_token_as_in_out_parameter(bool async)
+    public async Task Store_generated_concurrency_token_as_in_out_parameter(bool async)
     {
         await base.Store_generated_concurrency_token_as_in_out_parameter(
             async,
@@ -324,7 +324,7 @@ SELECT @_out_p0, @_out_p1;
 // """);
     }
 
-    public override async Task Store_generated_concurrency_token_as_two_parameters(bool async)
+    public async Task Store_generated_concurrency_token_as_two_parameters(bool async)
     {
         await base.Store_generated_concurrency_token_as_two_parameters(
             async,
@@ -369,7 +369,7 @@ SELECT @_out_p0, @_out_p1;
 // """);
     }
 
-    public override async Task User_managed_concurrency_token(bool async)
+    public async Task User_managed_concurrency_token(bool async)
     {
         await base.User_managed_concurrency_token(
             async,
@@ -394,7 +394,7 @@ SELECT @_out_p0;
 """);
     }
 
-    public override async Task Original_and_current_value_on_non_concurrency_token(bool async)
+    public async Task Original_and_current_value_on_non_concurrency_token(bool async)
     {
         await base.Original_and_current_value_on_non_concurrency_token(
             async,
@@ -417,7 +417,7 @@ CALL `Entity_Update`(@p0, @p1, @p2);
 """);
     }
 
-    public override async Task Input_or_output_parameter_with_input(bool async)
+    public async Task Input_or_output_parameter_with_input(bool async)
     {
         await base.Input_or_output_parameter_with_input(
             async,
@@ -447,7 +447,7 @@ SELECT @_out_p0, @_out_p1;
 """);
     }
 
-    public override async Task Input_or_output_parameter_with_output(bool async)
+    public async Task Input_or_output_parameter_with_output(bool async)
     {
         await base.Input_or_output_parameter_with_output(
             async,
@@ -475,7 +475,7 @@ SELECT @_out_p0, @_out_p1;
 """);
     }
 
-    public override async Task Tph(bool async)
+    public async Task Tph(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(
@@ -484,7 +484,7 @@ SELECT @_out_p0, @_out_p1;
         Assert.Equal(MySqlStrings.StoredProcedureResultColumnsNotSupported(nameof(Entity), nameof(Entity) + "_Update"), exception.Message);
     }
 
-    public override async Task Tpt(bool async)
+    public async Task Tpt(bool async)
     {
         var exception =
             await Assert.ThrowsAsync<InvalidOperationException>(
@@ -493,7 +493,7 @@ SELECT @_out_p0, @_out_p1;
         Assert.Equal(MySqlStrings.StoredProcedureResultColumnsNotSupported(nameof(Entity), nameof(Entity) + "_Update"), exception.Message);
     }
 
-    public override async Task Tpt_mixed_sproc_and_non_sproc(bool async)
+    public async Task Tpt_mixed_sproc_and_non_sproc(bool async)
     {
         await base.Tpt_mixed_sproc_and_non_sproc(
             async,
@@ -524,7 +524,7 @@ VALUES (@p2, @p3);
 """);
     }
 
-    public override async Task Tpc(bool async)
+    public async Task Tpc(bool async)
     {
         var createSprocSql =
 """
@@ -589,7 +589,7 @@ SELECT @_out_p0;
 """);
     }
 
-    public override async Task Non_sproc_followed_by_sproc_commands_in_the_same_batch(bool async)
+    public async Task Non_sproc_followed_by_sproc_commands_in_the_same_batch(bool async)
     {
         await base.Non_sproc_followed_by_sproc_commands_in_the_same_batch(
             async,

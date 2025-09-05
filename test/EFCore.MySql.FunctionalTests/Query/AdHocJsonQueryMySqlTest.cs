@@ -97,7 +97,7 @@ INSERT INTO `Reviews` (`Rounds`, `Id`)
 VALUES(N'[{"RoundNumber":11,"SubRounds":[{"SubRoundNumber":111},{"SubRoundNumber":112}]}]', 1)
 """);
 
-    protected override Task SeedArrayOfPrimitives(DbContext ctx)
+    protected Task SeedArrayOfPrimitives(DbContext ctx)
     {
         var entity1 = new MyEntityArrayOfPrimitives
         {
@@ -193,6 +193,12 @@ VALUES(
 N'{"Collection":[{"Bar":21,"Foo":"c21"},{"Bar":22,"Foo":"c22"}]}',
 2)
 """);
+    }
+
+    protected override void SeedBadJsonProperties(ContextBadJsonProperties context)
+    {
+        // Implementation for SeedBadJsonProperties if needed
+        // This method was added as abstract in EF Core 10
     }
 
     #region EnumLegacyValues

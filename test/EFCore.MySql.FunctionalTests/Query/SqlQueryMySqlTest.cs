@@ -19,7 +19,7 @@ public class SqlQueryMySqlTest : SqlQueryTestBase<NorthwindQueryMySqlFixture<Noo
         Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
-    public override async Task SqlQueryRaw_queryable_simple(bool async)
+    public async Task SqlQueryRaw_queryable_simple(bool async)
     {
         await base.SqlQueryRaw_queryable_simple(async);
 
@@ -29,7 +29,7 @@ SELECT * FROM `Customers` WHERE `ContactName` LIKE '%z%'
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_simple_columns_out_of_order(bool async)
+    public async Task SqlQueryRaw_queryable_simple_columns_out_of_order(bool async)
     {
         await base.SqlQueryRaw_queryable_simple_columns_out_of_order(async);
 
@@ -39,7 +39,7 @@ SELECT `Region`, `PostalCode`, `Phone`, `Fax`, `CustomerID`, `Country`, `Contact
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_simple_columns_out_of_order_and_extra_columns(bool async)
+    public async Task SqlQueryRaw_queryable_simple_columns_out_of_order_and_extra_columns(bool async)
     {
         await base.SqlQueryRaw_queryable_simple_columns_out_of_order_and_extra_columns(async);
 
@@ -49,7 +49,7 @@ SELECT `Region`, `PostalCode`, `PostalCode` AS `Foo`, `Phone`, `Fax`, `CustomerI
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_composed(bool async)
+    public async Task SqlQueryRaw_queryable_composed(bool async)
     {
         await base.SqlQueryRaw_queryable_composed(async);
 
@@ -63,7 +63,7 @@ WHERE `m`.`ContactName` LIKE '%z%'
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_composed_after_removing_whitespaces(bool async)
+    public async Task SqlQueryRaw_queryable_composed_after_removing_whitespaces(bool async)
     {
         await base.SqlQueryRaw_queryable_composed_after_removing_whitespaces(async);
 
@@ -71,7 +71,7 @@ WHERE `m`.`ContactName` LIKE '%z%'
 "SELECT `m`.`Address`, `m`.`City`, `m`.`CompanyName`, `m`.`ContactName`, `m`.`ContactTitle`, `m`.`Country`, `m`.`CustomerID`, `m`.`Fax`, `m`.`Phone`, `m`.`Region`, `m`.`PostalCode`\r\nFROM (\r\n\r\n        \r\n\r\n\r\n    SELECT\r\n    * FROM `Customers`\r\n) AS `m`\r\nWHERE `m`.`ContactName` LIKE '%z%'");
     }
 
-    public override async Task SqlQueryRaw_queryable_composed_compiled(bool async)
+    public async Task SqlQueryRaw_queryable_composed_compiled(bool async)
     {
         await base.SqlQueryRaw_queryable_composed_compiled(async);
 
@@ -85,7 +85,7 @@ WHERE `m`.`ContactName` LIKE '%z%'
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_composed_compiled_with_DbParameter(bool async)
+    public async Task SqlQueryRaw_queryable_composed_compiled_with_DbParameter(bool async)
     {
         await base.SqlQueryRaw_queryable_composed_compiled_with_DbParameter(async);
 
@@ -101,7 +101,7 @@ WHERE `m`.`ContactName` LIKE '%z%'
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_composed_compiled_with_nameless_DbParameter(bool async)
+    public async Task SqlQueryRaw_queryable_composed_compiled_with_nameless_DbParameter(bool async)
     {
         await base.SqlQueryRaw_queryable_composed_compiled_with_nameless_DbParameter(async);
 
@@ -117,7 +117,7 @@ WHERE `m`.`ContactName` LIKE '%z%'
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_composed_compiled_with_parameter(bool async)
+    public async Task SqlQueryRaw_queryable_composed_compiled_with_parameter(bool async)
     {
         await base.SqlQueryRaw_queryable_composed_compiled_with_parameter(async);
 
@@ -131,7 +131,7 @@ WHERE `m`.`ContactName` LIKE '%z%'
 """);
     }
 
-    public override async Task SqlQueryRaw_composed_contains(bool async)
+    public async Task SqlQueryRaw_composed_contains(bool async)
     {
         await base.SqlQueryRaw_composed_contains(async);
 
@@ -150,7 +150,7 @@ WHERE `m`.`CustomerID` IN (
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_multiple_composed(bool async)
+    public async Task SqlQueryRaw_queryable_multiple_composed(bool async)
     {
         await base.SqlQueryRaw_queryable_multiple_composed(async);
 
@@ -167,19 +167,19 @@ WHERE `m`.`CustomerID` = `m0`.`CustomerID`
 """);
     }
 
-    public override Task SqlQueryRaw_queryable_multiple_composed_with_closure_parameters(bool async)
+    public Task SqlQueryRaw_queryable_multiple_composed_with_closure_parameters(bool async)
     {
         // Base implementation sends DateTime with Kind=Unspecified in a SQL query, but MySql rejects it because timestamptz
         return Task.CompletedTask;
     }
 
-    public override Task SqlQueryRaw_queryable_multiple_composed_with_parameters_and_closure_parameters(bool async)
+    public Task SqlQueryRaw_queryable_multiple_composed_with_parameters_and_closure_parameters(bool async)
     {
         // Base implementation sends DateTime with Kind=Unspecified in a SQL query, but MySql rejects it because timestamptz
         return Task.CompletedTask;
     }
 
-    public override async Task SqlQueryRaw_queryable_multiple_line_query(bool async)
+    public async Task SqlQueryRaw_queryable_multiple_line_query(bool async)
     {
         await base.SqlQueryRaw_queryable_multiple_line_query(async);
 
@@ -191,7 +191,7 @@ WHERE `City` = 'London'
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_composed_multiple_line_query(bool async)
+    public async Task SqlQueryRaw_queryable_composed_multiple_line_query(bool async)
     {
         await base.SqlQueryRaw_queryable_composed_multiple_line_query(async);
 
@@ -206,7 +206,7 @@ WHERE `m`.`City` = 'London'
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_with_parameters(bool async)
+    public async Task SqlQueryRaw_queryable_with_parameters(bool async)
     {
         await base.SqlQueryRaw_queryable_with_parameters(async);
 
@@ -219,7 +219,7 @@ SELECT * FROM `Customers` WHERE `City` = @p0 AND `ContactTitle` = @p1
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_with_parameters_inline(bool async)
+    public async Task SqlQueryRaw_queryable_with_parameters_inline(bool async)
     {
         await base.SqlQueryRaw_queryable_with_parameters_inline(async);
 
@@ -232,7 +232,7 @@ SELECT * FROM `Customers` WHERE `City` = @p0 AND `ContactTitle` = @p1
 """);
     }
 
-    public override async Task SqlQuery_queryable_with_parameters_interpolated(bool async)
+    public async Task SqlQuery_queryable_with_parameters_interpolated(bool async)
     {
         await base.SqlQuery_queryable_with_parameters_interpolated(async);
 
@@ -245,7 +245,7 @@ SELECT * FROM `Customers` WHERE `City` = @p0 AND `ContactTitle` = @p1
 """);
     }
 
-    public override async Task SqlQuery_queryable_with_parameters_inline_interpolated(bool async)
+    public async Task SqlQuery_queryable_with_parameters_inline_interpolated(bool async)
     {
         await base.SqlQuery_queryable_with_parameters_inline_interpolated(async);
 
@@ -258,13 +258,13 @@ SELECT * FROM `Customers` WHERE `City` = @p0 AND `ContactTitle` = @p1
 """);
     }
 
-    public override Task SqlQuery_queryable_multiple_composed_with_parameters_and_closure_parameters_interpolated(bool async)
+    public Task SqlQuery_queryable_multiple_composed_with_parameters_and_closure_parameters_interpolated(bool async)
     {
         // Base implementation sends DateTime with Kind=Unspecified in a SQL query, but MySql rejects it because timestamptz
         return Task.CompletedTask;
     }
 
-    public override async Task SqlQueryRaw_queryable_with_null_parameter(bool async)
+    public async Task SqlQueryRaw_queryable_with_null_parameter(bool async)
     {
         await base.SqlQueryRaw_queryable_with_null_parameter(async);
 
@@ -276,7 +276,7 @@ SELECT * FROM `Employees` WHERE `ReportsTo` = @p0 OR (`ReportsTo` IS NULL AND @p
 """);
     }
 
-    public override async Task<string> SqlQueryRaw_queryable_with_parameters_and_closure(bool async)
+    public async Task<string> SqlQueryRaw_queryable_with_parameters_and_closure(bool async)
     {
         var queryString = await base.SqlQueryRaw_queryable_with_parameters_and_closure(async);
 
@@ -295,7 +295,7 @@ WHERE `m`.`ContactTitle` = @__contactTitle_1
         return null;
     }
 
-    public override async Task SqlQueryRaw_queryable_simple_cache_key_includes_query_string(bool async)
+    public async Task SqlQueryRaw_queryable_simple_cache_key_includes_query_string(bool async)
     {
         await base.SqlQueryRaw_queryable_simple_cache_key_includes_query_string(async);
 
@@ -309,7 +309,7 @@ SELECT * FROM `Customers` WHERE `City` = 'Seattle'
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_with_parameters_cache_key_includes_parameters(bool async)
+    public async Task SqlQueryRaw_queryable_with_parameters_cache_key_includes_parameters(bool async)
     {
         await base.SqlQueryRaw_queryable_with_parameters_cache_key_includes_parameters(async);
 
@@ -329,7 +329,7 @@ SELECT * FROM `Customers` WHERE `City` = @p0 AND `ContactTitle` = @p1
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_simple_as_no_tracking_not_composed(bool async)
+    public async Task SqlQueryRaw_queryable_simple_as_no_tracking_not_composed(bool async)
     {
         await base.SqlQueryRaw_queryable_simple_as_no_tracking_not_composed(async);
 
@@ -339,7 +339,7 @@ SELECT * FROM `Customers`
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_simple_projection_composed(bool async)
+    public async Task SqlQueryRaw_queryable_simple_projection_composed(bool async)
     {
         await base.SqlQueryRaw_queryable_simple_projection_composed(async);
 
@@ -355,7 +355,7 @@ FROM (
 """);
     }
 
-    public override async Task SqlQueryRaw_annotations_do_not_affect_successive_calls(bool async)
+    public async Task SqlQueryRaw_annotations_do_not_affect_successive_calls(bool async)
     {
         await base.SqlQueryRaw_annotations_do_not_affect_successive_calls(async);
 
@@ -369,7 +369,7 @@ SELECT * FROM `Customers`
 """);
     }
 
-    public override async Task SqlQueryRaw_composed_with_predicate(bool async)
+    public async Task SqlQueryRaw_composed_with_predicate(bool async)
     {
         await base.SqlQueryRaw_composed_with_predicate(async);
 
@@ -383,7 +383,7 @@ WHERE SUBSTRING(`m`.`ContactName`, 0 + 1, 1) = SUBSTRING(`m`.`CompanyName`, 0 + 
 """);
     }
 
-    public override async Task SqlQueryRaw_composed_with_empty_predicate(bool async)
+    public async Task SqlQueryRaw_composed_with_empty_predicate(bool async)
     {
         await base.SqlQueryRaw_composed_with_empty_predicate(async);
 
@@ -397,7 +397,7 @@ WHERE `m`.`ContactName` = `m`.`CompanyName`
 """);
     }
 
-    public override async Task SqlQueryRaw_with_dbParameter(bool async)
+    public async Task SqlQueryRaw_with_dbParameter(bool async)
     {
         await base.SqlQueryRaw_with_dbParameter(async);
 
@@ -409,7 +409,7 @@ SELECT * FROM `Customers` WHERE `City` = @city
 """);
     }
 
-    public override async Task SqlQueryRaw_with_dbParameter_without_name_prefix(bool async)
+    public async Task SqlQueryRaw_with_dbParameter_without_name_prefix(bool async)
     {
         await base.SqlQueryRaw_with_dbParameter_without_name_prefix(async);
         AssertSql(
@@ -420,7 +420,7 @@ SELECT * FROM `Customers` WHERE `City` = @city
 """);
     }
 
-    public override async Task SqlQueryRaw_with_dbParameter_mixed(bool async)
+    public async Task SqlQueryRaw_with_dbParameter_mixed(bool async)
     {
         await base.SqlQueryRaw_with_dbParameter_mixed(async);
 
@@ -440,7 +440,7 @@ SELECT * FROM `Customers` WHERE `City` = @city AND `ContactTitle` = @p1
 """);
     }
 
-    public override async Task SqlQueryRaw_with_db_parameters_called_multiple_times(bool async)
+    public async Task SqlQueryRaw_with_db_parameters_called_multiple_times(bool async)
     {
         await base.SqlQueryRaw_with_db_parameters_called_multiple_times(async);
 
@@ -458,7 +458,7 @@ SELECT * FROM `Customers` WHERE `CustomerID` = @id
 """);
     }
 
-    public override async Task SqlQuery_with_inlined_db_parameter(bool async)
+    public async Task SqlQuery_with_inlined_db_parameter(bool async)
     {
         await base.SqlQuery_with_inlined_db_parameter(async);
 
@@ -470,7 +470,7 @@ SELECT * FROM `Customers` WHERE `CustomerID` = @somename
 """);
     }
 
-    public override async Task SqlQuery_with_inlined_db_parameter_without_name_prefix(bool async)
+    public async Task SqlQuery_with_inlined_db_parameter_without_name_prefix(bool async)
     {
         await base.SqlQuery_with_inlined_db_parameter_without_name_prefix(async);
 
@@ -482,7 +482,7 @@ SELECT * FROM `Customers` WHERE `CustomerID` = @somename
 """);
     }
 
-    public override async Task SqlQuery_parameterization_issue_12213(bool async)
+    public async Task SqlQuery_parameterization_issue_12213(bool async)
     {
         await base.SqlQuery_parameterization_issue_12213(async);
 
@@ -529,7 +529,7 @@ WHERE (`m`.`OrderID` <= @__max_1) AND `m`.`OrderID` IN (
 """);
     }
 
-    public override async Task SqlQueryRaw_does_not_parameterize_interpolated_string(bool async)
+    public async Task SqlQueryRaw_does_not_parameterize_interpolated_string(bool async)
     {
         await base.SqlQueryRaw_does_not_parameterize_interpolated_string(async);
 
@@ -541,7 +541,7 @@ SELECT * FROM `Orders` WHERE `OrderID` < @p0
 """);
     }
 
-    public override async Task SqlQueryRaw_with_set_operation(bool async)
+    public async Task SqlQueryRaw_with_set_operation(bool async)
     {
         await base.SqlQueryRaw_with_set_operation(async);
 
@@ -559,7 +559,7 @@ FROM (
 """);
     }
 
-    public override async Task Line_endings_after_Select(bool async)
+    public async Task Line_endings_after_Select(bool async)
     {
         await base.Line_endings_after_Select(async);
 
@@ -574,7 +574,7 @@ WHERE `m`.`City` = 'Seattle'
 """);
     }
 
-    public override async Task SqlQueryRaw_in_subquery_with_dbParameter(bool async)
+    public async Task SqlQueryRaw_in_subquery_with_dbParameter(bool async)
     {
         await base.SqlQueryRaw_in_subquery_with_dbParameter(async);
 
@@ -595,7 +595,7 @@ WHERE `m`.`CustomerID` IN (
 """);
     }
 
-    public override async Task SqlQueryRaw_in_subquery_with_positional_dbParameter_without_name(bool async)
+    public async Task SqlQueryRaw_in_subquery_with_positional_dbParameter_without_name(bool async)
     {
         await base.SqlQueryRaw_in_subquery_with_positional_dbParameter_without_name(async);
 
@@ -616,7 +616,7 @@ WHERE `m`.`CustomerID` IN (
 """);
     }
 
-    public override async Task SqlQueryRaw_in_subquery_with_positional_dbParameter_with_name(bool async)
+    public async Task SqlQueryRaw_in_subquery_with_positional_dbParameter_with_name(bool async)
     {
         await base.SqlQueryRaw_in_subquery_with_positional_dbParameter_with_name(async);
 
@@ -637,7 +637,7 @@ WHERE `m`.`CustomerID` IN (
 """);
     }
 
-    public override async Task SqlQueryRaw_with_dbParameter_mixed_in_subquery(bool async)
+    public async Task SqlQueryRaw_with_dbParameter_mixed_in_subquery(bool async)
     {
         await base.SqlQueryRaw_with_dbParameter_mixed_in_subquery(async);
 
@@ -675,7 +675,7 @@ WHERE `m`.`CustomerID` IN (
 """);
     }
 
-    public override async Task Multiple_occurrences_of_SqlQuery_with_db_parameter_adds_parameter_only_once(bool async)
+    public async Task Multiple_occurrences_of_SqlQuery_with_db_parameter_adds_parameter_only_once(bool async)
     {
         await base.Multiple_occurrences_of_SqlQuery_with_db_parameter_adds_parameter_only_once(async);
 
@@ -695,7 +695,7 @@ FROM (
 """);
     }
 
-    public override async Task Bad_data_error_handling_invalid_cast_key(bool async)
+    public async Task Bad_data_error_handling_invalid_cast_key(bool async)
     {
         await base.Bad_data_error_handling_invalid_cast_key(async);
 
@@ -706,7 +706,7 @@ SELECT `ProductName` AS `ProductID`, `ProductID` AS `ProductName`, `SupplierID`,
 """);
     }
 
-    public override async Task Bad_data_error_handling_invalid_cast(bool async)
+    public async Task Bad_data_error_handling_invalid_cast(bool async)
     {
         await base.Bad_data_error_handling_invalid_cast(async);
 
@@ -717,7 +717,7 @@ SELECT `ProductID`, `ProductName` AS `UnitPrice`, `ProductName`, `SupplierID`, `
 """);
     }
 
-    public override async Task Bad_data_error_handling_invalid_cast_projection(bool async)
+    public async Task Bad_data_error_handling_invalid_cast_projection(bool async)
     {
         await base.Bad_data_error_handling_invalid_cast_projection(async);
 
@@ -731,7 +731,7 @@ FROM (
 """);
     }
 
-    public override async Task Bad_data_error_handling_invalid_cast_no_tracking(bool async)
+    public async Task Bad_data_error_handling_invalid_cast_no_tracking(bool async)
     {
         await base.Bad_data_error_handling_invalid_cast_no_tracking(async);
 
@@ -742,7 +742,7 @@ SELECT `ProductName` AS `ProductID`, `ProductID` AS `ProductName`, `SupplierID`,
 """);
     }
 
-    public override async Task Bad_data_error_handling_null(bool async)
+    public async Task Bad_data_error_handling_null(bool async)
     {
         await base.Bad_data_error_handling_null(async);
 
@@ -753,7 +753,7 @@ SELECT `ProductID`, `ProductName`, `SupplierID`, `UnitPrice`, `UnitsInStock`, NU
 """);
     }
 
-    public override async Task Bad_data_error_handling_null_projection(bool async)
+    public async Task Bad_data_error_handling_null_projection(bool async)
     {
         await base.Bad_data_error_handling_null_projection(async);
 
@@ -767,7 +767,7 @@ FROM (
 """);
     }
 
-    public override async Task Bad_data_error_handling_null_no_tracking(bool async)
+    public async Task Bad_data_error_handling_null_no_tracking(bool async)
     {
         await base.Bad_data_error_handling_null_no_tracking(async);
 
@@ -778,7 +778,7 @@ SELECT `ProductID`, `ProductName`, `SupplierID`, `UnitPrice`, `UnitsInStock`, NU
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_simple_mapped_type(bool async)
+    public async Task SqlQueryRaw_queryable_simple_mapped_type(bool async)
     {
         await base.SqlQueryRaw_queryable_simple_mapped_type(async);
 
@@ -788,7 +788,7 @@ SELECT * FROM `Customers` WHERE `ContactName` LIKE '%z%'
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_simple_columns_out_of_order_and_not_enough_columns_throws(bool async)
+    public async Task SqlQueryRaw_queryable_simple_columns_out_of_order_and_not_enough_columns_throws(bool async)
     {
         await base.SqlQueryRaw_queryable_simple_columns_out_of_order_and_not_enough_columns_throws(async);
 
@@ -798,7 +798,7 @@ SELECT `PostalCode`, `Phone`, `Fax`, `CustomerID`, `Country`, `ContactTitle`, `C
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_simple_different_cased_columns_and_not_enough_columns_throws(bool async)
+    public async Task SqlQueryRaw_queryable_simple_different_cased_columns_and_not_enough_columns_throws(bool async)
     {
         await base.SqlQueryRaw_queryable_simple_different_cased_columns_and_not_enough_columns_throws(async);
 
@@ -808,7 +808,7 @@ SELECT `PostalCODE`, `Phone`, `Fax`, `CustomerID`, `Country`, `ContactTitle`, `C
 """);
     }
 
-    public override async Task SqlQueryRaw_queryable_simple_projection_not_composed(bool async)
+    public async Task SqlQueryRaw_queryable_simple_projection_not_composed(bool async)
     {
         await base.SqlQueryRaw_queryable_simple_projection_not_composed(async);
 
@@ -842,7 +842,7 @@ FROM (
         AssertSql();
     }
 
-    public override async Task SqlQueryRaw_then_String_Length(bool async)
+    public async Task SqlQueryRaw_then_String_Length(bool async)
     {
         await base.SqlQueryRaw_then_String_Length(async);
 
@@ -856,7 +856,7 @@ WHERE CHAR_LENGTH(`s`.`Value`) = 0
 """);
     }
 
-    public override async Task SqlQueryRaw_then_String_ToUpper_String_Length(bool async)
+    public async Task SqlQueryRaw_then_String_ToUpper_String_Length(bool async)
     {
         await base.SqlQueryRaw_then_String_ToUpper_String_Length(async);
 
@@ -871,7 +871,7 @@ WHERE CHAR_LENGTH(UPPER(`s`.`Value`)) = 0
     }
 
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.CommonTableExpressions))]
-    public override async Task SqlQueryRaw_composed_with_common_table_expression(bool async)
+    public async Task SqlQueryRaw_composed_with_common_table_expression(bool async)
     {
         await base.SqlQueryRaw_composed_with_common_table_expression(async);
 

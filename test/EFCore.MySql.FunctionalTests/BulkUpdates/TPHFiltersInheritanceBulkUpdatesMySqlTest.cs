@@ -24,7 +24,7 @@ public class TPHFiltersInheritanceBulkUpdatesMySqlTest : FiltersInheritanceBulkU
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
-    public override async Task Delete_where_hierarchy(bool async)
+    public async Task Delete_where_hierarchy(bool async)
     {
         await base.Delete_where_hierarchy(async);
 
@@ -36,7 +36,7 @@ WHERE (`a`.`CountryId` = 1) AND (`a`.`Name` = 'Great spotted kiwi')
 """);
     }
 
-    public override async Task Delete_where_hierarchy_derived(bool async)
+    public async Task Delete_where_hierarchy_derived(bool async)
     {
         await base.Delete_where_hierarchy_derived(async);
 
@@ -48,7 +48,7 @@ WHERE ((`a`.`Discriminator` = 'Kiwi') AND (`a`.`CountryId` = 1)) AND (`a`.`Name`
 """);
     }
 
-    public override async Task Delete_where_using_hierarchy(bool async)
+    public async Task Delete_where_using_hierarchy(bool async)
     {
         await base.Delete_where_using_hierarchy(async);
 
@@ -63,7 +63,7 @@ WHERE (
 """);
     }
 
-    public override async Task Delete_where_using_hierarchy_derived(bool async)
+    public async Task Delete_where_using_hierarchy_derived(bool async)
     {
         await base.Delete_where_using_hierarchy_derived(async);
 
@@ -78,21 +78,21 @@ WHERE (
 """);
     }
 
-    public override async Task Delete_GroupBy_Where_Select_First(bool async)
+    public async Task Delete_GroupBy_Where_Select_First(bool async)
     {
         await base.Delete_GroupBy_Where_Select_First(async);
 
         AssertSql();
     }
 
-    public override async Task Delete_GroupBy_Where_Select_First_2(bool async)
+    public async Task Delete_GroupBy_Where_Select_First_2(bool async)
     {
         await base.Delete_GroupBy_Where_Select_First_2(async);
 
         AssertSql();
     }
 
-    public override async Task Delete_GroupBy_Where_Select_First_3(bool async)
+    public async Task Delete_GroupBy_Where_Select_First_3(bool async)
     {
         if (AppConfig.ServerVersion.Type == ServerType.MariaDb &&
             AppConfig.ServerVersion.Version >= new Version(11, 1))
@@ -125,14 +125,14 @@ WHERE (`a`.`CountryId` = 1) AND `a`.`Id` IN (
         }
     }
 
-    public override async Task Update_where_hierarchy_subquery(bool async)
+    public async Task Update_where_hierarchy_subquery(bool async)
     {
         await base.Update_where_hierarchy_subquery(async);
 
         AssertExecuteUpdateSql();
     }
 
-    public override async Task Update_where_using_hierarchy(bool async)
+    public async Task Update_where_using_hierarchy(bool async)
     {
         await base.Update_where_using_hierarchy(async);
 
@@ -147,7 +147,7 @@ WHERE (
 """);
     }
 
-    public override async Task Update_where_using_hierarchy_derived(bool async)
+    public async Task Update_where_using_hierarchy_derived(bool async)
     {
         await base.Update_where_using_hierarchy_derived(async);
 
@@ -162,7 +162,7 @@ WHERE (
 """);
     }
 
-    public override async Task Update_base_type(bool async)
+    public async Task Update_base_type(bool async)
     {
         await base.Update_base_type(async);
 
@@ -174,7 +174,7 @@ WHERE (`a`.`CountryId` = 1) AND (`a`.`Name` = 'Great spotted kiwi')
 """);
     }
 
-    public override async Task Update_base_type_with_OfType(bool async)
+    public async Task Update_base_type_with_OfType(bool async)
     {
         await base.Update_base_type_with_OfType(async);
 
@@ -186,7 +186,7 @@ WHERE (`a`.`CountryId` = 1) AND (`a`.`Discriminator` = 'Kiwi')
 """);
     }
 
-    public override async Task Update_base_property_on_derived_type(bool async)
+    public async Task Update_base_property_on_derived_type(bool async)
     {
         await base.Update_base_property_on_derived_type(async);
 
@@ -198,7 +198,7 @@ WHERE (`a`.`Discriminator` = 'Kiwi') AND (`a`.`CountryId` = 1)
 """);
     }
 
-    public override async Task Update_derived_property_on_derived_type(bool async)
+    public async Task Update_derived_property_on_derived_type(bool async)
     {
         await base.Update_derived_property_on_derived_type(async);
 
@@ -210,7 +210,7 @@ WHERE (`a`.`Discriminator` = 'Kiwi') AND (`a`.`CountryId` = 1)
 """);
     }
 
-    public override async Task Update_base_and_derived_types(bool async)
+    public async Task Update_base_and_derived_types(bool async)
     {
         await base.Update_base_and_derived_types(async);
 
@@ -224,7 +224,7 @@ WHERE (`a`.`Discriminator` = 'Kiwi') AND (`a`.`CountryId` = 1)
     }
 
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.LimitWithinInAllAnySomeSubquery))]
-    public override async Task Delete_where_hierarchy_subquery(bool async)
+    public async Task Delete_where_hierarchy_subquery(bool async)
     {
         await base.Delete_where_hierarchy_subquery(async);
 

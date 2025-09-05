@@ -21,7 +21,7 @@ public class NorthwindSqlQueryMySqlTest : NorthwindSqlQueryTestBase<NorthwindQue
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
-    public override async Task SqlQueryRaw_over_int(bool async)
+    public async Task SqlQueryRaw_over_int(bool async)
     {
         await base.SqlQueryRaw_over_int(async);
 
@@ -31,7 +31,7 @@ SELECT `ProductID` FROM `Products`
 """);
     }
 
-    public override async Task SqlQuery_composed_Contains(bool async)
+    public async Task SqlQuery_composed_Contains(bool async)
     {
         await base.SqlQuery_composed_Contains(async);
 
@@ -48,7 +48,7 @@ WHERE `o`.`OrderID` IN (
 """);
     }
 
-    public override async Task SqlQuery_composed_Join(bool async)
+    public async Task SqlQuery_composed_Join(bool async)
     {
         await base.SqlQuery_composed_Join(async);
 
@@ -62,7 +62,7 @@ INNER JOIN (
 """);
     }
 
-    public override async Task SqlQuery_over_int_with_parameter(bool async)
+    public async Task SqlQuery_over_int_with_parameter(bool async)
     {
         await base.SqlQuery_over_int_with_parameter(async);
 

@@ -33,7 +33,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public override async Task Object_to_string_conversion()
+        public async Task Object_to_string_conversion()
         {
             using var context = CreateContext();
             var expected = (await context.Set<BuiltInDataTypes>()
@@ -876,7 +876,7 @@ WHERE `m`.`TimeSpanAsTime` = @__timeSpan_0",
 
         // Overridden because of TestNullableDateTimeOffset, since MySQL does not offer a native data type to save a date/time with
         // timezone.
-        public override async Task Can_insert_and_read_back_all_nullable_data_types_with_values_set_to_non_null()
+        public async Task Can_insert_and_read_back_all_nullable_data_types_with_values_set_to_non_null()
         {
             using (var context = CreateContext())
             {
@@ -1522,7 +1522,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
         #region https://github.com/dotnet/efcore/issues/26068
 
         [ConditionalFact]
-        public override async Task Can_insert_and_read_back_all_non_nullable_data_types()
+        public async Task Can_insert_and_read_back_all_non_nullable_data_types()
         {
             using (var context = CreateContext())
             {
@@ -1596,7 +1596,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
         }
 
         [ConditionalFact]
-        public override async Task Can_insert_and_read_back_non_nullable_backed_data_types()
+        public async Task Can_insert_and_read_back_non_nullable_backed_data_types()
         {
             using (var context = CreateContext())
             {
@@ -1670,7 +1670,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
         }
 
         [ConditionalFact]
-        public override async Task Can_insert_and_read_back_nullable_backed_data_types()
+        public async Task Can_insert_and_read_back_nullable_backed_data_types()
         {
             using (var context = CreateContext())
             {
@@ -1743,7 +1743,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
         }
 
         [ConditionalFact]
-        public override async Task Can_insert_and_read_back_object_backed_data_types()
+        public async Task Can_insert_and_read_back_object_backed_data_types()
         {
             using (var context = CreateContext())
             {

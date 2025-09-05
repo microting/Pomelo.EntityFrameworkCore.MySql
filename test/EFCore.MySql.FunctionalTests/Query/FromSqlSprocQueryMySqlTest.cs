@@ -25,7 +25,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         private string NormalizeDelimitersInRawString(string sql)
             => Fixture.TestStore.NormalizeDelimitersInRawString(sql);
 
-        public override async Task From_sql_queryable_stored_procedure_projection(bool async)
+        public async Task From_sql_queryable_stored_procedure_projection(bool async)
         {
             using var context = CreateContext();
             var query = context
@@ -43,7 +43,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             }
         }
 
-        public override async Task From_sql_queryable_stored_procedure_re_projection(bool async)
+        public async Task From_sql_queryable_stored_procedure_re_projection(bool async)
         {
             using var context = CreateContext();
             var query = context
@@ -63,7 +63,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             }
         }
 
-        public override async Task From_sql_queryable_stored_procedure_composed(bool async)
+        public async Task From_sql_queryable_stored_procedure_composed(bool async)
         {
             using var context = CreateContext();
             var query = context
@@ -82,7 +82,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             }
         }
 
-        public override async Task From_sql_queryable_stored_procedure_with_parameter_composed(bool async)
+        public async Task From_sql_queryable_stored_procedure_with_parameter_composed(bool async)
         {
             using var context = CreateContext();
 
@@ -102,7 +102,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             }
         }
 
-        public override async Task From_sql_queryable_stored_procedure_take(bool async)
+        public async Task From_sql_queryable_stored_procedure_take(bool async)
         {
             using var context = CreateContext();
             var query = context
@@ -121,7 +121,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             }
         }
 
-        public override async Task From_sql_queryable_stored_procedure_min(bool async)
+        public async Task From_sql_queryable_stored_procedure_min(bool async)
         {
             using var context = CreateContext();
             var query = context.Set<MostExpensiveProduct>()
@@ -137,7 +137,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             }
         }
 
-        public override async Task From_sql_queryable_stored_procedure_with_include_throws(bool async)
+        public async Task From_sql_queryable_stored_procedure_with_include_throws(bool async)
         {
             using var context = CreateContext();
             var query = context.Set<Product>()
@@ -154,7 +154,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             }
         }
 
-        public override async Task From_sql_queryable_with_multiple_stored_procedures(bool async)
+        public async Task From_sql_queryable_with_multiple_stored_procedures(bool async)
         {
             using var context = CreateContext();
             var query = from a in context.Set<MostExpensiveProduct>()
@@ -174,7 +174,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             }
         }
 
-        public override async Task From_sql_queryable_stored_procedure_and_select(bool async)
+        public async Task From_sql_queryable_stored_procedure_and_select(bool async)
         {
             using var context = CreateContext();
             var query = from mep in context.Set<MostExpensiveProduct>()
@@ -194,7 +194,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             }
         }
 
-        public override async Task From_sql_queryable_select_and_stored_procedure(bool async)
+        public async Task From_sql_queryable_select_and_stored_procedure(bool async)
         {
             using var context = CreateContext();
             var query = from p in context.Set<Product>().FromSqlRaw(NormalizeDelimitersInRawString("SELECT * FROM [Products]"))

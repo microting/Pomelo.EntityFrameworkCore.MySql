@@ -23,12 +23,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [ConditionalTheory]
-        public override Task Include_duplicate_collection(bool async)
+        public Task Include_duplicate_collection(bool async)
         {
             return base.Include_duplicate_collection(async);
         }
 
-        public override Task Include_collection_with_multiple_conditional_order_by(bool async)
+        public Task Include_collection_with_multiple_conditional_order_by(bool async)
         {
             // The order of `Orders` can be different, because it is not explicitly sorted.
             // This is the case on MariaDB.
@@ -43,7 +43,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 elementAsserter: (e, a) => AssertInclude(e, a, new ExpectedInclude<Order>(o => o.OrderDetails)));
         }
 
-        public override Task Include_duplicate_collection_result_operator(bool async)
+        public Task Include_duplicate_collection_result_operator(bool async)
         {
             // The order of `Orders` can be different, because it is not explicitly sorted.
             // This is the case on MariaDB.
@@ -60,7 +60,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 });
         }
 
-        public override Task Include_duplicate_collection_result_operator2(bool async)
+        public Task Include_duplicate_collection_result_operator2(bool async)
         {
             // The order of `Orders` can be different, because it is not explicitly sorted.
             // This is the case on MariaDB.
@@ -77,7 +77,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 });
         }
 
-        public override Task Repro9735(bool async)
+        public Task Repro9735(bool async)
         {
             return AssertQuery(
                 async,
