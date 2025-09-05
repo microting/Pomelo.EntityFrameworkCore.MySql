@@ -28,7 +28,7 @@ public class NorthwindBulkUpdatesMySqlTest : NorthwindBulkUpdatesRelationalTestB
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
-    public override async Task Delete_Where_TagWith(bool async)
+    public async Task Delete_Where_TagWith(bool async)
     {
         await base.Delete_Where_TagWith(async);
 
@@ -42,7 +42,7 @@ WHERE `o`.`OrderID` < 10300
 """);
     }
 
-    public override async Task Delete_Where(bool async)
+    public async Task Delete_Where(bool async)
     {
         await base.Delete_Where(async);
 
@@ -54,7 +54,7 @@ WHERE `o`.`OrderID` < 10300
 """);
     }
 
-    public override async Task Delete_Where_parameter(bool async)
+    public async Task Delete_Where_parameter(bool async)
     {
         await base.Delete_Where_parameter(async);
 
@@ -74,7 +74,7 @@ WHERE FALSE
 """);
     }
 
-    public override async Task Delete_Where_OrderBy(bool async)
+    public async Task Delete_Where_OrderBy(bool async)
     {
         await base.Delete_Where_OrderBy(async);
 
@@ -87,7 +87,7 @@ ORDER BY `OrderID`
 """);
     }
 
-    public override async Task Delete_Where_OrderBy_Skip(bool async)
+    public async Task Delete_Where_OrderBy_Skip(bool async)
     {
         await base.Delete_Where_OrderBy_Skip(async);
 
@@ -110,7 +110,7 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_Where_OrderBy_Take(bool async)
+    public async Task Delete_Where_OrderBy_Take(bool async)
     {
         await base.Delete_Where_OrderBy_Take(async);
 
@@ -126,7 +126,7 @@ LIMIT @__p_0
 """);
     }
 
-    public override async Task Delete_Where_OrderBy_Skip_Take(bool async)
+    public async Task Delete_Where_OrderBy_Skip_Take(bool async)
     {
         await base.Delete_Where_OrderBy_Skip_Take(async);
 
@@ -149,7 +149,7 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_Where_Skip(bool async)
+    public async Task Delete_Where_Skip(bool async)
     {
         await base.Delete_Where_Skip(async);
 
@@ -171,7 +171,7 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_Where_Take(bool async)
+    public async Task Delete_Where_Take(bool async)
     {
         await base.Delete_Where_Take(async);
 
@@ -186,7 +186,7 @@ LIMIT @__p_0
 """);
     }
 
-    public override async Task Delete_Where_Skip_Take(bool async)
+    public async Task Delete_Where_Skip_Take(bool async)
     {
         await base.Delete_Where_Skip_Take(async);
 
@@ -208,7 +208,7 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_Where_predicate_with_GroupBy_aggregate(bool async)
+    public async Task Delete_Where_predicate_with_GroupBy_aggregate(bool async)
     {
         await base.Delete_Where_predicate_with_GroupBy_aggregate(async);
 
@@ -229,7 +229,7 @@ WHERE `o`.`OrderID` < (
 """);
     }
 
-    public override async Task Delete_Where_predicate_with_GroupBy_aggregate_2(bool async)
+    public async Task Delete_Where_predicate_with_GroupBy_aggregate_2(bool async)
     {
         await base.Delete_Where_predicate_with_GroupBy_aggregate_2(async);
 
@@ -251,21 +251,21 @@ WHERE `o0`.`OrderID` IN (
 """);
     }
 
-    public override async Task Delete_GroupBy_Where_Select(bool async)
+    public async Task Delete_GroupBy_Where_Select(bool async)
     {
         await base.Delete_GroupBy_Where_Select(async);
 
         AssertSql();
     }
 
-    public override async Task Delete_GroupBy_Where_Select_2(bool async)
+    public async Task Delete_GroupBy_Where_Select_2(bool async)
     {
         await base.Delete_GroupBy_Where_Select_2(async);
 
         AssertSql();
     }
 
-    public override async Task Delete_Where_Skip_Take_Skip_Take_causing_subquery(bool async)
+    public async Task Delete_Where_Skip_Take_Skip_Take_causing_subquery(bool async)
     {
         await base.Delete_Where_Skip_Take_Skip_Take_causing_subquery(async);
 
@@ -293,7 +293,7 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_Where_Distinct(bool async)
+    public async Task Delete_Where_Distinct(bool async)
     {
         await base.Delete_Where_Distinct(async);
 
@@ -305,7 +305,7 @@ WHERE `o`.`OrderID` < 10300
 """);
     }
 
-    public override async Task Delete_SelectMany(bool async)
+    public async Task Delete_SelectMany(bool async)
     {
         await base.Delete_SelectMany(async);
 
@@ -318,7 +318,7 @@ WHERE `o`.`OrderID` < 10250
 """);
     }
 
-    public override async Task Delete_SelectMany_subquery(bool async)
+    public async Task Delete_SelectMany_subquery(bool async)
     {
         await base.Delete_SelectMany_subquery(async);
 
@@ -338,7 +338,7 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_Where_using_navigation(bool async)
+    public async Task Delete_Where_using_navigation(bool async)
     {
         await base.Delete_Where_using_navigation(async);
 
@@ -351,7 +351,7 @@ WHERE EXTRACT(year FROM `o0`.`OrderDate`) = 2000
 """);
     }
 
-    public override async Task Delete_Where_using_navigation_2(bool async)
+    public async Task Delete_Where_using_navigation_2(bool async)
     {
         await base.Delete_Where_using_navigation_2(async);
         AssertSql(
@@ -364,7 +364,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Delete_Union(bool async)
+    public async Task Delete_Union(bool async)
     {
         await base.Delete_Union(async);
 
@@ -387,7 +387,7 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_Concat(bool async)
+    public async Task Delete_Concat(bool async)
     {
         await base.Delete_Concat(async);
 
@@ -410,7 +410,7 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_Intersect(bool async)
+    public async Task Delete_Intersect(bool async)
     {
         await base.Delete_Intersect(async);
 
@@ -433,7 +433,7 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_Except(bool async)
+    public async Task Delete_Except(bool async)
     {
         await base.Delete_Except(async);
 
@@ -456,28 +456,28 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_non_entity_projection(bool async)
+    public async Task Delete_non_entity_projection(bool async)
     {
         await base.Delete_non_entity_projection(async);
 
         AssertSql();
     }
 
-    public override async Task Delete_non_entity_projection_2(bool async)
+    public async Task Delete_non_entity_projection_2(bool async)
     {
         await base.Delete_non_entity_projection_2(async);
 
         AssertSql();
     }
 
-    public override async Task Delete_non_entity_projection_3(bool async)
+    public async Task Delete_non_entity_projection_3(bool async)
     {
         await base.Delete_non_entity_projection_3(async);
 
         AssertSql();
     }
 
-    public override async Task Delete_FromSql_converted_to_subquery(bool async)
+    public async Task Delete_FromSql_converted_to_subquery(bool async)
     {
         await base.Delete_FromSql_converted_to_subquery(async);
 
@@ -496,7 +496,7 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Delete_Where_optional_navigation_predicate(bool async)
+    public async Task Delete_Where_optional_navigation_predicate(bool async)
     {
         await base.Delete_Where_optional_navigation_predicate(async);
         AssertSql(
@@ -509,7 +509,7 @@ WHERE `c`.`City` LIKE 'Se%'
 """);
     }
 
-    public override async Task Delete_with_join(bool async)
+    public async Task Delete_with_join(bool async)
     {
         await base.Delete_with_join(async);
 
@@ -530,7 +530,7 @@ INNER JOIN (
 """);
     }
 
-    public override async Task Delete_with_left_join(bool async)
+    public async Task Delete_with_left_join(bool async)
     {
         await base.Delete_with_left_join(async);
 
@@ -552,7 +552,7 @@ WHERE `o`.`OrderID` < 10276
 """);
     }
 
-    public override async Task Delete_with_cross_join(bool async)
+    public async Task Delete_with_cross_join(bool async)
     {
         await base.Delete_with_cross_join(async);
 
@@ -571,7 +571,7 @@ WHERE `o`.`OrderID` < 10276
 """);
     }
 
-    public override async Task Delete_with_cross_apply(bool async)
+    public async Task Delete_with_cross_apply(bool async)
     {
         await base.Delete_with_cross_apply(async);
 
@@ -590,7 +590,7 @@ WHERE `o`.`OrderID` < 10276
 """);
     }
 
-    public override async Task Delete_with_outer_apply(bool async)
+    public async Task Delete_with_outer_apply(bool async)
     {
         await base.Delete_with_outer_apply(async);
 
@@ -609,7 +609,7 @@ WHERE `o`.`OrderID` < 10276
 """);
     }
 
-    public override async Task Update_Where_set_constant_TagWith(bool async)
+    public async Task Update_Where_set_constant_TagWith(bool async)
     {
         await base.Update_Where_set_constant_TagWith(async);
 
@@ -623,7 +623,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_set_constant(bool async)
+    public async Task Update_Where_set_constant(bool async)
     {
         await base.Update_Where_set_constant(async);
 
@@ -635,7 +635,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_parameter_set_constant(bool async)
+    public async Task Update_Where_parameter_set_constant(bool async)
     {
         await base.Update_Where_parameter_set_constant(async);
         AssertExecuteUpdateSql(
@@ -668,7 +668,7 @@ WHERE FALSE
 """);
     }
 
-    public override async Task Update_Where_set_parameter(bool async)
+    public async Task Update_Where_set_parameter(bool async)
     {
         await base.Update_Where_set_parameter(async);
         AssertExecuteUpdateSql(
@@ -681,7 +681,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_set_parameter_from_closure_array(bool async)
+    public async Task Update_Where_set_parameter_from_closure_array(bool async)
     {
         await base.Update_Where_set_parameter_from_closure_array(async);
         AssertExecuteUpdateSql(
@@ -694,7 +694,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_set_parameter_from_inline_list(bool async)
+    public async Task Update_Where_set_parameter_from_inline_list(bool async)
     {
         await base.Update_Where_set_parameter_from_inline_list(async);
 
@@ -706,7 +706,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_set_parameter_from_multilevel_property_access(bool async)
+    public async Task Update_Where_set_parameter_from_multilevel_property_access(bool async)
     {
         await base.Update_Where_set_parameter_from_multilevel_property_access(async);
         AssertExecuteUpdateSql(
@@ -719,7 +719,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_Skip_set_constant(bool async)
+    public async Task Update_Where_Skip_set_constant(bool async)
     {
         await base.Update_Where_Skip_set_constant(async);
 
@@ -738,7 +738,7 @@ SET `c0`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Where_Take_set_constant(bool async)
+    public async Task Update_Where_Take_set_constant(bool async)
     {
         await AssertUpdate(
             async,
@@ -760,7 +760,7 @@ LIMIT @__p_0
     }
 
     [SupportedServerVersionCondition("0.0.0-mysql", Skip = "Can fail non-deterministically when targeting MySQL, if certain tests precede it.")]
-    public override async Task Update_Where_Skip_Take_set_constant(bool async)
+    public async Task Update_Where_Skip_Take_set_constant(bool async)
     {
         await base.Update_Where_Skip_Take_set_constant(async);
 
@@ -780,7 +780,7 @@ SET `c0`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Where_OrderBy_set_constant(bool async)
+    public async Task Update_Where_OrderBy_set_constant(bool async)
     {
         await base.Update_Where_OrderBy_set_constant(async);
 
@@ -796,7 +796,7 @@ SET `c0`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Where_OrderBy_Skip_set_constant(bool async)
+    public async Task Update_Where_OrderBy_Skip_set_constant(bool async)
     {
         await base.Update_Where_OrderBy_Skip_set_constant(async);
 
@@ -816,7 +816,7 @@ SET `c0`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Where_OrderBy_Take_set_constant(bool async)
+    public async Task Update_Where_OrderBy_Take_set_constant(bool async)
     {
         await base.Update_Where_OrderBy_Take_set_constant(async);
 
@@ -836,7 +836,7 @@ SET `c0`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Where_OrderBy_Skip_Take_set_constant(bool async)
+    public async Task Update_Where_OrderBy_Skip_Take_set_constant(bool async)
     {
         await base.Update_Where_OrderBy_Skip_Take_set_constant(async);
 
@@ -857,7 +857,7 @@ SET `c0`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Where_OrderBy_Skip_Take_Skip_Take_set_constant(bool async)
+    public async Task Update_Where_OrderBy_Skip_Take_Skip_Take_set_constant(bool async)
     {
         await base.Update_Where_OrderBy_Skip_Take_Skip_Take_set_constant(async);
 
@@ -883,7 +883,7 @@ SET `c1`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Where_GroupBy_aggregate_set_constant(bool async)
+    public async Task Update_Where_GroupBy_aggregate_set_constant(bool async)
     {
         await base.Update_Where_GroupBy_aggregate_set_constant(async);
 
@@ -900,7 +900,7 @@ WHERE `c`.`CustomerID` = (
 """);
     }
 
-    public override async Task Update_Where_GroupBy_First_set_constant(bool async)
+    public async Task Update_Where_GroupBy_First_set_constant(bool async)
     {
         await base.Update_Where_GroupBy_First_set_constant(async);
 
@@ -921,14 +921,14 @@ WHERE `c`.`CustomerID` = (
 """);
     }
 
-    public override async Task Update_Where_GroupBy_First_set_constant_2(bool async)
+    public async Task Update_Where_GroupBy_First_set_constant_2(bool async)
     {
         await base.Update_Where_GroupBy_First_set_constant_2(async);
 
         AssertExecuteUpdateSql();
     }
 
-    public override async Task Update_Where_GroupBy_First_set_constant_3(bool async)
+    public async Task Update_Where_GroupBy_First_set_constant_3(bool async)
     {
         if (AppConfig.ServerVersion.Type == ServerType.MySql)
         {
@@ -961,7 +961,7 @@ WHERE `c`.`CustomerID` IN (
         }
     }
 
-    public override async Task Update_Where_Distinct_set_constant(bool async)
+    public async Task Update_Where_Distinct_set_constant(bool async)
     {
         await base.Update_Where_Distinct_set_constant(async);
 
@@ -977,7 +977,7 @@ SET `c0`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Where_using_navigation_set_null(bool async)
+    public async Task Update_Where_using_navigation_set_null(bool async)
     {
         await base.Update_Where_using_navigation_set_null(async);
 
@@ -990,7 +990,7 @@ WHERE `c`.`City` = 'Seattle'
 """);
     }
 
-    public override async Task Update_Where_using_navigation_2_set_constant(bool async)
+    public async Task Update_Where_using_navigation_2_set_constant(bool async)
     {
         await base.Update_Where_using_navigation_2_set_constant(async);
 
@@ -1004,7 +1004,7 @@ WHERE `c`.`City` = 'Seattle'
 """);
     }
 
-    public override async Task Update_Where_SelectMany_set_null(bool async)
+    public async Task Update_Where_SelectMany_set_null(bool async)
     {
         await base.Update_Where_SelectMany_set_null(async);
 
@@ -1017,7 +1017,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_set_property_plus_constant(bool async)
+    public async Task Update_Where_set_property_plus_constant(bool async)
     {
         await base.Update_Where_set_property_plus_constant(async);
 
@@ -1029,7 +1029,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_set_property_plus_parameter(bool async)
+    public async Task Update_Where_set_property_plus_parameter(bool async)
     {
         await base.Update_Where_set_property_plus_parameter(async);
 
@@ -1043,7 +1043,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_set_property_plus_property(bool async)
+    public async Task Update_Where_set_property_plus_property(bool async)
     {
         await base.Update_Where_set_property_plus_property(async);
 
@@ -1055,7 +1055,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_set_constant_using_ef_property(bool async)
+    public async Task Update_Where_set_constant_using_ef_property(bool async)
     {
         await base.Update_Where_set_constant_using_ef_property(async);
 
@@ -1067,7 +1067,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_set_null(bool async)
+    public async Task Update_Where_set_null(bool async)
     {
         await base.Update_Where_set_null(async);
 
@@ -1079,21 +1079,21 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_without_property_to_set_throws(bool async)
+    public async Task Update_without_property_to_set_throws(bool async)
     {
         await base.Update_without_property_to_set_throws(async);
 
         AssertExecuteUpdateSql();
     }
 
-    public override async Task Update_with_invalid_lambda_throws(bool async)
+    public async Task Update_with_invalid_lambda_throws(bool async)
     {
         await base.Update_with_invalid_lambda_throws(async);
 
         AssertExecuteUpdateSql();
     }
 
-    public override async Task Update_Where_multiple_set(bool async)
+    public async Task Update_Where_multiple_set(bool async)
     {
         await base.Update_Where_multiple_set(async);
 
@@ -1108,21 +1108,21 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_with_invalid_lambda_in_set_property_throws(bool async)
+    public async Task Update_with_invalid_lambda_in_set_property_throws(bool async)
     {
         await base.Update_with_invalid_lambda_in_set_property_throws(async);
 
         AssertExecuteUpdateSql();
     }
 
-    public override async Task Update_unmapped_property_throws(bool async)
+    public async Task Update_unmapped_property_throws(bool async)
     {
         await base.Update_unmapped_property_throws(async);
 
         AssertExecuteUpdateSql();
     }
 
-    public override async Task Update_Union_set_constant(bool async)
+    public async Task Update_Union_set_constant(bool async)
     {
         await base.Update_Union_set_constant(async);
 
@@ -1142,7 +1142,7 @@ SET `c1`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Concat_set_constant(bool async)
+    public async Task Update_Concat_set_constant(bool async)
     {
         await base.Update_Concat_set_constant(async);
 
@@ -1162,7 +1162,7 @@ SET `c1`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Except_set_constant(bool async)
+    public async Task Update_Except_set_constant(bool async)
     {
         await base.Update_Except_set_constant(async);
 
@@ -1182,7 +1182,7 @@ SET `c1`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_Intersect_set_constant(bool async)
+    public async Task Update_Intersect_set_constant(bool async)
     {
         await base.Update_Intersect_set_constant(async);
 
@@ -1202,7 +1202,7 @@ SET `c1`.`ContactName` = 'Updated'
 """);
     }
 
-    public override async Task Update_with_join_set_constant(bool async)
+    public async Task Update_with_join_set_constant(bool async)
     {
         await base.Update_with_join_set_constant(async);
 
@@ -1219,7 +1219,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_with_left_join_set_constant(bool async)
+    public async Task Update_with_left_join_set_constant(bool async)
     {
         await base.Update_with_left_join_set_constant(async);
 
@@ -1236,7 +1236,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_with_cross_join_set_constant(bool async)
+    public async Task Update_with_cross_join_set_constant(bool async)
     {
         await base.Update_with_cross_join_set_constant(async);
 
@@ -1253,7 +1253,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_with_cross_apply_set_constant(bool async)
+    public async Task Update_with_cross_apply_set_constant(bool async)
     {
         await base.Update_with_cross_apply_set_constant(async);
 
@@ -1270,7 +1270,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_with_outer_apply_set_constant(bool async)
+    public async Task Update_with_outer_apply_set_constant(bool async)
     {
         await base.Update_with_outer_apply_set_constant(async);
 
@@ -1287,7 +1287,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_with_cross_join_left_join_set_constant(bool async)
+    public async Task Update_with_cross_join_left_join_set_constant(bool async)
     {
         await base.Update_with_cross_join_left_join_set_constant(async);
 
@@ -1309,7 +1309,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_with_cross_join_cross_apply_set_constant(bool async)
+    public async Task Update_with_cross_join_cross_apply_set_constant(bool async)
     {
         await base.Update_with_cross_join_cross_apply_set_constant(async);
 
@@ -1331,7 +1331,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_with_cross_join_outer_apply_set_constant(bool async)
+    public async Task Update_with_cross_join_outer_apply_set_constant(bool async)
     {
         await base.Update_with_cross_join_outer_apply_set_constant(async);
 
@@ -1353,14 +1353,14 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_FromSql_set_constant(bool async)
+    public async Task Update_FromSql_set_constant(bool async)
     {
         await base.Update_FromSql_set_constant(async);
 
         AssertExecuteUpdateSql();
     }
 
-    public override async Task Update_Where_SelectMany_subquery_set_null(bool async)
+    public async Task Update_Where_SelectMany_subquery_set_null(bool async)
     {
         await base.Update_Where_SelectMany_subquery_set_null(async);
 
@@ -1381,7 +1381,7 @@ SET `o1`.`OrderDate` = NULL
 """);
     }
 
-    public override async Task Update_Where_Join_set_property_from_joined_single_result_table(bool async)
+    public async Task Update_Where_Join_set_property_from_joined_single_result_table(bool async)
     {
         await base.Update_Where_Join_set_property_from_joined_single_result_table(async);
 
@@ -1398,7 +1398,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_Join_set_property_from_joined_table(bool async)
+    public async Task Update_Where_Join_set_property_from_joined_table(bool async)
     {
         await base.Update_Where_Join_set_property_from_joined_table(async);
 
@@ -1415,7 +1415,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_Where_Join_set_property_from_joined_single_result_scalar(bool async)
+    public async Task Update_Where_Join_set_property_from_joined_single_result_scalar(bool async)
     {
         await base.Update_Where_Join_set_property_from_joined_single_result_scalar(async);
 
@@ -1432,7 +1432,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_multiple_tables_throws(bool async)
+    public async Task Update_multiple_tables_throws(bool async)
     {
         await base.Update_multiple_tables_throws(async);
 
@@ -1445,7 +1445,7 @@ WHERE `o`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_with_two_inner_joins(bool async)
+    public async Task Update_with_two_inner_joins(bool async)
     {
         await base.Update_with_two_inner_joins(async);
 

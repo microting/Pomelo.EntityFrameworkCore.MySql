@@ -22,7 +22,7 @@ public class Ef6GroupByMySqlTest : Ef6GroupByTestBase<Ef6GroupByMySqlTest.Ef6Gro
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
-    public override async Task GroupBy_is_optimized_when_projecting_group_key(bool async)
+    public async Task GroupBy_is_optimized_when_projecting_group_key(bool async)
     {
         await base.GroupBy_is_optimized_when_projecting_group_key(async);
 
@@ -42,7 +42,7 @@ GROUP BY `a`.`FirstName`
         // )  AS [Distinct1]";
     }
 
-    public override async Task GroupBy_is_optimized_when_projecting_group_count(bool async)
+    public async Task GroupBy_is_optimized_when_projecting_group_count(bool async)
     {
         await base.GroupBy_is_optimized_when_projecting_group_count(async);
 
@@ -64,7 +64,7 @@ GROUP BY `a`.`FirstName`
         // )  AS [GroupBy1]";
     }
 
-    public override async Task GroupBy_is_optimized_when_projecting_expression_containing_group_key(bool async)
+    public async Task GroupBy_is_optimized_when_projecting_expression_containing_group_key(bool async)
     {
         await base.GroupBy_is_optimized_when_projecting_expression_containing_group_key(async);
 
@@ -81,7 +81,7 @@ GROUP BY `a`.`Id`
         // FROM [dbo].[ArubaOwners] AS [Extent1]";
     }
 
-    public override async Task GroupBy_is_optimized_when_projecting_aggregate_on_the_group(bool async)
+    public async Task GroupBy_is_optimized_when_projecting_aggregate_on_the_group(bool async)
     {
         await base.GroupBy_is_optimized_when_projecting_aggregate_on_the_group(async);
 
@@ -103,7 +103,7 @@ GROUP BY `a`.`FirstName`
         // )  AS [GroupBy1]";
     }
 
-    public override async Task GroupBy_is_optimized_when_projecting_anonymous_type_containing_group_key_and_group_aggregate(bool async)
+    public async Task GroupBy_is_optimized_when_projecting_anonymous_type_containing_group_key_and_group_aggregate(bool async)
     {
         await base.GroupBy_is_optimized_when_projecting_anonymous_type_containing_group_key_and_group_aggregate(async);
 
@@ -127,7 +127,7 @@ GROUP BY `a`.`FirstName`
         // )  AS [GroupBy1]";
     }
 
-    public override async Task GroupBy_is_optimized_when_projecting_anonymous_type_containing_group_key_and_multiple_group_aggregates(
+    public async Task GroupBy_is_optimized_when_projecting_anonymous_type_containing_group_key_and_multiple_group_aggregates(
         bool async)
     {
         await base.GroupBy_is_optimized_when_projecting_anonymous_type_containing_group_key_and_multiple_group_aggregates(async);
@@ -159,7 +159,7 @@ GROUP BY `a`.`FirstName`
         // )  AS [GroupBy1]";
     }
 
-    public override async Task GroupBy_is_optimized_when_projecting_conditional_expression_containing_group_key(bool async)
+    public async Task GroupBy_is_optimized_when_projecting_conditional_expression_containing_group_key(bool async)
     {
         await base.GroupBy_is_optimized_when_projecting_conditional_expression_containing_group_key(async);
 
@@ -184,7 +184,7 @@ GROUP BY `a`.`FirstName`
         // )  AS [Distinct1]";
     }
 
-    public override async Task GroupBy_is_optimized_when_filtering_and_projecting_anonymous_type_with_group_key_and_function_aggregate(
+    public async Task GroupBy_is_optimized_when_filtering_and_projecting_anonymous_type_with_group_key_and_function_aggregate(
         bool async)
     {
         await base.GroupBy_is_optimized_when_filtering_and_projecting_anonymous_type_with_group_key_and_function_aggregate(async);
@@ -211,7 +211,7 @@ GROUP BY `a`.`FirstName`
         // )  AS [GroupBy1]";
     }
 
-    public override async Task GroupBy_is_optimized_when_projecting_function_aggregate_with_expression(bool async)
+    public async Task GroupBy_is_optimized_when_projecting_function_aggregate_with_expression(bool async)
     {
         await base.GroupBy_is_optimized_when_projecting_function_aggregate_with_expression(async);
 
@@ -237,7 +237,7 @@ GROUP BY `a`.`FirstName`
         // )  AS [GroupBy1]";
     }
 
-    public override async Task GroupBy_is_optimized_when_projecting_expression_with_multiple_function_aggregates(bool async)
+    public async Task GroupBy_is_optimized_when_projecting_expression_with_multiple_function_aggregates(bool async)
     {
         await base.GroupBy_is_optimized_when_projecting_expression_with_multiple_function_aggregates(async);
 
@@ -261,7 +261,7 @@ GROUP BY `a`.`FirstName`
         // )  AS [GroupBy1]";
     }
 
-    public override async Task GroupBy_is_optimized_when_grouping_by_row_and_projecting_column_of_the_key_row(bool async)
+    public async Task GroupBy_is_optimized_when_grouping_by_row_and_projecting_column_of_the_key_row(bool async)
     {
         await base.GroupBy_is_optimized_when_grouping_by_row_and_projecting_column_of_the_key_row(async);
 
@@ -283,7 +283,7 @@ GROUP BY `a`.`FirstName`
         // )  AS [Distinct1]";
     }
 
-    public override async Task Grouping_by_all_columns_doesnt_produce_a_groupby_statement(bool async)
+    public async Task Grouping_by_all_columns_doesnt_produce_a_groupby_statement(bool async)
     {
         await base.Grouping_by_all_columns_doesnt_produce_a_groupby_statement(async);
 
@@ -295,7 +295,7 @@ GROUP BY `a`.`Id`, `a`.`Alias`, `a`.`FirstName`, `a`.`LastName`
 """);
     }
 
-    public override async Task Grouping_by_all_columns_with_aggregate_function_works_1(bool async)
+    public async Task Grouping_by_all_columns_with_aggregate_function_works_1(bool async)
     {
         await base.Grouping_by_all_columns_with_aggregate_function_works_1(async);
 
@@ -315,7 +315,7 @@ GROUP BY `a`.`Id`, `a`.`FirstName`, `a`.`LastName`, `a`.`Alias`
         //     FROM [dbo].[ArubaOwners] AS [Extent1]";
     }
 
-    public override async Task Grouping_by_all_columns_with_aggregate_function_works_2(bool async)
+    public async Task Grouping_by_all_columns_with_aggregate_function_works_2(bool async)
     {
         await base.Grouping_by_all_columns_with_aggregate_function_works_2(async);
 
@@ -327,7 +327,7 @@ GROUP BY `a`.`Id`, `a`.`Alias`, `a`.`FirstName`, `a`.`LastName`
 """);
     }
 
-    public override async Task Grouping_by_all_columns_with_aggregate_function_works_3(bool async)
+    public async Task Grouping_by_all_columns_with_aggregate_function_works_3(bool async)
     {
         await base.Grouping_by_all_columns_with_aggregate_function_works_3(async);
 
@@ -339,7 +339,7 @@ GROUP BY `a`.`Id`, `a`.`Alias`, `a`.`FirstName`, `a`.`LastName`
 """);
     }
 
-    public override async Task Grouping_by_all_columns_with_aggregate_function_works_4(bool async)
+    public async Task Grouping_by_all_columns_with_aggregate_function_works_4(bool async)
     {
         await base.Grouping_by_all_columns_with_aggregate_function_works_4(async);
 
@@ -351,7 +351,7 @@ GROUP BY `a`.`Id`, `a`.`Alias`, `a`.`FirstName`, `a`.`LastName`
 """);
     }
 
-    public override async Task Grouping_by_all_columns_with_aggregate_function_works_5(bool async)
+    public async Task Grouping_by_all_columns_with_aggregate_function_works_5(bool async)
     {
         await base.Grouping_by_all_columns_with_aggregate_function_works_5(async);
 
@@ -363,7 +363,7 @@ GROUP BY `a`.`Id`, `a`.`Alias`, `a`.`FirstName`, `a`.`LastName`
 """);
     }
 
-    public override async Task Grouping_by_all_columns_with_aggregate_function_works_6(bool async)
+    public async Task Grouping_by_all_columns_with_aggregate_function_works_6(bool async)
     {
         await base.Grouping_by_all_columns_with_aggregate_function_works_6(async);
 
@@ -375,7 +375,7 @@ GROUP BY `a`.`Id`, `a`.`Alias`, `a`.`FirstName`, `a`.`LastName`
 """);
     }
 
-    public override async Task Grouping_by_all_columns_with_aggregate_function_works_7(bool async)
+    public async Task Grouping_by_all_columns_with_aggregate_function_works_7(bool async)
     {
         await base.Grouping_by_all_columns_with_aggregate_function_works_7(async);
 
@@ -387,7 +387,7 @@ GROUP BY `a`.`Id`, `a`.`Alias`, `a`.`FirstName`, `a`.`LastName`
 """);
     }
 
-    public override async Task Grouping_by_all_columns_with_aggregate_function_works_8(bool async)
+    public async Task Grouping_by_all_columns_with_aggregate_function_works_8(bool async)
     {
         await base.Grouping_by_all_columns_with_aggregate_function_works_8(async);
 
@@ -399,7 +399,7 @@ GROUP BY `a`.`Id`, `a`.`Alias`, `a`.`FirstName`, `a`.`LastName`
 """);
     }
 
-    public override async Task Grouping_by_all_columns_with_aggregate_function_works_9(bool async)
+    public async Task Grouping_by_all_columns_with_aggregate_function_works_9(bool async)
     {
         await base.Grouping_by_all_columns_with_aggregate_function_works_9(async);
 
@@ -411,7 +411,7 @@ GROUP BY `a`.`Id`, `a`.`Alias`, `a`.`FirstName`, `a`.`LastName`
 """);
     }
 
-    public override async Task Grouping_by_all_columns_with_aggregate_function_works_10(bool async)
+    public async Task Grouping_by_all_columns_with_aggregate_function_works_10(bool async)
     {
         await base.Grouping_by_all_columns_with_aggregate_function_works_10(async);
 
@@ -423,63 +423,63 @@ GROUP BY `a`.`Id`, `a`.`Alias`, `a`.`FirstName`, `a`.`LastName`
 """);
     }
 
-    public override async Task GroupBy_Simple_1_from_LINQ_101(bool async)
+    public async Task GroupBy_Simple_1_from_LINQ_101(bool async)
     {
         await base.GroupBy_Simple_1_from_LINQ_101(async);
 
         AssertSql();
     }
 
-    public override async Task GroupBy_Simple_2_from_LINQ_101(bool async)
+    public async Task GroupBy_Simple_2_from_LINQ_101(bool async)
     {
         await base.GroupBy_Simple_2_from_LINQ_101(async);
 
         AssertSql();
     }
 
-    public override async Task GroupBy_Simple_3_from_LINQ_101(bool async)
+    public async Task GroupBy_Simple_3_from_LINQ_101(bool async)
     {
         await base.GroupBy_Simple_3_from_LINQ_101(async);
 
         AssertSql();
     }
 
-    public override async Task GroupBy_Nested_from_LINQ_101(bool async)
+    public async Task GroupBy_Nested_from_LINQ_101(bool async)
     {
         await base.GroupBy_Nested_from_LINQ_101(async);
 
         AssertSql();
     }
 
-    public override async Task Any_Grouped_from_LINQ_101(bool async)
+    public async Task Any_Grouped_from_LINQ_101(bool async)
     {
         await base.Any_Grouped_from_LINQ_101(async);
 
         AssertSql();
     }
 
-    public override async Task All_Grouped_from_LINQ_101(bool async)
+    public async Task All_Grouped_from_LINQ_101(bool async)
     {
         await base.All_Grouped_from_LINQ_101(async);
 
         AssertSql();
     }
 
-    public override async Task Min_Elements_from_LINQ_101(bool async)
+    public async Task Min_Elements_from_LINQ_101(bool async)
     {
         await base.Min_Elements_from_LINQ_101(async);
 
         AssertSql();
     }
 
-    public override async Task Max_Elements_from_LINQ_101(bool async)
+    public async Task Max_Elements_from_LINQ_101(bool async)
     {
         await base.Max_Elements_from_LINQ_101(async);
 
         AssertSql();
     }
 
-    public override async Task Group_Join_from_LINQ_101(bool async)
+    public async Task Group_Join_from_LINQ_101(bool async)
     {
         await base.Group_Join_from_LINQ_101(async);
 
@@ -497,7 +497,7 @@ ORDER BY `c`.`Id`, `s`.`Id`
     }
 
     [ConditionalTheory(Skip = "Check why this does not throw in CI (MySQL 8.0.x), but does locally in the mysql:latest docker container.")]
-    public override async Task Whats_new_2021_sample_3(bool async)
+    public async Task Whats_new_2021_sample_3(bool async)
     {
         // GroupBy debug assert. Issue #26104.
         Assert.StartsWith(
@@ -509,7 +509,7 @@ ORDER BY `c`.`Id`, `s`.`Id`
     }
 
     [ConditionalTheory(Skip = "Check why this does not throw in CI (MySQL 8.0.x), but does locally in the mysql:latest docker container.")]
-    public override async Task Whats_new_2021_sample_5(bool async)
+    public async Task Whats_new_2021_sample_5(bool async)
     {
         await base.Whats_new_2021_sample_5(async);
 
@@ -531,7 +531,7 @@ ORDER BY (
     }
 
     [ConditionalTheory(Skip = "Check why this does not throw in CI (MySQL 8.0.x), but does locally in the mysql:latest docker container.")]
-    public override async Task Whats_new_2021_sample_6(bool async)
+    public async Task Whats_new_2021_sample_6(bool async)
     {
         // GroupBy debug assert. Issue #26104.
         Assert.StartsWith(
@@ -542,14 +542,14 @@ ORDER BY (
         AssertSql();
     }
 
-    public override async Task Whats_new_2021_sample_14(bool async)
+    public async Task Whats_new_2021_sample_14(bool async)
     {
         await base.Whats_new_2021_sample_14(async);
 
         AssertSql();
     }
 
-    public override async Task Whats_new_2021_sample_15(bool async)
+    public async Task Whats_new_2021_sample_15(bool async)
     {
         await base.Whats_new_2021_sample_15(async);
 
@@ -574,14 +574,14 @@ LEFT JOIN (
 """);
     }
 
-    public override async Task Whats_new_2021_sample_16(bool async)
+    public async Task Whats_new_2021_sample_16(bool async)
     {
         await base.Whats_new_2021_sample_16(async);
 
         AssertSql();
     }
 
-    public override async Task Min_Grouped_from_LINQ_101(bool async)
+    public async Task Min_Grouped_from_LINQ_101(bool async)
     {
         await base.Min_Grouped_from_LINQ_101(async);
 
@@ -593,7 +593,7 @@ GROUP BY `p`.`Category`
 """);
     }
 
-    public override async Task Average_Grouped_from_LINQ_101(bool async)
+    public async Task Average_Grouped_from_LINQ_101(bool async)
     {
         await base.Average_Grouped_from_LINQ_101(async);
 
@@ -605,7 +605,7 @@ GROUP BY `p`.`Category`
 """);
     }
 
-    public override async Task Whats_new_2021_sample_8(bool async)
+    public async Task Whats_new_2021_sample_8(bool async)
     {
         await base.Whats_new_2021_sample_8(async);
 
@@ -621,7 +621,7 @@ FROM (
 """);
     }
 
-    public override async Task Whats_new_2021_sample_12(bool async)
+    public async Task Whats_new_2021_sample_12(bool async)
     {
         await base.Whats_new_2021_sample_12(async);
 
@@ -642,7 +642,7 @@ ORDER BY `p1`.`FirstName`, `s0`.`Id`
 """);
     }
 
-    public override async Task Whats_new_2021_sample_10(bool async)
+    public async Task Whats_new_2021_sample_10(bool async)
     {
         await base.Whats_new_2021_sample_10(async);
 
@@ -664,7 +664,7 @@ ORDER BY `s1`.`Id`, `s1`.`Style`, `s1`.`Age`, `s2`.`Id0`
 """);
     }
 
-    public override async Task Whats_new_2021_sample_13(bool async)
+    public async Task Whats_new_2021_sample_13(bool async)
     {
         await base.Whats_new_2021_sample_13(async);
 
@@ -681,7 +681,7 @@ ORDER BY `p1`.`FirstName`, `p1`.`MiddleInitial`, `p0`.`Id`
 """);
     }
 
-    public override async Task Cross_Join_with_Group_Join_from_LINQ_101(bool async)
+    public async Task Cross_Join_with_Group_Join_from_LINQ_101(bool async)
     {
         await base.Cross_Join_with_Group_Join_from_LINQ_101(async);
 
@@ -697,7 +697,7 @@ INNER JOIN (
 """);
     }
 
-    public override async Task Whats_new_2021_sample_2(bool async)
+    public async Task Whats_new_2021_sample_2(bool async)
     {
         await base.Whats_new_2021_sample_2(async);
 
@@ -723,7 +723,7 @@ ORDER BY `p1`.`FirstName`
 """);
     }
 
-    public override async Task Whats_new_2021_sample_1(bool async)
+    public async Task Whats_new_2021_sample_1(bool async)
     {
         await base.Whats_new_2021_sample_1(async);
 
@@ -748,7 +748,7 @@ ORDER BY `p1`.`FirstName`, `p3`.`Id`
 """);
     }
 
-    public override async Task Whats_new_2021_sample_7(bool async)
+    public async Task Whats_new_2021_sample_7(bool async)
     {
         await base.Whats_new_2021_sample_7(async);
 
@@ -771,7 +771,7 @@ GROUP BY `f`.`Size`, `p0`.`LastName`
 """);
     }
 
-    public override async Task Sum_Grouped_from_LINQ_101(bool async)
+    public async Task Sum_Grouped_from_LINQ_101(bool async)
     {
         await base.Sum_Grouped_from_LINQ_101(async);
 
@@ -783,7 +783,7 @@ GROUP BY `p`.`Category`
 """);
     }
 
-    public override async Task Count_Grouped_from_LINQ_101(bool async)
+    public async Task Count_Grouped_from_LINQ_101(bool async)
     {
         await base.Count_Grouped_from_LINQ_101(async);
 
@@ -795,7 +795,7 @@ GROUP BY `p`.`Category`
 """);
     }
 
-    public override async Task Whats_new_2021_sample_9(bool async)
+    public async Task Whats_new_2021_sample_9(bool async)
     {
         await base.Whats_new_2021_sample_9(async);
 
@@ -811,7 +811,7 @@ GROUP BY `p`.`FirstName`
 """);
     }
 
-    public override async Task LongCount_Grouped_from_LINQ_101(bool async)
+    public async Task LongCount_Grouped_from_LINQ_101(bool async)
     {
         await base.LongCount_Grouped_from_LINQ_101(async);
 
@@ -823,7 +823,7 @@ GROUP BY `p`.`Category`
 """);
     }
 
-    public override async Task Whats_new_2021_sample_4(bool async)
+    public async Task Whats_new_2021_sample_4(bool async)
     {
         await base.Whats_new_2021_sample_4(async);
 
@@ -841,7 +841,7 @@ GROUP BY `s`.`Style`
 """);
     }
 
-    public override async Task Left_Outer_Join_with_Group_Join_from_LINQ_101(bool async)
+    public async Task Left_Outer_Join_with_Group_Join_from_LINQ_101(bool async)
     {
         await base.Left_Outer_Join_with_Group_Join_from_LINQ_101(async);
 
@@ -862,7 +862,7 @@ ORDER BY `c`.`Id`, `s`.`Id`, `s`.`Id0`
 """);
     }
 
-    public override async Task Max_Grouped_from_LINQ_101(bool async)
+    public async Task Max_Grouped_from_LINQ_101(bool async)
     {
         await base.Max_Grouped_from_LINQ_101(async);
 
@@ -874,7 +874,7 @@ GROUP BY `p`.`Category`
 """);
     }
 
-    public override async Task Whats_new_2021_sample_11(bool async)
+    public async Task Whats_new_2021_sample_11(bool async)
     {
         await base.Whats_new_2021_sample_11(async);
 

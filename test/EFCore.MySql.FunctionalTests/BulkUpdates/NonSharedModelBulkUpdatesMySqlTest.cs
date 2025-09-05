@@ -16,7 +16,7 @@ public class NonSharedModelBulkUpdatesMySqlTest : NonSharedModelBulkUpdatesRelat
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
-    public override async Task Delete_aggregate_root_when_eager_loaded_owned_collection(bool async)
+    public async Task Delete_aggregate_root_when_eager_loaded_owned_collection(bool async)
     {
         await base.Delete_aggregate_root_when_eager_loaded_owned_collection(async);
 
@@ -27,7 +27,7 @@ FROM `Owner` AS `o`
 """);
     }
 
-    public override async Task Delete_aggregate_root_when_table_sharing_with_owned(bool async)
+    public async Task Delete_aggregate_root_when_table_sharing_with_owned(bool async)
     {
         await base.Delete_aggregate_root_when_table_sharing_with_owned(async);
 
@@ -38,14 +38,14 @@ FROM `Owner` AS `o`
 """);
     }
 
-    public override async Task Delete_aggregate_root_when_table_sharing_with_non_owned_throws(bool async)
+    public async Task Delete_aggregate_root_when_table_sharing_with_non_owned_throws(bool async)
     {
         await base.Delete_aggregate_root_when_table_sharing_with_non_owned_throws(async);
 
         AssertSql();
     }
 
-    public override async Task Delete_predicate_based_on_optional_navigation(bool async)
+    public async Task Delete_predicate_based_on_optional_navigation(bool async)
     {
         await base.Delete_predicate_based_on_optional_navigation(async);
 
@@ -58,7 +58,7 @@ WHERE `b`.`Title` LIKE 'Arthur%'
 """);
     }
 
-    public override async Task Update_non_owned_property_on_entity_with_owned(bool async)
+    public async Task Update_non_owned_property_on_entity_with_owned(bool async)
     {
         await base.Update_non_owned_property_on_entity_with_owned(async);
 
@@ -69,7 +69,7 @@ SET `o`.`Title` = 'SomeValue'
 """);
     }
 
-    public override async Task Update_non_owned_property_on_entity_with_owned2(bool async)
+    public async Task Update_non_owned_property_on_entity_with_owned2(bool async)
     {
         await base.Update_non_owned_property_on_entity_with_owned2(async);
 
@@ -80,7 +80,7 @@ SET `o`.`Title` = CONCAT(COALESCE(`o`.`Title`, ''), '_Suffix')
 """);
     }
 
-    public override async Task Update_owned_and_non_owned_properties_with_table_sharing(bool async)
+    public async Task Update_owned_and_non_owned_properties_with_table_sharing(bool async)
     {
         await base.Update_owned_and_non_owned_properties_with_table_sharing(async);
 
@@ -92,7 +92,7 @@ SET `o`.`OwnedReference_Number` = CHAR_LENGTH(`o`.`Title`),
 """);
     }
 
-    public override async Task Update_main_table_in_entity_with_entity_splitting(bool async)
+    public async Task Update_main_table_in_entity_with_entity_splitting(bool async)
     {
         await base.Update_main_table_in_entity_with_entity_splitting(async);
 
@@ -103,7 +103,7 @@ SET `b`.`CreationTimestamp` = TIMESTAMP '2020-01-01 00:00:00'
 """);
     }
 
-    public override async Task Update_non_main_table_in_entity_with_entity_splitting(bool async)
+    public async Task Update_non_main_table_in_entity_with_entity_splitting(bool async)
     {
         await base.Update_non_main_table_in_entity_with_entity_splitting(async);
 
@@ -116,7 +116,7 @@ SET `b0`.`Rating` = CHAR_LENGTH(`b0`.`Title`),
 """);
     }
 
-    public override async Task Delete_entity_with_auto_include(bool async)
+    public async Task Delete_entity_with_auto_include(bool async)
     {
         await base.Delete_entity_with_auto_include(async);
 
@@ -128,7 +128,7 @@ LEFT JOIN `Context30572_Dependent` AS `c0` ON `c`.`DependentId` = `c0`.`Id`
 """);
     }
 
-    public override async Task Update_with_alias_uniquification_in_setter_subquery(bool async)
+    public async Task Update_with_alias_uniquification_in_setter_subquery(bool async)
     {
         await base.Update_with_alias_uniquification_in_setter_subquery(async);
 
@@ -143,10 +143,10 @@ WHERE `o`.`Id` = 1
 """);
     }
 
-    public override Task Delete_with_owned_collection_and_non_natively_translatable_query(bool async)
+    public Task Delete_with_owned_collection_and_non_natively_translatable_query(bool async)
         => Assert.ThrowsAsync<MySqlException>(() =>base.Delete_with_owned_collection_and_non_natively_translatable_query(async));
 
-    public override async Task Update_non_owned_property_on_entity_with_owned_in_join(bool async)
+    public async Task Update_non_owned_property_on_entity_with_owned_in_join(bool async)
     {
         await base.Update_non_owned_property_on_entity_with_owned_in_join(async);
 
@@ -158,7 +158,7 @@ SET `o`.`Title` = 'NewValue'
 """);
     }
 
-    public override async Task Replace_ColumnExpression_in_column_setter(bool async)
+    public async Task Replace_ColumnExpression_in_column_setter(bool async)
     {
         await base.Replace_ColumnExpression_in_column_setter(async);
 

@@ -13,7 +13,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         {
         }
 
-        public override Task Can_insert_dependent_with_just_one_parent()
+        public Task Can_insert_dependent_with_just_one_parent()
         {
             // This scenario is not valid for TPT
             return Task.CompletedTask;

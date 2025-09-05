@@ -19,7 +19,7 @@ internal class OptionalDependentQueryMySqlTest : OptionalDependentQueryTestBase<
         // Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
-    public override async Task Basic_projection_entity_with_all_optional(bool async)
+    public async Task Basic_projection_entity_with_all_optional(bool async)
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() => base.Basic_projection_entity_with_all_optional(async));
 
@@ -30,7 +30,7 @@ internal class OptionalDependentQueryMySqlTest : OptionalDependentQueryTestBase<
 // """);
     }
 
-    public override async Task Basic_projection_entity_with_some_required(bool async)
+    public async Task Basic_projection_entity_with_some_required(bool async)
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() => base.Basic_projection_entity_with_some_required(async));
 
@@ -41,7 +41,7 @@ internal class OptionalDependentQueryMySqlTest : OptionalDependentQueryTestBase<
 // """);
     }
 
-    public override async Task Filter_optional_dependent_with_all_optional_compared_to_null(bool async)
+    public async Task Filter_optional_dependent_with_all_optional_compared_to_null(bool async)
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() => base.Filter_optional_dependent_with_all_optional_compared_to_null(async));
 
@@ -53,7 +53,7 @@ internal class OptionalDependentQueryMySqlTest : OptionalDependentQueryTestBase<
 // """);
     }
 
-    public override async Task Filter_optional_dependent_with_all_optional_compared_to_not_null(bool async)
+    public async Task Filter_optional_dependent_with_all_optional_compared_to_not_null(bool async)
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() => base.Filter_optional_dependent_with_all_optional_compared_to_not_null(async));
 
@@ -65,7 +65,7 @@ internal class OptionalDependentQueryMySqlTest : OptionalDependentQueryTestBase<
 // """);
     }
 
-    public override async Task Filter_optional_dependent_with_some_required_compared_to_null(bool async)
+    public async Task Filter_optional_dependent_with_some_required_compared_to_null(bool async)
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() => base.Filter_optional_dependent_with_some_required_compared_to_null(async));
 
@@ -77,7 +77,7 @@ internal class OptionalDependentQueryMySqlTest : OptionalDependentQueryTestBase<
 // """);
     }
 
-    public override async Task Filter_optional_dependent_with_some_required_compared_to_not_null(bool async)
+    public async Task Filter_optional_dependent_with_some_required_compared_to_not_null(bool async)
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() => base.Filter_optional_dependent_with_some_required_compared_to_not_null(async));
 
@@ -89,7 +89,7 @@ internal class OptionalDependentQueryMySqlTest : OptionalDependentQueryTestBase<
 // """);
     }
 
-    public override async Task Filter_nested_optional_dependent_with_all_optional_compared_to_null(bool async)
+    public async Task Filter_nested_optional_dependent_with_all_optional_compared_to_null(bool async)
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() => base.Filter_nested_optional_dependent_with_all_optional_compared_to_null(async));
 
@@ -101,7 +101,7 @@ internal class OptionalDependentQueryMySqlTest : OptionalDependentQueryTestBase<
 // """);
     }
 
-    public override async Task Filter_nested_optional_dependent_with_all_optional_compared_to_not_null(bool async)
+    public async Task Filter_nested_optional_dependent_with_all_optional_compared_to_not_null(bool async)
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() => base.Filter_nested_optional_dependent_with_all_optional_compared_to_not_null(async));
 
@@ -113,7 +113,7 @@ internal class OptionalDependentQueryMySqlTest : OptionalDependentQueryTestBase<
 // """);
     }
 
-    public override async Task Filter_nested_optional_dependent_with_some_required_compared_to_null(bool async)
+    public async Task Filter_nested_optional_dependent_with_some_required_compared_to_null(bool async)
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() => base.Filter_nested_optional_dependent_with_some_required_compared_to_null(async));
 
@@ -125,7 +125,7 @@ internal class OptionalDependentQueryMySqlTest : OptionalDependentQueryTestBase<
 // """);
     }
 
-    public override async Task Filter_nested_optional_dependent_with_some_required_compared_to_not_null(bool async)
+    public async Task Filter_nested_optional_dependent_with_some_required_compared_to_not_null(bool async)
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() => base.Filter_nested_optional_dependent_with_some_required_compared_to_not_null(async));
 

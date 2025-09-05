@@ -21,19 +21,19 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [ConditionalTheory(Skip = "Issue #573")]
-        public override Task Where_subquery_on_navigation(bool async)
+        public Task Where_subquery_on_navigation(bool async)
         {
             return base.Where_subquery_on_navigation(async);
         }
 
         [ConditionalTheory(Skip = "Issue #573")]
-        public override Task Where_subquery_on_navigation2(bool async)
+        public Task Where_subquery_on_navigation2(bool async)
         {
             return base.Where_subquery_on_navigation2(async);
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.OuterReferenceInMultiLevelSubquery))]
-        public override Task Navigation_in_subquery_referencing_outer_query_with_client_side_result_operator_and_count(bool async)
+        public Task Navigation_in_subquery_referencing_outer_query_with_client_side_result_operator_and_count(bool async)
         {
             return base.Navigation_in_subquery_referencing_outer_query_with_client_side_result_operator_and_count(async);
         }

@@ -17,13 +17,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.WhereSubqueryReferencesOuterQuery))]
-        public override Task Union_over_owned_collection(bool async)
+        public Task Union_over_owned_collection(bool async)
         {
             return base.Union_over_owned_collection(async);
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.WhereSubqueryReferencesOuterQuery))]
-        public override Task Distinct_over_owned_collection(bool async)
+        public Task Distinct_over_owned_collection(bool async)
         {
             return base.Distinct_over_owned_collection(async);
         }

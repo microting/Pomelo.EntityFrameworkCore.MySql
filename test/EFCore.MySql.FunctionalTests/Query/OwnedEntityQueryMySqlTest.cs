@@ -14,7 +14,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
     {
         protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
 
-        public override async Task Multiple_single_result_in_projection_containing_owned_types(bool async)
+        public async Task Multiple_single_result_in_projection_containing_owned_types(bool async)
         {
             await base.Multiple_single_result_in_projection_containing_owned_types(async);
 
@@ -43,7 +43,7 @@ LEFT JOIN (
 """);
         }
 
-        public override async Task Owned_collection_basic_split_query(bool async)
+        public async Task Owned_collection_basic_split_query(bool async)
         {
             // Use custom context to set prefix length, so we don't exhaust the max. key length.
             var contextFactory = await InitializeAsync<Context25680>(onModelCreating: modelBuilder =>
@@ -67,7 +67,7 @@ LEFT JOIN (
         }
 
         // Use base implementation once https://github.com/dotnet/efcore/pull/32509#issuecomment-1948812777 is fixed.
-        public override async Task Projecting_correlated_collection_property_for_owned_entity(bool async)
+        public async Task Projecting_correlated_collection_property_for_owned_entity(bool async)
         {
             var contextFactory = await InitializeAsync<Context18582>(seed: c => c.SeedAsync());
 
@@ -92,7 +92,7 @@ LEFT JOIN (
 
         // Use base implementation once https://github.com/dotnet/efcore/pull/32509#issuecomment-1948812777 is fixed and the base
         // implementation has been fixed to use a deterministic order.
-        public override async Task Correlated_subquery_with_owned_navigation_being_compared_to_null_works()
+        public async Task Correlated_subquery_with_owned_navigation_being_compared_to_null_works()
         {
             var contextFactory = await InitializeAsync<Context13157>(seed: c => c.SeedAsync());
 

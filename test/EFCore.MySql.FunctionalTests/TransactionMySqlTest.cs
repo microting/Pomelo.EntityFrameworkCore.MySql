@@ -36,7 +36,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         {
             protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
 
-            public override async Task ReseedAsync()
+            public async Task ReseedAsync()
             {
                 await using var context = CreateContext();
                 context.Set<TransactionCustomer>().RemoveRange(context.Set<TransactionCustomer>());

@@ -11,7 +11,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
 public class AdHocQueryFiltersQueryMySqlTest : AdHocQueryFiltersQueryRelationalTestBase
 {
-    public override async Task Group_by_multiple_aggregate_joining_different_tables(bool async)
+    public async Task Group_by_multiple_aggregate_joining_different_tables(bool async)
     {
         if (!AppConfig.ServerVersion.Supports.OuterReferenceInMultiLevelSubquery)
         {
@@ -52,7 +52,7 @@ GROUP BY `p0`.`Key`
 """);
     }
 
-    public override async Task Group_by_multiple_aggregate_joining_different_tables_with_query_filter(bool async)
+    public async Task Group_by_multiple_aggregate_joining_different_tables_with_query_filter(bool async)
     {
         if (!AppConfig.ServerVersion.Supports.OuterReferenceInMultiLevelSubquery)
         {

@@ -24,7 +24,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_now(bool async)
+        public async Task Where_datetime_now(bool async)
         {
             await base.Where_datetime_now(async);
 
@@ -37,7 +37,7 @@ WHERE CURRENT_TIMESTAMP(6) <> @__myDatetime_0");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_utcnow(bool async)
+        public async Task Where_datetime_utcnow(bool async)
         {
             await base.Where_datetime_utcnow(async);
 
@@ -50,7 +50,7 @@ WHERE UTC_TIMESTAMP(6) <> @__myDatetime_0");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_today(bool async)
+        public async Task Where_datetime_today(bool async)
         {
             await base.Where_datetime_today(async);
 
@@ -61,7 +61,7 @@ WHERE CONVERT(CURRENT_TIMESTAMP(6), date) = CURDATE()");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_date_component(bool async)
+        public async Task Where_datetime_date_component(bool async)
         {
             await base.Where_datetime_date_component(async);
 
@@ -74,7 +74,7 @@ WHERE CONVERT(`o`.`OrderDate`, date) = @__myDatetime_0");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_year_component(bool async)
+        public async Task Where_datetime_year_component(bool async)
         {
             await base.Where_datetime_year_component(async);
 
@@ -85,7 +85,7 @@ WHERE EXTRACT(year FROM `o`.`OrderDate`) = 1998");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_month_component(bool async)
+        public async Task Where_datetime_month_component(bool async)
         {
             await base.Where_datetime_month_component(async);
 
@@ -96,7 +96,7 @@ WHERE EXTRACT(month FROM `o`.`OrderDate`) = 4");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_dayOfYear_component(bool async)
+        public async Task Where_datetime_dayOfYear_component(bool async)
         {
             await base.Where_datetime_dayOfYear_component(async);
 
@@ -107,7 +107,7 @@ WHERE DAYOFYEAR(`o`.`OrderDate`) = 68");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_day_component(bool async)
+        public async Task Where_datetime_day_component(bool async)
         {
             await base.Where_datetime_day_component(async);
 
@@ -118,7 +118,7 @@ WHERE EXTRACT(day FROM `o`.`OrderDate`) = 4");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_hour_component(bool async)
+        public async Task Where_datetime_hour_component(bool async)
         {
             await base.Where_datetime_hour_component(async);
 
@@ -131,7 +131,7 @@ WHERE EXTRACT(hour FROM `o`.`OrderDate`) = 0
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_minute_component(bool async)
+        public async Task Where_datetime_minute_component(bool async)
         {
             await base.Where_datetime_minute_component(async);
 
@@ -144,7 +144,7 @@ WHERE EXTRACT(minute FROM `o`.`OrderDate`) = 0
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_second_component(bool async)
+        public async Task Where_datetime_second_component(bool async)
         {
             await base.Where_datetime_second_component(async);
 
@@ -157,7 +157,7 @@ WHERE EXTRACT(second FROM `o`.`OrderDate`) = 0
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_millisecond_component(bool async)
+        public async Task Where_datetime_millisecond_component(bool async)
         {
             await base.Where_datetime_millisecond_component(async);
 
@@ -170,7 +170,7 @@ WHERE (EXTRACT(microsecond FROM `o`.`OrderDate`)) DIV (1000) = 0
         }
 
         [ConditionalTheory]
-        public override async Task Where_string_length(bool async)
+        public async Task Where_string_length(bool async)
         {
             await base.Where_string_length(async);
             AssertSql(
@@ -180,7 +180,7 @@ WHERE CHAR_LENGTH(`c`.`City`) = 6");
         }
 
         [ConditionalTheory]
-        public override async Task Where_string_indexof(bool async)
+        public async Task Where_string_indexof(bool async)
         {
             await base.Where_string_indexof(async);
 
@@ -191,7 +191,7 @@ WHERE ((LOCATE('Sea', `c`.`City`) - 1) <> -1) OR `c`.`City` IS NULL");
         }
 
         [ConditionalTheory]
-        public override async Task Where_string_replace(bool async)
+        public async Task Where_string_replace(bool async)
         {
             await base.Where_string_replace(async);
 
@@ -202,7 +202,7 @@ WHERE REPLACE(`c`.`City`, 'Sea', 'Rea') = 'Reattle'");
         }
 
         [ConditionalTheory]
-        public override async Task Where_string_substring(bool async)
+        public async Task Where_string_substring(bool async)
         {
             await base.Where_string_substring(async);
 
@@ -213,19 +213,19 @@ WHERE SUBSTRING(`c`.`City`, 1 + 1, 2) = 'ea'");
         }
 
         [ConditionalTheory(Skip = "issue #573")]
-        public override Task Where_as_queryable_expression(bool async)
+        public Task Where_as_queryable_expression(bool async)
         {
             return base.Where_as_queryable_expression(async);
         }
 
         [ConditionalTheory(Skip = "issue #552")]
-        public override Task Where_multiple_contains_in_subquery_with_and(bool async)
+        public Task Where_multiple_contains_in_subquery_with_and(bool async)
         {
             return base.Where_multiple_contains_in_subquery_with_and(async);
         }
 
         [ConditionalTheory(Skip = "issue #552")]
-        public override Task Where_multiple_contains_in_subquery_with_or(bool async)
+        public Task Where_multiple_contains_in_subquery_with_or(bool async)
         {
             return base.Where_multiple_contains_in_subquery_with_or(async);
         }
@@ -277,7 +277,7 @@ FROM `Customers` AS `c`
 WHERE @__guidParameter_0 = UUID()");
         }
 
-        public override async Task Where_string_concat_method_comparison_2(bool async)
+        public async Task Where_string_concat_method_comparison_2(bool async)
         {
             await base.Where_string_concat_method_comparison_2(async);
 
@@ -292,7 +292,7 @@ WHERE CONCAT(@__i_0, @__j_1, `c`.`CustomerID`) = 'ABANATR'
 """);
         }
 
-        public override async Task Where_string_concat_method_comparison_3(bool async)
+        public async Task Where_string_concat_method_comparison_3(bool async)
         {
             await base.Where_string_concat_method_comparison_3(async);
 
@@ -598,7 +598,7 @@ FROM `Customers` AS `c`
 WHERE @__Concat_0 = `c`.`CompanyName`");
         }
 
-        public override async Task Where_bitwise_xor(bool async)
+        public async Task Where_bitwise_xor(bool async)
         {
             await base.Where_bitwise_xor(async);
 
@@ -622,7 +622,7 @@ If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersio
 The error is:
     MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
 """)]
-        public override Task Where_concat_string_int_comparison1(bool async)
+        public Task Where_concat_string_int_comparison1(bool async)
         {
             return base.Where_concat_string_int_comparison1(async);
         }
@@ -639,7 +639,7 @@ If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersio
 The error is:
     MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
 """)]
-        public override Task Where_concat_string_int_comparison2(bool async)
+        public Task Where_concat_string_int_comparison2(bool async)
         {
             return base.Where_concat_string_int_comparison2(async);
         }
@@ -656,7 +656,7 @@ If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersio
 The error is:
     MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
 """)]
-        public override Task Where_concat_string_int_comparison3(bool async)
+        public Task Where_concat_string_int_comparison3(bool async)
         {
             return base.Where_concat_string_int_comparison3(async);
         }
@@ -673,7 +673,7 @@ If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersio
 The error is:
     MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
 """)]
-        public override Task Where_concat_string_int_comparison4(bool async)
+        public Task Where_concat_string_int_comparison4(bool async)
         {
             return base.Where_concat_string_int_comparison4(async);
         }
@@ -690,12 +690,12 @@ If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersio
 The error is:
     MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_uca1400_ai_ci,COERCIBLE) for operation '='
 """)]
-        public override Task Using_same_parameter_twice_in_query_generates_one_sql_parameter(bool async)
+        public Task Using_same_parameter_twice_in_query_generates_one_sql_parameter(bool async)
         {
             return base.Using_same_parameter_twice_in_query_generates_one_sql_parameter(async);
         }
 
-        public override async Task Where_compare_constructed_equal(bool async)
+        public async Task Where_compare_constructed_equal(bool async)
         {
             //  Anonymous type to constant comparison. Issue #14672.
             await AssertTranslationFailed(() => base.Where_compare_constructed_equal(async));
@@ -703,7 +703,7 @@ The error is:
             AssertSql();
         }
 
-        public override async Task Where_compare_constructed_multi_value_equal(bool async)
+        public async Task Where_compare_constructed_multi_value_equal(bool async)
         {
             //  Anonymous type to constant comparison. Issue #14672.
             await AssertTranslationFailed(() => base.Where_compare_constructed_multi_value_equal(async));
@@ -711,7 +711,7 @@ The error is:
             AssertSql();
         }
 
-        public override async Task Where_compare_constructed_multi_value_not_equal(bool async)
+        public async Task Where_compare_constructed_multi_value_not_equal(bool async)
         {
             //  Anonymous type to constant comparison. Issue #14672.
             await AssertTranslationFailed(() => base.Where_compare_constructed_multi_value_not_equal(async));
@@ -719,7 +719,7 @@ The error is:
             AssertSql();
         }
 
-        public override async Task Where_compare_tuple_create_constructed_equal(bool async)
+        public async Task Where_compare_tuple_create_constructed_equal(bool async)
         {
             //  Anonymous type to constant comparison. Issue #14672.
             await AssertTranslationFailed(() => base.Where_compare_tuple_create_constructed_equal(async));
@@ -727,7 +727,7 @@ The error is:
             AssertSql();
         }
 
-        public override async Task Where_compare_tuple_create_constructed_multi_value_equal(bool async)
+        public async Task Where_compare_tuple_create_constructed_multi_value_equal(bool async)
         {
             //  Anonymous type to constant comparison. Issue #14672.
             await AssertTranslationFailed(() => base.Where_compare_tuple_create_constructed_multi_value_equal(async));
@@ -735,7 +735,7 @@ The error is:
             AssertSql();
         }
 
-        public override async Task Where_compare_tuple_create_constructed_multi_value_not_equal(bool async)
+        public async Task Where_compare_tuple_create_constructed_multi_value_not_equal(bool async)
         {
             //  Anonymous type to constant comparison. Issue #14672.
             await AssertTranslationFailed(() => base.Where_compare_tuple_create_constructed_multi_value_not_equal(async));
@@ -743,7 +743,7 @@ The error is:
             AssertSql();
         }
 
-        public override async Task Where_compare_tuple_constructed_equal(bool async)
+        public async Task Where_compare_tuple_constructed_equal(bool async)
         {
             // Anonymous type to constant comparison. Issue #14672.
             await AssertTranslationFailed(() => base.Where_compare_tuple_constructed_equal(async));
@@ -751,7 +751,7 @@ The error is:
             AssertSql();
         }
 
-        public override async Task Where_compare_tuple_constructed_multi_value_equal(bool async)
+        public async Task Where_compare_tuple_constructed_multi_value_equal(bool async)
         {
             // Anonymous type to constant comparison. Issue #14672.
             await AssertTranslationFailed(() => base.Where_compare_tuple_constructed_multi_value_equal(async));
@@ -759,7 +759,7 @@ The error is:
             AssertSql();
         }
 
-        public override async Task Where_compare_tuple_constructed_multi_value_not_equal(bool async)
+        public async Task Where_compare_tuple_constructed_multi_value_not_equal(bool async)
         {
             // Anonymous type to constant comparison. Issue #14672.
             await AssertTranslationFailed(() => base.Where_compare_tuple_constructed_multi_value_not_equal(async));
