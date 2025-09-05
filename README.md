@@ -20,11 +20,29 @@ The following versions of MySqlConnector, EF Core, .NET (Core), .NET Standard an
 Release | Branch                                                                                           | MySqlConnector     | EF Core | .NET (Core) | .NET Standard | .NET Framework
 --- |--------------------------------------------------------------------------------------------------|--------------------|:-------:|:-----------:| :---: | :---:
 [9.0.8](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/9.0.8) | [master](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/main)       | >= 2.4.0           |  9.0.x  |    9.0+     | - | -
+**Future** | [net10](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/net10)        | >= 2.4.0           |  10.0.x |    10.0+    | - | -
 [8.0.3](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/8.0.3) | [8.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/8.0-maint) | >= 2.3.5           |  8.0.x  |    8.0+     | - | -
 [7.0.0](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/7.0.0) | [7.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/7.0-maint) | >= 2.2.5           |  7.0.x  |    6.0+     | - | -
 [6.0.3](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/6.0.3) | [6.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/6.0-maint) | >= 2.1.2           |  6.0.x  |    6.0+     | - | -
 [5.0.4](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/5.0.4) | [5.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/5.0-maint) | >= 1.3.13          |  5.0.x  |    3.0+     | 2.1 | -
 [3.2.7](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/3.2.7) | [3.2-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/3.2-maint) | >= 0.69.10 < 1.0.0 |  3.1.x  |    2.0+     | 2.0 | 4.6.1+
+
+## EF Core 10 Preparation
+
+This repository includes preparation work for EF Core 10 compatibility:
+
+- **Conditional Compilation**: Automatic EF Core version detection with `EFCORE10_OR_GREATER`, `EFCORE9_OR_GREATER`, `EFCORE8_OR_GREATER` constants
+- **Compatibility Helpers**: `EFCoreCompatibilityHelper` class for version-agnostic patterns
+- **Migration Guide**: Comprehensive documentation for breaking changes ([docs/EFCore10-Migration-Guide.md](docs/EFCore10-Migration-Guide.md))
+- **Test Infrastructure**: Example patterns for ExecuteUpdate API changes and migration lock interfaces
+
+### Key EF Core 10 Breaking Changes Addressed
+
+1. **ExecuteUpdate API**: Changed from Expression-based to Action-based setters
+2. **Migration Database Locks**: New interfaces for concurrency control during migrations
+3. **Query Expression Changes**: Various method signature updates
+
+The codebase is prepared for EF Core 10 upgrade when .NET 10 becomes available, with backward compatibility maintained for current versions.
 
 ### Packages
 
