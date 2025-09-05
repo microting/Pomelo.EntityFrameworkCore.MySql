@@ -29,28 +29,17 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PomeloTargetFramework>net8.0</PomeloTargetFramework>
-    <PomeloTestTargetFramework>net8.0</PomeloTestTargetFramework>
-    <EfCoreTargetFramework>net8.0</EfCoreTargetFramework>
-    <EfCoreTestTargetFramework>net8.0</EfCoreTestTargetFramework>
-    <MySqlConnectorTargetFramework>net8.0</MySqlConnectorTargetFramework>
-    <MySqlConnectorDependencyInjectionTargetFramework>net8.0</MySqlConnectorDependencyInjectionTargetFramework>
+    <PomeloTargetFramework>net9.0</PomeloTargetFramework>
+    <PomeloTestTargetFramework>net9.0</PomeloTestTargetFramework>
+    <EfCoreTargetFramework>net9.0</EfCoreTargetFramework>
+    <EfCoreTestTargetFramework>net9.0</EfCoreTestTargetFramework>
+    <MySqlConnectorTargetFramework>net9.0</MySqlConnectorTargetFramework>
+    <MySqlConnectorDependencyInjectionTargetFramework>net9.0</MySqlConnectorDependencyInjectionTargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Pomelo.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-
-  <!-- EF Core Version Detection and Conditional Compilation -->
-  <PropertyGroup>
-    <!-- Automatically detect EF Core version and set conditional compilation constants -->
-    <DefineConstants Condition="'$(EFCoreVersion)' != '' AND $([MSBuild]::VersionGreaterThanOrEquals($(EFCoreVersion.Split('[')[1].Split(',')[0]), '10.0.0'))">$(DefineConstants);EFCORE10_OR_GREATER</DefineConstants>
-    <DefineConstants Condition="'$(EFCoreVersion)' != '' AND $([MSBuild]::VersionGreaterThanOrEquals($(EFCoreVersion.Split('[')[1].Split(',')[0]), '9.0.0'))">$(DefineConstants);EFCORE9_OR_GREATER</DefineConstants>
-    <DefineConstants Condition="'$(EFCoreVersion)' != '' AND $([MSBuild]::VersionGreaterThanOrEquals($(EFCoreVersion.Split('[')[1].Split(',')[0]), '8.0.0'))">$(DefineConstants);EFCORE8_OR_GREATER</DefineConstants>
-    
-    <!-- Fallback constants based on current package version -->
-    <DefineConstants Condition="'$(DefineConstants)' == '' OR !$(DefineConstants.Contains('EFCORE'))">$(DefineConstants);EFCORE8_OR_GREATER</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
