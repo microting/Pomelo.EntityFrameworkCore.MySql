@@ -15,7 +15,7 @@ public class ComplexTypeBulkUpdatesMySqlTest : ComplexTypeBulkUpdatesRelationalT
     {
     }
 
-    public async Task Delete_entity_type_with_complex_type(bool async)
+    public override async Task Delete_entity_type_with_complex_type(bool async)
     {
         await base.Delete_entity_type_with_complex_type(async);
 
@@ -27,14 +27,14 @@ WHERE `c`.`Name` = 'Monty Elias'
 """);
     }
 
-    public async Task Delete_complex_type(bool async)
+    public override async Task Delete_complex_type(bool async)
     {
         await base.Delete_complex_type(async);
 
         AssertSql();
     }
 
-    public async Task Update_property_inside_complex_type(bool async)
+    public override async Task Update_property_inside_complex_type(bool async)
     {
         await base.Update_property_inside_complex_type(async);
 
@@ -46,7 +46,7 @@ WHERE `c`.`ShippingAddress_ZipCode` = 7728
 """);
     }
 
-    public async Task Update_property_inside_nested_complex_type(bool async)
+    public override async Task Update_property_inside_nested_complex_type(bool async)
     {
         await base.Update_property_inside_nested_complex_type(async);
 
@@ -58,7 +58,7 @@ WHERE `c`.`ShippingAddress_Country_Code` = 'US'
 """);
     }
 
-    public async Task Update_multiple_properties_inside_multiple_complex_types_and_on_entity_type(bool async)
+    public override async Task Update_multiple_properties_inside_multiple_complex_types_and_on_entity_type(bool async)
     {
         await base.Update_multiple_properties_inside_multiple_complex_types_and_on_entity_type(async);
 
@@ -72,7 +72,7 @@ WHERE `c`.`ShippingAddress_ZipCode` = 7728
 """);
     }
 
-    public async Task Update_projected_complex_type(bool async)
+    public override async Task Update_projected_complex_type(bool async)
     {
         await base.Update_projected_complex_type(async);
 
@@ -83,7 +83,7 @@ SET `c`.`ShippingAddress_ZipCode` = 12345
 """);
     }
 
-    public async Task Update_multiple_projected_complex_types_via_anonymous_type(bool async)
+    public override async Task Update_multiple_projected_complex_types_via_anonymous_type(bool async)
     {
         await base.Update_multiple_projected_complex_types_via_anonymous_type(async);
 
@@ -95,14 +95,14 @@ SET `c`.`BillingAddress_ZipCode` = 54321,
 """);
     }
 
-    public async Task Update_projected_complex_type_via_OrderBy_Skip(bool async)
+    public override async Task Update_projected_complex_type_via_OrderBy_Skip(bool async)
     {
         await base.Update_projected_complex_type_via_OrderBy_Skip(async);
 
         AssertExecuteUpdateSql();
     }
 
-    public async Task Update_complex_type_to_parameter(bool async)
+    public override async Task Update_complex_type_to_parameter(bool async)
     {
         await base.Update_complex_type_to_parameter(async);
 
@@ -135,7 +135,7 @@ FROM `Customer` AS `c`
 """);
     }
 
-    public async Task Update_nested_complex_type_to_parameter(bool async)
+    public override async Task Update_nested_complex_type_to_parameter(bool async)
     {
         await base.Update_nested_complex_type_to_parameter(async);
 
@@ -160,7 +160,7 @@ FROM `Customer` AS `c`
 """);
     }
 
-    public async Task Update_complex_type_to_another_database_complex_type(bool async)
+    public override async Task Update_complex_type_to_another_database_complex_type(bool async)
     {
         await base.Update_complex_type_to_another_database_complex_type(async);
 
@@ -186,7 +186,7 @@ FROM `Customer` AS `c`
 """);
     }
 
-    public async Task Update_complex_type_to_inline_without_lambda(bool async)
+    public override async Task Update_complex_type_to_inline_without_lambda(bool async)
     {
         await base.Update_complex_type_to_inline_without_lambda(async);
 
@@ -212,7 +212,7 @@ FROM `Customer` AS `c`
 """);
     }
 
-    public async Task Update_complex_type_to_inline_with_lambda(bool async)
+    public override async Task Update_complex_type_to_inline_with_lambda(bool async)
     {
         await base.Update_complex_type_to_inline_with_lambda(async);
 
@@ -238,7 +238,7 @@ FROM `Customer` AS `c`
 """);
     }
 
-    public async Task Update_complex_type_to_another_database_complex_type_with_subquery(bool async)
+    public override async Task Update_complex_type_to_another_database_complex_type_with_subquery(bool async)
     {
         await base.Update_complex_type_to_another_database_complex_type_with_subquery(async);
 
@@ -280,7 +280,7 @@ LIMIT 18446744073709551610 OFFSET @__p_0
 """);
     }
 
-    public async Task Update_collection_inside_complex_type(bool async)
+    public override async Task Update_collection_inside_complex_type(bool async)
     {
         await base.Update_collection_inside_complex_type(async);
 

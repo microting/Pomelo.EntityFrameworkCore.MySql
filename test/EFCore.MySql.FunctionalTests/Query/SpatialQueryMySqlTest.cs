@@ -23,15 +23,15 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.SpatialFunctionAdditions))]
-        public Task Boundary(bool async)
+        public override Task Boundary(bool async)
             => base.Boundary(async);
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.SpatialFunctionAdditions), Skip = "MySQL is unable to work with different SRIDs.")]
-        public Task Distance_constant_srid_4326(bool async)
+        public override Task Distance_constant_srid_4326(bool async)
             => base.Distance_constant_srid_4326(async);
 
         [ConditionalTheory]
-        public Task GeometryType(bool async)
+        public override Task GeometryType(bool async)
             => AssertQuery(
                 async,
                 ss => ss.Set<PointEntity>().Select(
@@ -39,26 +39,26 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 elementSorter: x => x.Id);
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.SpatialFunctionAdditions))]
-        public Task InteriorPoint(bool async)
+        public override Task InteriorPoint(bool async)
             => base.InteriorPoint(async);
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.SpatialSupportFunctionAdditions))]
-        public Task IsValid(bool async)
+        public override Task IsValid(bool async)
             => base.IsValid(async);
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.SpatialFunctionAdditions))]
-        public Task PointOnSurface(bool async)
+        public override Task PointOnSurface(bool async)
             => base.PointOnSurface(async);
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.SpatialFunctionAdditions))]
-        public Task Relate(bool async)
+        public override Task Relate(bool async)
             => base.Relate(async);
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.SpatialSupportFunctionAdditions))] // Actually supported since MySQL 5.7.5 (not 5.7.6)
-        public Task ConvexHull(bool async)
+        public override Task ConvexHull(bool async)
             => base.ConvexHull(async);
 
-        public Task Combine_aggregate(bool async)
+        public override Task Combine_aggregate(bool async)
             => AssertQuery(
                 async,
                 ss => ss.Set<PointEntity>()
@@ -79,7 +79,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                     Assert.Equal(eCollection.Geometries, aCollection.Geometries);
                 });
 
-        public async Task SimpleSelect(bool async)
+        public override async Task SimpleSelect(bool async)
         {
             await base.SimpleSelect(async);
 
@@ -105,7 +105,7 @@ FROM `MultiLineStringEntity` AS `m`
 """);
         }
 
-        public async Task WithConversion(bool async)
+        public override async Task WithConversion(bool async)
         {
             await base.WithConversion(async);
 
@@ -116,7 +116,7 @@ FROM `GeoPointEntity` AS `g`
 """);
         }
 
-        public async Task Area(bool async)
+        public override async Task Area(bool async)
         {
             await base.Area(async);
 
@@ -127,7 +127,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task AsBinary(bool async)
+        public override async Task AsBinary(bool async)
         {
             await base.AsBinary(async);
 
@@ -138,7 +138,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task AsBinary_with_null_check(bool async)
+        public override async Task AsBinary_with_null_check(bool async)
         {
             await base.AsBinary_with_null_check(async);
 
@@ -152,7 +152,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task AsText(bool async)
+        public override async Task AsText(bool async)
         {
             await base.AsText(async);
 
@@ -163,7 +163,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Buffer(bool async)
+        public override async Task Buffer(bool async)
         {
             await base.Buffer(async);
 
@@ -174,7 +174,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task Centroid(bool async)
+        public override async Task Centroid(bool async)
         {
             await base.Centroid(async);
 
@@ -185,7 +185,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task EnvelopeCombine_aggregate(bool async)
+        public override async Task EnvelopeCombine_aggregate(bool async)
         {
             await base.EnvelopeCombine_aggregate(async);
 
@@ -207,7 +207,7 @@ ORDER BY `p1`.`Group`
 """);
         }
 
-        public async Task Contains(bool async)
+        public override async Task Contains(bool async)
         {
             await base.Contains(async);
 
@@ -220,7 +220,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task ConvexHull_aggregate(bool async)
+        public override async Task ConvexHull_aggregate(bool async)
         {
             await base.ConvexHull_aggregate(async);
 
@@ -242,7 +242,7 @@ ORDER BY `p1`.`Group`
 """);
         }
 
-        public async Task IGeometryCollection_Count(bool async)
+        public override async Task IGeometryCollection_Count(bool async)
         {
             await base.IGeometryCollection_Count(async);
 
@@ -253,7 +253,7 @@ FROM `MultiLineStringEntity` AS `m`
 """);
         }
 
-        public async Task LineString_Count(bool async)
+        public override async Task LineString_Count(bool async)
         {
             await base.LineString_Count(async);
 
@@ -264,7 +264,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task Crosses(bool async)
+        public override async Task Crosses(bool async)
         {
             await base.Crosses(async);
 
@@ -277,7 +277,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task Difference(bool async)
+        public override async Task Difference(bool async)
         {
             await base.Difference(async);
 
@@ -290,7 +290,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task Dimension(bool async)
+        public override async Task Dimension(bool async)
         {
             await base.Dimension(async);
 
@@ -301,7 +301,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Disjoint_with_cast_to_nullable(bool async)
+        public override async Task Disjoint_with_cast_to_nullable(bool async)
         {
             await base.Disjoint_with_cast_to_nullable(async);
 
@@ -314,7 +314,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task Disjoint_with_null_check(bool async)
+        public override async Task Disjoint_with_null_check(bool async)
         {
             await base.Disjoint_with_null_check(async);
 
@@ -330,7 +330,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task Distance_with_null_check(bool async)
+        public override async Task Distance_with_null_check(bool async)
         {
             await base.Distance_with_null_check(async);
 
@@ -359,7 +359,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Distance_with_cast_to_nullable(bool async)
+        public override async Task Distance_with_cast_to_nullable(bool async)
         {
             await base.Distance_with_cast_to_nullable(async);
 
@@ -388,7 +388,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Distance_geometry(bool async)
+        public override async Task Distance_geometry(bool async)
         {
             await base.Distance_geometry(async);
 
@@ -417,7 +417,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Distance_constant(bool async)
+        public override async Task Distance_constant(bool async)
         {
             await base.Distance_constant(async);
 
@@ -442,7 +442,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Distance_constant_lhs(bool async)
+        public override async Task Distance_constant_lhs(bool async)
         {
             await base.Distance_constant_lhs(async);
 
@@ -467,7 +467,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Distance_on_converted_geometry_type(bool async)
+        public override async Task Distance_on_converted_geometry_type(bool async)
         {
             await base.Distance_on_converted_geometry_type(async);
 
@@ -478,7 +478,7 @@ FROM `GeoPointEntity` AS `g`
 """);
         }
 
-        public async Task Distance_on_converted_geometry_type_lhs(bool async)
+        public override async Task Distance_on_converted_geometry_type_lhs(bool async)
         {
             await base.Distance_on_converted_geometry_type_lhs(async);
 
@@ -489,7 +489,7 @@ FROM `GeoPointEntity` AS `g`
 """);
         }
 
-        public async Task Distance_on_converted_geometry_type_constant(bool async)
+        public override async Task Distance_on_converted_geometry_type_constant(bool async)
         {
             await base.Distance_on_converted_geometry_type_constant(async);
 
@@ -500,7 +500,7 @@ FROM `GeoPointEntity` AS `g`
 """);
         }
 
-        public async Task Distance_on_converted_geometry_type_constant_lhs(bool async)
+        public override async Task Distance_on_converted_geometry_type_constant_lhs(bool async)
         {
             await base.Distance_on_converted_geometry_type_constant_lhs(async);
 
@@ -511,7 +511,7 @@ FROM `GeoPointEntity` AS `g`
 """);
         }
 
-        public async Task EndPoint(bool async)
+        public override async Task EndPoint(bool async)
         {
             await base.EndPoint(async);
 
@@ -522,7 +522,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task Envelope(bool async)
+        public override async Task Envelope(bool async)
         {
             await base.Envelope(async);
 
@@ -533,7 +533,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task EqualsTopologically(bool async)
+        public override async Task EqualsTopologically(bool async)
         {
             await base.EqualsTopologically(async);
 
@@ -546,7 +546,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task ExteriorRing(bool async)
+        public override async Task ExteriorRing(bool async)
         {
             await base.ExteriorRing(async);
 
@@ -557,7 +557,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task GetGeometryN(bool async)
+        public override async Task GetGeometryN(bool async)
         {
             await base.GetGeometryN(async);
 
@@ -568,7 +568,7 @@ FROM `MultiLineStringEntity` AS `m`
 """);
         }
 
-        public async Task GetGeometryN_with_null_argument(bool async)
+        public override async Task GetGeometryN_with_null_argument(bool async)
         {
             await base.GetGeometryN_with_null_argument(async);
 
@@ -582,7 +582,7 @@ FROM `MultiLineStringEntity` AS `m`
 """);
         }
 
-        public async Task GetInteriorRingN(bool async)
+        public override async Task GetInteriorRingN(bool async)
         {
             await base.GetInteriorRingN(async);
 
@@ -596,7 +596,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task GetPointN(bool async)
+        public override async Task GetPointN(bool async)
         {
             await base.GetPointN(async);
 
@@ -607,7 +607,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task Intersection(bool async)
+        public override async Task Intersection(bool async)
         {
             await base.Intersection(async);
 
@@ -620,7 +620,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task Intersects(bool async)
+        public override async Task Intersects(bool async)
         {
             await base.Intersects(async);
 
@@ -633,7 +633,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task ICurve_IsClosed(bool async)
+        public override async Task ICurve_IsClosed(bool async)
         {
             await base.ICurve_IsClosed(async);
 
@@ -647,7 +647,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task IMultiCurve_IsClosed(bool async)
+        public override async Task IMultiCurve_IsClosed(bool async)
         {
             await base.IMultiCurve_IsClosed(async);
 
@@ -661,7 +661,7 @@ FROM `MultiLineStringEntity` AS `m`
 """);
         }
 
-        public async Task IsEmpty(bool async)
+        public override async Task IsEmpty(bool async)
         {
             await base.IsEmpty(async);
 
@@ -675,7 +675,7 @@ FROM `MultiLineStringEntity` AS `m`
 """);
         }
 
-        public async Task IsRing(bool async)
+        public override async Task IsRing(bool async)
         {
             await base.IsRing(async);
 
@@ -697,7 +697,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task IsSimple(bool async)
+        public override async Task IsSimple(bool async)
         {
             await base.IsSimple(async);
 
@@ -711,7 +711,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task IsWithinDistance(bool async)
+        public override async Task IsWithinDistance(bool async)
         {
             await base.IsWithinDistance(async);
 
@@ -746,7 +746,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Item(bool async)
+        public override async Task Item(bool async)
         {
             await base.Item(async);
 
@@ -757,7 +757,7 @@ FROM `MultiLineStringEntity` AS `m`
 """);
         }
 
-        public async Task Length(bool async)
+        public override async Task Length(bool async)
         {
             await base.Length(async);
 
@@ -768,7 +768,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task NumGeometries(bool async)
+        public override async Task NumGeometries(bool async)
         {
             await base.NumGeometries(async);
 
@@ -779,7 +779,7 @@ FROM `MultiLineStringEntity` AS `m`
 """);
         }
 
-        public async Task NumInteriorRings(bool async)
+        public override async Task NumInteriorRings(bool async)
         {
             await base.NumInteriorRings(async);
 
@@ -790,7 +790,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task NumPoints(bool async)
+        public override async Task NumPoints(bool async)
         {
             await base.NumPoints(async);
 
@@ -801,7 +801,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task OgcGeometryType(bool async)
+        public override async Task OgcGeometryType(bool async)
         {
             await base.OgcGeometryType(async);
 
@@ -823,7 +823,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Overlaps(bool async)
+        public override async Task Overlaps(bool async)
         {
             await base.Overlaps(async);
 
@@ -836,7 +836,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task SRID(bool async)
+        public override async Task SRID(bool async)
         {
             await base.SRID(async);
 
@@ -847,7 +847,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task SRID_geometry(bool async)
+        public override async Task SRID_geometry(bool async)
         {
             await base.SRID_geometry(async);
 
@@ -858,7 +858,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task StartPoint(bool async)
+        public override async Task StartPoint(bool async)
         {
             await base.StartPoint(async);
 
@@ -869,7 +869,7 @@ FROM `LineStringEntity` AS `l`
 """);
         }
 
-        public async Task SymmetricDifference(bool async)
+        public override async Task SymmetricDifference(bool async)
         {
             await base.SymmetricDifference(async);
 
@@ -882,7 +882,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task ToBinary(bool async)
+        public override async Task ToBinary(bool async)
         {
             await base.ToBinary(async);
 
@@ -893,7 +893,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task ToText(bool async)
+        public override async Task ToText(bool async)
         {
             await base.ToText(async);
 
@@ -904,7 +904,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Touches(bool async)
+        public override async Task Touches(bool async)
         {
             await base.Touches(async);
 
@@ -917,7 +917,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task Union(bool async)
+        public override async Task Union(bool async)
         {
             await base.Union(async);
 
@@ -930,7 +930,7 @@ FROM `PolygonEntity` AS `p`
 """);
         }
 
-        public async Task Union_aggregate(bool async)
+        public override async Task Union_aggregate(bool async)
         {
             await base.Union_aggregate(async);
 
@@ -952,7 +952,7 @@ ORDER BY `p1`.`Group`
 """);
         }
 
-        public async Task Within(bool async)
+        public override async Task Within(bool async)
         {
             await base.Within(async);
 
@@ -965,7 +965,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task X(bool async)
+        public override async Task X(bool async)
         {
             await base.X(async);
 
@@ -976,7 +976,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task Y(bool async)
+        public override async Task Y(bool async)
         {
             await base.Y(async);
 
@@ -987,7 +987,7 @@ FROM `PointEntity` AS `p`
 """);
         }
 
-        public async Task XY_with_collection_join(bool async)
+        public override async Task XY_with_collection_join(bool async)
         {
             await base.XY_with_collection_join(async);
 
@@ -1005,7 +1005,7 @@ ORDER BY `p1`.`Id`
 """);
         }
 
-        public async Task IsEmpty_equal_to_null(bool async)
+        public override async Task IsEmpty_equal_to_null(bool async)
         {
             await base.IsEmpty_equal_to_null(async);
 
@@ -1020,7 +1020,7 @@ END IS NULL
 """);
         }
 
-        public async Task IsEmpty_not_equal_to_null(bool async)
+        public override async Task IsEmpty_not_equal_to_null(bool async)
         {
             await base.IsEmpty_not_equal_to_null(async);
 
@@ -1035,7 +1035,7 @@ END IS NOT NULL
 """);
         }
 
-        public async Task Intersects_equal_to_null(bool async)
+        public override async Task Intersects_equal_to_null(bool async)
         {
             await base.Intersects_equal_to_null(async);
 
@@ -1057,7 +1057,7 @@ WHERE ST_Intersects(@__lineString_0, `l`.`LineString`) IS NULL
 """);
         }
 
-        public async Task Intersects_not_equal_to_null(bool async)
+        public override async Task Intersects_not_equal_to_null(bool async)
         {
             await base.Intersects_not_equal_to_null(async);
 
@@ -1081,14 +1081,14 @@ WHERE ST_Intersects(@__lineString_0, `l`.`LineString`) IS NOT NULL
 
         #region Not supported by MySQL and MariaDB
 
-        public Task Buffer_quadrantSegments(bool async) => Task.CompletedTask;
-        public Task CoveredBy(bool async) => Task.CompletedTask; // Could be implemented using `MBRCoveredBy`
-        public Task Covers(bool async) => Task.CompletedTask;
-        public Task M(bool async) => Task.CompletedTask;
-        public Task Normalized(bool async) => Task.CompletedTask;
-        public Task Reverse(bool async) => Task.CompletedTask;
-        public Task Union_void(bool async) => Task.CompletedTask;
-        public Task Z(bool async) => Task.CompletedTask;
+        public override Task Buffer_quadrantSegments(bool async) => Task.CompletedTask;
+        public override Task CoveredBy(bool async) => Task.CompletedTask; // Could be implemented using `MBRCoveredBy`
+        public override Task Covers(bool async) => Task.CompletedTask;
+        public override Task M(bool async) => Task.CompletedTask;
+        public override Task Normalized(bool async) => Task.CompletedTask;
+        public override Task Reverse(bool async) => Task.CompletedTask;
+        public override Task Union_void(bool async) => Task.CompletedTask;
+        public override Task Z(bool async) => Task.CompletedTask;
 
         #endregion
 

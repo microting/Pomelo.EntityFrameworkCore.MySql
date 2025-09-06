@@ -18,7 +18,7 @@ public class FunkyDataQueryMySqlTest : FunkyDataQueryTestBase<FunkyDataQueryMySq
         //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
-    public async Task String_contains_on_argument_with_wildcard_constant(bool async)
+    public override async Task String_contains_on_argument_with_wildcard_constant(bool async)
     {
         await base.String_contains_on_argument_with_wildcard_constant(async);
 
@@ -71,7 +71,7 @@ FROM `FunkyCustomers` AS `f`
 """);
     }
 
-    public async Task String_starts_with_on_argument_with_wildcard_constant(bool async)
+    public override async Task String_starts_with_on_argument_with_wildcard_constant(bool async)
     {
         await base.String_starts_with_on_argument_with_wildcard_constant(async);
 
@@ -124,7 +124,7 @@ FROM `FunkyCustomers` AS `f`
 """);
     }
 
-    public async Task String_ends_with_on_argument_with_wildcard_constant(bool async)
+    public override async Task String_ends_with_on_argument_with_wildcard_constant(bool async)
     {
         await base.String_ends_with_on_argument_with_wildcard_constant(async);
 
@@ -177,7 +177,7 @@ FROM `FunkyCustomers` AS `f`
 """);
     }
 
-    public Task String_Contains_and_StartsWith_with_same_parameter(bool async)
+    public override Task String_Contains_and_StartsWith_with_same_parameter(bool async)
     {
         var s = "B";
 

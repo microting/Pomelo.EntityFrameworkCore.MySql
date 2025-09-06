@@ -21,7 +21,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public Task Include_duplicate_collection_result_operator2(bool async)
+        public override Task Include_duplicate_collection_result_operator2(bool async)
         {
             // The order of `Orders` can be different, because it is not explicitly sorted.
             // The order of the end result can be different as well.
@@ -39,7 +39,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 });
         }
 
-        public Task Repro9735(bool async)
+        public override Task Repro9735(bool async)
         {
             return AssertQuery(
                 async,
@@ -51,7 +51,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                     .Take(2));
         }
 
-        public Task Include_collection_with_multiple_conditional_order_by(bool async)
+        public override Task Include_collection_with_multiple_conditional_order_by(bool async)
         {
             return AssertQuery(
                 async,
@@ -65,25 +65,25 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
-        public Task Include_collection_skip_no_order_by(bool async)
+        public override Task Include_collection_skip_no_order_by(bool async)
         {
             return base.Include_collection_skip_no_order_by(async);
         }
 
         [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
-        public Task Include_collection_skip_take_no_order_by(bool async)
+        public override Task Include_collection_skip_take_no_order_by(bool async)
         {
             return base.Include_collection_skip_take_no_order_by(async);
         }
 
         [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
-        public Task Include_collection_take_no_order_by(bool async)
+        public override Task Include_collection_take_no_order_by(bool async)
         {
             return base.Include_collection_take_no_order_by(async);
         }
 
         [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
-        public Task Include_duplicate_collection_result_operator(bool async)
+        public override Task Include_duplicate_collection_result_operator(bool async)
         {
             return base.Include_duplicate_collection_result_operator(async);
         }

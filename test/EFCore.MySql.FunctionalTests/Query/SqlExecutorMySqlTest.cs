@@ -24,7 +24,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         protected virtual int DefaultSqlResult
             => -1;
 
-        public async Task Executes_stored_procedure(bool async)
+        public override async Task Executes_stored_procedure(bool async)
         {
             using var context = CreateContext();
 
@@ -37,7 +37,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             AssertSql(TenMostExpensiveProductsSproc);
         }
 
-        public async Task Executes_stored_procedure_with_parameter(bool async)
+        public override async Task Executes_stored_procedure_with_parameter(bool async)
         {
             using var context = CreateContext();
             var parameter = CreateDbParameter("@CustomerID", "ALFKI");
@@ -56,7 +56,7 @@ CALL `CustOrderHist`(@CustomerID)
 """);
         }
 
-        public async Task Executes_stored_procedure_with_generated_parameter(bool async)
+        public override async Task Executes_stored_procedure_with_generated_parameter(bool async)
         {
             using var context = CreateContext();
 
@@ -74,7 +74,7 @@ CALL `CustOrderHist`(@p0)
 """);
         }
 
-        public async Task Query_with_parameters_interpolated_2(bool async)
+        public override async Task Query_with_parameters_interpolated_2(bool async)
         {
             var city = "London";
             var contactTitle = "Sales Representative";
@@ -90,7 +90,7 @@ CALL `CustOrderHist`(@p0)
             Assert.Equal(DefaultSqlResult, actual);
         }
 
-        public async Task Query_with_DbParameters_interpolated_2(bool async)
+        public override async Task Query_with_DbParameters_interpolated_2(bool async)
         {
             var city = CreateDbParameter("city", "London");
             var contactTitle = CreateDbParameter("contactTitle", "Sales Representative");
@@ -106,7 +106,7 @@ CALL `CustOrderHist`(@p0)
             Assert.Equal(DefaultSqlResult, actual);
         }
 
-        public async Task Query_with_parameters(bool async)
+        public override async Task Query_with_parameters(bool async)
         {
             var city = "London";
             var contactTitle = "Sales Representative";
@@ -122,7 +122,7 @@ CALL `CustOrderHist`(@p0)
             Assert.Equal(DefaultSqlResult, actual);
         }
 
-        public async Task Query_with_dbParameter_with_name(bool async)
+        public override async Task Query_with_dbParameter_with_name(bool async)
         {
             var city = CreateDbParameter("@city", "London");
 
@@ -135,7 +135,7 @@ CALL `CustOrderHist`(@p0)
             Assert.Equal(DefaultSqlResult, actual);
         }
 
-        public async Task Query_with_positional_dbParameter_with_name(bool async)
+        public override async Task Query_with_positional_dbParameter_with_name(bool async)
         {
             var city = CreateDbParameter("@city", "London");
 
@@ -148,7 +148,7 @@ CALL `CustOrderHist`(@p0)
             Assert.Equal(DefaultSqlResult, actual);
         }
 
-        public async Task Query_with_positional_dbParameter_without_name(bool async)
+        public override async Task Query_with_positional_dbParameter_without_name(bool async)
         {
             var city = CreateDbParameter(name: null, value: "London");
 
@@ -161,7 +161,7 @@ CALL `CustOrderHist`(@p0)
             Assert.Equal(DefaultSqlResult, actual);
         }
 
-        public async Task Query_with_dbParameters_mixed(bool async)
+        public override async Task Query_with_dbParameters_mixed(bool async)
         {
             var city = "London";
             var contactTitle = "Sales Representative";
@@ -190,7 +190,7 @@ CALL `CustOrderHist`(@p0)
             Assert.Equal(DefaultSqlResult, actual);
         }
 
-        public async Task Query_with_parameters_interpolated(bool async)
+        public override async Task Query_with_parameters_interpolated(bool async)
         {
             var city = "London";
             var contactTitle = "Sales Representative";
@@ -206,7 +206,7 @@ CALL `CustOrderHist`(@p0)
             Assert.Equal(DefaultSqlResult, actual);
         }
 
-        public async Task Query_with_DbParameters_interpolated(bool async)
+        public override async Task Query_with_DbParameters_interpolated(bool async)
         {
             var city = CreateDbParameter("city", "London");
             var contactTitle = CreateDbParameter("contactTitle", "Sales Representative");
@@ -222,7 +222,7 @@ CALL `CustOrderHist`(@p0)
             Assert.Equal(DefaultSqlResult, actual);
         }
 
-        public async Task Query_with_parameters_custom_converter(bool async)
+        public override async Task Query_with_parameters_custom_converter(bool async)
         {
             // We have to reimplement the base method, because it uses double-quote delimiters, while MySQL uses ticks.
             // await base.Query_with_parameters_custom_converter(async);

@@ -21,21 +21,21 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public Task Average_over_max_subquery(bool async)
+        public override Task Average_over_max_subquery(bool async)
             => AssertAverage(
                 async,
                 ss => ss.Set<Customer>().OrderBy(c => c.CustomerID).Take(3),
                 selector: c => (decimal)c.Orders.Average(o => 5 + o.OrderDetails.Max(od => od.ProductID)),
                 asserter: (a, b) => Assert.Equal(a, b, 12)); // added flouting point precision tolerance
 
-        public Task Average_over_nested_subquery(bool async)
+        public override Task Average_over_nested_subquery(bool async)
             => AssertAverage(
                 async,
                 ss => ss.Set<Customer>().OrderBy(c => c.CustomerID).Take(3),
                 selector: c => (decimal)c.Orders.Average(o => 5 + o.OrderDetails.Average(od => od.ProductID)),
                 asserter: (a, b) => Assert.Equal(a, b, 12)); // added flouting point precision tolerance
 
-        public async Task Type_casting_inside_sum(bool async)
+        public override async Task Type_casting_inside_sum(bool async)
         {
             await AssertSum(
                 async,
@@ -51,7 +51,7 @@ FROM `Order Details` AS `o`
         }
 
         // TODO: Implement TranslatePrimitiveCollection.
-        public async Task Contains_with_local_anonymous_type_array_closure(bool async)
+        public override async Task Contains_with_local_anonymous_type_array_closure(bool async)
         {
             // Aggregates. Issue #15937.
             // await AssertTranslationFailed(() => base.Contains_with_local_anonymous_type_array_closure(async));
@@ -62,14 +62,14 @@ FROM `Order Details` AS `o`
         }
 
         // TODO: Implement TranslatePrimitiveCollection.
-        public async Task Contains_with_local_tuple_array_closure(bool async)
+        public override async Task Contains_with_local_tuple_array_closure(bool async)
         {
             // await AssertTranslationFailed(() => base.Contains_with_local_tuple_array_closure(async));
 
             await Assert.ThrowsAsync<InvalidOperationException>(() => base.Contains_with_local_tuple_array_closure(async));
         }
 
-        public async Task Contains_with_local_enumerable_inline(bool async)
+        public override async Task Contains_with_local_enumerable_inline(bool async)
         {
             // Issue #31776
             await Assert.ThrowsAsync<InvalidOperationException>(

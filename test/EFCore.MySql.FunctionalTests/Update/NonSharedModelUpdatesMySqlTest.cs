@@ -8,7 +8,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Update;
 
 public class NonSharedModelUpdatesMySqlTest : NonSharedModelUpdatesTestBase
 {
-    public async Task Principal_and_dependent_roundtrips_with_cycle_breaking(bool async)
+    public override async Task Principal_and_dependent_roundtrips_with_cycle_breaking(bool async)
     {
         await base.Principal_and_dependent_roundtrips_with_cycle_breaking(async);
 

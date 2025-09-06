@@ -234,7 +234,7 @@ public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
 
     // TODO: 9.0
     // Check if we can use `UseSprocReturnValue` now.
-    public Task Tpc_Sprocs()
+    public override Task Tpc_Sprocs()
     {
         // The CompiledModelRelationalTestBase implementation uses stored procedures with return values and result columns, which are not
         // supported in MySQL.
@@ -329,7 +329,7 @@ public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
             });
     }
 
-    public async Task BigModel_with_JSON_columns()
+    public override async Task BigModel_with_JSON_columns()
     {
         Assert.Equal(
             MySqlStrings.Ef7CoreJsonMappingNotSupported,
@@ -338,7 +338,7 @@ public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
 
     // TODO: 9.0
     // Check, if we can make this work.
-    public async Task ComplexTypes()
+    public override async Task ComplexTypes()
     {
         var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => base.ComplexTypes());
         Assert.Equal("The stored procedure 'dbo.PrincipalBase_Delete' cannot be configured to return the rows affected because a rows affected parameter or a rows affected result column for this stored procedure already exists.", exception.Message);

@@ -17,13 +17,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             => facade.UseTransaction(transaction.GetDbTransaction());
 
         [ConditionalFact(Skip = "#588")]
-        public Task Updating_then_deleting_the_same_entity_results_in_DbUpdateConcurrencyException_which_can_be_resolved_with_store_values()
+        public override Task Updating_then_deleting_the_same_entity_results_in_DbUpdateConcurrencyException_which_can_be_resolved_with_store_values()
         {
             return base.Updating_then_deleting_the_same_entity_results_in_DbUpdateConcurrencyException_which_can_be_resolved_with_store_values();
         }
 
         [ConditionalFact(Skip = "#588")]
-        public Task Simple_concurrency_exception_can_be_resolved_with_store_values()
+        public override Task Simple_concurrency_exception_can_be_resolved_with_store_values()
         {
             return base.Simple_concurrency_exception_can_be_resolved_with_store_values();
         }

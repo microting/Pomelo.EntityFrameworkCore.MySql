@@ -19,7 +19,7 @@ public class ComplexTypeQueryMySqlTest : ComplexTypeQueryRelationalTestBase<
         Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
-    public async Task Filter_on_property_inside_complex_type(bool async)
+    public override async Task Filter_on_property_inside_complex_type(bool async)
     {
         await base.Filter_on_property_inside_complex_type(async);
 
@@ -31,7 +31,7 @@ WHERE `c`.`ShippingAddress_ZipCode` = 7728
 """);
     }
 
-    public async Task Filter_on_property_inside_nested_complex_type(bool async)
+    public override async Task Filter_on_property_inside_nested_complex_type(bool async)
     {
         await base.Filter_on_property_inside_nested_complex_type(async);
 
@@ -43,7 +43,7 @@ WHERE `c`.`ShippingAddress_Country_Code` = 'DE'
 """);
     }
 
-    public async Task Filter_on_property_inside_complex_type_after_subquery(bool async)
+    public override async Task Filter_on_property_inside_complex_type_after_subquery(bool async)
     {
         await base.Filter_on_property_inside_complex_type_after_subquery(async);
 
@@ -62,7 +62,7 @@ WHERE `c0`.`ShippingAddress_ZipCode` = 7728
 """);
     }
 
-    public async Task Filter_on_property_inside_nested_complex_type_after_subquery(bool async)
+    public override async Task Filter_on_property_inside_nested_complex_type_after_subquery(bool async)
     {
         await base.Filter_on_property_inside_nested_complex_type_after_subquery(async);
 
@@ -81,7 +81,7 @@ WHERE `c0`.`ShippingAddress_Country_Code` = 'DE'
 """);
     }
 
-    public async Task Filter_on_required_property_inside_required_complex_type_on_optional_navigation(bool async)
+    public override async Task Filter_on_required_property_inside_required_complex_type_on_optional_navigation(bool async)
     {
         await base.Filter_on_required_property_inside_required_complex_type_on_optional_navigation(async);
 
@@ -95,7 +95,7 @@ WHERE (`c0`.`ShippingAddress_ZipCode` <> 7728) OR `c0`.`ShippingAddress_ZipCode`
 """);
     }
 
-    public async Task Filter_on_required_property_inside_required_complex_type_on_required_navigation(bool async)
+    public override async Task Filter_on_required_property_inside_required_complex_type_on_required_navigation(bool async)
     {
         await base.Filter_on_required_property_inside_required_complex_type_on_required_navigation(async);
 
@@ -112,14 +112,14 @@ WHERE `c0`.`ShippingAddress_ZipCode` <> 7728
     // This test fails because when OptionalCustomer is null, we get all-null results because of the LEFT JOIN, and we materialize this
     // as an empty ShippingAddress instead of null (see SQL). The proper solution here would be to project the Customer ID just for the
     // purpose of knowing that it's there.
-    public async Task Project_complex_type_via_optional_navigation(bool async)
+    public override async Task Project_complex_type_via_optional_navigation(bool async)
     {
         var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => base.Project_complex_type_via_optional_navigation(async));
 
         Assert.Equal(RelationalStrings.CannotProjectNullableComplexType("Customer.ShippingAddress#Address"), exception.Message);
     }
 
-    public async Task Project_complex_type_via_required_navigation(bool async)
+    public override async Task Project_complex_type_via_required_navigation(bool async)
     {
         await base.Project_complex_type_via_required_navigation(async);
 
@@ -131,7 +131,7 @@ INNER JOIN `Customer` AS `c0` ON `c`.`RequiredCustomerId` = `c0`.`Id`
 """);
     }
 
-    public async Task Load_complex_type_after_subquery_on_entity_type(bool async)
+    public override async Task Load_complex_type_after_subquery_on_entity_type(bool async)
     {
         await base.Load_complex_type_after_subquery_on_entity_type(async);
 
@@ -149,7 +149,7 @@ FROM (
 """);
     }
 
-    public async Task Select_complex_type(bool async)
+    public override async Task Select_complex_type(bool async)
     {
         await base.Select_complex_type(async);
 
@@ -160,7 +160,7 @@ FROM `Customer` AS `c`
 """);
     }
 
-    public async Task Select_nested_complex_type(bool async)
+    public override async Task Select_nested_complex_type(bool async)
     {
         await base.Select_nested_complex_type(async);
 
@@ -171,7 +171,7 @@ FROM `Customer` AS `c`
 """);
     }
 
-    public async Task Select_single_property_on_nested_complex_type(bool async)
+    public override async Task Select_single_property_on_nested_complex_type(bool async)
     {
         await base.Select_single_property_on_nested_complex_type(async);
 
@@ -182,7 +182,7 @@ FROM `Customer` AS `c`
 """);
     }
 
-    public async Task Select_complex_type_Where(bool async)
+    public override async Task Select_complex_type_Where(bool async)
     {
         await base.Select_complex_type_Where(async);
 
@@ -194,7 +194,7 @@ WHERE `c`.`ShippingAddress_ZipCode` = 7728
 """);
     }
 
-    public async Task Select_complex_type_Distinct(bool async)
+    public override async Task Select_complex_type_Distinct(bool async)
     {
         await base.Select_complex_type_Distinct(async);
 
@@ -205,7 +205,7 @@ FROM `Customer` AS `c`
 """);
     }
 
-    public async Task Complex_type_equals_complex_type(bool async)
+    public override async Task Complex_type_equals_complex_type(bool async)
     {
         await base.Complex_type_equals_complex_type(async);
 
@@ -217,7 +217,7 @@ WHERE (((`c`.`ShippingAddress_AddressLine1` = `c`.`BillingAddress_AddressLine1`)
 """);
     }
 
-    public async Task Complex_type_equals_constant(bool async)
+    public override async Task Complex_type_equals_constant(bool async)
     {
         await base.Complex_type_equals_constant(async);
 
@@ -229,7 +229,7 @@ WHERE (((((`c`.`ShippingAddress_AddressLine1` = '804 S. Lakeshore Road') AND `c`
 """);
     }
 
-    public async Task Complex_type_equals_parameter(bool async)
+    public override async Task Complex_type_equals_parameter(bool async)
     {
         await base.Complex_type_equals_parameter(async);
 
@@ -247,7 +247,7 @@ WHERE (((((`c`.`ShippingAddress_AddressLine1` = @__entity_equality_address_0_Add
 """);
     }
 
-    public async Task Subquery_over_complex_type(bool async)
+    public override async Task Subquery_over_complex_type(bool async)
     {
         await base.Subquery_over_complex_type(async);
 
@@ -255,7 +255,7 @@ WHERE (((((`c`.`ShippingAddress_AddressLine1` = @__entity_equality_address_0_Add
 );
     }
 
-    public async Task Contains_over_complex_type(bool async)
+    public override async Task Contains_over_complex_type(bool async)
     {
         await base.Contains_over_complex_type(async);
 
@@ -276,7 +276,7 @@ WHERE EXISTS (
 """);
     }
 
-    public async Task Concat_complex_type(bool async)
+    public override async Task Concat_complex_type(bool async)
     {
         await base.Concat_complex_type(async);
         AssertSql(
@@ -291,7 +291,7 @@ WHERE `c0`.`Id` = 2
 """);
     }
 
-    public async Task Concat_entity_type_containing_complex_property(bool async)
+    public override async Task Concat_entity_type_containing_complex_property(bool async)
     {
         await base.Concat_entity_type_containing_complex_property(async);
 
@@ -307,7 +307,7 @@ WHERE `c0`.`Id` = 2
 """);
     }
 
-    public async Task Union_entity_type_containing_complex_property(bool async)
+    public override async Task Union_entity_type_containing_complex_property(bool async)
     {
         await base.Union_entity_type_containing_complex_property(async);
 
@@ -323,7 +323,7 @@ WHERE `c0`.`Id` = 2
 """);
     }
 
-    public async Task Union_complex_type(bool async)
+    public override async Task Union_complex_type(bool async)
     {
         await base.Union_complex_type(async);
 
@@ -339,7 +339,7 @@ WHERE `c0`.`Id` = 2
 """);
     }
 
-    public async Task Concat_property_in_complex_type(bool async)
+    public override async Task Concat_property_in_complex_type(bool async)
     {
         await base.Concat_property_in_complex_type(async);
 
@@ -353,7 +353,7 @@ FROM `Customer` AS `c0`
 """);
     }
 
-    public async Task Union_property_in_complex_type(bool async)
+    public override async Task Union_property_in_complex_type(bool async)
     {
         await base.Union_property_in_complex_type(async);
 
@@ -367,7 +367,7 @@ FROM `Customer` AS `c0`
 """);
     }
 
-    public async Task Concat_two_different_complex_type(bool async)
+    public override async Task Concat_two_different_complex_type(bool async)
     {
         await base.Concat_two_different_complex_type(async);
 
@@ -375,7 +375,7 @@ FROM `Customer` AS `c0`
 );
     }
 
-    public async Task Union_two_different_complex_type(bool async)
+    public override async Task Union_two_different_complex_type(bool async)
     {
         await base.Union_two_different_complex_type(async);
 
@@ -383,7 +383,7 @@ FROM `Customer` AS `c0`
 );
     }
 
-    public async Task Complex_type_equals_null(bool async)
+    public override async Task Complex_type_equals_null(bool async)
     {
         await base.Complex_type_equals_null(async);
 
@@ -391,7 +391,7 @@ FROM `Customer` AS `c0`
 );
     }
 
-    public async Task Subquery_over_struct_complex_type(bool async)
+    public override async Task Subquery_over_struct_complex_type(bool async)
     {
         await base.Subquery_over_struct_complex_type(async);
 
@@ -399,7 +399,7 @@ FROM `Customer` AS `c0`
 );
     }
 
-    public async Task Concat_two_different_struct_complex_type(bool async)
+    public override async Task Concat_two_different_struct_complex_type(bool async)
     {
         await base.Concat_two_different_struct_complex_type(async);
 
@@ -407,7 +407,7 @@ FROM `Customer` AS `c0`
 );
     }
 
-    public async Task Union_two_different_struct_complex_type(bool async)
+    public override async Task Union_two_different_struct_complex_type(bool async)
     {
         await base.Union_two_different_struct_complex_type(async);
 
@@ -415,7 +415,7 @@ FROM `Customer` AS `c0`
 );
     }
 
-    public async Task Filter_on_property_inside_struct_complex_type(bool async)
+    public override async Task Filter_on_property_inside_struct_complex_type(bool async)
     {
         await base.Filter_on_property_inside_struct_complex_type(async);
 
@@ -427,7 +427,7 @@ WHERE `v`.`ShippingAddress_ZipCode` = 7728
 """);
     }
 
-    public async Task Filter_on_property_inside_nested_struct_complex_type(bool async)
+    public override async Task Filter_on_property_inside_nested_struct_complex_type(bool async)
     {
         await base.Filter_on_property_inside_nested_struct_complex_type(async);
 
@@ -439,7 +439,7 @@ WHERE `v`.`ShippingAddress_Country_Code` = 'DE'
 """);
     }
 
-    public async Task Filter_on_property_inside_struct_complex_type_after_subquery(bool async)
+    public override async Task Filter_on_property_inside_struct_complex_type_after_subquery(bool async)
     {
         await base.Filter_on_property_inside_struct_complex_type_after_subquery(async);
 
@@ -458,7 +458,7 @@ WHERE `v0`.`ShippingAddress_ZipCode` = 7728
 """);
     }
 
-    public async Task Filter_on_property_inside_nested_struct_complex_type_after_subquery(bool async)
+    public override async Task Filter_on_property_inside_nested_struct_complex_type_after_subquery(bool async)
     {
         await base.Filter_on_property_inside_nested_struct_complex_type_after_subquery(async);
 
@@ -477,7 +477,7 @@ WHERE `v0`.`ShippingAddress_Country_Code` = 'DE'
 """);
     }
 
-    public async Task Filter_on_required_property_inside_required_struct_complex_type_on_optional_navigation(bool async)
+    public override async Task Filter_on_required_property_inside_required_struct_complex_type_on_optional_navigation(bool async)
     {
         await base.Filter_on_required_property_inside_required_struct_complex_type_on_optional_navigation(async);
 
@@ -491,7 +491,7 @@ WHERE (`v0`.`ShippingAddress_ZipCode` <> 7728) OR `v0`.`ShippingAddress_ZipCode`
 """);
     }
 
-    public async Task Filter_on_required_property_inside_required_struct_complex_type_on_required_navigation(bool async)
+    public override async Task Filter_on_required_property_inside_required_struct_complex_type_on_required_navigation(bool async)
     {
         await base.Filter_on_required_property_inside_required_struct_complex_type_on_required_navigation(async);
 
@@ -508,14 +508,14 @@ WHERE `v0`.`ShippingAddress_ZipCode` <> 7728
     // This test fails because when OptionalCustomer is null, we get all-null results because of the LEFT JOIN, and we materialize this
     // as an empty ShippingAddress instead of null (see SQL). The proper solution here would be to project the Customer ID just for the
     // purpose of knowing that it's there.
-    public async Task Project_struct_complex_type_via_optional_navigation(bool async)
+    public override async Task Project_struct_complex_type_via_optional_navigation(bool async)
     {
         var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => base.Project_struct_complex_type_via_optional_navigation(async));
 
         Assert.Equal(RelationalStrings.CannotProjectNullableComplexType("ValuedCustomer.ShippingAddress#AddressStruct"), exception.Message);
     }
 
-    public async Task Project_struct_complex_type_via_required_navigation(bool async)
+    public override async Task Project_struct_complex_type_via_required_navigation(bool async)
     {
         await base.Project_struct_complex_type_via_required_navigation(async);
 AssertSql(
@@ -526,7 +526,7 @@ INNER JOIN `ValuedCustomer` AS `v0` ON `v`.`RequiredCustomerId` = `v0`.`Id`
 """);
     }
 
-    public async Task Load_struct_complex_type_after_subquery_on_entity_type(bool async)
+    public override async Task Load_struct_complex_type_after_subquery_on_entity_type(bool async)
     {
         await base.Load_struct_complex_type_after_subquery_on_entity_type(async);
 
@@ -544,7 +544,7 @@ FROM (
 """);
     }
 
-    public async Task Select_struct_complex_type(bool async)
+    public override async Task Select_struct_complex_type(bool async)
     {
         await base.Select_struct_complex_type(async);
 AssertSql(
@@ -554,7 +554,7 @@ FROM `ValuedCustomer` AS `v`
 """);
     }
 
-    public async Task Select_nested_struct_complex_type(bool async)
+    public override async Task Select_nested_struct_complex_type(bool async)
     {
         await base.Select_nested_struct_complex_type(async);
 
@@ -565,7 +565,7 @@ FROM `ValuedCustomer` AS `v`
 """);
     }
 
-    public async Task Select_single_property_on_nested_struct_complex_type(bool async)
+    public override async Task Select_single_property_on_nested_struct_complex_type(bool async)
     {
         await base.Select_single_property_on_nested_struct_complex_type(async);
 
@@ -576,7 +576,7 @@ FROM `ValuedCustomer` AS `v`
 """);
     }
 
-    public async Task Select_struct_complex_type_Where(bool async)
+    public override async Task Select_struct_complex_type_Where(bool async)
     {
         await base.Select_struct_complex_type_Where(async);
 AssertSql(
@@ -587,7 +587,7 @@ WHERE `v`.`ShippingAddress_ZipCode` = 7728
 """);
     }
 
-    public async Task Select_struct_complex_type_Distinct(bool async)
+    public override async Task Select_struct_complex_type_Distinct(bool async)
     {
         await base.Select_struct_complex_type_Distinct(async);
 AssertSql(
@@ -597,7 +597,7 @@ FROM `ValuedCustomer` AS `v`
 """);
     }
 
-    public async Task Struct_complex_type_equals_struct_complex_type(bool async)
+    public override async Task Struct_complex_type_equals_struct_complex_type(bool async)
     {
         await base.Struct_complex_type_equals_struct_complex_type(async);
 
@@ -609,7 +609,7 @@ WHERE ((`v`.`ShippingAddress_AddressLine1` = `v`.`BillingAddress_AddressLine1`) 
 """);
     }
 
-    public async Task Struct_complex_type_equals_constant(bool async)
+    public override async Task Struct_complex_type_equals_constant(bool async)
     {
         await base.Struct_complex_type_equals_constant(async);
 AssertSql(
@@ -620,7 +620,7 @@ WHERE ((((`v`.`ShippingAddress_AddressLine1` = '804 S. Lakeshore Road') AND `v`.
 """);
     }
 
-    public async Task Struct_complex_type_equals_parameter(bool async)
+    public override async Task Struct_complex_type_equals_parameter(bool async)
     {
         await base.Struct_complex_type_equals_parameter(async);
 
@@ -637,7 +637,7 @@ WHERE ((((`v`.`ShippingAddress_AddressLine1` = @__entity_equality_address_0_Addr
 """);
     }
 
-    public async Task Contains_over_struct_complex_type(bool async)
+    public override async Task Contains_over_struct_complex_type(bool async)
     {
         await base.Contains_over_struct_complex_type(async);
 
@@ -657,7 +657,7 @@ WHERE EXISTS (
 """);
     }
 
-    public async Task Concat_entity_type_containing_struct_complex_property(bool async)
+    public override async Task Concat_entity_type_containing_struct_complex_property(bool async)
     {
         await base.Concat_entity_type_containing_struct_complex_property(async);
 
@@ -673,7 +673,7 @@ WHERE `v0`.`Id` = 2
 """);
     }
 
-    public async Task Union_entity_type_containing_struct_complex_property(bool async)
+    public override async Task Union_entity_type_containing_struct_complex_property(bool async)
     {
         await base.Union_entity_type_containing_struct_complex_property(async);
 
@@ -689,7 +689,7 @@ WHERE `v0`.`Id` = 2
 """);
     }
 
-    public async Task Concat_struct_complex_type(bool async)
+    public override async Task Concat_struct_complex_type(bool async)
     {
         await base.Concat_struct_complex_type(async);
 
@@ -705,7 +705,7 @@ WHERE `v0`.`Id` = 2
 """);
     }
 
-    public async Task Union_struct_complex_type(bool async)
+    public override async Task Union_struct_complex_type(bool async)
     {
         await base.Union_struct_complex_type(async);
 
@@ -721,7 +721,7 @@ WHERE `v0`.`Id` = 2
 """);
     }
 
-    public async Task Concat_property_in_struct_complex_type(bool async)
+    public override async Task Concat_property_in_struct_complex_type(bool async)
     {
         await base.Concat_property_in_struct_complex_type(async);
 AssertSql(
@@ -734,7 +734,7 @@ FROM `ValuedCustomer` AS `v0`
 """);
     }
 
-    public async Task Union_property_in_struct_complex_type(bool async)
+    public override async Task Union_property_in_struct_complex_type(bool async)
     {
         await base.Union_property_in_struct_complex_type(async);
 
@@ -748,7 +748,7 @@ FROM `ValuedCustomer` AS `v0`
 """);
     }
 
-    public async Task Project_same_nested_complex_type_twice_with_pushdown(bool async)
+    public override async Task Project_same_nested_complex_type_twice_with_pushdown(bool async)
     {
         await base.Project_same_nested_complex_type_twice_with_pushdown(async);
 
@@ -763,7 +763,7 @@ FROM (
 """);
     }
 
-    public async Task Project_same_entity_with_nested_complex_type_twice_with_pushdown(bool async)
+    public override async Task Project_same_entity_with_nested_complex_type_twice_with_pushdown(bool async)
     {
         await base.Project_same_entity_with_nested_complex_type_twice_with_pushdown(async);
 
@@ -778,7 +778,7 @@ FROM (
 """);
     }
 
-    public async Task Project_same_nested_complex_type_twice_with_double_pushdown(bool async)
+    public override async Task Project_same_nested_complex_type_twice_with_double_pushdown(bool async)
     {
         await base.Project_same_nested_complex_type_twice_with_double_pushdown(async);
 
@@ -800,7 +800,7 @@ FROM (
 """);
     }
 
-    public async Task Project_same_entity_with_nested_complex_type_twice_with_double_pushdown(bool async)
+    public override async Task Project_same_entity_with_nested_complex_type_twice_with_double_pushdown(bool async)
     {
         await base.Project_same_entity_with_nested_complex_type_twice_with_double_pushdown(async);
 
@@ -822,7 +822,7 @@ FROM (
 """);
     }
 
-    public async Task Project_same_struct_nested_complex_type_twice_with_pushdown(bool async)
+    public override async Task Project_same_struct_nested_complex_type_twice_with_pushdown(bool async)
     {
         await base.Project_same_struct_nested_complex_type_twice_with_pushdown(async);
 
@@ -837,7 +837,7 @@ FROM (
 """);
     }
 
-    public async Task Project_same_entity_with_struct_nested_complex_type_twice_with_pushdown(bool async)
+    public override async Task Project_same_entity_with_struct_nested_complex_type_twice_with_pushdown(bool async)
     {
         await base.Project_same_entity_with_struct_nested_complex_type_twice_with_pushdown(async);
 
@@ -852,7 +852,7 @@ FROM (
 """);
     }
 
-    public async Task Project_same_struct_nested_complex_type_twice_with_double_pushdown(bool async)
+    public override async Task Project_same_struct_nested_complex_type_twice_with_double_pushdown(bool async)
     {
         await base.Project_same_struct_nested_complex_type_twice_with_double_pushdown(async);
 
@@ -874,7 +874,7 @@ FROM (
 """);
     }
 
-    public async Task Project_same_entity_with_struct_nested_complex_type_twice_with_double_pushdown(bool async)
+    public override async Task Project_same_entity_with_struct_nested_complex_type_twice_with_double_pushdown(bool async)
     {
         await base.Project_same_entity_with_struct_nested_complex_type_twice_with_double_pushdown(async);
 
@@ -896,7 +896,7 @@ FROM (
 """);
     }
 
-    public async Task Union_of_same_entity_with_nested_complex_type_projected_twice_with_pushdown(bool async)
+    public override async Task Union_of_same_entity_with_nested_complex_type_projected_twice_with_pushdown(bool async)
     {
         await base.Union_of_same_entity_with_nested_complex_type_projected_twice_with_pushdown(async);
 
@@ -919,7 +919,7 @@ LIMIT @__p_0
 """);
     }
 
-    public async Task Union_of_same_entity_with_nested_complex_type_projected_twice_with_double_pushdown(bool async)
+    public override async Task Union_of_same_entity_with_nested_complex_type_projected_twice_with_double_pushdown(bool async)
     {
         await base.Union_of_same_entity_with_nested_complex_type_projected_twice_with_double_pushdown(async);
 
@@ -950,7 +950,7 @@ LIMIT @__p_0
 """);
     }
 
-    public async Task Union_of_same_nested_complex_type_projected_twice_with_pushdown(bool async)
+    public override async Task Union_of_same_nested_complex_type_projected_twice_with_pushdown(bool async)
     {
         await base.Union_of_same_nested_complex_type_projected_twice_with_pushdown(async);
 
@@ -973,7 +973,7 @@ LIMIT @__p_0
 """);
     }
 
-    public async Task Union_of_same_nested_complex_type_projected_twice_with_double_pushdown(bool async)
+    public override async Task Union_of_same_nested_complex_type_projected_twice_with_double_pushdown(bool async)
     {
         await base.Union_of_same_nested_complex_type_projected_twice_with_double_pushdown(async);
 
@@ -1004,7 +1004,7 @@ LIMIT @__p_0
 """);
     }
 
-    public async Task Same_entity_with_complex_type_projected_twice_with_pushdown_as_part_of_another_projection(bool async)
+    public override async Task Same_entity_with_complex_type_projected_twice_with_pushdown_as_part_of_another_projection(bool async)
     {
         await base.Same_entity_with_complex_type_projected_twice_with_pushdown_as_part_of_another_projection(async);
 
@@ -1022,14 +1022,14 @@ LEFT JOIN LATERAL (
 """);
     }
 
-    public async Task Same_complex_type_projected_twice_with_pushdown_as_part_of_another_projection(bool async)
+    public override async Task Same_complex_type_projected_twice_with_pushdown_as_part_of_another_projection(bool async)
     {
         await base.Same_complex_type_projected_twice_with_pushdown_as_part_of_another_projection(async);
 
         AssertSql();
     }
 
-    public async Task GroupBy_over_property_in_nested_complex_type(bool async)
+    public override async Task GroupBy_over_property_in_nested_complex_type(bool async)
     {
         await base.GroupBy_over_property_in_nested_complex_type(async);
 
@@ -1041,7 +1041,7 @@ GROUP BY `c`.`ShippingAddress_Country_Code`
 """);
     }
 
-    public async Task GroupBy_over_complex_type(bool async)
+    public override async Task GroupBy_over_complex_type(bool async)
     {
         await base.GroupBy_over_complex_type(async);
 
@@ -1053,7 +1053,7 @@ GROUP BY `c`.`ShippingAddress_AddressLine1`, `c`.`ShippingAddress_AddressLine2`,
 """);
     }
 
-    public async Task GroupBy_over_nested_complex_type(bool async)
+    public override async Task GroupBy_over_nested_complex_type(bool async)
     {
         await base.GroupBy_over_nested_complex_type(async);
 
@@ -1065,7 +1065,7 @@ GROUP BY `c`.`ShippingAddress_Country_Code`, `c`.`ShippingAddress_Country_FullNa
 """);
     }
 
-    public async Task Entity_with_complex_type_with_group_by_and_first(bool async)
+    public override async Task Entity_with_complex_type_with_group_by_and_first(bool async)
     {
         await base.Entity_with_complex_type_with_group_by_and_first(async);
 
@@ -1088,7 +1088,7 @@ LEFT JOIN (
 """);
     }
 
-    public async Task Projecting_property_of_complex_type_using_left_join_with_pushdown(bool async)
+    public override async Task Projecting_property_of_complex_type_using_left_join_with_pushdown(bool async)
     {
         await base.Projecting_property_of_complex_type_using_left_join_with_pushdown(async);
 
@@ -1104,7 +1104,7 @@ LEFT JOIN (
 """);
     }
 
-    public async Task Projecting_complex_from_optional_navigation_using_conditional(bool async)
+    public override async Task Projecting_complex_from_optional_navigation_using_conditional(bool async)
     {
         await base.Projecting_complex_from_optional_navigation_using_conditional(async);
 
@@ -1126,7 +1126,7 @@ FROM (
 """);
     }
 
-    public async Task Project_entity_with_complex_type_pushdown_and_then_left_join(bool async)
+    public override async Task Project_entity_with_complex_type_pushdown_and_then_left_join(bool async)
     {
         await base.Project_entity_with_complex_type_pushdown_and_then_left_join(async);
 

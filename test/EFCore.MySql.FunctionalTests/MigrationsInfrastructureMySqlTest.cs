@@ -20,7 +20,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         {
         }
 
-        public async Task Can_generate_migration_from_initial_database_to_initial()
+        public override async Task Can_generate_migration_from_initial_database_to_initial()
         {
             await base.Can_generate_migration_from_initial_database_to_initial();
 
@@ -37,7 +37,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         }
 
         // TODO add better test for this
-        public async Task Can_apply_two_migrations_in_transaction_async()
+        public override async Task Can_apply_two_migrations_in_transaction_async()
         {
             // await base.Can_apply_two_migrations_in_transaction_async();
 
@@ -45,7 +45,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             await Task.Delay(1);
         }
 
-        public async Task Can_generate_no_migration_script()
+        public override async Task Can_generate_no_migration_script()
         {
             await base.Can_generate_no_migration_script();
 
@@ -82,21 +82,21 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             Assert.Null(Sql);
         }
 
-        public async Task Can_apply_one_migration_in_parallel_async()
+        public override async Task Can_apply_one_migration_in_parallel_async()
         {
             await base.Can_apply_one_migration_in_parallel_async();
 
             Assert.Null(Sql);
         }
 
-        public async Task Can_apply_second_migration_in_parallel_async()
+        public override async Task Can_apply_second_migration_in_parallel_async()
         {
             await base.Can_apply_second_migration_in_parallel_async();
 
             Assert.Null(Sql);
         }
 
-        public async Task Can_generate_up_and_down_scripts()
+        public override async Task Can_generate_up_and_down_scripts()
         {
             await base.Can_generate_up_and_down_scripts();
 
@@ -175,7 +175,7 @@ COMMIT;
                 ignoreLineEndingDifferences: true);
         }
 
-        public async Task Can_generate_up_and_down_scripts_noTransactions()
+        public override async Task Can_generate_up_and_down_scripts_noTransactions()
         {
             await base.Can_generate_up_and_down_scripts_noTransactions();
 
@@ -248,7 +248,7 @@ WHERE `MigrationId` = '00000000000001_Migration1';
                 ignoreLineEndingDifferences: true);
         }
 
-        public async Task Can_generate_one_up_and_down_script()
+        public override async Task Can_generate_one_up_and_down_script()
         {
             await base.Can_generate_one_up_and_down_script();
 
@@ -276,7 +276,7 @@ COMMIT;
                 ignoreLineEndingDifferences: true);
         }
 
-        public async Task Can_generate_up_and_down_script_using_names()
+        public override async Task Can_generate_up_and_down_script_using_names()
         {
             await base.Can_generate_up_and_down_script_using_names();
 
@@ -304,7 +304,7 @@ COMMIT;
                 ignoreLineEndingDifferences: true);
         }
 
-        public async Task Can_generate_idempotent_up_and_down_scripts()
+        public override async Task Can_generate_idempotent_up_and_down_scripts()
         {
             var exception = await Assert.ThrowsAsync<MySqlException>(() => base.Can_generate_idempotent_up_and_down_scripts());
 
@@ -389,7 +389,7 @@ COMMIT;
                 ignoreLineEndingDifferences: true);
         }
 
-        public async Task Can_generate_idempotent_up_and_down_scripts_noTransactions()
+        public override async Task Can_generate_idempotent_up_and_down_scripts_noTransactions()
         {
             var exception = await Assert.ThrowsAsync<MySqlException>(() => base.Can_generate_idempotent_up_and_down_scripts_noTransactions());
 
@@ -533,7 +533,7 @@ DROP PROCEDURE MigrationsScript;
         protected override Task ExecuteSqlAsync(string value)
             => ((MySqlTestStore)Fixture.TestStore).ExecuteNonQueryAsync(value);
 
-        public async Task Can_apply_all_migrations_async()
+        public override async Task Can_apply_all_migrations_async()
         {
             await base.Can_apply_all_migrations_async();
 

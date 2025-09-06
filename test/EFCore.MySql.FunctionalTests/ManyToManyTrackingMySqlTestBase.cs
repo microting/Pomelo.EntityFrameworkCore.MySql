@@ -115,7 +115,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
                 public override void ConnectionOpened(DbConnection connection, ConnectionEndEventData eventData)
                     => InitializeSession(connection);
 
-                public Task ConnectionOpenedAsync(DbConnection connection,
+                public override Task ConnectionOpenedAsync(DbConnection connection,
                     ConnectionEndEventData eventData,
                     CancellationToken cancellationToken = new CancellationToken())
                 {

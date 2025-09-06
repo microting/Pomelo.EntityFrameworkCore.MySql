@@ -17,7 +17,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.CommonTableExpressions))]
-        public Task FromSqlRaw_composed_with_common_table_expression(bool async)
+        public override Task FromSqlRaw_composed_with_common_table_expression(bool async)
         {
             return base.FromSqlRaw_composed_with_common_table_expression(async);
         }

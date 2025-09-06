@@ -19,7 +19,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public async Task Multi_level_include_one_to_many_optional_and_one_to_many_optional_produces_valid_sql(bool async)
+        public override async Task Multi_level_include_one_to_many_optional_and_one_to_many_optional_produces_valid_sql(bool async)
         {
             await base.Multi_level_include_one_to_many_optional_and_one_to_many_optional_produces_valid_sql(async);
 
@@ -36,7 +36,7 @@ ORDER BY `l`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Multi_level_include_correct_PK_is_chosen_as_the_join_predicate_for_queries_that_join_same_table_multiple_times(bool async)
+        public override async Task Multi_level_include_correct_PK_is_chosen_as_the_join_predicate_for_queries_that_join_same_table_multiple_times(bool async)
         {
             await base.Multi_level_include_correct_PK_is_chosen_as_the_join_predicate_for_queries_that_join_same_table_multiple_times(async);
 
@@ -58,7 +58,7 @@ ORDER BY `l`.`Id`, `s0`.`Id`, `s0`.`Id0`, `s0`.`Id00`
 """);
         }
 
-        public async Task Multiple_complex_includes(bool async)
+        public override async Task Multiple_complex_includes(bool async)
         {
             await base.Multiple_complex_includes(async);
 
@@ -77,7 +77,7 @@ ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Multiple_complex_includes_self_ref(bool async)
+        public override async Task Multiple_complex_includes_self_ref(bool async)
         {
             await base.Multiple_complex_includes_self_ref(async);
 
@@ -96,7 +96,7 @@ ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Include_reference_and_collection_order_by(bool async)
+        public override async Task Include_reference_and_collection_order_by(bool async)
         {
             await base.Include_reference_and_collection_order_by(async);
 
@@ -108,7 +108,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l`.`Name`, `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task Include_reference_ThenInclude_collection_order_by(bool async)
+        public override async Task Include_reference_ThenInclude_collection_order_by(bool async)
         {
             await base.Include_reference_ThenInclude_collection_order_by(async);
 
@@ -120,7 +120,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l`.`Name`, `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task Include_collection_then_reference(bool async)
+        public override async Task Include_collection_then_reference(bool async)
         {
             await base.Include_collection_then_reference(async);
 
@@ -137,7 +137,7 @@ ORDER BY `l`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Include_collection_with_conditional_order_by(bool async)
+        public override async Task Include_collection_with_conditional_order_by(bool async)
         {
             await base.Include_collection_with_conditional_order_by(async);
 
@@ -153,7 +153,7 @@ END, `l`.`Id`
 """);
         }
 
-        public async Task Multiple_complex_include_select(bool async)
+        public override async Task Multiple_complex_include_select(bool async)
         {
             await base.Multiple_complex_include_select(async);
 
@@ -172,7 +172,7 @@ ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Include_nested_with_optional_navigation(bool async)
+        public override async Task Include_nested_with_optional_navigation(bool async)
         {
             await base.Include_nested_with_optional_navigation(async);
 
@@ -191,7 +191,7 @@ ORDER BY `l`.`Id`, `l0`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Complex_multi_include_with_order_by_and_paging(bool async)
+        public override async Task Complex_multi_include_with_order_by_and_paging(bool async)
         {
             await base.Complex_multi_include_with_order_by_and_paging(async);
 
@@ -214,7 +214,7 @@ ORDER BY `l1`.`Name`, `l1`.`Id`, `l0`.`Id`, `l2`.`Id`
 """);
         }
 
-        public async Task Complex_multi_include_with_order_by_and_paging_joins_on_correct_key(bool async)
+        public override async Task Complex_multi_include_with_order_by_and_paging_joins_on_correct_key(bool async)
         {
             await base.Complex_multi_include_with_order_by_and_paging_joins_on_correct_key(async);
 
@@ -238,7 +238,7 @@ ORDER BY `l1`.`Name`, `l1`.`Id`, `l0`.`Id`, `l2`.`Id`, `l3`.`Id`
 """);
         }
 
-        public async Task Complex_multi_include_with_order_by_and_paging_joins_on_correct_key2(bool async)
+        public override async Task Complex_multi_include_with_order_by_and_paging_joins_on_correct_key2(bool async)
         {
             await base.Complex_multi_include_with_order_by_and_paging_joins_on_correct_key2(async);
 
@@ -261,7 +261,7 @@ ORDER BY `l1`.`Name`, `l1`.`Id`, `l0`.`Id`, `l2`.`Id`
 """);
         }
 
-        public async Task Multiple_include_with_multiple_optional_navigations(bool async)
+        public override async Task Multiple_include_with_multiple_optional_navigations(bool async)
         {
             await base.Multiple_include_with_multiple_optional_navigations(async);
 
@@ -278,7 +278,7 @@ WHERE (`l1`.`Name` <> 'Foo') OR `l1`.`Name` IS NULL
 ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`, `l2`.`Id`, `l3`.`Id`, `l4`.`Id`");
         }
 
-        public async Task SelectMany_with_Include1(bool async)
+        public override async Task SelectMany_with_Include1(bool async)
         {
             await base.SelectMany_with_Include1(async);
 
@@ -290,7 +290,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task Orderby_SelectMany_with_Include1(bool async)
+        public override async Task Orderby_SelectMany_with_Include1(bool async)
         {
             await base.Orderby_SelectMany_with_Include1(async);
 
@@ -302,7 +302,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task SelectMany_with_Include2(bool async)
+        public override async Task SelectMany_with_Include2(bool async)
         {
             await base.SelectMany_with_Include2(async);
 
@@ -313,7 +313,7 @@ INNER JOIN `LevelTwo` AS `l0` ON `l`.`Id` = `l0`.`OneToMany_Optional_Inverse2Id`
 LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`Level2_Required_Id`");
         }
 
-        public async Task SelectMany_with_Include_ThenInclude(bool async)
+        public override async Task SelectMany_with_Include_ThenInclude(bool async)
         {
             await base.SelectMany_with_Include_ThenInclude(async);
 
@@ -326,7 +326,7 @@ LEFT JOIN `LevelFour` AS `l2` ON `l1`.`Id` = `l2`.`OneToMany_Optional_Inverse4Id
 ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`");
         }
 
-        public async Task Multiple_SelectMany_with_Include(bool async)
+        public override async Task Multiple_SelectMany_with_Include(bool async)
         {
             await base.Multiple_SelectMany_with_Include(async);
 
@@ -340,7 +340,7 @@ LEFT JOIN `LevelFour` AS `l3` ON `l1`.`Id` = `l3`.`OneToMany_Optional_Inverse4Id
 ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`, `l2`.`Id`");
         }
 
-        public async Task Required_navigation_with_Include(bool async)
+        public override async Task Required_navigation_with_Include(bool async)
         {
             await base.Required_navigation_with_Include(async);
 
@@ -351,7 +351,7 @@ INNER JOIN `LevelTwo` AS `l0` ON `l`.`Level2_Required_Id` = `l0`.`Id`
 INNER JOIN `LevelOne` AS `l1` ON `l0`.`OneToMany_Required_Inverse2Id` = `l1`.`Id`");
         }
 
-        public async Task Required_navigation_with_Include_ThenInclude(bool async)
+        public override async Task Required_navigation_with_Include_ThenInclude(bool async)
         {
             await base.Required_navigation_with_Include_ThenInclude(async);
 
@@ -363,7 +363,7 @@ INNER JOIN `LevelTwo` AS `l1` ON `l0`.`OneToMany_Required_Inverse3Id` = `l1`.`Id
 LEFT JOIN `LevelOne` AS `l2` ON `l1`.`OneToMany_Optional_Inverse2Id` = `l2`.`Id`");
         }
 
-        public async Task Optional_navigation_with_Include_ThenInclude(bool async)
+        public override async Task Optional_navigation_with_Include_ThenInclude(bool async)
         {
             await base.Optional_navigation_with_Include_ThenInclude(async);
 
@@ -381,7 +381,7 @@ ORDER BY `l`.`Id`, `l0`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Multiple_optional_navigation_with_Include(bool async)
+        public override async Task Multiple_optional_navigation_with_Include(bool async)
         {
             await base.Multiple_optional_navigation_with_Include(async);
 
@@ -394,7 +394,7 @@ LEFT JOIN `LevelFour` AS `l2` ON `l1`.`Id` = `l2`.`OneToMany_Optional_Inverse4Id
 ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`");
         }
 
-        public async Task Multiple_optional_navigation_with_string_based_Include(bool async)
+        public override async Task Multiple_optional_navigation_with_string_based_Include(bool async)
         {
             await base.Multiple_optional_navigation_with_string_based_Include(async);
 
@@ -407,7 +407,7 @@ LEFT JOIN `LevelFour` AS `l2` ON `l1`.`Id` = `l2`.`OneToMany_Optional_Inverse4Id
 ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`");
         }
 
-        public async Task Optional_navigation_with_order_by_and_Include(bool async)
+        public override async Task Optional_navigation_with_order_by_and_Include(bool async)
         {
             await base.Optional_navigation_with_order_by_and_Include(async);
 
@@ -419,7 +419,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l0`.`Name`, `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task Optional_navigation_with_Include_and_order(bool async)
+        public override async Task Optional_navigation_with_Include_and_order(bool async)
         {
             await base.Optional_navigation_with_Include_and_order(async);
 
@@ -431,7 +431,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l0`.`Name`, `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task SelectMany_with_order_by_and_Include(bool async)
+        public override async Task SelectMany_with_order_by_and_Include(bool async)
         {
             await base.SelectMany_with_order_by_and_Include(async);
 
@@ -443,7 +443,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l0`.`Name`, `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task SelectMany_with_Include_and_order_by(bool async)
+        public override async Task SelectMany_with_Include_and_order_by(bool async)
         {
             await base.SelectMany_with_Include_and_order_by(async);
 
@@ -455,7 +455,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l0`.`Name`, `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task SelectMany_with_navigation_and_Distinct(bool async)
+        public override async Task SelectMany_with_navigation_and_Distinct(bool async)
         {
             await base.SelectMany_with_navigation_and_Distinct(async);
 
@@ -472,7 +472,7 @@ ORDER BY `l`.`Id`, `l1`.`Id`
 """);
         }
 
-        public async Task SelectMany_with_navigation_and_Distinct_projecting_columns_including_join_key(bool async)
+        public override async Task SelectMany_with_navigation_and_Distinct_projecting_columns_including_join_key(bool async)
         {
             await base.SelectMany_with_navigation_and_Distinct_projecting_columns_including_join_key(async);
 
@@ -489,7 +489,7 @@ ORDER BY `l`.`Id`, `l1`.`Id`
 """);
         }
 
-        public async Task Complex_SelectMany_with_nested_navigations_and_explicit_DefaultIfEmpty_with_other_query_operators_composed_on_top(bool async)
+        public override async Task Complex_SelectMany_with_nested_navigations_and_explicit_DefaultIfEmpty_with_other_query_operators_composed_on_top(bool async)
         {
             await base.Complex_SelectMany_with_nested_navigations_and_explicit_DefaultIfEmpty_with_other_query_operators_composed_on_top(async);
 
@@ -528,7 +528,7 @@ ORDER BY `l12`.`Id`, `l`.`Id`, `l0`.`Id`, `l1`.`Id`, `l2`.`Id`, `s`.`Id`, `s`.`I
 """);
         }
 
-        public async Task Project_collection_navigation(bool async)
+        public override async Task Project_collection_navigation(bool async)
         {
             await base.Project_collection_navigation(async);
 
@@ -539,7 +539,7 @@ LEFT JOIN `LevelTwo` AS `l0` ON `l`.`Id` = `l0`.`OneToMany_Optional_Inverse2Id`
 ORDER BY `l`.`Id`");
         }
 
-        public async Task Project_collection_navigation_nested(bool async)
+        public override async Task Project_collection_navigation_nested(bool async)
         {
             await base.Project_collection_navigation_nested(async);
 
@@ -551,7 +551,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task Project_collection_navigation_using_ef_property(bool async)
+        public override async Task Project_collection_navigation_using_ef_property(bool async)
         {
             await base.Project_collection_navigation_using_ef_property(async);
 
@@ -563,7 +563,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task Project_collection_navigation_nested_anonymous(bool async)
+        public override async Task Project_collection_navigation_nested_anonymous(bool async)
         {
             await base.Project_collection_navigation_nested_anonymous(async);
 
@@ -575,7 +575,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task Project_collection_navigation_composed(bool async)
+        public override async Task Project_collection_navigation_composed(bool async)
         {
             await base.Project_collection_navigation_composed(async);
 
@@ -593,7 +593,7 @@ ORDER BY `l`.`Id`
 """);
         }
 
-        public async Task Project_collection_and_root_entity(bool async)
+        public override async Task Project_collection_and_root_entity(bool async)
         {
             await base.Project_collection_and_root_entity(async);
 
@@ -604,7 +604,7 @@ LEFT JOIN `LevelTwo` AS `l0` ON `l`.`Id` = `l0`.`OneToMany_Optional_Inverse2Id`
 ORDER BY `l`.`Id`");
         }
 
-        public async Task Project_collection_and_include(bool async)
+        public override async Task Project_collection_and_include(bool async)
         {
             await base.Project_collection_and_include(async);
 
@@ -616,7 +616,7 @@ LEFT JOIN `LevelTwo` AS `l1` ON `l`.`Id` = `l1`.`OneToMany_Optional_Inverse2Id`
 ORDER BY `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task Project_navigation_and_collection(bool async)
+        public override async Task Project_navigation_and_collection(bool async)
         {
             await base.Project_navigation_and_collection(async);
 
@@ -628,7 +628,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task Include_inside_subquery(bool async)
+        public override async Task Include_inside_subquery(bool async)
         {
             await base.Include_inside_subquery(async);
 
@@ -647,7 +647,7 @@ ORDER BY `l`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Include_collection_with_multiple_orderbys_member(bool async)
+        public override async Task Include_collection_with_multiple_orderbys_member(bool async)
         {
             await base.Include_collection_with_multiple_orderbys_member(async);
 
@@ -658,7 +658,7 @@ LEFT JOIN `LevelThree` AS `l0` ON `l`.`Id` = `l0`.`OneToMany_Optional_Inverse3Id
 ORDER BY `l`.`Name`, `l`.`Level1_Required_Id`, `l`.`Id`");
         }
 
-        public async Task Include_collection_with_multiple_orderbys_property(bool async)
+        public override async Task Include_collection_with_multiple_orderbys_property(bool async)
         {
             await base.Include_collection_with_multiple_orderbys_property(async);
 
@@ -669,7 +669,7 @@ LEFT JOIN `LevelThree` AS `l0` ON `l`.`Id` = `l0`.`OneToMany_Optional_Inverse3Id
 ORDER BY `l`.`Level1_Required_Id`, `l`.`Name`, `l`.`Id`");
         }
 
-        public async Task Include_collection_with_multiple_orderbys_methodcall(bool async)
+        public override async Task Include_collection_with_multiple_orderbys_methodcall(bool async)
         {
             await base.Include_collection_with_multiple_orderbys_methodcall(async);
 
@@ -680,7 +680,7 @@ LEFT JOIN `LevelThree` AS `l0` ON `l`.`Id` = `l0`.`OneToMany_Optional_Inverse3Id
 ORDER BY ABS(`l`.`Level1_Required_Id`), `l`.`Name`, `l`.`Id`");
         }
 
-        public async Task Include_collection_with_multiple_orderbys_complex(bool async)
+        public override async Task Include_collection_with_multiple_orderbys_complex(bool async)
         {
             await base.Include_collection_with_multiple_orderbys_complex(async);
 
@@ -691,7 +691,7 @@ LEFT JOIN `LevelThree` AS `l0` ON `l`.`Id` = `l0`.`OneToMany_Optional_Inverse3Id
 ORDER BY ABS(`l`.`Level1_Required_Id`) + 7, `l`.`Name`, `l`.`Id`");
         }
 
-        public async Task Include_collection_with_multiple_orderbys_complex_repeated(bool async)
+        public override async Task Include_collection_with_multiple_orderbys_complex_repeated(bool async)
         {
             await base.Include_collection_with_multiple_orderbys_complex_repeated(async);
 
@@ -702,7 +702,7 @@ LEFT JOIN `LevelThree` AS `l0` ON `l`.`Id` = `l0`.`OneToMany_Optional_Inverse3Id
 ORDER BY -`l`.`Level1_Required_Id`, `l`.`Name`, `l`.`Id`");
         }
 
-        public async Task Include_reference_collection_order_by_reference_navigation(bool async)
+        public override async Task Include_reference_collection_order_by_reference_navigation(bool async)
         {
             await base.Include_reference_collection_order_by_reference_navigation(async);
 
@@ -714,7 +714,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l0`.`Id`, `l`.`Id`");
         }
 
-        public async Task Include_after_multiple_SelectMany_and_reference_navigation(bool async)
+        public override async Task Include_after_multiple_SelectMany_and_reference_navigation(bool async)
         {
             await base.Include_after_multiple_SelectMany_and_reference_navigation(async);
 
@@ -729,7 +729,7 @@ ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`, `l2`.`Id`"
             );
         }
 
-        public async Task Include_after_SelectMany_and_multiple_reference_navigations(bool async)
+        public override async Task Include_after_SelectMany_and_multiple_reference_navigations(bool async)
         {
             await base.Include_after_SelectMany_and_multiple_reference_navigations(async);
 
@@ -743,7 +743,7 @@ LEFT JOIN `LevelFour` AS `l3` ON `l2`.`Id` = `l3`.`OneToMany_Optional_Self_Inver
 ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`, `l2`.`Id`");
         }
 
-        public async Task Null_check_in_anonymous_type_projection_should_not_be_removed(bool async)
+        public override async Task Null_check_in_anonymous_type_projection_should_not_be_removed(bool async)
         {
             await base.Null_check_in_anonymous_type_projection_should_not_be_removed(async);
 
@@ -760,7 +760,7 @@ ORDER BY `l`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Null_check_in_Dto_projection_should_not_be_removed(bool async)
+        public override async Task Null_check_in_Dto_projection_should_not_be_removed(bool async)
         {
             await base.Null_check_in_Dto_projection_should_not_be_removed(async);
 
@@ -777,7 +777,7 @@ ORDER BY `l`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task SelectMany_navigation_property_followed_by_select_collection_navigation(bool async)
+        public override async Task SelectMany_navigation_property_followed_by_select_collection_navigation(bool async)
         {
             await base.SelectMany_navigation_property_followed_by_select_collection_navigation(async);
 
@@ -789,7 +789,7 @@ LEFT JOIN `LevelThree` AS `l1` ON `l0`.`Id` = `l1`.`OneToMany_Optional_Inverse3I
 ORDER BY `l`.`Id`, `l0`.`Id`");
         }
 
-        public async Task Multiple_SelectMany_navigation_property_followed_by_select_collection_navigation(bool async)
+        public override async Task Multiple_SelectMany_navigation_property_followed_by_select_collection_navigation(bool async)
         {
             await base.Multiple_SelectMany_navigation_property_followed_by_select_collection_navigation(async);
 
@@ -802,7 +802,7 @@ LEFT JOIN `LevelFour` AS `l2` ON `l1`.`Id` = `l2`.`OneToMany_Optional_Inverse4Id
 ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`");
         }
 
-        public async Task SelectMany_navigation_property_with_include_and_followed_by_select_collection_navigation(bool async)
+        public override async Task SelectMany_navigation_property_with_include_and_followed_by_select_collection_navigation(bool async)
         {
             await base.SelectMany_navigation_property_with_include_and_followed_by_select_collection_navigation(async);
 
@@ -815,7 +815,7 @@ LEFT JOIN `LevelThree` AS `l2` ON `l0`.`Id` = `l2`.`OneToMany_Optional_Inverse3I
 ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`");
         }
 
-        public async Task Lift_projection_mapping_when_pushing_down_subquery(bool async)
+        public override async Task Lift_projection_mapping_when_pushing_down_subquery(bool async)
         {
             await base.Lift_projection_mapping_when_pushing_down_subquery(async);
 
@@ -842,7 +842,7 @@ ORDER BY `l2`.`Id`, `l4`.`Id`
 """);
         }
 
-        public async Task Including_reference_navigation_and_projecting_collection_navigation(bool async)
+        public override async Task Including_reference_navigation_and_projecting_collection_navigation(bool async)
         {
             await base.Including_reference_navigation_and_projecting_collection_navigation(async);
 
@@ -855,7 +855,7 @@ LEFT JOIN `LevelTwo` AS `l2` ON `l`.`Id` = `l2`.`OneToMany_Required_Inverse2Id`
 ORDER BY `l`.`Id`, `l0`.`Id`, `l1`.`Id`");
         }
 
-        public async Task LeftJoin_with_Any_on_outer_source_and_projecting_collection_from_inner(bool async)
+        public override async Task LeftJoin_with_Any_on_outer_source_and_projecting_collection_from_inner(bool async)
         {
             await base.LeftJoin_with_Any_on_outer_source_and_projecting_collection_from_inner(async);
 
@@ -897,7 +897,7 @@ ORDER BY `l`.`Id`, `l0`.`Id`
             }
         }
 
-        public async Task Select_subquery_single_nested_subquery(bool async)
+        public override async Task Select_subquery_single_nested_subquery(bool async)
         {
             await base.Select_subquery_single_nested_subquery(async);
 
@@ -918,7 +918,7 @@ ORDER BY `l`.`Id`, `l3`.`Id`, `l1`.`Id`
 """);
         }
 
-        public async Task Select_subquery_single_nested_subquery2(bool async)
+        public override async Task Select_subquery_single_nested_subquery2(bool async)
         {
             await base.Select_subquery_single_nested_subquery2(async);
 
@@ -943,7 +943,7 @@ ORDER BY `l`.`Id`, `s`.`Id`, `s`.`Id0`, `s`.`Id1`
 """);
         }
 
-        public async Task Filtered_include_basic_Where(bool async)
+        public override async Task Filtered_include_basic_Where(bool async)
         {
             await base.Filtered_include_basic_Where(async);
 
@@ -960,7 +960,7 @@ ORDER BY `l`.`Id`
 """);
         }
 
-        public async Task Filtered_include_OrderBy(bool async)
+        public override async Task Filtered_include_OrderBy(bool async)
         {
             await base.Filtered_include_OrderBy(async);
 
@@ -971,7 +971,7 @@ LEFT JOIN `LevelTwo` AS `l0` ON `l`.`Id` = `l0`.`OneToMany_Optional_Inverse2Id`
 ORDER BY `l`.`Id`, `l0`.`Name`");
         }
 
-        public async Task Filtered_ThenInclude_OrderBy(bool async)
+        public override async Task Filtered_ThenInclude_OrderBy(bool async)
         {
             await base.Filtered_ThenInclude_OrderBy(async);
 
@@ -988,7 +988,7 @@ ORDER BY `l`.`Id`, `s`.`Id`, `s`.`Name0`
 """);
         }
 
-        public async Task Filtered_include_ThenInclude_OrderBy(bool async)
+        public override async Task Filtered_include_ThenInclude_OrderBy(bool async)
         {
             await base.Filtered_include_ThenInclude_OrderBy(async);
 
@@ -1005,7 +1005,7 @@ ORDER BY `l`.`Id`, `s`.`Name`, `s`.`Id`, `s`.`Name0` DESC
 """);
         }
 
-        public async Task Filtered_include_basic_OrderBy_Take(bool async)
+        public override async Task Filtered_include_basic_OrderBy_Take(bool async)
         {
             await base.Filtered_include_basic_OrderBy_Take(async);
 
@@ -1025,7 +1025,7 @@ ORDER BY `l`.`Id`, `l2`.`OneToMany_Optional_Inverse2Id`, `l2`.`Name`
 """);
         }
 
-        public async Task Filtered_include_basic_OrderBy_Skip(bool async)
+        public override async Task Filtered_include_basic_OrderBy_Skip(bool async)
         {
             await base.Filtered_include_basic_OrderBy_Skip(async);
 
@@ -1045,7 +1045,7 @@ ORDER BY `l`.`Id`, `l2`.`OneToMany_Optional_Inverse2Id`, `l2`.`Name`
 """);
         }
 
-        public async Task Filtered_include_basic_OrderBy_Skip_Take(bool async)
+        public override async Task Filtered_include_basic_OrderBy_Skip_Take(bool async)
         {
             await base.Filtered_include_basic_OrderBy_Skip_Take(async);
 
@@ -1065,7 +1065,7 @@ ORDER BY `l`.`Id`, `l2`.`OneToMany_Optional_Inverse2Id`, `l2`.`Name`
 """);
         }
 
-        public async Task Filtered_include_Skip_without_OrderBy(bool async)
+        public override async Task Filtered_include_Skip_without_OrderBy(bool async)
         {
             await base.Filtered_include_Skip_without_OrderBy(async);
 
@@ -1085,7 +1085,7 @@ ORDER BY `l`.`Id`
 """);
         }
 
-        public async Task Filtered_include_Take_without_OrderBy(bool async)
+        public override async Task Filtered_include_Take_without_OrderBy(bool async)
         {
             await base.Filtered_include_Take_without_OrderBy(async);
 
@@ -1105,7 +1105,7 @@ ORDER BY `l`.`Id`
 """);
         }
 
-        public async Task Filtered_include_on_ThenInclude(bool async)
+        public override async Task Filtered_include_on_ThenInclude(bool async)
         {
             await base.Filtered_include_on_ThenInclude(async);
 
@@ -1127,7 +1127,7 @@ ORDER BY `l`.`Id`, `l0`.`Id`, `l3`.`OneToMany_Optional_Inverse3Id`, `l3`.`Name`
 """);
         }
 
-        public async Task Filtered_include_after_reference_navigation(bool async)
+        public override async Task Filtered_include_after_reference_navigation(bool async)
         {
             await base.Filtered_include_after_reference_navigation(async);
 
@@ -1149,7 +1149,7 @@ ORDER BY `l`.`Id`, `l0`.`Id`, `l3`.`OneToMany_Optional_Inverse3Id`, `l3`.`Name`
 """);
         }
 
-        public async Task Filtered_include_after_different_filtered_include_same_level(bool async)
+        public override async Task Filtered_include_after_different_filtered_include_same_level(bool async)
         {
             await base.Filtered_include_after_different_filtered_include_same_level(async);
 
@@ -1179,7 +1179,7 @@ ORDER BY `l`.`Id`, `l3`.`OneToMany_Optional_Inverse2Id`, `l3`.`Name`, `l3`.`Id`,
 """);
         }
 
-        public async Task Filtered_include_after_different_filtered_include_different_level(bool async)
+        public override async Task Filtered_include_after_different_filtered_include_different_level(bool async)
         {
             await base.Filtered_include_after_different_filtered_include_different_level(async);
 
@@ -1210,7 +1210,7 @@ ORDER BY `l`.`Id`, `s`.`Name`, `s`.`Id`, `s`.`OneToMany_Required_Inverse3Id`, `s
 """);
         }
 
-        public async Task Filtered_include_same_filter_set_on_same_navigation_twice(bool async)
+        public override async Task Filtered_include_same_filter_set_on_same_navigation_twice(bool async)
         {
             await base.Filtered_include_same_filter_set_on_same_navigation_twice(async);
 
@@ -1231,7 +1231,7 @@ ORDER BY `l`.`Id`, `l2`.`OneToMany_Optional_Inverse2Id`, `l2`.`Id` DESC
 """);
         }
 
-        public async Task Filtered_include_same_filter_set_on_same_navigation_twice_followed_by_ThenIncludes(bool async)
+        public override async Task Filtered_include_same_filter_set_on_same_navigation_twice_followed_by_ThenIncludes(bool async)
         {
             await base.Filtered_include_same_filter_set_on_same_navigation_twice_followed_by_ThenIncludes(async);
 
@@ -1255,7 +1255,7 @@ ORDER BY `l`.`Id`, `s`.`Id`, `s`.`Id0`
 """);
         }
 
-        public async Task Filtered_include_multiple_multi_level_includes_with_first_level_using_filter_include_on_one_of_the_chains_only(bool async)
+        public override async Task Filtered_include_multiple_multi_level_includes_with_first_level_using_filter_include_on_one_of_the_chains_only(bool async)
         {
             await base
                 .Filtered_include_multiple_multi_level_includes_with_first_level_using_filter_include_on_one_of_the_chains_only(async);
@@ -1280,7 +1280,7 @@ ORDER BY `l`.`Id`, `s`.`Id`, `s`.`Id0`
 """);
         }
 
-        public async Task Filtered_include_and_non_filtered_include_on_same_navigation1(bool async)
+        public override async Task Filtered_include_and_non_filtered_include_on_same_navigation1(bool async)
         {
             await base.Filtered_include_and_non_filtered_include_on_same_navigation1(async);
 
@@ -1301,7 +1301,7 @@ ORDER BY `l`.`Id`, `l2`.`OneToMany_Optional_Inverse2Id`, `l2`.`Id`
 """);
         }
 
-        public async Task Filtered_include_and_non_filtered_include_on_same_navigation2(bool async)
+        public override async Task Filtered_include_and_non_filtered_include_on_same_navigation2(bool async)
         {
             await base.Filtered_include_and_non_filtered_include_on_same_navigation2(async);
 
@@ -1322,7 +1322,7 @@ ORDER BY `l`.`Id`, `l2`.`OneToMany_Optional_Inverse2Id`, `l2`.`Id`
 """);
         }
 
-        public async Task Filtered_include_and_non_filtered_include_followed_by_then_include_on_same_navigation(bool async)
+        public override async Task Filtered_include_and_non_filtered_include_followed_by_then_include_on_same_navigation(bool async)
         {
             await base.Filtered_include_and_non_filtered_include_followed_by_then_include_on_same_navigation(async);
 
@@ -1350,7 +1350,7 @@ ORDER BY `l`.`Id`, `s`.`Id`, `s`.`Id0`
 """);
         }
 
-        public async Task Filtered_include_complex_three_level_with_middle_having_filter1(bool async)
+        public override async Task Filtered_include_complex_three_level_with_middle_having_filter1(bool async)
         {
             await base.Filtered_include_complex_three_level_with_middle_having_filter1(async);
 
@@ -1378,7 +1378,7 @@ ORDER BY `l`.`Id`, `s0`.`Id`, `s0`.`Id0`, `s0`.`Id00`
 """);
         }
 
-        public async Task Filtered_include_complex_three_level_with_middle_having_filter2(bool async)
+        public override async Task Filtered_include_complex_three_level_with_middle_having_filter2(bool async)
         {
             await base.Filtered_include_complex_three_level_with_middle_having_filter2(async);
 
@@ -1406,7 +1406,7 @@ ORDER BY `l`.`Id`, `s0`.`Id`, `s0`.`Id0`, `s0`.`Id00`
 """);
         }
 
-        public async Task Filtered_include_variable_used_inside_filter(bool async)
+        public override async Task Filtered_include_variable_used_inside_filter(bool async)
         {
             await base.Filtered_include_variable_used_inside_filter(async);
 
@@ -1429,7 +1429,7 @@ ORDER BY `l`.`Id`, `l2`.`OneToMany_Optional_Inverse2Id`, `l2`.`Id`
 """);
         }
 
-        public async Task Filtered_include_context_accessed_inside_filter(bool async)
+        public override async Task Filtered_include_context_accessed_inside_filter(bool async)
         {
             await base.Filtered_include_context_accessed_inside_filter(async);
 
@@ -1457,7 +1457,7 @@ ORDER BY `l`.`Id`, `l2`.`OneToMany_Optional_Inverse2Id`, `l2`.`Id`
 """);
         }
 
-        public async Task Filtered_include_context_accessed_inside_filter_correlated(bool async)
+        public override async Task Filtered_include_context_accessed_inside_filter_correlated(bool async)
         {
             await base.Filtered_include_context_accessed_inside_filter_correlated(async);
 
@@ -1481,7 +1481,7 @@ ORDER BY `l`.`Id`, `l3`.`OneToMany_Optional_Inverse2Id`, `l3`.`Id`
 """);
         }
 
-        public async Task Filtered_include_outer_parameter_used_inside_filter(bool async)
+        public override async Task Filtered_include_outer_parameter_used_inside_filter(bool async)
         {
             await base.Filtered_include_outer_parameter_used_inside_filter(async);
 
@@ -1507,7 +1507,7 @@ ORDER BY `l`.`Id`, `s`.`Id`, `s`.`Id0`, `s0`.`Id`
 """);
         }
 
-        public async Task Complex_query_with_let_collection_projection_FirstOrDefault(bool async)
+        public override async Task Complex_query_with_let_collection_projection_FirstOrDefault(bool async)
         {
             await base.Complex_query_with_let_collection_projection_FirstOrDefault(async);
 
@@ -1536,7 +1536,7 @@ ORDER BY `l`.`Id`, `l4`.`Id`
 """);
         }
 
-        public async Task SelectMany_DefaultIfEmpty_multiple_times_with_joins_projecting_a_collection(bool async)
+        public override async Task SelectMany_DefaultIfEmpty_multiple_times_with_joins_projecting_a_collection(bool async)
         {
             await base.SelectMany_DefaultIfEmpty_multiple_times_with_joins_projecting_a_collection(async);
 
@@ -1575,7 +1575,7 @@ ORDER BY `l12`.`Id`, `l`.`Id`, `l0`.`Id`, `l1`.`Id`, `l2`.`Id`, `s`.`Id`, `s`.`I
 """);
         }
 
-        public async Task Take_Select_collection_Take(bool async)
+        public override async Task Take_Select_collection_Take(bool async)
         {
             await base.Take_Select_collection_Take(async);
 
@@ -1605,7 +1605,7 @@ ORDER BY `l3`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Skip_Take_Select_collection_Skip_Take(bool async)
+        public override async Task Skip_Take_Select_collection_Skip_Take(bool async)
         {
             await base.Skip_Take_Select_collection_Skip_Take(async);
 
@@ -1635,7 +1635,7 @@ ORDER BY `l3`.`Id`, `s`.`Id`
 """);
         }
 
-        public async Task Projecting_collection_with_FirstOrDefault(bool async)
+        public override async Task Projecting_collection_with_FirstOrDefault(bool async)
         {
             await base.Projecting_collection_with_FirstOrDefault(async);
 
@@ -1653,7 +1653,7 @@ ORDER BY `l1`.`Id`
 """);
         }
 
-        public async Task Filtered_include_Take_with_another_Take_on_top_level(bool async)
+        public override async Task Filtered_include_Take_with_another_Take_on_top_level(bool async)
         {
             await base.Filtered_include_Take_with_another_Take_on_top_level(async);
 
@@ -1683,7 +1683,7 @@ ORDER BY `l3`.`Id`, `s`.`Name` DESC, `s`.`Id`
 """);
         }
 
-        public async Task Filtered_include_Skip_Take_with_another_Skip_Take_on_top_level(bool async)
+        public override async Task Filtered_include_Skip_Take_with_another_Skip_Take_on_top_level(bool async)
         {
             await base.Filtered_include_Skip_Take_with_another_Skip_Take_on_top_level(async);
 
@@ -1714,7 +1714,7 @@ ORDER BY `l3`.`Id` DESC, `s`.`Name` DESC, `s`.`Id`
 """);
         }
 
-        public async Task Skip_Take_on_grouping_element_inside_collection_projection(bool async)
+        public override async Task Skip_Take_on_grouping_element_inside_collection_projection(bool async)
         {
             await base.Skip_Take_on_grouping_element_inside_collection_projection(async);
 
@@ -1744,7 +1744,7 @@ ORDER BY `l`.`Id`, `s`.`Date`, `s`.`Date0`, `s`.`Name`
 """);
         }
 
-        public async Task Skip_Take_on_grouping_element_with_collection_include(bool async)
+        public override async Task Skip_Take_on_grouping_element_with_collection_include(bool async)
         {
             await base.Skip_Take_on_grouping_element_with_collection_include(async);
 
@@ -1771,7 +1771,7 @@ ORDER BY `l2`.`Date`, `s`.`Name`, `s`.`Id`
 """);
         }
 
-        public async Task Skip_Take_on_grouping_element_with_reference_include(bool async)
+        public override async Task Skip_Take_on_grouping_element_with_reference_include(bool async)
         {
             await base.Skip_Take_on_grouping_element_with_reference_include(async);
 
@@ -1798,7 +1798,7 @@ ORDER BY `l3`.`Date`, `s`.`Name`, `s`.`Id`
 """);
         }
 
-        public async Task Skip_Take_Distinct_on_grouping_element(bool async)
+        public override async Task Skip_Take_Distinct_on_grouping_element(bool async)
         {
             await base.Skip_Take_Distinct_on_grouping_element(async);
 

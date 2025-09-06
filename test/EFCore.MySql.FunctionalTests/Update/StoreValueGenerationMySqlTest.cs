@@ -51,7 +51,7 @@ public class StoreValueGenerationMySqlTest : StoreValueGenerationTestBase<
 
     #region Single operation
 
-    public async Task Add_with_generated_values(bool async)
+    public override async Task Add_with_generated_values(bool async)
     {
         await base.Add_with_generated_values(async);
 
@@ -82,7 +82,7 @@ WHERE ROW_COUNT() = 1 AND `Id` = LAST_INSERT_ID();
         }
     }
 
-    public async Task Add_with_no_generated_values(bool async)
+    public override async Task Add_with_no_generated_values(bool async)
     {
         await base.Add_with_no_generated_values(async);
 
@@ -98,7 +98,7 @@ VALUES (@p0, @p1, @p2);
 """);
     }
 
-    public async Task Add_with_all_generated_values(bool async)
+    public override async Task Add_with_all_generated_values(bool async)
     {
         await base.Add_with_all_generated_values(async);
 
@@ -125,7 +125,7 @@ WHERE ROW_COUNT() = 1 AND `Id` = LAST_INSERT_ID();
         }
     }
 
-    public async Task Modify_with_generated_values(bool async)
+    public override async Task Modify_with_generated_values(bool async)
     {
         await base.Modify_with_generated_values(async);
 
@@ -142,7 +142,7 @@ WHERE ROW_COUNT() = 1 AND `Id` = @p1;
 """);
     }
 
-    public async Task Modify_with_no_generated_values(bool async)
+    public override async Task Modify_with_no_generated_values(bool async)
     {
         await base.Modify_with_no_generated_values(async);
 
@@ -159,7 +159,7 @@ SELECT ROW_COUNT();
 """);
     }
 
-    public async Task Delete(bool async)
+    public override async Task Delete(bool async)
     {
         await base.Delete(async);
 
@@ -193,7 +193,7 @@ SELECT ROW_COUNT();
 
     #region Two operations with same entity type
 
-    public async Task Add_Add_with_same_entity_type_and_generated_values(bool async)
+    public override async Task Add_Add_with_same_entity_type_and_generated_values(bool async)
     {
         await base.Add_Add_with_same_entity_type_and_generated_values(async);
 
@@ -234,7 +234,7 @@ WHERE ROW_COUNT() = 1 AND `Id` = LAST_INSERT_ID();
         }
     }
 
-    public async Task Add_Add_with_same_entity_type_and_no_generated_values(bool async)
+    public override async Task Add_Add_with_same_entity_type_and_no_generated_values(bool async)
     {
         await base.Add_Add_with_same_entity_type_and_no_generated_values(async);
 
@@ -254,7 +254,7 @@ VALUES (@p0, @p1, @p2),
 """);
     }
 
-    public async Task Add_Add_with_same_entity_type_and_all_generated_values(bool async)
+    public override async Task Add_Add_with_same_entity_type_and_all_generated_values(bool async)
     {
         await base.Add_Add_with_same_entity_type_and_all_generated_values(async);
 
@@ -289,7 +289,7 @@ WHERE ROW_COUNT() = 1 AND `Id` = LAST_INSERT_ID();
         }
     }
 
-    public async Task Modify_Modify_with_same_entity_type_and_generated_values(bool async)
+    public override async Task Modify_Modify_with_same_entity_type_and_generated_values(bool async)
     {
         await base.Modify_Modify_with_same_entity_type_and_generated_values(async);
 
@@ -314,7 +314,7 @@ WHERE ROW_COUNT() = 1 AND `Id` = @p3;
 """);
     }
 
-    public async Task Modify_Modify_with_same_entity_type_and_no_generated_values(bool async)
+    public override async Task Modify_Modify_with_same_entity_type_and_no_generated_values(bool async)
     {
         await base.Modify_Modify_with_same_entity_type_and_no_generated_values(async);
 
@@ -337,7 +337,7 @@ SELECT ROW_COUNT();
 """);
     }
 
-    public async Task Delete_Delete_with_same_entity_type(bool async)
+    public override async Task Delete_Delete_with_same_entity_type(bool async)
     {
         await base.Delete_Delete_with_same_entity_type(async);
 
@@ -378,7 +378,7 @@ SELECT ROW_COUNT();
 
     #region Two operations with different entity types
 
-    public async Task Add_Add_with_different_entity_types_and_generated_values(bool async)
+    public override async Task Add_Add_with_different_entity_types_and_generated_values(bool async)
     {
         await base.Add_Add_with_different_entity_types_and_generated_values(async);
 
@@ -419,7 +419,7 @@ WHERE ROW_COUNT() = 1 AND `Id` = LAST_INSERT_ID();
         }
     }
 
-    public async Task Add_Add_with_different_entity_types_and_no_generated_values(bool async)
+    public override async Task Add_Add_with_different_entity_types_and_no_generated_values(bool async)
     {
         await base.Add_Add_with_different_entity_types_and_no_generated_values(async);
 
@@ -439,7 +439,7 @@ VALUES (@p3, @p4, @p5);
 """);
     }
 
-    public async Task Add_Add_with_different_entity_types_and_all_generated_values(bool async)
+    public override async Task Add_Add_with_different_entity_types_and_all_generated_values(bool async)
     {
         await base.Add_Add_with_different_entity_types_and_all_generated_values(async);
 
@@ -474,7 +474,7 @@ WHERE ROW_COUNT() = 1 AND `Id` = LAST_INSERT_ID();
         }
     }
 
-    public async Task Modify_Modify_with_different_entity_types_and_generated_values(bool async)
+    public override async Task Modify_Modify_with_different_entity_types_and_generated_values(bool async)
     {
         await base.Modify_Modify_with_different_entity_types_and_generated_values(async);
 
@@ -499,7 +499,7 @@ WHERE ROW_COUNT() = 1 AND `Id` = @p3;
 """);
     }
 
-    public async Task Modify_Modify_with_different_entity_types_and_no_generated_values(bool async)
+    public override async Task Modify_Modify_with_different_entity_types_and_no_generated_values(bool async)
     {
         await base.Modify_Modify_with_different_entity_types_and_no_generated_values(async);
 
@@ -522,7 +522,7 @@ SELECT ROW_COUNT();
 """);
     }
 
-    public async Task Delete_Delete_with_different_entity_types(bool async)
+    public override async Task Delete_Delete_with_different_entity_types(bool async)
     {
         await base.Delete_Delete_with_different_entity_types(async);
 
@@ -563,7 +563,7 @@ SELECT ROW_COUNT();
 
     #region Different two operations
 
-    public async Task Delete_Add_with_same_entity_types(bool async)
+    public override async Task Delete_Add_with_same_entity_types(bool async)
     {
         await Test(EntityState.Deleted, EntityState.Added, GeneratedValues.Some, async, withSameEntityType: true);
 

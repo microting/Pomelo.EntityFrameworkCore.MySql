@@ -13,13 +13,6 @@ public class AdHocMiscellaneousQueryMySqlTest : AdHocMiscellaneousQueryRelationa
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
 
-    protected override void SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode mode)
-    {
-        // Configure MySQL-specific parameterized collection handling
-        // The actual implementation would depend on what MySQL supports for this mode
-        // For now, just return without modification as MySQL may not need specific configuration
-    }
-
     protected override Task Seed2951(Context2951 context)
         => context.Database.ExecuteSqlRawAsync(
             """
@@ -27,7 +20,7 @@ CREATE TABLE `ZeroKey` (`Id` int);
 INSERT INTO `ZeroKey` VALUES (NULL)
 """);
 
-    public async Task Multiple_different_entity_type_from_different_namespaces(bool async)
+    public override async Task Multiple_different_entity_type_from_different_namespaces(bool async)
     {
         // The only change is the FromSqlRaw SQL string:
         //     Original: SELECT cast(null as int) AS MyValue
@@ -39,5 +32,11 @@ INSERT INTO `ZeroKey` VALUES (NULL)
         //var good1 = context.Set<NameSpace1.TestQuery>().FromSqlRaw(@"SELECT 1 AS MyValue").ToList(); // OK
         //var good2 = context.Set<NameSpace2.TestQuery>().FromSqlRaw(@"SELECT 1 AS MyValue").ToList(); // OK
         var bad = context.Set<TestQuery>().FromSqlRaw(@"SELECT cast(null as signed) AS MyValue").ToList(); // Exception
+    }
+
+    protected override void SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode mode)
+    {
+        // MySQL-specific parameter handling configuration
+        // For now, use default MySQL behavior as the implementation is provider-specific
     }
 }

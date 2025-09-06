@@ -15,7 +15,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public async Task Projecting_multiple_collections_same_level_top_level_ordering(bool async)
+        public override async Task Projecting_multiple_collections_same_level_top_level_ordering(bool async)
         {
             await base.Projecting_multiple_collections_same_level_top_level_ordering(async);
 
@@ -27,7 +27,7 @@ LEFT JOIN `CompositeTwos` AS `c1` ON (`c`.`Id1` = `c1`.`OneToMany_Required_Inver
 ORDER BY `c`.`Id2`, `c`.`Id1`, `c0`.`Id1`, `c0`.`Id2`, `c1`.`Id1`");
         }
 
-        public async Task Projecting_multiple_collections_same_level_top_level_ordering_using_entire_composite_key(bool async)
+        public override async Task Projecting_multiple_collections_same_level_top_level_ordering_using_entire_composite_key(bool async)
         {
             await base.Projecting_multiple_collections_same_level_top_level_ordering_using_entire_composite_key(async);
 
@@ -39,7 +39,7 @@ LEFT JOIN `CompositeTwos` AS `c1` ON (`c`.`Id1` = `c1`.`OneToMany_Required_Inver
 ORDER BY `c`.`Id2`, `c`.`Id1` DESC, `c0`.`Id1`, `c0`.`Id2`, `c1`.`Id1`");
         }
 
-        public async Task Projecting_multiple_collections_with_ordering_same_level(bool async)
+        public override async Task Projecting_multiple_collections_with_ordering_same_level(bool async)
         {
             await base.Projecting_multiple_collections_with_ordering_same_level(async);
 
@@ -51,7 +51,7 @@ LEFT JOIN `CompositeTwos` AS `c1` ON (`c`.`Id1` = `c1`.`OneToMany_Required_Inver
 ORDER BY `c`.`Id1`, `c`.`Id2`, `c0`.`Id2`, `c0`.`Id1`, `c1`.`Name` DESC, `c1`.`Id1`");
         }
 
-        public async Task Projecting_multiple_collections_with_ordering_same_level_top_level_ordering(bool async)
+        public override async Task Projecting_multiple_collections_with_ordering_same_level_top_level_ordering(bool async)
         {
             await base.Projecting_multiple_collections_with_ordering_same_level_top_level_ordering(async);
 
@@ -63,7 +63,7 @@ LEFT JOIN `CompositeTwos` AS `c1` ON (`c`.`Id1` = `c1`.`OneToMany_Required_Inver
 ORDER BY `c`.`Id2`, `c`.`Id1`, `c0`.`Id2`, `c0`.`Id1`, `c1`.`Name` DESC, `c1`.`Id1`");
         }
 
-        public async Task Projecting_collections_multi_level(bool async)
+        public override async Task Projecting_collections_multi_level(bool async)
         {
             await base.Projecting_collections_multi_level(async);
 
@@ -80,7 +80,7 @@ ORDER BY `c`.`Id2`, `c`.`Id1`, `s`.`Id2`, `s`.`Id1`, `s`.`Id20` DESC
 """);
         }
 
-        public async Task Projecting_multiple_collections_on_multiple_levels_no_explicit_ordering(bool async)
+        public override async Task Projecting_multiple_collections_on_multiple_levels_no_explicit_ordering(bool async)
         {
             await base.Projecting_multiple_collections_on_multiple_levels_no_explicit_ordering(async);
 
@@ -124,7 +124,7 @@ ORDER BY `c`.`Id1`, `c`.`Id2`, `s1`.`Id1`, `s1`.`Id2`, `s1`.`Id10`, `s1`.`Id20`,
 """);
         }
 
-        public async Task Projecting_multiple_collections_on_multiple_levels_some_explicit_ordering(bool async)
+        public override async Task Projecting_multiple_collections_on_multiple_levels_some_explicit_ordering(bool async)
         {
             await base.Projecting_multiple_collections_on_multiple_levels_some_explicit_ordering(async);
 

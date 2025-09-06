@@ -20,7 +20,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //TestSqlLoggerFactory.CaptureOutput(testOutputHelper);
         }
 
-        public Task Include_collection_with_multiple_conditional_order_by(bool async)
+        public override Task Include_collection_with_multiple_conditional_order_by(bool async)
         {
             // The order of `Orders` can be different, because it is not explicitly sorted.
             // This is the case on MariaDB.
@@ -35,7 +35,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 elementAsserter: (e, a) => AssertInclude(e, a, new ExpectedInclude<Order>(o => o.OrderDetails)));
         }
 
-        public Task Include_collection_SelectMany_GroupBy_Select(bool async)
+        public override Task Include_collection_SelectMany_GroupBy_Select(bool async)
         {
             // The original EF Core query depends on a specific implicit order of the Order.OrderDetails collection.
             // This order is not returned for some database server implementations (which is not a bug of the DBMS, but an inaccuracy of the
@@ -52,7 +52,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                     .Select(e => e.OrderBy(o => o.OrderID).FirstOrDefault()));
         }
 
-        public Task Include_collection_Join_GroupBy_Select(bool async)
+        public override Task Include_collection_Join_GroupBy_Select(bool async)
         {
             // The original EF Core query depends on a specific implicit order of the Order.OrderDetails collection.
             // This order is not returned for some database server implementations (which is not a bug of the DBMS, but an inaccuracy of the
@@ -73,7 +73,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                     .Select(e => e.OrderBy(o => o.OrderID).FirstOrDefault()));
         }
 
-        public Task SelectMany_Include_collection_GroupBy_Select(bool async)
+        public override Task SelectMany_Include_collection_GroupBy_Select(bool async)
         {
             // The original EF Core query depends on a specific implicit order of the Order.OrderDetails collection.
             // This order is not returned for some database server implementations (which is not a bug of the DBMS, but an inaccuracy of the
@@ -89,7 +89,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                     .Select(e => e.OrderBy(o => o.OrderID).FirstOrDefault()));
         }
 
-        public Task Include_duplicate_collection_result_operator(bool async)
+        public override Task Include_duplicate_collection_result_operator(bool async)
         {
             // The order of `Orders` can be different, because it is not explicitly sorted.
             // This is the case on MariaDB.
@@ -106,7 +106,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 });
         }
 
-        public Task Include_duplicate_collection_result_operator2(bool async)
+        public override Task Include_duplicate_collection_result_operator2(bool async)
         {
             // The order of `Orders` can be different, because it is not explicitly sorted.
             // The order of the end result can be different as well.
@@ -125,24 +125,24 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
-        public Task Include_collection_skip_no_order_by(bool async)
+        public override Task Include_collection_skip_no_order_by(bool async)
         {
             return base.Include_collection_skip_no_order_by(async);
         }
 
         [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
-        public Task Include_collection_skip_take_no_order_by(bool async)
+        public override Task Include_collection_skip_take_no_order_by(bool async)
         {
             return base.Include_collection_skip_take_no_order_by(async);
         }
 
         [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
-        public Task Include_collection_take_no_order_by(bool async)
+        public override Task Include_collection_take_no_order_by(bool async)
         {
             return base.Include_collection_take_no_order_by(async);
         }
 
-        public Task Repro9735(bool async)
+        public override Task Repro9735(bool async)
         {
             return AssertQuery(
                 async,
