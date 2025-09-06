@@ -15,7 +15,7 @@ public class NonSharedPrimitiveCollectionsQueryMySqlTest : NonSharedPrimitiveCol
 {
     #region Support for specific element types
 
-    public async Task Array_of_string()
+    public override async Task Array_of_string()
     {
         await base.Array_of_string();
 
@@ -34,7 +34,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_int()
+    public override async Task Array_of_int()
     {
         await base.Array_of_int();
 
@@ -53,7 +53,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_long()
+    public override async Task Array_of_long()
     {
         await base.Array_of_long();
 
@@ -72,7 +72,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_short()
+    public override async Task Array_of_short()
     {
         await base.Array_of_short();
 
@@ -92,10 +92,10 @@ LIMIT 2
     }
 
     [ConditionalFact]
-    public Task Array_of_byte()
+    public override Task Array_of_byte()
         => base.Array_of_byte();
 
-    public async Task Array_of_double()
+    public override async Task Array_of_double()
     {
         await base.Array_of_double();
 
@@ -114,7 +114,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_float()
+    public override async Task Array_of_float()
     {
         await base.Array_of_float();
 
@@ -133,7 +133,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_decimal()
+    public override async Task Array_of_decimal()
     {
         await base.Array_of_decimal();
 
@@ -152,7 +152,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_DateTime()
+    public override async Task Array_of_DateTime()
     {
         await base.Array_of_DateTime();
 
@@ -171,7 +171,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_DateTime_with_milliseconds()
+    public override async Task Array_of_DateTime_with_milliseconds()
     {
         await base.Array_of_DateTime_with_milliseconds();
 
@@ -190,7 +190,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_DateTime_with_microseconds()
+    public override async Task Array_of_DateTime_with_microseconds()
     {
         await base.Array_of_DateTime_with_microseconds();
 
@@ -209,7 +209,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_DateOnly()
+    public override async Task Array_of_DateOnly()
     {
         await base.Array_of_DateOnly();
 
@@ -228,7 +228,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_TimeOnly()
+    public override async Task Array_of_TimeOnly()
     {
         await base.Array_of_TimeOnly();
 
@@ -247,7 +247,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_TimeOnly_with_milliseconds()
+    public override async Task Array_of_TimeOnly_with_milliseconds()
     {
         await base.Array_of_TimeOnly_with_milliseconds();
 
@@ -266,7 +266,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_TimeOnly_with_microseconds()
+    public override async Task Array_of_TimeOnly_with_microseconds()
     {
         await base.Array_of_TimeOnly_with_microseconds();
 
@@ -285,7 +285,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_DateTimeOffset()
+    public override async Task Array_of_DateTimeOffset()
     {
         await base.Array_of_DateTimeOffset();
 
@@ -304,7 +304,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_bool()
+    public override async Task Array_of_bool()
     {
         await base.Array_of_bool();
 
@@ -323,7 +323,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_Guid()
+    public override async Task Array_of_Guid()
     {
         await base.Array_of_Guid();
 
@@ -342,7 +342,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_byte_array()
+    public override async Task Array_of_byte_array()
     {
         // This does not work, because the byte array is base64 encoded for some reason.
         await base.Array_of_byte_array();
@@ -362,7 +362,7 @@ LIMIT 2
 """);
     }
 
-    public async Task Array_of_enum()
+    public override async Task Array_of_enum()
     {
         await base.Array_of_enum();
 
@@ -382,16 +382,16 @@ LIMIT 2
     }
 
     [ConditionalFact]
-    public Task Multidimensional_array_is_not_supported()
+    public override Task Multidimensional_array_is_not_supported()
         => base.Multidimensional_array_is_not_supported();
 
     #endregion Support for specific element types
 
     [ConditionalFact]
-    public Task Column_with_custom_converter()
+    public override Task Column_with_custom_converter()
         => base.Column_with_custom_converter();
 
-    public async Task Parameter_with_inferred_value_converter()
+    public override async Task Parameter_with_inferred_value_converter()
     {
         await base.Parameter_with_inferred_value_converter();
 
@@ -400,7 +400,7 @@ LIMIT 2
 
     #region Type mapping inference
 
-    public async Task Constant_with_inferred_value_converter()
+    public override async Task Constant_with_inferred_value_converter()
     {
         await base.Constant_with_inferred_value_converter();
 
@@ -436,7 +436,7 @@ LIMIT 2
         }
     }
 
-    public async Task Inline_collection_in_query_filter()
+    public override async Task Inline_collection_in_query_filter()
     {
         await base.Inline_collection_in_query_filter();
 
@@ -471,7 +471,7 @@ LIMIT 2
         }
     }
 
-    public async Task Column_collection_inside_json_owned_entity()
+    public override async Task Column_collection_inside_json_owned_entity()
     {
         var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => base.Column_collection_inside_json_owned_entity());
         Assert.Equal(MySqlStrings.Ef7CoreJsonMappingNotSupported, exception.Message);
@@ -479,7 +479,7 @@ LIMIT 2
 
     #endregion Type mapping inference
 
-    public async Task Parameter_collection_Count_with_column_predicate_with_default_constants()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_constants()
     {
         await base.Parameter_collection_Count_with_column_predicate_with_default_constants();
 
@@ -494,7 +494,7 @@ WHERE (
 """);
     }
 
-    public async Task Parameter_collection_of_ints_Contains_int_with_default_constants()
+    public override async Task Parameter_collection_of_ints_Contains_int_with_default_constants()
     {
         await base.Parameter_collection_of_ints_Contains_int_with_default_constants();
 
@@ -506,35 +506,35 @@ WHERE `t`.`Id` IN (2, 999)
 """);
     }
 
-    public async Task Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter()
     {
         await base.Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter();
 
         AssertSql();
     }
 
-    public async Task Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter()
+    public override async Task Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter()
     {
         await base.Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter();
 
         AssertSql();
     }
 
-    public async Task Parameter_collection_Count_with_column_predicate_with_default_parameters()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_parameters()
     {
         await base.Parameter_collection_Count_with_column_predicate_with_default_parameters();
 
         AssertSql();
     }
 
-    public async Task Parameter_collection_of_ints_Contains_int_with_default_parameters()
+    public override async Task Parameter_collection_of_ints_Contains_int_with_default_parameters()
     {
         await base.Parameter_collection_of_ints_Contains_int_with_default_parameters();
 
         AssertSql();
     }
 
-    public async Task Parameter_collection_Count_with_column_predicate_with_default_parameters_EF_Constant()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_parameters_EF_Constant()
     {
         await base.Parameter_collection_Count_with_column_predicate_with_default_parameters_EF_Constant();
 
@@ -549,7 +549,7 @@ WHERE (
 """);
     }
 
-    public async Task Parameter_collection_of_ints_Contains_int_with_default_parameters_EF_Constant()
+    public override async Task Parameter_collection_of_ints_Contains_int_with_default_parameters_EF_Constant()
     {
         await base.Parameter_collection_of_ints_Contains_int_with_default_parameters_EF_Constant();
 
@@ -561,7 +561,7 @@ WHERE `t`.`Id` IN (2, 999)
 """);
     }
 
-    public async Task Project_collection_from_entity_type_with_owned()
+    public override async Task Project_collection_from_entity_type_with_owned()
     {
         await base.Project_collection_from_entity_type_with_owned();
 

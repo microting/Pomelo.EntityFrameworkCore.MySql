@@ -12,7 +12,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
     {
         protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
 
-        public async Task Can_use_shared_type_entity_type_in_query_filter(bool async)
+        public override async Task Can_use_shared_type_entity_type_in_query_filter(bool async)
         {
             await base.Can_use_shared_type_entity_type_in_query_filter(async);
 
@@ -25,7 +25,7 @@ WHERE EXISTS (
     WHERE (`s`.`Value` = `v`.`Value`) OR (`s`.`Value` IS NULL AND (`v`.`Value` IS NULL)))");
         }
 
-        public async Task Can_use_shared_type_entity_type_in_query_filter_with_from_sql(bool async)
+        public override async Task Can_use_shared_type_entity_type_in_query_filter_with_from_sql(bool async)
         {
             await base.Can_use_shared_type_entity_type_in_query_filter_with_from_sql(async);
 

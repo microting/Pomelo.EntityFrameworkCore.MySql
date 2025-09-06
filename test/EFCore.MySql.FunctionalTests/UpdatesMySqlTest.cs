@@ -37,7 +37,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.DefaultExpression), nameof(ServerVersionSupport.AlternativeDefaultExpression))]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.Returning))]
-        public Task Save_with_shared_foreign_key()
+        public override Task Save_with_shared_foreign_key()
         {
             return base.Save_with_shared_foreign_key();
         }

@@ -143,6 +143,12 @@ VALUES(N'[{"RoundNumber":11,"SubRounds":[{"SubRoundNumber":111},{"SubRoundNumber
         return ctx.SaveChangesAsync();
     }
 
+    protected override Task SeedBadJsonProperties(ContextBadJsonProperties ctx)
+    {
+        // Stub implementation for disabled JSON functionality in MySQL provider
+        return Task.CompletedTask;
+    }
+
     protected override Task SeedJunkInJson(DbContext ctx)
         => ctx.Database.ExecuteSqlAsync(
             $$$$"""
@@ -193,12 +199,6 @@ VALUES(
 N'{"Collection":[{"Bar":21,"Foo":"c21"},{"Bar":22,"Foo":"c22"}]}',
 2)
 """);
-    }
-
-    protected override void SeedBadJsonProperties(ContextBadJsonProperties context)
-    {
-        // Implementation for SeedBadJsonProperties if needed
-        // This method was added as abstract in EF Core 10
     }
 
     #region EnumLegacyValues

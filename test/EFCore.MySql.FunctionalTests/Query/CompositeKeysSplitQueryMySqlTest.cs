@@ -15,7 +15,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public async Task Projecting_collections_multi_level(bool async)
+        public override async Task Projecting_collections_multi_level(bool async)
         {
             await base.Projecting_collections_multi_level(async);
 
@@ -42,7 +42,7 @@ ORDER BY `c`.`Id2`, `c`.`Id1`, `c8`.`Id2`, `c8`.`Id1`, `c11`.`Id2` DESC
 """);
         }
 
-        public async Task Projecting_multiple_collections_on_multiple_levels_no_explicit_ordering(bool async)
+        public override async Task Projecting_multiple_collections_on_multiple_levels_no_explicit_ordering(bool async)
         {
             await base.Projecting_multiple_collections_on_multiple_levels_no_explicit_ordering(async);
 
@@ -154,7 +154,7 @@ ORDER BY `c`.`Id1`, `c`.`Id2`, `c124`.`Id1`, `c124`.`Id2`, `c149`.`Id1`, `c149`.
 """);
         }
 
-        public async Task Projecting_multiple_collections_on_multiple_levels_some_explicit_ordering(bool async)
+        public override async Task Projecting_multiple_collections_on_multiple_levels_some_explicit_ordering(bool async)
         {
             await base.Projecting_multiple_collections_on_multiple_levels_some_explicit_ordering(async);
 
@@ -266,7 +266,7 @@ ORDER BY `c`.`Name`, `c`.`Id1`, `c`.`Id2`, CHAR_LENGTH(`c124`.`Name`), `c124`.`I
 """);
         }
 
-        public async Task Projecting_multiple_collections_same_level_top_level_ordering(bool async)
+        public override async Task Projecting_multiple_collections_same_level_top_level_ordering(bool async)
         {
             await base.Projecting_multiple_collections_same_level_top_level_ordering(async);
 
@@ -292,7 +292,7 @@ ORDER BY `c`.`Id2`, `c`.`Id1`
 """);
         }
 
-        public async Task Projecting_multiple_collections_same_level_top_level_ordering_using_entire_composite_key(bool async)
+        public override async Task Projecting_multiple_collections_same_level_top_level_ordering_using_entire_composite_key(bool async)
         {
             await base.Projecting_multiple_collections_same_level_top_level_ordering_using_entire_composite_key(async);
 
@@ -318,7 +318,7 @@ ORDER BY `c`.`Id2`, `c`.`Id1` DESC
 """);
         }
 
-        public async Task Projecting_multiple_collections_with_ordering_same_level(bool async)
+        public override async Task Projecting_multiple_collections_with_ordering_same_level(bool async)
         {
             await base.Projecting_multiple_collections_with_ordering_same_level(async);
 
@@ -344,7 +344,7 @@ ORDER BY `c`.`Id1`, `c`.`Id2`, `c4`.`Name` DESC
 """);
         }
 
-        public async Task Projecting_multiple_collections_with_ordering_same_level_top_level_ordering(bool async)
+        public override async Task Projecting_multiple_collections_with_ordering_same_level_top_level_ordering(bool async)
         {
             await base.Projecting_multiple_collections_with_ordering_same_level_top_level_ordering(async);
 

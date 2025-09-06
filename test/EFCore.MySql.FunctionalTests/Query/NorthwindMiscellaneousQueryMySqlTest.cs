@@ -42,7 +42,7 @@ ORDER BY `c`.`CustomerID`
 """);
         }
 
-        public async Task Select_bitwise_or_multiple(bool async)
+        public override async Task Select_bitwise_or_multiple(bool async)
         {
             await base.Select_bitwise_or_multiple(async);
 
@@ -54,7 +54,7 @@ ORDER BY `c`.`CustomerID`
 """);
         }
 
-        public async Task Select_bitwise_and(bool async)
+        public override async Task Select_bitwise_and(bool async)
         {
             await base.Select_bitwise_and(async);
 
@@ -66,7 +66,7 @@ ORDER BY `c`.`CustomerID`
 """);
         }
 
-        public async Task Select_bitwise_and_or(bool async)
+        public override async Task Select_bitwise_and_or(bool async)
         {
             await base.Select_bitwise_and_or(async);
 
@@ -78,7 +78,7 @@ ORDER BY `c`.`CustomerID`
 """);
         }
 
-        public async Task Where_bitwise_or_with_logical_or(bool async)
+        public override async Task Where_bitwise_or_with_logical_or(bool async)
         {
             await base.Where_bitwise_or_with_logical_or(async);
 
@@ -90,7 +90,7 @@ WHERE `c`.`CustomerID` IN ('ALFKI', 'ANATR', 'ANTON')
 """);
         }
 
-        public async Task Where_bitwise_and_with_logical_and(bool async)
+        public override async Task Where_bitwise_and_with_logical_and(bool async)
         {
             await base.Where_bitwise_and_with_logical_and(async);
 
@@ -102,7 +102,7 @@ WHERE FALSE
 """);
         }
 
-        public async Task Where_bitwise_or_with_logical_and(bool async)
+        public override async Task Where_bitwise_or_with_logical_and(bool async)
         {
             await base.Where_bitwise_or_with_logical_and(async);
 
@@ -114,7 +114,7 @@ WHERE `c`.`CustomerID` IN ('ALFKI', 'ANATR') AND (`c`.`Country` = 'Germany')
 """);
         }
 
-        public async Task Where_bitwise_and_with_logical_or(bool async)
+        public override async Task Where_bitwise_and_with_logical_or(bool async)
         {
             await base.Where_bitwise_and_with_logical_or(async);
 
@@ -126,7 +126,7 @@ WHERE `c`.`CustomerID` = 'ANTON'
 """);
         }
 
-        public async Task Where_bitwise_binary_not(bool async)
+        public override async Task Where_bitwise_binary_not(bool async)
         {
             await base.Where_bitwise_binary_not(async);
 
@@ -138,7 +138,7 @@ FROM `Orders` AS `o`
 WHERE CAST(~`o`.`OrderID` AS signed) = @__negatedId_0");
         }
 
-        public async Task Where_bitwise_binary_and(bool async)
+        public override async Task Where_bitwise_binary_and(bool async)
         {
             await base.Where_bitwise_binary_and(async);
 
@@ -150,7 +150,7 @@ WHERE CAST(`o`.`OrderID` & 10248 AS signed) = 10248
 """);
         }
 
-        public async Task Where_bitwise_binary_or(bool async)
+        public override async Task Where_bitwise_binary_or(bool async)
         {
             await base.Where_bitwise_binary_or(async);
 
@@ -162,7 +162,7 @@ WHERE CAST(`o`.`OrderID` | 10248 AS signed) = 10248
 """);
         }
 
-        public async Task Select_bitwise_or_with_logical_or(bool async)
+        public override async Task Select_bitwise_or_with_logical_or(bool async)
         {
             await base.Select_bitwise_or_with_logical_or(async);
 
@@ -174,7 +174,7 @@ ORDER BY `c`.`CustomerID`
 """);
         }
 
-        public async Task Select_bitwise_and_with_logical_and(bool async)
+        public override async Task Select_bitwise_and_with_logical_and(bool async)
         {
             await base.Select_bitwise_and_with_logical_and(async);
 
@@ -187,7 +187,7 @@ ORDER BY `c`.`CustomerID`
         }
 
         [ConditionalTheory]
-        public async Task Take_Skip(bool async)
+        public override async Task Take_Skip(bool async)
         {
             await base.Take_Skip(async);
 
@@ -209,7 +209,7 @@ LIMIT 18446744073709551610 OFFSET @__p_1
         }
 
         [ConditionalTheory]
-        public async Task Select_expression_references_are_updated_correctly_with_subquery(bool async)
+        public override async Task Select_expression_references_are_updated_correctly_with_subquery(bool async)
         {
             await base.Select_expression_references_are_updated_correctly_with_subquery(async);
 
@@ -221,7 +221,7 @@ FROM `Orders` AS `o`
 WHERE `o`.`OrderDate` IS NOT NULL AND (EXTRACT(year FROM `o`.`OrderDate`) < @__nextYear_0)");
         }
 
-        public Task Entity_equality_orderby_subquery(bool async)
+        public override Task Entity_equality_orderby_subquery(bool async)
         {
             // Ordering in the base test is arbitrary.
             return AssertQuery(
@@ -231,7 +231,7 @@ WHERE `o`.`OrderDate` IS NOT NULL AND (EXTRACT(year FROM `o`.`OrderDate`) < @__n
                 assertOrder: true);
         }
 
-        public Task Using_string_Equals_with_StringComparison_throws_informative_error(bool async)
+        public override Task Using_string_Equals_with_StringComparison_throws_informative_error(bool async)
         {
             return AssertTranslationFailedWithDetails(
                 () => AssertQuery(
@@ -240,7 +240,7 @@ WHERE `o`.`OrderDate` IS NOT NULL AND (EXTRACT(year FROM `o`.`OrderDate`) < @__n
                 MySqlStrings.QueryUnableToTranslateMethodWithStringComparison(nameof(String), nameof(string.Equals), nameof(MySqlDbContextOptionsBuilder.EnableStringComparisonTranslations)));
         }
 
-        public Task Using_static_string_Equals_with_StringComparison_throws_informative_error(bool async)
+        public override Task Using_static_string_Equals_with_StringComparison_throws_informative_error(bool async)
         {
             return AssertTranslationFailedWithDetails(
                 () => AssertQuery(
@@ -252,7 +252,7 @@ WHERE `o`.`OrderDate` IS NOT NULL AND (EXTRACT(year FROM `o`.`OrderDate`) < @__n
         /// <summary>
         /// Needs explicit ordering of ProductIds to work with MariaDB.
         /// </summary>
-        public async Task Projection_skip_collection_projection(bool async)
+        public override async Task Projection_skip_collection_projection(bool async)
         {
             // await base.Projection_skip_collection_projection(async);
             await AssertQuery(
@@ -290,7 +290,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
         /// <summary>
         /// Needs explicit ordering of ProductIds to work with MariaDB.
         /// </summary>
-        public async Task Projection_skip_take_collection_projection(bool async)
+        public override async Task Projection_skip_take_collection_projection(bool async)
         {
             // await base.Projection_skip_take_collection_projection(async);
             await AssertQuery(
@@ -330,7 +330,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
         /// <summary>
         /// Needs explicit ordering of ProductIds to work with MariaDB.
         /// </summary>
-        public async Task Projection_take_collection_projection(bool async)
+        public override async Task Projection_take_collection_projection(bool async)
         {
             // await base.Projection_take_collection_projection(async);
             await AssertQuery(
@@ -365,7 +365,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
 """);
         }
 
-        public Task Complex_nested_query_doesnt_try_binding_to_grandparent_when_parent_returns_complex_result(bool async)
+        public override Task Complex_nested_query_doesnt_try_binding_to_grandparent_when_parent_returns_complex_result(bool async)
         {
             if (AppConfig.ServerVersion.Supports.OuterApply)
             {
@@ -381,7 +381,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
             }
         }
 
-        public async Task Client_code_using_instance_method_throws(bool async)
+        public override async Task Client_code_using_instance_method_throws(bool async)
         {
             Assert.Equal(
                 CoreStrings.ClientProjectionCapturingConstantInMethodInstance(
@@ -393,7 +393,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
             AssertSql();
         }
 
-        public async Task Client_code_using_instance_in_static_method(bool async)
+        public override async Task Client_code_using_instance_in_static_method(bool async)
         {
             Assert.Equal(
                 CoreStrings.ClientProjectionCapturingConstantInMethodArgument(
@@ -405,7 +405,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
             AssertSql();
         }
 
-        public async Task Client_code_using_instance_in_anonymous_type(bool async)
+        public override async Task Client_code_using_instance_in_anonymous_type(bool async)
         {
             Assert.Equal(
                 CoreStrings.ClientProjectionCapturingConstantInTree(
@@ -416,7 +416,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
             AssertSql();
         }
 
-        public async Task Client_code_unknown_method(bool async)
+        public override async Task Client_code_unknown_method(bool async)
         {
             await AssertTranslationFailedWithDetails(
                 () => base.Client_code_unknown_method(async),
@@ -427,7 +427,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
             AssertSql();
         }
 
-        public async Task Entity_equality_through_subquery_composite_key(bool async)
+        public override async Task Entity_equality_through_subquery_composite_key(bool async)
         {
             var message = (await Assert.ThrowsAsync<InvalidOperationException>(
                 () => base.Entity_equality_through_subquery_composite_key(async))).Message;
@@ -439,7 +439,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
             AssertSql();
         }
 
-        public async Task Max_on_empty_sequence_throws(bool async)
+        public override async Task Max_on_empty_sequence_throws(bool async)
         {
             await Assert.ThrowsAsync<InvalidOperationException>(() => base.Max_on_empty_sequence_throws(async));
 
@@ -451,7 +451,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
 FROM `Customers` AS `c`");
         }
 
-        public async Task
+        public override async Task
             Select_DTO_constructor_distinct_with_collection_projection_translated_to_server_with_binding_after_client_eval(bool async)
         {
             using var context = CreateContext();
@@ -497,7 +497,7 @@ ORDER BY `o0`.`CustomerID`, `o1`.`OrderID`
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.WhereSubqueryReferencesOuterQuery))]
-        public async Task Subquery_with_navigation_inside_inline_collection(bool async)
+        public override async Task Subquery_with_navigation_inside_inline_collection(bool async)
         {
             await base.Subquery_with_navigation_inside_inline_collection(async);
 
@@ -505,7 +505,7 @@ ORDER BY `o0`.`CustomerID`, `o1`.`OrderID`
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.OuterReferenceInMultiLevelSubquery))]
-        public Task DefaultIfEmpty_Sum_over_collection_navigation(bool async)
+        public override Task DefaultIfEmpty_Sum_over_collection_navigation(bool async)
         {
             return base.DefaultIfEmpty_Sum_over_collection_navigation(async);
         }

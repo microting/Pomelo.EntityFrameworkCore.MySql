@@ -16,7 +16,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public async Task SelectMany_with_Include1(bool async)
+        public override async Task SelectMany_with_Include1(bool async)
         {
             await base.SelectMany_with_Include1(async);
 
@@ -40,7 +40,7 @@ ORDER BY `l`.`Id`, `l1`.`Id`
 """);
         }
 
-        public async Task SelectMany_with_navigation_and_Distinct(bool async)
+        public override async Task SelectMany_with_navigation_and_Distinct(bool async)
         {
             await base.SelectMany_with_navigation_and_Distinct(async);
 
@@ -63,7 +63,7 @@ ORDER BY `l`.`Id`, `l1`.`Id`
 """);
         }
 
-        public async Task Take_Select_collection_Take(bool async)
+        public override async Task Take_Select_collection_Take(bool async)
         {
             await base.Take_Select_collection_Take(async);
 
@@ -99,7 +99,7 @@ ORDER BY `l3`.`Id`, `s`.`c`, `s`.`Id1`
 """);
         }
 
-        public async Task Skip_Take_Select_collection_Skip_Take(bool async)
+        public override async Task Skip_Take_Select_collection_Skip_Take(bool async)
         {
             await base.Skip_Take_Select_collection_Skip_Take(async);
 
@@ -135,7 +135,7 @@ ORDER BY `l3`.`Id`, `s`.`c`, `s`.`Id1`
 """);
         }
 
-        public async Task Skip_Take_on_grouping_element_inside_collection_projection(bool async)
+        public override async Task Skip_Take_on_grouping_element_inside_collection_projection(bool async)
         {
             await base.Skip_Take_on_grouping_element_inside_collection_projection(async);
 
@@ -165,7 +165,7 @@ ORDER BY `l`.`Id`, `s`.`Date`, `s`.`Date0`, `s`.`Name`
 """);
         }
 
-        public async Task Skip_Take_Distinct_on_grouping_element(bool async)
+        public override async Task Skip_Take_Distinct_on_grouping_element(bool async)
         {
             await base.Skip_Take_Distinct_on_grouping_element(async);
 
@@ -191,7 +191,7 @@ ORDER BY `l2`.`Date`
 """);
         }
 
-        public async Task Skip_Take_on_grouping_element_with_collection_include(bool async)
+        public override async Task Skip_Take_on_grouping_element_with_collection_include(bool async)
         {
             await base.Skip_Take_on_grouping_element_with_collection_include(async);
 
@@ -222,7 +222,7 @@ ORDER BY `l2`.`Date`, `s`.`Name`, `s`.`Id`
 """);
         }
 
-        public async Task Skip_Take_on_grouping_element_with_reference_include(bool async)
+        public override async Task Skip_Take_on_grouping_element_with_reference_include(bool async)
         {
             await base.Skip_Take_on_grouping_element_with_reference_include(async);
 

@@ -158,7 +158,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
                     var generateAsyncParameter = parameters.Length == 1 &&
                                                  parameters[0].ParameterType == typeof(bool);
                     methodCalls.Append(
-                        @$"public async Task {method.Name}({(generateAsyncParameter ? "bool async" : null)})
+                        @$"public override async Task {method.Name}({(generateAsyncParameter ? "bool async" : null)})
 {{
     await base.{method.Name}({(generateAsyncParameter ? "async" : null)});{(withAssertSqlCall ?
 """

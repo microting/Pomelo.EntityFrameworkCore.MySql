@@ -17,7 +17,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public async Task Like_literal(bool async)
+        public override async Task Like_literal(bool async)
         {
             await base.Like_literal(async);
 
@@ -27,7 +27,7 @@ FROM `Customers` AS `c`
 WHERE `c`.`ContactName` LIKE '%M%'");
         }
 
-        public async Task Like_identity(bool async)
+        public override async Task Like_identity(bool async)
         {
             await base.Like_identity(async);
 
@@ -37,7 +37,7 @@ FROM `Customers` AS `c`
 WHERE `c`.`ContactName` LIKE `c`.`ContactName`");
         }
 
-        public async Task Like_literal_with_escape(bool async)
+        public override async Task Like_literal_with_escape(bool async)
         {
             await base.Like_literal_with_escape(async);
 

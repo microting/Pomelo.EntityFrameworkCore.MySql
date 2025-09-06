@@ -22,7 +22,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public async Task Client_eval_Union_FirstOrDefault(bool async)
+        public override async Task Client_eval_Union_FirstOrDefault(bool async)
         {
             // Client evaluation in projection. Issue #16243.
             Assert.Equal(
@@ -34,7 +34,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptIntercept))]
-        public async Task Intersect(bool async)
+        public override async Task Intersect(bool async)
         {
             await base.Intersect(async);
 
@@ -49,7 +49,7 @@ WHERE `c0`.`ContactName` LIKE '%Thomas%'");
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptIntercept))]
-        public async Task Intersect_nested(bool async)
+        public override async Task Intersect_nested(bool async)
         {
             await base.Intersect_nested(async);
 
@@ -68,7 +68,7 @@ WHERE `c1`.`Fax` IS NOT NULL");
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptIntercept))]
-        public async Task Intersect_non_entity(bool async)
+        public override async Task Intersect_non_entity(bool async)
         {
             await base.Intersect_non_entity(async);
 
@@ -83,7 +83,7 @@ WHERE `c0`.`ContactTitle` = 'Owner'");
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptInterceptPrecedence))]
-        public async Task Union_Intersect(bool async)
+        public override async Task Union_Intersect(bool async)
         {
             await base.Union_Intersect(async);
 
@@ -104,7 +104,7 @@ WHERE `c1`.`ContactName` LIKE '%Thomas%'");
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptIntercept))]
-        public async Task Except(bool async)
+        public override async Task Except(bool async)
         {
             await base.Except(async);
 
@@ -119,7 +119,7 @@ WHERE `c0`.`ContactName` LIKE '%Thomas%'");
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptIntercept))]
-        public async Task Except_simple_followed_by_projecting_constant(bool async)
+        public override async Task Except_simple_followed_by_projecting_constant(bool async)
         {
             await base.Except_simple_followed_by_projecting_constant(async);
 
@@ -137,7 +137,7 @@ FROM (
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptIntercept))]
-        public async Task Except_nested(bool async)
+        public override async Task Except_nested(bool async)
         {
             await base.Except_nested(async);
 
@@ -158,7 +158,7 @@ WHERE `c1`.`City` = 'Seattle'");
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptIntercept))]
-        public async Task Except_non_entity(bool async)
+        public override async Task Except_non_entity(bool async)
         {
             await base.Except_non_entity(async);
 
@@ -173,7 +173,7 @@ WHERE `c0`.`City` = 'México D.F.'");
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptIntercept))]
-        public async Task Select_Except_reference_projection(bool async)
+        public override async Task Select_Except_reference_projection(bool async)
         {
             await base.Select_Except_reference_projection(async);
 
@@ -189,7 +189,7 @@ WHERE `o0`.`CustomerID` = 'ALFKI'");
         }
 
         [ConditionalTheory(Skip = "TODO: MySQL does not seem to allow an ORDER BY or LIMIT clause directly in a SELECT statement that is part of a UNION.")]
-        public Task Union_Take_Union_Take(bool async)
+        public override Task Union_Take_Union_Take(bool async)
         {
             // TODO: MySQL does not seem to allow an ORDER BY or LIMIT clause directly in a SELECT statement that is part of a UNION.
             //       To make this work, the SELECT statement containing the ORDER BY and/or LIMIT clause needs to be wrapped by another
@@ -198,7 +198,7 @@ WHERE `o0`.`CustomerID` = 'ALFKI'");
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptIntercept))]
-        public async Task Union_Select_scalar(bool async)
+        public override async Task Union_Select_scalar(bool async)
         {
             await base.Union_Select_scalar(async);
 

@@ -16,7 +16,7 @@ public class OperatorsQueryMySqlTest : OperatorsQueryTestBase
     protected void AssertSql(params string[] expected)
         => TestSqlLoggerFactory.AssertBaseline(expected);
 
-    public async Task Bitwise_and_on_expression_with_like_and_null_check_being_compared_to_false()
+    public override async Task Bitwise_and_on_expression_with_like_and_null_check_being_compared_to_false()
     {
         await base.Bitwise_and_on_expression_with_like_and_null_check_being_compared_to_false();
 
@@ -31,7 +31,7 @@ ORDER BY `o`.`Id`, `o0`.`Id`, `o1`.`Id`
 """);
     }
 
-    public async Task Complex_predicate_with_bitwise_and_modulo_and_negation()
+    public override async Task Complex_predicate_with_bitwise_and_modulo_and_negation()
     {
         await base.Complex_predicate_with_bitwise_and_modulo_and_negation();
 
@@ -47,7 +47,7 @@ ORDER BY `o`.`Id`, `o0`.`Id`, `o1`.`Id`, `o2`.`Id`
 """);
     }
 
-    public async Task Complex_predicate_with_bitwise_and_arithmetic_operations()
+    public override async Task Complex_predicate_with_bitwise_and_arithmetic_operations()
     {
         await base.Complex_predicate_with_bitwise_and_arithmetic_operations();
 
@@ -62,7 +62,7 @@ ORDER BY `o`.`Id`, `o0`.`Id`, `o1`.`Id`
 """);
     }
 
-    public async Task Or_on_two_nested_binaries_and_another_simple_comparison()
+    public override async Task Or_on_two_nested_binaries_and_another_simple_comparison()
     {
         await base.Or_on_two_nested_binaries_and_another_simple_comparison();
 
@@ -79,7 +79,7 @@ ORDER BY `o`.`Id`, `o0`.`Id`, `o1`.`Id`, `o2`.`Id`, `o3`.`Id`
 """);
     }
 
-    public async Task Projection_with_not_and_negation_on_integer()
+    public override async Task Projection_with_not_and_negation_on_integer()
     {
         await base.Projection_with_not_and_negation_on_integer();
 
@@ -93,7 +93,7 @@ ORDER BY `o`.`Id`, `o0`.`Id`, `o1`.`Id`
 """);
     }
 
-    public async Task Negate_on_column(bool async)
+    public override async Task Negate_on_column(bool async)
     {
         await base.Negate_on_column(async);
 
@@ -105,7 +105,7 @@ WHERE `o`.`Id` = -`o`.`Value`
 """);
     }
 
-    public async Task Double_negate_on_column()
+    public override async Task Double_negate_on_column()
     {
         await base.Double_negate_on_column();
 
@@ -117,7 +117,7 @@ WHERE -(-`o`.`Value`) = `o`.`Value`
 """);
     }
 
-    public async Task Negate_on_binary_expression(bool async)
+    public override async Task Negate_on_binary_expression(bool async)
     {
         await base.Negate_on_binary_expression(async);
 
@@ -130,7 +130,7 @@ WHERE -`o`.`Value` = -(`o`.`Id` + `o0`.`Value`)
 """);
     }
 
-    public async Task Negate_on_like_expression(bool async)
+    public override async Task Negate_on_like_expression(bool async)
     {
         await base.Negate_on_like_expression(async);
 
@@ -142,7 +142,7 @@ WHERE `o`.`Value` NOT LIKE 'A%' OR (`o`.`Value` IS NULL)
 """);
     }
 
-    public Task Concat_and_json_scalar(bool async)
+    public override Task Concat_and_json_scalar(bool async)
         => Assert.ThrowsAsync<InvalidOperationException>(() => base.Concat_and_json_scalar(async));
 
     protected override async Task Seed(OperatorsContext ctx)
