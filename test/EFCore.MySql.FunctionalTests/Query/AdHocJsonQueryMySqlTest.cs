@@ -97,7 +97,7 @@ INSERT INTO `Reviews` (`Rounds`, `Id`)
 VALUES(N'[{"RoundNumber":11,"SubRounds":[{"SubRoundNumber":111},{"SubRoundNumber":112}]}]', 1)
 """);
 
-    protected override Task SeedArrayOfPrimitives(DbContext ctx)
+    protected Task SeedArrayOfPrimitives(DbContext ctx)
     {
         var entity1 = new MyEntityArrayOfPrimitives
         {
@@ -141,6 +141,12 @@ VALUES(N'[{"RoundNumber":11,"SubRounds":[{"SubRoundNumber":111},{"SubRoundNumber
 
         ctx.AddRange(entity1, entity2);
         return ctx.SaveChangesAsync();
+    }
+
+    protected override Task SeedBadJsonProperties(ContextBadJsonProperties ctx)
+    {
+        // Stub implementation for disabled JSON functionality in MySQL provider
+        return Task.CompletedTask;
     }
 
     protected override Task SeedJunkInJson(DbContext ctx)
