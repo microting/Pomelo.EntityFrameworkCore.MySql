@@ -2757,8 +2757,7 @@ WHERE (LOCATE(CAST(`o`.`OrderID` AS char), '123') - 1) = -1
 """);
         }
 
-        public override Task Datetime_subtraction_TotalDays(bool async)
-            => AssertTranslationFailed(() => base.Datetime_subtraction_TotalDays(async));
+
 
         [ConditionalFact]
         public virtual void Check_all_tests_overridden()
