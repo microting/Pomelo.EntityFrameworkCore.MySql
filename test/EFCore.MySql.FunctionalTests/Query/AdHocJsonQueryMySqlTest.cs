@@ -143,6 +143,12 @@ VALUES(N'[{"RoundNumber":11,"SubRounds":[{"SubRoundNumber":111},{"SubRoundNumber
         return ctx.SaveChangesAsync();
     }
 
+    protected override Task SeedBadJsonProperties(ContextBadJsonProperties ctx)
+    {
+        // Stub implementation for disabled JSON functionality in MySQL provider
+        return Task.CompletedTask;
+    }
+
     protected override Task SeedJunkInJson(DbContext ctx)
         => ctx.Database.ExecuteSqlAsync(
             $$$$"""

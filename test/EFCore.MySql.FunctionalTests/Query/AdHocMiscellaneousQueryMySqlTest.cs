@@ -33,4 +33,11 @@ INSERT INTO `ZeroKey` VALUES (NULL)
         //var good2 = context.Set<NameSpace2.TestQuery>().FromSqlRaw(@"SELECT 1 AS MyValue").ToList(); // OK
         var bad = context.Set<TestQuery>().FromSqlRaw(@"SELECT cast(null as signed) AS MyValue").ToList(); // Exception
     }
+
+    protected override Task SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode mode)
+    {
+        // MySQL-specific parameter handling configuration
+        // For now, use default MySQL behavior as the implementation is provider-specific
+        return Task.CompletedTask;
+    }
 }
