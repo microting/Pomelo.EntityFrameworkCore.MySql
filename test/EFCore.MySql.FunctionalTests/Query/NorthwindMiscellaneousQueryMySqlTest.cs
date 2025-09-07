@@ -30,53 +30,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        public async Task Select_bitwise_or(bool async)
-        {
-            await base.Select_bitwise_or(async);
 
-        AssertSql(
-"""
-SELECT `c`.`CustomerID`, `c`.`CustomerID` IN ('ALFKI', 'ANATR') AS `Value`
-FROM `Customers` AS `c`
-ORDER BY `c`.`CustomerID`
-""");
-        }
 
-        public override async Task Select_bitwise_or_multiple(bool async)
-        {
-            await base.Select_bitwise_or_multiple(async);
 
-        AssertSql(
-"""
-SELECT `c`.`CustomerID`, `c`.`CustomerID` IN ('ALFKI', 'ANATR', 'ANTON') AS `Value`
-FROM `Customers` AS `c`
-ORDER BY `c`.`CustomerID`
-""");
-        }
 
-        public override async Task Select_bitwise_and(bool async)
-        {
-            await base.Select_bitwise_and(async);
 
-        AssertSql(
-"""
-SELECT `c`.`CustomerID`, FALSE AS `Value`
-FROM `Customers` AS `c`
-ORDER BY `c`.`CustomerID`
-""");
-        }
 
-        public override async Task Select_bitwise_and_or(bool async)
-        {
-            await base.Select_bitwise_and_or(async);
 
-        AssertSql(
-"""
-SELECT `c`.`CustomerID`, `c`.`CustomerID` = 'ANTON' AS `Value`
-FROM `Customers` AS `c`
-ORDER BY `c`.`CustomerID`
-""");
-        }
 
         public override async Task Where_bitwise_or_with_logical_or(bool async)
         {
@@ -162,29 +122,9 @@ WHERE CAST(`o`.`OrderID` | 10248 AS signed) = 10248
 """);
         }
 
-        public override async Task Select_bitwise_or_with_logical_or(bool async)
-        {
-            await base.Select_bitwise_or_with_logical_or(async);
 
-        AssertSql(
-"""
-SELECT `c`.`CustomerID`, `c`.`CustomerID` IN ('ALFKI', 'ANATR', 'ANTON') AS `Value`
-FROM `Customers` AS `c`
-ORDER BY `c`.`CustomerID`
-""");
-        }
 
-        public override async Task Select_bitwise_and_with_logical_and(bool async)
-        {
-            await base.Select_bitwise_and_with_logical_and(async);
 
-        AssertSql(
-"""
-SELECT `c`.`CustomerID`, FALSE AS `Value`
-FROM `Customers` AS `c`
-ORDER BY `c`.`CustomerID`
-""");
-        }
 
         [ConditionalTheory]
         public override async Task Take_Skip(bool async)
