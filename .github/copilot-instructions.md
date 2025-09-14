@@ -101,7 +101,7 @@ Key projects:
 ```bash
 # Complete setup from fresh clone
 export PATH="$HOME/.dotnet:$PATH"
-curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 9.0.100
+curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 10.0.100-preview.7.25380.108
 export PATH="$HOME/.dotnet:$PATH"
 
 # Create clean NuGet config
