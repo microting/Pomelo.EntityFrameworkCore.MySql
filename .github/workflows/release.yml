@@ -86,6 +86,12 @@ jobs:
 
           echo "github.event_name: ${{ github.event_name }}"
           echo "github.repository: ${{ github.repository }}"
+      - name: Prepare certs & NuGet env
+        if: ${{ env.os == 'linux' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ca-certificates
+          echo "NUGET_CERT_REVOCATION_MODE=offline" >> $GITHUB_ENV
       - name: Install Database Server - Linux
         if: ${{ env.os == 'linux' }}
         shell: pwsh

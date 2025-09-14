@@ -110,7 +110,6 @@ cat > /tmp/nuget.config << 'EOF'
 <configuration>
   <packageSources>
     <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
-    <add key="dotnet9" value="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json" />
   </packageSources>
   <config>
     <add key="disableNugetaudit" value="true" />
