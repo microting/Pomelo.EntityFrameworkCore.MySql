@@ -1,9 +1,9 @@
 ﻿using System;
 using Pomelo.EntityFrameworkCore.MySql.IntegrationTests.Commands;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using Pomelo.EntityFrameworkCore.MySql.Tests;
 
 namespace Pomelo.EntityFrameworkCore.MySql.IntegrationTests
@@ -41,11 +41,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.IntegrationTests
             }
         }
 
-        public static IWebHost BuildWebHost(string[] args)
+        public static IHost BuildWebHost(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://*:5000")
-                .UseStartup<Startup>()
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseUrls("http://*:5000")
+                              .UseStartup<Startup>();
+                })
                 .Build();
         }
 
