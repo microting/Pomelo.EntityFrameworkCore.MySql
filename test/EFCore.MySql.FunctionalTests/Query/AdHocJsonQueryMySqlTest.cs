@@ -97,7 +97,7 @@ INSERT INTO `Reviews` (`Rounds`, `Id`)
 VALUES(N'[{"RoundNumber":11,"SubRounds":[{"SubRoundNumber":111},{"SubRoundNumber":112}]}]', 1)
 """);
 
-    protected override Task SeedArrayOfPrimitives(DbContext ctx)
+    protected new Task SeedArrayOfPrimitives(DbContext ctx)
     {
         var entity1 = new MyEntityArrayOfPrimitives
         {
