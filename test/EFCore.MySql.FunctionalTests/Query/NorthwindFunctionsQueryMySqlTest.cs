@@ -366,7 +366,12 @@ WHERE `c`.`CustomerID` = 'ALFKI'");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Substring_with_two_args_with_closure(bool async)
         {
-            await base.Substring_with_two_args_with_closure(async);
+            var start = 1;
+        var length = 3;
+
+        await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(start, length) == "ari"));
 
             AssertSql(
                 @"@__start_0='2'
@@ -381,7 +386,9 @@ WHERE `c`.`CustomerID` = 'ALFKI'");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Substring_with_two_args_with_Index_of(bool async)
         {
-            await base.Substring_with_two_args_with_Index_of(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(c.ContactName.IndexOf("a"), 3) == "ari"));
 
             AssertSql(
                 @"SELECT SUBSTRING(`c`.`ContactName`, (LOCATE('a', `c`.`ContactName`) - 1) + 1, 3)
@@ -394,7 +401,9 @@ WHERE `c`.`CustomerID` = 'ALFKI'");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Regex_IsMatch_MethodCall(bool async)
         {
-            await base.Regex_IsMatch_MethodCall(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => Regex.IsMatch(c.ContactName, "^M")));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -407,7 +416,9 @@ WHERE `c`.`CustomerID` REGEXP '^T'");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Regex_IsMatch_MethodCall_constant_input(bool async)
         {
-            await base.Regex_IsMatch_MethodCall_constant_input(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => Regex.IsMatch("Maria", "^M")));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -450,7 +461,9 @@ WHERE (`o`.`UnitPrice` < 7.0) AND (ABS(`o`.`Quantity`) > 10)");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_abs_uncorrelated(bool async)
         {
-            await base.Where_math_abs_uncorrelated(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Product>().Where(p => Math.Abs(p.ProductID) == 10));
             AssertSql(
 """
 SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -464,7 +477,9 @@ WHERE (`o`.`UnitPrice` < 7.0) AND (10 < `o`.`ProductID`)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Select_math_round_int(bool async)
         {
-            await base.Select_math_round_int(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Order>().Select(o => new { o.OrderID, Result = Math.Round((double)o.OrderID) }));
 
             AssertSql(
                 $@"SELECT ROUND({MySqlTestHelpers.CastAsDouble("`o`.`OrderID`")}) AS `A`
@@ -477,7 +492,9 @@ WHERE `o`.`OrderID` < 10250");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_min(bool async)
         {
-            await base.Where_math_min(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Min(od.OrderID, od.ProductID) }));
 
             AssertSql(
                 @"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -490,7 +507,9 @@ WHERE (`o`.`OrderID` = 11077) AND (LEAST(`o`.`OrderID`, `o`.`ProductID`) = `o`.`
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_max(bool async)
         {
-            await base.Where_math_max(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Max(od.OrderID, od.ProductID) }));
 
             AssertSql(
                 @"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -548,7 +567,9 @@ WHERE TRIM(LEADING FROM `c`.`ContactTitle`) = 'Owner'");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task TrimStart_with_char_argument_in_predicate(bool async)
         {
-            await base.TrimStart_with_char_argument_in_predicate(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.TrimStart('M') == "aria Anders"));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -587,7 +608,9 @@ WHERE TRIM(TRAILING FROM `c`.`ContactTitle`) = 'Owner'");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task TrimEnd_with_char_argument_in_predicate(bool async)
         {
-            await base.TrimEnd_with_char_argument_in_predicate(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.TrimEnd('s') == "Maria Ander"));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -626,7 +649,9 @@ WHERE TRIM(`c`.`ContactTitle`) = 'Owner'");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Trim_with_char_argument_in_predicate(bool async)
         {
-            await base.Trim_with_char_argument_in_predicate(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Trim('M') == "aria Anders"));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -649,7 +674,9 @@ WHERE TRIM('O' FROM `c`.`ContactTitle`) = 'wner'");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_FirstOrDefault_MethodCall(bool async)
         {
-            await base.String_FirstOrDefault_MethodCall(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.FirstOrDefault() == 'M'));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -661,7 +688,9 @@ WHERE SUBSTRING(`c`.`ContactName`, 1, 1) = 'A'");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Contains_constant_with_whitespace(bool async)
         {
-            await base.String_Contains_constant_with_whitespace(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Contains(" ")));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -673,7 +702,11 @@ WHERE `c`.`ContactName` LIKE '%     %'");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Contains_parameter_with_whitespace(bool async)
         {
-            await base.String_Contains_parameter_with_whitespace(async);
+            var pattern = " ";
+
+        await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Contains(pattern)));
 
         AssertSql(
 """
@@ -689,7 +722,9 @@ WHERE `c`.`ContactName` LIKE @__pattern_0_contains
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_LastOrDefault_MethodCall(bool async)
         {
-            await base.String_LastOrDefault_MethodCall(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.LastOrDefault() == 's'));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -757,7 +792,9 @@ WHERE (`o`.`Quantity` < 5) AND (FLOOR(`o`.`UnitPrice`) > 10.0)");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_power(bool async)
         {
-            await base.Where_math_power(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => Math.Pow(od.Discount, 3) > 0.005));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -783,7 +820,9 @@ WHERE (`o`.`Quantity` < 5) AND (ROUND(`o`.`UnitPrice`) > 10.0)");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Select_math_truncate_int(bool async)
         {
-            await base.Select_math_truncate_int(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Order>().Select(o => Math.Truncate((double)o.OrderID)));
 
             AssertSql(
                 $@"SELECT TRUNCATE({MySqlTestHelpers.CastAsDouble("`o`.`OrderID`")}, 0) AS `A`
@@ -809,7 +848,9 @@ WHERE ROUND(`o`.`UnitPrice`, 2) > 100.0");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_truncate(bool async)
         {
-            await base.Where_math_truncate(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => Math.Truncate(od.UnitPrice) > 10));
 
             AssertSql(
                 @"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -821,7 +862,9 @@ WHERE (`o`.`Quantity` < 5) AND (TRUNCATE(`o`.`UnitPrice`, 0) > 10.0)");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_exp(bool async)
         {
-            await base.Where_math_exp(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Exp(od.Discount) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -833,7 +876,9 @@ WHERE (`o`.`OrderID` = 11077) AND (EXP({MySqlTestHelpers.CastAsDouble("`o`.`Disc
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_log10(bool async)
         {
-            await base.Where_math_log10(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077 && od.Discount > 0).Select(od => new { od.OrderID, Result = Math.Log10(od.Discount) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -845,7 +890,9 @@ WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG10({MySqlTestHe
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_log(bool async)
         {
-            await base.Where_math_log(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077 && od.Discount > 0).Select(od => new { od.OrderID, Result = Math.Log(od.Discount) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -857,7 +904,9 @@ WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG({MySqlTestHelp
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_log_new_base(bool async)
         {
-            await base.Where_math_log_new_base(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077 && od.Discount > 0).Select(od => new { od.OrderID, Result = Math.Log(od.Discount, 7) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -869,7 +918,9 @@ WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG(7.0, {MySqlTes
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_sqrt(bool async)
         {
-            await base.Where_math_sqrt(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Sqrt(od.Discount) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -881,7 +932,9 @@ WHERE (`o`.`OrderID` = 11077) AND (SQRT({MySqlTestHelpers.CastAsDouble("`o`.`Dis
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_acos(bool async)
         {
-            await base.Where_math_acos(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Acos(od.Discount) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -893,7 +946,9 @@ WHERE (`o`.`OrderID` = 11077) AND (ACOS({MySqlTestHelpers.CastAsDouble("`o`.`Dis
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_asin(bool async)
         {
-            await base.Where_math_asin(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Asin(od.Discount) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -905,7 +960,9 @@ WHERE (`o`.`OrderID` = 11077) AND (ASIN({MySqlTestHelpers.CastAsDouble("`o`.`Dis
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_atan(bool async)
         {
-            await base.Where_math_atan(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Atan(od.Discount) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -917,7 +974,9 @@ WHERE (`o`.`OrderID` = 11077) AND (ATAN({MySqlTestHelpers.CastAsDouble("`o`.`Dis
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_atan2(bool async)
         {
-            await base.Where_math_atan2(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Atan2(od.Discount, 1) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -929,7 +988,9 @@ WHERE (`o`.`OrderID` = 11077) AND (ATAN2({MySqlTestHelpers.CastAsDouble("`o`.`Di
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_cos(bool async)
         {
-            await base.Where_math_cos(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Cos(od.Discount) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -941,7 +1002,9 @@ WHERE (`o`.`OrderID` = 11077) AND (COS({MySqlTestHelpers.CastAsDouble("`o`.`Disc
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_sin(bool async)
         {
-            await base.Where_math_sin(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Sin(od.Discount) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -953,7 +1016,9 @@ WHERE (`o`.`OrderID` = 11077) AND (SIN({MySqlTestHelpers.CastAsDouble("`o`.`Disc
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_tan(bool async)
         {
-            await base.Where_math_tan(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Tan(od.Discount) }));
 
             AssertSql(
                 $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -965,7 +1030,9 @@ WHERE (`o`.`OrderID` = 11077) AND (TAN({MySqlTestHelpers.CastAsDouble("`o`.`Disc
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_sign(bool async)
         {
-            await base.Where_math_sign(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Sign(od.Discount) }));
 
             AssertSql(
                 @"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
@@ -977,7 +1044,9 @@ WHERE (`o`.`OrderID` = 11077) AND (SIGN(`o`.`Discount`) > 0)");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_guid_newguid(bool async)
         {
-            await base.Where_guid_newguid(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<OrderDetail>().Where(od => Guid.NewGuid() != default));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -999,7 +1068,9 @@ WHERE POWER({MySqlTestHelpers.CastAsDouble("CHAR_LENGTH(`c`.`CustomerID`)")}, 2.
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task IsNullOrEmpty_in_predicate(bool async)
         {
-            await base.IsNullOrEmpty_in_predicate(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => string.IsNullOrEmpty(c.Region)));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -1011,21 +1082,27 @@ WHERE `c`.`Region` IS NULL OR (`c`.`Region` = '')");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task IsNullOrEmpty_in_projection(bool async)
         {
-            await base.IsNullOrEmpty_in_projection(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Select(c => new { c.CustomerID, IsNullOrEmpty = string.IsNullOrEmpty(c.Region) }));
         }
 
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task IsNullOrEmpty_negated_in_projection(bool async)
         {
-            await base.IsNullOrEmpty_negated_in_projection(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Select(c => new { c.CustomerID, IsNotNullOrEmpty = !string.IsNullOrEmpty(c.Region) }));
         }
 
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task IsNullOrWhiteSpace_in_predicate_on_non_nullable_column(bool async)
         {
-            await base.IsNullOrWhiteSpace_in_predicate_on_non_nullable_column(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => string.IsNullOrWhiteSpace(c.CustomerID)));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -1058,7 +1135,9 @@ ORDER BY CHAR_LENGTH(`c`.`CustomerID`), `c`.`CustomerID`");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Static_string_equals_in_predicate(bool async)
         {
-            await base.Static_string_equals_in_predicate(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => string.Equals(c.ContactName, "Maria Anders")));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -1092,7 +1171,9 @@ WHERE FALSE");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Projecting_Math_Truncate_and_ordering_by_it_twice(bool async)
         {
-            await base.Projecting_Math_Truncate_and_ordering_by_it_twice(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Order>().Select(o => new { o.OrderID, Result = Math.Truncate((double)o.OrderID) }).OrderBy(r => r.Result).OrderBy(r => r.Result));
 
             AssertSql(
                 $@"SELECT TRUNCATE({MySqlTestHelpers.CastAsDouble("`o`.`OrderID`")}, 0) AS `A`
@@ -1105,7 +1186,9 @@ ORDER BY TRUNCATE({MySqlTestHelpers.CastAsDouble("`o`.`OrderID`")}, 0)");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Projecting_Math_Truncate_and_ordering_by_it_twice2(bool async)
         {
-            await base.Projecting_Math_Truncate_and_ordering_by_it_twice2(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Order>().Select(o => new { o.OrderID, Result = Math.Truncate((double)o.OrderID) }).OrderBy(r => r.Result).OrderByDescending(r => r.Result));
 
             AssertSql(
                 $@"SELECT TRUNCATE({MySqlTestHelpers.CastAsDouble("`o`.`OrderID`")}, 0) AS `A`
@@ -1118,7 +1201,9 @@ ORDER BY TRUNCATE({MySqlTestHelpers.CastAsDouble("`o`.`OrderID`")}, 0) DESC");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Projecting_Math_Truncate_and_ordering_by_it_twice3(bool async)
         {
-            await base.Projecting_Math_Truncate_and_ordering_by_it_twice3(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Order>().Select(o => new { o.OrderID, Result = Math.Truncate((double)o.OrderID) }).OrderByDescending(r => r.Result).OrderBy(r => r.Result));
 
             AssertSql(
                 $@"SELECT TRUNCATE({MySqlTestHelpers.CastAsDouble("`o`.`OrderID`")}, 0) AS `A`
@@ -1131,7 +1216,9 @@ ORDER BY TRUNCATE({MySqlTestHelpers.CastAsDouble("`o`.`OrderID`")}, 0) DESC");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Compare_simple_zero(bool async)
         {
-            await base.String_Compare_simple_zero(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => string.Compare(c.ContactName, "Maria Anders") == 0));
 
             AssertSql(
 """
@@ -1175,7 +1262,9 @@ WHERE `c`.`CustomerID` <= 'AROUT'
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Compare_simple_one(bool async)
         {
-            await base.String_Compare_simple_one(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => string.Compare(c.ContactName, "Maria Anders") == 1));
 
             AssertSql(
 """
@@ -1219,7 +1308,11 @@ WHERE `c`.`CustomerID` >= 'AROUT'
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_compare_with_parameter(bool async)
         {
-            await base.String_compare_with_parameter(async);
+            var compareTo = "Maria Anders";
+
+        await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => string.Compare(c.ContactName, compareTo) == 1));
 
             AssertSql(
 """
@@ -1275,7 +1368,9 @@ WHERE `c`.`CustomerID` >= @__customer_CustomerID_0
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Compare_simple_more_than_one(bool async)
         {
-            await base.String_Compare_simple_more_than_one(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => string.Compare(c.ContactName, "Maria Anders") > 0));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -1307,7 +1402,9 @@ END");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Compare_nested(bool async)
         {
-            await base.String_Compare_nested(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => string.Compare(c.ContactName.ToUpper(), "MARIA ANDERS") == 0));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -1339,7 +1436,9 @@ WHERE `c`.`CustomerID` < REPLACE('ALFKI', 'ALF', `c`.`CustomerID`)");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Compare_multi_predicate(bool async)
         {
-            await base.String_Compare_multi_predicate(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => string.Compare(c.ContactName, "Maria Anders") == 0 && string.Compare(c.ContactName, "Maria Ander") != 0));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -1355,7 +1454,9 @@ WHERE (`c`.`ContactTitle` = 'Owner') AND ((`c`.`Country` <> 'USA') OR `c`.`Count
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Compare_to_simple_zero(bool async)
         {
-            await base.String_Compare_to_simple_zero(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.CompareTo("Maria Anders") == 0));
 
             AssertSql(
 """
@@ -1399,7 +1500,9 @@ WHERE `c`.`CustomerID` <= 'AROUT'
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Compare_to_simple_one(bool async)
         {
-            await base.String_Compare_to_simple_one(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.CompareTo("Maria Anders") == 1));
 
             AssertSql(
 """
@@ -1443,7 +1546,11 @@ WHERE `c`.`CustomerID` >= 'AROUT'
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_compare_to_with_parameter(bool async)
         {
-            await base.String_compare_to_with_parameter(async);
+            var compareTo = "Maria Anders";
+
+        await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.CompareTo(compareTo) == 1));
 
             AssertSql(
 """
@@ -1499,7 +1606,9 @@ WHERE `c`.`CustomerID` >= @__customer_CustomerID_0
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Compare_to_simple_more_than_one(bool async)
         {
-            await base.String_Compare_to_simple_more_than_one(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.CompareTo("Maria Anders") > 0));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -1531,7 +1640,9 @@ END");
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Compare_to_nested(bool async)
         {
-            await base.String_Compare_to_nested(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.ToUpper().CompareTo("MARIA ANDERS") == 0));
 
             AssertSql(
 """
@@ -1575,7 +1686,9 @@ WHERE `c`.`CustomerID` < REPLACE('AROUT', 'OUT', `c`.`CustomerID`)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Compare_to_multi_predicate(bool async)
         {
-            await base.String_Compare_to_multi_predicate(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.ContactName.CompareTo("Maria Anders") == 0 && c.ContactName.CompareTo("Maria Ander") != 0));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -2904,7 +3017,9 @@ WHERE REPLACE(`c`.`ContactName`, `c`.`ContactName`, `c`.`CustomerID`) = `c`.`Cus
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task IsNullOrEmpty_negated_in_predicate(bool async)
         {
-            await base.IsNullOrEmpty_negated_in_predicate(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => !string.IsNullOrEmpty(c.Region)));
 
             AssertSql(
 """
