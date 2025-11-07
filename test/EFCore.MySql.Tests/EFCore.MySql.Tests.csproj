@@ -6,6 +6,7 @@
     <AssemblyName>Pomelo.EntityFrameworkCore.MySql.Tests</AssemblyName>
     <RootNamespace>Pomelo.EntityFrameworkCore.MySql</RootNamespace>
     <DefaultItemExcludes>$(DefaultItemExcludes);*.trx</DefaultItemExcludes>
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
