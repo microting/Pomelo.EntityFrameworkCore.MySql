@@ -623,7 +623,9 @@ ORDER BY `c`.`Name`, `w`.`Id`
 """);
     }
 
-    public override async Task Where_enum(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_enum(bool async)
     {
         await base.Where_enum(async);
 
@@ -641,7 +643,9 @@ WHERE `u`.`Rank` = 4
 """);
     }
 
-    public override async Task Where_nullable_enum_with_constant(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_nullable_enum_with_constant(bool async)
     {
         await base.Where_nullable_enum_with_constant(async);
 
@@ -653,7 +657,9 @@ WHERE `w`.`AmmunitionType` = 1
 """);
     }
 
-    public override async Task Where_nullable_enum_with_null_constant(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_nullable_enum_with_null_constant(bool async)
     {
         await base.Where_nullable_enum_with_null_constant(async);
 
@@ -665,7 +671,9 @@ WHERE `w`.`AmmunitionType` IS NULL
 """);
     }
 
-    public override async Task Where_nullable_enum_with_non_nullable_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_nullable_enum_with_non_nullable_parameter(bool async)
     {
         await base.Where_nullable_enum_with_non_nullable_parameter(async);
 
@@ -679,7 +687,9 @@ WHERE `w`.`AmmunitionType` = @__ammunitionType_0
 """);
     }
 
-    public override async Task Where_nullable_enum_with_nullable_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_nullable_enum_with_nullable_parameter(bool async)
     {
         await base.Where_nullable_enum_with_nullable_parameter(async);
 
@@ -699,7 +709,9 @@ WHERE `w`.`AmmunitionType` IS NULL
 """);
     }
 
-    public override async Task Where_bitwise_and_enum(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_and_enum(bool async)
     {
         await base.Where_bitwise_and_enum(async);
 
@@ -729,7 +741,9 @@ WHERE CAST(`u`.`Rank` & 2 AS signed) = 2
 """);
     }
 
-    public override async Task Where_bitwise_and_integral(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_and_integral(bool async)
     {
         await base.Where_bitwise_and_integral(async);
 
@@ -771,7 +785,9 @@ WHERE CAST(CAST(`u`.`Rank` AS signed) & 1 AS signed) = 1
 """);
     }
 
-    public override async Task Where_bitwise_and_nullable_enum_with_constant(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_and_nullable_enum_with_constant(bool async)
     {
         await base.Where_bitwise_and_nullable_enum_with_constant(async);
 
@@ -783,7 +799,9 @@ WHERE CAST(`w`.`AmmunitionType` & 1 AS signed) > 0
 """);
     }
 
-    public override async Task Where_bitwise_and_nullable_enum_with_null_constant(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_and_nullable_enum_with_null_constant(bool async)
     {
         await base.Where_bitwise_and_nullable_enum_with_null_constant(async);
 
@@ -795,7 +813,9 @@ WHERE CAST(`w`.`AmmunitionType` & NULL AS signed) > 0
 """);
     }
 
-    public override async Task Where_bitwise_and_nullable_enum_with_non_nullable_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_and_nullable_enum_with_non_nullable_parameter(bool async)
     {
         await base.Where_bitwise_and_nullable_enum_with_non_nullable_parameter(async);
 
@@ -809,7 +829,9 @@ WHERE CAST(`w`.`AmmunitionType` & @__ammunitionType_0 AS signed) > 0
 """);
     }
 
-    public override async Task Where_bitwise_and_nullable_enum_with_nullable_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_and_nullable_enum_with_nullable_parameter(bool async)
     {
         await base.Where_bitwise_and_nullable_enum_with_nullable_parameter(async);
 
@@ -829,7 +851,9 @@ WHERE CAST(`w`.`AmmunitionType` & NULL AS signed) > 0
 """);
     }
 
-    public override async Task Where_bitwise_or_enum(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_or_enum(bool async)
     {
         await base.Where_bitwise_or_enum(async);
 
@@ -847,7 +871,9 @@ WHERE CAST(`u`.`Rank` | 2 AS signed) > 0
 """);
     }
 
-    public override async Task Bitwise_projects_values_in_select(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Bitwise_projects_values_in_select(bool async)
     {
         await base.Bitwise_projects_values_in_select(async);
 
@@ -866,7 +892,9 @@ LIMIT 1
 """);
     }
 
-    public override async Task Where_enum_has_flag(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_enum_has_flag(bool async)
     {
         await base.Where_enum_has_flag(async);
 
@@ -932,7 +960,9 @@ WHERE CAST(2 & `u`.`Rank` AS signed) = `u`.`Rank`
 """);
     }
 
-    public override async Task Where_enum_has_flag_subquery(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_enum_has_flag_subquery(bool async)
     {
         await base.Where_enum_has_flag_subquery(async);
 
@@ -1002,7 +1032,9 @@ WHERE CAST(2 & COALESCE((
 """);
     }
 
-    public override async Task Where_enum_has_flag_subquery_with_pushdown(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_enum_has_flag_subquery_with_pushdown(bool async)
     {
         await base.Where_enum_has_flag_subquery_with_pushdown(async);
 
@@ -1092,7 +1124,9 @@ WHERE (CAST(2 & (
 """);
     }
 
-    public override async Task Where_enum_has_flag_subquery_client_eval(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_enum_has_flag_subquery_client_eval(bool async)
     {
         await base.Where_enum_has_flag_subquery_client_eval(async);
 
@@ -1140,7 +1174,9 @@ WHERE (CAST(`u`.`Rank` & (
 """);
     }
 
-    public override async Task Where_enum_has_flag_with_non_nullable_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_enum_has_flag_with_non_nullable_parameter(bool async)
     {
         await base.Where_enum_has_flag_with_non_nullable_parameter(async);
 
@@ -1160,7 +1196,9 @@ WHERE CAST(`u`.`Rank` & @__parameter_0 AS signed) = @__parameter_0
 """);
     }
 
-    public override async Task Where_has_flag_with_nullable_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_has_flag_with_nullable_parameter(bool async)
     {
         await base.Where_has_flag_with_nullable_parameter(async);
 
@@ -1180,7 +1218,9 @@ WHERE CAST(`u`.`Rank` & @__parameter_0 AS signed) = @__parameter_0
 """);
     }
 
-    public override async Task Select_enum_has_flag(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Select_enum_has_flag(bool async)
     {
         await base.Select_enum_has_flag(async);
 
@@ -3870,7 +3910,9 @@ LEFT JOIN `Weapons` AS `w` ON `w`.`SynergyWithId` IS NOT NULL
 """);
     }
 
-    public override async Task Where_datetimeoffset_now(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_datetimeoffset_now(bool async)
     {
         await base.Where_datetimeoffset_now(async);
 
@@ -3882,7 +3924,9 @@ WHERE `m`.`Timeline` <> UTC_TIMESTAMP(6)
 """);
     }
 
-    public override async Task Where_datetimeoffset_utcnow(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_datetimeoffset_utcnow(bool async)
     {
         await base.Where_datetimeoffset_utcnow(async);
 
@@ -3894,9 +3938,13 @@ WHERE `m`.`Timeline` <> UTC_TIMESTAMP(6)
 """);
     }
 
-    public override async Task Where_datetimeoffset_date_component(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_datetimeoffset_date_component(bool async)
     {
-        await base.Where_datetimeoffset_date_component(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Timeline.Date > new DateTimeOffset()));
 
         AssertSql(
 """
@@ -3908,9 +3956,13 @@ WHERE CONVERT(`m`.`Timeline`, date) > @__Date_0
 """);
     }
 
-    public override async Task Where_datetimeoffset_year_component(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_datetimeoffset_year_component(bool async)
     {
-        await base.Where_datetimeoffset_year_component(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Timeline.Year == 2));
 
         AssertSql(
 """
@@ -3920,9 +3972,13 @@ WHERE EXTRACT(year FROM `m`.`Timeline`) = 2
 """);
     }
 
-    public override async Task Where_datetimeoffset_month_component(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_datetimeoffset_month_component(bool async)
     {
-        await base.Where_datetimeoffset_month_component(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Timeline.Month == 11));
 
         AssertSql(
 """
@@ -3932,9 +3988,13 @@ WHERE EXTRACT(month FROM `m`.`Timeline`) = 1
 """);
     }
 
-    public override async Task Where_datetimeoffset_dayofyear_component(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_datetimeoffset_dayofyear_component(bool async)
     {
-        await base.Where_datetimeoffset_dayofyear_component(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Timeline.DayOfYear == 2));
 
         AssertSql(
 """
@@ -3944,9 +4004,13 @@ WHERE DAYOFYEAR(`m`.`Timeline`) = 2
 """);
     }
 
-    public override async Task Where_datetimeoffset_day_component(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_datetimeoffset_day_component(bool async)
     {
-        await base.Where_datetimeoffset_day_component(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Timeline.Day == 10));
 
         AssertSql(
 """
@@ -3974,9 +4038,13 @@ WHERE EXTRACT(hour FROM `m`.`Timeline`) = 8
 """);
     }
 
-    public override async Task Where_datetimeoffset_minute_component(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_datetimeoffset_minute_component(bool async)
     {
-        await base.Where_datetimeoffset_minute_component(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Timeline.Minute == 0));
 
         AssertSql(
 """
@@ -3986,9 +4054,13 @@ WHERE EXTRACT(minute FROM `m`.`Timeline`) = 0
 """);
     }
 
-    public override async Task Where_datetimeoffset_second_component(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_datetimeoffset_second_component(bool async)
     {
-        await base.Where_datetimeoffset_second_component(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Timeline.Second == 0));
 
         AssertSql(
 """
@@ -3998,9 +4070,13 @@ WHERE EXTRACT(second FROM `m`.`Timeline`) = 0
 """);
     }
 
-    public override async Task Where_datetimeoffset_millisecond_component(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_datetimeoffset_millisecond_component(bool async)
     {
-        await base.Where_datetimeoffset_millisecond_component(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Timeline.Millisecond == 0));
 
         AssertSql(
 """
@@ -4010,7 +4086,9 @@ WHERE (EXTRACT(microsecond FROM `m`.`Timeline`)) DIV (1000) = 0
 """);
     }
 
-    public override async Task DateTimeOffset_DateAdd_AddMonths(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task DateTimeOffset_DateAdd_AddMonths(bool async)
     {
         await base.DateTimeOffset_DateAdd_AddMonths(async);
 
@@ -4021,7 +4099,9 @@ FROM `Missions` AS `m`
 """);
     }
 
-    public override async Task DateTimeOffset_DateAdd_AddDays(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task DateTimeOffset_DateAdd_AddDays(bool async)
     {
         await base.DateTimeOffset_DateAdd_AddDays(async);
 
@@ -4032,7 +4112,9 @@ FROM `Missions` AS `m`
 """);
     }
 
-    public override async Task DateTimeOffset_DateAdd_AddHours(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task DateTimeOffset_DateAdd_AddHours(bool async)
     {
         await base.DateTimeOffset_DateAdd_AddHours(async);
 
@@ -4043,7 +4125,9 @@ FROM `Missions` AS `m`
 """);
     }
 
-    public override async Task DateTimeOffset_DateAdd_AddMinutes(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task DateTimeOffset_DateAdd_AddMinutes(bool async)
     {
         await base.DateTimeOffset_DateAdd_AddMinutes(async);
 
@@ -4054,7 +4138,9 @@ FROM `Missions` AS `m`
 """);
     }
 
-    public override async Task DateTimeOffset_DateAdd_AddSeconds(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task DateTimeOffset_DateAdd_AddSeconds(bool async)
     {
         await base.DateTimeOffset_DateAdd_AddSeconds(async);
 
@@ -4065,7 +4151,9 @@ FROM `Missions` AS `m`
 """);
     }
 
-    public override async Task DateTimeOffset_DateAdd_AddMilliseconds(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task DateTimeOffset_DateAdd_AddMilliseconds(bool async)
     {
         await base.DateTimeOffset_DateAdd_AddMilliseconds(async);
 
@@ -8477,7 +8565,9 @@ ORDER BY `u`.`Nickname`, `m`.`Id`
 """);
     }
 
-    public override async Task Time_of_day_datetimeoffset(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Time_of_day_datetimeoffset(bool async)
     {
         await base.Time_of_day_datetimeoffset(async);
 
@@ -8946,7 +9036,9 @@ WHERE (SUBSTRING(`t`.`Note`, 0 + 1, CHAR_LENGTH(`s`.`Name`)) = `t`.`GearNickName
 """);
     }
 
-    public override async Task Filter_with_new_Guid(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Filter_with_new_Guid(bool async)
     {
         await base.Filter_with_new_Guid(async);
 
@@ -8958,7 +9050,9 @@ WHERE `t`.`Id` = 'df36f493-463f-4123-83f9-6b135deeb7ba'
 """);
     }
 
-    public override async Task Filter_with_new_Guid_closure(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Filter_with_new_Guid_closure(bool async)
     {
         await base.Filter_with_new_Guid_closure(async);
 
@@ -10377,7 +10471,9 @@ END IS NULL)
 """);
     }
 
-    public override async Task Byte_array_contains_literal(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Byte_array_contains_literal(bool async)
     {
         await base.Byte_array_contains_literal(async);
 
@@ -10389,7 +10485,9 @@ WHERE LOCATE(0x01, `s`.`Banner`) > 0
 """);
     }
 
-    public override async Task Byte_array_filter_by_length_literal(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Byte_array_filter_by_length_literal(bool async)
     {
         await base.Byte_array_filter_by_length_literal(async);
 
@@ -10401,7 +10499,9 @@ WHERE LENGTH(`s`.`Banner`) = 2
 """);
     }
 
-    public override async Task Byte_array_filter_by_length_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Byte_array_filter_by_length_parameter(bool async)
     {
         await base.Byte_array_filter_by_length_parameter(async);
 
@@ -10429,7 +10529,9 @@ WHERE LENGTH(`s`.`Banner`) = LENGTH(@__byteArrayParam)
 """);
     }
 
-    public override async Task Byte_array_contains_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Byte_array_contains_parameter(bool async)
     {
         await base.Byte_array_contains_parameter(async);
 
@@ -10584,7 +10686,9 @@ FROM (
 """);
     }
 
-    public override async Task Byte_array_filter_by_SequenceEqual(bool isAsync)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Byte_array_filter_by_SequenceEqual(bool isAsync)
     {
         await base.Byte_array_filter_by_SequenceEqual(isAsync);
 
@@ -10661,7 +10765,9 @@ WHERE CAST(`u`.`ThreatLevel` AS signed) <= (5 + CAST(`u`.`ThreatLevel` AS signed
 """);
     }
 
-    public override async Task TimeSpan_Hours(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task TimeSpan_Hours(bool async)
     {
         await base.TimeSpan_Hours(async);
 
@@ -10672,7 +10778,9 @@ FROM `Missions` AS `m`
 """);
     }
 
-    public override async Task TimeSpan_Minutes(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task TimeSpan_Minutes(bool async)
     {
         await base.TimeSpan_Minutes(async);
 
@@ -10683,7 +10791,9 @@ FROM `Missions` AS `m`
 """);
     }
 
-    public override async Task TimeSpan_Seconds(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task TimeSpan_Seconds(bool async)
     {
         await base.TimeSpan_Seconds(async);
 
@@ -10694,7 +10804,9 @@ FROM `Missions` AS `m`
 """);
     }
 
-    public override async Task TimeSpan_Milliseconds(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task TimeSpan_Milliseconds(bool async)
     {
         await base.TimeSpan_Milliseconds(async);
 
@@ -10705,7 +10817,9 @@ FROM `Missions` AS `m`
 """);
     }
 
-    public override async Task Where_TimeSpan_Hours(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeSpan_Hours(bool async)
     {
         await base.Where_TimeSpan_Hours(async);
 
@@ -10717,7 +10831,9 @@ WHERE EXTRACT(hour FROM `m`.`Duration`) = 1
 """);
     }
 
-    public override async Task Where_TimeSpan_Minutes(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeSpan_Minutes(bool async)
     {
         await base.Where_TimeSpan_Minutes(async);
 
@@ -10729,7 +10845,9 @@ WHERE EXTRACT(minute FROM `m`.`Duration`) = 2
 """);
     }
 
-    public override async Task Where_TimeSpan_Seconds(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeSpan_Seconds(bool async)
     {
         await base.Where_TimeSpan_Seconds(async);
 
@@ -10741,7 +10859,9 @@ WHERE EXTRACT(second FROM `m`.`Duration`) = 3
 """);
     }
 
-    public override async Task Where_TimeSpan_Milliseconds(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeSpan_Milliseconds(bool async)
     {
         await base.Where_TimeSpan_Milliseconds(async);
 
@@ -10858,7 +10978,9 @@ WHERE EXISTS (
 """);
     }
 
-    public override async Task Contains_on_byte_array_property_using_byte_column(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Contains_on_byte_array_property_using_byte_column(bool async)
     {
         await base.Contains_on_byte_array_property_using_byte_column(async);
 
@@ -11466,7 +11588,9 @@ ORDER BY `u`.`Nickname`, `u`.`SquadId`, `c`.`Name`
 """);
     }
 
-    public override async Task First_on_byte_array(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task First_on_byte_array(bool async)
     {
         await base.First_on_byte_array(async);
 
@@ -11881,9 +12005,13 @@ END, `t`.`Note`
 """);
     }
 
-    public override async Task Where_DateOnly_Year(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_DateOnly_Year(bool async)
     {
-        await base.Where_DateOnly_Year(async);
+        await AssertQuery(
+            async,
+            ss.Set<Mission>().Where(m => m.Date.Year == 1990));
 
         AssertSql(
 """
@@ -11893,9 +12021,13 @@ WHERE EXTRACT(year FROM `m`.`Date`) = 1990
 """);
     }
 
-    public override async Task Where_DateOnly_Month(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_DateOnly_Month(bool async)
     {
-        await base.Where_DateOnly_Month(async);
+        await AssertQuery(
+            async,
+            ss.Set<Mission>().Where(m => m.Date.Month == 11));
 
         AssertSql(
 """
@@ -11905,9 +12037,13 @@ WHERE EXTRACT(month FROM `m`.`Date`) = 11
 """);
     }
 
-    public override async Task Where_DateOnly_Day(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_DateOnly_Day(bool async)
     {
-        await base.Where_DateOnly_Day(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Date.Day == 10));
 
         AssertSql(
 """
@@ -11917,9 +12053,13 @@ WHERE EXTRACT(day FROM `m`.`Date`) = 10
 """);
     }
 
-    public override async Task Where_DateOnly_DayOfYear(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_DateOnly_DayOfYear(bool async)
     {
-        await base.Where_DateOnly_DayOfYear(async);
+        await AssertQuery(
+            async,
+            ss.Set<Mission>().Where(m => m.Date.DayOfYear == 314));
 
         AssertSql(
 """
@@ -11929,9 +12069,13 @@ WHERE DAYOFYEAR(`m`.`Date`) = 314
 """);
     }
 
-    public override async Task Where_DateOnly_DayOfWeek(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_DateOnly_DayOfWeek(bool async)
     {
-        await base.Where_DateOnly_DayOfWeek(async);
+        await AssertQuery(
+            async,
+            ss.Set<Mission>().Where(m => m.Date.DayOfWeek == DayOfWeek.Sunday));
 
         AssertSql(
 """
@@ -11941,9 +12085,13 @@ WHERE (DAYOFWEEK(`m`.`Date`) - 1) = 6
 """);
     }
 
-    public override async Task Where_DateOnly_AddYears(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_DateOnly_AddYears(bool async)
     {
-        await base.Where_DateOnly_AddYears(async);
+        await AssertQuery(
+            async,
+            ss.Set<Mission>().Where(m => m.Date.AddYears(1).Year == 1991));
 
         AssertSql(
 """
@@ -11953,9 +12101,13 @@ WHERE DATE_ADD(`m`.`Date`, INTERVAL CAST(3 AS signed) year) = DATE '1993-11-10'
 """);
     }
 
-    public override async Task Where_DateOnly_AddMonths(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_DateOnly_AddMonths(bool async)
     {
-        await base.Where_DateOnly_AddMonths(async);
+        await AssertQuery(
+            async,
+            ss.Set<Mission>().Where(m => m.Date.AddMonths(1).Month == 12));
 
         AssertSql(
 """
@@ -11965,9 +12117,13 @@ WHERE DATE_ADD(`m`.`Date`, INTERVAL CAST(3 AS signed) month) = DATE '1991-02-10'
 """);
     }
 
-    public override async Task Where_DateOnly_AddDays(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_DateOnly_AddDays(bool async)
     {
-        await base.Where_DateOnly_AddDays(async);
+        await AssertQuery(
+            async,
+            ss.Set<Mission>().Where(m => m.Date.AddDays(3).Day == 13));
 
         AssertSql(
 """
@@ -11977,9 +12133,13 @@ WHERE DATE_ADD(`m`.`Date`, INTERVAL CAST(3 AS signed) day) = DATE '1990-11-13'
 """);
     }
 
-    public override async Task Where_TimeOnly_Hour(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_Hour(bool async)
     {
-        await base.Where_TimeOnly_Hour(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Time.Hour == 10));
 
         AssertSql(
 """
@@ -11989,9 +12149,13 @@ WHERE EXTRACT(hour FROM `m`.`Time`) = 10
 """);
     }
 
-    public override async Task Where_TimeOnly_Minute(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_Minute(bool async)
     {
-        await base.Where_TimeOnly_Minute(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Time.Minute == 0));
 
         AssertSql(
 """
@@ -12001,9 +12165,13 @@ WHERE EXTRACT(minute FROM `m`.`Time`) = 15
 """);
     }
 
-    public override async Task Where_TimeOnly_Second(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_Second(bool async)
     {
-        await base.Where_TimeOnly_Second(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Time.Second == 0));
 
         AssertSql(
 """
@@ -12013,9 +12181,13 @@ WHERE EXTRACT(second FROM `m`.`Time`) = 50
 """);
     }
 
-    public override async Task Where_TimeOnly_Millisecond(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_Millisecond(bool async)
     {
-        await base.Where_TimeOnly_Millisecond(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => m.Time.Millisecond == 0));
 
         AssertSql(
 """
@@ -12025,7 +12197,9 @@ WHERE (EXTRACT(microsecond FROM `m`.`Time`)) DIV (1000) = 500
 """);
     }
 
-    public override async Task Where_TimeOnly_AddHours(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_AddHours(bool async)
     {
         await base.Where_TimeOnly_AddHours(async);
 
@@ -12037,7 +12211,9 @@ WHERE DATE_ADD(`m`.`Time`, INTERVAL CAST(3.0 AS signed) hour) = TIME '13:15:50.5
 """);
     }
 
-    public override async Task Where_TimeOnly_AddMinutes(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_AddMinutes(bool async)
     {
         await base.Where_TimeOnly_AddMinutes(async);
 
@@ -12049,7 +12225,9 @@ WHERE DATE_ADD(`m`.`Time`, INTERVAL CAST(3.0 AS signed) minute) = TIME '10:18:50
 """);
     }
 
-    public override async Task Where_TimeOnly_Add_TimeSpan(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_Add_TimeSpan(bool async)
     {
         await base.Where_TimeOnly_Add_TimeSpan(async);
 
@@ -12061,7 +12239,9 @@ WHERE (`m`.`Time` + TIME '03:00:00') = TIME '13:15:50.5'
 """);
     }
 
-    public override async Task Where_TimeOnly_IsBetween(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_IsBetween(bool async)
     {
         await base.Where_TimeOnly_IsBetween(async);
 
@@ -12073,7 +12253,9 @@ WHERE (`m`.`Time` >= TIME '10:00:00') & (`m`.`Time` < TIME '11:00:00')
 """);
     }
 
-    public override async Task Where_TimeOnly_subtract_TimeOnly(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_subtract_TimeOnly(bool async)
     {
         await base.Where_TimeOnly_subtract_TimeOnly(async);
 
@@ -12254,7 +12436,9 @@ WHERE (`u`.`HasSoulPatch` = TRUE) AND `u`.`HasSoulPatch` IN (FALSE, TRUE)
         }
     }
 
-    public override async Task Parameter_used_multiple_times_take_appropriate_inferred_type_mapping(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_used_multiple_times_take_appropriate_inferred_type_mapping(bool async)
     {
         await base.Parameter_used_multiple_times_take_appropriate_inferred_type_mapping(async);
 
@@ -12342,7 +12526,9 @@ ORDER BY `u`.`Nickname`, `u`.`SquadId`, `s`.`Id`
 """);
     }
 
-    public override async Task DateTimeOffset_DateAdd_AddYears(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task DateTimeOffset_DateAdd_AddYears(bool async)
     {
         await base.DateTimeOffset_DateAdd_AddYears(async);
 
@@ -12550,7 +12736,9 @@ WHERE `m`.`CodeName` = 'Operation Foobar'
 """);
     }
 
-    public override async Task ToString_guid_property_projection(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task ToString_guid_property_projection(bool async)
     {
         await base.ToString_guid_property_projection(async);
 
@@ -12905,7 +13093,9 @@ ORDER BY `u`.`Nickname`, `u`.`SquadId`
 """);
     }
 
-    public override async Task Project_discriminator_columns(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Project_discriminator_columns(bool async)
     {
         await base.Project_discriminator_columns(async);
 
@@ -13943,7 +14133,9 @@ FROM `LocustHordes` AS `l`
 """);
     }
 
-    public override async Task Where_TimeOnly_FromDateTime_compared_to_property(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_FromDateTime_compared_to_property(bool async)
     {
         await base.Where_TimeOnly_FromDateTime_compared_to_property(async);
 
@@ -13956,7 +14148,9 @@ WHERE TIME(`t`.`IssueDate`) = `m`.`Time`
 """);
     }
 
-    public override async Task Where_TimeOnly_FromDateTime_compared_to_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_FromDateTime_compared_to_parameter(bool async)
     {
         await base.Where_TimeOnly_FromDateTime_compared_to_parameter(async);
 
@@ -13977,7 +14171,9 @@ WHERE (`u`.`Nickname` IS NOT NULL AND (`u`.`SquadId` IS NOT NULL)) AND (TIME(DAT
 """);
     }
 
-    public override async Task Where_TimeOnly_FromDateTime_compared_to_constant(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_FromDateTime_compared_to_constant(bool async)
     {
         await base.Where_TimeOnly_FromDateTime_compared_to_constant(async);
 
@@ -13989,7 +14185,9 @@ WHERE TIME(DATE_ADD(`t`.`IssueDate`, INTERVAL CAST(CAST(CHAR_LENGTH(`t`.`Note`) 
 """);
     }
 
-    public override async Task Where_TimeOnly_FromTimeSpan_compared_to_property(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_FromTimeSpan_compared_to_property(bool async)
     {
         await base.Where_TimeOnly_FromTimeSpan_compared_to_property(async);
 
@@ -14001,7 +14199,9 @@ WHERE `m`.`Duration` < `m`.`Time`
 """);
     }
 
-    public override async Task Where_TimeOnly_FromTimeSpan_compared_to_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_TimeOnly_FromTimeSpan_compared_to_parameter(bool async)
     {
         await base.Where_TimeOnly_FromTimeSpan_compared_to_parameter(async);
 
@@ -14015,7 +14215,9 @@ WHERE `m`.`Duration` = @__time_0
 """);
     }
 
-    public override async Task Order_by_TimeOnly_FromTimeSpan(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Order_by_TimeOnly_FromTimeSpan(bool async)
     {
         await base.Order_by_TimeOnly_FromTimeSpan(async);
 
@@ -14027,9 +14229,13 @@ ORDER BY `m`.`Duration`
 """);
     }
 
-    public override async Task Where_DateOnly_FromDateTime_compared_to_property(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_DateOnly_FromDateTime_compared_to_property(bool async)
     {
-        await base.Where_DateOnly_FromDateTime_compared_to_property(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => DateOnly.FromDateTime(m.Timeline.DateTime) > m.Date));
 
         AssertSql(
 """
@@ -14040,9 +14246,15 @@ WHERE DATE(`t`.`IssueDate`) > `m`.`Date`
 """);
     }
 
-    public override async Task Where_DateOnly_FromDateTime_compared_to_constant_and_parameter(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_DateOnly_FromDateTime_compared_to_constant_and_parameter(bool async)
     {
-        await base.Where_DateOnly_FromDateTime_compared_to_constant_and_parameter(async);
+        var dateOnly = new DateOnly(1990, 11, 10);
+
+        await AssertQuery(
+            async,
+            ss => ss.Set<Mission>().Where(m => DateOnly.FromDateTime(m.Timeline.DateTime) == dateOnly));
 
         AssertSql(
 """
