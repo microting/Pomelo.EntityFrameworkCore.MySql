@@ -3956,22 +3956,6 @@ WHERE EXTRACT(day FROM `m`.`Timeline`) = 2
 """);
     }
 
-    public override async Task Where_datetimeoffset_hour_component(bool async)
-    {
-        await AssertQuery(
-            async,
-            ss => from m in ss.Set<Mission>()
-                where m.Timeline.Hour == /* 10 */ 8
-                select m);
-
-        AssertSql(
-"""
-SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Difficulty`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
-FROM `Missions` AS `m`
-WHERE EXTRACT(hour FROM `m`.`Timeline`) = 8
-""");
-    }
-
     public override async Task Where_datetimeoffset_minute_component(bool async)
     {
         await base.Where_datetimeoffset_minute_component(async);
@@ -4071,31 +4055,6 @@ FROM `Missions` AS `m`
 """
 SELECT DATE_ADD(`m`.`Timeline`, INTERVAL 1000 * CAST(300.0 AS signed) microsecond)
 FROM `Missions` AS `m`
-""");
-    }
-
-    public override async Task Where_datetimeoffset_milliseconds_parameter_and_constant(bool async)
-    {
-        var dateTimeOffset = MySqlTestHelpers.GetExpectedValue(new DateTimeOffset(599898024001234567, new TimeSpan(1, 30, 0)));
-
-        // Literal where clause
-        var p = Expression.Parameter(typeof(Mission), "i");
-        var dynamicWhere = Expression.Lambda<Func<Mission, bool>>(
-            Expression.Equal(
-                Expression.Property(p, "Timeline"),
-                Expression.Constant(dateTimeOffset)
-            ), p);
-
-        await AssertCount(
-            async,
-            ss => ss.Set<Mission>().Where(dynamicWhere),
-            ss => ss.Set<Mission>().Where(m => m.Timeline == dateTimeOffset));
-
-        AssertSql(
-"""
-SELECT COUNT(*)
-FROM `Missions` AS `m`
-WHERE `m`.`Timeline` = TIMESTAMP '1902-01-02 08:30:00.123456'
 """);
     }
 
@@ -11474,18 +11433,6 @@ WHERE ASCII(`s`.`Banner`) = 2
 """);
     }
 
-    public override async Task Array_access_on_byte_array(bool async)
-    {
-        await base.Array_access_on_byte_array(async);
-
-        AssertSql(
-"""
-SELECT `s`.`Id`, `s`.`Banner`, `s`.`Banner5`, `s`.`InternalNumber`, `s`.`Name`
-FROM `Squads` AS `s`
-WHERE ASCII(SUBSTRING(`s`.`Banner5`, 2 + 1, 1)) = 6
-""");
-    }
-
     public override async Task Project_shadow_properties(bool async)
     {
         await base.Project_shadow_properties(async);
@@ -13413,60 +13360,6 @@ WHERE NOT EXISTS (
 """
 SELECT `s`.`Id`, ASCII(SUBSTRING(`s`.`Banner`, 0 + 1, 1)), `s`.`Name`
 FROM `Squads` AS `s`
-""");
-    }
-
-    public override async Task DateTimeOffset_to_unix_time_milliseconds(bool async)
-    {
-        await base.DateTimeOffset_to_unix_time_milliseconds(async);
-
-        AssertSql(
-"""
-@__unixEpochMilliseconds_0='0'
-
-SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`, `s`.`Id`, `s`.`Banner`, `s`.`Banner5`, `s`.`InternalNumber`, `s`.`Name`, `s1`.`SquadId`, `s1`.`MissionId`
-FROM (
-    SELECT `g`.`Nickname`, `g`.`SquadId`, `g`.`AssignedCityName`, `g`.`CityOfBirthName`, `g`.`FullName`, `g`.`HasSoulPatch`, `g`.`LeaderNickname`, `g`.`LeaderSquadId`, `g`.`Rank`, 'Gear' AS `Discriminator`
-    FROM `Gears` AS `g`
-    UNION ALL
-    SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
-    FROM `Officers` AS `o`
-) AS `u`
-INNER JOIN `Squads` AS `s` ON `u`.`SquadId` = `s`.`Id`
-LEFT JOIN `SquadMissions` AS `s1` ON `s`.`Id` = `s1`.`SquadId`
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM `SquadMissions` AS `s0`
-    INNER JOIN `Missions` AS `m` ON `s0`.`MissionId` = `m`.`Id`
-    WHERE (`s`.`Id` = `s0`.`SquadId`) AND (@__unixEpochMilliseconds_0 = (TIMESTAMPDIFF(microsecond, TIMESTAMP '1970-01-01 00:00:00', `m`.`Timeline`)) DIV (1000)))
-ORDER BY `u`.`Nickname`, `u`.`SquadId`, `s`.`Id`, `s1`.`SquadId`
-""");
-    }
-
-    public override async Task DateTimeOffset_to_unix_time_seconds(bool async)
-    {
-        await base.DateTimeOffset_to_unix_time_seconds(async);
-
-        AssertSql(
-"""
-@__unixEpochSeconds_0='0'
-
-SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`, `s`.`Id`, `s`.`Banner`, `s`.`Banner5`, `s`.`InternalNumber`, `s`.`Name`, `s1`.`SquadId`, `s1`.`MissionId`
-FROM (
-    SELECT `g`.`Nickname`, `g`.`SquadId`, `g`.`AssignedCityName`, `g`.`CityOfBirthName`, `g`.`FullName`, `g`.`HasSoulPatch`, `g`.`LeaderNickname`, `g`.`LeaderSquadId`, `g`.`Rank`, 'Gear' AS `Discriminator`
-    FROM `Gears` AS `g`
-    UNION ALL
-    SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
-    FROM `Officers` AS `o`
-) AS `u`
-INNER JOIN `Squads` AS `s` ON `u`.`SquadId` = `s`.`Id`
-LEFT JOIN `SquadMissions` AS `s1` ON `s`.`Id` = `s1`.`SquadId`
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM `SquadMissions` AS `s0`
-    INNER JOIN `Missions` AS `m` ON `s0`.`MissionId` = `m`.`Id`
-    WHERE (`s`.`Id` = `s0`.`SquadId`) AND (@__unixEpochSeconds_0 = TIMESTAMPDIFF(second, TIMESTAMP '1970-01-01 00:00:00', `m`.`Timeline`)))
-ORDER BY `u`.`Nickname`, `u`.`SquadId`, `s`.`Id`, `s1`.`SquadId`
 """);
     }
 
