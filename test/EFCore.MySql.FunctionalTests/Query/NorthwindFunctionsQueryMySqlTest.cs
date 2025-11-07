@@ -21,7 +21,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_StartsWith_Literal(bool async)
         {
@@ -37,7 +36,6 @@ WHERE `c`.`ContactName` LIKE 'M%'
 """);
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_StartsWith_Identity(bool async)
@@ -55,7 +53,6 @@ WHERE `c`.`ContactName` IS NOT NULL AND (LEFT(`c`.`ContactName`, CHAR_LENGTH(`c`
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_StartsWith_Column(bool async)
         {
@@ -71,7 +68,6 @@ WHERE `c`.`ContactName` IS NOT NULL AND (LEFT(`c`.`ContactName`, CHAR_LENGTH(`c`
 """);
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_StartsWith_MethodCall(bool async)
@@ -89,7 +85,6 @@ WHERE `c`.`ContactName` LIKE 'M%'
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_EndsWith_Literal(bool async)
         {
@@ -105,7 +100,6 @@ WHERE `c`.`ContactName` LIKE '%b'
 """);
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_EndsWith_Identity(bool async)
@@ -123,7 +117,6 @@ WHERE `c`.`ContactName` IS NOT NULL AND (RIGHT(`c`.`ContactName`, CHAR_LENGTH(`c
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_EndsWith_Column(bool async)
         {
@@ -139,7 +132,6 @@ WHERE `c`.`ContactName` IS NOT NULL AND (RIGHT(`c`.`ContactName`, CHAR_LENGTH(`c
 """);
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_EndsWith_MethodCall(bool async)
@@ -157,7 +149,6 @@ WHERE `c`.`ContactName` LIKE '%m'
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Contains_Literal(bool async)
         {
@@ -171,7 +162,6 @@ FROM `Customers` AS `c`
 WHERE `c`.`ContactName` LIKE '%M%'");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Contains_Identity(bool async)
@@ -189,7 +179,6 @@ WHERE `c`.`ContactName` IS NOT NULL AND ((LOCATE(`c`.`ContactName`, `c`.`Contact
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Contains_Column(bool async)
         {
@@ -206,7 +195,6 @@ WHERE `c`.`ContactName` IS NOT NULL AND ((LOCATE(`c`.`ContactName`, `c`.`Company
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task String_Contains_MethodCall(bool async)
         {
@@ -221,7 +209,6 @@ WHERE `c`.`ContactName` LIKE '%M%'");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task IsNullOrWhiteSpace_in_predicate(bool async)
         {
@@ -235,7 +222,6 @@ FROM `Customers` AS `c`
 WHERE `c`.`Region` IS NULL OR (TRIM(`c`.`Region`) = '')");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Indexof_with_emptystring(bool async)
@@ -253,7 +239,6 @@ WHERE (LOCATE('', `c`.`Region`) - 1) = 0
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Replace_with_emptystring(bool async)
         {
@@ -267,7 +252,6 @@ FROM `Customers` AS `c`
 WHERE REPLACE(`c`.`ContactName`, 'ia', '') = 'Mar Anders'");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Substring_with_one_arg_with_zero_startindex(bool async)
@@ -283,7 +267,6 @@ WHERE SUBSTRING(`c`.`CustomerID`, 0 + 1, CHAR_LENGTH(`c`.`CustomerID`)) = 'ALFKI
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Substring_with_one_arg_with_constant(bool async)
         {
@@ -297,7 +280,6 @@ FROM `Customers` AS `c`
 WHERE SUBSTRING(`c`.`CustomerID`, 1 + 1, CHAR_LENGTH(`c`.`CustomerID`)) = 'LFKI'");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Substring_with_one_arg_with_closure(bool async)
@@ -317,7 +299,6 @@ WHERE SUBSTRING(`c`.`CustomerID`, @__start_0 + 1, CHAR_LENGTH(`c`.`CustomerID`))
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Substring_with_two_args_with_zero_startindex(bool async)
         {
@@ -331,7 +312,6 @@ FROM `Customers` AS `c`
 WHERE `c`.`CustomerID` = 'ALFKI'");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Substring_with_two_args_with_zero_length(bool async)
@@ -347,7 +327,6 @@ WHERE `c`.`CustomerID` = 'ALFKI'");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Substring_with_two_args_with_constant(bool async)
         {
@@ -361,7 +340,6 @@ FROM `Customers` AS `c`
 WHERE `c`.`CustomerID` = 'ALFKI'");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Substring_with_two_args_with_closure(bool async)
@@ -382,7 +360,6 @@ WHERE `c`.`CustomerID` = 'ALFKI'");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Substring_with_two_args_with_Index_of(bool async)
         {
@@ -396,7 +373,6 @@ FROM `Customers` AS `c`
 WHERE `c`.`CustomerID` = 'ALFKI'");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Regex_IsMatch_MethodCall(bool async)
@@ -412,7 +388,6 @@ WHERE `c`.`CustomerID` REGEXP '^T'");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Regex_IsMatch_MethodCall_constant_input(bool async)
         {
@@ -426,7 +401,6 @@ FROM `Customers` AS `c`
 WHERE 'ALFKI' REGEXP `c`.`CustomerID`");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_abs1(bool async)
@@ -442,7 +416,6 @@ WHERE ABS(`p`.`ProductID`) > 10");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_abs2(bool async)
         {
@@ -456,7 +429,6 @@ FROM `Order Details` AS `o`
 WHERE (`o`.`UnitPrice` < 7.0) AND (ABS(`o`.`Quantity`) > 10)");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_abs_uncorrelated(bool async)
@@ -473,7 +445,6 @@ WHERE (`o`.`UnitPrice` < 7.0) AND (10 < `o`.`ProductID`)
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Select_math_round_int(bool async)
         {
@@ -487,7 +458,6 @@ FROM `Orders` AS `o`
 WHERE `o`.`OrderID` < 10250");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_min(bool async)
@@ -503,7 +473,6 @@ WHERE (`o`.`OrderID` = 11077) AND (LEAST(`o`.`OrderID`, `o`.`ProductID`) = `o`.`
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_math_max(bool async)
         {
@@ -517,7 +486,6 @@ FROM `Order Details` AS `o`
 WHERE (`o`.`OrderID` = 11077) AND (GREATEST(`o`.`OrderID`, `o`.`ProductID`) = `o`.`OrderID`)");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_string_to_lower(bool async)
@@ -533,7 +501,6 @@ WHERE LOWER(`c`.`CustomerID`) = 'alfki'");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_string_to_upper(bool async)
         {
@@ -547,7 +514,6 @@ FROM `Customers` AS `c`
 WHERE UPPER(`c`.`CustomerID`) = 'ALFKI'");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task TrimStart_without_arguments_in_predicate(bool async)
@@ -563,7 +529,6 @@ WHERE TRIM(LEADING FROM `c`.`ContactTitle`) = 'Owner'");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task TrimStart_with_char_argument_in_predicate(bool async)
         {
@@ -578,7 +543,6 @@ WHERE TRIM(LEADING 'O' FROM `c`.`ContactTitle`) = 'wner'");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual Task TrimStart_with_char_array_argument_in_predicate(bool async)
         {
@@ -588,7 +552,6 @@ WHERE TRIM(LEADING 'O' FROM `c`.`ContactTitle`) = 'wner'");
             return Assert.ThrowsAsync<InvalidOperationException>(() => base.TrimStart_with_char_array_argument_in_predicate(async));
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task TrimEnd_without_arguments_in_predicate(bool async)
@@ -604,7 +567,6 @@ WHERE TRIM(TRAILING FROM `c`.`ContactTitle`) = 'Owner'");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task TrimEnd_with_char_argument_in_predicate(bool async)
         {
@@ -619,7 +581,6 @@ WHERE TRIM(TRAILING 'r' FROM `c`.`ContactTitle`) = 'Owne'");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual Task TrimEnd_with_char_array_argument_in_predicate(bool async)
         {
@@ -629,7 +590,6 @@ WHERE TRIM(TRAILING 'r' FROM `c`.`ContactTitle`) = 'Owne'");
             return Assert.ThrowsAsync<InvalidOperationException>(() => base.TrimEnd_with_char_array_argument_in_predicate(async));
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Trim_without_argument_in_predicate(bool async)
@@ -645,7 +605,6 @@ WHERE TRIM(`c`.`ContactTitle`) = 'Owner'");
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Trim_with_char_argument_in_predicate(bool async)
         {
@@ -659,7 +618,6 @@ FROM `Customers` AS `c`
 WHERE TRIM('O' FROM `c`.`ContactTitle`) = 'wner'");
         }
 
-        [ConditionalTheory]
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual Task Trim_with_char_array_argument_in_predicate(bool async)
