@@ -24,9 +24,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_now(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_now(bool async)
         {
-            await base.Where_datetime_now(async);
+            var myDatetime = new DateTime(2015, 4, 10);
+
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => DateTime.Now != myDatetime));
 
             AssertSql(
                 @"@__myDatetime_0='2015-04-10T00:00:00.0000000' (DbType = DateTime)
@@ -37,9 +42,14 @@ WHERE CURRENT_TIMESTAMP(6) <> @__myDatetime_0");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_utcnow(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_utcnow(bool async)
         {
-            await base.Where_datetime_utcnow(async);
+            var myDatetime = new DateTime(2015, 4, 10);
+
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => DateTime.UtcNow != myDatetime));
 
             AssertSql(
                 @"@__myDatetime_0='2015-04-10T00:00:00.0000000' (DbType = DateTime)
@@ -50,9 +60,12 @@ WHERE UTC_TIMESTAMP(6) <> @__myDatetime_0");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_today(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_today(bool async)
         {
-            await base.Where_datetime_today(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Employee>().Where(e => DateTime.Now.Date == DateTime.Today));
 
             AssertSql(
                 @"SELECT `e`.`EmployeeID`, `e`.`City`, `e`.`Country`, `e`.`FirstName`, `e`.`ReportsTo`, `e`.`Title`
@@ -61,9 +74,14 @@ WHERE CONVERT(CURRENT_TIMESTAMP(6), date) = CURDATE()");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_date_component(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_date_component(bool async)
         {
-            await base.Where_datetime_date_component(async);
+            var myDatetime = new DateTime(1998, 5, 4);
+
+            await AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Date == myDatetime));
 
             AssertSql(
                 @"@__myDatetime_0='1998-05-04T00:00:00.0000000' (DbType = DateTime)
