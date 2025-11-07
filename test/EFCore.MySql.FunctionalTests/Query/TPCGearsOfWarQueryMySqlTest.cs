@@ -10604,9 +10604,11 @@ WHERE LENGTH(`s`.`Banner`) = @__p_0
 """);
     }
 
-    public override void Byte_array_filter_by_length_parameter_compiled()
+    [ConditionalFact(Skip = "Compiled query test - base method removed in EF Core 10")]
+    public virtual void Byte_array_filter_by_length_parameter_compiled()
     {
-        base.Byte_array_filter_by_length_parameter_compiled();
+        // This test verifies compiled query behavior with byte array length filtering
+        // The base method was removed in EF Core 10 and compiled queries work differently now
 
         AssertSql(
 """
@@ -12568,7 +12570,7 @@ WHERE (`u`.`HasSoulPatch` = TRUE) AND `u`.`HasSoulPatch` IN (FALSE, TRUE)
 
     [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Parameter_used_multiple_times_take_appropriate_inferred_type_mapping(bool async)
+    public override async Task Parameter_used_multiple_times_take_appropriate_inferred_type_mapping(bool async)
     {
         var place = "Ephyra's location";
 
@@ -13233,7 +13235,7 @@ ORDER BY `u`.`Nickname`, `u`.`SquadId`
 
     [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Project_discriminator_columns(bool async)
+    public override async Task Project_discriminator_columns(bool async)
     {
         await AssertQuery(
             async,
