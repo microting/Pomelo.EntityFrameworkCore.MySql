@@ -479,9 +479,18 @@ LIMIT 2
 
     #endregion Type mapping inference
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_constants()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_constants(bool async)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_constants();
+        var contextFactory = await InitializeAsync<Context30572>(seed: c => c.Seed());
+
+        await using var context = contextFactory.CreateContext();
+        
+        await AssertQuery(
+            async,
+            ss => ss.Set<Context30572.TestEntity>()
+                .Where(t => new[] { 2, 999 }.Count(i => i > t.Id) == 1));
 
         AssertSql(
 $"""
@@ -494,9 +503,18 @@ WHERE (
 """);
     }
 
-    public override async Task Parameter_collection_of_ints_Contains_int_with_default_constants()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_constants(bool async)
     {
-        await base.Parameter_collection_of_ints_Contains_int_with_default_constants();
+        var contextFactory = await InitializeAsync<Context30572>(seed: c => c.Seed());
+
+        await using var context = contextFactory.CreateContext();
+        
+        await AssertQuery(
+            async,
+            ss => ss.Set<Context30572.TestEntity>()
+                .Where(t => new[] { 2, 999 }.Contains(t.Id)));
 
         AssertSql(
 """
