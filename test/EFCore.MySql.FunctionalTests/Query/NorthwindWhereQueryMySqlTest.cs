@@ -92,9 +92,12 @@ WHERE CONVERT(`o`.`OrderDate`, date) = @__myDatetime_0");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_year_component(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_year_component(bool async)
         {
-            await base.Where_datetime_year_component(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Year == 1998));
 
             AssertSql(
                 @"SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
@@ -103,9 +106,12 @@ WHERE EXTRACT(year FROM `o`.`OrderDate`) = 1998");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_month_component(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_month_component(bool async)
         {
-            await base.Where_datetime_month_component(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Month == 4));
 
             AssertSql(
                 @"SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
@@ -114,9 +120,12 @@ WHERE EXTRACT(month FROM `o`.`OrderDate`) = 4");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_dayOfYear_component(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_dayOfYear_component(bool async)
         {
-            await base.Where_datetime_dayOfYear_component(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.DayOfYear == 68));
 
             AssertSql(
                 @"SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
@@ -125,9 +134,12 @@ WHERE DAYOFYEAR(`o`.`OrderDate`) = 68");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_day_component(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_day_component(bool async)
         {
-            await base.Where_datetime_day_component(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Day == 4));
 
             AssertSql(
                 @"SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
@@ -136,9 +148,12 @@ WHERE EXTRACT(day FROM `o`.`OrderDate`) = 4");
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_hour_component(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_hour_component(bool async)
         {
-            await base.Where_datetime_hour_component(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Hour == 0));
 
             AssertSql(
 """
@@ -149,9 +164,12 @@ WHERE EXTRACT(hour FROM `o`.`OrderDate`) = 0
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_minute_component(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_minute_component(bool async)
         {
-            await base.Where_datetime_minute_component(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Minute == 0));
 
             AssertSql(
 """
@@ -162,9 +180,12 @@ WHERE EXTRACT(minute FROM `o`.`OrderDate`) = 0
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_second_component(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_second_component(bool async)
         {
-            await base.Where_datetime_second_component(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Second == 0));
 
             AssertSql(
 """
@@ -175,9 +196,12 @@ WHERE EXTRACT(second FROM `o`.`OrderDate`) = 0
         }
 
         [ConditionalTheory]
-        public override async Task Where_datetime_millisecond_component(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetime_millisecond_component(bool async)
         {
-            await base.Where_datetime_millisecond_component(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Millisecond == 0));
 
             AssertSql(
 """
