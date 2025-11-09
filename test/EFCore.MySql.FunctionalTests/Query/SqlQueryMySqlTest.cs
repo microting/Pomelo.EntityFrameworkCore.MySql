@@ -675,9 +675,17 @@ WHERE `m`.`CustomerID` IN (
 """);
     }
 
-    public override async Task Multiple_occurrences_of_SqlQuery_with_db_parameter_adds_parameter_only_once(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Multiple_occurrences_of_SqlQuery_with_db_parameter_adds_parameter_only_once(bool async)
     {
-        await base.Multiple_occurrences_of_SqlQuery_with_db_parameter_adds_parameter_only_once(async);
+        await AssertQuery(
+            async,
+            ss => ss.Set<Customer>()
+                .FromSql($"SELECT * FROM `Customers` WHERE `City` = {"Seattle"}")
+                .Intersect(
+                    ss.Set<Customer>()
+                        .FromSql($"SELECT * FROM `Customers` WHERE `City` = {"Seattle"}")));
 
         AssertSql(
 """
