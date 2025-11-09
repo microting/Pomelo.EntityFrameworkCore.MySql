@@ -212,9 +212,14 @@ WHERE (EXTRACT(microsecond FROM `o`.`OrderDate`)) DIV (1000) = 0
         }
 
         [ConditionalTheory]
-        public override async Task Where_string_length(bool async)
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_string_length(bool async)
         {
-            await base.Where_string_length(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => c.City.Length == 6));
+
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
@@ -222,9 +227,12 @@ WHERE CHAR_LENGTH(`c`.`City`) = 6");
         }
 
         [ConditionalTheory]
-        public override async Task Where_string_indexof(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_string_indexof(bool async)
         {
-            await base.Where_string_indexof(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => c.City.IndexOf("Sea") != -1));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -233,9 +241,12 @@ WHERE ((LOCATE('Sea', `c`.`City`) - 1) <> -1) OR `c`.`City` IS NULL");
         }
 
         [ConditionalTheory]
-        public override async Task Where_string_replace(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_string_replace(bool async)
         {
-            await base.Where_string_replace(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => c.City.Replace("Sea", "Rea") == "Reattle"));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -244,9 +255,12 @@ WHERE REPLACE(`c`.`City`, 'Sea', 'Rea') = 'Reattle'");
         }
 
         [ConditionalTheory]
-        public override async Task Where_string_substring(bool async)
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_string_substring(bool async)
         {
-            await base.Where_string_substring(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => c.City.Substring(1, 2) == "ea"));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -319,9 +333,16 @@ FROM `Customers` AS `c`
 WHERE @__guidParameter_0 = UUID()");
         }
 
-        public override async Task Where_string_concat_method_comparison_2(bool async)
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_string_concat_method_comparison_2(bool async)
         {
-            await base.Where_string_concat_method_comparison_2(async);
+            var i = "A";
+            var j = "B";
+            
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => string.Concat(i, j, c.CustomerID) == "ABANATR").Select(c => c.CustomerID));
 
             AssertSql(
 """
@@ -334,9 +355,17 @@ WHERE CONCAT(@__i_0, @__j_1, `c`.`CustomerID`) = 'ABANATR'
 """);
         }
 
-        public override async Task Where_string_concat_method_comparison_3(bool async)
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_string_concat_method_comparison_3(bool async)
         {
-            await base.Where_string_concat_method_comparison_3(async);
+            var i = "A";
+            var j = "B";
+            var k = "C";
+            
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => string.Concat(i, j, k, c.CustomerID) == "ABCANTON").Select(c => c.CustomerID));
 
             AssertSql(
 """
