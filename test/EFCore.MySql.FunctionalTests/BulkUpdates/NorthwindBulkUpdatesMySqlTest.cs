@@ -530,9 +530,20 @@ INNER JOIN (
 """);
     }
 
-    public override async Task Delete_with_left_join(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Delete_with_left_join(bool async)
     {
-        await base.Delete_with_left_join(async);
+        await AssertDelete(
+            async,
+            ss => ss.Set<OrderDetail>().Where(
+                od => ss.Set<Order>()
+                    .Where(o => o.OrderID < 10300)
+                    .OrderBy(o => o.OrderID)
+                    .Skip(0)
+                    .Take(100)
+                    .Select(o => o.OrderID)
+                    .Contains(od.OrderID)));
 
         AssertSql(
 """
@@ -1086,9 +1097,15 @@ WHERE `c`.`CustomerID` LIKE 'F%'
         AssertExecuteUpdateSql();
     }
 
-    public override async Task Update_with_invalid_lambda_throws(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Update_with_invalid_lambda_throws(bool async)
     {
-        await base.Update_with_invalid_lambda_throws(async);
+        await AssertTranslationFailed(
+            () => AssertUpdate(
+                async,
+                ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")),
+                _ => new Customer { City = "invalidValue" }));
 
         AssertExecuteUpdateSql();
     }
@@ -1219,9 +1236,14 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
-    public override async Task Update_with_left_join_set_constant(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Update_with_left_join_set_constant(bool async)
     {
-        await base.Update_with_left_join_set_constant(async);
+        await AssertUpdate(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")),
+            e => e.SetProperty(p => p.ContactName, "Updated"));
 
         AssertExecuteUpdateSql(
 """
