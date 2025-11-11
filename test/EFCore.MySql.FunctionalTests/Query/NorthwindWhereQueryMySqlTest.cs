@@ -212,7 +212,6 @@ WHERE (EXTRACT(microsecond FROM `o`.`OrderDate`)) DIV (1000) = 0
         }
 
         [ConditionalTheory]
-        [ConditionalTheory]
         [MemberData(nameof(IsAsyncData))]
         public virtual async Task Where_string_length(bool async)
         {
