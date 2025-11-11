@@ -669,9 +669,13 @@ FROM `Customers` AS `c`
 WHERE @__Concat_0 = `c`.`CompanyName`");
         }
 
-        public override async Task Where_bitwise_xor(bool async)
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_bitwise_xor(bool async)
         {
-            await base.Where_bitwise_xor(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => (c.CustomerID == "ALFKI") ^ true));
 
             AssertSql(
 """
@@ -682,6 +686,8 @@ WHERE (`c`.`CustomerID` = 'ALFKI') ^ TRUE
         }
 
         // TODO: 9.0
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
         [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
 """
 There is some strange collation behavior with MariaDB 11.4.x and this test (seems fixed in 11.5).
@@ -693,12 +699,14 @@ If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersio
 The error is:
     MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
 """)]
-        public override Task Where_concat_string_int_comparison1(bool async)
-        {
-            return base.Where_concat_string_int_comparison1(async);
-        }
+        public virtual Task Where_concat_string_int_comparison1(bool async)
+            => AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.OrderID + 10248 == o.CustomerID));
 
         // TODO: 9.0
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
         [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
 """
 There is some strange collation behavior with MariaDB 11.4.x and this test (seems fixed in 11.5).
@@ -710,12 +718,14 @@ If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersio
 The error is:
     MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
 """)]
-        public override Task Where_concat_string_int_comparison2(bool async)
-        {
-            return base.Where_concat_string_int_comparison2(async);
-        }
+        public virtual Task Where_concat_string_int_comparison2(bool async)
+            => AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => 10248 + o.OrderID == o.CustomerID));
 
         // TODO: 9.0
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
         [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
 """
 There is some strange collation behavior with MariaDB 11.4.x and this test (seems fixed in 11.5).
@@ -727,12 +737,14 @@ If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersio
 The error is:
     MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
 """)]
-        public override Task Where_concat_string_int_comparison3(bool async)
-        {
-            return base.Where_concat_string_int_comparison3(async);
-        }
+        public virtual Task Where_concat_string_int_comparison3(bool async)
+            => AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.CustomerID == (o.OrderID + 10248)));
 
         // TODO: 9.0
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
         [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
 """
 There is some strange collation behavior with MariaDB 11.4.x and this test (seems fixed in 11.5).
@@ -744,10 +756,10 @@ If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersio
 The error is:
     MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
 """)]
-        public override Task Where_concat_string_int_comparison4(bool async)
-        {
-            return base.Where_concat_string_int_comparison4(async);
-        }
+        public virtual Task Where_concat_string_int_comparison4(bool async)
+            => AssertQuery(
+                async,
+                ss => ss.Set<Order>().Where(o => o.CustomerID == (10248 + o.OrderID)));
 
         // TODO: 9.0
         [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
