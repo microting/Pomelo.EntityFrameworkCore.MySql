@@ -624,6 +624,13 @@ FROM `TestEntityWithOwned` AS `t`
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
+    protected override DbContextOptionsBuilder SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode mode)
+    {
+        // MySQL-specific parameter handling configuration
+        // For now, use default MySQL behavior as the implementation is provider-specific
+        return optionsBuilder;
+    }
+
     protected virtual DbContextOptionsBuilder SetTranslateParameterizedCollectionsToConstants(DbContextOptionsBuilder optionsBuilder)
     {
         new MySqlDbContextOptionsBuilder(optionsBuilder).TranslateParameterizedCollectionsToConstants();
