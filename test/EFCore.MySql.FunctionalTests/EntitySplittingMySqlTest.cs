@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.TestModels.EntitySplittingModel;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 using Xunit.Abstractions;
@@ -15,8 +16,7 @@ public class EntitySplittingMySqlTest(EntitySplittingMySqlTest.EntitySplittingMy
     {
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
-
-        protected override string StoreName
-            => "EntitySplittingTest";
+            
+        protected override string StoreName => "EntitySplittingTest";
     }
 }

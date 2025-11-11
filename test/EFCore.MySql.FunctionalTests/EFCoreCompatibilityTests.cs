@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-using CompatHelper = Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal.EFCoreCompatibilityHelper;
+using CompatHelper = Pomelo.EntityFrameworkCore.MySql.Json.Microsoft.Infrastructure.Internal.EFCoreCompatibilityHelper;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
 {
