@@ -5,8 +5,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal;
 using Xunit;
-using CompatHelper = Pomelo.EntityFrameworkCore.MySql.Json.Microsoft.Infrastructure.Internal.EFCoreCompatibilityHelper;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
 {
@@ -27,7 +27,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         public void EFCoreVersion_IsDetected()
         {
             // Verify that version detection works
-            var version = CompatHelper.EFCoreVersion;
+            var version = EFCoreCompatibilityHelper.EFCoreVersion;
             Assert.NotNull(version);
             Assert.True(version.Major >= 8, "Should be using EF Core 8 or greater");
         }
@@ -36,19 +36,19 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         public void VersionFlags_AreSetCorrectly()
         {
             // Test version detection flags
-            var isEFCore8OrGreater = CompatHelper.IsEFCore8OrGreater;
-            var isEFCore9OrGreater = CompatHelper.IsEFCore9OrGreater;
-            var isEFCore10OrGreater = CompatHelper.IsEFCore10OrGreater;
+            var isEFCore8OrGreater = EFCoreCompatibilityHelper.IsEFCore8OrGreater;
+            var isEFCore9OrGreater = EFCoreCompatibilityHelper.IsEFCore9OrGreater;
+            var isEFCore10OrGreater = EFCoreCompatibilityHelper.IsEFCore10OrGreater;
 
             Assert.True(isEFCore8OrGreater, "Should support EF Core 8+");
             
             // These will be true based on the actual EF Core version being used
-            if (CompatHelper.EFCoreVersion.Major >= 9)
+            if (EFCoreCompatibilityHelper.EFCoreVersion.Major >= 9)
             {
                 Assert.True(isEFCore9OrGreater);
             }
             
-            if (CompatHelper.EFCoreVersion.Major >= 10)
+            if (EFCoreCompatibilityHelper.EFCoreVersion.Major >= 10)
             {
                 Assert.True(isEFCore10OrGreater);
             }
@@ -138,11 +138,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         public void CreateExecuteUpdateSetter_ReturnsCorrectType()
         {
             // Test the compatibility helper method
-            if (CompatHelper.IsEFCore10OrGreater)
+            if (EFCoreCompatibilityHelper.IsEFCore10OrGreater)
             {
                 // For EF Core 10+, should return Action<T>
                 Action<TestEntity> action = e => e.Name = "test";
-                var result = CompatHelper.CreateExecuteUpdateSetter<TestEntity>(setterAction: action);
+                var result = EFCoreCompatibilityHelper.CreateExecuteUpdateSetter<TestEntity>(setterAction: action);
                 Assert.IsType<Action<TestEntity>>(result);
             }
             else
@@ -150,7 +150,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
                 // For EF Core 9-, should return Expression<Func<T, T>>
                 System.Linq.Expressions.Expression<Func<TestEntity, TestEntity>> expression = 
                     e => new TestEntity { Name = "test" };
-                var result = CompatHelper.CreateExecuteUpdateSetter<TestEntity>(setterExpression: expression);
+                var result = EFCoreCompatibilityHelper.CreateExecuteUpdateSetter<TestEntity>(setterExpression: expression);
                 Assert.IsType<System.Linq.Expressions.Expression<Func<TestEntity, TestEntity>>>(result);
             }
         }
