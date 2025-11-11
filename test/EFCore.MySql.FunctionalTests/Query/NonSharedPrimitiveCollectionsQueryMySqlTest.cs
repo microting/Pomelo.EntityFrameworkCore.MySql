@@ -524,30 +524,48 @@ WHERE `t`.`Id` IN (2, 999)
 """);
     }
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter(bool async)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter();
+        await AssertQuery(
+            async,
+            ss => ss.Set<TestEntity>().Where(x => new[] { 2, 999 }.Count(i => i > x.Id) == 1));
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter(bool async)
     {
-        await base.Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter();
+        await AssertQuery(
+            async,
+            ss => ss.Set<TestEntity>().Where(x => new[] { 2, 999 }.Contains(x.Id)));
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_parameters()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_parameters(bool async)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_parameters();
+        var ints = new[] { 2, 999 };
+        await AssertQuery(
+            async,
+            ss => ss.Set<TestEntity>().Where(x => ints.Count(i => i > x.Id) == 1));
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_of_ints_Contains_int_with_default_parameters()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_parameters(bool async)
     {
-        await base.Parameter_collection_of_ints_Contains_int_with_default_parameters();
+        var ints = new[] { 2, 999 };
+        await AssertQuery(
+            async,
+            ss => ss.Set<TestEntity>().Where(x => ints.Contains(x.Id)));
 
         AssertSql();
     }
