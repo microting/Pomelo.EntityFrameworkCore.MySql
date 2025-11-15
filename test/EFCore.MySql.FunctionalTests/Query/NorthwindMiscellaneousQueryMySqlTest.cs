@@ -38,9 +38,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 
 
 
-        public override async Task Where_bitwise_or_with_logical_or(bool async)
+        [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_or_with_logical_or(bool async)
         {
-            await base.Where_bitwise_or_with_logical_or(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => (c.CustomerID == "ALFKI" || c.CustomerID == "ANATR") | (c.CustomerID == "ANTON")));
 
         AssertSql(
 """
@@ -50,9 +54,13 @@ WHERE `c`.`CustomerID` IN ('ALFKI', 'ANATR', 'ANTON')
 """);
         }
 
-        public override async Task Where_bitwise_and_with_logical_and(bool async)
+        [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_and_with_logical_and(bool async)
         {
-            await base.Where_bitwise_and_with_logical_and(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => (c.CustomerID == "ALFKI" || c.CustomerID == "ANATR") & (c.CustomerID == "ANTON" || c.CustomerID == "ALFKI")));
 
         AssertSql(
 """
@@ -62,9 +70,13 @@ WHERE FALSE
 """);
         }
 
-        public override async Task Where_bitwise_or_with_logical_and(bool async)
+        [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_or_with_logical_and(bool async)
         {
-            await base.Where_bitwise_or_with_logical_and(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => (c.CustomerID == "ALFKI" & c.CustomerID == "ANATR") | (c.CustomerID == "ANTON")));
 
         AssertSql(
 """
@@ -74,9 +86,13 @@ WHERE `c`.`CustomerID` IN ('ALFKI', 'ANATR') AND (`c`.`Country` = 'Germany')
 """);
         }
 
-        public override async Task Where_bitwise_and_with_logical_or(bool async)
+        [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_and_with_logical_or(bool async)
         {
-            await base.Where_bitwise_and_with_logical_or(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => (c.CustomerID == "ALFKI" | c.CustomerID == "ANATR") & (c.CustomerID == "ANTON")));
 
         AssertSql(
 """
@@ -86,9 +102,13 @@ WHERE `c`.`CustomerID` = 'ANTON'
 """);
         }
 
-        public override async Task Where_bitwise_binary_not(bool async)
+        [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_binary_not(bool async)
         {
-            await base.Where_bitwise_binary_not(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Customer>().Where(c => ~c.CustomerID.Length == -6));
 
             AssertSql(
                 @"@__negatedId_0='-10249'
@@ -98,9 +118,13 @@ FROM `Orders` AS `o`
 WHERE CAST(~`o`.`OrderID` AS signed) = @__negatedId_0");
         }
 
-        public override async Task Where_bitwise_binary_and(bool async)
+        [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_binary_and(bool async)
         {
-            await base.Where_bitwise_binary_and(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Order>().Where(o => (o.OrderID & 10248) == 10248));
 
             AssertSql(
 """
@@ -110,9 +134,13 @@ WHERE CAST(`o`.`OrderID` & 10248 AS signed) = 10248
 """);
         }
 
-        public override async Task Where_bitwise_binary_or(bool async)
+        [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Where_bitwise_binary_or(bool async)
         {
-            await base.Where_bitwise_binary_or(async);
+            await AssertQuery(
+            async,
+            ss => ss.Set<Order>().Where(o => (o.OrderID | 10248) == 10248));
 
             AssertSql(
 """

@@ -34,7 +34,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                     m => start <= m.Timeline.Date && m.Timeline < end && dates.Contains(m.Timeline)));
         }
 
-        public override Task Where_datetimeoffset_milliseconds_parameter_and_constant(bool async)
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public virtual Task Where_datetimeoffset_milliseconds_parameter_and_constant(bool async)
         {
             var dateTimeOffset = MySqlTestHelpers.GetExpectedValue(new DateTimeOffset(599898024001234567, new TimeSpan(1, 30, 0)));
 
@@ -250,9 +252,13 @@ GROUP BY `g0`.`Key`
 """);
         }
 
-        public override async Task Array_access_on_byte_array(bool async)
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Array_access_on_byte_array(bool async)
         {
-            await base.Array_access_on_byte_array(async);
+            await AssertQuery(
+                async,
+                ss => ss.Set<Squad>().Where(s => s.Banner5[2] == 6));
 
             AssertSql(
 """
@@ -262,9 +268,30 @@ WHERE ASCII(SUBSTRING(`s`.`Banner5`, 2 + 1, 1)) = 6
 """);
         }
 
-        public override async Task DateTimeOffset_to_unix_time_milliseconds(bool async)
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task DateTimeOffset_to_unix_time_milliseconds(bool async)
         {
-            await base.DateTimeOffset_to_unix_time_milliseconds(async);
+            var unixEpochMilliseconds = 0L;
+
+            await AssertQuery(
+                async,
+                ss => from g in ss.Set<Gear>()
+                      join squad in ss.Set<Squad>() on g.SquadId equals squad.Id
+                      where !ss.Set<SquadMission>()
+                          .Join(ss.Set<Mission>(), sm => sm.MissionId, m => m.Id, (sm, m) => new { sm, m })
+                          .Where(x => x.sm.SquadId == squad.Id && x.m.Timeline.ToUnixTimeMilliseconds() == unixEpochMilliseconds)
+                          .Any()
+                      select g,
+                ss => from g in ss.Set<Gear>()
+                      join squad in ss.Set<Squad>() on g.SquadId equals squad.Id
+                      where !ss.Set<SquadMission>()
+                          .Join(ss.Set<Mission>(), sm => sm.MissionId, m => m.Id, (sm, m) => new { sm, m })
+                          .Where(x => x.sm.SquadId == squad.Id && x.m.Timeline.ToUnixTimeMilliseconds() == unixEpochMilliseconds)
+                          .Any()
+                      select g,
+                elementSorter: e => (e.Nickname, e.SquadId),
+                elementAsserter: (e, a) => AssertEqual(e, a));
 
             AssertSql(
 """
@@ -283,9 +310,30 @@ ORDER BY `g`.`Nickname`, `g`.`SquadId`, `s`.`Id`, `s1`.`SquadId`
 """);
         }
 
-        public override async Task DateTimeOffset_to_unix_time_seconds(bool async)
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task DateTimeOffset_to_unix_time_seconds(bool async)
         {
-            await base.DateTimeOffset_to_unix_time_seconds(async);
+            var unixEpochSeconds = 0L;
+
+            await AssertQuery(
+                async,
+                ss => from g in ss.Set<Gear>()
+                      join squad in ss.Set<Squad>() on g.SquadId equals squad.Id
+                      where !ss.Set<SquadMission>()
+                          .Join(ss.Set<Mission>(), sm => sm.MissionId, m => m.Id, (sm, m) => new { sm, m })
+                          .Where(x => x.sm.SquadId == squad.Id && x.m.Timeline.ToUnixTimeSeconds() == unixEpochSeconds)
+                          .Any()
+                      select g,
+                ss => from g in ss.Set<Gear>()
+                      join squad in ss.Set<Squad>() on g.SquadId equals squad.Id
+                      where !ss.Set<SquadMission>()
+                          .Join(ss.Set<Mission>(), sm => sm.MissionId, m => m.Id, (sm, m) => new { sm, m })
+                          .Where(x => x.sm.SquadId == squad.Id && x.m.Timeline.ToUnixTimeSeconds() == unixEpochSeconds)
+                          .Any()
+                      select g,
+                elementSorter: e => (e.Nickname, e.SquadId),
+                elementAsserter: (e, a) => AssertEqual(e, a));
 
             AssertSql(
 """
@@ -339,7 +387,9 @@ FROM `Gears` AS `g`
             AssertSql("");
         }
 
-        public override async Task Where_datetimeoffset_hour_component(bool async)
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public virtual async Task Where_datetimeoffset_hour_component(bool async)
         {
             await AssertQuery(
                 async,

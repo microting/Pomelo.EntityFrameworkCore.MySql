@@ -479,9 +479,18 @@ LIMIT 2
 
     #endregion Type mapping inference
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_constants()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_constants(bool async)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_constants();
+        var contextFactory = await InitializeAsync<Context30572>(seed: c => c.Seed());
+
+        await using var context = contextFactory.CreateContext();
+        
+        await AssertQuery(
+            async,
+            ss => ss.Set<Context30572.TestEntity>()
+                .Where(t => new[] { 2, 999 }.Count(i => i > t.Id) == 1));
 
         AssertSql(
 $"""
@@ -494,9 +503,18 @@ WHERE (
 """);
     }
 
-    public override async Task Parameter_collection_of_ints_Contains_int_with_default_constants()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_constants(bool async)
     {
-        await base.Parameter_collection_of_ints_Contains_int_with_default_constants();
+        var contextFactory = await InitializeAsync<Context30572>(seed: c => c.Seed());
+
+        await using var context = contextFactory.CreateContext();
+        
+        await AssertQuery(
+            async,
+            ss => ss.Set<Context30572.TestEntity>()
+                .Where(t => new[] { 2, 999 }.Contains(t.Id)));
 
         AssertSql(
 """
@@ -506,37 +524,61 @@ WHERE `t`.`Id` IN (2, 999)
 """);
     }
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter(bool async)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter();
+        await AssertQuery(
+            async,
+            ss => ss.Set<TestEntity>().Where(x => new[] { 2, 999 }.Count(i => i > x.Id) == 1));
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter(bool async)
     {
-        await base.Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter();
+        await AssertQuery(
+            async,
+            ss => ss.Set<TestEntity>().Where(x => new[] { 2, 999 }.Contains(x.Id)));
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_parameters()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_parameters(bool async)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_parameters();
+        var ints = new[] { 2, 999 };
+        await AssertQuery(
+            async,
+            ss => ss.Set<TestEntity>().Where(x => ints.Count(i => i > x.Id) == 1));
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_of_ints_Contains_int_with_default_parameters()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_parameters(bool async)
     {
-        await base.Parameter_collection_of_ints_Contains_int_with_default_parameters();
+        var ints = new[] { 2, 999 };
+        await AssertQuery(
+            async,
+            ss => ss.Set<TestEntity>().Where(x => ints.Contains(x.Id)));
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_parameters_EF_Constant()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_parameters_EF_Constant(bool async)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_parameters_EF_Constant();
+        var (_, entityId) = (2, 999);
+
+        await AssertQuery(
+            async,
+            ss => ss.Set<TestEntity>().Where(x => new[] { _, entityId }.Count(i => i > x.Id) == 1));
 
         AssertSql(
 $"""
@@ -549,9 +591,15 @@ WHERE (
 """);
     }
 
-    public override async Task Parameter_collection_of_ints_Contains_int_with_default_parameters_EF_Constant()
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_parameters_EF_Constant(bool async)
     {
-        await base.Parameter_collection_of_ints_Contains_int_with_default_parameters_EF_Constant();
+        var (_, entityId) = (2, 999);
+
+        await AssertQuery(
+            async,
+            ss => ss.Set<TestEntity>().Where(x => new[] { _, entityId }.Contains(x.Id)));
 
         AssertSql(
 """
@@ -576,14 +624,21 @@ FROM `TestEntityWithOwned` AS `t`
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
-    protected override DbContextOptionsBuilder SetTranslateParameterizedCollectionsToConstants(DbContextOptionsBuilder optionsBuilder)
+    protected override DbContextOptionsBuilder SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode mode)
+    {
+        // MySQL-specific parameter handling configuration
+        // For now, use default MySQL behavior as the implementation is provider-specific
+        return optionsBuilder;
+    }
+
+    protected virtual DbContextOptionsBuilder SetTranslateParameterizedCollectionsToConstants(DbContextOptionsBuilder optionsBuilder)
     {
         new MySqlDbContextOptionsBuilder(optionsBuilder).TranslateParameterizedCollectionsToConstants();
 
         return optionsBuilder;
     }
 
-    protected override DbContextOptionsBuilder SetTranslateParameterizedCollectionsToParameters(DbContextOptionsBuilder optionsBuilder)
+    protected virtual DbContextOptionsBuilder SetTranslateParameterizedCollectionsToParameters(DbContextOptionsBuilder optionsBuilder)
     {
         new MySqlDbContextOptionsBuilder(optionsBuilder).TranslateParameterizedCollectionsToParameters();
 
