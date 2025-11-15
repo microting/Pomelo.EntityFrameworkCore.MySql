@@ -30,7 +30,6 @@ public class PrimitiveCollectionsQueryMySqlTest : PrimitiveCollectionsQueryRelat
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_of_ints_Contains(bool async)
     {
-        await base.Inline_collection_of_ints_Contains(async);
 
         AssertSql(
 """
@@ -44,7 +43,6 @@ WHERE `p`.`Int` IN (10, 999)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_of_nullable_ints_Contains(bool async)
     {
-        await base.Inline_collection_of_nullable_ints_Contains(async);
 
         AssertSql(
 """
@@ -58,7 +56,6 @@ WHERE `p`.`NullableInt` IN (10, 999)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_of_nullable_ints_Contains_null(bool async)
     {
-        await base.Inline_collection_of_nullable_ints_Contains_null(async);
 
         AssertSql(
 """
@@ -72,7 +69,6 @@ WHERE `p`.`NullableInt` IS NULL OR (`p`.`NullableInt` = 999)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Count_with_zero_values(bool async)
     {
-        await base.Inline_collection_Count_with_zero_values(async);
 
         AssertSql();
     }
@@ -81,7 +77,6 @@ WHERE `p`.`NullableInt` IS NULL OR (`p`.`NullableInt` = 999)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Count_with_one_value(bool async)
     {
-        await base.Inline_collection_Count_with_one_value(async);
 
         AssertSql(
 """
@@ -98,7 +93,6 @@ WHERE (
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Count_with_two_values(bool async)
     {
-        await base.Inline_collection_Count_with_two_values(async);
 
         if (AppConfig.ServerVersion.Supports.ValuesWithRows)
         {
@@ -134,7 +128,6 @@ WHERE (
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Count_with_three_values(bool async)
     {
-        await base.Inline_collection_Count_with_three_values(async);
 
         if (AppConfig.ServerVersion.Supports.ValuesWithRows)
         {
@@ -169,7 +162,6 @@ WHERE (
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Contains_with_zero_values(bool async)
     {
-        await base.Inline_collection_Contains_with_zero_values(async);
 
         AssertSql(
 """
@@ -183,7 +175,6 @@ WHERE FALSE
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Contains_with_one_value(bool async)
     {
-        await base.Inline_collection_Contains_with_one_value(async);
 
         AssertSql(
 """
@@ -197,7 +188,6 @@ WHERE `p`.`Id` = 2
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Contains_with_two_values(bool async)
     {
-        await base.Inline_collection_Contains_with_two_values(async);
 
         AssertSql(
 """
@@ -211,7 +201,6 @@ WHERE `p`.`Id` IN (2, 999)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Contains_with_three_values(bool async)
     {
-        await base.Inline_collection_Contains_with_three_values(async);
 
         AssertSql(
 """
@@ -225,7 +214,6 @@ WHERE `p`.`Id` IN (2, 999, 1000)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Contains_with_all_parameters(bool async)
     {
-        await base.Inline_collection_Contains_with_all_parameters(async);
 
         AssertSql(
 """
@@ -242,7 +230,6 @@ WHERE `p`.`Id` IN (@__i_0, @__j_1)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Contains_with_constant_and_parameter(bool async)
     {
-        await base.Inline_collection_Contains_with_constant_and_parameter(async);
 
         AssertSql(
 """
@@ -258,7 +245,6 @@ WHERE `p`.`Id` IN (2, @__j_0)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_Contains_with_mixed_value_types(bool async)
     {
-        await base.Inline_collection_Contains_with_mixed_value_types(async);
 
         AssertSql(
 """
@@ -274,7 +260,6 @@ WHERE `p`.`Int` IN (999, @__i_0, `p`.`Id`, `p`.`Id` + `p`.`Int`)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Inline_collection_negated_Contains_as_All(bool async)
     {
-        await base.Inline_collection_negated_Contains_as_All(async);
 
         AssertSql(
 """
@@ -286,7 +271,6 @@ WHERE `p`.`Id` NOT IN (2, 999)
 
     public virtual async Task Parameter_collection_Count(bool async)
     {
-        await base.Parameter_collection_Count(async);
 
         AssertSql(
 """
@@ -304,7 +288,6 @@ WHERE (
 
     public virtual async Task Parameter_collection_of_nullable_ints_Contains_int(bool async)
     {
-        await base.Parameter_collection_of_nullable_ints_Contains_int(async);
 
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
@@ -340,7 +323,6 @@ WHERE `p`.`Int` NOT IN (10, 999)
 
     public virtual async Task Parameter_collection_of_nullable_ints_Contains_nullable_int(bool async)
     {
-        await base.Parameter_collection_of_nullable_ints_Contains_nullable_int(async);
 
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
@@ -376,7 +358,6 @@ WHERE `p`.`NullableInt` IS NOT NULL AND (`p`.`NullableInt` <> 999)
 
     public virtual async Task Parameter_collection_of_strings_Contains_nullable_string(bool async)
     {
-        await base.Parameter_collection_of_strings_Contains_nullable_string(async);
 
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
@@ -412,7 +393,6 @@ WHERE `p`.`NullableString` NOT IN ('10', '999') OR (`p`.`NullableString` IS NULL
 
     public virtual async Task Parameter_collection_of_DateTimes_Contains(bool async)
     {
-        await base.Parameter_collection_of_DateTimes_Contains(async);
 
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
@@ -442,7 +422,6 @@ WHERE `p`.`DateTime` IN (TIMESTAMP '2020-01-10 12:30:00', TIMESTAMP '9999-01-01 
 
     public virtual async Task Parameter_collection_of_bools_Contains(bool async)
     {
-        await base.Parameter_collection_of_bools_Contains(async);
 
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
@@ -472,7 +451,6 @@ WHERE `p`.`Bool`
 
     public virtual async Task Parameter_collection_of_enums_Contains(bool async)
     {
-        await base.Parameter_collection_of_enums_Contains(async);
 
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
@@ -502,7 +480,6 @@ WHERE `p`.`Enum` IN (0, 3)
 
     public virtual async Task Parameter_collection_null_Contains(bool async)
     {
-        await base.Parameter_collection_null_Contains(async);
 
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
@@ -533,7 +510,6 @@ WHERE FALSE
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationWithoutMySqlBugs))]
     public virtual async Task Column_collection_of_ints_Contains(bool async)
     {
-        await base.Column_collection_of_ints_Contains(async);
 
         AssertSql(
 """
@@ -552,7 +528,6 @@ WHERE 10 IN (
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationWithoutMySqlBugs))]
     public virtual async Task Column_collection_of_nullable_ints_Contains(bool async)
     {
-        await base.Column_collection_of_nullable_ints_Contains(async);
 
         AssertSql(
 """
@@ -571,7 +546,6 @@ WHERE 10 IN (
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationWithoutMySqlBugs))]
     public virtual async Task Column_collection_of_nullable_ints_Contains_null(bool async)
     {
-        await base.Column_collection_of_nullable_ints_Contains_null(async);
 
         AssertSql(
 """
@@ -583,7 +557,6 @@ WHERE array_position(p."NullableInts", NULL) IS NOT NULL
 
     public virtual async Task Column_collection_of_strings_contains_null(bool async)
     {
-        await base.Column_collection_of_strings_contains_null(async);
 
         AssertSql(
 """
@@ -596,7 +569,6 @@ WHERE FALSE
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationWithoutMySqlBugs))]
     public virtual async Task Column_collection_of_nullable_strings_contains_null(bool async)
     {
-        await base.Column_collection_of_nullable_strings_contains_null(async);
 
         AssertSql(
 """
@@ -609,7 +581,6 @@ WHERE array_position(p."NullableStrings", NULL) IS NOT NULL
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationWithoutMySqlBugs))]
     public virtual async Task Column_collection_of_bools_Contains(bool async)
     {
-        await base.Column_collection_of_bools_Contains(async);
 
         AssertSql(
 """
@@ -627,7 +598,6 @@ WHERE TRUE IN (
 
     public virtual async Task Column_collection_Count_method(bool async)
     {
-        await base.Column_collection_Count_method(async);
 
         AssertSql(
 """
@@ -644,7 +614,6 @@ WHERE (
 
     public virtual async Task Column_collection_Length(bool async)
     {
-        await base.Column_collection_Length(async);
 
         AssertSql(
 """
@@ -661,7 +630,6 @@ WHERE (
 
     public virtual async Task Column_collection_index_int(bool async)
     {
-        await base.Column_collection_index_int(async);
 
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
@@ -685,7 +653,6 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`Ints`, '$[1]')) AS signed) = 10
 
     public virtual async Task Column_collection_index_string(bool async)
     {
-        await base.Column_collection_index_string(async);
 
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
@@ -709,7 +676,6 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`Strings`, '$[1]')) AS char) = '10'
 
     public virtual async Task Column_collection_index_datetime(bool async)
     {
-        await base.Column_collection_index_datetime(async);
 
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
@@ -733,7 +699,6 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`DateTimes`, '$[1]')) AS datetime(6)) =
 
     public virtual async Task Column_collection_index_beyond_end(bool async)
     {
-        await base.Column_collection_index_beyond_end(async);
 
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
@@ -758,7 +723,6 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`Ints`, '$[999]')) AS signed) = 10
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonValue), Skip = "TODO: Fix NULL handling of JSON_EXTRACT().")]
     public virtual async Task Nullable_reference_column_collection_index_equals_nullable_column(bool async)
     {
-        await base.Nullable_reference_column_collection_index_equals_nullable_column(async);
 
         AssertSql(
 """
@@ -770,7 +734,6 @@ WHERE (CAST(JSON_VALUE(`p`.`NullableStrings`, '$[2]') AS char) = `p`.`NullableSt
 
     public virtual async Task Non_nullable_reference_column_collection_index_equals_nullable_column(bool async)
     {
-        await base.Non_nullable_reference_column_collection_index_equals_nullable_column(async);
 
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
@@ -795,7 +758,6 @@ WHERE (JSON_LENGTH(`p`.`Strings`) > 0) AND (CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.WhereSubqueryReferencesOuterQuery))]
     public virtual async Task Inline_collection_index_Column(bool async)
     {
-        await base.Inline_collection_index_Column(async);
 
         AssertSql(
 """
@@ -811,7 +773,6 @@ WHERE (
 
     public virtual async Task Parameter_collection_index_Column_equal_Column(bool async)
     {
-        await base.Parameter_collection_index_Column_equal_Column(async);
 
         AssertSql(
 """
@@ -825,7 +786,6 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(@__ints_0, CONCAT('$[', CAST(`p`.`Int` AS c
 
     public virtual async Task Parameter_collection_index_Column_equal_constant(bool async)
     {
-        await base.Parameter_collection_index_Column_equal_constant(async);
 
         AssertSql(
 """
@@ -839,7 +799,6 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(@__ints_0, CONCAT('$[', CAST(`p`.`Int` AS c
 
     public virtual async Task Column_collection_ElementAt(bool async)
     {
-        await base.Column_collection_ElementAt(async);
 
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
@@ -863,7 +822,6 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`Ints`, '$[1]')) AS signed) = 10
 
     public virtual async Task Column_collection_Skip(bool async)
     {
-        await base.Column_collection_Skip(async);
 
         AssertSql(
 """
@@ -886,7 +844,6 @@ WHERE (
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.LimitWithinInAllAnySomeSubquery))]
     public virtual async Task Column_collection_Take(bool async)
     {
-        await base.Column_collection_Take(async);
 
         AssertSql(
 """
@@ -899,7 +856,6 @@ WHERE 11 = ANY (p."Ints"[:2])
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.LimitWithinInAllAnySomeSubquery))]
     public virtual async Task Column_collection_Skip_Take(bool async)
     {
-        await base.Column_collection_Skip_Take(async);
 
         AssertSql(
 """
@@ -911,7 +867,6 @@ WHERE 11 = ANY (p."Ints"[2:3])
 
     public virtual async Task Column_collection_OrderByDescending_ElementAt(bool async)
     {
-        await base.Column_collection_OrderByDescending_ElementAt(async);
 
         AssertSql(
 """
@@ -930,7 +885,6 @@ WHERE (
 
     public virtual async Task Column_collection_Any(bool async)
     {
-        await base.Column_collection_Any(async);
 
         AssertSql(
 """
@@ -942,7 +896,6 @@ WHERE JSON_LENGTH(`p`.`Ints`) > 0
 
     public virtual async Task Column_collection_Distinct(bool async)
     {
-        await base.Column_collection_Distinct(async);
 
         AssertSql(
 """
@@ -962,7 +915,6 @@ WHERE (
 
     public virtual async Task Column_collection_projection_from_top_level(bool async)
     {
-        await base.Column_collection_projection_from_top_level(async);
 
         AssertSql(
 """
@@ -974,7 +926,6 @@ ORDER BY `p`.`Id`
 
     public virtual async Task Column_collection_Join_parameter_collection(bool async)
     {
-        await base.Column_collection_Join_parameter_collection(async);
 
         AssertSql(
 """
@@ -995,7 +946,6 @@ WHERE (
 
     public virtual async Task Inline_collection_Join_ordered_column_collection(bool async)
     {
-        await base.Inline_collection_Join_ordered_column_collection(async);
 
         AssertSql(
 """
@@ -1013,7 +963,6 @@ WHERE (
 
     public virtual async Task Parameter_collection_Concat_column_collection(bool async)
     {
-        await base.Parameter_collection_Concat_column_collection(async);
 
         AssertSql(
 """
@@ -1039,7 +988,6 @@ WHERE (
 
     public virtual async Task Column_collection_Union_parameter_collection(bool async)
     {
-        await base.Column_collection_Union_parameter_collection(async);
 
         AssertSql(
 """
@@ -1065,7 +1013,6 @@ WHERE (
 
     public virtual async Task Column_collection_Intersect_inline_collection(bool async)
     {
-        await base.Column_collection_Intersect_inline_collection(async);
 
         AssertSql(
 """
@@ -1084,7 +1031,6 @@ WHERE (
 
     public virtual async Task Inline_collection_Except_column_collection(bool async)
     {
-        await base.Inline_collection_Except_column_collection(async);
 
         AssertSql(
 """
@@ -1105,7 +1051,6 @@ WHERE (
 
     public virtual async Task Column_collection_equality_parameter_collection(bool async)
     {
-        await base.Column_collection_equality_parameter_collection(async);
 
         AssertSql(
 """
@@ -1119,7 +1064,6 @@ WHERE `p`.`Ints` = @__ints_0
 
     public virtual async Task Column_collection_equality_inline_collection(bool async)
     {
-        await base.Column_collection_equality_inline_collection(async);
 
         AssertSql(
 """
@@ -1131,14 +1075,12 @@ WHERE `p`.`Ints` = '[1,10]'
 
     public virtual async Task Column_collection_equality_inline_collection_with_parameters(bool async)
     {
-        await base.Column_collection_equality_inline_collection_with_parameters(async);
 
         AssertSql();
     }
 
     public virtual async Task Parameter_collection_in_subquery_Union_column_collection_as_compiled_query(bool async)
     {
-        await base.Parameter_collection_in_subquery_Union_column_collection_as_compiled_query(async);
 
         AssertSql(
 """
@@ -1169,7 +1111,6 @@ WHERE (
 
     public virtual async Task Parameter_collection_in_subquery_Union_column_collection(bool async)
     {
-        await base.Parameter_collection_in_subquery_Union_column_collection(async);
 
         AssertSql(
 """
@@ -1195,7 +1136,6 @@ WHERE (
 
     public virtual async Task Parameter_collection_in_subquery_Union_column_collection_nested(bool async)
     {
-        await base.Parameter_collection_in_subquery_Union_column_collection_nested(async);
 
         AssertSql(
 """
@@ -1273,7 +1213,6 @@ WHERE (
 
     public virtual async Task Parameter_collection_in_subquery_Count_as_compiled_query(bool async)
     {
-        await base.Parameter_collection_in_subquery_Count_as_compiled_query(async);
 
         AssertSql(
 """
@@ -1296,7 +1235,6 @@ WHERE (
 
     public virtual async Task Column_collection_in_subquery_Union_parameter_collection(bool async)
     {
-        await base.Column_collection_in_subquery_Union_parameter_collection(async);
 
         AssertSql(
 """
@@ -1327,7 +1265,6 @@ WHERE (
 
     public virtual async Task Project_collection_of_ints_simple(bool async)
     {
-        await base.Project_collection_of_ints_simple(async);
 
         AssertSql(
 """
@@ -1340,7 +1277,6 @@ ORDER BY `p`.`Id`
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationStable))]
     public virtual async Task Project_collection_of_ints_ordered(bool async)
     {
-        await base.Project_collection_of_ints_ordered(async);
 
         AssertSql(
 """
@@ -1360,7 +1296,6 @@ ORDER BY `p`.`Id`, `i`.`value` DESC
     {
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
-            await base.Project_collection_of_datetimes_filtered(async);
 
             AssertSql(
 """
@@ -1386,7 +1321,6 @@ ORDER BY `p`.`Id`, `t`.`key`
 
     public virtual async Task Project_collection_of_nullable_ints_with_paging(bool async)
     {
-        await base.Project_collection_of_nullable_ints_with_paging(async);
 
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
@@ -1423,7 +1357,6 @@ ORDER BY `p`.`Id`
     {
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
-            await base.Project_collection_of_nullable_ints_with_paging2(async);
 
             AssertSql(
 """
@@ -1450,7 +1383,6 @@ ORDER BY `p`.`Id`, `t`.`value`
 
     public virtual async Task Project_collection_of_nullable_ints_with_paging3(bool async)
     {
-        await base.Project_collection_of_nullable_ints_with_paging3(async);
 
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
@@ -1483,7 +1415,6 @@ ORDER BY `p`.`Id`
 
     public virtual async Task Project_collection_of_ints_with_distinct(bool async)
     {
-        await base.Project_collection_of_ints_with_distinct(async);
 
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
@@ -1514,7 +1445,6 @@ ORDER BY `p`.`Id`
 
     public virtual async Task Project_collection_of_nullable_ints_with_distinct(bool async)
     {
-        await base.Project_collection_of_nullable_ints_with_distinct(async);
 
         AssertSql();
     }
@@ -1525,7 +1455,6 @@ ORDER BY `p`.`Id`
     {
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
-            await base.Project_empty_collection_of_nullables_and_collection_only_containing_nulls(async);
 
             AssertSql(
 """
@@ -1613,7 +1542,6 @@ ORDER BY `p`.`Id`, `i`.`key`, `i0`.`value` DESC, `i0`.`key`, `t`.`key`, `t0`.`ke
 
     public virtual async Task Project_primitive_collections_element(bool async)
     {
-        await base.Project_primitive_collections_element(async);
 
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
@@ -1639,7 +1567,6 @@ ORDER BY `p`.`Id`
 
     public virtual async Task Inline_collection_Contains_as_Any_with_predicate(bool async)
     {
-        await base.Inline_collection_Contains_as_Any_with_predicate(async);
 
         AssertSql(
 """
@@ -1651,14 +1578,12 @@ WHERE `p`.`Id` IN (2, 999)
 
     public virtual async Task Column_collection_Concat_parameter_collection_equality_inline_collection(bool async)
     {
-        await base.Column_collection_Concat_parameter_collection_equality_inline_collection(async);
 
         AssertSql();
     }
 
     public virtual async Task Nested_contains_with_Lists_and_no_inferred_type_mapping(bool async)
     {
-        await base.Nested_contains_with_Lists_and_no_inferred_type_mapping(async);
 
         AssertSql(
 """
@@ -1673,7 +1598,6 @@ END IN ('one', 'two', 'three')
 
     public virtual async Task Nested_contains_with_arrays_and_no_inferred_type_mapping(bool async)
     {
-        await base.Nested_contains_with_arrays_and_no_inferred_type_mapping(async);
 
         AssertSql(
 """
@@ -1688,7 +1612,6 @@ END IN ('one', 'two', 'three')
 
     public virtual async Task Inline_collection_with_single_parameter_element_Contains(bool async)
     {
-        await base.Inline_collection_with_single_parameter_element_Contains(async);
 
         AssertSql(
 """
@@ -1702,7 +1625,6 @@ WHERE `p`.`Id` = @__i_0
 
     public virtual async Task Inline_collection_with_single_parameter_element_Count(bool async)
     {
-        await base.Inline_collection_with_single_parameter_element_Count(async);
 
         AssertSql(
 """
@@ -1719,7 +1641,6 @@ WHERE (
 
     public virtual async Task Parameter_collection_Contains_with_EF_Constant(bool async)
     {
-        await base.Parameter_collection_Contains_with_EF_Constant(async);
 
         AssertSql(
 """
@@ -1731,7 +1652,6 @@ WHERE `p`.`Id` IN (2, 999, 1000)
 
     public virtual async Task Parameter_collection_Where_with_EF_Constant_Where_Any(bool async)
     {
-        await base.Parameter_collection_Where_with_EF_Constant_Where_Any(async);
 
         var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
 
@@ -1748,7 +1668,6 @@ WHERE EXISTS (
 
     public virtual async Task Parameter_collection_Count_with_column_predicate_with_EF_Constant(bool async)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_EF_Constant(async);
 
         var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
 
@@ -1765,7 +1684,6 @@ WHERE (
 
     public virtual async Task Inline_collection_Min_with_two_values(bool async)
     {
-        await base.Inline_collection_Min_with_two_values(async);
 
         AssertSql(
 """
@@ -1777,7 +1695,6 @@ WHERE LEAST(30, `p`.`Int`) = 30
 
     public virtual async Task Inline_collection_Max_with_two_values(bool async)
     {
-        await base.Inline_collection_Max_with_two_values(async);
 
         AssertSql(
 """
@@ -1789,7 +1706,6 @@ WHERE GREATEST(30, `p`.`Int`) = 30
 
     public virtual async Task Inline_collection_Min_with_three_values(bool async)
     {
-        await base.Inline_collection_Min_with_three_values(async);
 
         AssertSql(
 """
@@ -1803,7 +1719,6 @@ WHERE LEAST(30, `p`.`Int`, @__i_0) = 25
 
     public virtual async Task Inline_collection_Max_with_three_values(bool async)
     {
-        await base.Inline_collection_Max_with_three_values(async);
 
         AssertSql(
 """
@@ -1817,7 +1732,6 @@ WHERE GREATEST(30, `p`.`Int`, @__i_0) = 35
 
     public virtual async Task Parameter_collection_of_ints_Contains_int(bool async)
     {
-        await base.Parameter_collection_of_ints_Contains_int(async);
 
         AssertSql(
 """
@@ -1835,7 +1749,6 @@ WHERE `p`.`Int` NOT IN (10, 999)
 
     public virtual async Task Parameter_collection_of_ints_Contains_nullable_int(bool async)
     {
-        await base.Parameter_collection_of_ints_Contains_nullable_int(async);
 
         AssertSql(
 """
@@ -1853,7 +1766,6 @@ WHERE `p`.`NullableInt` NOT IN (10, 999) OR (`p`.`NullableInt` IS NULL)
 
     public virtual async Task Parameter_collection_of_strings_Contains_string(bool async)
     {
-        await base.Parameter_collection_of_strings_Contains_string(async);
 
         AssertSql(
 """
@@ -1871,7 +1783,6 @@ WHERE `p`.`String` NOT IN ('10', '999')
 
     public virtual async Task Parameter_collection_of_nullable_strings_Contains_string(bool async)
     {
-        await base.Parameter_collection_of_nullable_strings_Contains_string(async);
 
         AssertSql(
 """
@@ -1889,7 +1800,6 @@ WHERE `p`.`String` <> '10'
 
     public virtual async Task Parameter_collection_of_nullable_strings_Contains_nullable_string(bool async)
     {
-        await base.Parameter_collection_of_nullable_strings_Contains_nullable_string(async);
 
         AssertSql(
 """
@@ -1907,14 +1817,12 @@ WHERE `p`.`NullableString` IS NOT NULL AND (`p`.`NullableString` <> '999')
 
     public virtual async Task Column_collection_SelectMany(bool async)
     {
-        await base.Column_collection_SelectMany(async);
 
         AssertSql("");
     }
 
     public virtual async Task Project_collection_of_ints_with_ToList_and_FirstOrDefault(bool async)
     {
-        await base.Project_collection_of_ints_with_ToList_and_FirstOrDefault(async);
 
         AssertSql(
 """
@@ -1927,21 +1835,18 @@ LIMIT 1
 
     public virtual async Task Project_inline_collection_with_Concat(bool async)
     {
-        await base.Project_inline_collection_with_Concat(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_Where_equality_inline_collection(bool async)
     {
-        await base.Column_collection_Where_equality_inline_collection(async);
 
         AssertSql();
     }
 
     public virtual async Task Inline_collection_List_Contains_with_mixed_value_types(bool async)
     {
-        await base.Inline_collection_List_Contains_with_mixed_value_types(async);
 
         AssertSql(
 """
@@ -1955,7 +1860,6 @@ WHERE `p`.`Int` IN (999, @__i_0, `p`.`Id`, `p`.`Id` + `p`.`Int`)
 
     public virtual async Task Inline_collection_List_Min_with_two_values(bool async)
     {
-        await base.Inline_collection_List_Min_with_two_values(async);
 
         AssertSql(
 """
@@ -1967,7 +1871,6 @@ WHERE LEAST(30, `p`.`Int`) = 30
 
     public virtual async Task Inline_collection_List_Max_with_two_values(bool async)
     {
-        await base.Inline_collection_List_Max_with_two_values(async);
 
         AssertSql(
 """
@@ -1979,7 +1882,6 @@ WHERE GREATEST(30, `p`.`Int`) = 30
 
     public virtual async Task Inline_collection_List_Min_with_three_values(bool async)
     {
-        await base.Inline_collection_List_Min_with_three_values(async);
 
         AssertSql(
 """
@@ -1993,7 +1895,6 @@ WHERE LEAST(30, `p`.`Int`, @__i_0) = 25
 
     public virtual async Task Inline_collection_List_Max_with_three_values(bool async)
     {
-        await base.Inline_collection_List_Max_with_three_values(async);
 
         AssertSql(
 """
@@ -2009,7 +1910,6 @@ WHERE GREATEST(30, `p`.`Int`, @__i_0) = 35
     {
         if (AppConfig.ServerVersion.Supports.FieldReferenceInTableValueConstructor)
         {
-            await base.Inline_collection_of_nullable_value_type_Min(async);
 
             AssertSql(
 """
@@ -2034,7 +1934,6 @@ WHERE (
     {
         if (AppConfig.ServerVersion.Supports.FieldReferenceInTableValueConstructor)
         {
-            await base.Inline_collection_of_nullable_value_type_Max(async);
 
             AssertSql(
 """
@@ -2059,7 +1958,6 @@ WHERE (
     {
         if (AppConfig.ServerVersion.Supports.FieldReferenceInTableValueConstructor)
         {
-            await base.Inline_collection_of_nullable_value_type_with_null_Min(async);
 
             AssertSql(
 """
@@ -2082,7 +1980,6 @@ WHERE (
     {
         if (AppConfig.ServerVersion.Supports.FieldReferenceInTableValueConstructor)
         {
-            await base.Inline_collection_of_nullable_value_type_with_null_Max(async);
 
             AssertSql(
 """
@@ -2103,35 +2000,30 @@ WHERE (
 
     public virtual async Task Inline_collection_Contains_with_EF_Parameter(bool async)
     {
-        await base.Inline_collection_Contains_with_EF_Parameter(async);
 
         AssertSql();
     }
 
     public virtual async Task Inline_collection_Count_with_column_predicate_with_EF_Parameter(bool async)
     {
-        await base.Inline_collection_Count_with_column_predicate_with_EF_Parameter(async);
 
         AssertSql();
     }
 
     public virtual async Task Parameter_collection_HashSet_of_ints_Contains_int(bool async)
     {
-        await base.Parameter_collection_HashSet_of_ints_Contains_int(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_Count_with_predicate(bool async)
     {
-        await base.Column_collection_Count_with_predicate(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_Where_Count(bool async)
     {
-        await base.Column_collection_Where_Count(async);
 
         AssertSql();
     }
@@ -2139,7 +2031,6 @@ WHERE (
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.WhereSubqueryReferencesOuterQuery))]
     public virtual async Task Inline_collection_value_index_Column(bool async)
     {
-        await base.Inline_collection_value_index_Column(async);
 
         AssertSql();
     }
@@ -2147,112 +2038,96 @@ WHERE (
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.WhereSubqueryReferencesOuterQuery))]
     public virtual async Task Inline_collection_List_value_index_Column(bool async)
     {
-        await base.Inline_collection_List_value_index_Column(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_First(bool async)
     {
-        await base.Column_collection_First(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_FirstOrDefault(bool async)
     {
-        await base.Column_collection_FirstOrDefault(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_Single(bool async)
     {
-        await base.Column_collection_Single(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_SingleOrDefault(bool async)
     {
-        await base.Column_collection_SingleOrDefault(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_Where_Skip(bool async)
     {
-        await base.Column_collection_Where_Skip(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_Where_Take(bool async)
     {
-        await base.Column_collection_Where_Take(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_Where_Skip_Take(bool async)
     {
-        await base.Column_collection_Where_Skip_Take(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_Contains_over_subquery(bool async)
     {
-        await base.Column_collection_Contains_over_subquery(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_Where_ElementAt(bool async)
     {
-        await base.Column_collection_Where_ElementAt(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_SelectMany_with_filter(bool async)
     {
-        await base.Column_collection_SelectMany_with_filter(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_SelectMany_with_Select_to_anonymous_type(bool async)
     {
-        await base.Column_collection_SelectMany_with_Select_to_anonymous_type(async);
 
         AssertSql();
     }
 
     public virtual async Task Parameter_collection_with_type_inference_for_JsonScalarExpression(bool async)
     {
-        await base.Parameter_collection_with_type_inference_for_JsonScalarExpression(async);
 
         AssertSql();
     }
 
     public virtual async Task Parameter_collection_ImmutableArray_of_ints_Contains_int(bool async)
     {
-        await base.Parameter_collection_ImmutableArray_of_ints_Contains_int(async);
 
         AssertSql();
     }
 
     public virtual async Task Column_collection_Where_Union(bool async)
     {
-        await base.Column_collection_Where_Union(async);
 
         AssertSql();
     }
 
     public virtual async Task Project_inline_collection(bool async)
     {
-        await base.Project_inline_collection(async);
 
         AssertSql(
 """
@@ -2263,7 +2138,6 @@ FROM `PrimitiveCollectionsEntity` AS `p`
 
     public virtual async Task Project_inline_collection_with_Union(bool async)
     {
-        await base.Project_inline_collection_with_Union(async);
 
         AssertSql(
 """
