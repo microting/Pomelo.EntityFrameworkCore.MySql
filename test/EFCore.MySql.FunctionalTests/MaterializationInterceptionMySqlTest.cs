@@ -6,6 +6,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests;
 
 public class MaterializationInterceptionMySqlTest : MaterializationInterceptionTestBase<MaterializationInterceptionMySqlTest.MySqlLibraryContext>
 {
+    public MaterializationInterceptionMySqlTest()
+        : base(new MySqlMaterializationInterceptionFixture())
+    {
+    }
+
     public class MySqlLibraryContext : LibraryContext
     {
         public MySqlLibraryContext(DbContextOptions options)
@@ -26,4 +31,15 @@ public class MaterializationInterceptionMySqlTest : MaterializationInterceptionT
 
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
+
+    public class MySqlMaterializationInterceptionFixture : SingletonInterceptorsFixtureBase
+    {
+        protected override string StoreName => "MaterializationInterception";
+        protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
+
+        protected override IServiceCollection InjectInterceptors(
+            IServiceCollection serviceCollection,
+            IEnumerable<IInterceptor> injectedInterceptors)
+            => base.InjectInterceptors(serviceCollection.AddEntityFrameworkMySql(), injectedInterceptors);
+    }
 }

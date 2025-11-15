@@ -9,8 +9,19 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.BulkUpdates;
 
 public class NonSharedModelBulkUpdatesMySqlTest : NonSharedModelBulkUpdatesRelationalTestBase
 {
+    public NonSharedModelBulkUpdatesMySqlTest()
+        : base(new MySqlNonSharedModelBulkUpdatesFixture())
+    {
+    }
+
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
+
+    public class MySqlNonSharedModelBulkUpdatesFixture : NonSharedModelBulkUpdatesFixtureBase
+    {
+        protected override string StoreName => "NonSharedModelBulkUpdates";
+        protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
+    }
 
     [ConditionalFact]
     public virtual void Check_all_tests_overridden()
