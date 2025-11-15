@@ -682,10 +682,10 @@ WHERE `m`.`CustomerID` IN (
         await AssertQuery(
             async,
             ss => ss.Set<Customer>()
-                .FromSql($"SELECT * FROM `Customers` WHERE `City` = {"Seattle"}")
+                .FromSqlRaw($"SELECT * FROM `Customers` WHERE `City` = {"Seattle"}")
                 .Intersect(
                     ss.Set<Customer>()
-                        .FromSql($"SELECT * FROM `Customers` WHERE `City` = {"Seattle"}")));
+                        .FromSqlRaw($"SELECT * FROM `Customers` WHERE `City` = {"Seattle"}")));
 
         AssertSql(
 """
