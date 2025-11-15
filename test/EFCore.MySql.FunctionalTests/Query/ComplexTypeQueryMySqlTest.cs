@@ -19,7 +19,9 @@ public class ComplexTypeQueryMySqlTest : ComplexTypeQueryRelationalTestBase<
         Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
-    public override async Task Filter_on_property_inside_complex_type(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Filter_on_property_inside_complex_type(bool async)
     {
         await base.Filter_on_property_inside_complex_type(async);
 
@@ -31,7 +33,9 @@ WHERE `c`.`ShippingAddress_ZipCode` = 7728
 """);
     }
 
-    public override async Task Filter_on_property_inside_nested_complex_type(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Filter_on_property_inside_nested_complex_type(bool async)
     {
         await base.Filter_on_property_inside_nested_complex_type(async);
 
@@ -383,7 +387,9 @@ FROM `Customer` AS `c0`
 );
     }
 
-    public override async Task Complex_type_equals_null(bool async)
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    public virtual async Task Complex_type_equals_null(bool async)
     {
         await base.Complex_type_equals_null(async);
 
