@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup Label="Common Versions">
-    <EFCoreVersion>[10.0.0-preview.7.25380.108,10.0.999]</EFCoreVersion>
+    <EFCoreVersion>[10.0.0,10.0.999]</EFCoreVersion>
   </PropertyGroup>
   <ItemGroup Label="Dependencies">
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EFCoreVersion)" />
@@ -12,26 +12,26 @@
     <PackageVersion Include="NetTopologySuite" Version="2.6.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="Castle.Core" Version="5.1.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.0-preview.7.25380.108" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.0-preview.7.25380.108" />
-    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.0-preview.7.25380.108" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.0" />
     <!--<PackageVersion Include="Microsoft.Bcl.HashCode" Version="1.1.1" />-->
-    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="10.0.0-preview.7.25380.108" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.0-preview.7.25380.108" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.0-preview.7.25380.108" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.0-preview.7.25380.108" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0-preview.7.25380.108" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="$(EFCoreVersion)" />
     <!-- CHECK: used? -->
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0-preview.7.25380.108" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="10.0.0-preview.7.25380.108" />
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="10.0.0-preview.7.25380.108" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="10.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <PackageVersion Include="Moq" Version="4.20.72" />
-    <PackageVersion Include="System.Collections.Immutable" Version="10.0.0-preview.7.25380.108" />
+    <PackageVersion Include="System.Collections.Immutable" Version="10.0.0" />
     <PackageVersion Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
-    <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="10.0.0-preview.7.25380.108" />
+    <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="10.0.0" />
     <PackageVersion Include="GitHubActionsTestLogger" Version="2.4.1" />
     <PackageVersion Include="Xunit.SkippableFact" Version="1.5.23" />
     <!-- Keep at the same level that the EF Core projects use. -->
@@ -53,6 +53,6 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Features" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.VisualBasic.Features" Version="4.14.0" />
-    <PackageVersion Include="System.Text.Json" Version="10.0.0-preview.7.25380.108" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.0" />
   </ItemGroup>
 </Project>
