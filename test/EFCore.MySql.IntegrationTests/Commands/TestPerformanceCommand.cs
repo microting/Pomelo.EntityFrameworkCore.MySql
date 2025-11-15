@@ -116,7 +116,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.IntegrationTests.Commands
                 }
             }
 
-            _db.Database.ExecuteSqlRaw("DELETE FROM `" + _db.Model.FindEntityType(typeof(Blog)).GetTableName() + "`");
+            var tableName = _db.Model.FindEntityType(typeof(Blog)).GetTableName();
+            _db.Database.ExecuteSql($"DELETE FROM `{tableName}`");
 
             PerfTest(insert1, "Insert 1", iterations, concurrency, ops).GetAwaiter().GetResult();
             var insertCount = _db.Blogs.Count();
