@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.BulkUpdates;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
@@ -7,21 +8,10 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.BulkUpdates;
 
-public class NonSharedModelBulkUpdatesMySqlTest : NonSharedModelBulkUpdatesRelationalTestBase
+public class NonSharedModelBulkUpdatesMySqlTest(NonSharedFixture fixture) : NonSharedModelBulkUpdatesRelationalTestBase(fixture)
 {
-    public NonSharedModelBulkUpdatesMySqlTest()
-        : base(new MySqlNonSharedModelBulkUpdatesFixture())
-    {
-    }
-
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
-
-    public class MySqlNonSharedModelBulkUpdatesFixture : NonSharedModelBulkUpdatesFixtureBase
-    {
-        protected override string StoreName => "NonSharedModelBulkUpdates";
-        protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
-    }
 
     [ConditionalFact]
     public virtual void Check_all_tests_overridden()
