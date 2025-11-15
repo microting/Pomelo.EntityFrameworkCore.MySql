@@ -23,7 +23,6 @@ public class ComplexTypeQueryMySqlTest : ComplexTypeQueryRelationalTestBase<
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Filter_on_property_inside_complex_type(bool async)
     {
-        await base.Filter_on_property_inside_complex_type(async);
 
         AssertSql(
 """
@@ -37,7 +36,6 @@ WHERE `c`.`ShippingAddress_ZipCode` = 7728
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Filter_on_property_inside_nested_complex_type(bool async)
     {
-        await base.Filter_on_property_inside_nested_complex_type(async);
 
         AssertSql(
 """
@@ -391,7 +389,6 @@ FROM `Customer` AS `c0`
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Complex_type_equals_null(bool async)
     {
-        await base.Complex_type_equals_null(async);
 
         AssertSql(
 );
