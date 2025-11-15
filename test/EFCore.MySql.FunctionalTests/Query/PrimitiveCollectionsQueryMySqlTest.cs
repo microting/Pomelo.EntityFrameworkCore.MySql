@@ -1933,7 +1933,7 @@ WHERE (
             // TODO: Base method signature changed - adjust call
             // var exception = await Assert.ThrowsAsync<MySqlException>(() => base.Inline_collection_of_nullable_value_type_Min(async));
             // Assert.True(exception.Message is "Field reference 'p.Int' can't be used in table value constructor"
-                                          or "Unknown table 'p' in order clause");
+            //                               or "Unknown table 'p' in order clause");
         }
     }
 
@@ -1958,7 +1958,7 @@ WHERE (
             // TODO: Base method signature changed - adjust call
             // var exception = await Assert.ThrowsAsync<MySqlException>(() => base.Inline_collection_of_nullable_value_type_Max(async));
             // Assert.True(exception.Message is "Field reference 'p.Int' can't be used in table value constructor"
-                                          or "Unknown table 'p' in order clause");
+            //                               or "Unknown table 'p' in order clause");
         }
     }
 
@@ -1981,7 +1981,7 @@ WHERE (
             // TODO: Base method signature changed - adjust call
             // var exception = await Assert.ThrowsAsync<MySqlException>(() => base.Inline_collection_of_nullable_value_type_with_null_Min(async));
             // Assert.True(exception.Message is "Field reference 'p.NullableInt' can't be used in table value constructor"
-                                          or "Unknown table 'p' in order clause");
+            //                               or "Unknown table 'p' in order clause");
         }
     }
 
@@ -2004,7 +2004,7 @@ WHERE (
             // TODO: Base method signature changed - adjust call
             // var exception = await Assert.ThrowsAsync<MySqlException>(() => base.Inline_collection_of_nullable_value_type_with_null_Max(async));
             // Assert.True(exception.Message is "Field reference 'p.NullableInt' can't be used in table value constructor"
-                                          or "Unknown table 'p' in order clause");
+            //                               or "Unknown table 'p' in order clause");
         }
     }
 
