@@ -194,7 +194,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
         /// <param name="commandPosition">The ordinal of this command in the batch.</param>
         /// <param name="requiresTransaction">Returns whether the SQL appended must be executed in a transaction to work correctly.</param>
         /// <returns>The <see cref="ResultSetMapping" /> for the command.</returns>
-        public override ResultSetMapping AppendUpdateReturningOperation(
+        protected override ResultSetMapping AppendUpdateReturningOperation(
             StringBuilder commandStringBuilder,
             IReadOnlyModificationCommand command,
             int commandPosition,
@@ -245,7 +245,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
         /// <param name="commandPosition">The ordinal of this command in the batch.</param>
         /// <param name="requiresTransaction">Returns whether the SQL appended must be executed in a transaction to work correctly.</param>
         /// <returns>The <see cref="ResultSetMapping" /> for the command.</returns>
-        public override ResultSetMapping AppendDeleteReturningOperation(
+        protected override ResultSetMapping AppendDeleteReturningOperation(
             StringBuilder commandStringBuilder,
             IReadOnlyModificationCommand command,
             int commandPosition,
