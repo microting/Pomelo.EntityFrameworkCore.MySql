@@ -38,6 +38,45 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
                 ? AppendInsertReturningOperation(commandStringBuilder, command, commandPosition, out requiresTransaction)
                 : base.AppendInsertOperation(commandStringBuilder, command, commandPosition, out requiresTransaction);
 
+        /// <summary>
+        /// Appends SQL for inserting a row to the commands being built, via an INSERT containing a RETURNING clause
+        /// to retrieve any database-generated values.
+        /// </summary>
+        /// <param name="commandStringBuilder">The builder to which the SQL should be appended.</param>
+        /// <param name="command">The command that represents the insert operation.</param>
+        /// <param name="commandPosition">The ordinal of this command in the batch.</param>
+        /// <param name="requiresTransaction">Returns whether the SQL appended must be executed in a transaction to work correctly.</param>
+        /// <returns>The <see cref="ResultSetMapping" /> for the command.</returns>
+        public override ResultSetMapping AppendInsertReturningOperation(
+            StringBuilder commandStringBuilder,
+            IReadOnlyModificationCommand command,
+            int commandPosition,
+            out bool requiresTransaction)
+        {
+            var name = command.TableName;
+            var schema = command.Schema;
+            var operations = command.ColumnModifications;
+
+            var writeOperations = operations.Where(o => o.IsWrite).ToList();
+            var readOperations = operations.Where(o => o.IsRead).ToList();
+
+            AppendInsertCommandHeader(commandStringBuilder, name, schema, writeOperations);
+            AppendValuesHeader(commandStringBuilder, writeOperations);
+            AppendValues(commandStringBuilder, name, schema, writeOperations);
+            
+            // MySQL supports RETURNING clause starting from version 8.0.21
+            if (_options.ServerVersion.Supports.Returning && readOperations.Count > 0)
+            {
+                AppendReturningClause(commandStringBuilder, readOperations);
+            }
+            
+            commandStringBuilder.AppendLine(SqlGenerationHelper.StatementTerminator);
+
+            requiresTransaction = false;
+
+            return readOperations.Count > 0 ? ResultSetMapping.LastInResultSet : ResultSetMapping.NoResults;
+        }
+
         public virtual ResultSetMapping AppendBulkInsertOperation(
             StringBuilder commandStringBuilder,
             IReadOnlyList<IReadOnlyModificationCommand> modificationCommands,
@@ -137,6 +176,58 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             }
         }
 
+        public override ResultSetMapping AppendUpdateOperation(
+            StringBuilder commandStringBuilder,
+            IReadOnlyModificationCommand command,
+            int commandPosition,
+            out bool requiresTransaction)
+            => _options.ServerVersion.Supports.Returning
+                ? AppendUpdateReturningOperation(commandStringBuilder, command, commandPosition, out requiresTransaction)
+                : base.AppendUpdateOperation(commandStringBuilder, command, commandPosition, out requiresTransaction);
+
+        /// <summary>
+        /// Appends SQL for updating a row to the commands being built, via an UPDATE containing a RETURNING clause
+        /// to retrieve any database-generated values or for concurrency checking.
+        /// </summary>
+        /// <param name="commandStringBuilder">The builder to which the SQL should be appended.</param>
+        /// <param name="command">The command that represents the update operation.</param>
+        /// <param name="commandPosition">The ordinal of this command in the batch.</param>
+        /// <param name="requiresTransaction">Returns whether the SQL appended must be executed in a transaction to work correctly.</param>
+        /// <returns>The <see cref="ResultSetMapping" /> for the command.</returns>
+        protected override ResultSetMapping AppendUpdateReturningOperation(
+            StringBuilder commandStringBuilder,
+            IReadOnlyModificationCommand command,
+            int commandPosition,
+            out bool requiresTransaction)
+        {
+            var name = command.TableName;
+            var schema = command.Schema;
+            var operations = command.ColumnModifications;
+
+            var writeOperations = operations.Where(o => o.IsWrite).ToList();
+            var conditionOperations = operations.Where(o => o.IsCondition).ToList();
+            var readOperations = operations.Where(o => o.IsRead).ToList();
+
+            requiresTransaction = false;
+
+            var anyReadOperations = readOperations.Count > 0;
+
+            AppendUpdateCommandHeader(commandStringBuilder, name, schema, writeOperations);
+            AppendWhereClause(commandStringBuilder, conditionOperations);
+            
+            // MySQL supports RETURNING clause starting from version 8.0.21
+            if (_options.ServerVersion.Supports.Returning)
+            {
+                AppendReturningClause(commandStringBuilder, readOperations, anyReadOperations ? null : "1");
+            }
+            
+            commandStringBuilder.AppendLine(SqlGenerationHelper.StatementTerminator);
+
+            return anyReadOperations
+                ? ResultSetMapping.LastInResultSet
+                : ResultSetMapping.LastInResultSet | ResultSetMapping.ResultSetWithRowsAffectedOnly;
+        }
+
         public override ResultSetMapping AppendDeleteOperation(StringBuilder commandStringBuilder,
             IReadOnlyModificationCommand command,
             int commandPosition,
@@ -144,6 +235,41 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             => _options.ServerVersion.Supports.Returning
                 ? AppendDeleteReturningOperation(commandStringBuilder, command, commandPosition, out requiresTransaction)
                 : base.AppendDeleteOperation(commandStringBuilder, command, commandPosition, out requiresTransaction);
+
+        /// <summary>
+        /// Appends SQL for deleting a row to the commands being built, via a DELETE containing a RETURNING clause
+        /// for concurrency checking.
+        /// </summary>
+        /// <param name="commandStringBuilder">The builder to which the SQL should be appended.</param>
+        /// <param name="command">The command that represents the delete operation.</param>
+        /// <param name="commandPosition">The ordinal of this command in the batch.</param>
+        /// <param name="requiresTransaction">Returns whether the SQL appended must be executed in a transaction to work correctly.</param>
+        /// <returns>The <see cref="ResultSetMapping" /> for the command.</returns>
+        protected override ResultSetMapping AppendDeleteReturningOperation(
+            StringBuilder commandStringBuilder,
+            IReadOnlyModificationCommand command,
+            int commandPosition,
+            out bool requiresTransaction)
+        {
+            var name = command.TableName;
+            var schema = command.Schema;
+            var conditionOperations = command.ColumnModifications.Where(o => o.IsCondition).ToList();
+
+            requiresTransaction = false;
+
+            AppendDeleteCommandHeader(commandStringBuilder, name, schema);
+            AppendWhereClause(commandStringBuilder, conditionOperations);
+            
+            // MySQL supports RETURNING clause starting from version 8.0.21  
+            if (_options.ServerVersion.Supports.Returning)
+            {
+                AppendReturningClause(commandStringBuilder, [], "1");
+            }
+            
+            commandStringBuilder.AppendLine(SqlGenerationHelper.StatementTerminator);
+
+            return ResultSetMapping.LastInResultSet | ResultSetMapping.ResultSetWithRowsAffectedOnly;
+        }
 
         protected override ResultSetMapping AppendSelectAffectedCountCommand(StringBuilder commandStringBuilder, string name, string schema, int commandPosition)
         {
