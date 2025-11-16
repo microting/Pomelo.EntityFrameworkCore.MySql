@@ -41,7 +41,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
                 .ToList();
 
             var sqlResult = context.SimpleGuidEntities
+#pragma warning disable EF1003 // This test intentionally uses FromSqlRaw with string concatenation to test SQL generation
                 .FromSqlRaw("select * from `SimpleGuidEntities` where `GuidValue` = " + sqlEquivalent)
+#pragma warning restore EF1003
                 .ToList();
 
             Assert.Single(result);

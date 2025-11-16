@@ -534,8 +534,7 @@ INNER JOIN (
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Delete_with_left_join(bool async)
     {
-        await AssertDelete(
-            async,
+        await AssertDelete<OrderDetail>(
             ss => ss.Set<OrderDetail>().Where(
                 od => ss.Set<Order>()
                     .Where(o => o.OrderID < 10300)
@@ -543,7 +542,8 @@ INNER JOIN (
                     .Skip(0)
                     .Take(100)
                     .Select(o => o.OrderID)
-                    .Contains(od.OrderID)));
+                    .Contains(od.OrderID)),
+            rowsAffectedCount: 0);
 
         AssertSql(
 """
@@ -1103,10 +1103,12 @@ WHERE `c`.`CustomerID` LIKE 'F%'
     {
         await AssertTranslationFailed(
             "ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith(\"F\"))",
-            () => AssertUpdate(
+            () => AssertUpdate<Customer, Customer>(
                 async,
                 ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")),
-                _ => new Customer { City = "invalidValue" }));
+                e => e,
+                s => s.SetProperty(c => c.City, "invalidValue"),
+                rowsAffectedCount: 0));
 
         AssertExecuteUpdateSql();
     }
@@ -1241,10 +1243,12 @@ WHERE `c`.`CustomerID` LIKE 'F%'
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Update_with_left_join_set_constant(bool async)
     {
-        await AssertUpdate(
+        await AssertUpdate<Customer, Customer>(
             async,
             ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")),
-            e => e.SetProperty(p => p.ContactName, "Updated"));
+            e => e,
+            s => s.SetProperty(c => c.ContactName, "Updated"),
+            rowsAffectedCount: 0);
 
         AssertExecuteUpdateSql(
 """

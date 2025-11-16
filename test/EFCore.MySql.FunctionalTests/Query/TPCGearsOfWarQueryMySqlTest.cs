@@ -823,9 +823,11 @@ WHERE CAST(`w`.`AmmunitionType` & 1 AS signed) > 0
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_bitwise_and_nullable_enum_with_null_constant(bool async)
     {
+#pragma warning disable CS0458 // The result of the expression is always 'null' - intentional for testing
         await AssertQuery(
             async,
             ss => ss.Set<Weapon>().Where(w => (w.AmmunitionType & null) > 0));
+#pragma warning restore CS0458
 
         AssertSql(
 """
@@ -10788,7 +10790,7 @@ FROM (
         var pattern = new byte[] { 4, 5, 6, 7, 8 };
 
         await AssertQuery(
-            async,
+            isAsync,
             ss => ss.Set<Squad>().Where(s => s.Banner5.SequenceEqual(pattern)));
 
         AssertSql(
@@ -12133,7 +12135,7 @@ END, `t`.`Note`
     {
         await AssertQuery(
             async,
-            ss.Set<Mission>().Where(m => m.Date.Year == 1990));
+            ss => ss.Set<Mission>().Where(m => m.Date.Year == 1990));
 
         AssertSql(
 """
@@ -12149,7 +12151,7 @@ WHERE EXTRACT(year FROM `m`.`Date`) = 1990
     {
         await AssertQuery(
             async,
-            ss.Set<Mission>().Where(m => m.Date.Month == 11));
+            ss => ss.Set<Mission>().Where(m => m.Date.Month == 11));
 
         AssertSql(
 """
@@ -12181,7 +12183,7 @@ WHERE EXTRACT(day FROM `m`.`Date`) = 10
     {
         await AssertQuery(
             async,
-            ss.Set<Mission>().Where(m => m.Date.DayOfYear == 314));
+            ss => ss.Set<Mission>().Where(m => m.Date.DayOfYear == 314));
 
         AssertSql(
 """
@@ -12197,7 +12199,7 @@ WHERE DAYOFYEAR(`m`.`Date`) = 314
     {
         await AssertQuery(
             async,
-            ss.Set<Mission>().Where(m => m.Date.DayOfWeek == DayOfWeek.Sunday));
+            ss => ss.Set<Mission>().Where(m => m.Date.DayOfWeek == DayOfWeek.Sunday));
 
         AssertSql(
 """
@@ -12213,7 +12215,7 @@ WHERE (DAYOFWEEK(`m`.`Date`) - 1) = 6
     {
         await AssertQuery(
             async,
-            ss.Set<Mission>().Where(m => m.Date.AddYears(1).Year == 1991));
+            ss => ss.Set<Mission>().Where(m => m.Date.AddYears(1).Year == 1991));
 
         AssertSql(
 """
@@ -12229,7 +12231,7 @@ WHERE DATE_ADD(`m`.`Date`, INTERVAL CAST(3 AS signed) year) = DATE '1993-11-10'
     {
         await AssertQuery(
             async,
-            ss.Set<Mission>().Where(m => m.Date.AddMonths(1).Month == 12));
+            ss => ss.Set<Mission>().Where(m => m.Date.AddMonths(1).Month == 12));
 
         AssertSql(
 """
@@ -12245,7 +12247,7 @@ WHERE DATE_ADD(`m`.`Date`, INTERVAL CAST(3 AS signed) month) = DATE '1991-02-10'
     {
         await AssertQuery(
             async,
-            ss.Set<Mission>().Where(m => m.Date.AddDays(3).Day == 13));
+            ss => ss.Set<Mission>().Where(m => m.Date.AddDays(3).Day == 13));
 
         AssertSql(
 """
