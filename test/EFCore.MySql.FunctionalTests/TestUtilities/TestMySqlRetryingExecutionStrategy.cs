@@ -20,7 +20,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
             42019 // CREATE DATABASE operation failed
         };
 
-        public TestMySqlRetryingExecutionStrategy()
+        internal TestMySqlRetryingExecutionStrategy()
             : base(
                 new DbContext(
                     new DbContextOptionsBuilder()
@@ -30,12 +30,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
         {
         }
 
-        public TestMySqlRetryingExecutionStrategy(DbContext context)
+        internal TestMySqlRetryingExecutionStrategy(DbContext context)
             : base(context, DefaultMaxRetryCount, DefaultMaxDelay, _additionalErrorNumbers)
         {
         }
 
-        public TestMySqlRetryingExecutionStrategy(DbContext context, TimeSpan maxDelay)
+        internal TestMySqlRetryingExecutionStrategy(DbContext context, TimeSpan maxDelay)
             : base(context, DefaultMaxRetryCount, maxDelay, _additionalErrorNumbers)
         {
         }
