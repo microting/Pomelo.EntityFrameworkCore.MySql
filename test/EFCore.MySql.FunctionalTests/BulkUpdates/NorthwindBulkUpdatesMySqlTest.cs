@@ -534,8 +534,7 @@ INNER JOIN (
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Delete_with_left_join(bool async)
     {
-        await AssertDelete(
-            async,
+        await AssertDelete<OrderDetail>(
             ss => ss.Set<OrderDetail>().Where(
                 od => ss.Set<Order>()
                     .Where(o => o.OrderID < 10300)
@@ -543,7 +542,8 @@ INNER JOIN (
                     .Skip(0)
                     .Take(100)
                     .Select(o => o.OrderID)
-                    .Contains(od.OrderID)));
+                    .Contains(od.OrderID)),
+            rowsAffectedCount: 0);
 
         AssertSql(
 """
@@ -1106,7 +1106,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
             () => AssertUpdate(
                 async,
                 ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")),
-                _ => new Customer { City = "invalidValue" }));
+                e => e.SetProperty(c => c.City, "invalidValue")));
 
         AssertExecuteUpdateSql();
     }
