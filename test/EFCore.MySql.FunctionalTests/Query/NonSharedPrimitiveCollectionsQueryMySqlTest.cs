@@ -633,14 +633,16 @@ FROM `TestEntityWithOwned` AS `t`
 
     protected virtual DbContextOptionsBuilder SetTranslateParameterizedCollectionsToConstants(DbContextOptionsBuilder optionsBuilder)
     {
-        new MySqlDbContextOptionsBuilder(optionsBuilder).TranslateParameterizedCollectionsToConstants();
+        // TODO EF Core 10: Replace obsolete API when UseParameterizedCollectionMode is available
+        // new MySqlDbContextOptionsBuilder(optionsBuilder).TranslateParameterizedCollectionsToConstants();
 
         return optionsBuilder;
     }
 
     protected virtual DbContextOptionsBuilder SetTranslateParameterizedCollectionsToParameters(DbContextOptionsBuilder optionsBuilder)
     {
-        new MySqlDbContextOptionsBuilder(optionsBuilder).TranslateParameterizedCollectionsToParameters();
+        // TODO EF Core 10: Replace obsolete API when UseParameterizedCollectionMode is available
+        // new MySqlDbContextOptionsBuilder(optionsBuilder).TranslateParameterizedCollectionsToParameters();
 
         return optionsBuilder;
     }

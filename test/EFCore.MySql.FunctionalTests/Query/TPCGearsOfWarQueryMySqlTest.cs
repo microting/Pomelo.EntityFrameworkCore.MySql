@@ -823,9 +823,11 @@ WHERE CAST(`w`.`AmmunitionType` & 1 AS signed) > 0
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Where_bitwise_and_nullable_enum_with_null_constant(bool async)
     {
+#pragma warning disable CS0458 // The result of the expression is always 'null' - intentional for testing
         await AssertQuery(
             async,
             ss => ss.Set<Weapon>().Where(w => (w.AmmunitionType & null) > 0));
+#pragma warning restore CS0458
 
         AssertSql(
 """
