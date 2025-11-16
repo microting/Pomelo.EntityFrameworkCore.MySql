@@ -1103,10 +1103,11 @@ WHERE `c`.`CustomerID` LIKE 'F%'
     {
         await AssertTranslationFailed(
             "ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith(\"F\"))",
-            () => AssertUpdate<Customer>(
+            () => AssertUpdate<Customer, Customer>(
                 async,
                 ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")),
-                e => e.City = "invalidValue",
+                e => e,
+                s => s.SetProperty(c => c.City, "invalidValue"),
                 rowsAffectedCount: 0));
 
         AssertExecuteUpdateSql();
@@ -1242,10 +1243,11 @@ WHERE `c`.`CustomerID` LIKE 'F%'
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Update_with_left_join_set_constant(bool async)
     {
-        await AssertUpdate<Customer>(
+        await AssertUpdate<Customer, Customer>(
             async,
             ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")),
-            e => e.ContactName = "Updated",
+            e => e,
+            s => s.SetProperty(c => c.ContactName, "Updated"),
             rowsAffectedCount: 0);
 
         AssertExecuteUpdateSql(
