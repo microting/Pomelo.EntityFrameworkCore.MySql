@@ -1679,44 +1679,6 @@ WHERE (`c`.`ContactTitle` = 'Owner') AND ((`c`.`Country` <> 'USA') OR `c`.`Count
             await Task.CompletedTask;
         }
 
-            AssertSql(
-                @"@__myDatetime_0='1998-05-04T00:00:00.0000000' (DbType = DateTime)
-
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE `o`.`OrderDate` = @__myDatetime_0",
-                //
-                @"@__myDatetime_0='1998-05-04T00:00:00.0000000' (DbType = DateTime)
-
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE (`o`.`OrderDate` <> @__myDatetime_0) OR `o`.`OrderDate` IS NULL",
-                //
-                @"@__myDatetime_0='1998-05-04T00:00:00.0000000' (DbType = DateTime)
-
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE `o`.`OrderDate` > @__myDatetime_0",
-                //
-                @"@__myDatetime_0='1998-05-04T00:00:00.0000000' (DbType = DateTime)
-
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE `o`.`OrderDate` <= @__myDatetime_0",
-                //
-                @"@__myDatetime_0='1998-05-04T00:00:00.0000000' (DbType = DateTime)
-
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE `o`.`OrderDate` > @__myDatetime_0",
-                //
-                @"@__myDatetime_0='1998-05-04T00:00:00.0000000' (DbType = DateTime)
-
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE `o`.`OrderDate` <= @__myDatetime_0");
-        }
-
         [ConditionalTheory]
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Int_Compare_to_simple_zero(bool async)
