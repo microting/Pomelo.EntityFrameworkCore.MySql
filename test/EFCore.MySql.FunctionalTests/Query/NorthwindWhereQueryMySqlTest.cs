@@ -701,7 +701,7 @@ The error is:
         public virtual Task Where_concat_string_int_comparison1(bool async)
             => AssertQuery(
                 async,
-                ss => ss.Set<Order>().Where(o => o.OrderID + 10248 == o.CustomerID));
+                ss => ss.Set<Order>().Where(o => (o.OrderID + 10248).ToString() == o.CustomerID));
 
         // TODO: 9.0
         [ConditionalTheory]
@@ -720,7 +720,7 @@ The error is:
         public virtual Task Where_concat_string_int_comparison2(bool async)
             => AssertQuery(
                 async,
-                ss => ss.Set<Order>().Where(o => 10248 + o.OrderID == o.CustomerID));
+                ss => ss.Set<Order>().Where(o => (10248 + o.OrderID).ToString() == o.CustomerID));
 
         // TODO: 9.0
         [ConditionalTheory]
@@ -739,7 +739,7 @@ The error is:
         public virtual Task Where_concat_string_int_comparison3(bool async)
             => AssertQuery(
                 async,
-                ss => ss.Set<Order>().Where(o => o.CustomerID == (o.OrderID + 10248)));
+                ss => ss.Set<Order>().Where(o => o.CustomerID == (o.OrderID + 10248).ToString()));
 
         // TODO: 9.0
         [ConditionalTheory]
@@ -758,7 +758,7 @@ The error is:
         public virtual Task Where_concat_string_int_comparison4(bool async)
             => AssertQuery(
                 async,
-                ss => ss.Set<Order>().Where(o => o.CustomerID == (10248 + o.OrderID)));
+                ss => ss.Set<Order>().Where(o => o.CustomerID == (10248 + o.OrderID).ToString()));
 
         // TODO: 9.0
         [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
