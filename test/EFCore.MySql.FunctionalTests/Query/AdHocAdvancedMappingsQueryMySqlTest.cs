@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
@@ -8,7 +9,7 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
-public class AdHocAdvancedMappingsQueryMySqlTest : AdHocAdvancedMappingsQueryRelationalTestBase
+public class AdHocAdvancedMappingsQueryMySqlTest(NonSharedFixture fixture) : AdHocAdvancedMappingsQueryRelationalTestBase(fixture)
 {
     [SkippableTheory]
     public override async Task Query_generates_correct_datetime2_parameter_definition(int? fractionalSeconds, string postfix)
