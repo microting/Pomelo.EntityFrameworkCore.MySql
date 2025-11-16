@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.TestUtilities.Xunit;
@@ -13,6 +14,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities.Xunit
     public sealed class MySqlConditionalTheoryTestCase : XunitTheoryTestCase
     {
         [Obsolete("Called by the de-serializer; should only be called by deriving classes for de-serialization purposes")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public MySqlConditionalTheoryTestCase()
         {
         }
