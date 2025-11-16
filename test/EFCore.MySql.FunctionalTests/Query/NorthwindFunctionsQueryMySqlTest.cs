@@ -216,7 +216,7 @@ WHERE `c`.`ContactName` LIKE '%M%'");
         {
             await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => string.IsNullOrWhiteSpace(c.Region)));
+            ss => ss.Set<Customer>().Where(c => string.IsNullOrWhiteSpace(c.Region)));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -230,7 +230,7 @@ WHERE `c`.`Region` IS NULL OR (TRIM(`c`.`Region`) = '')");
         {
             await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => c.ContactName.IndexOf(string.Empty) == 0));
+            ss => ss.Set<Customer>().Where(c => c.ContactName.IndexOf(string.Empty) == 0));
 
         AssertSql(
 """
@@ -246,7 +246,7 @@ WHERE (LOCATE('', `c`.`Region`) - 1) = 0
         {
             await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => c.ContactName.Replace("ari", string.Empty) == "M"));
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Replace("ari", string.Empty) == "M"));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -260,7 +260,7 @@ WHERE REPLACE(`c`.`ContactName`, 'ia', '') = 'Mar Anders'");
         {
             await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => c.ContactName.Substring(0) == "M"));
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(0) == "M"));
 
             AssertSql(
                 @"SELECT `c`.`ContactName`
@@ -274,7 +274,7 @@ WHERE SUBSTRING(`c`.`CustomerID`, 0 + 1, CHAR_LENGTH(`c`.`CustomerID`)) = 'ALFKI
         {
             await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => c.ContactName.Substring(3) == "M"));
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(3) == "M"));
 
             AssertSql(
                 @"SELECT `c`.`ContactName`
@@ -290,7 +290,7 @@ WHERE SUBSTRING(`c`.`CustomerID`, 1 + 1, CHAR_LENGTH(`c`.`CustomerID`)) = 'LFKI'
 
         await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => c.ContactName.Substring(start) == "M"));
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(start) == "M"));
 
             AssertSql(
                 @"@__start_0='2'
@@ -306,7 +306,7 @@ WHERE SUBSTRING(`c`.`CustomerID`, @__start_0 + 1, CHAR_LENGTH(`c`.`CustomerID`))
         {
             await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => c.ContactName.Substring(0, 3) == "Mar"));
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(0, 3) == "Mar"));
 
             AssertSql(
                 @"SELECT SUBSTRING(`c`.`ContactName`, 0 + 1, 3)
@@ -320,7 +320,7 @@ WHERE `c`.`CustomerID` = 'ALFKI'");
         {
             await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => c.ContactName.Substring(3, 0) == string.Empty));
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(3, 0) == string.Empty));
 
             AssertSql(
                 @"SELECT SUBSTRING(`c`.`ContactName`, 2 + 1, 0)
@@ -334,7 +334,7 @@ WHERE `c`.`CustomerID` = 'ALFKI'");
         {
             await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => c.ContactName.Substring(1, 3) == "ari"));
+            ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(1, 3) == "ari"));
 
             AssertSql(
                 @"SELECT SUBSTRING(`c`.`ContactName`, 1 + 1, 3)
@@ -494,7 +494,7 @@ WHERE (`o`.`OrderID` = 11077) AND (GREATEST(`o`.`OrderID`, `o`.`ProductID`) = `o
         {
             await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => c.ContactName.ToLower() == "maria anders"));
+            ss => ss.Set<Customer>().Where(c => c.ContactName.ToLower() == "maria anders"));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -508,7 +508,7 @@ WHERE LOWER(`c`.`CustomerID`) = 'alfki'");
         {
             await AssertQuery(
             async,
-            ss.Set<Customer>().Where(c => c.ContactName.ToUpper() == "MARIA ANDERS"));
+            ss => ss.Set<Customer>().Where(c => c.ContactName.ToUpper() == "MARIA ANDERS"));
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -3384,5 +3384,9 @@ WHERE (LOCATE(CAST(`o`.`OrderID` AS char), '123') - 1) = -1
 
         protected override void ClearLog()
             => Fixture.TestSqlLoggerFactory.Clear();
+
+        // Helper methods for test queries (removed from EF Core 10 base class)
+        private static string LocalMethod1() => "M";
+        private static string LocalMethod2() => "m";
     }
 }
