@@ -483,7 +483,7 @@ LIMIT 2
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_constants(bool async)
     {
-        var contextFactory = await InitializeAsync<Context30572>(seed: c => c.Seed());
+        var contextFactory = await InitializeAsync<Context30572>(seed: c => { c.Seed(); return Task.CompletedTask; });
 
         await using var context = contextFactory.CreateContext();
         
@@ -507,7 +507,7 @@ WHERE (
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_constants(bool async)
     {
-        var contextFactory = await InitializeAsync<Context30572>(seed: c => c.Seed());
+        var contextFactory = await InitializeAsync<Context30572>(seed: c => { c.Seed(); return Task.CompletedTask; });
 
         await using var context = contextFactory.CreateContext();
         
