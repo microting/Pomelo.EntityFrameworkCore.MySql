@@ -9,10 +9,9 @@ using Xunit.Abstractions;
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
 {
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.GeneratedColumns))]
-    public class TableSplittingMySqlTest : TableSplittingTestBase
+    public class TableSplittingMySqlTest(NonSharedFixture fixture, ITestOutputHelper testOutputHelper) : TableSplittingTestBase(fixture, testOutputHelper)
     {
-        public TableSplittingMySqlTest(ITestOutputHelper testOutputHelper)
-            : base(testOutputHelper)
+        public TableSplittingMySqlTest(ITestOutputHelper testOutputHelper) : this(new NonSharedFixture(), testOutputHelper)
         {
         }
 

@@ -7,9 +7,9 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
-public class EntitySplittingQueryMySqlTest : EntitySplittingQueryTestBase
+public class EntitySplittingQueryMySqlTest(NonSharedFixture fixture) : EntitySplittingQueryTestBase(fixture)
 {
-    public EntitySplittingQueryMySqlTest(ITestOutputHelper testOutputHelper)
+    public EntitySplittingQueryMySqlTest(ITestOutputHelper testOutputHelper) : this(new NonSharedFixture())
     {
         // Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }

@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
-public class OperatorsQueryMySqlTest : OperatorsQueryTestBase
+public class OperatorsQueryMySqlTest(NonSharedFixture fixture) : OperatorsQueryTestBase(fixture)
 {
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
