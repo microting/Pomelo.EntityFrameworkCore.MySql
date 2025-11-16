@@ -26,7 +26,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal;
 public class MySqlModificationCommandBatch : AffectedCountModificationCommandBatch
 {
     private readonly List<IReadOnlyModificationCommand> _pendingBulkInsertCommands = new();
-    private readonly Dictionary<string, object> _parameterValues = new();
 
     public MySqlModificationCommandBatch(
         ModificationCommandBatchFactoryDependencies dependencies,
@@ -44,21 +43,6 @@ public class MySqlModificationCommandBatch : AffectedCountModificationCommandBat
         {
             _pendingBulkInsertCommands.RemoveAt(_pendingBulkInsertCommands.Count - 1);
         }
-
-        //////
-        // Pulled up from the base implementation to support our _pendingParameters field:
-
-        for (var i = 0; i < _pendingParameters; i++)
-        {
-            var parameterIndex = RelationalCommandBuilder.Parameters.Count - 1;
-            var parameter = RelationalCommandBuilder.Parameters[parameterIndex];
-
-            RelationalCommandBuilder.RemoveParameterAt(parameterIndex);
-            _parameterValues.Remove(parameter.InvariantName);
-        }
-
-        //
-        //////
 
         base.RollbackLastCommand(modificationCommand);
     }
@@ -364,7 +348,7 @@ public class MySqlModificationCommandBatch : AffectedCountModificationCommandBat
                 columnModification.IsNullable,
                 direction);
 
-            _parameterValues.Add(name, value);
+            ParameterValues.Add(name, value);
 
             _pendingParameters++;
         }
