@@ -1106,7 +1106,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
             () => AssertUpdate(
                 async,
                 ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")),
-                e => e.SetProperty(c => c.City, "invalidValue")));
+                e => e.City = "invalidValue"));
 
         AssertExecuteUpdateSql();
     }
@@ -1244,7 +1244,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
         await AssertUpdate(
             async,
             ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")),
-            e => e.SetProperty(p => p.ContactName, "Updated"));
+            e => e.ContactName = "Updated");
 
         AssertExecuteUpdateSql(
 """
