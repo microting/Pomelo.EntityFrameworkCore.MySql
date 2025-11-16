@@ -216,6 +216,78 @@ jobs:
         shell: pwsh
         run: |
           dotnet --info
+      - name: Fix MSB4276 - Create missing WorkloadAutoImportPropsLocator SDK
+        shell: pwsh
+        run: |
+          $sdkPath = dotnet --info | Select-String "Base Path:\s+(.+)" | ForEach-Object { $_.Matches.Groups[1].Value.Trim() }
+          $workloadSdkPath = Join-Path $sdkPath "Sdks/Microsoft.NET.SDK.WorkloadAutoImportPropsLocator"
+          
+          if (-not (Test-Path $workloadSdkPath)) {
+            Write-Host "Creating missing WorkloadAutoImportPropsLocator SDK at: $workloadSdkPath"
+            New-Item -ItemType Directory -Path "$workloadSdkPath/Sdk" -Force | Out-Null
+            
+            # Create Sdk.props
+            $sdkPropsContent = @'
+          <!--
+          ***********************************************************************************************
+          Sdk.props
+          
+          WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+                    created a backup copy.  Incorrect changes to this file will make it
+                    impossible to load or build your projects from the command-line or the IDE.
+          
+          Copyright (c) .NET Foundation. All rights reserved.
+          ***********************************************************************************************
+          -->
+          <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+          </Project>
+          '@
+            $sdkPropsContent | Out-File -FilePath "$workloadSdkPath/Sdk/Sdk.props" -Encoding UTF8 -NoNewline
+            
+            # Create Sdk.targets
+            $sdkTargetsContent = @'
+          <!--
+          ***********************************************************************************************
+          Sdk.targets
+          
+          WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+                    created a backup copy.  Incorrect changes to this file will make it
+                    impossible to load or build your projects from the command-line or the IDE.
+          
+          Copyright (c) .NET Foundation. All rights reserved.
+          ***********************************************************************************************
+          -->
+          <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+          </Project>
+          '@
+            $sdkTargetsContent | Out-File -FilePath "$workloadSdkPath/Sdk/Sdk.targets" -Encoding UTF8 -NoNewline
+            
+            # Create AutoImport.props
+            $autoImportContent = @'
+          <!--
+          ***********************************************************************************************
+          AutoImport.props
+          
+          WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+                    created a backup copy.  Incorrect changes to this file will make it
+                    impossible to load or build your projects from the command-line or the IDE.
+          
+          This file is auto-imported by Microsoft.NET.Sdk.ImportWorkloads.props
+          to import workload-specific props files.
+          
+          Copyright (c) .NET Foundation. All rights reserved.
+          ***********************************************************************************************
+          -->
+          <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+            <!-- This file imports workload props. For now it's empty as no workloads require auto-import props. -->
+          </Project>
+          '@
+            $autoImportContent | Out-File -FilePath "$workloadSdkPath/Sdk/AutoImport.props" -Encoding UTF8 -NoNewline
+            
+            Write-Host "Successfully created WorkloadAutoImportPropsLocator SDK"
+          } else {
+            Write-Host "WorkloadAutoImportPropsLocator SDK already exists at: $workloadSdkPath"
+          }
       - name: Install EF Core Tools
         shell: pwsh
         run: |
