@@ -11,5 +11,8 @@ public class DebugRelationalCommandBuilder : RelationalCommandBuilder
     }
 
     public override IRelationalCommand Build()
-        => new DebugRelationalCommand(Dependencies, base.Build().CommandText, Parameters);
+    {
+        var builtCommand = base.Build();
+        return new DebugRelationalCommand(Dependencies, builtCommand.CommandText, builtCommand.CommandName, Parameters);
+    }
 }

@@ -1102,6 +1102,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
     public virtual async Task Update_with_invalid_lambda_throws(bool async)
     {
         await AssertTranslationFailed(
+            "ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith(\"F\"))",
             () => AssertUpdate(
                 async,
                 ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")),
