@@ -4,6 +4,18 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ModelBuilding;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.Associations;
+using Microsoft.EntityFrameworkCore.Query.Associations.ComplexJson;
+using Microsoft.EntityFrameworkCore.Query.Associations.ComplexProperties;
+using Microsoft.EntityFrameworkCore.Query.Associations.ComplexTableSplitting;
+using Microsoft.EntityFrameworkCore.Query.Associations.Navigations;
+using Microsoft.EntityFrameworkCore.Query.Associations.OwnedJson;
+using Microsoft.EntityFrameworkCore.Query.Associations.OwnedNavigations;
+using Microsoft.EntityFrameworkCore.Query.Associations.OwnedTableSplitting;
+using Microsoft.EntityFrameworkCore.Query.Translations;
+using Microsoft.EntityFrameworkCore.Query.Translations.Operators;
+using Microsoft.EntityFrameworkCore.Query.Translations.Temporal;
+using Microsoft.EntityFrameworkCore.Types;
 using Microsoft.EntityFrameworkCore.Update;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
@@ -54,6 +66,124 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             typeof(JsonTypesTestBase),
             typeof(JsonUpdateTestBase<>),
             typeof(OptionalDependentQueryTestBase<>),
+
+            // TODO: 10.0 - Type tests
+            typeof(TypeTestBase<,>),
+            typeof(RelationalTypeTestBase<,>),
+
+            // TODO: 10.0 - Translation tests
+            typeof(ByteArrayTranslationsTestBase<>),
+            typeof(EnumTranslationsTestBase<>),
+            typeof(GuidTranslationsTestBase<>),
+            typeof(MathTranslationsTestBase<>),
+            typeof(MiscellaneousTranslationsTestBase<>),
+            typeof(StringTranslationsTestBase<>),
+            typeof(MiscellaneousTranslationsRelationalTestBase<>),
+            typeof(StringTranslationsRelationalTestBase<>),
+
+            // TODO: 10.0 - Temporal translation tests
+            typeof(DateOnlyTranslationsTestBase<>),
+            typeof(DateTimeOffsetTranslationsTestBase<>),
+            typeof(DateTimeTranslationsTestBase<>),
+            typeof(TimeOnlyTranslationsTestBase<>),
+            typeof(TimeSpanTranslationsTestBase<>),
+
+            // TODO: 10.0 - Operator translation tests
+            typeof(ArithmeticOperatorTranslationsTestBase<>),
+            typeof(BitwiseOperatorTranslationsTestBase<>),
+            typeof(ComparisonOperatorTranslationsTestBase<>),
+            typeof(LogicalOperatorTranslationsTestBase<>),
+            typeof(MiscellaneousOperatorTranslationsTestBase<>),
+
+            // TODO: 10.0 - Association tests
+            typeof(AssociationsBulkUpdateTestBase<>),
+            typeof(AssociationsCollectionTestBase<>),
+            typeof(AssociationsMiscellaneousTestBase<>),
+            typeof(AssociationsPrimitiveCollectionTestBase<>),
+            typeof(AssociationsProjectionTestBase<>),
+            typeof(AssociationsSetOperationsTestBase<>),
+            typeof(AssociationsStructuralEqualityTestBase<>),
+
+            // TODO: 10.0 - Owned navigation tests
+            typeof(OwnedNavigationsCollectionTestBase<>),
+            typeof(OwnedNavigationsMiscellaneousTestBase<>),
+            typeof(OwnedNavigationsPrimitiveCollectionTestBase<>),
+            typeof(OwnedNavigationsProjectionTestBase<>),
+            typeof(OwnedNavigationsSetOperationsTestBase<>),
+            typeof(OwnedNavigationsStructuralEqualityTestBase<>),
+            typeof(OwnedNavigationsCollectionRelationalTestBase<>),
+            typeof(OwnedNavigationsMiscellaneousRelationalTestBase<>),
+            typeof(OwnedNavigationsPrimitiveCollectionRelationalTestBase<>),
+            typeof(OwnedNavigationsProjectionRelationalTestBase<>),
+            typeof(OwnedNavigationsSetOperationsRelationalTestBase<>),
+            typeof(OwnedNavigationsStructuralEqualityRelationalTestBase<>),
+
+            // TODO: 10.0 - Navigation tests
+            typeof(NavigationsCollectionTestBase<>),
+            typeof(NavigationsIncludeTestBase<>),
+            typeof(NavigationsMiscellaneousTestBase<>),
+            typeof(NavigationsPrimitiveCollectionTestBase<>),
+            typeof(NavigationsProjectionTestBase<>),
+            typeof(NavigationsSetOperationsTestBase<>),
+            typeof(NavigationsStructuralEqualityTestBase<>),
+            typeof(NavigationsCollectionRelationalTestBase<>),
+            typeof(NavigationsIncludeRelationalTestBase<>),
+            typeof(NavigationsMiscellaneousRelationalTestBase<>),
+            typeof(NavigationsPrimitiveCollectionRelationalTestBase<>),
+            typeof(NavigationsProjectionRelationalTestBase<>),
+            typeof(NavigationsSetOperationsRelationalTestBase<>),
+            typeof(NavigationsStructuralEqualityRelationalTestBase<>),
+
+            // TODO: 10.0 - Complex property tests
+            typeof(ComplexPropertiesBulkUpdateTestBase<>),
+            typeof(ComplexPropertiesCollectionTestBase<>),
+            typeof(ComplexPropertiesMiscellaneousTestBase<>),
+            typeof(ComplexPropertiesPrimitiveCollectionTestBase<>),
+            typeof(ComplexPropertiesProjectionTestBase<>),
+            typeof(ComplexPropertiesSetOperationsTestBase<>),
+            typeof(ComplexPropertiesStructuralEqualityTestBase<>),
+
+            // TODO: 10.0 - Model building tests
+            typeof(ModelBuilderTest.ComplexCollectionTestBase),
+            typeof(RelationalModelBuilderTest.RelationalComplexCollectionTestBase),
+
+            // TODO: 10.0 - Tracking and property value tests
+            typeof(ComplexTypesTrackingRelationalTestBase<>),
+            typeof(LazyLoadProxyRelationalTestBase<>),
+            typeof(PropertyValuesRelationalTestBase<>),
+
+            // TODO: 10.0 - Update tests
+            typeof(ComplexCollectionJsonUpdateTestBase<>),
+
+            // TODO: 10.0 - Owned table splitting tests
+            typeof(OwnedTableSplittingMiscellaneousRelationalTestBase<>),
+            typeof(OwnedTableSplittingPrimitiveCollectionRelationalTestBase<>),
+            typeof(OwnedTableSplittingProjectionRelationalTestBase<>),
+            typeof(OwnedTableSplittingStructuralEqualityRelationalTestBase<>),
+
+            // TODO: 10.0 - Owned JSON tests
+            typeof(OwnedJsonBulkUpdateRelationalTestBase<>),
+            typeof(OwnedJsonCollectionRelationalTestBase<>),
+            typeof(OwnedJsonMiscellaneousRelationalTestBase<>),
+            typeof(OwnedJsonPrimitiveCollectionRelationalTestBase<>),
+            typeof(OwnedJsonProjectionRelationalTestBase<>),
+            typeof(OwnedJsonStructuralEqualityRelationalTestBase<>),
+
+            // TODO: 10.0 - Complex table splitting tests
+            typeof(ComplexTableSplittingBulkUpdateRelationalTestBase<>),
+            typeof(ComplexTableSplittingMiscellaneousRelationalTestBase<>),
+            typeof(ComplexTableSplittingPrimitiveCollectionRelationalTestBase<>),
+            typeof(ComplexTableSplittingProjectionRelationalTestBase<>),
+            typeof(ComplexTableSplittingStructuralEqualityRelationalTestBase<>),
+
+            // TODO: 10.0 - Complex JSON tests
+            typeof(ComplexJsonBulkUpdateRelationalTestBase<>),
+            typeof(ComplexJsonCollectionRelationalTestBase<>),
+            typeof(ComplexJsonMiscellaneousRelationalTestBase<>),
+            typeof(ComplexJsonPrimitiveCollectionRelationalTestBase<>),
+            typeof(ComplexJsonProjectionRelationalTestBase<>),
+            typeof(ComplexJsonSetOperationsRelationalTestBase<>),
+            typeof(ComplexJsonStructuralEqualityRelationalTestBase<>),
         };
 
         protected override Assembly TargetAssembly { get; } = typeof(MySqlComplianceTest).Assembly;
