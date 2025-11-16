@@ -5,12 +5,8 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests;
 
-public class EntitySplittingMySqlTest(NonSharedFixture fixture, ITestOutputHelper testOutputHelper) : EntitySplittingTestBase(fixture, testOutputHelper)
+public class EntitySplittingMySqlTest(ITestOutputHelper testOutputHelper) : EntitySplittingTestBase(new NonSharedFixture(), testOutputHelper)
 {
-    public EntitySplittingMySqlTest(ITestOutputHelper testOutputHelper) : this(new NonSharedFixture(), testOutputHelper)
-    {
-    }
-
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
 }
