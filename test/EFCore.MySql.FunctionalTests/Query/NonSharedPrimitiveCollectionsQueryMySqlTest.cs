@@ -487,7 +487,8 @@ LIMIT 2
 
         await using var context = contextFactory.CreateContext();
         
-        await AssertQuery(
+        await base.AssertQuery(
+            context,
             async,
             ss => ss.Set<Context30572.TestEntity>()
                 .Where(t => new[] { 2, 999 }.Count(i => i > t.Id) == 1));
@@ -511,7 +512,8 @@ WHERE (
 
         await using var context = contextFactory.CreateContext();
         
-        await AssertQuery(
+        await base.AssertQuery(
+            context,
             async,
             ss => ss.Set<Context30572.TestEntity>()
                 .Where(t => new[] { 2, 999 }.Contains(t.Id)));
@@ -528,7 +530,7 @@ WHERE `t`.`Id` IN (2, 999)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter(bool async)
     {
-        await AssertQuery(
+        await base.AssertQuery(
             async,
             ss => ss.Set<TestEntity>().Where(x => new[] { 2, 999 }.Count(i => i > x.Id) == 1));
 
@@ -539,7 +541,7 @@ WHERE `t`.`Id` IN (2, 999)
     [MemberData(nameof(IsAsyncData))]
     public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter(bool async)
     {
-        await AssertQuery(
+        await base.AssertQuery(
             async,
             ss => ss.Set<TestEntity>().Where(x => new[] { 2, 999 }.Contains(x.Id)));
 
@@ -551,7 +553,7 @@ WHERE `t`.`Id` IN (2, 999)
     public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_parameters(bool async)
     {
         var ints = new[] { 2, 999 };
-        await AssertQuery(
+        await base.AssertQuery(
             async,
             ss => ss.Set<TestEntity>().Where(x => ints.Count(i => i > x.Id) == 1));
 
@@ -563,7 +565,7 @@ WHERE `t`.`Id` IN (2, 999)
     public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_parameters(bool async)
     {
         var ints = new[] { 2, 999 };
-        await AssertQuery(
+        await base.AssertQuery(
             async,
             ss => ss.Set<TestEntity>().Where(x => ints.Contains(x.Id)));
 
@@ -576,7 +578,7 @@ WHERE `t`.`Id` IN (2, 999)
     {
         var (_, entityId) = (2, 999);
 
-        await AssertQuery(
+        await base.AssertQuery(
             async,
             ss => ss.Set<TestEntity>().Where(x => new[] { _, entityId }.Count(i => i > x.Id) == 1));
 
@@ -597,7 +599,7 @@ WHERE (
     {
         var (_, entityId) = (2, 999);
 
-        await AssertQuery(
+        await base.AssertQuery(
             async,
             ss => ss.Set<TestEntity>().Where(x => new[] { _, entityId }.Contains(x.Id)));
 
