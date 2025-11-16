@@ -1,6 +1,7 @@
 using System.Data.Common;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.TestModels.Northwind;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
