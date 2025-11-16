@@ -9,12 +9,8 @@ using Xunit.Abstractions;
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
 {
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.GeneratedColumns))]
-    public class TableSplittingMySqlTest(NonSharedFixture fixture, ITestOutputHelper testOutputHelper) : TableSplittingTestBase(fixture, testOutputHelper)
+    public class TableSplittingMySqlTest(ITestOutputHelper testOutputHelper) : TableSplittingTestBase(new NonSharedFixture(), testOutputHelper)
     {
-        public TableSplittingMySqlTest(ITestOutputHelper testOutputHelper) : this(new NonSharedFixture(), testOutputHelper)
-        {
-        }
-
         protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
