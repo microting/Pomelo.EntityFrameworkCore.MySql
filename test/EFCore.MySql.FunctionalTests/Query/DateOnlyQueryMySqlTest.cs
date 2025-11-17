@@ -94,11 +94,11 @@ LIMIT 2");
                 .Where(i => i.BestServedBefore.ToDateTime(new TimeOnly()) == matchExpireDateTime));
 
         AssertSql(
-            @"@__matchExpireDateTime_0='2299-12-31T00:00:00.0000000' (DbType = DateTime)
+            @"@matchExpireDateTime='2299-12-31T00:00:00.0000000' (DbType = DateTime)
 
 SELECT `i`.`IceCreamId`, `i`.`BestServedBefore`, `i`.`Name`
 FROM `IceCream` AS `i`
-WHERE CAST(`i`.`BestServedBefore` AS datetime(6)) = @__matchExpireDateTime_0
+WHERE CAST(`i`.`BestServedBefore` AS datetime(6)) = @matchExpireDateTime
 LIMIT 2");
     }
 
@@ -132,11 +132,11 @@ LIMIT 2");
         Assert.Single(result);
 
         AssertSql(
-            $@"@__todayDateOnly_1='{todayDateOnly:MM'/'dd'/'yyyy}' (DbType = Date)
+            $@"@todayDateOnly='{todayDateOnly:MM'/'dd'/'yyyy}' (DbType = Date)
 
 SELECT `i`.`IceCreamId`, `i`.`BestServedBefore`, `i`.`Name`
 FROM `IceCream` AS `i`
-WHERE TIMESTAMPDIFF(DAY, @__todayDateOnly_1, `i`.`BestServedBefore`) < 30");
+WHERE TIMESTAMPDIFF(DAY, @todayDateOnly, `i`.`BestServedBefore`) < 30");
     }
 
     [ConditionalTheory]
