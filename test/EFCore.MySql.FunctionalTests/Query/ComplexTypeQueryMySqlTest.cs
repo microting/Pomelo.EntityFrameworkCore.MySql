@@ -51,14 +51,14 @@ WHERE `c`.`ShippingAddress_Country_Code` = 'DE'
 
         AssertSql(
 """
-@__p_0='1'
+@p='1'
 
 SELECT DISTINCT `c0`.`Id`, `c0`.`Name`, `c0`.`BillingAddress_AddressLine1`, `c0`.`BillingAddress_AddressLine2`, `c0`.`BillingAddress_Tags`, `c0`.`BillingAddress_ZipCode`, `c0`.`BillingAddress_Country_Code`, `c0`.`BillingAddress_Country_FullName`, `c0`.`OptionalAddress_AddressLine1`, `c0`.`OptionalAddress_AddressLine2`, `c0`.`OptionalAddress_Tags`, `c0`.`OptionalAddress_ZipCode`, `c0`.`OptionalAddress_Country_Code`, `c0`.`OptionalAddress_Country_FullName`, `c0`.`ShippingAddress_AddressLine1`, `c0`.`ShippingAddress_AddressLine2`, `c0`.`ShippingAddress_Tags`, `c0`.`ShippingAddress_ZipCode`, `c0`.`ShippingAddress_Country_Code`, `c0`.`ShippingAddress_Country_FullName`
 FROM (
     SELECT `c`.`Id`, `c`.`Name`, `c`.`BillingAddress_AddressLine1`, `c`.`BillingAddress_AddressLine2`, `c`.`BillingAddress_Tags`, `c`.`BillingAddress_ZipCode`, `c`.`BillingAddress_Country_Code`, `c`.`BillingAddress_Country_FullName`, `c`.`OptionalAddress_AddressLine1`, `c`.`OptionalAddress_AddressLine2`, `c`.`OptionalAddress_Tags`, `c`.`OptionalAddress_ZipCode`, `c`.`OptionalAddress_Country_Code`, `c`.`OptionalAddress_Country_FullName`, `c`.`ShippingAddress_AddressLine1`, `c`.`ShippingAddress_AddressLine2`, `c`.`ShippingAddress_Tags`, `c`.`ShippingAddress_ZipCode`, `c`.`ShippingAddress_Country_Code`, `c`.`ShippingAddress_Country_FullName`
     FROM `Customer` AS `c`
     ORDER BY `c`.`Id`
-    LIMIT 18446744073709551610 OFFSET @__p_0
+    LIMIT 18446744073709551610 OFFSET @p
 ) AS `c0`
 WHERE `c0`.`ShippingAddress_ZipCode` = 7728
 """);
@@ -70,14 +70,14 @@ WHERE `c0`.`ShippingAddress_ZipCode` = 7728
 
         AssertSql(
 """
-@__p_0='1'
+@p='1'
 
 SELECT DISTINCT `c0`.`Id`, `c0`.`Name`, `c0`.`BillingAddress_AddressLine1`, `c0`.`BillingAddress_AddressLine2`, `c0`.`BillingAddress_Tags`, `c0`.`BillingAddress_ZipCode`, `c0`.`BillingAddress_Country_Code`, `c0`.`BillingAddress_Country_FullName`, `c0`.`OptionalAddress_AddressLine1`, `c0`.`OptionalAddress_AddressLine2`, `c0`.`OptionalAddress_Tags`, `c0`.`OptionalAddress_ZipCode`, `c0`.`OptionalAddress_Country_Code`, `c0`.`OptionalAddress_Country_FullName`, `c0`.`ShippingAddress_AddressLine1`, `c0`.`ShippingAddress_AddressLine2`, `c0`.`ShippingAddress_Tags`, `c0`.`ShippingAddress_ZipCode`, `c0`.`ShippingAddress_Country_Code`, `c0`.`ShippingAddress_Country_FullName`
 FROM (
     SELECT `c`.`Id`, `c`.`Name`, `c`.`BillingAddress_AddressLine1`, `c`.`BillingAddress_AddressLine2`, `c`.`BillingAddress_Tags`, `c`.`BillingAddress_ZipCode`, `c`.`BillingAddress_Country_Code`, `c`.`BillingAddress_Country_FullName`, `c`.`OptionalAddress_AddressLine1`, `c`.`OptionalAddress_AddressLine2`, `c`.`OptionalAddress_Tags`, `c`.`OptionalAddress_ZipCode`, `c`.`OptionalAddress_Country_Code`, `c`.`OptionalAddress_Country_FullName`, `c`.`ShippingAddress_AddressLine1`, `c`.`ShippingAddress_AddressLine2`, `c`.`ShippingAddress_Tags`, `c`.`ShippingAddress_ZipCode`, `c`.`ShippingAddress_Country_Code`, `c`.`ShippingAddress_Country_FullName`
     FROM `Customer` AS `c`
     ORDER BY `c`.`Id`
-    LIMIT 18446744073709551610 OFFSET @__p_0
+    LIMIT 18446744073709551610 OFFSET @p
 ) AS `c0`
 WHERE `c0`.`ShippingAddress_Country_Code` = 'DE'
 """);
@@ -449,14 +449,14 @@ WHERE `v`.`ShippingAddress_Country_Code` = 'DE'
 
         AssertSql(
 """
-@__p_0='1'
+@p='1'
 
 SELECT DISTINCT `v0`.`Id`, `v0`.`Name`, `v0`.`BillingAddress_AddressLine1`, `v0`.`BillingAddress_AddressLine2`, `v0`.`BillingAddress_ZipCode`, `v0`.`BillingAddress_Country_Code`, `v0`.`BillingAddress_Country_FullName`, `v0`.`ShippingAddress_AddressLine1`, `v0`.`ShippingAddress_AddressLine2`, `v0`.`ShippingAddress_ZipCode`, `v0`.`ShippingAddress_Country_Code`, `v0`.`ShippingAddress_Country_FullName`
 FROM (
     SELECT `v`.`Id`, `v`.`Name`, `v`.`BillingAddress_AddressLine1`, `v`.`BillingAddress_AddressLine2`, `v`.`BillingAddress_ZipCode`, `v`.`BillingAddress_Country_Code`, `v`.`BillingAddress_Country_FullName`, `v`.`ShippingAddress_AddressLine1`, `v`.`ShippingAddress_AddressLine2`, `v`.`ShippingAddress_ZipCode`, `v`.`ShippingAddress_Country_Code`, `v`.`ShippingAddress_Country_FullName`
     FROM `ValuedCustomer` AS `v`
     ORDER BY `v`.`Id`
-    LIMIT 18446744073709551610 OFFSET @__p_0
+    LIMIT 18446744073709551610 OFFSET @p
 ) AS `v0`
 WHERE `v0`.`ShippingAddress_ZipCode` = 7728
 """);
@@ -468,14 +468,14 @@ WHERE `v0`.`ShippingAddress_ZipCode` = 7728
 
         AssertSql(
 """
-@__p_0='1'
+@p='1'
 
 SELECT DISTINCT `v0`.`Id`, `v0`.`Name`, `v0`.`BillingAddress_AddressLine1`, `v0`.`BillingAddress_AddressLine2`, `v0`.`BillingAddress_ZipCode`, `v0`.`BillingAddress_Country_Code`, `v0`.`BillingAddress_Country_FullName`, `v0`.`ShippingAddress_AddressLine1`, `v0`.`ShippingAddress_AddressLine2`, `v0`.`ShippingAddress_ZipCode`, `v0`.`ShippingAddress_Country_Code`, `v0`.`ShippingAddress_Country_FullName`
 FROM (
     SELECT `v`.`Id`, `v`.`Name`, `v`.`BillingAddress_AddressLine1`, `v`.`BillingAddress_AddressLine2`, `v`.`BillingAddress_ZipCode`, `v`.`BillingAddress_Country_Code`, `v`.`BillingAddress_Country_FullName`, `v`.`ShippingAddress_AddressLine1`, `v`.`ShippingAddress_AddressLine2`, `v`.`ShippingAddress_ZipCode`, `v`.`ShippingAddress_Country_Code`, `v`.`ShippingAddress_Country_FullName`
     FROM `ValuedCustomer` AS `v`
     ORDER BY `v`.`Id`
-    LIMIT 18446744073709551610 OFFSET @__p_0
+    LIMIT 18446744073709551610 OFFSET @p
 ) AS `v0`
 WHERE `v0`.`ShippingAddress_Country_Code` = 'DE'
 """);
@@ -537,14 +537,14 @@ INNER JOIN `ValuedCustomer` AS `v0` ON `v`.`RequiredCustomerId` = `v0`.`Id`
 
         AssertSql(
 """
-@__p_0='1'
+@p='1'
 
 SELECT DISTINCT `v0`.`Id`, `v0`.`Name`, `v0`.`BillingAddress_AddressLine1`, `v0`.`BillingAddress_AddressLine2`, `v0`.`BillingAddress_ZipCode`, `v0`.`BillingAddress_Country_Code`, `v0`.`BillingAddress_Country_FullName`, `v0`.`ShippingAddress_AddressLine1`, `v0`.`ShippingAddress_AddressLine2`, `v0`.`ShippingAddress_ZipCode`, `v0`.`ShippingAddress_Country_Code`, `v0`.`ShippingAddress_Country_FullName`
 FROM (
     SELECT `v`.`Id`, `v`.`Name`, `v`.`BillingAddress_AddressLine1`, `v`.`BillingAddress_AddressLine2`, `v`.`BillingAddress_ZipCode`, `v`.`BillingAddress_Country_Code`, `v`.`BillingAddress_Country_FullName`, `v`.`ShippingAddress_AddressLine1`, `v`.`ShippingAddress_AddressLine2`, `v`.`ShippingAddress_ZipCode`, `v`.`ShippingAddress_Country_Code`, `v`.`ShippingAddress_Country_FullName`
     FROM `ValuedCustomer` AS `v`
     ORDER BY `v`.`Id`
-    LIMIT 18446744073709551610 OFFSET @__p_0
+    LIMIT 18446744073709551610 OFFSET @p
 ) AS `v0`
 """);
     }
@@ -789,7 +789,7 @@ FROM (
 
         AssertSql(
 """
-@__p_0='50'
+@p='50'
 
 SELECT `s0`.`BillingAddress_AddressLine1`, `s0`.`BillingAddress_AddressLine2`, `s0`.`BillingAddress_Tags`, `s0`.`BillingAddress_ZipCode`, `s0`.`BillingAddress_Country_Code`, `s0`.`BillingAddress_Country_FullName`, `s0`.`BillingAddress_AddressLine10`, `s0`.`BillingAddress_AddressLine20`, `s0`.`BillingAddress_Tags0`, `s0`.`BillingAddress_ZipCode0`, `s0`.`BillingAddress_Country_Code0`, `s0`.`BillingAddress_Country_FullName0`
 FROM (
@@ -799,7 +799,7 @@ FROM (
         FROM `Customer` AS `c`
         CROSS JOIN `Customer` AS `c0`
         ORDER BY `c`.`Id`, `c0`.`Id`
-        LIMIT @__p_0
+        LIMIT @p
     ) AS `s`
 ) AS `s0`
 """);
@@ -811,7 +811,7 @@ FROM (
 
         AssertSql(
 """
-@__p_0='50'
+@p='50'
 
 SELECT `s0`.`Id`, `s0`.`Name`, `s0`.`BillingAddress_AddressLine1`, `s0`.`BillingAddress_AddressLine2`, `s0`.`BillingAddress_Tags`, `s0`.`BillingAddress_ZipCode`, `s0`.`BillingAddress_Country_Code`, `s0`.`BillingAddress_Country_FullName`, `s0`.`ShippingAddress_AddressLine1`, `s0`.`ShippingAddress_AddressLine2`, `s0`.`ShippingAddress_Tags`, `s0`.`ShippingAddress_ZipCode`, `s0`.`ShippingAddress_Country_Code`, `s0`.`ShippingAddress_Country_FullName`, `s0`.`Id0`, `s0`.`Name0`, `s0`.`BillingAddress_AddressLine10`, `s0`.`BillingAddress_AddressLine20`, `s0`.`BillingAddress_Tags0`, `s0`.`BillingAddress_ZipCode0`, `s0`.`BillingAddress_Country_Code0`, `s0`.`BillingAddress_Country_FullName0`, `s0`.`ShippingAddress_AddressLine10`, `s0`.`ShippingAddress_AddressLine20`, `s0`.`ShippingAddress_Tags0`, `s0`.`ShippingAddress_ZipCode0`, `s0`.`ShippingAddress_Country_Code0`, `s0`.`ShippingAddress_Country_FullName0`
 FROM (
@@ -821,7 +821,7 @@ FROM (
         FROM `Customer` AS `c`
         CROSS JOIN `Customer` AS `c0`
         ORDER BY `c`.`Id`, `c0`.`Id`
-        LIMIT @__p_0
+        LIMIT @p
     ) AS `s`
 ) AS `s0`
 """);
@@ -863,7 +863,7 @@ FROM (
 
         AssertSql(
 """
-@__p_0='50'
+@p='50'
 
 SELECT `s0`.`BillingAddress_AddressLine1`, `s0`.`BillingAddress_AddressLine2`, `s0`.`BillingAddress_ZipCode`, `s0`.`BillingAddress_Country_Code`, `s0`.`BillingAddress_Country_FullName`, `s0`.`BillingAddress_AddressLine10`, `s0`.`BillingAddress_AddressLine20`, `s0`.`BillingAddress_ZipCode0`, `s0`.`BillingAddress_Country_Code0`, `s0`.`BillingAddress_Country_FullName0`
 FROM (
@@ -873,7 +873,7 @@ FROM (
         FROM `ValuedCustomer` AS `v`
         CROSS JOIN `ValuedCustomer` AS `v0`
         ORDER BY `v`.`Id`, `v0`.`Id`
-        LIMIT @__p_0
+        LIMIT @p
     ) AS `s`
 ) AS `s0`
 """);
@@ -885,7 +885,7 @@ FROM (
 
         AssertSql(
 """
-@__p_0='50'
+@p='50'
 
 SELECT `s0`.`Id`, `s0`.`Name`, `s0`.`BillingAddress_AddressLine1`, `s0`.`BillingAddress_AddressLine2`, `s0`.`BillingAddress_ZipCode`, `s0`.`BillingAddress_Country_Code`, `s0`.`BillingAddress_Country_FullName`, `s0`.`ShippingAddress_AddressLine1`, `s0`.`ShippingAddress_AddressLine2`, `s0`.`ShippingAddress_ZipCode`, `s0`.`ShippingAddress_Country_Code`, `s0`.`ShippingAddress_Country_FullName`, `s0`.`Id0`, `s0`.`Name0`, `s0`.`BillingAddress_AddressLine10`, `s0`.`BillingAddress_AddressLine20`, `s0`.`BillingAddress_ZipCode0`, `s0`.`BillingAddress_Country_Code0`, `s0`.`BillingAddress_Country_FullName0`, `s0`.`ShippingAddress_AddressLine10`, `s0`.`ShippingAddress_AddressLine20`, `s0`.`ShippingAddress_ZipCode0`, `s0`.`ShippingAddress_Country_Code0`, `s0`.`ShippingAddress_Country_FullName0`
 FROM (
@@ -895,7 +895,7 @@ FROM (
         FROM `ValuedCustomer` AS `v`
         CROSS JOIN `ValuedCustomer` AS `v0`
         ORDER BY `v`.`Id`, `v0`.`Id`
-        LIMIT @__p_0
+        LIMIT @p
     ) AS `s`
 ) AS `s0`
 """);
@@ -907,7 +907,7 @@ FROM (
 
         AssertSql(
 """
-@__p_0='50'
+@p='50'
 
 SELECT `u`.`Id`, `u`.`Name`, `u`.`BillingAddress_AddressLine1`, `u`.`BillingAddress_AddressLine2`, `u`.`BillingAddress_Tags`, `u`.`BillingAddress_ZipCode`, `u`.`BillingAddress_Country_Code`, `u`.`BillingAddress_Country_FullName`, `u`.`ShippingAddress_AddressLine1`, `u`.`ShippingAddress_AddressLine2`, `u`.`ShippingAddress_Tags`, `u`.`ShippingAddress_ZipCode`, `u`.`ShippingAddress_Country_Code`, `u`.`ShippingAddress_Country_FullName`, `u`.`Id0`, `u`.`Name0`, `u`.`BillingAddress_AddressLine10`, `u`.`BillingAddress_AddressLine20`, `u`.`BillingAddress_Tags0`, `u`.`BillingAddress_ZipCode0`, `u`.`BillingAddress_Country_Code0`, `u`.`BillingAddress_Country_FullName0`, `u`.`ShippingAddress_AddressLine10`, `u`.`ShippingAddress_AddressLine20`, `u`.`ShippingAddress_Tags0`, `u`.`ShippingAddress_ZipCode0`, `u`.`ShippingAddress_Country_Code0`, `u`.`ShippingAddress_Country_FullName0`
 FROM (
@@ -920,7 +920,7 @@ FROM (
     CROSS JOIN `Customer` AS `c2`
 ) AS `u`
 ORDER BY `u`.`Id`, `u`.`Id0`
-LIMIT @__p_0
+LIMIT @p
 """);
     }
 
@@ -930,7 +930,7 @@ LIMIT @__p_0
 
         AssertSql(
 """
-@__p_0='50'
+@p='50'
 
 SELECT `u1`.`Id`, `u1`.`Name`, `u1`.`BillingAddress_AddressLine1`, `u1`.`BillingAddress_AddressLine2`, `u1`.`BillingAddress_Tags`, `u1`.`BillingAddress_ZipCode`, `u1`.`BillingAddress_Country_Code`, `u1`.`BillingAddress_Country_FullName`, `u1`.`ShippingAddress_AddressLine1`, `u1`.`ShippingAddress_AddressLine2`, `u1`.`ShippingAddress_Tags`, `u1`.`ShippingAddress_ZipCode`, `u1`.`ShippingAddress_Country_Code`, `u1`.`ShippingAddress_Country_FullName`, `u1`.`Id0`, `u1`.`Name0`, `u1`.`BillingAddress_AddressLine10`, `u1`.`BillingAddress_AddressLine20`, `u1`.`BillingAddress_Tags0`, `u1`.`BillingAddress_ZipCode0`, `u1`.`BillingAddress_Country_Code0`, `u1`.`BillingAddress_Country_FullName0`, `u1`.`ShippingAddress_AddressLine10`, `u1`.`ShippingAddress_AddressLine20`, `u1`.`ShippingAddress_Tags0`, `u1`.`ShippingAddress_ZipCode0`, `u1`.`ShippingAddress_Country_Code0`, `u1`.`ShippingAddress_Country_FullName0`
 FROM (
@@ -947,11 +947,11 @@ FROM (
             CROSS JOIN `Customer` AS `c2`
         ) AS `u`
         ORDER BY `u`.`Id`, `u`.`Id0`
-        LIMIT @__p_0
+        LIMIT @p
     ) AS `u0`
 ) AS `u1`
 ORDER BY `u1`.`Id`, `u1`.`Id0`
-LIMIT @__p_0
+LIMIT @p
 """);
     }
 
@@ -961,7 +961,7 @@ LIMIT @__p_0
 
         AssertSql(
 """
-@__p_0='50'
+@p='50'
 
 SELECT `u`.`BillingAddress_AddressLine1`, `u`.`BillingAddress_AddressLine2`, `u`.`BillingAddress_Tags`, `u`.`BillingAddress_ZipCode`, `u`.`BillingAddress_Country_Code`, `u`.`BillingAddress_Country_FullName`, `u`.`BillingAddress_AddressLine10`, `u`.`BillingAddress_AddressLine20`, `u`.`BillingAddress_Tags0`, `u`.`BillingAddress_ZipCode0`, `u`.`BillingAddress_Country_Code0`, `u`.`BillingAddress_Country_FullName0`
 FROM (
@@ -974,7 +974,7 @@ FROM (
     CROSS JOIN `Customer` AS `c2`
 ) AS `u`
 ORDER BY `u`.`BillingAddress_ZipCode`, `u`.`BillingAddress_ZipCode0`
-LIMIT @__p_0
+LIMIT @p
 """);
     }
 
@@ -984,7 +984,7 @@ LIMIT @__p_0
 
         AssertSql(
 """
-@__p_0='50'
+@p='50'
 
 SELECT `u1`.`BillingAddress_AddressLine1`, `u1`.`BillingAddress_AddressLine2`, `u1`.`BillingAddress_Tags`, `u1`.`BillingAddress_ZipCode`, `u1`.`BillingAddress_Country_Code`, `u1`.`BillingAddress_Country_FullName`, `u1`.`BillingAddress_AddressLine10`, `u1`.`BillingAddress_AddressLine20`, `u1`.`BillingAddress_Tags0`, `u1`.`BillingAddress_ZipCode0`, `u1`.`BillingAddress_Country_Code0`, `u1`.`BillingAddress_Country_FullName0`
 FROM (
@@ -1001,11 +1001,11 @@ FROM (
             CROSS JOIN `Customer` AS `c2`
         ) AS `u`
         ORDER BY `u`.`BillingAddress_ZipCode`, `u`.`BillingAddress_ZipCode0`
-        LIMIT @__p_0
+        LIMIT @p
     ) AS `u0`
 ) AS `u1`
 ORDER BY `u1`.`BillingAddress_ZipCode`, `u1`.`BillingAddress_ZipCode0`
-LIMIT @__p_0
+LIMIT @p
 """);
     }
 
@@ -1115,7 +1115,7 @@ LEFT JOIN (
 
         AssertSql(
 """
-@__p_0='20'
+@p='20'
 
 SELECT `s0`.`ShippingAddress_ZipCode`
 FROM (
@@ -1125,7 +1125,7 @@ FROM (
         FROM `CustomerGroup` AS `c`
         LEFT JOIN `Customer` AS `c0` ON `c`.`OptionalCustomerId` = `c0`.`Id`
         ORDER BY `c0`.`ShippingAddress_ZipCode`
-        LIMIT @__p_0
+        LIMIT @p
     ) AS `s`
 ) AS `s0`
 """);
@@ -1137,7 +1137,7 @@ FROM (
 
         AssertSql(
 """
-@__p_0='20'
+@p='20'
 @__p_1='30'
 
 SELECT `c3`.`BillingAddress_ZipCode` AS `Zip1`, `c4`.`ShippingAddress_ZipCode` AS `Zip2`
@@ -1147,7 +1147,7 @@ FROM (
         SELECT `c`.`Id`, `c`.`Name`, `c`.`BillingAddress_AddressLine1`, `c`.`BillingAddress_AddressLine2`, `c`.`BillingAddress_Tags`, `c`.`BillingAddress_ZipCode`, `c`.`BillingAddress_Country_Code`, `c`.`BillingAddress_Country_FullName`, `c`.`OptionalAddress_AddressLine1`, `c`.`OptionalAddress_AddressLine2`, `c`.`OptionalAddress_Tags`, `c`.`OptionalAddress_ZipCode`, `c`.`OptionalAddress_Country_Code`, `c`.`OptionalAddress_Country_FullName`, `c`.`ShippingAddress_AddressLine1`, `c`.`ShippingAddress_AddressLine2`, `c`.`ShippingAddress_Tags`, `c`.`ShippingAddress_ZipCode`, `c`.`ShippingAddress_Country_Code`, `c`.`ShippingAddress_Country_FullName`
         FROM `Customer` AS `c`
         ORDER BY `c`.`Id`
-        LIMIT @__p_0
+        LIMIT @p
     ) AS `c0`
 ) AS `c3`
 LEFT JOIN (
