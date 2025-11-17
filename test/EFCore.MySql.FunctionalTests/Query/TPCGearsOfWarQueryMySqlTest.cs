@@ -35,7 +35,7 @@ public class TPCGearsOfWarQueryMySqlTest : TPCGearsOfWarQueryRelationalTestBase<
 
         AssertSql(
             """
-            @__rank_0='1' (Nullable = true)
+            @rank='1' (Nullable = true)
 
             SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
             FROM (
@@ -45,7 +45,7 @@ public class TPCGearsOfWarQueryMySqlTest : TPCGearsOfWarQueryRelationalTestBase<
                 SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
                 FROM `Officers` AS `o`
             ) AS `u`
-            WHERE @__rank_0 = `u`.`Rank`
+            WHERE @rank = `u`.`Rank`
             """);
     }
 
@@ -689,11 +689,11 @@ WHERE `w`.`AmmunitionType` IS NULL
 
         AssertSql(
 """
-@__ammunitionType_0='1'
+@ammunitionType='1'
 
 SELECT `w`.`Id`, `w`.`AmmunitionType`, `w`.`IsAutomatic`, `w`.`Name`, `w`.`OwnerFullName`, `w`.`SynergyWithId`
 FROM `Weapons` AS `w`
-WHERE `w`.`AmmunitionType` = @__ammunitionType_0
+WHERE `w`.`AmmunitionType` = @ammunitionType
 """);
     }
 
@@ -709,11 +709,11 @@ WHERE `w`.`AmmunitionType` = @__ammunitionType_0
 
         AssertSql(
 """
-@__ammunitionType_0='1' (Nullable = true)
+@ammunitionType='1' (Nullable = true)
 
 SELECT `w`.`Id`, `w`.`AmmunitionType`, `w`.`IsAutomatic`, `w`.`Name`, `w`.`OwnerFullName`, `w`.`SynergyWithId`
 FROM `Weapons` AS `w`
-WHERE `w`.`AmmunitionType` = @__ammunitionType_0
+WHERE `w`.`AmmunitionType` = @ammunitionType
 """,
                 //
                 """
@@ -849,11 +849,11 @@ WHERE CAST(`w`.`AmmunitionType` & NULL AS signed) > 0
 
         AssertSql(
 """
-@__ammunitionType_0='1'
+@ammunitionType='1'
 
 SELECT `w`.`Id`, `w`.`AmmunitionType`, `w`.`IsAutomatic`, `w`.`Name`, `w`.`OwnerFullName`, `w`.`SynergyWithId`
 FROM `Weapons` AS `w`
-WHERE CAST(`w`.`AmmunitionType` & @__ammunitionType_0 AS signed) > 0
+WHERE CAST(`w`.`AmmunitionType` & @ammunitionType AS signed) > 0
 """);
     }
 
@@ -869,11 +869,11 @@ WHERE CAST(`w`.`AmmunitionType` & @__ammunitionType_0 AS signed) > 0
 
         AssertSql(
 """
-@__ammunitionType_0='1' (Nullable = true)
+@ammunitionType='1' (Nullable = true)
 
 SELECT `w`.`Id`, `w`.`AmmunitionType`, `w`.`IsAutomatic`, `w`.`Name`, `w`.`OwnerFullName`, `w`.`SynergyWithId`
 FROM `Weapons` AS `w`
-WHERE CAST(`w`.`AmmunitionType` & @__ammunitionType_0 AS signed) > 0
+WHERE CAST(`w`.`AmmunitionType` & @ammunitionType AS signed) > 0
 """,
                 //
                 """
@@ -1235,7 +1235,7 @@ WHERE (CAST(`u`.`Rank` & (
 
         AssertSql(
 """
-@__parameter_0='2'
+@parameter='2'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -1245,7 +1245,7 @@ FROM (
     SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
     FROM `Officers` AS `o`
 ) AS `u`
-WHERE CAST(`u`.`Rank` & @__parameter_0 AS signed) = @__parameter_0
+WHERE CAST(`u`.`Rank` & @parameter AS signed) = @parameter
 """);
     }
 
@@ -1261,7 +1261,7 @@ WHERE CAST(`u`.`Rank` & @__parameter_0 AS signed) = @__parameter_0
 
         AssertSql(
 """
-@__parameter_0='2' (Nullable = true)
+@parameter='2' (Nullable = true)
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -1271,7 +1271,7 @@ FROM (
     SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
     FROM `Officers` AS `o`
 ) AS `u`
-WHERE CAST(`u`.`Rank` & @__parameter_0 AS signed) = @__parameter_0
+WHERE CAST(`u`.`Rank` & @parameter AS signed) = @parameter
 """);
     }
 
@@ -1358,11 +1358,11 @@ WHERE `w`.`IsAutomatic` = TRUE
 
         AssertSql(
 """
-@__ammunitionType_0='1' (Nullable = true)
+@ammunitionType='1' (Nullable = true)
 
-SELECT `w`.`Id`, (`w`.`AmmunitionType` = @__ammunitionType_0) AND `w`.`AmmunitionType` IS NOT NULL AS `Cartridge`
+SELECT `w`.`Id`, (`w`.`AmmunitionType` = @ammunitionType) AND `w`.`AmmunitionType` IS NOT NULL AS `Cartridge`
 FROM `Weapons` AS `w`
-WHERE `w`.`AmmunitionType` = @__ammunitionType_0
+WHERE `w`.`AmmunitionType` = @ammunitionType
 """,
                 //
                 """
@@ -1378,9 +1378,9 @@ WHERE `w`.`AmmunitionType` IS NULL
 
         AssertSql(
 """
-@__ammunitionType_0='1' (Nullable = true)
+@ammunitionType='1' (Nullable = true)
 
-SELECT `w`.`Id`, @__ammunitionType_0 AS `AmmoType`
+SELECT `w`.`Id`, @ammunitionType AS `AmmoType`
 FROM `Weapons` AS `w`
 """,
                 //
@@ -1390,9 +1390,9 @@ FROM `Weapons` AS `w`
 """,
                 //
                 """
-@__ammunitionType_0='2' (Nullable = true)
+@ammunitionType='2' (Nullable = true)
 
-SELECT `w`.`Id`, @__ammunitionType_0 AS `AmmoType`
+SELECT `w`.`Id`, @ammunitionType AS `AmmoType`
 FROM `Weapons` AS `w`
 """,
                 //
@@ -3095,11 +3095,11 @@ WHERE 'Unknown' = `c`.`Location`
 
         AssertSql(
 """
-@__value_0='Unknown' (Size = 4000)
+@value='Unknown' (Size = 4000)
 
 SELECT `c`.`Name`, `c`.`Location`, `c`.`Nation`
 FROM `Cities` AS `c`
-WHERE `c`.`Location` = @__value_0
+WHERE `c`.`Location` = @value
 """);
     }
 
@@ -4011,11 +4011,11 @@ WHERE `m`.`Timeline` <> UTC_TIMESTAMP(6)
 
         AssertSql(
 """
-@__Date_0='0001-01-01T00:00:00.0000000' (DbType = DateTime)
+@Date='0001-01-01T00:00:00.0000000' (DbType = DateTime)
 
 SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Difficulty`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
 FROM `Missions` AS `m`
-WHERE CONVERT(`m`.`Timeline`, date) > @__Date_0
+WHERE CONVERT(`m`.`Timeline`, date) > @Date
 """);
     }
 
@@ -4679,7 +4679,7 @@ ORDER BY `u`.`FullName`
 
         AssertSql(
 """
-@__p_0='2'
+@p='2'
 
 SELECT `u0`.`FullName`
 FROM (
@@ -4693,7 +4693,7 @@ FROM (
     ) AS `u`
     WHERE `u`.`HasSoulPatch` = FALSE
     ORDER BY `u`.`FullName`
-    LIMIT @__p_0
+    LIMIT @p
 ) AS `u0`
 ORDER BY `u0`.`Rank`
 """);
@@ -4705,7 +4705,7 @@ ORDER BY `u0`.`Rank`
 
         AssertSql(
 """
-@__p_0='1'
+@p='1'
 
 SELECT `u0`.`FullName`
 FROM (
@@ -4719,7 +4719,7 @@ FROM (
     ) AS `u`
     WHERE `u`.`HasSoulPatch` = FALSE
     ORDER BY `u`.`FullName`
-    LIMIT 18446744073709551610 OFFSET @__p_0
+    LIMIT 18446744073709551610 OFFSET @p
 ) AS `u0`
 ORDER BY `u0`.`Rank`
 """);
@@ -4732,7 +4732,7 @@ ORDER BY `u0`.`Rank`
 
         AssertSql(
 """
-@__p_0='999'
+@p='999'
 
 SELECT `t0`.`FullName`
 FROM (
@@ -4745,7 +4745,7 @@ FROM (
         FROM `Officers` AS `o`
     ) AS `t`
     WHERE `t`.`HasSoulPatch` = FALSE
-    LIMIT @__p_0
+    LIMIT @p
 ) AS `t0`
 ORDER BY `t0`.`Rank`
 """);
@@ -4758,7 +4758,7 @@ ORDER BY `t0`.`Rank`
 
         AssertSql(
 """
-@__p_0='999'
+@p='999'
 
 SELECT `t0`.`FullName`
 FROM (
@@ -4771,7 +4771,7 @@ FROM (
         FROM `Officers` AS `o`
     ) AS `t`
     WHERE `t`.`HasSoulPatch` = FALSE
-    LIMIT @__p_0
+    LIMIT @p
 ) AS `t0`
 ORDER BY `t0`.`Rank`
 """);
@@ -4784,7 +4784,7 @@ ORDER BY `t0`.`Rank`
 
         AssertSql(
 """
-@__p_0='999'
+@p='999'
 
 SELECT `t0`.`FullName`
 FROM (
@@ -4797,7 +4797,7 @@ FROM (
         FROM `Officers` AS `o`
     ) AS `t`
     WHERE `t`.`HasSoulPatch` = FALSE
-    LIMIT @__p_0
+    LIMIT @p
 ) AS `t0`
 ORDER BY `t0`.`FullName`, `t0`.`Rank`
 """);
@@ -7185,7 +7185,7 @@ WHERE (`l2`.`Eradicated` <> TRUE) OR (`l2`.`Eradicated` IS NULL)
 
         AssertSql(
 """
-@__p_0='10'
+@p='10'
 
 SELECT `s`.`Name`, `s`.`LocustHordeId`, `s`.`ThreatLevel`, `s`.`ThreatLevelByte`, `s`.`ThreatLevelNullableByte`, `s`.`DefeatedByNickname`, `s`.`DefeatedBySquadId`, `s`.`HighCommandId`, `s`.`Discriminator`, `s`.`Nickname`, `s`.`SquadId`, `s`.`AssignedCityName`, `s`.`CityOfBirthName`, `s`.`FullName`, `s`.`HasSoulPatch`, `s`.`LeaderNickname`, `s`.`LeaderSquadId`, `s`.`Rank`, `s`.`Discriminator0` AS `Discriminator`, `s`.`Id`, `w`.`Id`, `w`.`AmmunitionType`, `w`.`IsAutomatic`, `w`.`Name`, `w`.`OwnerFullName`, `w`.`SynergyWithId`
 FROM (
@@ -7206,7 +7206,7 @@ FROM (
     ) AS `u0` ON (`u`.`DefeatedByNickname` = `u0`.`Nickname`) AND (`u`.`DefeatedBySquadId` = `u0`.`SquadId`)
     LEFT JOIN `Tags` AS `t` ON ((`u0`.`Nickname` = `t`.`GearNickName`) OR (`u0`.`Nickname` IS NULL AND (`t`.`GearNickName` IS NULL))) AND ((`u0`.`SquadId` = `t`.`GearSquadId`) OR (`u0`.`SquadId` IS NULL AND (`t`.`GearSquadId` IS NULL)))
     ORDER BY `t`.`Note`
-    LIMIT @__p_0
+    LIMIT @p
 ) AS `s`
 LEFT JOIN `Weapons` AS `w` ON `s`.`FullName` = `w`.`OwnerFullName`
 ORDER BY `s`.`Note`, `s`.`Name`, `s`.`Nickname`, `s`.`SquadId`, `s`.`Id`
@@ -9309,7 +9309,7 @@ ORDER BY (
 
         AssertSql(
 """
-@__p_0='25'
+@p='25'
 
 SELECT `w1`.`Id`, `w1`.`AmmunitionType`, `w1`.`IsAutomatic`, `w1`.`Name`, `w1`.`OwnerFullName`, `w1`.`SynergyWithId`
 FROM (
@@ -9321,7 +9321,7 @@ FROM (
         SELECT `o`.`FullName`
         FROM `Officers` AS `o`
     ) AS `u`
-    LIMIT @__p_0
+    LIMIT @p
 ) AS `u0`
 LEFT JOIN (
     SELECT `w0`.`Id`, `w0`.`AmmunitionType`, `w0`.`IsAutomatic`, `w0`.`Name`, `w0`.`OwnerFullName`, `w0`.`SynergyWithId`
@@ -9372,12 +9372,12 @@ WHERE (
         {
             AssertSql(
 """
-@__start_0='1902-01-01T10:00:00.1234567+01:30'
-@__end_1='1902-01-03T10:00:00.1234567+01:30'
+@start='1902-01-01T10:00:00.1234567+01:30'
+@end='1902-01-03T10:00:00.1234567+01:30'
 
 SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
 FROM `Missions` AS `m`
-WHERE ((@__start_0 <= CONVERT(`m`.`Timeline`, date)) AND (`m`.`Timeline` < @__end_1)) AND `m`.`Timeline` IN (
+WHERE ((@start <= CONVERT(`m`.`Timeline`, date)) AND (`m`.`Timeline` < @end)) AND `m`.`Timeline` IN (
     SELECT `d`.`value`
     FROM JSON_TABLE('["1902-01-02T10:00:00.1234567+01:30"]', '$[*]' COLUMNS (
         `key` FOR ORDINALITY,
@@ -9390,12 +9390,12 @@ WHERE ((@__start_0 <= CONVERT(`m`.`Timeline`, date)) AND (`m`.`Timeline` < @__en
         {
             AssertSql(
 """
-@__start_0='1902-01-01T08:30:00.1234560+00:00'
-@__end_1='1902-01-03T08:30:00.1234560+00:00'
+@start='1902-01-01T08:30:00.1234560+00:00'
+@end='1902-01-03T08:30:00.1234560+00:00'
 
 SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
 FROM `Missions` AS `m`
-WHERE ((@__start_0 <= CONVERT(`m`.`Timeline`, date)) AND (`m`.`Timeline` < @__end_1)) AND (`m`.`Timeline` = TIMESTAMP '1902-01-02 08:30:00.123456')
+WHERE ((@start <= CONVERT(`m`.`Timeline`, date)) AND (`m`.`Timeline` < @end)) AND (`m`.`Timeline` = TIMESTAMP '1902-01-02 08:30:00.123456')
 """);
         }
     }
@@ -9411,11 +9411,11 @@ WHERE ((@__start_0 <= CONVERT(`m`.`Timeline`, date)) AND (`m`.`Timeline` < @__en
 
         AssertSql(
 """
-@__timeSpan_0='00:00:00.0010000' (DbType = DateTimeOffset)
+@timeSpan='00:00:00.0010000' (DbType = DateTimeOffset)
 
 SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
 FROM `Missions` AS `m`
-WHERE `m`.`Timeline` > (UTC_TIMESTAMP() - @__timeSpan_0)
+WHERE `m`.`Timeline` > (UTC_TIMESTAMP() - @timeSpan)
 """);
     }
 
@@ -9565,7 +9565,7 @@ ORDER BY `t`.`Id`, `u`.`Nickname`
 
         AssertSql(
 """
-@__isAutomatic_0='True'
+@isAutomatic='True'
 
 SELECT `u`.`Nickname`, `u`.`FullName`, `w0`.`Id` IS NOT NULL AS `Collection`
 FROM (
@@ -9578,7 +9578,7 @@ FROM (
 LEFT JOIN (
     SELECT `w`.`Id`, `w`.`OwnerFullName`
     FROM `Weapons` AS `w`
-    WHERE `w`.`IsAutomatic` = @__isAutomatic_0
+    WHERE `w`.`IsAutomatic` = @isAutomatic
 ) AS `w0` ON `u`.`FullName` = `w0`.`OwnerFullName`
 """);
     }
@@ -9869,7 +9869,7 @@ WHERE EXISTS (
 
         AssertSql(
 """
-@__prm_Inner_Nickname_0='Marcus' (Size = 255)
+@prm_Inner_Nickname='Marcus' (Size = 255)
 
 SELECT `u0`.`Nickname`, `u0`.`SquadId`, `u0`.`AssignedCityName`, `u0`.`CityOfBirthName`, `u0`.`FullName`, `u0`.`HasSoulPatch`, `u0`.`LeaderNickname`, `u0`.`LeaderSquadId`, `u0`.`Rank`, `u0`.`Discriminator`
 FROM (
@@ -9881,7 +9881,7 @@ FROM (
         SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
         FROM `Officers` AS `o`
     ) AS `u`
-    WHERE `u`.`Nickname` <> @__prm_Inner_Nickname_0
+    WHERE `u`.`Nickname` <> @prm_Inner_Nickname
 ) AS `u0`
 ORDER BY `u0`.`FullName`
 """);
@@ -9893,7 +9893,7 @@ ORDER BY `u0`.`FullName`
 
         AssertSql(
 """
-@__squadId_0='1'
+@squadId='1'
 
 SELECT `u1`.`Nickname`, `u1`.`SquadId`, `u1`.`AssignedCityName`, `u1`.`CityOfBirthName`, `u1`.`FullName`, `u1`.`HasSoulPatch`, `u1`.`LeaderNickname`, `u1`.`LeaderSquadId`, `u1`.`Rank`, `u1`.`Discriminator`
 FROM (
@@ -9909,7 +9909,7 @@ FROM (
     WHERE `s`.`Id` IN (
         SELECT `s0`.`Id`
         FROM `Squads` AS `s0`
-        WHERE `s0`.`Id` = @__squadId_0
+        WHERE `s0`.`Id` = @squadId
     )
     UNION ALL
     SELECT `u0`.`Nickname`, `u0`.`SquadId`, `u0`.`AssignedCityName`, `u0`.`CityOfBirthName`, `u0`.`FullName`, `u0`.`HasSoulPatch`, `u0`.`LeaderNickname`, `u0`.`LeaderSquadId`, `u0`.`Rank`, `u0`.`Discriminator`
@@ -9924,7 +9924,7 @@ FROM (
     WHERE `s1`.`Id` IN (
         SELECT `s2`.`Id`
         FROM `Squads` AS `s2`
-        WHERE `s2`.`Id` = @__squadId_0
+        WHERE `s2`.`Id` = @squadId
     )
 ) AS `u1`
 ORDER BY `u1`.`FullName`
@@ -9937,7 +9937,7 @@ ORDER BY `u1`.`FullName`
 
         AssertSql(
 """
-@__gearId_0='1'
+@gearId='1'
 
 SELECT `s`.`Id`, `s`.`Banner`, `s`.`Banner5`, `s`.`InternalNumber`, `s`.`Name`
 FROM `Squads` AS `s`
@@ -9950,7 +9950,7 @@ WHERE EXISTS (
         SELECT `o`.`SquadId`
         FROM `Officers` AS `o`
     ) AS `u`
-    WHERE ((`s`.`Id` = `u`.`SquadId`) AND (`u`.`SquadId` = @__gearId_0)) AND (`u`.`SquadId` = @__gearId_0))
+    WHERE ((`s`.`Id` = `u`.`SquadId`) AND (`u`.`SquadId` = @gearId)) AND (`u`.`SquadId` = @gearId))
 """);
     }
 
@@ -9960,7 +9960,7 @@ WHERE EXISTS (
 
         AssertSql(
 """
-@__entity_equality_prm_Inner_Squad_0_Id='1' (Nullable = true)
+@entity_equality_prm_Inner_Squad_Id='1' (Nullable = true)
 
 SELECT `s1`.`Nickname`, `s1`.`SquadId`, `s1`.`AssignedCityName`, `s1`.`CityOfBirthName`, `s1`.`FullName`, `s1`.`HasSoulPatch`, `s1`.`LeaderNickname`, `s1`.`LeaderSquadId`, `s1`.`Rank`, `s1`.`Discriminator`
 FROM (
@@ -9973,10 +9973,10 @@ FROM (
         FROM `Officers` AS `o`
     ) AS `u`
     INNER JOIN `Squads` AS `s` ON `u`.`SquadId` = `s`.`Id`
-    WHERE `s`.`Id` = @__entity_equality_prm_Inner_Squad_0_Id
+    WHERE `s`.`Id` = @entity_equality_prm_Inner_Squad_Id
 ) AS `s1`
 INNER JOIN `Squads` AS `s0` ON `s1`.`SquadId` = `s0`.`Id`
-WHERE `s0`.`Id` = @__entity_equality_prm_Inner_Squad_0_Id
+WHERE `s0`.`Id` = @entity_equality_prm_Inner_Squad_Id
 ORDER BY `s1`.`FullName`
 """);
     }
@@ -10203,9 +10203,9 @@ FROM (
 
         AssertSql(
 """
-@__p_0='False'
+@p='False'
 
-SELECT @__p_0
+SELECT @p
 FROM (
     SELECT 1
     FROM `Gears` AS `g`
@@ -10222,7 +10222,7 @@ FROM (
 
         AssertSql(
 """
-@__p_0='False'
+@p='False'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -10232,7 +10232,7 @@ FROM (
     SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
     FROM `Officers` AS `o`
 ) AS `u`
-WHERE @__p_0
+WHERE @p
 """);
     }
 
@@ -10301,7 +10301,7 @@ FROM (
 
         AssertSql(
 """
-@__rank_0='1' (Nullable = true)
+@rank='1' (Nullable = true)
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -10311,7 +10311,7 @@ FROM (
     SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
     FROM `Officers` AS `o`
 ) AS `u`
-WHERE CAST(`u`.`Rank` & @__rank_0 AS signed) = @__rank_0
+WHERE CAST(`u`.`Rank` & @rank AS signed) = @rank
 """,
                 //
                 """
@@ -10326,7 +10326,7 @@ FROM (
 """,
                 //
                 """
-@__rank_0='2' (Nullable = true)
+@rank='2' (Nullable = true)
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -10336,7 +10336,7 @@ FROM (
     SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
     FROM `Officers` AS `o`
 ) AS `u`
-WHERE CAST(`u`.`Rank` | @__rank_0 AS signed) <> @__rank_0
+WHERE CAST(`u`.`Rank` | @rank AS signed) <> @rank
 """,
                 //
                 """
@@ -10399,7 +10399,7 @@ WHERE (`c`.`Name` = (
 
         AssertSql(
 """
-@__ranks_0='134'
+@ranks='134'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -10409,13 +10409,13 @@ FROM (
     SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
     FROM `Officers` AS `o`
 ) AS `u`
-WHERE CAST(`u`.`Rank` & @__ranks_0 AS signed) <> 0
+WHERE CAST(`u`.`Rank` & @ranks AS signed) <> 0
 """,
                 //
                 """
-@__ranks_0='134'
+@ranks='134'
 
-SELECT CAST(`u`.`Rank` | @__ranks_0 AS signed) = @__ranks_0
+SELECT CAST(`u`.`Rank` | @ranks AS signed) = @ranks
 FROM (
     SELECT `g`.`Rank`
     FROM `Gears` AS `g`
@@ -10426,9 +10426,9 @@ FROM (
 """,
                 //
                 """
-@__ranks_0='134'
+@ranks='134'
 
-SELECT CAST(`u`.`Rank` | CAST(`u`.`Rank` | CAST(@__ranks_0 | CAST(`u`.`Rank` | @__ranks_0 AS signed) AS signed) AS signed) AS signed) = @__ranks_0
+SELECT CAST(`u`.`Rank` | CAST(`u`.`Rank` | CAST(@ranks | CAST(`u`.`Rank` | @ranks AS signed) AS signed) AS signed) AS signed) = @ranks
 FROM (
     SELECT `g`.`Rank`
     FROM `Gears` AS `g`
@@ -10468,19 +10468,19 @@ FROM `Weapons` AS `w`
 """,
                 //
                 """
-@__prm_0='2' (Nullable = true)
+@prm='2' (Nullable = true)
 
 SELECT `w`.`Id`, `w`.`AmmunitionType`, `w`.`IsAutomatic`, `w`.`Name`, `w`.`OwnerFullName`, `w`.`SynergyWithId`
 FROM `Weapons` AS `w`
-WHERE (CAST(`w`.`AmmunitionType` & @__prm_0 AS signed) <> 0) OR `w`.`AmmunitionType` IS NULL
+WHERE (CAST(`w`.`AmmunitionType` & @prm AS signed) <> 0) OR `w`.`AmmunitionType` IS NULL
 """,
                 //
                 """
-@__prm_0='1' (Nullable = true)
+@prm='1' (Nullable = true)
 
 SELECT `w`.`Id`, `w`.`AmmunitionType`, `w`.`IsAutomatic`, `w`.`Name`, `w`.`OwnerFullName`, `w`.`SynergyWithId`
 FROM `Weapons` AS `w`
-WHERE CAST(`w`.`AmmunitionType` & @__prm_0 AS signed) = @__prm_0
+WHERE CAST(`w`.`AmmunitionType` & @prm AS signed) = @prm
 """);
     }
 
@@ -10490,7 +10490,7 @@ WHERE CAST(`w`.`AmmunitionType` & @__prm_0 AS signed) = @__prm_0
 
         AssertSql(
 """
-@__prm_0='True'
+@prm='True'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -10500,11 +10500,11 @@ FROM (
     SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
     FROM `Officers` AS `o`
 ) AS `u`
-WHERE `u`.`HasSoulPatch` <> @__prm_0
+WHERE `u`.`HasSoulPatch` <> @prm
 """,
                 //
                 """
-@__prm_0='False'
+@prm='False'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -10514,7 +10514,7 @@ FROM (
     SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
     FROM `Officers` AS `o`
 ) AS `u`
-WHERE `u`.`HasSoulPatch` <> @__prm_0
+WHERE `u`.`HasSoulPatch` <> @prm
 """);
     }
 
@@ -10598,11 +10598,11 @@ WHERE LENGTH(`s`.`Banner`) = 2
 
         AssertSql(
 """
-@__p_0='2'
+@p='2'
 
 SELECT `s`.`Id`, `s`.`Banner`, `s`.`Banner5`, `s`.`InternalNumber`, `s`.`Name`
 FROM `Squads` AS `s`
-WHERE LENGTH(`s`.`Banner`) = @__p_0
+WHERE LENGTH(`s`.`Banner`) = @p
 """);
     }
 
@@ -10634,11 +10634,11 @@ WHERE LENGTH(`s`.`Banner`) = LENGTH(@__byteArrayParam)
 
         AssertSql(
 """
-@__someByte_0='1'
+@someByte='1'
 
 SELECT `s`.`Id`, `s`.`Banner`, `s`.`Banner5`, `s`.`InternalNumber`, `s`.`Name`
 FROM `Squads` AS `s`
-WHERE LOCATE(UNHEX(HEX(@__someByte_0)), `s`.`Banner`) > 0
+WHERE LOCATE(UNHEX(HEX(@someByte)), `s`.`Banner`) > 0
 """);
     }
 
@@ -10660,7 +10660,7 @@ WHERE LENGTH(`s`.`Banner5`) = 5
 
         AssertSql(
 """
-@__prm_0='True'
+@prm='True'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -10671,7 +10671,7 @@ FROM (
     FROM `Officers` AS `o`
 ) AS `u`
 WHERE CASE
-    WHEN `u`.`HasSoulPatch` = @__prm_0 THEN TRUE
+    WHEN `u`.`HasSoulPatch` = @prm THEN TRUE
     ELSE FALSE
 END
 """);
@@ -10683,8 +10683,8 @@ END
 
         AssertSql(
 """
-@__prm_0='True'
-@__prm2_1='Marcus' Lancer' (Size = 4000)
+@prm='True'
+@prm2='Marcus' Lancer' (Size = 4000)
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -10695,11 +10695,11 @@ FROM (
     FROM `Officers` AS `o`
 ) AS `u`
 WHERE CASE
-    WHEN `u`.`HasSoulPatch` = @__prm_0 THEN (
+    WHEN `u`.`HasSoulPatch` = @prm THEN (
         SELECT `w`.`Name`
         FROM `Weapons` AS `w`
         WHERE `w`.`Id` = `u`.`SquadId`
-        LIMIT 1) = @__prm2_1
+        LIMIT 1) = @prm2
     ELSE FALSE
 END
 """);
@@ -10724,11 +10724,11 @@ ORDER BY `w0`.`IsAutomatic`
 
         AssertSql(
 """
-@__dateTimeOffset_Date_0='0002-03-01T00:00:00.0000000' (DbType = DateTime)
+@dateTimeOffset_Date='0002-03-01T00:00:00.0000000' (DbType = DateTime)
 
 SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Difficulty`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
 FROM `Missions` AS `m`
-WHERE CONVERT(`m`.`Timeline`, date) >= @__dateTimeOffset_Date_0
+WHERE CONVERT(`m`.`Timeline`, date) >= @dateTimeOffset_Date
 """);
     }
 
@@ -10795,11 +10795,11 @@ FROM (
 
         AssertSql(
 """
-@__byteArrayParam_0='0x0405060708' (Size = 5)
+@byteArrayParam='0x0405060708' (Size = 5)
 
 SELECT `s`.`Id`, `s`.`Banner`, `s`.`Banner5`, `s`.`InternalNumber`, `s`.`Name`
 FROM `Squads` AS `s`
-WHERE `s`.`Banner5` = @__byteArrayParam_0
+WHERE `s`.`Banner5` = @byteArrayParam
 """);
     }
 
@@ -11271,11 +11271,11 @@ JOIN LATERAL (
 
         AssertSql(
 """
-@__prm_0='1' (Nullable = true)
+@prm='1' (Nullable = true)
 
 SELECT `w`.`Id`, `w`.`AmmunitionType`, `w`.`IsAutomatic`, `w`.`Name`, `w`.`OwnerFullName`, `w`.`SynergyWithId`
 FROM `Weapons` AS `w`
-WHERE @__prm_0 = `w`.`AmmunitionType`
+WHERE @prm = `w`.`AmmunitionType`
 """);
     }
 
@@ -11285,7 +11285,7 @@ WHERE @__prm_0 = `w`.`AmmunitionType`
 
         AssertSql(
 """
-@__prm_0='133'
+@prm='133'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -11295,7 +11295,7 @@ FROM (
     SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
     FROM `Officers` AS `o`
 ) AS `u`
-WHERE CAST(@__prm_0 & `u`.`Rank` AS signed) = `u`.`Rank`
+WHERE CAST(@prm & `u`.`Rank` AS signed) = `u`.`Rank`
 """);
     }
 
@@ -11305,7 +11305,7 @@ WHERE CAST(@__prm_0 & `u`.`Rank` AS signed) = `u`.`Rank`
 
         AssertSql(
 """
-@__prm_0='5'
+@prm='5'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -11315,7 +11315,7 @@ FROM (
     SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
     FROM `Officers` AS `o`
 ) AS `u`
-WHERE CAST(@__prm_0 & CAST(`u`.`Rank` AS signed) AS signed) = CAST(`u`.`Rank` AS signed)
+WHERE CAST(@prm & CAST(`u`.`Rank` AS signed) AS signed) = CAST(`u`.`Rank` AS signed)
 """);
     }
 
@@ -11325,7 +11325,7 @@ WHERE CAST(@__prm_0 & CAST(`u`.`Rank` AS signed) AS signed) = CAST(`u`.`Rank` AS
 
         AssertSql(
 """
-@__p_0='1'
+@p='1'
 
 SELECT CAST(`u`.`Rank` & 1 AS signed)
 FROM (
@@ -11336,7 +11336,7 @@ FROM (
     FROM `Officers` AS `o`
 ) AS `u`
 ORDER BY `u`.`Nickname`
-LIMIT @__p_0
+LIMIT @p
 """);
     }
 
@@ -12453,8 +12453,8 @@ LEFT JOIN `LocustHighCommands` AS `l2` ON `u`.`HighCommandId` = `l2`.`Id`
 
         AssertSql(
 """
-@__p_1='10'
-@__p_0='0'
+@p='10'
+@p='0'
 
 SELECT `s`.`Nickname`, `s`.`SquadId`, `s`.`AssignedCityName`, `s`.`CityOfBirthName`, `s`.`FullName`, `s`.`HasSoulPatch`, `s`.`LeaderNickname`, `s`.`LeaderSquadId`, `s`.`Rank`, `s`.`Discriminator`, `s`.`HasSoulPatch0`, `w`.`Id`, `w`.`AmmunitionType`, `w`.`IsAutomatic`, `w`.`Name`, `w`.`OwnerFullName`, `w`.`SynergyWithId`
 FROM (
@@ -12479,7 +12479,7 @@ FROM (
         GROUP BY `u0`.`HasSoulPatch`
     ) AS `u1` ON CHAR_LENGTH(`u`.`Nickname`) = `u1`.`c`
     ORDER BY `u`.`Nickname`
-    LIMIT @__p_1 OFFSET @__p_0
+    LIMIT @p OFFSET @p
 ) AS `s`
 LEFT JOIN `Weapons` AS `w` ON `s`.`FullName` = `w`.`OwnerFullName`
 ORDER BY `s`.`Nickname`, `s`.`SquadId`, `s`.`HasSoulPatch0`
@@ -12582,11 +12582,11 @@ WHERE (`u`.`HasSoulPatch` = TRUE) AND `u`.`HasSoulPatch` IN (FALSE, TRUE)
 
         AssertSql(
 """
-@__place_0='Ephyra's location' (Size = 4000)
+@place='Ephyra's location' (Size = 4000)
 
 SELECT `c`.`Name`, `c`.`Location`, `c`.`Nation`
 FROM `Cities` AS `c`
-WHERE ((`c`.`Nation` = @__place_0) OR (`c`.`Location` = @__place_0)) OR (`c`.`Location` = @__place_0)
+WHERE ((`c`.`Nation` = @place) OR (`c`.`Location` = @place)) OR (`c`.`Location` = @place)
 """);
     }
 
@@ -12596,10 +12596,10 @@ WHERE ((`c`.`Nation` = @__place_0) OR (`c`.`Location` = @__place_0)) OR (`c`.`Lo
 
         AssertSql(
 """
-@__value_1='1'
-@__p_0='1'
+@value='1'
+@p='1'
 
-SELECT CAST(`u`.`Rank` & @__value_1 AS signed)
+SELECT CAST(`u`.`Rank` & @value AS signed)
 FROM (
     SELECT `g`.`Nickname`, `g`.`Rank`
     FROM `Gears` AS `g`
@@ -12608,7 +12608,7 @@ FROM (
     FROM `Officers` AS `o`
 ) AS `u`
 ORDER BY `u`.`Nickname`
-LIMIT @__p_0
+LIMIT @p
 """);
     }
 
@@ -12618,7 +12618,7 @@ LIMIT @__p_0
 
         AssertSql(
 """
-@__prm_0='1'
+@prm='1'
 
 SELECT `u`.`Nickname`, `u`.`FullName`, `w0`.`Id` IS NOT NULL AS `Collection`
 FROM (
@@ -12631,7 +12631,7 @@ FROM (
 LEFT JOIN (
     SELECT `w`.`Id`, `w`.`OwnerFullName`
     FROM `Weapons` AS `w`
-    WHERE `w`.`Id` > @__prm_0
+    WHERE `w`.`Id` > @prm
 ) AS `w0` ON `u`.`FullName` = `w0`.`OwnerFullName`
 """);
     }
@@ -12749,7 +12749,7 @@ WHERE `w`.`AmmunitionType` = 1
 
         AssertSql(
 """
-@__isAutomatic_0='True'
+@isAutomatic='True'
 
 SELECT `u`.`Nickname`, `u`.`FullName`, `w0`.`Id` IS NOT NULL AS `Collection`
 FROM (
@@ -12762,7 +12762,7 @@ FROM (
 LEFT JOIN (
     SELECT `w`.`Id`, `w`.`OwnerFullName`
     FROM `Weapons` AS `w`
-    WHERE `w`.`IsAutomatic` <> @__isAutomatic_0
+    WHERE `w`.`IsAutomatic` <> @isAutomatic
 ) AS `w0` ON `u`.`FullName` = `w0`.`OwnerFullName`
 """);
     }
@@ -13665,7 +13665,7 @@ FROM `Weapons` AS `w`
 
         AssertSql(
 """
-@__p_0='0'
+@p='0'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -13676,7 +13676,7 @@ FROM (
     FROM `Officers` AS `o`
 ) AS `u`
 ORDER BY `u`.`FullName`
-LIMIT 1 OFFSET @__p_0
+LIMIT 1 OFFSET @p
 """);
     }
 
@@ -13686,7 +13686,7 @@ LIMIT 1 OFFSET @__p_0
 
         AssertSql(
 """
-@__p_0='1'
+@p='1'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -13697,7 +13697,7 @@ FROM (
     FROM `Officers` AS `o`
 ) AS `u`
 ORDER BY `u`.`FullName`
-LIMIT 1 OFFSET @__p_0
+LIMIT 1 OFFSET @p
 """);
     }
 
@@ -13707,7 +13707,7 @@ LIMIT 1 OFFSET @__p_0
 
         AssertSql(
 """
-@__p_0='2'
+@p='2'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
 FROM (
@@ -13718,7 +13718,7 @@ FROM (
     FROM `Officers` AS `o`
 ) AS `u`
 ORDER BY `u`.`FullName`
-LIMIT 1 OFFSET @__p_0
+LIMIT 1 OFFSET @p
 """);
     }
 
@@ -13791,7 +13791,7 @@ FROM `Squads` AS `s`
 
         AssertSql(
 """
-@__unixEpochMilliseconds_0='0'
+@unixEpochMilliseconds='0'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`, `s`.`Id`, `s`.`Banner`, `s`.`Banner5`, `s`.`InternalNumber`, `s`.`Name`, `s1`.`SquadId`, `s1`.`MissionId`
 FROM (
@@ -13807,7 +13807,7 @@ WHERE NOT EXISTS (
     SELECT 1
     FROM `SquadMissions` AS `s0`
     INNER JOIN `Missions` AS `m` ON `s0`.`MissionId` = `m`.`Id`
-    WHERE (`s`.`Id` = `s0`.`SquadId`) AND (@__unixEpochMilliseconds_0 = (TIMESTAMPDIFF(microsecond, TIMESTAMP '1970-01-01 00:00:00', `m`.`Timeline`)) DIV (1000)))
+    WHERE (`s`.`Id` = `s0`.`SquadId`) AND (@unixEpochMilliseconds = (TIMESTAMPDIFF(microsecond, TIMESTAMP '1970-01-01 00:00:00', `m`.`Timeline`)) DIV (1000)))
 ORDER BY `u`.`Nickname`, `u`.`SquadId`, `s`.`Id`, `s1`.`SquadId`
 """);
     }
@@ -13839,7 +13839,7 @@ ORDER BY `u`.`Nickname`, `u`.`SquadId`, `s`.`Id`, `s1`.`SquadId`
 
         AssertSql(
 """
-@__unixEpochSeconds_0='0'
+@unixEpochSeconds='0'
 
 SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`, `s`.`Id`, `s`.`Banner`, `s`.`Banner5`, `s`.`InternalNumber`, `s`.`Name`, `s1`.`SquadId`, `s1`.`MissionId`
 FROM (
@@ -13855,7 +13855,7 @@ WHERE NOT EXISTS (
     SELECT 1
     FROM `SquadMissions` AS `s0`
     INNER JOIN `Missions` AS `m` ON `s0`.`MissionId` = `m`.`Id`
-    WHERE (`s`.`Id` = `s0`.`SquadId`) AND (@__unixEpochSeconds_0 = TIMESTAMPDIFF(second, TIMESTAMP '1970-01-01 00:00:00', `m`.`Timeline`)))
+    WHERE (`s`.`Id` = `s0`.`SquadId`) AND (@unixEpochSeconds = TIMESTAMPDIFF(second, TIMESTAMP '1970-01-01 00:00:00', `m`.`Timeline`)))
 ORDER BY `u`.`Nickname`, `u`.`SquadId`, `s`.`Id`, `s1`.`SquadId`
 """);
     }
@@ -14312,7 +14312,7 @@ WHERE TIME(`t`.`IssueDate`) = `m`.`Time`
 
         AssertSql(
 """
-@__time_0='02:00' (DbType = Time)
+@time='02:00' (DbType = Time)
 
 SELECT `t`.`Id`, `t`.`GearNickName`, `t`.`GearSquadId`, `t`.`IssueDate`, `t`.`Note`
 FROM `Tags` AS `t`
@@ -14323,7 +14323,7 @@ LEFT JOIN (
     SELECT `o`.`Nickname`, `o`.`SquadId`
     FROM `Officers` AS `o`
 ) AS `u` ON (`t`.`GearNickName` = `u`.`Nickname`) AND (`t`.`GearSquadId` = `u`.`SquadId`)
-WHERE (`u`.`Nickname` IS NOT NULL AND (`u`.`SquadId` IS NOT NULL)) AND (TIME(DATE_ADD(`t`.`IssueDate`, INTERVAL CAST(CAST(`u`.`SquadId` AS double) AS signed) hour)) = @__time_0)
+WHERE (`u`.`Nickname` IS NOT NULL AND (`u`.`SquadId` IS NOT NULL)) AND (TIME(DATE_ADD(`t`.`IssueDate`, INTERVAL CAST(CAST(`u`.`SquadId` AS double) AS signed) hour)) = @time)
 """);
     }
 
@@ -14371,11 +14371,11 @@ WHERE `m`.`Duration` < `m`.`Time`
 
         AssertSql(
 """
-@__time_0='01:02' (DbType = Time)
+@time='01:02' (DbType = Time)
 
 SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Difficulty`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
 FROM `Missions` AS `m`
-WHERE `m`.`Duration` = @__time_0
+WHERE `m`.`Duration` = @time
 """);
     }
 
@@ -14424,11 +14424,11 @@ WHERE DATE(`t`.`IssueDate`) > `m`.`Date`
 
         AssertSql(
 """
-@__prm_0='10/11/0002' (DbType = Date)
+@prm='10/11/0002' (DbType = Date)
 
 SELECT `t`.`Id`, `t`.`GearNickName`, `t`.`GearSquadId`, `t`.`IssueDate`, `t`.`Note`
 FROM `Tags` AS `t`
-WHERE DATE(`t`.`IssueDate`) IN (@__prm_0, DATE '0015-03-07')
+WHERE DATE(`t`.`IssueDate`) IN (@prm, DATE '0015-03-07')
 """);
     }
 

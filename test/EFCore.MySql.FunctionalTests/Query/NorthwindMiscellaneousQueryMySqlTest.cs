@@ -111,11 +111,11 @@ WHERE `c`.`CustomerID` = 'ANTON'
             ss => ss.Set<Customer>().Where(c => ~c.CustomerID.Length == -6));
 
             AssertSql(
-                @"@__negatedId_0='-10249'
+                @"@negatedId='-10249'
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
-WHERE CAST(~`o`.`OrderID` AS signed) = @__negatedId_0");
+WHERE CAST(~`o`.`OrderID` AS signed) = @negatedId");
         }
 
         [ConditionalTheory]
@@ -161,18 +161,18 @@ WHERE CAST(`o`.`OrderID` | 10248 AS signed) = 10248
 
         AssertSql(
 """
-@__p_0='10'
-@__p_1='5'
+@p='10'
+@p='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
 FROM (
     SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
     FROM `Customers` AS `c`
     ORDER BY `c`.`ContactName`
-    LIMIT @__p_0
+    LIMIT @p
 ) AS `c0`
 ORDER BY `c0`.`ContactName`
-LIMIT 18446744073709551610 OFFSET @__p_1
+LIMIT 18446744073709551610 OFFSET @p
 """);
         }
 
@@ -182,11 +182,11 @@ LIMIT 18446744073709551610 OFFSET @__p_1
             await base.Select_expression_references_are_updated_correctly_with_subquery(async);
 
             AssertSql(
-                @"@__nextYear_0='2017'
+                @"@nextYear='2017'
 
 SELECT DISTINCT EXTRACT(year FROM `o`.`OrderDate`)
 FROM `Orders` AS `o`
-WHERE `o`.`OrderDate` IS NOT NULL AND (EXTRACT(year FROM `o`.`OrderDate`) < @__nextYear_0)");
+WHERE `o`.`OrderDate` IS NOT NULL AND (EXTRACT(year FROM `o`.`OrderDate`) < @nextYear)");
         }
 
         public override Task Entity_equality_orderby_subquery(bool async)
@@ -240,7 +240,7 @@ WHERE `o`.`OrderDate` IS NOT NULL AND (EXTRACT(year FROM `o`.`OrderDate`) < @__n
 
         AssertSql(
 """
-@__p_0='5'
+@p='5'
 
 SELECT `o1`.`OrderID`, `o0`.`ProductID`, `o0`.`OrderID`
 FROM (
@@ -248,7 +248,7 @@ FROM (
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
     ORDER BY `o`.`OrderID`
-    LIMIT 18446744073709551610 OFFSET @__p_0
+    LIMIT 18446744073709551610 OFFSET @p
 ) AS `o1`
 LEFT JOIN `Order Details` AS `o0` ON `o1`.`OrderID` = `o0`.`OrderID`
 ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
@@ -279,8 +279,8 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
 
         AssertSql(
 """
-@__p_1='10'
-@__p_0='5'
+@p='10'
+@p='5'
 
 SELECT `o1`.`OrderID`, `o0`.`ProductID`, `o0`.`OrderID`
 FROM (
@@ -288,7 +288,7 @@ FROM (
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
     ORDER BY `o`.`OrderID`
-    LIMIT @__p_1 OFFSET @__p_0
+    LIMIT @p OFFSET @p
 ) AS `o1`
 LEFT JOIN `Order Details` AS `o0` ON `o1`.`OrderID` = `o0`.`OrderID`
 ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
@@ -318,7 +318,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
 
         AssertSql(
 """
-@__p_0='10'
+@p='10'
 
 SELECT `o1`.`OrderID`, `o0`.`ProductID`, `o0`.`OrderID`
 FROM (
@@ -326,7 +326,7 @@ FROM (
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
     ORDER BY `o`.`OrderID`
-    LIMIT @__p_0
+    LIMIT @p
 ) AS `o1`
 LEFT JOIN `Order Details` AS `o0` ON `o1`.`OrderID` = `o0`.`OrderID`
 ORDER BY `o1`.`OrderID`, `o0`.`ProductID`

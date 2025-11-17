@@ -237,7 +237,7 @@ WHERE `c`.`Region` IS NULL OR (TRIM(`c`.`Region`) = '')");
 """
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE (LOCATE('', `c`.`Region`) - 1) = 0
+WHERE (LOCATE('', `c`.`ContactName`) - 1) = 0
 """);
         }
 
@@ -294,11 +294,11 @@ WHERE SUBSTRING(`c`.`CustomerID`, 1 + 1, CHAR_LENGTH(`c`.`CustomerID`)) = 'LFKI'
             ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(start) == "M"));
 
             AssertSql(
-                @"@__start_0='2'
+                @"@start='2'
 
 SELECT `c`.`ContactName`
 FROM `Customers` AS `c`
-WHERE SUBSTRING(`c`.`CustomerID`, @__start_0 + 1, CHAR_LENGTH(`c`.`CustomerID`)) = 'FKI'");
+WHERE SUBSTRING(`c`.`CustomerID`, @start + 1, CHAR_LENGTH(`c`.`CustomerID`)) = 'FKI'");
         }
 
         [ConditionalTheory]
@@ -355,9 +355,9 @@ WHERE `c`.`CustomerID` = 'ALFKI'");
             ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(start, length) == "ari"));
 
             AssertSql(
-                @"@__start_0='2'
+                @"@start='2'
 
-SELECT SUBSTRING(`c`.`ContactName`, @__start_0 + 1, 3)
+SELECT SUBSTRING(`c`.`ContactName`, @start + 1, 3)
 FROM `Customers` AS `c`
 WHERE `c`.`CustomerID` = 'ALFKI'");
         }
@@ -674,11 +674,11 @@ WHERE `c`.`ContactName` LIKE '%     %'");
 
         AssertSql(
 """
-@__pattern_0_contains='%     %' (Size = 30)
+@pattern_contains='%     %' (Size = 30)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`ContactName` LIKE @__pattern_0_contains
+WHERE `c`.`ContactName` LIKE @pattern_contains
 """);
         }
 
@@ -1114,11 +1114,11 @@ WHERE `c`.`CustomerID` = 'ANATR'");
             await base.Static_equals_nullable_datetime_compared_to_non_nullable(async);
 
             AssertSql(
-                @"@__arg_0='1996-07-04T00:00:00.0000000' (DbType = DateTime)
+                @"@arg='1996-07-04T00:00:00.0000000' (DbType = DateTime)
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
-WHERE `o`.`OrderDate` = @__arg_0");
+WHERE `o`.`OrderDate` = @arg");
         }
 
         public override async Task Static_equals_int_compared_to_long(bool async)
@@ -1280,51 +1280,51 @@ WHERE `c`.`CustomerID` >= 'AROUT'
 
             AssertSql(
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` > @__customer_CustomerID_0
+WHERE `c`.`CustomerID` > @customer_CustomerID
 """,
                 //
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` < @__customer_CustomerID_0
+WHERE `c`.`CustomerID` < @customer_CustomerID
 """,
                 //
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` <= @__customer_CustomerID_0
+WHERE `c`.`CustomerID` <= @customer_CustomerID
 """,
                 //
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` <= @__customer_CustomerID_0
+WHERE `c`.`CustomerID` <= @customer_CustomerID
 """,
                 //
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` >= @__customer_CustomerID_0
+WHERE `c`.`CustomerID` >= @customer_CustomerID
 """,
                 //
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` >= @__customer_CustomerID_0
+WHERE `c`.`CustomerID` >= @customer_CustomerID
 """);
         }
 
@@ -1518,51 +1518,51 @@ WHERE `c`.`CustomerID` >= 'AROUT'
 
             AssertSql(
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` > @__customer_CustomerID_0
+WHERE `c`.`CustomerID` > @customer_CustomerID
 """,
                 //
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` < @__customer_CustomerID_0
+WHERE `c`.`CustomerID` < @customer_CustomerID
 """,
                 //
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` <= @__customer_CustomerID_0
+WHERE `c`.`CustomerID` <= @customer_CustomerID
 """,
                 //
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` <= @__customer_CustomerID_0
+WHERE `c`.`CustomerID` <= @customer_CustomerID
 """,
                 //
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` >= @__customer_CustomerID_0
+WHERE `c`.`CustomerID` >= @customer_CustomerID
 """,
                 //
 """
-@__customer_CustomerID_0='AROUT' (Size = 5) (DbType = StringFixedLength)
+@customer_CustomerID='AROUT' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` >= @__customer_CustomerID_0
+WHERE `c`.`CustomerID` >= @customer_CustomerID
 """);
         }
 
@@ -1689,41 +1689,41 @@ WHERE (`c`.`ContactTitle` = 'Owner') AND ((`c`.`Country` <> 'USA') OR `c`.`Count
             ss => ss.Set<Order>().Where(o => o.OrderID.CompareTo(10250) == 0));
 
             AssertSql(
-                @"@__orderId_0='10250'
+                @"@orderId='10250'
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
-WHERE `o`.`OrderID` = @__orderId_0",
+WHERE `o`.`OrderID` = @orderId",
                 //
-                @"@__orderId_0='10250'
+                @"@orderId='10250'
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
-WHERE `o`.`OrderID` <> @__orderId_0",
+WHERE `o`.`OrderID` <> @orderId",
                 //
-                @"@__orderId_0='10250'
+                @"@orderId='10250'
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
-WHERE `o`.`OrderID` > @__orderId_0",
+WHERE `o`.`OrderID` > @orderId",
                 //
-                @"@__orderId_0='10250'
+                @"@orderId='10250'
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
-WHERE `o`.`OrderID` <= @__orderId_0",
+WHERE `o`.`OrderID` <= @orderId",
                 //
-                @"@__orderId_0='10250'
+                @"@orderId='10250'
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
-WHERE `o`.`OrderID` > @__orderId_0",
+WHERE `o`.`OrderID` > @orderId",
                 //
-                @"@__orderId_0='10250'
+                @"@orderId='10250'
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
-WHERE `o`.`OrderID` <= @__orderId_0");
+WHERE `o`.`OrderID` <= @orderId");
         }
 
         [ConditionalTheory]
@@ -2278,11 +2278,11 @@ WHERE (`o`.`CustomerID` = 'ALFKI') AND ((CAST(`o`.`OrderDate` AS char) LIKE '%19
 
         AssertSql(
 """
-@__pattern_0_startswith='M%' (Size = 30)
+@pattern_startswith='M%' (Size = 30)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`ContactName` LIKE @__pattern_0_startswith
+WHERE `c`.`ContactName` LIKE @pattern_startswith
 """);
         }
 
@@ -2298,11 +2298,11 @@ WHERE `c`.`ContactName` LIKE @__pattern_0_startswith
 
         AssertSql(
 """
-@__pattern_0_endswith='%b' (Size = 30)
+@pattern_endswith='%b' (Size = 30)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`ContactName` LIKE @__pattern_0_endswith
+WHERE `c`.`ContactName` LIKE @pattern_endswith
 """);
         }
 
@@ -2951,11 +2951,11 @@ WHERE (LOCATE('a', `c`.`ContactName`) - 1) = 1
 
             AssertSql(
 """
-@__pattern_0='a' (Size = 4000)
+@pattern='a' (Size = 4000)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE (LOCATE(@__pattern_0, `c`.`ContactName`) - 1) = 1
+WHERE (LOCATE(@pattern, `c`.`ContactName`) - 1) = 1
 """);
         }
 
@@ -2987,11 +2987,11 @@ WHERE (LOCATE('a', `c`.`ContactName`, 3) - 1) = 4
 
             AssertSql(
 """
-@__start_0='2'
+@start='2'
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE (LOCATE('a', `c`.`ContactName`, @__start_0 + 1) - 1) = 4
+WHERE (LOCATE('a', `c`.`ContactName`, @start + 1) - 1) = 4
 """);
         }
 
@@ -3201,11 +3201,11 @@ FROM `Customers` AS `c`
 
             AssertSql(
 """
-@__foo_0='foo' (Size = 4000)
+@foo='foo' (Size = 4000)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE CONCAT_WS('|', `c`.`CompanyName`, @__foo_0, '', 'bar') = 'Around the Horn|foo||bar'
+WHERE CONCAT_WS('|', `c`.`CompanyName`, @foo, '', 'bar') = 'Around the Horn|foo||bar'
 """);
         }
 
