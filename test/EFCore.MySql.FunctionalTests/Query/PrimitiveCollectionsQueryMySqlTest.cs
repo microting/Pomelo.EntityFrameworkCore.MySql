@@ -217,12 +217,12 @@ WHERE `p`.`Id` IN (2, 999, 1000)
 
         AssertSql(
 """
-@__i_0='2'
-@__j_1='999'
+@i='2'
+@j='999'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`Id` IN (@__i_0, @__j_1)
+WHERE `p`.`Id` IN (@i, @j)
 """);
     }
 
@@ -233,11 +233,11 @@ WHERE `p`.`Id` IN (@__i_0, @__j_1)
 
         AssertSql(
 """
-@__j_0='999'
+@j='999'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`Id` IN (2, @__j_0)
+WHERE `p`.`Id` IN (2, @j)
 """);
     }
 
@@ -248,11 +248,11 @@ WHERE `p`.`Id` IN (2, @__j_0)
 
         AssertSql(
 """
-@__i_0='11'
+@i='11'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`Int` IN (999, @__i_0, `p`.`Id`, `p`.`Id` + `p`.`Int`)
+WHERE `p`.`Int` IN (999, @i, `p`.`Id`, `p`.`Id` + `p`.`Int`)
 """);
     }
 
@@ -776,11 +776,11 @@ WHERE (
 
         AssertSql(
 """
-@__ints_0='[0,2,3]' (Size = 4000)
+@ints='[0,2,3]' (Size = 4000)
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(@__ints_0, CONCAT('$[', CAST(`p`.`Int` AS char), ']'))) AS signed) = `p`.`Int`
+WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(@ints, CONCAT('$[', CAST(`p`.`Int` AS char), ']'))) AS signed) = `p`.`Int`
 """);
     }
 
@@ -789,11 +789,11 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(@__ints_0, CONCAT('$[', CAST(`p`.`Int` AS c
 
         AssertSql(
 """
-@__ints_0='[1,2,3]' (Size = 4000)
+@ints='[1,2,3]' (Size = 4000)
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(@__ints_0, CONCAT('$[', CAST(`p`.`Int` AS char), ']'))) AS signed) = 1
+WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(@ints, CONCAT('$[', CAST(`p`.`Int` AS char), ']'))) AS signed) = 1
 """);
     }
 
@@ -1054,11 +1054,11 @@ WHERE (
 
         AssertSql(
 """
-@__ints_0='[1,10]' (Size = 4000)
+@ints='[1,10]' (Size = 4000)
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`Ints` = @__ints_0
+WHERE `p`.`Ints` = @ints
 """);
     }
 
@@ -1621,11 +1621,11 @@ END IN ('one', 'two', 'three')
 
         AssertSql(
 """
-@__i_0='2'
+@i='2'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`Id` = @__i_0
+WHERE `p`.`Id` = @i
 """);
     }
 
@@ -1634,13 +1634,13 @@ WHERE `p`.`Id` = @__i_0
 
         AssertSql(
 """
-@__i_0='2'
+@i='2'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
-    FROM (SELECT CAST(@__i_0 AS signed) AS `Value`) AS `v`
+    FROM (SELECT CAST(@i AS signed) AS `Value`) AS `v`
     WHERE `v`.`Value` > `p`.`Id`) = 1
 """);
     }
@@ -1715,11 +1715,11 @@ WHERE GREATEST(30, `p`.`Int`) = 30
 
         AssertSql(
 """
-@__i_0='25'
+@i='25'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE LEAST(30, `p`.`Int`, @__i_0) = 25
+WHERE LEAST(30, `p`.`Int`, @i) = 25
 """);
     }
 
@@ -1728,11 +1728,11 @@ WHERE LEAST(30, `p`.`Int`, @__i_0) = 25
 
         AssertSql(
 """
-@__i_0='35'
+@i='35'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE GREATEST(30, `p`.`Int`, @__i_0) = 35
+WHERE GREATEST(30, `p`.`Int`, @i) = 35
 """);
     }
 
@@ -1856,11 +1856,11 @@ LIMIT 1
 
         AssertSql(
 """
-@__i_0='11'
+@i='11'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`Int` IN (999, @__i_0, `p`.`Id`, `p`.`Id` + `p`.`Int`)
+WHERE `p`.`Int` IN (999, @i, `p`.`Id`, `p`.`Id` + `p`.`Int`)
 """);
     }
 
@@ -1891,11 +1891,11 @@ WHERE GREATEST(30, `p`.`Int`) = 30
 
         AssertSql(
 """
-@__i_0='25'
+@i='25'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE LEAST(30, `p`.`Int`, @__i_0) = 25
+WHERE LEAST(30, `p`.`Int`, @i) = 25
 """);
     }
 
@@ -1904,11 +1904,11 @@ WHERE LEAST(30, `p`.`Int`, @__i_0) = 25
 
         AssertSql(
 """
-@__i_0='35'
+@i='35'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE GREATEST(30, `p`.`Int`, @__i_0) = 35
+WHERE GREATEST(30, `p`.`Int`, @i) = 35
 """);
     }
 
@@ -1919,13 +1919,13 @@ WHERE GREATEST(30, `p`.`Int`, @__i_0) = 35
 
             AssertSql(
 """
-@__i_0='25' (Nullable = true)
+@i='25' (Nullable = true)
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT MIN(`v`.`Value`)
-    FROM (SELECT CAST(30 AS signed) AS `Value` UNION ALL VALUES ROW(`p`.`Int`), ROW(@__i_0)) AS `v`) = 25
+    FROM (SELECT CAST(30 AS signed) AS `Value` UNION ALL VALUES ROW(`p`.`Int`), ROW(@i)) AS `v`) = 25
 """);
         }
         else
@@ -1944,13 +1944,13 @@ WHERE (
 
             AssertSql(
 """
-@__i_0='35' (Nullable = true)
+@i='35' (Nullable = true)
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT MAX(`v`.`Value`)
-    FROM (SELECT CAST(30 AS signed) AS `Value` UNION ALL VALUES ROW(`p`.`Int`), ROW(@__i_0)) AS `v`) = 35
+    FROM (SELECT CAST(30 AS signed) AS `Value` UNION ALL VALUES ROW(`p`.`Int`), ROW(@i)) AS `v`) = 35
 """);
         }
         else

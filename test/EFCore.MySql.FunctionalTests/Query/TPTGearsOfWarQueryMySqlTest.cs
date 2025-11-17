@@ -67,11 +67,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 
             AssertSql(
 """
-@__timeSpan_0='00:00:00.0010000' (DbType = DateTimeOffset)
+@timeSpan='00:00:00.0010000' (DbType = DateTimeOffset)
 
 SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
 FROM `Missions` AS `m`
-WHERE `m`.`Timeline` > (UTC_TIMESTAMP() - @__timeSpan_0)
+WHERE `m`.`Timeline` > (UTC_TIMESTAMP() - @timeSpan)
 """);
         }
 
@@ -266,7 +266,7 @@ WHERE `m`.`Timeline` > (UTC_TIMESTAMP() - @__timeSpan_0)
 
         AssertSql(
 """
-@__unixEpochMilliseconds_0='0'
+@unixEpochMilliseconds='0'
 
 SELECT `g`.`Nickname`, `g`.`SquadId`, `g`.`AssignedCityName`, `g`.`CityOfBirthName`, `g`.`FullName`, `g`.`HasSoulPatch`, `g`.`LeaderNickname`, `g`.`LeaderSquadId`, `g`.`Rank`, CASE
     WHEN `o`.`Nickname` IS NOT NULL THEN 'Officer'
@@ -279,7 +279,7 @@ WHERE NOT EXISTS (
     SELECT 1
     FROM `SquadMissions` AS `s0`
     INNER JOIN `Missions` AS `m` ON `s0`.`MissionId` = `m`.`Id`
-    WHERE (`s`.`Id` = `s0`.`SquadId`) AND (@__unixEpochMilliseconds_0 = (TIMESTAMPDIFF(microsecond, TIMESTAMP '1970-01-01 00:00:00', `m`.`Timeline`)) DIV (1000)))
+    WHERE (`s`.`Id` = `s0`.`SquadId`) AND (@unixEpochMilliseconds = (TIMESTAMPDIFF(microsecond, TIMESTAMP '1970-01-01 00:00:00', `m`.`Timeline`)) DIV (1000)))
 ORDER BY `g`.`Nickname`, `g`.`SquadId`, `s`.`Id`, `s1`.`SquadId`
 """);
         }
@@ -311,7 +311,7 @@ ORDER BY `g`.`Nickname`, `g`.`SquadId`, `s`.`Id`, `s1`.`SquadId`
 
             AssertSql(
 """
-@__unixEpochSeconds_0='0'
+@unixEpochSeconds='0'
 
 SELECT `g`.`Nickname`, `g`.`SquadId`, `g`.`AssignedCityName`, `g`.`CityOfBirthName`, `g`.`FullName`, `g`.`HasSoulPatch`, `g`.`LeaderNickname`, `g`.`LeaderSquadId`, `g`.`Rank`, CASE
     WHEN `o`.`Nickname` IS NOT NULL THEN 'Officer'
@@ -324,7 +324,7 @@ WHERE NOT EXISTS (
     SELECT 1
     FROM `SquadMissions` AS `s0`
     INNER JOIN `Missions` AS `m` ON `s0`.`MissionId` = `m`.`Id`
-    WHERE (`s`.`Id` = `s0`.`SquadId`) AND (@__unixEpochSeconds_0 = TIMESTAMPDIFF(second, TIMESTAMP '1970-01-01 00:00:00', `m`.`Timeline`)))
+    WHERE (`s`.`Id` = `s0`.`SquadId`) AND (@unixEpochSeconds = TIMESTAMPDIFF(second, TIMESTAMP '1970-01-01 00:00:00', `m`.`Timeline`)))
 ORDER BY `g`.`Nickname`, `g`.`SquadId`, `s`.`Id`, `s1`.`SquadId`
 """);
         }

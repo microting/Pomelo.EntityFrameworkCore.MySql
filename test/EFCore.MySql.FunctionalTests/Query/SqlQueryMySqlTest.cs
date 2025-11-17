@@ -285,13 +285,13 @@ SELECT * FROM `Employees` WHERE `ReportsTo` = @p0 OR (`ReportsTo` IS NULL AND @p
         AssertSql(
 """
 p0='London' (Size = 4000)
-@__contactTitle_1='Sales Representative' (Size = 30)
+@contactTitle='Sales Representative' (Size = 30)
 
 SELECT `m`.`Address`, `m`.`City`, `m`.`CompanyName`, `m`.`ContactName`, `m`.`ContactTitle`, `m`.`Country`, `m`.`CustomerID`, `m`.`Fax`, `m`.`Phone`, `m`.`Region`, `m`.`PostalCode`
 FROM (
     SELECT * FROM `Customers` WHERE `City` = @p0
 ) AS `m`
-WHERE `m`.`ContactTitle` = @__contactTitle_1
+WHERE `m`.`ContactTitle` = @contactTitle
 """);
 
         return null;
@@ -499,14 +499,14 @@ FROM (
 """,
                 //
                 """
-@__max_1='10400'
+@max='10400'
 p0='10300'
 
 SELECT `m`.`OrderID`
 FROM (
     SELECT * FROM `Orders`
 ) AS `m`
-WHERE (`m`.`OrderID` <= @__max_1) AND `m`.`OrderID` IN (
+WHERE (`m`.`OrderID` <= @max) AND `m`.`OrderID` IN (
     SELECT `m0`.`OrderID`
     FROM (
         SELECT * FROM `Orders` WHERE `OrderID` >= @p0
@@ -515,14 +515,14 @@ WHERE (`m`.`OrderID` <= @__max_1) AND `m`.`OrderID` IN (
 """,
                 //
                 """
-@__max_1='10400'
+@max='10400'
 p0='10300'
 
 SELECT `m`.`OrderID`
 FROM (
     SELECT * FROM `Orders`
 ) AS `m`
-WHERE (`m`.`OrderID` <= @__max_1) AND `m`.`OrderID` IN (
+WHERE (`m`.`OrderID` <= @max) AND `m`.`OrderID` IN (
     SELECT `m0`.`OrderID`
     FROM (
         SELECT * FROM `Orders` WHERE `OrderID` >= @p0

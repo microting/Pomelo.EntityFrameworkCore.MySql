@@ -340,9 +340,9 @@ WHERE UNHEX(HEX(`o`.`CustomerID`)) = 'VINET'");
             Assert.Equal(degrees, office.OfficeRoofAngleDegrees);
 
             AssertSql(
-                @"@__radians_1='1.5707963267948966'
+                @"@radians='1.5707963267948966'
 
-SELECT `c`.`CustomerID`, DEGREES(@__radians_1) AS `OfficeRoofAngleDegrees`
+SELECT `c`.`CustomerID`, DEGREES(@radians) AS `OfficeRoofAngleDegrees`
 FROM `Customers` AS `c`
 WHERE `c`.`CustomerID` = 'VINET'
 LIMIT 1");
@@ -363,9 +363,9 @@ LIMIT 1");
             Assert.Equal(radians, office.OfficeRoofAngleRadians);
 
             AssertSql(
-                @"@__degrees_1='90'
+                @"@degrees='90'
 
-SELECT `c`.`CustomerID`, RADIANS(@__degrees_1) AS `OfficeRoofAngleRadians`
+SELECT `c`.`CustomerID`, RADIANS(@degrees) AS `OfficeRoofAngleRadians`
 FROM `Customers` AS `c`
 WHERE `c`.`CustomerID` = 'VINET'
 LIMIT 1");

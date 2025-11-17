@@ -2016,7 +2016,7 @@ LEFT JOIN (
 
         AssertSql(
 """
-@__entity_equality_two_0_Id='1' (Nullable = true)
+@entity_equality_two_Id='1' (Nullable = true)
 
 SELECT `e`.`Id`, `e`.`Name`
 FROM `EntityOnes` AS `e`
@@ -2024,7 +2024,7 @@ WHERE EXISTS (
     SELECT 1
     FROM `JoinOneToTwo` AS `j`
     INNER JOIN `EntityTwos` AS `e0` ON `j`.`TwoId` = `e0`.`Id`
-    WHERE (`e`.`Id` = `j`.`OneId`) AND (`e0`.`Id` = @__entity_equality_two_0_Id))
+    WHERE (`e`.`Id` = `j`.`OneId`) AND (`e0`.`Id` = @entity_equality_two_Id))
 """);
     }
 
@@ -2761,7 +2761,7 @@ LEFT JOIN (
 
         AssertSql(
 """
-@__entity_equality_two_0_Id='1' (Nullable = true)
+@entity_equality_two_Id='1' (Nullable = true)
 
 SELECT `u`.`Id`, `u`.`Name`
 FROM `UnidirectionalEntityOnes` AS `u`
@@ -2769,7 +2769,7 @@ WHERE EXISTS (
     SELECT 1
     FROM `UnidirectionalJoinOneToTwo` AS `u0`
     INNER JOIN `UnidirectionalEntityTwos` AS `u1` ON `u0`.`TwoId` = `u1`.`Id`
-    WHERE (`u`.`Id` = `u0`.`OneId`) AND (`u1`.`Id` = @__entity_equality_two_0_Id))
+    WHERE (`u`.`Id` = `u0`.`OneId`) AND (`u1`.`Id` = @entity_equality_two_Id))
 """);
     }
 
