@@ -45,13 +45,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Internal
             IModel model,
             IDiagnosticsLogger<DbLoggerCategory.Model.Validation> logger)
         {
-            foreach (var entityType in model.GetEntityTypes())
-            {
-                if (entityType.IsMappedToJson())
-                {
-                    throw new InvalidOperationException(MySqlStrings.Ef7CoreJsonMappingNotSupported);
-                }
-            }
+            // EF Core 10+ requires JSON column support for complex collections.
+            // MySQL 5.7.8+ and MariaDB 10.2.4+ support JSON columns.
+            // Let the base implementation handle standard JSON validation.
+            base.ValidateJsonEntities(model, logger);
         }
 
         /// <inheritdoc />

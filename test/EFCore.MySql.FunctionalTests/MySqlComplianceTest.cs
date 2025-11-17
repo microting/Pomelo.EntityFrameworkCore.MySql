@@ -134,18 +134,18 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             typeof(NavigationsSetOperationsRelationalTestBase<>),
             typeof(NavigationsStructuralEqualityRelationalTestBase<>),
 
-            // TODO: 10.0 - Complex property tests
-            typeof(ComplexPropertiesBulkUpdateTestBase<>),
-            typeof(ComplexPropertiesCollectionTestBase<>),
-            typeof(ComplexPropertiesMiscellaneousTestBase<>),
-            typeof(ComplexPropertiesPrimitiveCollectionTestBase<>),
-            typeof(ComplexPropertiesProjectionTestBase<>),
-            typeof(ComplexPropertiesSetOperationsTestBase<>),
-            typeof(ComplexPropertiesStructuralEqualityTestBase<>),
+            // Complex property tests - enable basic ones
+            // typeof(ComplexPropertiesBulkUpdateTestBase<>),  // May need additional work
+            // typeof(ComplexPropertiesCollectionTestBase<>),  // May need additional work  
+            // typeof(ComplexPropertiesMiscellaneousTestBase<>),  // May need additional work
+            // typeof(ComplexPropertiesPrimitiveCollectionTestBase<>),  // May need additional work
+            // typeof(ComplexPropertiesProjectionTestBase<>),  // May need additional work
+            // typeof(ComplexPropertiesSetOperationsTestBase<>),  // May need additional work
+            // typeof(ComplexPropertiesStructuralEqualityTestBase<>),  // May need additional work
 
-            // TODO: 10.0 - Model building tests
-            typeof(ModelBuilderTest.ComplexCollectionTestBase),
-            typeof(RelationalModelBuilderTest.RelationalComplexCollectionTestBase),
+            // Model building tests for complex collections
+            // typeof(ModelBuilderTest.ComplexCollectionTestBase),  // May need additional work
+            // typeof(RelationalModelBuilderTest.RelationalComplexCollectionTestBase),  // May need additional work
 
             // TODO: 10.0 - Tracking and property value tests
             typeof(ComplexTypesTrackingRelationalTestBase<>),
@@ -176,14 +176,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             typeof(ComplexTableSplittingProjectionRelationalTestBase<>),
             typeof(ComplexTableSplittingStructuralEqualityRelationalTestBase<>),
 
-            // TODO: 10.0 - Complex JSON tests
-            typeof(ComplexJsonBulkUpdateRelationalTestBase<>),
-            typeof(ComplexJsonCollectionRelationalTestBase<>),
-            typeof(ComplexJsonMiscellaneousRelationalTestBase<>),
-            typeof(ComplexJsonPrimitiveCollectionRelationalTestBase<>),
-            typeof(ComplexJsonProjectionRelationalTestBase<>),
-            typeof(ComplexJsonSetOperationsRelationalTestBase<>),
-            typeof(ComplexJsonStructuralEqualityRelationalTestBase<>),
+            // Complex JSON tests are now supported for MySQL 5.7.8+ and MariaDB 10.2.4+
+            // These tests should use [SupportedServerVersionCondition("Json")] to skip on older versions
         };
 
         protected override Assembly TargetAssembly { get; } = typeof(MySqlComplianceTest).Assembly;
