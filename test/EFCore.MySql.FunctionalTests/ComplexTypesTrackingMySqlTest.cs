@@ -36,6 +36,51 @@ public class ComplexTypesTrackingMySqlTest : ComplexTypesTrackingTestBase<Comple
         {
             base.OnModelCreating(modelBuilder, context);
 
+            // Complex collections must be mapped to JSON columns in EF Core 10+
+            modelBuilder.Entity<PubWithCollections>(b =>
+            {
+                b.ComplexCollection(
+                    e => e.Activities, b => b.ToJson());
+            });
+
+            modelBuilder.Entity<PubWithRecordCollections>(b =>
+            {
+                b.ComplexCollection(
+                    e => e.Activities, b => b.ToJson());
+            });
+
+            modelBuilder.Entity<PubWithArrayCollections>(b =>
+            {
+                b.ComplexCollection(
+                    e => e.Activities, b => b.ToJson());
+            });
+
+            modelBuilder.Entity<PubWithRecordArrayCollections>(b =>
+            {
+                b.ComplexCollection(
+                    e => e.Activities, b => b.ToJson());
+            });
+
+            modelBuilder.Entity<PubWithPropertyBagCollections>(b =>
+            {
+                b.ComplexCollection(
+                    e => e.Activities, b => b.ToJson());
+            });
+
+            // Field-based entities are only configured when not using proxies
+            // (proxies require virtual properties)
+            modelBuilder.Entity<FieldPubWithCollections>(b =>
+            {
+                b.ComplexCollection(
+                    e => e.Activities, b => b.ToJson());
+            });
+
+            modelBuilder.Entity<FieldPubWithRecordCollections>(b =>
+            {
+                b.ComplexCollection(
+                    e => e.Activities, b => b.ToJson());
+            });
+
             // modelBuilder.Entity<Pub>(
             //     b =>
             //     {
