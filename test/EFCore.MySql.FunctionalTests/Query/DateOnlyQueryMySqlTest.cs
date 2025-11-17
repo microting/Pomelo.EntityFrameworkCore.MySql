@@ -34,11 +34,11 @@ public class DateOnlyQueryMySqlTest : DateOnlyQueryMySqlTestBase<DateOnlyQueryMy
                 .Where(i => i.BestServedBefore.DayNumber - todayDateTime.DayNumber < 30));
 
         AssertSql(
-            $@"@__todayDateTime_DayNumber_0='{todayDateTime.DayNumber}'
+            $@"@todayDateTime_DayNumber='{todayDateTime.DayNumber}'
 
 SELECT `i`.`IceCreamId`, `i`.`BestServedBefore`, `i`.`Name`
 FROM `IceCream` AS `i`
-WHERE ((TO_DAYS(`i`.`BestServedBefore`) - 366) - @__todayDateTime_DayNumber_0) < 30
+WHERE ((TO_DAYS(`i`.`BestServedBefore`) - 366) - @todayDateTime_DayNumber) < 30
 LIMIT 2");
     }
 
@@ -54,11 +54,11 @@ LIMIT 2");
                 .Where(i => i.BestServedBefore.DayNumber == matchaExpireDayNumber));
 
         AssertSql(
-            @"@__matchaExpireDayNumber_0='839691'
+            @"@matchaExpireDayNumber='839691'
 
 SELECT `i`.`IceCreamId`, `i`.`BestServedBefore`, `i`.`Name`
 FROM `IceCream` AS `i`
-WHERE (TO_DAYS(`i`.`BestServedBefore`) - 366) = @__matchaExpireDayNumber_0
+WHERE (TO_DAYS(`i`.`BestServedBefore`) - 366) = @matchaExpireDayNumber
 LIMIT 2");
     }
 
@@ -74,11 +74,11 @@ LIMIT 2");
                 .Where(i => i.BestServedBefore.ToDateTime(new TimeOnly(12, 21, 42)) == matchExpireDateTime));
 
         AssertSql(
-            @"@__matchExpireDateTime_0='2299-12-31T12:21:42.0000000' (DbType = DateTime)
+            @"@matchExpireDateTime='2299-12-31T12:21:42.0000000' (DbType = DateTime)
 
 SELECT `i`.`IceCreamId`, `i`.`BestServedBefore`, `i`.`Name`
 FROM `IceCream` AS `i`
-WHERE ADDTIME(CAST(`i`.`BestServedBefore` AS datetime(6)), TIME '12:21:42') = @__matchExpireDateTime_0
+WHERE ADDTIME(CAST(`i`.`BestServedBefore` AS datetime(6)), TIME '12:21:42') = @matchExpireDateTime
 LIMIT 2");
     }
 
