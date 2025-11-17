@@ -34,11 +34,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 ss => ss.Set<Customer>().Where(c => DateTime.Now != myDatetime));
 
             AssertSql(
-                @"@__myDatetime_0='2015-04-10T00:00:00.0000000' (DbType = DateTime)
+                @"@myDatetime='2015-04-10T00:00:00.0000000' (DbType = DateTime)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE CURRENT_TIMESTAMP(6) <> @__myDatetime_0");
+WHERE CURRENT_TIMESTAMP(6) <> @myDatetime");
         }
 
         [ConditionalTheory]
@@ -52,11 +52,11 @@ WHERE CURRENT_TIMESTAMP(6) <> @__myDatetime_0");
                 ss => ss.Set<Customer>().Where(c => DateTime.UtcNow != myDatetime));
 
             AssertSql(
-                @"@__myDatetime_0='2015-04-10T00:00:00.0000000' (DbType = DateTime)
+                @"@myDatetime='2015-04-10T00:00:00.0000000' (DbType = DateTime)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE UTC_TIMESTAMP(6) <> @__myDatetime_0");
+WHERE UTC_TIMESTAMP(6) <> @myDatetime");
         }
 
         [ConditionalTheory]
@@ -84,11 +84,11 @@ WHERE CONVERT(CURRENT_TIMESTAMP(6), date) = CURDATE()");
                 ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Date == myDatetime));
 
             AssertSql(
-                @"@__myDatetime_0='1998-05-04T00:00:00.0000000' (DbType = DateTime)
+                @"@myDatetime='1998-05-04T00:00:00.0000000' (DbType = DateTime)
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
-WHERE CONVERT(`o`.`OrderDate`, date) = @__myDatetime_0");
+WHERE CONVERT(`o`.`OrderDate`, date) = @myDatetime");
         }
 
         [ConditionalTheory]
@@ -325,11 +325,11 @@ WHERE CONCAT(SUBSTRING(`c`.`City`, 1, 3), SUBSTRING(`c`.`City`, (3 + 1) + 1, CHA
                 assertEmpty: true);
 
             AssertSql(
-                @"@__guidParameter_0='4d68fe70-ddb0-47d7-b6db-437684fa3e1f'
+                @"@guidParameter='4d68fe70-ddb0-47d7-b6db-437684fa3e1f'
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE @__guidParameter_0 = UUID()");
+WHERE @guidParameter = UUID()");
         }
 
         [ConditionalTheory]
@@ -345,12 +345,12 @@ WHERE @__guidParameter_0 = UUID()");
 
             AssertSql(
 """
-@__i_0='A' (Size = 4000)
-@__j_1='B' (Size = 4000)
+@i='A' (Size = 4000)
+@j='B' (Size = 4000)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE CONCAT(@__i_0, @__j_1, `c`.`CustomerID`) = 'ABANATR'
+WHERE CONCAT(@i, @j, `c`.`CustomerID`) = 'ABANATR'
 """);
         }
 
@@ -368,13 +368,13 @@ WHERE CONCAT(@__i_0, @__j_1, `c`.`CustomerID`) = 'ABANATR'
 
             AssertSql(
 """
-@__i_0='A' (Size = 4000)
-@__j_1='B' (Size = 4000)
-@__k_2='C' (Size = 4000)
+@i='A' (Size = 4000)
+@j='B' (Size = 4000)
+@k='C' (Size = 4000)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE CONCAT(@__i_0, @__j_1, @__k_2, `c`.`CustomerID`) = 'ABCANTON'
+WHERE CONCAT(@i, @j, @k, `c`.`CustomerID`) = 'ABCANTON'
 """);
         }
 
@@ -390,11 +390,11 @@ WHERE CONCAT(@__i_0, @__j_1, @__k_2, `c`.`CustomerID`) = 'ABCANTON'
                 assertEmpty: true);
 
             AssertSql(
-                @"@__Concat_0='1' (Size = 40)
+                @"@Concat='1' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @__Concat_0 = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
@@ -409,11 +409,11 @@ WHERE @__Concat_0 = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@__i_0='1' (Size = 4000)
+                @"@i='1' (Size = 4000)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE CONCAT(@__i_0, `c`.`CustomerID`) = `c`.`CompanyName`");
+WHERE CONCAT(@i, `c`.`CustomerID`) = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
@@ -429,12 +429,12 @@ WHERE CONCAT(@__i_0, `c`.`CustomerID`) = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@__i_0='1' (Size = 4000)
-@__j_1='2' (Size = 4000)
+                @"@i='1' (Size = 4000)
+@j='2' (Size = 4000)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE CONCAT(@__i_0, @__j_1, `c`.`CustomerID`) = `c`.`CompanyName`");
+WHERE CONCAT(@i, @j, `c`.`CustomerID`) = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
@@ -452,13 +452,13 @@ WHERE CONCAT(@__i_0, @__j_1, `c`.`CustomerID`) = `c`.`CompanyName`");
 
         AssertSql(
 """
-@__i_0='1' (Size = 4000)
-@__j_1='2' (Size = 4000)
-@__k_2='3' (Size = 4000)
+@i='1' (Size = 4000)
+@j='2' (Size = 4000)
+@k='3' (Size = 4000)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE CONCAT(@__i_0, @__j_1, @__k_2, `c`.`CustomerID`) = `c`.`CompanyName`
+WHERE CONCAT(@i, @j, @k, `c`.`CustomerID`) = `c`.`CompanyName`
 """);
         }
 
@@ -478,14 +478,14 @@ WHERE CONCAT(@__i_0, @__j_1, @__k_2, `c`.`CustomerID`) = `c`.`CompanyName`
 
         AssertSql(
 """
-@__i_0='A' (Size = 4000)
-@__j_1='B' (Size = 4000)
-@__k_2='C' (Size = 4000)
-@__m_3='D' (Size = 4000)
+@i='A' (Size = 4000)
+@j='B' (Size = 4000)
+@k='C' (Size = 4000)
+@m='D' (Size = 4000)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE CONCAT(@__i_0, @__j_1, @__k_2, @__m_3, `c`.`CustomerID`) = `c`.`CompanyName`
+WHERE CONCAT(@i, @j, @k, @m, `c`.`CustomerID`) = `c`.`CompanyName`
 """);
         }
 
@@ -501,11 +501,11 @@ WHERE CONCAT(@__i_0, @__j_1, @__k_2, @__m_3, `c`.`CustomerID`) = `c`.`CompanyNam
                 assertEmpty: true);
 
             AssertSql(
-                @"@__Concat_0='ABCD' (Size = 40)
+                @"@Concat='ABCD' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @__Concat_0 = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
@@ -520,11 +520,11 @@ WHERE @__Concat_0 = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@__Concat_0='A' (Size = 40)
+                @"@Concat='A' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @__Concat_0 = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
@@ -543,14 +543,14 @@ WHERE @__Concat_0 = `c`.`CompanyName`");
 
         AssertSql(
 """
-@__i_0='1' (Size = 4000)
-@__j_1='2' (Size = 4000)
-@__k_2='3' (Size = 4000)
-@__m_3='4' (Size = 4000)
+@i='1' (Size = 4000)
+@j='2' (Size = 4000)
+@k='3' (Size = 4000)
+@m='4' (Size = 4000)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE CONCAT(@__i_0, @__j_1, @__k_2, @__m_3, `c`.`CustomerID`) = `c`.`CompanyName`
+WHERE CONCAT(@i, @j, @k, @m, `c`.`CustomerID`) = `c`.`CompanyName`
 """);
         }
 
@@ -566,11 +566,11 @@ WHERE CONCAT(@__i_0, @__j_1, @__k_2, @__m_3, `c`.`CustomerID`) = `c`.`CompanyNam
                 assertEmpty: true);
 
             AssertSql(
-                @"@__Concat_0='1234' (Size = 40)
+                @"@Concat='1234' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @__Concat_0 = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
@@ -585,11 +585,11 @@ WHERE @__Concat_0 = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@__Concat_0='1' (Size = 40)
+                @"@Concat='1' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @__Concat_0 = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
@@ -604,11 +604,11 @@ WHERE @__Concat_0 = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@__Concat_0='ABCD' (Size = 40)
+                @"@Concat='ABCD' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @__Concat_0 = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
@@ -623,11 +623,11 @@ WHERE @__Concat_0 = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@__Concat_0='A' (Size = 40)
+                @"@Concat='A' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @__Concat_0 = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
@@ -642,11 +642,11 @@ WHERE @__Concat_0 = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@__Concat_0='1234' (Size = 40)
+                @"@Concat='1234' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @__Concat_0 = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
@@ -661,11 +661,11 @@ WHERE @__Concat_0 = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@__Concat_0='1' (Size = 40)
+                @"@Concat='1' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @__Concat_0 = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`");
         }
 
         [ConditionalTheory]
