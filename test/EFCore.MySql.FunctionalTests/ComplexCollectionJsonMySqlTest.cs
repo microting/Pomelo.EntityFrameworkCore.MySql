@@ -123,14 +123,8 @@ public class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJso
             {
                 entity.HasKey(e => e.Id);
                 
-                // In EF Core 10, complex collections MUST use ToJson()
-                // This maps the collection to a JSON column in the database
-                // We use ComplexProperty to configure the Departments complex type collection
-                entity.ComplexProperty(e => e.Departments);
-                    //.ToJson();  // This should make it a JSON column - but the API might be different
-                
-                // Alternative: If ComplexProperty doesn't have ToJson(), we might need to use:
-                // entity.Property(e => e.Departments).ToJson();
+                // In EF Core 10, complex collections MUST be mapped to JSON columns
+                entity.ComplexCollection(e => e.Departments).ToJson();
             });
         }
     }

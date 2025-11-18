@@ -14,6 +14,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         public class PropertyValuesMySqlFixture : PropertyValuesFixtureBase
         {
             protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
+
+            protected override void OnModelCreating(ModelBuilder modelBuilder, DbContext context)
+            {
+                base.OnModelCreating(modelBuilder, context);
+
+                // Complex collections must be mapped to JSON columns in EF Core 10+
+                modelBuilder.Entity<School>(b => b.ComplexCollection(e => e.Departments, b => b.ToJson()));
+            }
         }
     }
 }
