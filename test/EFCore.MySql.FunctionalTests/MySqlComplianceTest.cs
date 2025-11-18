@@ -134,20 +134,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             typeof(NavigationsSetOperationsRelationalTestBase<>),
             typeof(NavigationsStructuralEqualityRelationalTestBase<>),
 
-            // Complex property tests - enable basic ones
-            // typeof(ComplexPropertiesBulkUpdateTestBase<>),  // May need additional work
-            // typeof(ComplexPropertiesCollectionTestBase<>),  // May need additional work  
-            // typeof(ComplexPropertiesMiscellaneousTestBase<>),  // May need additional work
-            // typeof(ComplexPropertiesPrimitiveCollectionTestBase<>),  // May need additional work
-            // typeof(ComplexPropertiesProjectionTestBase<>),  // May need additional work
-            // typeof(ComplexPropertiesSetOperationsTestBase<>),  // May need additional work
-            // typeof(ComplexPropertiesStructuralEqualityTestBase<>),  // May need additional work
-
-            // Model building tests for complex collections
-            // typeof(ModelBuilderTest.ComplexCollectionTestBase),  // May need additional work
-            // typeof(RelationalModelBuilderTest.RelationalComplexCollectionTestBase),  // May need additional work
-
-            // TODO: 10.0 - Tracking and property value tests
+            // TODO: 10.0 - Association tests
+            typeof(AssociationsBulkUpdateTestBase<>),
+            typeof(AssociationsCollectionTestBase<>),
+            typeof(AssociationsMiscellaneousTestBase<>),
+            typeof(AssociationsPrimitiveCollectionTestBase<>),
+            typeof(AssociationsProjectionTestBase<>),
+            typeof(AssociationsSetOperationsTestBase<>),
+            typeof(AssociationsStructuralEqualityTestBase<>),
             typeof(ComplexTypesTrackingRelationalTestBase<>),
             typeof(LazyLoadProxyRelationalTestBase<>),
             typeof(PropertyValuesRelationalTestBase<>),
