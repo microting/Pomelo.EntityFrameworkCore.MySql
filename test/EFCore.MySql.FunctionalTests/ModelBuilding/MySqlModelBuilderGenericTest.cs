@@ -66,4 +66,11 @@ public class MySqlModelBuilderGenericTest : MySqlModelBuilderTestBase
             Action<ModelConfigurationBuilder> configure)
             => new ModelBuilderTest.GenericTestModelBuilder(Fixture, configure);
     }
+
+    public class MySqlGenericComplexCollection(MySqlModelBuilderFixture fixture) : MySqlComplexCollection(fixture)
+    {
+        protected override TestModelBuilder CreateModelBuilder(
+            Action<ModelConfigurationBuilder> configure)
+            => new ModelBuilderTest.GenericTestModelBuilder(Fixture, configure);
+    }
 }
