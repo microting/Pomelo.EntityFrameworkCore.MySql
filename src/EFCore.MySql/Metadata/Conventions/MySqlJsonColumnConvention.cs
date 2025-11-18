@@ -13,7 +13,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
     ///     A convention that configures the column type as "json" for properties and complex properties
     ///     that are mapped to JSON columns in the database.
     /// </summary>
-    public class MySqlJsonColumnConvention : IComplexPropertyAddedConvention, IComplexPropertyAnnotationChangedConvention
+    public class MySqlJsonColumnConvention : IModelFinalizingConvention
     {
         /// <summary>
         ///     Creates a new instance of <see cref="MySqlJsonColumnConvention" />.
@@ -39,50 +39,29 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
         protected virtual RelationalConventionSetBuilderDependencies RelationalDependencies { get; }
 
         /// <inheritdoc />
-        public virtual void ProcessComplexPropertyAdded(
-            IConventionComplexPropertyBuilder propertyBuilder,
-            IConventionContext<IConventionComplexPropertyBuilder> context)
+        public virtual void ProcessModelFinalizing(
+            IConventionModelBuilder modelBuilder,
+            IConventionContext<IConventionModelBuilder> context)
         {
-            SetJsonColumnTypeIfNeeded(propertyBuilder);
-        }
-
-        /// <inheritdoc />
-        public virtual void ProcessComplexPropertyAnnotationChanged(
-            IConventionComplexPropertyBuilder propertyBuilder,
-            string name,
-            IConventionAnnotation annotation,
-            IConventionAnnotation oldAnnotation,
-            IConventionContext<IConventionAnnotation> context)
-        {
-            // Check if the JSON property name annotation or container column type annotation was added/changed
-            // The JsonPropertyName annotation is set when .ToJson() is called
-            if (name == RelationalAnnotationNames.JsonPropertyName ||
-                name == RelationalAnnotationNames.ContainerColumnType)
+            // Iterate through all entity types and their complex properties
+            foreach (var entityType in modelBuilder.Metadata.GetEntityTypes())
             {
-                SetJsonColumnTypeIfNeeded(propertyBuilder);
-            }
-        }
-
-        private static void SetJsonColumnTypeIfNeeded(IConventionComplexPropertyBuilder propertyBuilder)
-        {
-            var complexProperty = propertyBuilder.Metadata;
-            
-            // Check if this complex property is mapped to a JSON column
-            // The JsonPropertyName annotation is set when .ToJson() is called
-            // It can be an empty string (default) or a specific name
-            var jsonPropertyName = complexProperty.GetJsonPropertyName();
-            if (jsonPropertyName != null)
-            {
-                // Set the container column type on the complex type (not the property)
-                // EF Core reads the container column type from the type, not the property
-                var complexType = complexProperty.ComplexType;
-                if (complexType is IConventionComplexType conventionComplexType)
+                foreach (var complexProperty in entityType.GetComplexProperties())
                 {
-                    // Set ContainerColumnType on the complex type
-                    conventionComplexType.Builder.HasAnnotation(
-                        RelationalAnnotationNames.ContainerColumnType,
-                        "json",
-                        fromDataAnnotation: false);
+                    // Check if this complex property is mapped to a JSON column
+                    var jsonPropertyName = complexProperty.GetJsonPropertyName();
+                    if (jsonPropertyName != null)
+                    {
+                        // Set the container column type to "json" for MySQL
+                        var complexType = complexProperty.ComplexType;
+                        if (complexType is IConventionComplexType conventionComplexType)
+                        {
+                            conventionComplexType.Builder.HasAnnotation(
+                                RelationalAnnotationNames.ContainerColumnType,
+                                "json",
+                                fromDataAnnotation: false);
+                        }
+                    }
                 }
             }
         }
