@@ -44,6 +44,11 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Conventions
             conventionSet.PropertyAddedConventions.Add(new ColumnCharSetAttributeConvention(Dependencies));
             conventionSet.PropertyAddedConventions.Add(new ColumnCollationAttributeConvention(Dependencies));
 
+            // Add JSON column convention for complex properties
+            var jsonColumnConvention = new MySqlJsonColumnConvention(Dependencies, RelationalDependencies);
+            conventionSet.ComplexPropertyAddedConventions.Add(jsonColumnConvention);
+            conventionSet.ComplexPropertyAnnotationChangedConventions.Add(jsonColumnConvention);
+
             var valueGenerationConvention = new MySqlValueGenerationConvention(Dependencies, RelationalDependencies);
             ReplaceConvention(conventionSet.EntityTypeBaseTypeChangedConventions, valueGenerationConvention);
             ReplaceConvention(conventionSet.EntityTypeAnnotationChangedConventions, (RelationalValueGenerationConvention)valueGenerationConvention);
