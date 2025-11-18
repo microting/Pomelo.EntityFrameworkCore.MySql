@@ -330,9 +330,15 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                             ?.WithTypeMappingInfo(in mappingInfo);
                 }
 
-                if (storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase) &&
-                    (clrType == null || clrType == typeof(string) || clrType == typeof(MySqlJsonString)))
+                // Handle JSON store type for any CLR type
+                // This is needed for complex collections mapped with .ToJson() in EF Core 10+
+                // Works for both MySQL (native JSON type) and MariaDB (JSON alias for LONGTEXT)
+                if (storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                 {
+                    // Return JSON mapping for any CLR type since JSON can serialize any object
+                    // The "json" store type works for both:
+                    // - MySQL 5.7.8+: Creates native JSON column with binary storage
+                    // - MariaDB 10.2.4+: Creates LONGTEXT column with JSON validation constraint
                     return _jsonDefaultString;
                 }
 
