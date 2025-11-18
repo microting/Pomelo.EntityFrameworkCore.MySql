@@ -12,6 +12,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
     /// <summary>
     ///     A convention that configures the column type as "json" for complex properties
     ///     that are mapped to JSON columns in the database.
+    ///     
+    ///     Works for both MySQL (5.7.8+, native JSON type) and MariaDB (10.2.4+, JSON as LONGTEXT alias).
+    ///     Both databases accept "json" as the column type in DDL, with different underlying storage:
+    ///     - MySQL: Binary JSON format with optimized storage and indexing
+    ///     - MariaDB: LONGTEXT with JSON validation constraint
     /// </summary>
     public class MySqlJsonColumnConvention : IComplexPropertyAddedConvention, IComplexPropertyAnnotationChangedConvention
     {
@@ -70,8 +75,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
             var jsonPropertyName = complexProperty.GetJsonPropertyName();
             if (jsonPropertyName != null)
             {
-                // Set the container column type to "json" for MySQL
-                // Use the proper extension method on the complex type (not property)
+                // Set the container column type to "json" for MySQL/MariaDB
+                // Both databases accept "json" as the column type:
+                // - MySQL 5.7.8+: Native JSON type with binary storage
+                // - MariaDB 10.2.4+: JSON as alias for LONGTEXT with validation constraint
                 var complexType = complexProperty.ComplexType;
                 if (complexType is IConventionComplexType conventionComplexType)
                 {
