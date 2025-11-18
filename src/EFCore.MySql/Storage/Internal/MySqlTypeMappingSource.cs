@@ -330,9 +330,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                             ?.WithTypeMappingInfo(in mappingInfo);
                 }
 
-                if (storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase) &&
-                    (clrType == null || clrType == typeof(string) || clrType == typeof(MySqlJsonString)))
+                // Handle JSON store type for any CLR type
+                // This is needed for complex collections mapped with .ToJson() in EF Core 10+
+                if (storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                 {
+                    // Return JSON mapping for any CLR type since JSON can serialize any object
+                    // If no CLR type specified, use string as default
                     return _jsonDefaultString;
                 }
 
