@@ -45,7 +45,9 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Conventions
             conventionSet.PropertyAddedConventions.Add(new ColumnCollationAttributeConvention(Dependencies));
 
             // Add JSON column convention to set store type for JSON-mapped complex properties
-            conventionSet.ModelFinalizingConventions.Add(new MySqlJsonColumnConvention(Dependencies, RelationalDependencies));
+            var jsonColumnConvention = new MySqlJsonColumnConvention(Dependencies, RelationalDependencies);
+            conventionSet.ComplexPropertyAddedConventions.Add(jsonColumnConvention);
+            conventionSet.ComplexPropertyAnnotationChangedConventions.Add(jsonColumnConvention);
 
             var valueGenerationConvention = new MySqlValueGenerationConvention(Dependencies, RelationalDependencies);
             ReplaceConvention(conventionSet.EntityTypeBaseTypeChangedConventions, valueGenerationConvention);
