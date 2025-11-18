@@ -20,8 +20,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
                 base.OnModelCreating(modelBuilder, context);
 
                 // Complex collections must be mapped to JSON columns in EF Core 10+
-                // MySQL requires explicit column type specification for JSON columns
-                modelBuilder.Entity<School>(b => b.ComplexCollection(e => e.Departments, b => b.ToJson().HasColumnType("json")));
+                modelBuilder.Entity<School>(b => b.ComplexCollection(e => e.Departments, b => b.ToJson()));
             }
         }
     }
