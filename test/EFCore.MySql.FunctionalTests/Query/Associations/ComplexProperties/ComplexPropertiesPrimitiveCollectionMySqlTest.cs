@@ -68,6 +68,16 @@ public class ComplexPropertiesPrimitiveCollectionMySqlTest : ComplexPropertiesPr
         {
             try
             {
+                // Get the member info (property or field)
+                var memberInfo = complexProperty.PropertyInfo as MemberInfo ?? complexProperty.FieldInfo;
+                if (memberInfo == null) return;
+
+                // Get the collection element type
+                var collectionType = complexProperty.ClrType;
+                if (!collectionType.IsGenericType) return;
+                
+                var elementType = collectionType.GetGenericArguments()[0];
+
                 // Get the EntityTypeBuilder for this entity type using the generic Entity<T>() method
                 var entityMethod = typeof(ModelBuilder).GetMethods()
                     .FirstOrDefault(m => m.Name == nameof(ModelBuilder.Entity) &&
@@ -79,28 +89,33 @@ public class ComplexPropertiesPrimitiveCollectionMySqlTest : ComplexPropertiesPr
                 var entityBuilder = genericEntityMethod.Invoke(modelBuilder, null);
                 if (entityBuilder == null) return;
 
-                // Get the member info (property or field)
-                var memberInfo = complexProperty.PropertyInfo as MemberInfo ?? complexProperty.FieldInfo;
-                if (memberInfo == null) return;
-
                 // Build the lambda expression: e => e.Property/Field
                 var parameter = Expression.Parameter(entityType.ClrType, "e");
                 var memberAccess = Expression.MakeMemberAccess(parameter, memberInfo);
-                var lambda = Expression.Lambda(memberAccess, parameter);
+                var lambdaType = typeof(Expression<>).MakeGenericType(
+                    typeof(Func<,>).MakeGenericType(entityType.ClrType, collectionType));
+                var lambda = Expression.Lambda(lambdaType, memberAccess, parameter);
 
-                // Call ComplexCollection(lambda)
-                var complexCollectionMethod = typeof(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<>)
-                    .MakeGenericType(entityType.ClrType)
-                    .GetMethods()
-                    .FirstOrDefault(m => m.Name == "ComplexCollection" && m.GetParameters().Length == 1);
+                // Find the ComplexCollection method - it's generic with one type parameter (the element type)
+                var entityTypeBuilderType = typeof(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<>)
+                    .MakeGenericType(entityType.ClrType);
+                
+                var complexCollectionMethod = entityTypeBuilderType.GetMethods()
+                    .FirstOrDefault(m => m.Name == "ComplexCollection" && 
+                                         m.IsGenericMethodDefinition && 
+                                         m.GetGenericArguments().Length == 1 &&
+                                         m.GetParameters().Length == 1);
                 
                 if (complexCollectionMethod == null) return;
 
-                var collectionBuilder = complexCollectionMethod.Invoke(entityBuilder, new object[] { lambda });
+                // Make the generic method with the element type
+                var genericComplexCollectionMethod = complexCollectionMethod.MakeGenericMethod(elementType);
+                
+                var collectionBuilder = genericComplexCollectionMethod.Invoke(entityBuilder, new object[] { lambda });
                 if (collectionBuilder == null) return;
 
                 // Call ToJson() on the collection builder
-                var toJsonMethod = collectionBuilder.GetType().GetMethod("ToJson", new Type[] { });
+                var toJsonMethod = collectionBuilder.GetType().GetMethod("ToJson", Type.EmptyTypes);
                 if (toJsonMethod != null)
                 {
                     toJsonMethod.Invoke(collectionBuilder, null);
