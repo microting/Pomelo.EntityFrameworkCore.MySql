@@ -52,13 +52,6 @@ public class ComplexPropertiesStructuralEqualityMySqlTest : ComplexPropertiesStr
 
         private static void SetJsonStoreTypeRecursively(IMutableComplexProperty complexProperty)
         {
-            // For collection properties, ensure they're mapped to JSON
-            if (complexProperty.IsCollection && complexProperty.GetJsonPropertyName() == null)
-            {
-                // Map to JSON if not already done
-                complexProperty.SetJsonPropertyName(complexProperty.Name);
-            }
-
             if (complexProperty.GetJsonPropertyName() != null)
             {
                 complexProperty.ComplexType.SetContainerColumnType("json");
@@ -75,11 +68,15 @@ public class ComplexPropertiesStructuralEqualityMySqlTest : ComplexPropertiesStr
         {
             try
             {
-                // Get the EntityTypeBuilder for this entity type
-                var entityMethod = typeof(ModelBuilder).GetMethod(nameof(ModelBuilder.Entity), 1, new[] { typeof(Type) });
+                // Get the EntityTypeBuilder for this entity type using the generic Entity<T>() method
+                var entityMethod = typeof(ModelBuilder).GetMethods()
+                    .FirstOrDefault(m => m.Name == nameof(ModelBuilder.Entity) &&
+                                         m.IsGenericMethodDefinition &&
+                                         m.GetParameters().Length == 0);
                 if (entityMethod == null) return;
-                
-                var entityBuilder = entityMethod.Invoke(modelBuilder, new object[] { entityType.ClrType });
+
+                var genericEntityMethod = entityMethod.MakeGenericMethod(entityType.ClrType);
+                var entityBuilder = genericEntityMethod.Invoke(modelBuilder, null);
                 if (entityBuilder == null) return;
 
                 // Get the member info (property or field)
