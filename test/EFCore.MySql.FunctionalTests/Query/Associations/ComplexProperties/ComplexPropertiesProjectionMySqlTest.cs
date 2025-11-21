@@ -76,7 +76,8 @@ public class ComplexPropertiesProjectionMySqlTest : ComplexPropertiesProjectionT
                 var collectionType = complexProperty.ClrType;
                 if (!collectionType.IsGenericType) return;
                 
-                var elementType = collectionType.GetGenericArguments()[0];
+                var elementType = collectionType.GetGenericArguments().FirstOrDefault();
+                if (elementType == null) return;
 
                 // Get the EntityTypeBuilder for this entity type using the generic Entity<T>() method
                 var entityMethod = typeof(ModelBuilder).GetMethods()
@@ -92,9 +93,22 @@ public class ComplexPropertiesProjectionMySqlTest : ComplexPropertiesProjectionT
                 // Build the lambda expression: e => e.Property/Field
                 var parameter = Expression.Parameter(entityType.ClrType, "e");
                 var memberAccess = Expression.MakeMemberAccess(parameter, memberInfo);
-                var lambdaType = typeof(Expression<>).MakeGenericType(
-                    typeof(Func<,>).MakeGenericType(entityType.ClrType, collectionType));
-                var lambda = Expression.Lambda(lambdaType, memberAccess, parameter);
+                // Create the Func<TEntity, IEnumerable<TElement>> type
+                var funcType = typeof(Func<,>).MakeGenericType(entityType.ClrType, collectionType);
+                var expressionType = typeof(Expression<>).MakeGenericType(funcType);
+                
+                // Use the Expression.Lambda method that takes delegateType as first parameter
+                var lambdaMethod = typeof(Expression).GetMethods()
+                    .Where(m => m.Name == nameof(Expression.Lambda) && m.IsGenericMethod)
+                    .Select(m => m.MakeGenericMethod(funcType))
+                    .FirstOrDefault(m => m.GetParameters().Length == 2 &&
+                                         m.GetParameters()[0].ParameterType == typeof(Expression) &&
+                                         m.GetParameters()[1].ParameterType == typeof(ParameterExpression[]));
+                
+                if (lambdaMethod == null) return;
+                
+                var lambda = lambdaMethod.Invoke(null, new object[] { memberAccess, new[] { parameter } });
+                if (lambda == null) return;
 
                 // Find the ComplexCollection method - it's generic with one type parameter (the element type)
                 var entityTypeBuilderType = typeof(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<>)
@@ -121,10 +135,10 @@ public class ComplexPropertiesProjectionMySqlTest : ComplexPropertiesProjectionT
                     toJsonMethod.Invoke(collectionBuilder, null);
                 }
             }
-            catch
+            catch (Exception)
             {
                 // Silently ignore errors in reflection-based configuration
-                // The base fixture should handle the model configuration
+                // The safety net (SetJsonStoreTypeRecursively) should handle these cases
             }
         }
     }
