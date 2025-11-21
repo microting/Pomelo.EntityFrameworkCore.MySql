@@ -126,6 +126,18 @@ public class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJso
                 // In EF Core 10, complex collections MUST be mapped to JSON columns
                 entity.ComplexCollection(e => e.Departments).ToJson();
             });
+
+            // Ensure all JSON-mapped complex properties have the correct store type for MySQL
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var complexProperty in entityType.GetComplexProperties())
+                {
+                    if (complexProperty.GetJsonPropertyName() != null)
+                    {
+                        complexProperty.ComplexType.SetContainerColumnType("json");
+                    }
+                }
+            }
         }
     }
 

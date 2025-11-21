@@ -288,6 +288,18 @@ public class ComplexTypesTrackingMySqlTest : ComplexTypesTrackingTestBase<Comple
             //         }
             //     }
             // }
+
+            // Ensure all JSON-mapped complex properties have the correct store type for MySQL
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var complexProperty in entityType.GetComplexProperties())
+                {
+                    if (complexProperty.GetJsonPropertyName() != null)
+                    {
+                        complexProperty.ComplexType.SetContainerColumnType("json");
+                    }
+                }
+            }
         }
     }
 }
