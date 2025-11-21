@@ -1,4 +1,5 @@
 // Copyright (c) Pomelo Foundation. All rights reserved.
+using Microsoft.EntityFrameworkCore.Metadata;
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -126,6 +127,29 @@ public class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJso
                 // In EF Core 10, complex collections MUST be mapped to JSON columns
                 entity.ComplexCollection(e => e.Departments).ToJson();
             });
+
+            // Ensure all JSON-mapped complex properties have the correct store type for MySQL
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var complexProperty in entityType.GetComplexProperties())
+                {
+                    SetJsonStoreTypeRecursively(complexProperty);
+                }
+            }
+        }
+
+        private static void SetJsonStoreTypeRecursively(IMutableComplexProperty complexProperty)
+        {
+            if (complexProperty.GetJsonPropertyName() != null)
+            {
+                complexProperty.ComplexType.SetContainerColumnType("json");
+            }
+
+            // Also handle nested complex properties
+            foreach (var nestedComplexProperty in complexProperty.ComplexType.GetComplexProperties())
+            {
+                SetJsonStoreTypeRecursively(nestedComplexProperty);
+            }
         }
     }
 

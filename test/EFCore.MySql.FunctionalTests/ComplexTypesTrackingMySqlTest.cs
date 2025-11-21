@@ -288,6 +288,29 @@ public class ComplexTypesTrackingMySqlTest : ComplexTypesTrackingTestBase<Comple
             //         }
             //     }
             // }
+
+            // Ensure all JSON-mapped complex properties have the correct store type for MySQL
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var complexProperty in entityType.GetComplexProperties())
+                {
+                    SetJsonStoreTypeRecursively(complexProperty);
+                }
+            }
+        }
+
+        private static void SetJsonStoreTypeRecursively(IMutableComplexProperty complexProperty)
+        {
+            if (complexProperty.GetJsonPropertyName() != null)
+            {
+                complexProperty.ComplexType.SetContainerColumnType("json");
+            }
+
+            // Also handle nested complex properties
+            foreach (var nestedComplexProperty in complexProperty.ComplexType.GetComplexProperties())
+            {
+                SetJsonStoreTypeRecursively(nestedComplexProperty);
+            }
         }
     }
 }
