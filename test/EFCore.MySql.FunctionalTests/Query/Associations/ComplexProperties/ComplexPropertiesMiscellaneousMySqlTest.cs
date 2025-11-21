@@ -141,6 +141,7 @@ public class ComplexPropertiesMiscellaneousMySqlTest : ComplexPropertiesMiscella
                 // Log the exception to help diagnose reflection issues
                 Console.WriteLine($"Failed to configure complex collection {complexProperty.Name} on {entityType.ClrType.Name}: {ex.Message}");
                 Console.WriteLine($"Inner exception: {ex.InnerException?.Message}");
+            }
         }
     }
 }
