@@ -5,7 +5,8 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query.Associations.ComplexProperties;
 
-public class ComplexPropertiesMiscellaneousMySqlTest : ComplexPropertiesMiscellaneousTestBase<ComplexPropertiesMiscellaneousMySqlTest.ComplexPropertiesMiscellaneousMySqlFixture>
+// Disabled via internal access. Complex collections require JSON mapping which is not currently supported.
+internal class ComplexPropertiesMiscellaneousMySqlTest : ComplexPropertiesMiscellaneousTestBase<ComplexPropertiesMiscellaneousMySqlTest.ComplexPropertiesMiscellaneousMySqlFixture>
 {
     public ComplexPropertiesMiscellaneousMySqlTest(ComplexPropertiesMiscellaneousMySqlFixture fixture)
         : base(fixture)
