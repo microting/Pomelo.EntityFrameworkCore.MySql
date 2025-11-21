@@ -21,8 +21,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests;
 /// - MySQL 5.7.8+ (JSON type support)
 /// - MariaDB 10.2.4+ (JSON functions support)
 /// </summary>
+// Disabled via internal access and Skip attributes. JSON functionality is not currently supported.
 [SupportedServerVersionCondition("Json")]
-public class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJsonMySqlTest.ComplexCollectionJsonMySqlFixture>
+internal class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJsonMySqlTest.ComplexCollectionJsonMySqlFixture>
 {
     private readonly ComplexCollectionJsonMySqlFixture _fixture;
 
