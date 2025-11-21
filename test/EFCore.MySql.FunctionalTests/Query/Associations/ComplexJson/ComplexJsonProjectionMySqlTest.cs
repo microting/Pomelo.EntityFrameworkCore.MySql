@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query.Associations.ComplexJson;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
@@ -7,14 +8,14 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query.Associations.ComplexJson;
 
-public class ComplexJsonProjectionMySqlTest : ComplexJsonProjectionRelationalTestBase<ComplexJsonProjectionMySqlTest.ComplexJsonProjectionMySqlFixture>
+public class ComplexJsonProjectionMySqlTest : ComplexJsonProjectionRelationalTestBase<ComplexJsonProjectionMySqlTest.ComplexJsonProjectionMySqlTestFixture>
 {
-    public ComplexJsonProjectionMySqlTest(ComplexJsonProjectionMySqlFixture fixture, ITestOutputHelper testOutputHelper)
+    public ComplexJsonProjectionMySqlTest(ComplexJsonProjectionMySqlTestFixture fixture, ITestOutputHelper testOutputHelper)
         : base(fixture, testOutputHelper)
     {
     }
 
-    public class ComplexJsonProjectionMySqlFixture : ComplexJsonRelationalFixtureBase
+    public class ComplexJsonProjectionMySqlTestFixture : ComplexJsonRelationalFixtureBase
     {
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
@@ -28,11 +29,22 @@ public class ComplexJsonProjectionMySqlTest : ComplexJsonProjectionRelationalTes
             {
                 foreach (var complexProperty in entityType.GetComplexProperties())
                 {
-                    if (complexProperty.GetJsonPropertyName() != null)
-                    {
-                        complexProperty.ComplexType.SetContainerColumnType("json");
-                    }
+                    SetJsonStoreTypeRecursively(complexProperty);
                 }
+            }
+        }
+
+        private static void SetJsonStoreTypeRecursively(IMutableComplexProperty complexProperty)
+        {
+            if (complexProperty.GetJsonPropertyName() != null)
+            {
+                complexProperty.ComplexType.SetContainerColumnType("json");
+            }
+
+            // Also handle nested complex properties
+            foreach (var nestedComplexProperty in complexProperty.ComplexType.GetComplexProperties())
+            {
+                SetJsonStoreTypeRecursively(nestedComplexProperty);
             }
         }
     }

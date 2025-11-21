@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query.Associations.ComplexJson;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
@@ -28,11 +29,22 @@ public class ComplexJsonCollectionMySqlTest : ComplexJsonCollectionRelationalTes
             {
                 foreach (var complexProperty in entityType.GetComplexProperties())
                 {
-                    if (complexProperty.GetJsonPropertyName() != null)
-                    {
-                        complexProperty.ComplexType.SetContainerColumnType("json");
-                    }
+                    SetJsonStoreTypeRecursively(complexProperty);
                 }
+            }
+        }
+
+        private static void SetJsonStoreTypeRecursively(IMutableComplexProperty complexProperty)
+        {
+            if (complexProperty.GetJsonPropertyName() != null)
+            {
+                complexProperty.ComplexType.SetContainerColumnType("json");
+            }
+
+            // Also handle nested complex properties
+            foreach (var nestedComplexProperty in complexProperty.ComplexType.GetComplexProperties())
+            {
+                SetJsonStoreTypeRecursively(nestedComplexProperty);
             }
         }
     }
