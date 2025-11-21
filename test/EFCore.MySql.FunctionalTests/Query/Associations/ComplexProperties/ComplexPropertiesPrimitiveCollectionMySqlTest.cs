@@ -52,6 +52,13 @@ public class ComplexPropertiesPrimitiveCollectionMySqlTest : ComplexPropertiesPr
 
         private static void SetJsonStoreTypeRecursively(IMutableComplexProperty complexProperty)
         {
+            // For collection properties, ensure they're mapped to JSON
+            if (complexProperty.IsCollection && complexProperty.GetJsonPropertyName() == null)
+            {
+                // Map to JSON if not already done
+                complexProperty.SetJsonPropertyName(complexProperty.Name);
+            }
+
             if (complexProperty.GetJsonPropertyName() != null)
             {
                 complexProperty.ComplexType.SetContainerColumnType("json");
