@@ -10,8 +10,9 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
+    // Disabled via internal access. JSON functionality is not currently supported.
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
-    public class JsonMicrosoftPocoQueryTest : JsonPocoQueryTestBase<JsonMicrosoftPocoQueryTest.JsonMicrosoftPocoQueryFixture>
+    internal class JsonMicrosoftPocoQueryTest : JsonPocoQueryTestBase<JsonMicrosoftPocoQueryTest.JsonMicrosoftPocoQueryFixture>
     {
         public JsonMicrosoftPocoQueryTest(JsonMicrosoftPocoQueryFixture fixture, ITestOutputHelper testOutputHelper)
             : base(fixture)

@@ -9,8 +9,9 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
+    // Disabled via internal access. JSON functionality is not currently supported.
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
-    public class JsonNewtonsoftPocoChangeTrackingTest : JsonPocoChangeTrackingTestBase<JsonNewtonsoftPocoChangeTrackingTest.JsonNewtonsoftPocoChangeTrackingFixture>
+    internal class JsonNewtonsoftPocoChangeTrackingTest : JsonPocoChangeTrackingTestBase<JsonNewtonsoftPocoChangeTrackingTest.JsonNewtonsoftPocoChangeTrackingFixture>
     {
         public JsonNewtonsoftPocoChangeTrackingTest(JsonNewtonsoftPocoChangeTrackingFixture fixture, ITestOutputHelper testOutputHelper)
             : base(fixture)

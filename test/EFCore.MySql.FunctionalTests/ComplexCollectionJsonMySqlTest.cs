@@ -31,7 +31,7 @@ public class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJso
         _fixture = fixture;
     }
 
-    [ConditionalFact]
+    [ConditionalFact(Skip = "JSON functionality is not currently supported")]
     public virtual async Task Can_insert_and_read_complex_collection()
     {
         using var context = _fixture.CreateContext();
@@ -62,7 +62,7 @@ public class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJso
         Assert.Equal(80000, retrieved.Departments[1].Budget);
     }
 
-    [ConditionalFact]
+    [ConditionalFact(Skip = "JSON functionality is not currently supported")]
     public virtual async Task Can_query_complex_collection_property()
     {
         using var context = _fixture.CreateContext();

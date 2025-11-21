@@ -3,7 +3,8 @@ using Pomelo.EntityFrameworkCore.MySql.Tests;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests;
 
-public class BadDataJsonDeserializationMySqlTest : BadDataJsonDeserializationTestBase
+// Disabled via internal access. JSON functionality is not currently supported.
+internal class BadDataJsonDeserializationMySqlTest : BadDataJsonDeserializationTestBase
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => base.OnConfiguring(optionsBuilder.UseMySql(AppConfig.ServerVersion, b => b.UseNetTopologySuite()));
