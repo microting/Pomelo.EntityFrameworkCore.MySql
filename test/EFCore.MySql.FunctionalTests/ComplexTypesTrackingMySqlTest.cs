@@ -294,11 +294,22 @@ public class ComplexTypesTrackingMySqlTest : ComplexTypesTrackingTestBase<Comple
             {
                 foreach (var complexProperty in entityType.GetComplexProperties())
                 {
-                    if (complexProperty.GetJsonPropertyName() != null)
-                    {
-                        complexProperty.ComplexType.SetContainerColumnType("json");
-                    }
+                    SetJsonStoreTypeRecursively(complexProperty);
                 }
+            }
+        }
+
+        private static void SetJsonStoreTypeRecursively(IMutableComplexProperty complexProperty)
+        {
+            if (complexProperty.GetJsonPropertyName() != null)
+            {
+                complexProperty.ComplexType.SetContainerColumnType("json");
+            }
+
+            // Also handle nested complex properties
+            foreach (var nestedComplexProperty in complexProperty.ComplexType.GetComplexProperties())
+            {
+                SetJsonStoreTypeRecursively(nestedComplexProperty);
             }
         }
     }
