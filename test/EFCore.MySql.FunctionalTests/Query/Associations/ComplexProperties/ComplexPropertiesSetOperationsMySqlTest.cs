@@ -135,10 +135,11 @@ public class ComplexPropertiesSetOperationsMySqlTest : ComplexPropertiesSetOpera
                     toJsonMethod.Invoke(collectionBuilder, null);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Silently ignore errors in reflection-based configuration
-                // The safety net (SetJsonStoreTypeRecursively) should handle these cases
+                // Log the exception to help diagnose reflection issues
+                Console.WriteLine($"Failed to configure complex collection {complexProperty.Name} on {entityType.ClrType.Name}: {ex.Message}");
+                Console.WriteLine($"Inner exception: {ex.InnerException?.Message}");
             }
         }
     }
