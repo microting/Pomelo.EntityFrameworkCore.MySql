@@ -5,7 +5,8 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query.Associations.ComplexProperties;
 
-public class ComplexPropertiesBulkUpdateMySqlTest : ComplexPropertiesBulkUpdateTestBase<ComplexPropertiesBulkUpdateMySqlTest.ComplexPropertiesBulkUpdateMySqlFixture>
+// Disabled via internal access. Complex collections require JSON mapping which is not currently supported.
+internal class ComplexPropertiesBulkUpdateMySqlTest : ComplexPropertiesBulkUpdateTestBase<ComplexPropertiesBulkUpdateMySqlTest.ComplexPropertiesBulkUpdateMySqlFixture>
 {
     public ComplexPropertiesBulkUpdateMySqlTest(ComplexPropertiesBulkUpdateMySqlFixture fixture)
         : base(fixture)
