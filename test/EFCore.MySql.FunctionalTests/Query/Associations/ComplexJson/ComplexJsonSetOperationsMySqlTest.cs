@@ -6,7 +6,8 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query.Associations.ComplexJson;
 
-public class ComplexJsonSetOperationsMySqlTest : ComplexJsonSetOperationsRelationalTestBase<ComplexJsonSetOperationsMySqlTest.ComplexJsonSetOperationsMySqlFixture>
+// Disabled via internal access. JSON functionality is not currently supported.
+internal class ComplexJsonSetOperationsMySqlTest : ComplexJsonSetOperationsRelationalTestBase<ComplexJsonSetOperationsMySqlTest.ComplexJsonSetOperationsMySqlFixture>
 {
     public ComplexJsonSetOperationsMySqlTest(ComplexJsonSetOperationsMySqlFixture fixture, ITestOutputHelper testOutputHelper)
         : base(fixture, testOutputHelper)

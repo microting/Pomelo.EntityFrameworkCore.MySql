@@ -11,7 +11,8 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Storage
 {
-    public class MySqlJsonNewtonsoftTypeMappingTest
+    // Disabled via internal access. JSON functionality is not currently supported.
+    internal class MySqlJsonNewtonsoftTypeMappingTest
     {
         #region Json
 

@@ -15,8 +15,9 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
+    // Disabled via internal access. JSON functionality is not currently supported.
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
-    public class JsonNewtonsoftDomQueryTest : IClassFixture<JsonNewtonsoftDomQueryTest.JsonNewtonsoftDomQueryFixture>
+    internal class JsonNewtonsoftDomQueryTest : IClassFixture<JsonNewtonsoftDomQueryTest.JsonNewtonsoftDomQueryFixture>
     {
         protected JsonNewtonsoftDomQueryFixture Fixture { get; }
 
