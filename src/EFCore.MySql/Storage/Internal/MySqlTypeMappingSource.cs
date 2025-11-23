@@ -319,6 +319,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                     // mapping as the default.
                     // If a CLR type was provided, look for a mapping between the store and CLR types. If none is found,
                     // fail immediately.
+                    
+                    // Special case for JSON columns: EF Core passes JsonTypePlaceholder as the CLR type
+                    // when creating JSON columns for complex types/collections. Return our JSON mapping.
+                    if (clrType?.Name == "JsonTypePlaceholder" && storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return _jsonDefaultString;
+                    }
+                    
                     return clrType == null
                         ? mappings[0]
                         : mappings.FirstOrDefault(m => m.ClrType == clrType);
