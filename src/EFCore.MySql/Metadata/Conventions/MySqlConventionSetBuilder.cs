@@ -48,6 +48,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Conventions
             var jsonColumnConvention = new MySqlJsonColumnConvention(Dependencies, RelationalDependencies);
             conventionSet.ComplexPropertyAddedConventions.Add(jsonColumnConvention);
             conventionSet.ComplexPropertyAnnotationChangedConventions.Add(jsonColumnConvention);
+            conventionSet.ComplexTypeAnnotationChangedConventions.Add(jsonColumnConvention);
 
             var valueGenerationConvention = new MySqlValueGenerationConvention(Dependencies, RelationalDependencies);
             ReplaceConvention(conventionSet.EntityTypeBaseTypeChangedConventions, valueGenerationConvention);
