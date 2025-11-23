@@ -78,11 +78,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
             System.Console.WriteLine($"[MySqlJsonColumnConvention] SetJsonColumnTypeIfNeeded: Property={complexProperty.Name}");
             
             // Check if this complex property is mapped to a JSON column
-            // GetContainerColumnName() returns non-null when .ToJson() is called
+            // GetContainerColumnName() returns non-null/non-empty when .ToJson() is called
+            // ToJson() sets it to jsonColumnName ?? complexProperty.Name, so it should never be null/empty
             var containerColumnName = complexProperty.ComplexType.GetContainerColumnName();
-            System.Console.WriteLine($"[MySqlJsonColumnConvention] ContainerColumnName={containerColumnName}");
+            System.Console.WriteLine($"[MySqlJsonColumnConvention] ContainerColumnName='{containerColumnName ?? "(null)"}'");
             
-            if (containerColumnName != null)
+            // If container column name is set (even to empty string), it means this is mapped to JSON
+            // We check for not null here - empty string would be unusual but should still be handled
+            if (containerColumnName != null && containerColumnName.Length > 0)
             {
                 System.Console.WriteLine($"[MySqlJsonColumnConvention] Setting container column type to 'json' for {complexProperty.Name}");
                 
@@ -97,12 +100,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
                 if (complexType is IConventionComplexType conventionComplexType)
                 {
                     var existingType = conventionComplexType.GetContainerColumnType();
-                    System.Console.WriteLine($"[MySqlJsonColumnConvention] Existing container column type: {existingType}");
+                    System.Console.WriteLine($"[MySqlJsonColumnConvention] Existing container column type: '{existingType ?? "(null)"}'");
                     
                     conventionComplexType.SetContainerColumnType("json", fromDataAnnotation: false);
                     
                     var newType = conventionComplexType.GetContainerColumnType();
-                    System.Console.WriteLine($"[MySqlJsonColumnConvention] New container column type: {newType}");
+                    System.Console.WriteLine($"[MySqlJsonColumnConvention] New container column type: '{newType ?? "(null)"}'");
                 }
                 else
                 {
@@ -111,7 +114,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
             }
             else
             {
-                System.Console.WriteLine($"[MySqlJsonColumnConvention] ContainerColumnName is null, skipping");
+                System.Console.WriteLine($"[MySqlJsonColumnConvention] ContainerColumnName is null or empty, not a JSON column - skipping");
             }
         }
     }
