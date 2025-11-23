@@ -201,6 +201,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                     { "time",                      new RelationalTypeMapping[] { _timeTimeOnly, _timeTimeSpan } },
                     { "datetime",                  new RelationalTypeMapping[] { _dateTime, _dateTimeOffset } },
                     { "timestamp",                 new RelationalTypeMapping[] { _timeStamp, _timeStampOffset } },
+
+                    // json - for complex types mapped with .ToJson()
+                    // This supports both MySQL 5.7.8+ (native JSON) and MariaDB 10.2.4+ (JSON as LONGTEXT alias)
+                    { "json",                      new[] { _jsonDefaultString } },
                 };
 
             _clrTypeMappings
