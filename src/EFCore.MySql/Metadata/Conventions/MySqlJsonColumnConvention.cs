@@ -48,6 +48,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
             IConventionComplexPropertyBuilder propertyBuilder,
             IConventionContext<IConventionComplexPropertyBuilder> context)
         {
+            System.Console.WriteLine($"[MySqlJsonColumnConvention] ProcessComplexPropertyAdded: {propertyBuilder.Metadata.Name}");
             SetJsonColumnTypeIfNeeded(propertyBuilder);
         }
 
@@ -59,10 +60,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
             IConventionAnnotation oldAnnotation,
             IConventionContext<IConventionAnnotation> context)
         {
+            System.Console.WriteLine($"[MySqlJsonColumnConvention] ProcessComplexPropertyAnnotationChanged: Property={propertyBuilder.Metadata.Name}, Annotation={name}, Value={annotation?.Value}");
+            
             // React when ContainerColumnName annotation is set (when .ToJson() is called)
             // ToJson() sets the container column name, not the JSON property name
             if (name == RelationalAnnotationNames.ContainerColumnName)
             {
+                System.Console.WriteLine($"[MySqlJsonColumnConvention] ContainerColumnName annotation detected for {propertyBuilder.Metadata.Name}");
                 SetJsonColumnTypeIfNeeded(propertyBuilder);
             }
         }
@@ -71,11 +75,17 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
         {
             var complexProperty = propertyBuilder.Metadata;
             
+            System.Console.WriteLine($"[MySqlJsonColumnConvention] SetJsonColumnTypeIfNeeded: Property={complexProperty.Name}");
+            
             // Check if this complex property is mapped to a JSON column
             // GetContainerColumnName() returns non-null when .ToJson() is called
             var containerColumnName = complexProperty.ComplexType.GetContainerColumnName();
+            System.Console.WriteLine($"[MySqlJsonColumnConvention] ContainerColumnName={containerColumnName}");
+            
             if (containerColumnName != null)
             {
+                System.Console.WriteLine($"[MySqlJsonColumnConvention] Setting container column type to 'json' for {complexProperty.Name}");
+                
                 // Set the container column type to "json" for MySQL/MariaDB
                 // Both databases accept "json" as the column type:
                 // - MySQL 5.7.8+: Native JSON type with binary storage
@@ -86,8 +96,22 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
                 var complexType = complexProperty.ComplexType;
                 if (complexType is IConventionComplexType conventionComplexType)
                 {
+                    var existingType = conventionComplexType.GetContainerColumnType();
+                    System.Console.WriteLine($"[MySqlJsonColumnConvention] Existing container column type: {existingType}");
+                    
                     conventionComplexType.SetContainerColumnType("json", fromDataAnnotation: false);
+                    
+                    var newType = conventionComplexType.GetContainerColumnType();
+                    System.Console.WriteLine($"[MySqlJsonColumnConvention] New container column type: {newType}");
                 }
+                else
+                {
+                    System.Console.WriteLine($"[MySqlJsonColumnConvention] WARNING: ComplexType is not IConventionComplexType");
+                }
+            }
+            else
+            {
+                System.Console.WriteLine($"[MySqlJsonColumnConvention] ContainerColumnName is null, skipping");
             }
         }
     }

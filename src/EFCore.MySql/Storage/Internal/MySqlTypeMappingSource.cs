@@ -311,9 +311,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 
             if (storeTypeName != null)
             {
+                System.Console.WriteLine($"[MySqlTypeMappingSource] FindRawMapping: storeTypeName={storeTypeName}, clrType={clrType?.Name ?? "null"}");
+                
                 // First look for the fully qualified store type name.
                 if (_storeTypeMappings.TryGetValue(storeTypeName, out var mappings))
                 {
+                    System.Console.WriteLine($"[MySqlTypeMappingSource] Found mapping in dictionary for {storeTypeName}, count={mappings.Length}");
+                    
                     // We found the user-specified store type.
                     // If no CLR type was provided, we're probably scaffolding from an existing database. Take the first
                     // mapping as the default.
@@ -324,17 +328,22 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                     // when creating JSON columns for complex types/collections. Return our JSON mapping.
                     if (clrType?.Name == "JsonTypePlaceholder" && storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                     {
+                        System.Console.WriteLine($"[MySqlTypeMappingSource] Detected JsonTypePlaceholder, returning JSON mapping");
                         return _jsonDefaultString;
                     }
                     
-                    return clrType == null
+                    var result = clrType == null
                         ? mappings[0]
                         : mappings.FirstOrDefault(m => m.ClrType == clrType);
+                    
+                    System.Console.WriteLine($"[MySqlTypeMappingSource] Returning mapping: {result?.StoreType ?? "null"}");
+                    return result;
                 }
 
                 // Then look for the base store type name.
                 if (_storeTypeMappings.TryGetValue(storeTypeNameBase, out mappings))
                 {
+                    System.Console.WriteLine($"[MySqlTypeMappingSource] Found mapping in dictionary for base type {storeTypeNameBase}");
                     return clrType == null
                         ? mappings[0]
                             .WithTypeMappingInfo(in mappingInfo)
@@ -347,6 +356,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 // Works for both MySQL (native JSON type) and MariaDB (JSON alias for LONGTEXT)
                 if (storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                 {
+                    System.Console.WriteLine($"[MySqlTypeMappingSource] JSON store type fallback");
                     // Return JSON mapping for any CLR type since JSON can serialize any object
                     // The "json" store type works for both:
                     // - MySQL 5.7.8+: Creates native JSON column with binary storage
@@ -354,6 +364,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                     return _jsonDefaultString;
                 }
 
+                System.Console.WriteLine($"[MySqlTypeMappingSource] No mapping found for {storeTypeName}");
                 // A store type name was provided, but is unknown. This could be a domain (alias) type, in which case
                 // we proceed with a CLR type lookup (if the type doesn't exist at all the failure will come later).
             }
