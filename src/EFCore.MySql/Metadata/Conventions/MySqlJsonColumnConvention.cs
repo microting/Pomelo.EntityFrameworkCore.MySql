@@ -18,7 +18,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
     ///     - MySQL: Binary JSON format with optimized storage and indexing
     ///     - MariaDB: LONGTEXT with JSON validation constraint
     /// </summary>
-    public class MySqlJsonColumnConvention : IComplexPropertyAddedConvention, IComplexPropertyAnnotationChangedConvention
+    public class MySqlJsonColumnConvention : IComplexPropertyAddedConvention, IComplexPropertyAnnotationChangedConvention, IComplexTypeAnnotationChangedConvention
     {
         /// <summary>
         ///     Creates a new instance of <see cref="MySqlJsonColumnConvention" />.
@@ -68,6 +68,33 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
             {
                 System.Console.WriteLine($"[MySqlJsonColumnConvention] ContainerColumnName annotation detected for {propertyBuilder.Metadata.Name}");
                 SetJsonColumnTypeIfNeeded(propertyBuilder);
+            }
+        }
+        
+        /// <inheritdoc />
+        public virtual void ProcessComplexTypeAnnotationChanged(
+            IConventionComplexTypeBuilder complexTypeBuilder,
+            string name,
+            IConventionAnnotation annotation,
+            IConventionAnnotation oldAnnotation,
+            IConventionContext<IConventionAnnotation> context)
+        {
+            System.Console.WriteLine($"[MySqlJsonColumnConvention] ProcessComplexTypeAnnotationChanged: Type={complexTypeBuilder.Metadata.DisplayName()}, Annotation={name}, Value={annotation?.Value}");
+            
+            // React when ContainerColumnName annotation is set on the ComplexType
+            if (name == RelationalAnnotationNames.ContainerColumnName)
+            {
+                var containerColumnName = annotation?.Value as string;
+                System.Console.WriteLine($"[MySqlJsonColumnConvention] ContainerColumnName annotation detected on ComplexType: '{containerColumnName ?? "(null)"}'");
+                
+                if (!string.IsNullOrEmpty(containerColumnName))
+                {
+                    System.Console.WriteLine($"[MySqlJsonColumnConvention] Setting container column type to 'json' on ComplexType");
+                    complexTypeBuilder.Metadata.SetContainerColumnType("json", fromDataAnnotation: false);
+                    
+                    var newType = complexTypeBuilder.Metadata.GetContainerColumnType();
+                    System.Console.WriteLine($"[MySqlJsonColumnConvention] Container column type set to: '{newType ?? "(null)"}'");
+                }
             }
         }
 
