@@ -79,6 +79,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
                 // Both databases accept "json" as the column type:
                 // - MySQL 5.7.8+: Native JSON type with binary storage
                 // - MariaDB 10.2.4+: JSON as alias for LONGTEXT with validation constraint
+                
+                // For both single complex properties and complex collections,
+                // we need to set the container column type on the ComplexType
                 var complexType = complexProperty.ComplexType;
                 if (complexType is IConventionComplexType conventionComplexType)
                 {
