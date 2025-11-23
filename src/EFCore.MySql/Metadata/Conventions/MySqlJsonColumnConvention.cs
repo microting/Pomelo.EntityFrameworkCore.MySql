@@ -59,8 +59,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
             IConventionAnnotation oldAnnotation,
             IConventionContext<IConventionAnnotation> context)
         {
-            // React when JsonPropertyName annotation is set (when .ToJson() is called)
-            if (name == RelationalAnnotationNames.JsonPropertyName)
+            // React when ContainerColumnName annotation is set (when .ToJson() is called)
+            // ToJson() sets the container column name, not the JSON property name
+            if (name == RelationalAnnotationNames.ContainerColumnName)
             {
                 SetJsonColumnTypeIfNeeded(propertyBuilder);
             }
@@ -71,9 +72,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions
             var complexProperty = propertyBuilder.Metadata;
             
             // Check if this complex property is mapped to a JSON column
-            // GetJsonPropertyName() returns non-null (can be empty string) when .ToJson() is called
-            var jsonPropertyName = complexProperty.GetJsonPropertyName();
-            if (jsonPropertyName != null)
+            // GetContainerColumnName() returns non-null when .ToJson() is called
+            var containerColumnName = complexProperty.ComplexType.GetContainerColumnName();
+            if (containerColumnName != null)
             {
                 // Set the container column type to "json" for MySQL/MariaDB
                 // Both databases accept "json" as the column type:
