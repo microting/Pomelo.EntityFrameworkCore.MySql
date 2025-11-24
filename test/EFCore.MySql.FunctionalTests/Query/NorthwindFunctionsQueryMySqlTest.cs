@@ -2316,14 +2316,8 @@ WHERE `c`.`ContactName` LIKE @pattern_endswith
 
         AssertSql(
 """
-SELECT `c1`.`City`, `c0`.`CustomerID`
-FROM (
-    SELECT `c`.`City`
-    FROM `Customers` AS `c`
-    GROUP BY `c`.`City`
-) AS `c1`
-LEFT JOIN `Customers` AS `c0` ON `c1`.`City` = `c0`.`City`
-ORDER BY `c1`.`City`
+SELECT `c`.`CustomerID`, CONCAT_WS('|', `c`.`ContactName`, `c`.`CompanyName`) AS `Joined`
+FROM `Customers` AS `c`
 """);
         }
 
@@ -2337,18 +2331,9 @@ ORDER BY `c1`.`City`
 
         AssertSql(
 """
-SELECT `c1`.`City`, `c2`.`CustomerID`
-FROM (
-    SELECT `c`.`City`
-    FROM `Customers` AS `c`
-    GROUP BY `c`.`City`
-) AS `c1`
-LEFT JOIN (
-    SELECT `c0`.`CustomerID`, `c0`.`City`
-    FROM `Customers` AS `c0`
-    WHERE CHAR_LENGTH(`c0`.`ContactName`) > 10
-) AS `c2` ON `c1`.`City` = `c2`.`City`
-ORDER BY `c1`.`City`
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+WHERE CHAR_LENGTH(CONCAT_WS('|', `c`.`ContactName`, `c`.`CompanyName`)) > 10
 """);
         }
 
