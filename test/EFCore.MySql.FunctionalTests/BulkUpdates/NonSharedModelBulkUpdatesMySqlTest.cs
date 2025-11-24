@@ -65,8 +65,10 @@ WHERE `b`.`Title` LIKE 'Arthur%'
 
         AssertSql(
 """
+@p='SomeValue' (Size = 4000)
+
 UPDATE `Owner` AS `o`
-SET `o`.`Title` = 'SomeValue'
+SET `o`.`Title` = @p
 """);
     }
 
@@ -76,8 +78,10 @@ SET `o`.`Title` = 'SomeValue'
 
         AssertSql(
 """
+@p='_Suffix' (Size = 4000)
+
 UPDATE `Owner` AS `o`
-SET `o`.`Title` = CONCAT(COALESCE(`o`.`Title`, ''), '_Suffix')
+SET `o`.`Title` = CONCAT(COALESCE(`o`.`Title`, ''), @p)
 """);
     }
 
@@ -99,8 +103,10 @@ SET `o`.`OwnedReference_Number` = CHAR_LENGTH(`o`.`Title`),
 
         AssertSql(
 """
+@p='2020-01-01 00:00:00' (DbType = DateTime)
+
 UPDATE `Blogs` AS `b`
-SET `b`.`CreationTimestamp` = TIMESTAMP '2020-01-01 00:00:00'
+SET `b`.`CreationTimestamp` = @p
 """);
     }
 
@@ -153,9 +159,11 @@ WHERE `o`.`Id` = 1
 
         AssertSql(
 """
+@p='NewValue' (Size = 4000)
+
 UPDATE `Owner` AS `o`
 INNER JOIN `Owner` AS `o0` ON `o`.`Id` = `o0`.`Id`
-SET `o`.`Title` = 'NewValue'
+SET `o`.`Title` = @p
 """);
     }
 
@@ -165,9 +173,11 @@ SET `o`.`Title` = 'NewValue'
 
         AssertSql(
 """
+@p='SomeValue' (Size = 4000)
+
 UPDATE `Owner` AS `o`
 INNER JOIN `OwnedCollection` AS `o0` ON `o`.`Id` = `o0`.`OwnerId`
-SET `o0`.`Value` = 'SomeValue'
+SET `o0`.`Value` = @p
 """);
     }
 

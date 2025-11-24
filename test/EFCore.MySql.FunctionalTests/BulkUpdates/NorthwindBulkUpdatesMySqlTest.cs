@@ -626,10 +626,12 @@ WHERE `o`.`OrderID` < 10276
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 -- MyUpdate
 
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -640,8 +642,10 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -651,10 +655,11 @@ WHERE `c`.`CustomerID` LIKE 'F%'
         await base.Update_Where_parameter_set_constant(async);
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
 @__customer_0='ALFKI' (Size = 5) (DbType = StringFixedLength)
 
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` = @__customer_0
 """,
                 //
@@ -673,8 +678,10 @@ WHERE FALSE
 """,
                 //
                 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE FALSE
 """);
     }
@@ -711,8 +718,10 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Abc' (Size = 4000)
+
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Abc'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -736,6 +745,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
 @__p_0='4'
 
 UPDATE `Customers` AS `c0`
@@ -745,7 +755,7 @@ INNER JOIN (
     WHERE `c`.`CustomerID` LIKE 'F%'
     LIMIT 18446744073709551610 OFFSET @__p_0
 ) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = 'Updated'
+SET `c0`.`ContactName` = @p
 """);
     }
 
@@ -761,10 +771,11 @@ SET `c0`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
 @__p_0='4'
 
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 LIMIT @__p_0
 """);
@@ -777,6 +788,7 @@ LIMIT @__p_0
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
 @__p_1='4'
 @__p_0='2'
 
@@ -787,7 +799,7 @@ INNER JOIN (
     WHERE `c`.`CustomerID` LIKE 'F%'
     LIMIT @__p_1 OFFSET @__p_0
 ) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = 'Updated'
+SET `c0`.`ContactName` = @p
 """);
     }
 
@@ -797,13 +809,15 @@ SET `c0`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c0`
 INNER JOIN (
     SELECT `c`.`CustomerID`
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` LIKE 'F%'
 ) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = 'Updated'
+SET `c0`.`ContactName` = @p
 """);
     }
 
@@ -813,6 +827,7 @@ SET `c0`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
 @__p_0='4'
 
 UPDATE `Customers` AS `c0`
@@ -823,7 +838,7 @@ INNER JOIN (
     ORDER BY `c`.`City`
     LIMIT 18446744073709551610 OFFSET @__p_0
 ) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = 'Updated'
+SET `c0`.`ContactName` = @p
 """);
     }
 
@@ -833,6 +848,7 @@ SET `c0`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
 @__p_0='4'
 
 UPDATE `Customers` AS `c0`
@@ -843,7 +859,7 @@ INNER JOIN (
     ORDER BY `c`.`City`
     LIMIT @__p_0
 ) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = 'Updated'
+SET `c0`.`ContactName` = @p
 """);
     }
 
@@ -853,6 +869,7 @@ SET `c0`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
 @__p_1='4'
 @__p_0='2'
 
@@ -864,7 +881,7 @@ INNER JOIN (
     ORDER BY `c`.`City`
     LIMIT @__p_1 OFFSET @__p_0
 ) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = 'Updated'
+SET `c0`.`ContactName` = @p
 """);
     }
 
@@ -874,6 +891,7 @@ SET `c0`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
 @__p_1='6'
 @__p_0='2'
 
@@ -890,7 +908,7 @@ INNER JOIN (
     ORDER BY `c0`.`City`
     LIMIT @__p_0 OFFSET @__p_0
 ) AS `c2` ON `c1`.`CustomerID` = `c2`.`CustomerID`
-SET `c1`.`ContactName` = 'Updated'
+SET `c1`.`ContactName` = @p
 """);
     }
 
@@ -900,8 +918,10 @@ SET `c1`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` = (
     SELECT `o`.`CustomerID`
     FROM `Orders` AS `o`
@@ -917,8 +937,10 @@ WHERE `c`.`CustomerID` = (
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` = (
     SELECT (
         SELECT `o0`.`CustomerID`
@@ -955,8 +977,10 @@ WHERE `c`.`CustomerID` = (
 
             AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` IN (
     SELECT (
         SELECT `c0`.`CustomerID`
@@ -978,13 +1002,15 @@ WHERE `c`.`CustomerID` IN (
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c0`
 INNER JOIN (
     SELECT DISTINCT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` LIKE 'F%'
 ) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = 'Updated'
+SET `c0`.`ContactName` = @p
 """);
     }
 
@@ -1034,8 +1060,10 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Abc' (Size = 4000)
+
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = CONCAT(COALESCE(`c`.`ContactName`, ''), 'Abc')
+SET `c`.`ContactName` = CONCAT(COALESCE(`c`.`ContactName`, ''), @p)
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -1072,8 +1100,10 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -1119,10 +1149,11 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Seattle' (Size = 4000)
 @__value_0='Abc' (Size = 30)
 
 UPDATE `Customers` AS `c`
-SET `c`.`City` = 'Seattle',
+SET `c`.`City` = @p,
     `c`.`ContactName` = @__value_0
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
@@ -1148,6 +1179,8 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c1`
 INNER JOIN (
     SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -1158,7 +1191,7 @@ INNER JOIN (
     FROM `Customers` AS `c0`
     WHERE `c0`.`CustomerID` LIKE 'A%'
 ) AS `u` ON `c1`.`CustomerID` = `u`.`CustomerID`
-SET `c1`.`ContactName` = 'Updated'
+SET `c1`.`ContactName` = @p
 """);
     }
 
@@ -1168,6 +1201,8 @@ SET `c1`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c1`
 INNER JOIN (
     SELECT `c`.`CustomerID`
@@ -1178,7 +1213,7 @@ INNER JOIN (
     FROM `Customers` AS `c0`
     WHERE `c0`.`CustomerID` LIKE 'A%'
 ) AS `u` ON `c1`.`CustomerID` = `u`.`CustomerID`
-SET `c1`.`ContactName` = 'Updated'
+SET `c1`.`ContactName` = @p
 """);
     }
 
@@ -1188,6 +1223,8 @@ SET `c1`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c1`
 INNER JOIN (
     SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -1198,7 +1235,7 @@ INNER JOIN (
     FROM `Customers` AS `c0`
     WHERE `c0`.`CustomerID` LIKE 'A%'
 ) AS `e` ON `c1`.`CustomerID` = `e`.`CustomerID`
-SET `c1`.`ContactName` = 'Updated'
+SET `c1`.`ContactName` = @p
 """);
     }
 
@@ -1208,6 +1245,8 @@ SET `c1`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c1`
 INNER JOIN (
     SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -1218,7 +1257,7 @@ INNER JOIN (
     FROM `Customers` AS `c0`
     WHERE `c0`.`CustomerID` LIKE 'A%'
 ) AS `i` ON `c1`.`CustomerID` = `i`.`CustomerID`
-SET `c1`.`ContactName` = 'Updated'
+SET `c1`.`ContactName` = @p
 """);
     }
 
@@ -1228,13 +1267,15 @@ SET `c1`.`ContactName` = 'Updated'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
 INNER JOIN (
     SELECT `o`.`CustomerID`
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
 ) AS `o0` ON `c`.`CustomerID` = `o0`.`CustomerID`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -1252,13 +1293,15 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
 LEFT JOIN (
     SELECT `o`.`CustomerID`
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
 ) AS `o0` ON `c`.`CustomerID` = `o0`.`CustomerID`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -1269,13 +1312,15 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
 CROSS JOIN (
     SELECT 1
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
 ) AS `o0`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -1286,13 +1331,15 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
 JOIN LATERAL (
     SELECT 1
     FROM `Orders` AS `o`
     WHERE (`o`.`OrderID` < 10300) AND (EXTRACT(year FROM `o`.`OrderDate`) < CHAR_LENGTH(`c`.`ContactName`))
 ) AS `o0` ON TRUE
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -1303,13 +1350,15 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
 LEFT JOIN LATERAL (
     SELECT 1
     FROM `Orders` AS `o`
     WHERE (`o`.`OrderID` < 10300) AND (EXTRACT(year FROM `o`.`OrderDate`) < CHAR_LENGTH(`c`.`ContactName`))
 ) AS `o0` ON TRUE
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -1320,6 +1369,8 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
 CROSS JOIN (
     SELECT 1
@@ -1331,7 +1382,7 @@ LEFT JOIN (
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
 ) AS `o0` ON `c`.`CustomerID` = `o0`.`CustomerID`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -1342,6 +1393,8 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 4000)
+
 UPDATE `Customers` AS `c`
 CROSS JOIN (
     SELECT 1
@@ -1353,7 +1406,7 @@ JOIN LATERAL (
     FROM `Orders` AS `o`
     WHERE (`o`.`OrderID` < 10300) AND (EXTRACT(year FROM `o`.`OrderDate`) < CHAR_LENGTH(`c`.`ContactName`))
 ) AS `o0` ON TRUE
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
