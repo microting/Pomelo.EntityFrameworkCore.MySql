@@ -13,8 +13,11 @@ internal class ComplexPropertiesProjectionMySqlTest : ComplexPropertiesProjectio
     {
     }
 
-    public class ComplexPropertiesProjectionMySqlFixture : ComplexPropertiesFixtureBase
+    public class ComplexPropertiesProjectionMySqlFixture : ComplexPropertiesFixtureBase, ITestSqlLoggerFactory
     {
+        public TestSqlLoggerFactory TestSqlLoggerFactory
+            => (TestSqlLoggerFactory)ListLoggerFactory;
+
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
     }
