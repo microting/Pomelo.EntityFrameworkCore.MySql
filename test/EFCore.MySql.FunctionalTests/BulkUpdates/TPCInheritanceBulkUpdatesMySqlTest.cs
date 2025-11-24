@@ -127,8 +127,10 @@ WHERE (
 
         AssertExecuteUpdateSql(
 """
+@p='Monovia' (Size = 4000)
+
 UPDATE `Countries` AS `c`
-SET `c`.`Name` = 'Monovia'
+SET `c`.`Name` = @p
 WHERE (
     SELECT COUNT(*)
     FROM (
@@ -148,8 +150,10 @@ WHERE (
 
         AssertExecuteUpdateSql(
 """
+@p='Monovia' (Size = 4000)
+
 UPDATE `Countries` AS `c`
-SET `c`.`Name` = 'Monovia'
+SET `c`.`Name` = @p
 WHERE (
     SELECT COUNT(*)
     FROM (
