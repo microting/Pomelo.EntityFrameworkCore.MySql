@@ -13,8 +13,11 @@ internal class ComplexPropertiesSetOperationsMySqlTest : ComplexPropertiesSetOpe
     {
     }
 
-    public class ComplexPropertiesSetOperationsMySqlFixture : ComplexPropertiesFixtureBase
+    public class ComplexPropertiesSetOperationsMySqlFixture : ComplexPropertiesFixtureBase, ITestSqlLoggerFactory
     {
+        public TestSqlLoggerFactory TestSqlLoggerFactory
+            => (TestSqlLoggerFactory)ListLoggerFactory;
+
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
     }
