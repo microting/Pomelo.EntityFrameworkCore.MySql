@@ -232,8 +232,10 @@ FROM `Kiwi` AS `k`
 """,
                 //
                 """
+@p='0'
+
 UPDATE `Kiwi` AS `k`
-SET `k`.`FoundOn` = 0
+SET `k`.`FoundOn` = @p
 """,
                 //
                 """
@@ -253,9 +255,12 @@ FROM `Kiwi` AS `k`
 """,
                 //
                 """
+@p='0'
+@p0='Kiwi' (Size = 4000)
+
 UPDATE `Kiwi` AS `k`
-SET `k`.`FoundOn` = 0,
-    `k`.`Name` = 'Kiwi'
+SET `k`.`FoundOn` = @p,
+    `k`.`Name` = @p0
 """,
                 //
                 """
@@ -275,8 +280,10 @@ FROM `Coke` AS `c`
 """,
                 //
                 """
+@p='0'
+
 UPDATE `Coke` AS `c`
-SET `c`.`SugarGrams` = 0
+SET `c`.`SugarGrams` = @p
 """,
                 //
                 """
@@ -296,8 +303,10 @@ FROM `Coke` AS `c`
 """,
                 //
                 """
+@p='0'
+
 UPDATE `Coke` AS `c`
-SET `c`.`SugarGrams` = 0
+SET `c`.`SugarGrams` = @p
 """,
                 //
                 """

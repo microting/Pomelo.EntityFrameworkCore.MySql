@@ -190,10 +190,12 @@ SET `a`.`Name` = @p
 
         AssertExecuteUpdateSql(
 """
+@p='0'
+
 UPDATE `Animals` AS `a`
 INNER JOIN `Birds` AS `b` ON `a`.`Id` = `b`.`Id`
 INNER JOIN `Kiwi` AS `k` ON `a`.`Id` = `k`.`Id`
-SET `k`.`FoundOn` = 0
+SET `k`.`FoundOn` = @p
 """);
     }
 
@@ -203,9 +205,11 @@ SET `k`.`FoundOn` = 0
 
         AssertExecuteUpdateSql(
 """
+@p='0'
+
 UPDATE `Drinks` AS `d`
 INNER JOIN `Coke` AS `c` ON `d`.`Id` = `c`.`Id`
-SET `c`.`SugarGrams` = 0
+SET `c`.`SugarGrams` = @p
 """);
     }
 
@@ -215,9 +219,11 @@ SET `c`.`SugarGrams` = 0
 
         AssertExecuteUpdateSql(
 """
+@p='0'
+
 UPDATE `Drinks` AS `d`
 INNER JOIN `Coke` AS `c` ON `d`.`Id` = `c`.`Id`
-SET `c`.`SugarGrams` = 0
+SET `c`.`SugarGrams` = @p
 """);
     }
 
