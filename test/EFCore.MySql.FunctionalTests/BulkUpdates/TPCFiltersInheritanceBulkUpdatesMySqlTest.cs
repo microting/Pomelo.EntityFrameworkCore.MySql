@@ -217,8 +217,10 @@ WHERE `k`.`CountryId` = 1
 """,
                 //
                 """
+@p='SomeOtherKiwi' (Size = 4000)
+
 UPDATE `Kiwi` AS `k`
-SET `k`.`Name` = 'SomeOtherKiwi'
+SET `k`.`Name` = @p
 WHERE `k`.`CountryId` = 1
 """,
                 //
