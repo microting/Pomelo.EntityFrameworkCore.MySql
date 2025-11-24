@@ -170,6 +170,18 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             typeof(ComplexTableSplittingProjectionRelationalTestBase<>),
             typeof(ComplexTableSplittingStructuralEqualityRelationalTestBase<>),
 
+            // TODO: 10.0 - Complex properties tests
+            typeof(ComplexPropertiesBulkUpdateTestBase<>),
+            typeof(ComplexPropertiesCollectionTestBase<>),
+            typeof(ComplexPropertiesMiscellaneousTestBase<>),
+            typeof(ComplexPropertiesPrimitiveCollectionTestBase<>),
+            typeof(ComplexPropertiesProjectionTestBase<>),
+            typeof(ComplexPropertiesSetOperationsTestBase<>),
+            typeof(ComplexPropertiesStructuralEqualityTestBase<>),
+
+            // TODO: 10.0 - BadDataJsonDeserialization test
+            typeof(BadDataJsonDeserializationTestBase),
+
             // Complex JSON tests are now supported for MySQL 5.7.8+ and MariaDB 10.2.4+
             // These tests should use [SupportedServerVersionCondition("Json")] to skip on older versions
         };

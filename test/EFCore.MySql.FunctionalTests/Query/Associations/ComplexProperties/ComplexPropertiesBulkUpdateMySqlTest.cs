@@ -13,8 +13,11 @@ internal class ComplexPropertiesBulkUpdateMySqlTest : ComplexPropertiesBulkUpdat
     {
     }
 
-    public class ComplexPropertiesBulkUpdateMySqlFixture : ComplexPropertiesFixtureBase
+    public class ComplexPropertiesBulkUpdateMySqlFixture : ComplexPropertiesFixtureBase, ITestSqlLoggerFactory
     {
+        public TestSqlLoggerFactory TestSqlLoggerFactory
+            => (TestSqlLoggerFactory)ListLoggerFactory;
+
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
     }
