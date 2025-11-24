@@ -209,10 +209,12 @@ WHERE `a`.`CountryId` = 1
 
         AssertExecuteUpdateSql(
 """
+@p='0'
+
 UPDATE `Animals` AS `a`
 INNER JOIN `Birds` AS `b` ON `a`.`Id` = `b`.`Id`
 INNER JOIN `Kiwi` AS `k` ON `a`.`Id` = `k`.`Id`
-SET `k`.`FoundOn` = 0
+SET `k`.`FoundOn` = @p
 WHERE `a`.`CountryId` = 1
 """);
     }

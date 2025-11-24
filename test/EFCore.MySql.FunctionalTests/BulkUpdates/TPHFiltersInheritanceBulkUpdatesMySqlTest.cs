@@ -214,8 +214,10 @@ WHERE (`a`.`Discriminator` = 'Kiwi') AND (`a`.`CountryId` = 1)
 
         AssertExecuteUpdateSql(
 """
+@p='0'
+
 UPDATE `Animals` AS `a`
-SET `a`.`FoundOn` = 0
+SET `a`.`FoundOn` = @p
 WHERE (`a`.`Discriminator` = 'Kiwi') AND (`a`.`CountryId` = 1)
 """);
     }
@@ -226,9 +228,12 @@ WHERE (`a`.`Discriminator` = 'Kiwi') AND (`a`.`CountryId` = 1)
 
         AssertExecuteUpdateSql(
 """
+@p='0'
+@p0='Kiwi' (Size = 4000)
+
 UPDATE `Animals` AS `a`
-SET `a`.`FoundOn` = 0,
-    `a`.`Name` = 'Kiwi'
+SET `a`.`FoundOn` = @p,
+    `a`.`Name` = @p0
 WHERE (`a`.`Discriminator` = 'Kiwi') AND (`a`.`CountryId` = 1)
 """);
     }

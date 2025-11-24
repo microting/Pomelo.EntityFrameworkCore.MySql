@@ -1033,10 +1033,12 @@ WHERE `c`.`City` = 'Seattle'
 
         AssertExecuteUpdateSql(
 """
+@p='1'
+
 UPDATE `Order Details` AS `o`
 INNER JOIN `Orders` AS `o0` ON `o`.`OrderID` = `o0`.`OrderID`
 LEFT JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
-SET `o`.`Quantity` = CAST(1 AS signed)
+SET `o`.`Quantity` = @p
 WHERE `c`.`City` = 'Seattle'
 """);
     }
@@ -1539,10 +1541,12 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
 """,
                 //
                 """
+@p='1'
+
 UPDATE `Order Details` AS `o`
 INNER JOIN `Products` AS `p` ON `o`.`ProductID` = `p`.`ProductID`
 INNER JOIN `Orders` AS `o0` ON `o`.`OrderID` = `o0`.`OrderID`
-SET `o`.`Quantity` = CAST(1 AS signed)
+SET `o`.`Quantity` = @p
 WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00')
 """,
                 //
