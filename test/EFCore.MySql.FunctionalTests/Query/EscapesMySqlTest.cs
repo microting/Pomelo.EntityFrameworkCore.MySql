@@ -99,9 +99,12 @@ WHERE `a`.`Name` IN (
             {
                  AssertSql(
 """
+@artistNames1='Back\\slasher''s' (Size = 4000)
+@artistNames2='John''s Chill Box' (Size = 4000)
+
 SELECT `a`.`ArtistId`, `a`.`Name`
 FROM `Artists` AS `a`
-WHERE `a`.`Name` IN ('Back\\slasher''s', 'John''s Chill Box')
+WHERE `a`.`Name` IN (@artistNames1, @artistNames2)
 """);
             }
         }
