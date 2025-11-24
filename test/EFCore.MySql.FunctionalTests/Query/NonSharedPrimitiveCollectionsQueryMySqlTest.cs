@@ -472,12 +472,6 @@ LIMIT 2
         }
     }
 
-    public override async Task Column_collection_inside_json_owned_entity()
-    {
-        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => base.Column_collection_inside_json_owned_entity());
-        Assert.Equal(MySqlStrings.Ef7CoreJsonMappingNotSupported, exception.Message);
-    }
-
     #endregion Type mapping inference
 
     [ConditionalTheory]
