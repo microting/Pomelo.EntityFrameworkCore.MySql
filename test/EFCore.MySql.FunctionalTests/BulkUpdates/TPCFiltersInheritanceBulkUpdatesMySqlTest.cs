@@ -128,8 +128,10 @@ WHERE (
 
         AssertExecuteUpdateSql(
 """
+@p='Monovia' (Size = 4000)
+
 UPDATE `Countries` AS `c`
-SET `c`.`Name` = 'Monovia'
+SET `c`.`Name` = @p
 WHERE (
     SELECT COUNT(*)
     FROM (
@@ -149,8 +151,10 @@ WHERE (
 
         AssertExecuteUpdateSql(
 """
+@p='Monovia' (Size = 4000)
+
 UPDATE `Countries` AS `c`
-SET `c`.`Name` = 'Monovia'
+SET `c`.`Name` = @p
 WHERE (
     SELECT COUNT(*)
     FROM (
@@ -237,8 +241,10 @@ WHERE `k`.`CountryId` = 1
 """,
                 //
                 """
+@p='0'
+
 UPDATE `Kiwi` AS `k`
-SET `k`.`FoundOn` = 0
+SET `k`.`FoundOn` = @p
 WHERE `k`.`CountryId` = 1
 """,
                 //
@@ -261,9 +267,12 @@ WHERE `k`.`CountryId` = 1
 """,
                 //
                 """
+@p='0'
+@p0='Kiwi' (Size = 4000)
+
 UPDATE `Kiwi` AS `k`
-SET `k`.`FoundOn` = 0,
-    `k`.`Name` = 'Kiwi'
+SET `k`.`FoundOn` = @p,
+    `k`.`Name` = @p0
 WHERE `k`.`CountryId` = 1
 """,
                 //
