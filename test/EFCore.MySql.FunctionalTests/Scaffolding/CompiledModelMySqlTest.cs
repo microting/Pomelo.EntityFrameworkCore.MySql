@@ -329,13 +329,6 @@ public class CompiledModelMySqlTest(NonSharedFixture fixture) : CompiledModelRel
             });
     }
 
-    public override async Task BigModel_with_JSON_columns()
-    {
-        Assert.Equal(
-            MySqlStrings.Ef7CoreJsonMappingNotSupported,
-            (await Assert.ThrowsAsync<InvalidOperationException>(() => base.BigModel_with_JSON_columns())).Message);
-    }
-
     // TODO: 9.0
     // Check, if we can make this work.
     public override async Task ComplexTypes()
