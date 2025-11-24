@@ -262,8 +262,8 @@ WHERE `a`.`Discriminator` = 'Kiwi'
 @p0='0'
 
 UPDATE `Animals` AS `a`
-SET `a`.`FoundOn` = @p0,
-    `a`.`Name` = @p
+SET `a`.`Name` = @p,
+    `a`.`FoundOn` = @p0
 WHERE `a`.`Discriminator` = 'Kiwi'
 """);
     }

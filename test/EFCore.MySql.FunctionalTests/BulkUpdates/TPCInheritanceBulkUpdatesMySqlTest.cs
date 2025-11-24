@@ -261,8 +261,8 @@ FROM `Kiwi` AS `k`
 @p0='0'
 
 UPDATE `Kiwi` AS `k`
-SET `k`.`FoundOn` = @p0,
-    `k`.`Name` = @p
+SET `k`.`Name` = @p,
+    `k`.`FoundOn` = @p0
 """,
                 //
                 """
