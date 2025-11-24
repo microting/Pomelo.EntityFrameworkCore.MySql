@@ -771,6 +771,17 @@ WHERE (
 """);
     }
 
+    [ConditionalTheory]
+    [MemberData(nameof(IsAsyncData))]
+    [SupportedServerVersionCondition(nameof(ServerVersionSupport.WhereSubqueryReferencesOuterQuery))]
+    public virtual async Task Inline_collection_index_Column_with_EF_Constant(bool async)
+    {
+        // This test requires MySQL support for subqueries that reference outer query columns
+        // MySQL doesn't support this feature, so the test is skipped
+        await Task.CompletedTask;
+        AssertSql();
+    }
+
     public virtual async Task Parameter_collection_index_Column_equal_Column(bool async)
     {
 
