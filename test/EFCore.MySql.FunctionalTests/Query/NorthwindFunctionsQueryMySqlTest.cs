@@ -943,9 +943,9 @@ WHERE (`o`.`OrderID` = 11077) AND (ATAN({MySqlTestHelpers.CastAsDouble("`o`.`Dis
             ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Atan2(od.Discount, 1) }));
 
             AssertSql(
-                $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+                $@"SELECT `o`.`OrderID`, ATAN2({MySqlTestHelpers.CastAsDouble("`o`.`Discount`")}, 1.0) AS `Result`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (ATAN2({MySqlTestHelpers.CastAsDouble("`o`.`Discount`")}, 1.0) > 0.0)");
+WHERE `o`.`OrderID` = 11077");
         }
 
         [ConditionalTheory]

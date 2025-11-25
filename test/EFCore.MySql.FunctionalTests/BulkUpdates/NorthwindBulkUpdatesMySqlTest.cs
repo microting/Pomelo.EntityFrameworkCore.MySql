@@ -771,13 +771,13 @@ SET `c0`.`ContactName` = @p
 
         AssertExecuteUpdateSql(
 """
-@p='Updated' (Size = 4000)
-@__p_0='4'
+@p0='Updated' (Size = 30)
+@p='4'
 
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = @p
+SET `c`.`ContactName` = @p0
 WHERE `c`.`CustomerID` LIKE 'F%'
-LIMIT @__p_0
+LIMIT @p
 """);
     }
 
