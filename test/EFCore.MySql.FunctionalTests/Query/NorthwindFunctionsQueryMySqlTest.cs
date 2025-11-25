@@ -2706,9 +2706,9 @@ WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG10(`o`.`Discoun
 
             AssertSql(
 """
-SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+SELECT `o`.`OrderID`, LOG(`o`.`Discount`) AS `Result`
 FROM `Order Details` AS `o`
-WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG(`o`.`Discount`) < 0)
+WHERE (`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0.0)
 """);
         }
 
