@@ -1731,9 +1731,8 @@ WHERE `o`.`OrderID` <= @orderId");
 
         AssertSql(
 """
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
+SELECT `o`.`OrderID`, CAST(`o`.`OrderID` % 2 AS signed) AS `Converted`
 FROM `Orders` AS `o`
-WHERE (`o`.`CustomerID` = 'ALFKI') AND CAST(`o`.`OrderID` % 3 AS signed)
 """,
                 //
                 """
@@ -3217,7 +3216,7 @@ WHERE (`o`.`OrderID` = 11077) AND (GREATEST(`o`.`OrderID`, `o`.`ProductID`, 1) =
 """
 SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (GREATEST(1, `o`.`OrderID`, 2, `o`.`ProductID`) = `o`.`OrderID`)
+WHERE GREATEST(GREATEST(`o`.`OrderID`, `o`.`ProductID`), CAST(`o`.`Quantity` AS signed)) > 10
 """);
         }
 
