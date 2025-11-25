@@ -859,9 +859,9 @@ WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG10({MySqlTestHe
             ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077 && od.Discount > 0).Select(od => new { od.OrderID, Result = Math.Log(od.Discount) }));
 
             AssertSql(
-                $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+                $@"SELECT `o`.`OrderID`, LOG({MySqlTestHelpers.CastAsDouble("`o`.`Discount`")}) AS `Result`
 FROM `Order Details` AS `o`
-WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG({MySqlTestHelpers.CastAsDouble("`o`.`Discount`")}) < 0.0)");
+WHERE (`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0.0)");
         }
 
         [ConditionalTheory]
