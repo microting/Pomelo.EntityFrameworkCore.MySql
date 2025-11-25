@@ -12237,7 +12237,7 @@ WHERE DATE_ADD(`m`.`Date`, INTERVAL CAST(3 AS signed) year) = DATE '1993-11-10'
 """
 SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Difficulty`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
 FROM `Missions` AS `m`
-WHERE DATE_ADD(`m`.`Date`, INTERVAL CAST(3 AS signed) month) = DATE '1991-02-10'
+WHERE EXTRACT(month FROM DATE_ADD(`m`.`Date`, INTERVAL 1 month)) = 12
 """);
     }
 
