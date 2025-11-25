@@ -937,7 +937,7 @@ WHERE `c`.`CustomerID` = (
 
         AssertExecuteUpdateSql(
 """
-@p='Updated' (Size = 4000)
+@p='Updated' (Size = 30)
 
 UPDATE `Customers` AS `c`
 SET `c`.`ContactName` = @p
