@@ -418,7 +418,7 @@ ORDER BY `o`.`OrderID`, `o0`.`OrderID`
         AssertSql(
 """
 @p='2'
-@p='1'
+@p0='1'
 
 SELECT `s`.`CustomerID`, `s`.`Address`, `s`.`City`, `s`.`CompanyName`, `s`.`ContactName`, `s`.`ContactTitle`, `s`.`Country`, `s`.`Fax`, `s`.`Phone`, `s`.`PostalCode`, `s`.`Region`, `s`.`CustomerID0`, `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, `s`.`Address0`, `s`.`City0`, `s`.`CompanyName0`, `s`.`ContactName0`, `s`.`ContactTitle0`, `s`.`Country0`, `s`.`Fax0`, `s`.`Phone0`, `s`.`PostalCode0`, `s`.`Region0`
 FROM (
@@ -440,7 +440,7 @@ FROM (
         LIMIT 2 OFFSET 2
     ) AS `c2`
     ORDER BY `c1`.`CustomerID`, `c2`.`CustomerID`
-    LIMIT @p
+    LIMIT @p0
 ) AS `s`
 LEFT JOIN `Orders` AS `o0` ON `s`.`CustomerID` = `o0`.`CustomerID`
 ORDER BY `s`.`CustomerID`, `s`.`CustomerID0`
