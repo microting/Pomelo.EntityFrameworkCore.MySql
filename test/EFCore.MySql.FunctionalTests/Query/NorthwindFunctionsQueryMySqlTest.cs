@@ -338,9 +338,9 @@ WHERE `c`.`CustomerID` = 'ALFKI'");
             ss => ss.Set<Customer>().Where(c => c.ContactName.Substring(1, 3) == "ari"));
 
             AssertSql(
-                @"SELECT SUBSTRING(`c`.`ContactName`, 1 + 1, 3)
+                @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` = 'ALFKI'");
+WHERE SUBSTRING(`c`.`ContactName`, 1 + 1, 3) = 'ari'");
         }
 
         [ConditionalTheory]
@@ -2327,7 +2327,7 @@ FROM `Customers` AS `c`
 """
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE CHAR_LENGTH(CONCAT_WS('|', `c`.`ContactName`, `c`.`CompanyName`)) > 10
+WHERE CHAR_LENGTH(CONCAT_WS('|', COALESCE(`c`.`ContactName`, ''), COALESCE(`c`.`CompanyName`, ''))) > 10
 """);
         }
 
@@ -2768,9 +2768,9 @@ WHERE `o`.`OrderID` = 11077
 
             AssertSql(
 """
-SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+SELECT `o`.`OrderID`, ASIN(`o`.`Discount`) AS `Result`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (ASIN(`o`.`Discount`) > 0)
+WHERE `o`.`OrderID` = 11077
 """);
         }
 
