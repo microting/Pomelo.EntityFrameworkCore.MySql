@@ -211,8 +211,10 @@ FROM `Kiwi` AS `k`
 """,
                 //
                 """
+@p='SomeOtherKiwi' (Size = 4000)
+
 UPDATE `Kiwi` AS `k`
-SET `k`.`Name` = 'SomeOtherKiwi'
+SET `k`.`Name` = @p
 """,
                 //
                 """
@@ -255,12 +257,12 @@ FROM `Kiwi` AS `k`
 """,
                 //
                 """
-@p='0'
-@p0='Kiwi' (Size = 4000)
+@p='Kiwi' (Size = 4000)
+@p0='0'
 
 UPDATE `Kiwi` AS `k`
-SET `k`.`FoundOn` = @p,
-    `k`.`Name` = @p0
+SET `k`.`Name` = @p,
+    `k`.`FoundOn` = @p0
 """,
                 //
                 """

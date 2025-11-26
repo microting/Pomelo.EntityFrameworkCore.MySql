@@ -400,8 +400,7 @@ WHERE `c`.`CustomerID` REGEXP '^T'");
 
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE 'ALFKI' REGEXP `c`.`CustomerID`");
+FROM `Customers` AS `c`");
         }
 
         [ConditionalTheory]
@@ -859,9 +858,9 @@ WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG10({MySqlTestHe
             ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077 && od.Discount > 0).Select(od => new { od.OrderID, Result = Math.Log(od.Discount) }));
 
             AssertSql(
-                $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+                $@"SELECT `o`.`OrderID`, LOG({MySqlTestHelpers.CastAsDouble("`o`.`Discount`")}) AS `Result`
 FROM `Order Details` AS `o`
-WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG({MySqlTestHelpers.CastAsDouble("`o`.`Discount`")}) < 0.0)");
+WHERE (`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0.0)");
         }
 
         [ConditionalTheory]
@@ -943,9 +942,9 @@ WHERE (`o`.`OrderID` = 11077) AND (ATAN({MySqlTestHelpers.CastAsDouble("`o`.`Dis
             ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Atan2(od.Discount, 1) }));
 
             AssertSql(
-                $@"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+                $@"SELECT `o`.`OrderID`, ATAN2({MySqlTestHelpers.CastAsDouble("`o`.`Discount`")}, 1.0) AS `Result`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (ATAN2({MySqlTestHelpers.CastAsDouble("`o`.`Discount`")}, 1.0) > 0.0)");
+WHERE `o`.`OrderID` = 11077");
         }
 
         [ConditionalTheory]
@@ -1407,11 +1406,7 @@ WHERE `c`.`CustomerID` < REPLACE('ALFKI', 'ALF', `c`.`CustomerID`)");
             AssertSql(
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE (`c`.`CustomerID` >= 'ALFKI') AND (`c`.`CustomerID` < 'CACTU')",
-                //
-                @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE (`c`.`ContactTitle` = 'Owner') AND ((`c`.`Country` <> 'USA') OR `c`.`Country` IS NULL)");
+WHERE (`c`.`ContactName` = 'Maria Anders') AND (`c`.`ContactName` <> 'Maria Ander')");
         }
 
         [ConditionalTheory]
@@ -1736,9 +1731,8 @@ WHERE `o`.`OrderID` <= @orderId");
 
         AssertSql(
 """
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
+SELECT `o`.`OrderID`, CAST(`o`.`OrderID` % 2 AS signed) AS `Converted`
 FROM `Orders` AS `o`
-WHERE (`o`.`CustomerID` = 'ALFKI') AND CAST(`o`.`OrderID` % 3 AS signed)
 """,
                 //
                 """
@@ -2316,14 +2310,8 @@ WHERE `c`.`ContactName` LIKE @pattern_endswith
 
         AssertSql(
 """
-SELECT `c1`.`City`, `c0`.`CustomerID`
-FROM (
-    SELECT `c`.`City`
-    FROM `Customers` AS `c`
-    GROUP BY `c`.`City`
-) AS `c1`
-LEFT JOIN `Customers` AS `c0` ON `c1`.`City` = `c0`.`City`
-ORDER BY `c1`.`City`
+SELECT `c`.`CustomerID`, CONCAT_WS('|', `c`.`ContactName`, `c`.`CompanyName`) AS `Joined`
+FROM `Customers` AS `c`
 """);
         }
 
@@ -2337,18 +2325,9 @@ ORDER BY `c1`.`City`
 
         AssertSql(
 """
-SELECT `c1`.`City`, `c2`.`CustomerID`
-FROM (
-    SELECT `c`.`City`
-    FROM `Customers` AS `c`
-    GROUP BY `c`.`City`
-) AS `c1`
-LEFT JOIN (
-    SELECT `c0`.`CustomerID`, `c0`.`City`
-    FROM `Customers` AS `c0`
-    WHERE CHAR_LENGTH(`c0`.`ContactName`) > 10
-) AS `c2` ON `c1`.`City` = `c2`.`City`
-ORDER BY `c1`.`City`
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+WHERE CHAR_LENGTH(CONCAT_WS('|', `c`.`ContactName`, `c`.`CompanyName`)) > 10
 """);
         }
 
@@ -2725,9 +2704,9 @@ WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG10(`o`.`Discoun
 
             AssertSql(
 """
-SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+SELECT `o`.`OrderID`, LOG(`o`.`Discount`) AS `Result`
 FROM `Order Details` AS `o`
-WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG(`o`.`Discount`) < 0)
+WHERE (`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0.0)
 """);
         }
 
@@ -3237,7 +3216,7 @@ WHERE (`o`.`OrderID` = 11077) AND (GREATEST(`o`.`OrderID`, `o`.`ProductID`, 1) =
 """
 SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (GREATEST(1, `o`.`OrderID`, 2, `o`.`ProductID`) = `o`.`OrderID`)
+WHERE GREATEST(GREATEST(`o`.`OrderID`, `o`.`ProductID`), CAST(`o`.`Quantity` AS signed)) > 10
 """);
         }
 

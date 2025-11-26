@@ -228,12 +228,12 @@ WHERE (`a`.`Discriminator` = 'Kiwi') AND (`a`.`CountryId` = 1)
 
         AssertExecuteUpdateSql(
 """
-@p='0'
-@p0='Kiwi' (Size = 4000)
+@p='Kiwi' (Size = 4000)
+@p0='0'
 
 UPDATE `Animals` AS `a`
-SET `a`.`FoundOn` = @p,
-    `a`.`Name` = @p0
+SET `a`.`Name` = @p,
+    `a`.`FoundOn` = @p0
 WHERE (`a`.`Discriminator` = 'Kiwi') AND (`a`.`CountryId` = 1)
 """);
     }

@@ -771,13 +771,13 @@ SET `c0`.`ContactName` = @p
 
         AssertExecuteUpdateSql(
 """
-@p='Updated' (Size = 4000)
-@__p_0='4'
+@p0='Updated' (Size = 30)
+@p='4'
 
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = @p
+SET `c`.`ContactName` = @p0
 WHERE `c`.`CustomerID` LIKE 'F%'
-LIMIT @__p_0
+LIMIT @p
 """);
     }
 
@@ -869,9 +869,9 @@ SET `c0`.`ContactName` = @p
 
         AssertExecuteUpdateSql(
 """
-@p='Updated' (Size = 4000)
-@__p_1='4'
-@__p_0='2'
+@p0='4'
+@p='2'
+@p1='Updated' (Size = 30)
 
 UPDATE `Customers` AS `c0`
 INNER JOIN (
@@ -879,9 +879,9 @@ INNER JOIN (
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` LIKE 'F%'
     ORDER BY `c`.`City`
-    LIMIT @__p_1 OFFSET @__p_0
+    LIMIT @p0 OFFSET @p
 ) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = @p
+SET `c0`.`ContactName` = @p1
 """);
     }
 
@@ -937,7 +937,7 @@ WHERE `c`.`CustomerID` = (
 
         AssertExecuteUpdateSql(
 """
-@p='Updated' (Size = 4000)
+@p='Updated' (Size = 30)
 
 UPDATE `Customers` AS `c`
 SET `c`.`ContactName` = @p
