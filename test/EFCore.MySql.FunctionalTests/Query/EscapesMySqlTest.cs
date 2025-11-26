@@ -99,8 +99,8 @@ WHERE `a`.`Name` IN (
             {
                  AssertSql(
 """
-@artistNames1='Back\\slasher's' (Size = 40)
-@artistNames2='John's Chill Box' (Size = 40)
+@artistNames1='Back\\\\slasher's' (Size = 4000)
+@artistNames2='John's Chill Box' (Size = 4000)
 
 SELECT `a`.`ArtistId`, `a`.`Name`
 FROM `Artists` AS `a`
