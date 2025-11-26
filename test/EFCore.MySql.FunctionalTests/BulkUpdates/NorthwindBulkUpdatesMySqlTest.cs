@@ -731,10 +731,10 @@ WHERE `c`.`CustomerID` LIKE 'F%'
         await base.Update_Where_set_parameter_from_multilevel_property_access(async);
         AssertExecuteUpdateSql(
 """
-@__container_Containee_Property_0='Abc' (Size = 30)
+@p='Abc' (Size = 30)
 
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = @__container_Containee_Property_0
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
@@ -1314,7 +1314,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
         AssertExecuteUpdateSql(
 """
-@p='Updated' (Size = 4000)
+@p='Updated' (Size = 30)
 
 UPDATE `Customers` AS `c`
 CROSS JOIN (
