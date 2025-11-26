@@ -2752,9 +2752,9 @@ WHERE (`o`.`OrderID` = 11077) AND (SQRT(`o`.`Discount`) > 0)
 
             AssertSql(
 """
-SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+SELECT `o`.`OrderID`, ACOS(`o`.`Discount`) AS `Result`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (ACOS(`o`.`Discount`) > 1)
+WHERE `o`.`OrderID` = 11077
 """);
         }
 
