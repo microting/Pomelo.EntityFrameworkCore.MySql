@@ -1002,7 +1002,7 @@ WHERE `c`.`CustomerID` IN (
 
         AssertExecuteUpdateSql(
 """
-@p='Updated' (Size = 4000)
+@p='Updated' (Size = 30)
 
 UPDATE `Customers` AS `c0`
 INNER JOIN (
