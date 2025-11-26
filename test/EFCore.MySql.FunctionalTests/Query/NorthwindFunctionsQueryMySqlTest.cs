@@ -2706,7 +2706,7 @@ WHERE ((`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)) AND (LOG10(`o`.`Discoun
 """
 SELECT `o`.`OrderID`, LOG(`o`.`Discount`) AS `Result`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0.0)
+WHERE (`o`.`OrderID` = 11077) AND (`o`.`Discount` > 0)
 """);
         }
 
@@ -3216,7 +3216,7 @@ WHERE (`o`.`OrderID` = 11077) AND (GREATEST(`o`.`OrderID`, `o`.`ProductID`, 1) =
 """
 SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
 FROM `Order Details` AS `o`
-WHERE GREATEST(GREATEST(`o`.`OrderID`, `o`.`ProductID`), CAST(`o`.`Quantity` AS signed)) > 10
+WHERE GREATEST(`o`.`OrderID`, `o`.`ProductID`, CAST(`o`.`Quantity` AS signed)) > 10
 """);
         }
 
