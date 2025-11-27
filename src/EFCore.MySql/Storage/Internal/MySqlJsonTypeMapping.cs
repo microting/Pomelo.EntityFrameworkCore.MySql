@@ -4,8 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -129,6 +132,37 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// </summary>
         public override MethodInfo GetDataReaderMethod()
             => _getString;
+
+        /// <summary>
+        /// Customizes the data reader expression for JSON types.
+        /// MySQL stores JSON as strings, but EF Core expects MemoryStream for complex JSON types.
+        /// This method creates an expression that converts the string to a MemoryStream containing UTF-8 encoded bytes.
+        /// </summary>
+        public override Expression CustomizeDataReaderExpression(Expression expression)
+        {
+            // For JSON complex types, EF Core expects a MemoryStream containing JSON data.
+            // MySQL returns JSON as strings, so we need to convert: string -> byte[] -> MemoryStream
+            
+            if (expression.Type == typeof(string))
+            {
+                // Convert string to MemoryStream: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
+                var getBytes = typeof(System.Text.Encoding).GetProperty(nameof(System.Text.Encoding.UTF8))!
+                    .GetMethod!;
+                var getBytesMethod = typeof(System.Text.Encoding).GetMethod(
+                    nameof(System.Text.Encoding.GetBytes),
+                    new[] { typeof(string) })!;
+                var memoryStreamCtor = typeof(System.IO.MemoryStream).GetConstructor(new[] { typeof(byte[]) })!;
+
+                return Expression.New(
+                    memoryStreamCtor,
+                    Expression.Call(
+                        Expression.Property(null, getBytes),
+                        getBytesMethod,
+                        expression));
+            }
+
+            return base.CustomizeDataReaderExpression(expression);
+        }
 
         void IMySqlCSharpRuntimeAnnotationTypeMappingCodeGenerator.Create(
             CSharpRuntimeAnnotationCodeGeneratorParameters codeGeneratorParameters,
