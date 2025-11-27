@@ -144,14 +144,15 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// <summary>
         /// Customizes the data reader expression for JSON types.
         /// MySQL stores JSON as strings, but EF Core expects MemoryStream for complex JSON types.
-        /// This method creates an expression that converts the string to a MemoryStream containing UTF-8 encoded bytes.
+        /// For regular JSON columns mapped to string CLR type, no conversion is needed.
+        /// This method creates an expression that converts the string to a MemoryStream containing UTF-8 encoded bytes
+        /// only when the CLR type is not string (i.e., for complex types).
         /// </summary>
         public override Expression CustomizeDataReaderExpression(Expression expression)
         {
-            // For JSON complex types, EF Core expects a MemoryStream containing JSON data.
-            // MySQL returns JSON as strings, so we need to convert: string -> byte[] -> MemoryStream
-            
-            if (expression.Type == typeof(string))
+            // Only convert to MemoryStream for non-string CLR types (complex JSON types).
+            // For string CLR types (regular JSON columns), return the string as-is.
+            if (expression.Type == typeof(string) && ClrType != typeof(string))
             {
                 // Validate that reflection lookups succeeded
                 if (_utf8Property == null || _getBytesMethod == null || _memoryStreamCtor == null)
@@ -162,6 +163,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 }
 
                 // Convert string to MemoryStream: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
+                // This is needed for complex JSON types where EF Core expects a stream
                 return Expression.New(
                     _memoryStreamCtor,
                     Expression.Call(
