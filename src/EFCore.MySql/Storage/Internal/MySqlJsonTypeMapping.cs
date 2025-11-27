@@ -55,6 +55,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 replaceLineBreaksWithCharFunction ?? ReplaceLineBreaksWithCharFunction);
 
         /// <summary>
+        /// Returns the method to be used for reading JSON values from the database.
+        /// MySQL stores JSON as strings, so we use GetString.
+        /// </summary>
+        public override MethodInfo GetDataReaderMethod()
+            => _getString;
+
+        /// <summary>
         /// For complex JSON, we ALWAYS convert string to MemoryStream.
         /// </summary>
         public override Expression CustomizeDataReaderExpression(Expression expression)
@@ -127,7 +134,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 
     public abstract class MySqlJsonTypeMapping : MySqlStringTypeMapping, IMySqlCSharpRuntimeAnnotationTypeMappingCodeGenerator
     {
-        private static readonly MethodInfo _getString
+        protected static readonly MethodInfo _getString
             = typeof(DbDataReader).GetRuntimeMethod(nameof(DbDataReader.GetString), new[] { typeof(int) });
 
         // Cache reflection lookups for performance
