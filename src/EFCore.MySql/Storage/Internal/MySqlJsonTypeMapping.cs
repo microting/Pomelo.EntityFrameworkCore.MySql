@@ -146,8 +146,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             if (expression.Type == typeof(string))
             {
                 // Convert string to MemoryStream: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
-                var getBytes = typeof(System.Text.Encoding).GetProperty(nameof(System.Text.Encoding.UTF8))!
-                    .GetMethod!;
+                var utf8Property = typeof(System.Text.Encoding).GetProperty(nameof(System.Text.Encoding.UTF8))!;
                 var getBytesMethod = typeof(System.Text.Encoding).GetMethod(
                     nameof(System.Text.Encoding.GetBytes),
                     new[] { typeof(string) })!;
@@ -156,7 +155,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 return Expression.New(
                     memoryStreamCtor,
                     Expression.Call(
-                        Expression.Property(null, getBytes),
+                        Expression.Property(null, utf8Property),
                         getBytesMethod,
                         expression));
             }
