@@ -64,6 +64,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         private static readonly MethodInfo _getString
             = typeof(DbDataReader).GetRuntimeMethod(nameof(DbDataReader.GetString), new[] { typeof(int) });
 
+        // Cache reflection lookups for performance
+        private static readonly PropertyInfo _utf8Property
+            = typeof(System.Text.Encoding).GetProperty(nameof(System.Text.Encoding.UTF8));
+        private static readonly MethodInfo _getBytesMethod
+            = typeof(System.Text.Encoding).GetMethod(nameof(System.Text.Encoding.GetBytes), new[] { typeof(string) });
+        private static readonly ConstructorInfo _memoryStreamCtor
+            = typeof(System.IO.MemoryStream).GetConstructor(new[] { typeof(byte[]) });
+
         public MySqlJsonTypeMapping(
             [NotNull] string storeType,
             [NotNull] Type clrType,
@@ -145,18 +153,20 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             
             if (expression.Type == typeof(string))
             {
-                // Convert string to MemoryStream: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
-                var utf8Property = typeof(System.Text.Encoding).GetProperty(nameof(System.Text.Encoding.UTF8))!;
-                var getBytesMethod = typeof(System.Text.Encoding).GetMethod(
-                    nameof(System.Text.Encoding.GetBytes),
-                    new[] { typeof(string) })!;
-                var memoryStreamCtor = typeof(System.IO.MemoryStream).GetConstructor(new[] { typeof(byte[]) })!;
+                // Validate that reflection lookups succeeded
+                if (_utf8Property == null || _getBytesMethod == null || _memoryStreamCtor == null)
+                {
+                    throw new InvalidOperationException(
+                        "Failed to find required reflection members for JSON type mapping. " +
+                        "This may indicate an incompatible version of the .NET runtime.");
+                }
 
+                // Convert string to MemoryStream: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
                 return Expression.New(
-                    memoryStreamCtor,
+                    _memoryStreamCtor,
                     Expression.Call(
-                        Expression.Property(null, utf8Property),
-                        getBytesMethod,
+                        Expression.Property(null, _utf8Property),
+                        _getBytesMethod,
                         expression));
             }
 
