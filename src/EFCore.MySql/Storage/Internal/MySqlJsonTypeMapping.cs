@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -57,6 +58,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 
     public abstract class MySqlJsonTypeMapping : MySqlStringTypeMapping, IMySqlCSharpRuntimeAnnotationTypeMappingCodeGenerator
     {
+        private static readonly MethodInfo _getString
+            = typeof(DbDataReader).GetRuntimeMethod(nameof(DbDataReader.GetString), new[] { typeof(int) });
+
         public MySqlJsonTypeMapping(
             [NotNull] string storeType,
             [NotNull] Type clrType,
@@ -117,6 +121,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 parameter.Value = (string)mySqlJsonString;
             }
         }
+
+        /// <summary>
+        /// Returns the method to be used for reading JSON values from the database.
+        /// MySQL stores JSON as strings, so we use GetString instead of the default GetFieldValue&lt;T&gt;.
+        /// This prevents EF Core from trying to convert from string to MemoryStream for complex JSON types.
+        /// </summary>
+        public override MethodInfo GetDataReaderMethod()
+            => _getString;
 
         void IMySqlCSharpRuntimeAnnotationTypeMappingCodeGenerator.Create(
             CSharpRuntimeAnnotationCodeGeneratorParameters codeGeneratorParameters,
