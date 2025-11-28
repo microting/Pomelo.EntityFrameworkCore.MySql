@@ -1027,6 +1027,31 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
         protected override Expression VisitSelect(SelectExpression selectExpression)
         {
             Console.WriteLine($"[DEBUG SQL] VisitSelect called - Tables: {selectExpression.Tables.Count}, Projection: {selectExpression.Projection.Count}");
+            
+            // Log each projection item BEFORE calling base.VisitSelect
+            for (int i = 0; i < selectExpression.Projection.Count; i++)
+            {
+                var projection = selectExpression.Projection[i];
+                Console.WriteLine($"[DEBUG SQL]   Projection[{i}]: Alias='{projection.Alias}', Expression Type={projection.Expression.GetType().Name}");
+                
+                if (projection.Expression is ColumnExpression col)
+                {
+                    Console.WriteLine($"[DEBUG SQL]     ColumnExpression: Name='{col.Name}', TypeMapping={col.TypeMapping?.GetType().Name ?? "null"}");
+                    if (col.TypeMapping != null)
+                    {
+                        Console.WriteLine($"[DEBUG SQL]       TypeMapping: ClrType={col.TypeMapping.ClrType.Name}, StoreType='{col.TypeMapping.StoreType}'");
+                    }
+                }
+                else if (projection.Expression is SqlConstantExpression constant)
+                {
+                    Console.WriteLine($"[DEBUG SQL]     SqlConstantExpression: Value={constant.Value}, TypeMapping={constant.TypeMapping?.GetType().Name ?? "null"}");
+                }
+                else
+                {
+                    Console.WriteLine($"[DEBUG SQL]     Other Expression: {projection.Expression}");
+                }
+            }
+            
             var result = base.VisitSelect(selectExpression);
             
             // Log current SQL state after SELECT is generated
