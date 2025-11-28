@@ -102,6 +102,22 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping: No conversion, calling base.CustomizeDataReaderExpression");
             return base.CustomizeDataReaderExpression(expression);
         }
+
+        public override string GenerateSqlLiteral(object value)
+        {
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.GenerateSqlLiteral called - value type: {value?.GetType()?.Name ?? "null"}");
+            var result = base.GenerateSqlLiteral(value);
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.GenerateSqlLiteral result: {result}");
+            return result;
+        }
+
+        public override string GenerateProviderValueSqlLiteral(object value)
+        {
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.GenerateProviderValueSqlLiteral called - value type: {value?.GetType()?.Name ?? "null"}");
+            var result = base.GenerateProviderValueSqlLiteral(value);
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.GenerateProviderValueSqlLiteral result: {result}");
+            return result;
+        }
     }
 
     public class MySqlJsonTypeMapping<T> : MySqlJsonTypeMapping
