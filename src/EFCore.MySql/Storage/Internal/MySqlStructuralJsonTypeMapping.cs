@@ -34,9 +34,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         public static MySqlStructuralJsonTypeMapping Default { get; } = new("json");
 
         public MySqlStructuralJsonTypeMapping(string storeType)
-            : base(storeType, typeof(JsonTypePlaceholder), dbType: null)
+            : base(storeType, typeof(JsonTypePlaceholder), System.Data.DbType.String)
         {
-            Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping created - StoreType: {storeType}, ClrType: JsonTypePlaceholder");
+            Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping created - StoreType: {storeType}, ClrType: JsonTypePlaceholder, DbType: String");
         }
 
         protected MySqlStructuralJsonTypeMapping(RelationalTypeMappingParameters parameters)
