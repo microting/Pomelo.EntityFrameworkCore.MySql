@@ -326,6 +326,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                     // when creating JSON columns for complex types/collections. Return our complex JSON mapping.
                     if (clrType?.Name == "JsonTypePlaceholder" && storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                     {
+                        Console.WriteLine($"[DEBUG] MySqlTypeMappingSource: Detected JsonTypePlaceholder, returning _jsonComplexType");
                         return _jsonComplexType;
                     }
                     
@@ -349,6 +350,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 // Works for both MySQL (native JSON type) and MariaDB (JSON alias for LONGTEXT)
                 if (storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                 {
+                    Console.WriteLine($"[DEBUG] MySqlTypeMappingSource: JSON store type with CLR type: {clrType?.Name ?? "null"}, returning _jsonDefaultString");
                     // Return JSON mapping for any CLR type since JSON can serialize any object
                     // The "json" store type works for both:
                     // - MySQL 5.7.8+: Creates native JSON column with binary storage
