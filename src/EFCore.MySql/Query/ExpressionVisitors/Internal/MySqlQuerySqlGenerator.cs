@@ -477,6 +477,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             var path = jsonScalarExpression.Path;
             if (path.Count == 0)
             {
+                // For empty paths (selecting the entire JSON column), just visit the JSON expression
+                // This handles complex JSON types where we're projecting the whole column
+                Visit(jsonScalarExpression.Json);
                 return jsonScalarExpression;
             }
 
@@ -1022,6 +1025,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
         {
             // MySQL supports CTE (WITH) expressions within subqueries, as well as others,
             // so we allow any raw SQL to be composed over.
+        }
+
+        protected override Expression VisitSelect(SelectExpression selectExpression)
+        {
+            return base.VisitSelect(selectExpression);
         }
     }
 }
