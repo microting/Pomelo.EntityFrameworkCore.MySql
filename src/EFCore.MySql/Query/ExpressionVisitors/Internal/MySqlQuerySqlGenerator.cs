@@ -1023,5 +1023,22 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             // MySQL supports CTE (WITH) expressions within subqueries, as well as others,
             // so we allow any raw SQL to be composed over.
         }
+
+        protected override Expression VisitSelect(SelectExpression selectExpression)
+        {
+            Console.WriteLine($"[DEBUG SQL] VisitSelect called - Tables: {selectExpression.Tables.Count}, Projection: {selectExpression.Projection.Count}");
+            var result = base.VisitSelect(selectExpression);
+            
+            // Log current SQL state after SELECT is generated
+            var currentSql = Sql.ToString();
+            var lastSelect = currentSql.LastIndexOf("SELECT");
+            if (lastSelect >= 0)
+            {
+                var sqlFragment = currentSql.Substring(lastSelect, Math.Min(200, currentSql.Length - lastSelect));
+                Console.WriteLine($"[DEBUG SQL] After VisitSelect: {sqlFragment}");
+            }
+            
+            return result;
+        }
     }
 }
