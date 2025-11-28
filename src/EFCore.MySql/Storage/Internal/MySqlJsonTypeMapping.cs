@@ -68,23 +68,19 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         {
             if (expression.Type == typeof(string))
             {
-                // Get the cached reflection members from the base class
-                var utf8Property = typeof(System.Text.Encoding).GetProperty(nameof(System.Text.Encoding.UTF8));
-                var getBytesMethod = typeof(System.Text.Encoding).GetMethod(nameof(System.Text.Encoding.GetBytes), new[] { typeof(string) });
-                var memoryStreamCtor = typeof(System.IO.MemoryStream).GetConstructor(new[] { typeof(byte[]) });
-
-                if (utf8Property == null || getBytesMethod == null || memoryStreamCtor == null)
+                // Validate that reflection lookups succeeded (using cached members from base class)
+                if (_utf8Property == null || _getBytesMethod == null || _memoryStreamCtor == null)
                 {
                     throw new InvalidOperationException(
                         "Failed to find required reflection members for JSON type mapping.");
                 }
 
-                // Convert string to MemoryStream
+                // Convert string to MemoryStream: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
                 return Expression.New(
-                    memoryStreamCtor,
+                    _memoryStreamCtor,
                     Expression.Call(
-                        Expression.Property(null, utf8Property),
-                        getBytesMethod,
+                        Expression.Property(null, _utf8Property),
+                        _getBytesMethod,
                         expression));
             }
 
@@ -138,11 +134,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             = typeof(DbDataReader).GetRuntimeMethod(nameof(DbDataReader.GetString), new[] { typeof(int) });
 
         // Cache reflection lookups for performance
-        private static readonly PropertyInfo _utf8Property
+        protected static readonly PropertyInfo _utf8Property
             = typeof(System.Text.Encoding).GetProperty(nameof(System.Text.Encoding.UTF8));
-        private static readonly MethodInfo _getBytesMethod
+        protected static readonly MethodInfo _getBytesMethod
             = typeof(System.Text.Encoding).GetMethod(nameof(System.Text.Encoding.GetBytes), new[] { typeof(string) });
-        private static readonly ConstructorInfo _memoryStreamCtor
+        protected static readonly ConstructorInfo _memoryStreamCtor
             = typeof(System.IO.MemoryStream).GetConstructor(new[] { typeof(byte[]) });
 
         public MySqlJsonTypeMapping(
