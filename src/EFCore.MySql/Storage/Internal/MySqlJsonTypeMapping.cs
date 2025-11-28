@@ -33,6 +33,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             bool replaceLineBreaksWithCharFunction)
             : base(storeType, valueConverter, valueComparer, noBackslashEscapes, replaceLineBreaksWithCharFunction)
         {
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping constructor called - StoreType: {storeType}, Converter: {valueConverter?.GetType().Name ?? "null"}");
         }
 
         protected MySqlComplexJsonTypeMapping(
@@ -42,30 +43,42 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             bool replaceLineBreaksWithCharFunction)
             : base(parameters, mySqlDbType, noBackslashEscapes, replaceLineBreaksWithCharFunction)
         {
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping protected constructor called - ClrType: {ClrType?.Name ?? "null"}, StoreType: {StoreType}");
         }
 
         protected override RelationalTypeMapping Clone(RelationalTypeMappingParameters parameters)
-            => new MySqlComplexJsonTypeMapping(parameters, MySqlDbType, NoBackslashEscapes, ReplaceLineBreaksWithCharFunction);
+        {
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.Clone(parameters) called - ClrType: {parameters.CoreParameters.ClrType?.Name ?? "null"}");
+            return new MySqlComplexJsonTypeMapping(parameters, MySqlDbType, NoBackslashEscapes, ReplaceLineBreaksWithCharFunction);
+        }
 
         protected override RelationalTypeMapping Clone(bool? noBackslashEscapes = null, bool? replaceLineBreaksWithCharFunction = null)
-            => new MySqlComplexJsonTypeMapping(
+        {
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.Clone(bool) called - ClrType: {ClrType?.Name ?? "null"}, StoreType: {StoreType}");
+            return new MySqlComplexJsonTypeMapping(
                 Parameters,
                 MySqlDbType,
                 noBackslashEscapes ?? NoBackslashEscapes,
                 replaceLineBreaksWithCharFunction ?? ReplaceLineBreaksWithCharFunction);
+        }
 
         /// <summary>
         /// Returns the method to be used for reading JSON values from the database.
         /// MySQL stores JSON as strings, so we use GetString.
         /// </summary>
         public override MethodInfo GetDataReaderMethod()
-            => _getString;
+        {
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.GetDataReaderMethod() called - ClrType: {ClrType?.Name ?? "null"}, returning: {_getString?.Name ?? "null"}");
+            return _getString;
+        }
 
         /// <summary>
         /// For complex JSON, we ALWAYS convert string to MemoryStream.
         /// </summary>
         public override Expression CustomizeDataReaderExpression(Expression expression)
         {
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.CustomizeDataReaderExpression() called - ExpressionType: {expression.Type?.Name ?? "null"}, ClrType: {ClrType?.Name ?? "null"}");
+            
             if (expression.Type == typeof(string))
             {
                 // Validate that reflection lookups succeeded (using cached members from base class)
@@ -75,6 +88,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                         "Failed to find required reflection members for JSON type mapping.");
                 }
 
+                Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping: Converting string expression to MemoryStream");
+                
                 // Convert string to MemoryStream: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
                 return Expression.New(
                     _memoryStreamCtor,
@@ -84,6 +99,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                         expression));
             }
 
+            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping: No conversion, calling base.CustomizeDataReaderExpression");
             return base.CustomizeDataReaderExpression(expression);
         }
     }
