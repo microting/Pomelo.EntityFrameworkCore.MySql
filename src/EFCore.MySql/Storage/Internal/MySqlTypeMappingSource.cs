@@ -89,6 +89,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 
         // JSON default mapping
         private MySqlJsonTypeMapping<string> _jsonDefaultString;
+        // JSON mapping for complex types (JsonTypePlaceholder)
+        private MySqlJsonTypeMapping<byte[]> _jsonComplex;
 
         // Scaffolding type mappings
         private readonly MySqlCodeGenerationMemberAccessTypeMapping _codeGenerationMemberAccess = MySqlCodeGenerationMemberAccessTypeMapping.Default;
@@ -135,6 +137,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 : null;
 
             _jsonDefaultString = new MySqlJsonTypeMapping<string>("json", null, null, _options.NoBackslashEscapes, _options.ReplaceLineBreaksWithCharFunction);
+            _jsonComplex = new MySqlJsonTypeMapping<byte[]>("json", null, null, _options.NoBackslashEscapes, _options.ReplaceLineBreaksWithCharFunction);
 
             _storeTypeMappings
                 = new Dictionary<string, RelationalTypeMapping[]>(StringComparer.OrdinalIgnoreCase)
@@ -321,10 +324,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                     // fail immediately.
                     
                     // Special case for JSON columns: EF Core passes JsonTypePlaceholder as the CLR type
-                    // when creating JSON columns for complex types/collections. Return our JSON mapping.
+                    // when creating JSON columns for complex types/collections. Return our JSON mapping
+                    // with byte[] as ClrType so the CustomizeDataReaderExpression logic triggers conversion.
                     if (clrType?.Name == "JsonTypePlaceholder" && storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                     {
-                        return _jsonDefaultString;
+                        return _jsonComplex;
                     }
                     
                     return clrType == null
