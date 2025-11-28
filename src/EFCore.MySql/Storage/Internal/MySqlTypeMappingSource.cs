@@ -90,7 +90,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         // JSON default mapping
         private MySqlJsonTypeMapping<string> _jsonDefaultString;
         // JSON mapping for complex types (JsonTypePlaceholder)
-        private MySqlJsonTypeMapping<byte[]> _jsonComplex;
+        private MySqlJsonTypeMapping<System.IO.MemoryStream> _jsonComplex;
 
         // Scaffolding type mappings
         private readonly MySqlCodeGenerationMemberAccessTypeMapping _codeGenerationMemberAccess = MySqlCodeGenerationMemberAccessTypeMapping.Default;
@@ -137,7 +137,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 : null;
 
             _jsonDefaultString = new MySqlJsonTypeMapping<string>("json", null, null, _options.NoBackslashEscapes, _options.ReplaceLineBreaksWithCharFunction);
-            _jsonComplex = new MySqlJsonTypeMapping<byte[]>("json", null, null, _options.NoBackslashEscapes, _options.ReplaceLineBreaksWithCharFunction);
+            _jsonComplex = new MySqlJsonTypeMapping<System.IO.MemoryStream>("json", null, null, _options.NoBackslashEscapes, _options.ReplaceLineBreaksWithCharFunction);
 
             _storeTypeMappings
                 = new Dictionary<string, RelationalTypeMapping[]>(StringComparer.OrdinalIgnoreCase)
