@@ -181,9 +181,20 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             IReadOnlyModificationCommand command,
             int commandPosition,
             out bool requiresTransaction)
-            => _options.ServerVersion.Supports.Returning
+        {
+            var startLength = commandStringBuilder.Length;
+            var result = _options.ServerVersion.Supports.Returning
                 ? AppendUpdateReturningOperation(commandStringBuilder, command, commandPosition, out requiresTransaction)
                 : base.AppendUpdateOperation(commandStringBuilder, command, commandPosition, out requiresTransaction);
+            
+            // Debug: Log the generated SQL
+            var generatedSql = commandStringBuilder.ToString(startLength, commandStringBuilder.Length - startLength);
+            Console.WriteLine($"[DEBUG SQL Generated] AppendUpdateOperation:");
+            Console.WriteLine(generatedSql);
+            Console.WriteLine($"[DEBUG SQL Generated] Table: {command.TableName}, Columns: {command.ColumnModifications.Count}");
+            
+            return result;
+        }
 
         /// <summary>
         /// Appends SQL for updating a row to the commands being built, via an UPDATE containing a RETURNING clause
