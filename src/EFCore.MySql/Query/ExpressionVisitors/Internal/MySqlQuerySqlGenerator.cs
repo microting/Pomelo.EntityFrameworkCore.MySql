@@ -1026,42 +1026,51 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
 
         protected override Expression VisitSelect(SelectExpression selectExpression)
         {
-            Console.WriteLine($"[DEBUG SQL] VisitSelect called - Tables: {selectExpression.Tables.Count}, Projection: {selectExpression.Projection.Count}");
-            
-            // Log each projection item BEFORE calling base.VisitSelect
-            for (int i = 0; i < selectExpression.Projection.Count; i++)
+            var logPath = "/tmp/mysql_debug.log";
+            try
             {
-                var projection = selectExpression.Projection[i];
-                Console.WriteLine($"[DEBUG SQL]   Projection[{i}]: Alias='{projection.Alias}', Expression Type={projection.Expression.GetType().Name}");
+                System.IO.File.AppendAllText(logPath, $"\n[DEBUG SQL] VisitSelect called - Tables: {selectExpression.Tables.Count}, Projection: {selectExpression.Projection.Count}\n");
                 
-                if (projection.Expression is ColumnExpression col)
+                // Log each projection item BEFORE calling base.VisitSelect
+                for (int i = 0; i < selectExpression.Projection.Count; i++)
                 {
-                    Console.WriteLine($"[DEBUG SQL]     ColumnExpression: Name='{col.Name}', TypeMapping={col.TypeMapping?.GetType().Name ?? "null"}");
-                    if (col.TypeMapping != null)
+                    var projection = selectExpression.Projection[i];
+                    System.IO.File.AppendAllText(logPath, $"[DEBUG SQL]   Projection[{i}]: Alias='{projection.Alias}', Expression Type={projection.Expression.GetType().Name}\n");
+                    
+                    if (projection.Expression is ColumnExpression col)
                     {
-                        Console.WriteLine($"[DEBUG SQL]       TypeMapping: ClrType={col.TypeMapping.ClrType.Name}, StoreType='{col.TypeMapping.StoreType}'");
+                        System.IO.File.AppendAllText(logPath, $"[DEBUG SQL]     ColumnExpression: Name='{col.Name}', TypeMapping={col.TypeMapping?.GetType().Name ?? "null"}\n");
+                        if (col.TypeMapping != null)
+                        {
+                            System.IO.File.AppendAllText(logPath, $"[DEBUG SQL]       TypeMapping: ClrType={col.TypeMapping.ClrType.Name}, StoreType='{col.TypeMapping.StoreType}'\n");
+                        }
+                    }
+                    else if (projection.Expression is SqlConstantExpression constant)
+                    {
+                        System.IO.File.AppendAllText(logPath, $"[DEBUG SQL]     SqlConstantExpression: Value={constant.Value}, TypeMapping={constant.TypeMapping?.GetType().Name ?? "null"}\n");
+                    }
+                    else
+                    {
+                        System.IO.File.AppendAllText(logPath, $"[DEBUG SQL]     Other Expression: {projection.Expression}\n");
                     }
                 }
-                else if (projection.Expression is SqlConstantExpression constant)
-                {
-                    Console.WriteLine($"[DEBUG SQL]     SqlConstantExpression: Value={constant.Value}, TypeMapping={constant.TypeMapping?.GetType().Name ?? "null"}");
-                }
-                else
-                {
-                    Console.WriteLine($"[DEBUG SQL]     Other Expression: {projection.Expression}");
-                }
             }
+            catch { }
             
             var result = base.VisitSelect(selectExpression);
             
-            // Log current SQL state after SELECT is generated
-            var currentSql = Sql.ToString();
-            var lastSelect = currentSql.LastIndexOf("SELECT");
-            if (lastSelect >= 0)
+            try
             {
-                var sqlFragment = currentSql.Substring(lastSelect, Math.Min(200, currentSql.Length - lastSelect));
-                Console.WriteLine($"[DEBUG SQL] After VisitSelect: {sqlFragment}");
+                // Log current SQL state after SELECT is generated
+                var currentSql = Sql.ToString();
+                var lastSelect = currentSql.LastIndexOf("SELECT");
+                if (lastSelect >= 0)
+                {
+                    var sqlFragment = currentSql.Substring(lastSelect, Math.Min(200, currentSql.Length - lastSelect));
+                    System.IO.File.AppendAllText(logPath, $"[DEBUG SQL] After VisitSelect: {sqlFragment}\n");
+                }
             }
+            catch { }
             
             return result;
         }
