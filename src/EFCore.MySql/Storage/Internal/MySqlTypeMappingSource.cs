@@ -89,7 +89,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 
         // JSON default mapping
         private MySqlJsonTypeMapping<string> _jsonDefaultString;
-        private MySqlComplexJsonTypeMapping _jsonComplexType;
 
         // Scaffolding type mappings
         private readonly MySqlCodeGenerationMemberAccessTypeMapping _codeGenerationMemberAccess = MySqlCodeGenerationMemberAccessTypeMapping.Default;
@@ -136,7 +135,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 : null;
 
             _jsonDefaultString = new MySqlJsonTypeMapping<string>("json", null, null, _options.NoBackslashEscapes, _options.ReplaceLineBreaksWithCharFunction);
-            _jsonComplexType = new MySqlComplexJsonTypeMapping("json", null, null, _options.NoBackslashEscapes, _options.ReplaceLineBreaksWithCharFunction);
 
             _storeTypeMappings
                 = new Dictionary<string, RelationalTypeMapping[]>(StringComparer.OrdinalIgnoreCase)
@@ -323,11 +321,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                     // fail immediately.
                     
                     // Special case for JSON columns: EF Core passes JsonTypePlaceholder as the CLR type
-                    // when creating JSON columns for complex types/collections. Return our complex JSON mapping.
+                    // when creating JSON columns for complex types/collections. Return our JSON mapping.
                     if (clrType?.Name == "JsonTypePlaceholder" && storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                     {
-                        Console.WriteLine($"[DEBUG] MySqlTypeMappingSource: Detected JsonTypePlaceholder, returning _jsonComplexType");
-                        return _jsonComplexType;
+                        return _jsonDefaultString;
                     }
                     
                     return clrType == null
@@ -350,7 +347,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 // Works for both MySQL (native JSON type) and MariaDB (JSON alias for LONGTEXT)
                 if (storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.WriteLine($"[DEBUG] MySqlTypeMappingSource: JSON store type with CLR type: {clrType?.Name ?? "null"}, returning _jsonDefaultString");
                     // Return JSON mapping for any CLR type since JSON can serialize any object
                     // The "json" store type works for both:
                     // - MySQL 5.7.8+: Creates native JSON column with binary storage

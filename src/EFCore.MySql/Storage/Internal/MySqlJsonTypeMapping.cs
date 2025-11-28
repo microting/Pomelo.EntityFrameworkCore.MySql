@@ -19,107 +19,6 @@ using MySqlConnector;
 
 namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 {
-    /// <summary>
-    /// Type mapping for complex JSON types (used when JSON is mapped to complex .NET types).
-    /// Always converts string to MemoryStream since EF Core expects MemoryStream for complex JSON.
-    /// </summary>
-    public class MySqlComplexJsonTypeMapping : MySqlJsonTypeMapping<string>
-    {
-        public MySqlComplexJsonTypeMapping(
-            [NotNull] string storeType,
-            [CanBeNull] ValueConverter valueConverter,
-            [CanBeNull] ValueComparer valueComparer,
-            bool noBackslashEscapes,
-            bool replaceLineBreaksWithCharFunction)
-            : base(storeType, valueConverter, valueComparer, noBackslashEscapes, replaceLineBreaksWithCharFunction)
-        {
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping constructor called - StoreType: {storeType}, Converter: {valueConverter?.GetType().Name ?? "null"}");
-        }
-
-        protected MySqlComplexJsonTypeMapping(
-            RelationalTypeMappingParameters parameters,
-            MySqlDbType mySqlDbType,
-            bool noBackslashEscapes,
-            bool replaceLineBreaksWithCharFunction)
-            : base(parameters, mySqlDbType, noBackslashEscapes, replaceLineBreaksWithCharFunction)
-        {
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping protected constructor called - ClrType: {ClrType?.Name ?? "null"}, StoreType: {StoreType}");
-        }
-
-        protected override RelationalTypeMapping Clone(RelationalTypeMappingParameters parameters)
-        {
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.Clone(parameters) called - ClrType: {parameters.CoreParameters.ClrType?.Name ?? "null"}");
-            return new MySqlComplexJsonTypeMapping(parameters, MySqlDbType, NoBackslashEscapes, ReplaceLineBreaksWithCharFunction);
-        }
-
-        protected override RelationalTypeMapping Clone(bool? noBackslashEscapes = null, bool? replaceLineBreaksWithCharFunction = null)
-        {
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.Clone(bool) called - ClrType: {ClrType?.Name ?? "null"}, StoreType: {StoreType}");
-            return new MySqlComplexJsonTypeMapping(
-                Parameters,
-                MySqlDbType,
-                noBackslashEscapes ?? NoBackslashEscapes,
-                replaceLineBreaksWithCharFunction ?? ReplaceLineBreaksWithCharFunction);
-        }
-
-        /// <summary>
-        /// Returns the method to be used for reading JSON values from the database.
-        /// MySQL stores JSON as strings, so we use GetString.
-        /// </summary>
-        public override MethodInfo GetDataReaderMethod()
-        {
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.GetDataReaderMethod() called - ClrType: {ClrType?.Name ?? "null"}, returning: {_getString?.Name ?? "null"}");
-            return _getString;
-        }
-
-        /// <summary>
-        /// For complex JSON, we ALWAYS convert string to MemoryStream.
-        /// </summary>
-        public override Expression CustomizeDataReaderExpression(Expression expression)
-        {
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.CustomizeDataReaderExpression() called - ExpressionType: {expression.Type?.Name ?? "null"}, ClrType: {ClrType?.Name ?? "null"}");
-            
-            if (expression.Type == typeof(string))
-            {
-                // Validate that reflection lookups succeeded (using cached members from base class)
-                if (_utf8Property == null || _getBytesMethod == null || _memoryStreamCtor == null)
-                {
-                    throw new InvalidOperationException(
-                        "Failed to find required reflection members for JSON type mapping.");
-                }
-
-                Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping: Converting string expression to MemoryStream");
-                
-                // Convert string to MemoryStream: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
-                return Expression.New(
-                    _memoryStreamCtor,
-                    Expression.Call(
-                        Expression.Property(null, _utf8Property),
-                        _getBytesMethod,
-                        expression));
-            }
-
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping: No conversion, calling base.CustomizeDataReaderExpression");
-            return base.CustomizeDataReaderExpression(expression);
-        }
-
-        public override string GenerateSqlLiteral(object value)
-        {
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.GenerateSqlLiteral called - value type: {value?.GetType()?.Name ?? "null"}");
-            var result = base.GenerateSqlLiteral(value);
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.GenerateSqlLiteral result: {result}");
-            return result;
-        }
-
-        public override string GenerateProviderValueSqlLiteral(object value)
-        {
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.GenerateProviderValueSqlLiteral called - value type: {value?.GetType()?.Name ?? "null"}");
-            var result = base.GenerateProviderValueSqlLiteral(value);
-            Console.WriteLine($"[DEBUG] MySqlComplexJsonTypeMapping.GenerateProviderValueSqlLiteral result: {result}");
-            return result;
-        }
-    }
-
     public class MySqlJsonTypeMapping<T> : MySqlJsonTypeMapping
     {
         public static new MySqlJsonTypeMapping<T> Default { get; } = new("json", null, null, false, true);
@@ -232,6 +131,44 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             {
                 parameter.Value = (string)mySqlJsonString;
             }
+        }
+
+        /// <summary>
+        /// Returns the method to be used for reading JSON values from the database.
+        /// MySQL stores JSON as strings, so we use GetString instead of the default GetFieldValue&lt;T&gt;.
+        /// </summary>
+        public override MethodInfo GetDataReaderMethod()
+            => _getString;
+
+        /// <summary>
+        /// Customizes the data reader expression for JSON types.
+        /// MySQL stores JSON as strings, but EF Core expects MemoryStream for complex JSON types.
+        /// We only convert for non-string CLR types (complex JSON types), not for regular JSON columns mapped to string.
+        /// </summary>
+        public override Expression CustomizeDataReaderExpression(Expression expression)
+        {
+            // Only convert for complex JSON types (where ClrType is NOT string)
+            // For regular JSON columns mapped to string, don't convert
+            if (expression.Type == typeof(string) && ClrType != typeof(string))
+            {
+                // Validate that reflection lookups succeeded
+                if (_utf8Property == null || _getBytesMethod == null || _memoryStreamCtor == null)
+                {
+                    throw new InvalidOperationException(
+                        "Failed to find required reflection members for JSON type mapping. " +
+                        "This may indicate an incompatible version of the .NET runtime.");
+                }
+
+                // Convert string to MemoryStream: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
+                return Expression.New(
+                    _memoryStreamCtor,
+                    Expression.Call(
+                        Expression.Property(null, _utf8Property),
+                        _getBytesMethod,
+                        expression));
+            }
+
+            return base.CustomizeDataReaderExpression(expression);
         }
 
         void IMySqlCSharpRuntimeAnnotationTypeMappingCodeGenerator.Create(
