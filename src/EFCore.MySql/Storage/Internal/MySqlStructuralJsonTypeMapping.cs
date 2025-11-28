@@ -29,18 +29,23 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         public MySqlStructuralJsonTypeMapping(string storeType)
             : base(storeType, typeof(JsonTypePlaceholder), System.Data.DbType.String)
         {
+            Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping created - StoreType: {storeType}, ClrType: JsonTypePlaceholder");
         }
 
         protected MySqlStructuralJsonTypeMapping(RelationalTypeMappingParameters parameters)
             : base(parameters)
         {
+            Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping cloned - StoreType: {parameters.StoreType}");
         }
 
         /// <summary>
         /// MySQL stores JSON as strings, so we read using GetString.
         /// </summary>
         public override MethodInfo GetDataReaderMethod()
-            => _getStringMethod;
+        {
+            Console.WriteLine("[DEBUG] MySqlStructuralJsonTypeMapping.GetDataReaderMethod() called - returning DbDataReader.GetString");
+            return _getStringMethod;
+        }
 
         /// <summary>
         /// Converts the string read from MySQL to a MemoryStream for EF Core's JSON processing.
@@ -52,7 +57,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// Customizes the data reader expression to convert string to MemoryStream.
         /// </summary>
         public override Expression CustomizeDataReaderExpression(Expression expression)
-            => Expression.Call(_createUtf8StreamMethod, expression);
+        {
+            Console.WriteLine("[DEBUG] MySqlStructuralJsonTypeMapping.CustomizeDataReaderExpression() called - converting string to MemoryStream");
+            return Expression.Call(_createUtf8StreamMethod, expression);
+        }
 
         protected override RelationalTypeMapping Clone(RelationalTypeMappingParameters parameters)
             => new MySqlStructuralJsonTypeMapping(parameters);

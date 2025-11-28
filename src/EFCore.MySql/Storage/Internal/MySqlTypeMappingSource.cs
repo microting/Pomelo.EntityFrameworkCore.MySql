@@ -327,6 +327,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                     // when creating JSON columns for complex types/collections. Return our structural JSON mapping.
                     if (clrType?.Name == "JsonTypePlaceholder" && storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                     {
+                        Console.WriteLine($"[DEBUG] MySqlTypeMappingSource: Detected JsonTypePlaceholder for JSON column - returning MySqlStructuralJsonTypeMapping");
                         return _jsonStructural;
                     }
                     

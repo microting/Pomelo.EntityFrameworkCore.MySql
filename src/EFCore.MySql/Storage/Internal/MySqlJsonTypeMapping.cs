@@ -130,7 +130,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// MySQL stores JSON as strings, so we use GetString instead of the default GetFieldValue&lt;T&gt;.
         /// </summary>
         public override MethodInfo GetDataReaderMethod()
-            => _getString;
+        {
+            Console.WriteLine($"[DEBUG] MySqlJsonTypeMapping.GetDataReaderMethod() called - ClrType: {ClrType.Name} - returning DbDataReader.GetString");
+            return _getString;
+        }
 
         /// <summary>
         /// Customizes the data reader expression for JSON types.
@@ -139,6 +142,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// </summary>
         public override Expression CustomizeDataReaderExpression(Expression expression)
         {
+            Console.WriteLine($"[DEBUG] MySqlJsonTypeMapping.CustomizeDataReaderExpression() called - ClrType: {ClrType.Name} - no conversion");
             // For regular JSON columns, no conversion needed - just return the string
             return base.CustomizeDataReaderExpression(expression);
         }
