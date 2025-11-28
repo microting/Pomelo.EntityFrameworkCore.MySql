@@ -34,9 +34,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         public static MySqlStructuralJsonTypeMapping Default { get; } = new("json");
 
         public MySqlStructuralJsonTypeMapping(string storeType)
-            : base(storeType, typeof(JsonTypePlaceholder), System.Data.DbType.String)
+            : base(storeType, typeof(JsonTypePlaceholder), dbType: null)
         {
-            Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping created - StoreType: {storeType}, ClrType: JsonTypePlaceholder, DbType: String");
+            Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping created - StoreType: {storeType}, ClrType: JsonTypePlaceholder, DbType: null");
         }
 
         protected MySqlStructuralJsonTypeMapping(RelationalTypeMappingParameters parameters)
@@ -71,6 +71,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 
         protected override RelationalTypeMapping Clone(RelationalTypeMappingParameters parameters)
             => new MySqlStructuralJsonTypeMapping(parameters);
+
+        /// <summary>
+        /// Override to ensure we return JsonTypePlaceholder type consistently
+        /// </summary>
+        public override Type ClrType => typeof(JsonTypePlaceholder);
 
         protected string EscapeSqlLiteral(string literal)
             => literal.Replace("'", "''");
