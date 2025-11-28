@@ -64,14 +64,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         protected static readonly MethodInfo _getString
             = typeof(DbDataReader).GetRuntimeMethod(nameof(DbDataReader.GetString), new[] { typeof(int) });
 
-        // Cache reflection lookups for performance
-        protected static readonly PropertyInfo _utf8Property
-            = typeof(System.Text.Encoding).GetProperty(nameof(System.Text.Encoding.UTF8));
-        protected static readonly MethodInfo _getBytesMethod
-            = typeof(System.Text.Encoding).GetMethod(nameof(System.Text.Encoding.GetBytes), new[] { typeof(string) });
-        protected static readonly ConstructorInfo _memoryStreamCtor
-            = typeof(System.IO.MemoryStream).GetConstructor(new[] { typeof(byte[]) });
-
         public MySqlJsonTypeMapping(
             [NotNull] string storeType,
             [NotNull] Type clrType,
@@ -142,32 +134,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
 
         /// <summary>
         /// Customizes the data reader expression for JSON types.
-        /// MySQL stores JSON as strings, but EF Core expects MemoryStream for complex JSON types.
-        /// We only convert when ClrType is MemoryStream (complex JSON types), not for regular JSON columns mapped to string.
+        /// This is only used for regular JSON columns mapped to string properties.
+        /// Complex JSON types use MySqlStructuralJsonTypeMapping instead.
         /// </summary>
         public override Expression CustomizeDataReaderExpression(Expression expression)
         {
-            // Only convert for complex JSON types (where ClrType is MemoryStream)
-            // For regular JSON columns mapped to string, don't convert
-            if (expression.Type == typeof(string) && ClrType == typeof(System.IO.MemoryStream))
-            {
-                // Validate that reflection lookups succeeded
-                if (_utf8Property == null || _getBytesMethod == null || _memoryStreamCtor == null)
-                {
-                    throw new InvalidOperationException(
-                        "Failed to find required reflection members for JSON type mapping. " +
-                        "This may indicate an incompatible version of the .NET runtime.");
-                }
-
-                // Convert string to MemoryStream: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
-                return Expression.New(
-                    _memoryStreamCtor,
-                    Expression.Call(
-                        Expression.Property(null, _utf8Property),
-                        _getBytesMethod,
-                        expression));
-            }
-
+            // For regular JSON columns, no conversion needed - just return the string
             return base.CustomizeDataReaderExpression(expression);
         }
 

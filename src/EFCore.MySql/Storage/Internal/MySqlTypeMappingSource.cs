@@ -87,10 +87,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         // guid
         private GuidTypeMapping _guid;
 
-        // JSON default mapping
+        // JSON default mapping for regular JSON columns mapped to string
         private MySqlJsonTypeMapping<string> _jsonDefaultString;
-        // JSON mapping for complex types (JsonTypePlaceholder)
-        private MySqlJsonTypeMapping<System.IO.MemoryStream> _jsonComplex;
+        // JSON mapping for complex types (types mapped with .ToJson())
+        private MySqlStructuralJsonTypeMapping _jsonStructural;
 
         // Scaffolding type mappings
         private readonly MySqlCodeGenerationMemberAccessTypeMapping _codeGenerationMemberAccess = MySqlCodeGenerationMemberAccessTypeMapping.Default;
@@ -137,7 +137,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 : null;
 
             _jsonDefaultString = new MySqlJsonTypeMapping<string>("json", null, null, _options.NoBackslashEscapes, _options.ReplaceLineBreaksWithCharFunction);
-            _jsonComplex = new MySqlJsonTypeMapping<System.IO.MemoryStream>("json", null, null, _options.NoBackslashEscapes, _options.ReplaceLineBreaksWithCharFunction);
+            _jsonStructural = new MySqlStructuralJsonTypeMapping("json");
 
             _storeTypeMappings
                 = new Dictionary<string, RelationalTypeMapping[]>(StringComparer.OrdinalIgnoreCase)
@@ -324,11 +324,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                     // fail immediately.
                     
                     // Special case for JSON columns: EF Core passes JsonTypePlaceholder as the CLR type
-                    // when creating JSON columns for complex types/collections. Return our JSON mapping
-                    // with byte[] as ClrType so the CustomizeDataReaderExpression logic triggers conversion.
+                    // when creating JSON columns for complex types/collections. Return our structural JSON mapping.
                     if (clrType?.Name == "JsonTypePlaceholder" && storeTypeName.Equals("json", StringComparison.OrdinalIgnoreCase))
                     {
-                        return _jsonComplex;
+                        return _jsonStructural;
                     }
                     
                     return clrType == null
