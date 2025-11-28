@@ -15,19 +15,26 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
     /// <summary>
     /// Type mapping for complex JSON types (types mapped with .ToJson()).
     /// This mapping handles the conversion from MySQL's string-based JSON to MemoryStream expected by EF Core.
+    /// Similar to Npgsql's NpgsqlStructuralJsonTypeMapping.
     /// </summary>
     public class MySqlStructuralJsonTypeMapping : JsonTypeMapping
     {
-        private static readonly MethodInfo _createUtf8StreamMethod
-            = typeof(MySqlStructuralJsonTypeMapping).GetMethod(nameof(CreateUtf8Stream), new[] { typeof(string) });
-
         private static readonly MethodInfo _getStringMethod
             = typeof(DbDataReader).GetRuntimeMethod(nameof(DbDataReader.GetString), new[] { typeof(int) });
+
+        private static readonly PropertyInfo _utf8Property
+            = typeof(Encoding).GetProperty(nameof(Encoding.UTF8));
+
+        private static readonly MethodInfo _getBytesMethod
+            = typeof(Encoding).GetMethod(nameof(Encoding.GetBytes), new[] { typeof(string) });
+
+        private static readonly ConstructorInfo _memoryStreamConstructor
+            = typeof(MemoryStream).GetConstructor(new[] { typeof(byte[]) });
 
         public static MySqlStructuralJsonTypeMapping Default { get; } = new("json");
 
         public MySqlStructuralJsonTypeMapping(string storeType)
-            : base(storeType, typeof(JsonTypePlaceholder), System.Data.DbType.String)
+            : base(storeType, typeof(JsonTypePlaceholder), dbType: null)
         {
             Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping created - StoreType: {storeType}, ClrType: JsonTypePlaceholder");
         }
@@ -48,18 +55,18 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         }
 
         /// <summary>
-        /// Converts the string read from MySQL to a MemoryStream for EF Core's JSON processing.
-        /// </summary>
-        public static MemoryStream CreateUtf8Stream(string json)
-            => new MemoryStream(Encoding.UTF8.GetBytes(json ?? string.Empty));
-
-        /// <summary>
         /// Customizes the data reader expression to convert string to MemoryStream.
+        /// Creates: new MemoryStream(Encoding.UTF8.GetBytes(stringValue))
         /// </summary>
         public override Expression CustomizeDataReaderExpression(Expression expression)
         {
             Console.WriteLine("[DEBUG] MySqlStructuralJsonTypeMapping.CustomizeDataReaderExpression() called - converting string to MemoryStream");
-            return Expression.Call(_createUtf8StreamMethod, expression);
+            return Expression.New(
+                _memoryStreamConstructor,
+                Expression.Call(
+                    Expression.Property(null, _utf8Property),
+                    _getBytesMethod,
+                    expression));
         }
 
         protected override RelationalTypeMapping Clone(RelationalTypeMappingParameters parameters)
