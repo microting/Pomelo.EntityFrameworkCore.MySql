@@ -378,4 +378,12 @@ public class MySqlModificationCommandBatch : AffectedCountModificationCommandBat
     /// We use _pendingParameters only to support our AddParameter implementation.
     /// </summary>
     private int _pendingParameters;
+
+    protected override RawSqlCommand CreateStoreCommand()
+    {
+        var command = base.CreateStoreCommand();
+        Console.WriteLine($"[DEBUG SQL COMMAND] CommandText: {command.RelationalCommand.CommandText}");
+        Console.WriteLine($"[DEBUG SQL COMMAND] ParameterCount: {command.ParameterValues.Count}");
+        return command;
+    }
 }
