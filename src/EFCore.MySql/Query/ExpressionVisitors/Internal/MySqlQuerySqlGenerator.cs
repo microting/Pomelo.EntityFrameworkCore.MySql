@@ -477,6 +477,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             var path = jsonScalarExpression.Path;
             if (path.Count == 0)
             {
+                // For empty paths (selecting the entire JSON column), just visit the JSON expression
+                // This handles complex JSON types where we're projecting the whole column
+                Visit(jsonScalarExpression.Json);
                 return jsonScalarExpression;
             }
 
@@ -1049,13 +1052,40 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                     {
                         System.IO.File.AppendAllText(logPath, $"[DEBUG SQL]     SqlConstantExpression: Value={constant.Value}, TypeMapping={constant.TypeMapping?.GetType().Name ?? "null"}\n");
                     }
+                    else if (projection.Expression.GetType().Name == "JsonScalarExpression")
+                    {
+                        // Use reflection to get properties since JsonScalarExpression is internal
+                        var jsonExprType = projection.Expression.GetType();
+                        var jsonProp = jsonExprType.GetProperty("Json");
+                        var pathProp = jsonExprType.GetProperty("Path");
+                        var typeMappingProp = jsonExprType.GetProperty("TypeMapping");
+                        
+                        var jsonVal = jsonProp?.GetValue(projection.Expression);
+                        var pathVal = pathProp?.GetValue(projection.Expression);
+                        var typeMappingVal = typeMappingProp?.GetValue(projection.Expression);
+                        
+                        System.IO.File.AppendAllText(logPath, $"[DEBUG SQL]     JsonScalarExpression: Json={jsonVal}, Path={pathVal}, TypeMapping={typeMappingVal?.GetType().Name ?? "null"}\n");
+                        
+                        if (typeMappingVal != null)
+                        {
+                            var tmType = typeMappingVal.GetType();
+                            var clrTypeProp = tmType.GetProperty("ClrType");
+                            var storeTypeProp = tmType.GetProperty("StoreType");
+                            var clrType = clrTypeProp?.GetValue(typeMappingVal) as Type;
+                            var storeType = storeTypeProp?.GetValue(typeMappingVal) as string;
+                            System.IO.File.AppendAllText(logPath, $"[DEBUG SQL]       TypeMapping: ClrType={clrType?.Name ?? "null"}, StoreType='{storeType}'\n");
+                        }
+                    }
                     else
                     {
                         System.IO.File.AppendAllText(logPath, $"[DEBUG SQL]     Other Expression: {projection.Expression}\n");
                     }
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.IO.File.AppendAllText(logPath, $"[DEBUG SQL] Error in logging: {ex.Message}\n");
+            }
             
             var result = base.VisitSelect(selectExpression);
             
