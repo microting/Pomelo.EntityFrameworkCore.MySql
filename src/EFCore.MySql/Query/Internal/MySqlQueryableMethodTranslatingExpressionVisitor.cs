@@ -280,18 +280,17 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                 throw new UnreachableException();
         }
 
-        // For MySQL JSON_TABLE, we need to extract the nested JSON document using JSON_EXTRACT
-        // Build the full path by combining the JSON column path with the query expression path
-        var fullPath = jsonQueryExpression.Path.ToList();
+        // MySQL JSON_TABLE requires the nested JSON document as raw JSON (not extracted as a scalar value).
+        // We need to use JSON_EXTRACT (not JSON_VALUE) to get the JSON fragment with proper structure.
+        // Unlike Npgsql which can use JsonScalarExpression (translates to json extraction in PostgreSQL),
+        // MySQL's JsonScalarExpression translates to JSON_VALUE which strips quotes and can't feed JSON_TABLE.
         
-        // Create a JSON_EXTRACT expression to get the nested JSON document
-        // JSON_EXTRACT returns the JSON fragment as-is (with quotes for strings)
         SqlExpression jsonSource;
-        if (fullPath.Count > 0)
+        if (jsonQueryExpression.Path.Count > 0)
         {
-            // Build JSON path string like $.path.to.array
+            // Build the JSON path for extraction
             var pathBuilder = new System.Text.StringBuilder("$");
-            foreach (var segment in fullPath)
+            foreach (var segment in jsonQueryExpression.Path)
             {
                 if (segment.PropertyName is not null)
                 {
@@ -303,7 +302,7 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                 }
             }
 
-            // Use JSON_EXTRACT to get the nested JSON document
+            // Use JSON_EXTRACT to get the nested JSON document (not JSON_VALUE which extracts scalars)
             jsonSource = _sqlExpressionFactory.Function(
                 "JSON_EXTRACT",
                 [jsonQueryExpression.JsonColumn, _sqlExpressionFactory.Constant(pathBuilder.ToString())],
@@ -314,7 +313,7 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
         }
         else
         {
-            // No path, use the JSON column directly
+            // No path - use the JSON column directly
             jsonSource = jsonQueryExpression.JsonColumn;
         }
 
@@ -327,7 +326,7 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
             [.. columnInfos]);
 
         // MySQL JSON_TABLE returns a 'key' column for array ordering (similar to PostgreSQL's ordinality)
-        var keyColumnTypeMapping = _typeMappingSource.FindMapping(typeof(uint))!;
+        var keyColumnTypeMapping = _typeMappingSource.FindMapping(typeof(int))!;
 
 #pragma warning disable EF1001 // Internal EF Core API usage.
         // Use CreateSelect helper method (from base class) to create the SelectExpression
@@ -335,7 +334,7 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
             jsonQueryExpression,
             jsonTableExpression,
             "key",
-            typeof(uint),
+            typeof(int),
             keyColumnTypeMapping);
 #pragma warning restore EF1001 // Internal EF Core API usage.
 
