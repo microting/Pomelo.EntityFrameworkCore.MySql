@@ -516,7 +516,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             // MariaDB does not support CAST(... AS json), so skip the CAST entirely when JsonDataTypeEmulation is enabled.
             // MariaDB stores JSON as LONGTEXT, so no explicit cast is needed - the data is already in a compatible text format.
             // This prevents SQL syntax errors like "near 'json) IS NULL'" on MariaDB while maintaining correct NULL comparison semantics.
-            if (castStoreType == "json" && _options.ServerVersion.Supports.JsonDataTypeEmulation)
+            if (castStoreType == "json" && _options?.ServerVersion?.Supports?.JsonDataTypeEmulation == true)
             {
                 castStoreType = null;
             }
@@ -729,7 +729,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             // MariaDB does not support CAST(... AS json) syntax, so skip the conversion entirely when JsonDataTypeEmulation is enabled.
             // MariaDB stores JSON as LONGTEXT, so no explicit cast is needed - comparisons work correctly without it.
             // This avoids SQL syntax errors on MariaDB while maintaining correct NULL and equality comparison semantics.
-            if (castMapping == "json" && _options.ServerVersion.Supports.JsonDataTypeEmulation)
+            if (castMapping == "json" && _options?.ServerVersion?.Supports?.JsonDataTypeEmulation == true)
             {
                 // For MariaDB with JsonDataTypeEmulation, skip the CAST by returning early
                 Visit(sqlUnaryExpression.Operand);
