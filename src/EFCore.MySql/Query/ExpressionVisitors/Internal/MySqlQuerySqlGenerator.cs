@@ -513,6 +513,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                 castStoreType = GetCastStoreType(jsonScalarExpression.TypeMapping);
             // }
 
+            // MariaDB does not support CAST(... AS json), so skip the CAST when targeting json type with JsonDataTypeEmulation enabled.
+            // This prevents SQL syntax errors like "near 'json) IS NULL'" on MariaDB.
+            if (castStoreType == "json" && _options.ServerVersion.Supports.JsonDataTypeEmulation)
+            {
+                castStoreType = null;
+            }
+
             if (castStoreType is not null)
             {
                 Sql.Append("CAST(");
@@ -718,9 +725,15 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                                          operandUnary.OperatorType == ExpressionType.Convert &&
                                          castMapping.Equals(GetCastStoreType(operandUnary.TypeMapping), StringComparison.OrdinalIgnoreCase);
 
-            if (castMapping == "json" && !_options.ServerVersion.Supports.JsonDataTypeEmulation ||
-                !castMapping.Equals(sqlUnaryExpression.Operand.TypeMapping.StoreType, StringComparison.OrdinalIgnoreCase) &&
-                !sameInnerCastStoreType)
+            // MariaDB does not support CAST(... AS json) syntax, so we skip the CAST when JsonDataTypeEmulation is enabled (MariaDB).
+            // For MySQL 8+, which has native JSON type support, we generate the CAST when needed.
+            // This prevents SQL syntax errors like "near 'json)) IS NULL'" on MariaDB.
+            var skipCastForMariaDbJson = castMapping == "json" && _options.ServerVersion.Supports.JsonDataTypeEmulation;
+
+            if (!skipCastForMariaDbJson &&
+                (castMapping == "json" && !_options.ServerVersion.Supports.JsonDataTypeEmulation ||
+                 !castMapping.Equals(sqlUnaryExpression.Operand.TypeMapping.StoreType, StringComparison.OrdinalIgnoreCase) &&
+                 !sameInnerCastStoreType))
             {
                 var useDecimalToDoubleWorkaround = false;
 
