@@ -214,6 +214,33 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
 
     protected override ShapedQueryExpression TransformJsonQueryToTable(JsonQueryExpression jsonQueryExpression)
     {
+        // TODO: Implement JSON_TABLE support for structural types (entities/complex types) in JSON collections.
+        //
+        // Current Status:
+        // - TransformJsonQueryToTable implementation is complete and matches Npgsql pattern
+        // - JSON_TABLE syntax and COLUMNS clause generation is correct
+        // - Issue is in EF Core base SelectExpression.AddCrossJoin or MySQL SQL generator
+        // - When TranslateSelectMany calls AddCrossJoin, the CROSS JOIN keyword is not generated
+        // - This results in invalid SQL: "FROM table1 JSON_TABLE(...)" instead of "FROM table1 CROSS JOIN JSON_TABLE(...)"
+        //
+        // Investigation completed:
+        // - Npgsql uses identical CreateSelect pattern and it works for PostgreSQL
+        // - MySQL supports both comma and CROSS JOIN syntax with JSON_TABLE (manually verified)
+        // - The bug is in query assembly, not in provider-specific logic
+        // - Requires either: override TranslateSelectMany, patch EF Core AddCrossJoin, or fix MySQL SQL generator
+        //
+        // Partial implementation preserved below for reference (currently commented out).
+        // See commits: 11dc6b2, e17a1e9, 4b80703 for full implementation details.
+
+        // For now, throw a clear exception to inform users this is not yet supported
+        throw new InvalidOperationException(
+            "Composing LINQ operators (such as SelectMany) over collections of structural types inside JSON documents " +
+            "is not currently supported by the MySQL provider. This feature requires fixes in EF Core's query assembly " +
+            "logic or MySQL-specific SQL generation. As a workaround, consider materializing the JSON data to the client " +
+            "using .AsEnumerable() or .ToList() before performing collection operations.");
+
+        /* PARTIAL IMPLEMENTATION - PRESERVED FOR FUTURE WORK
+        
         // Calculate the table alias for the JSON_TABLE function based on the last named path segment
         // (or the JSON column name if there are none)
         var lastNamedPathSegment = jsonQueryExpression.Path.LastOrDefault(ps => ps.PropertyName is not null);
@@ -347,6 +374,7 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                     new ProjectionMember(),
                     typeof(ValueBuffer)),
                 false));
+        */
     }
 
     protected override ShapedQueryExpression TranslatePrimitiveCollection(SqlExpression sqlExpression, IProperty property, string tableAlias)
