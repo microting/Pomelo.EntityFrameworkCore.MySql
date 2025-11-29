@@ -513,11 +513,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                 castStoreType = GetCastStoreType(jsonScalarExpression.TypeMapping);
             // }
 
-            // MariaDB does not support CAST(... AS json), so skip the CAST when targeting json type with JsonDataTypeEmulation enabled.
-            // This prevents SQL syntax errors like "near 'json) IS NULL'" on MariaDB.
+            // MariaDB does not support CAST(... AS json), so use CHAR when targeting json type with JsonDataTypeEmulation enabled.
+            // This prevents SQL syntax errors like "near 'json) IS NULL'" on MariaDB while maintaining correct NULL comparison semantics.
+            // MariaDB stores JSON as LONGTEXT, so casting to CHAR preserves the same behavior as the native JSON type.
             if (castStoreType == "json" && _options.ServerVersion.Supports.JsonDataTypeEmulation)
             {
-                castStoreType = null;
+                castStoreType = "char";
             }
 
             if (castStoreType is not null)
@@ -725,13 +726,15 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                                          operandUnary.OperatorType == ExpressionType.Convert &&
                                          castMapping.Equals(GetCastStoreType(operandUnary.TypeMapping), StringComparison.OrdinalIgnoreCase);
 
-            // MariaDB does not support CAST(... AS json) syntax, so we skip the CAST when JsonDataTypeEmulation is enabled (MariaDB).
-            // For MySQL 8+, which has native JSON type support, we generate the CAST when needed.
-            // This prevents SQL syntax errors like "near 'json)) IS NULL'" on MariaDB.
-            var skipCastForMariaDbJson = castMapping == "json" && _options.ServerVersion.Supports.JsonDataTypeEmulation;
+            // MariaDB does not support CAST(... AS json) syntax. Instead, use CAST(... AS CHAR) for MariaDB when JsonDataTypeEmulation is enabled.
+            // This maintains correct NULL comparison semantics while avoiding SQL syntax errors on MariaDB.
+            // MariaDB stores JSON as LONGTEXT, so casting to CHAR preserves the expected behavior.
+            if (castMapping == "json" && _options.ServerVersion.Supports.JsonDataTypeEmulation)
+            {
+                castMapping = "char";
+            }
 
-            if (!skipCastForMariaDbJson &&
-                (castMapping == "json" && !_options.ServerVersion.Supports.JsonDataTypeEmulation ||
+            if ((castMapping == "json" && !_options.ServerVersion.Supports.JsonDataTypeEmulation ||
                  !castMapping.Equals(sqlUnaryExpression.Operand.TypeMapping.StoreType, StringComparison.OrdinalIgnoreCase) &&
                  !sameInnerCastStoreType))
             {
