@@ -82,6 +82,18 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                        && IsJsonEachKeyColumn(subquery, projectedColumn)));
     }
 
+    protected override bool IsValidSelectExpressionForExecuteDelete(SelectExpression selectExpression)
+        => selectExpression is
+           {
+               Orderings: [],
+               Offset: null,
+               Limit: null,
+               GroupBy: [],
+               Having: null
+           } &&
+           selectExpression.Tables[0] is TableExpression &&
+           selectExpression.Tables.Skip(1).All(t => t is InnerJoinExpression);
+
     protected override bool IsValidSelectExpressionForExecuteUpdate(
         SelectExpression selectExpression,
         TableExpressionBase targetTable,
