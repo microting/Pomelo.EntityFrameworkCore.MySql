@@ -33,12 +33,10 @@ public class ComplexJsonStructuralEqualityMySqlTest : ComplexJsonStructuralEqual
 
     // TODO: Remove this skip once MariaDB JSON NULL comparison semantics are properly handled.
     // See issue #151 and class-level TODO comment for details.
-    [ConditionalTheory(Skip = "MariaDB JSON NULL comparison not supported - returns wrong result count (7 vs 1)")]
-    [MemberData(nameof(IsAsyncData))]
-    public Task Nested_associate_with_inline_null(bool async)
-    {
-        return Task.CompletedTask;
-    }
+    //
+    // Note: This test is inherited from the base class but fails on MariaDB due to JSON NULL comparison
+    // semantic differences. The test should be skipped using the "SkipForMariaDb" trait at the class level.
+    // Skipping individual inherited tests requires conditional skip logic in the test infrastructure.
 
     public class ComplexJsonStructuralEqualityMySqlFixture : ComplexJsonRelationalFixtureBase
     {
