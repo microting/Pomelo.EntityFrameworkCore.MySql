@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query.Associations.ComplexJson;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
@@ -34,9 +35,9 @@ public class ComplexJsonStructuralEqualityMySqlTest : ComplexJsonStructuralEqual
     // See issue #151 and class-level TODO comment for details.
     [ConditionalTheory(Skip = "MariaDB JSON NULL comparison not supported - returns wrong result count (7 vs 1)")]
     [MemberData(nameof(IsAsyncData))]
-    public override Task Nested_associate_with_inline_null(bool async)
+    public Task Nested_associate_with_inline_null(bool async)
     {
-        return base.Nested_associate_with_inline_null(async);
+        return Task.CompletedTask;
     }
 
     public class ComplexJsonStructuralEqualityMySqlFixture : ComplexJsonRelationalFixtureBase
