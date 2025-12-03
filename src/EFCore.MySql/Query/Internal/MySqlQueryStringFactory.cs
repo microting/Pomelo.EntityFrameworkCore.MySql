@@ -81,7 +81,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal
             }
 
             // Get parameter values and evaluate
-            var values = new List<long>();
+            var values = new List<decimal>();
             foreach (Match match in paramMatches)
             {
                 var paramName = match.Value;
@@ -90,8 +90,15 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal
                     var param = parameters[paramName];
                     if (param.Value != null && param.Value != DBNull.Value)
                     {
-                        // Convert to long for comparison
-                        values.Add(Convert.ToInt64(param.Value));
+                        try
+                        {
+                            // Convert to decimal for comparison (handles int, long, decimal, double, float)
+                            values.Add(Convert.ToDecimal(param.Value));
+                        }
+                        catch
+                        {
+                            // Skip invalid values
+                        }
                     }
                 }
             }
@@ -186,7 +193,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal
                     var paramName = match.Value;
                     if (command.Parameters.Contains(paramName))
                     {
-                        command.Parameters.RemoveAt(paramName);
+                        command.Parameters.Remove(command.Parameters[paramName]);
                     }
                 }
             }

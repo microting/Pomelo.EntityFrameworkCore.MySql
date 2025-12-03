@@ -80,18 +80,31 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
                     }
                     
                     // Extract constant values from inlined parameters
-                    var values = new List<long>();
+                    var values = new List<decimal>();
                     foreach (var arg in visitedArguments)
                     {
-                        if (arg is MySqlInlinedParameterExpression inlinedParam &&
-                            inlinedParam.ValueExpression.Value != null)
+                        object value = null;
+                        
+                        if (arg is MySqlInlinedParameterExpression inlinedParam)
                         {
-                            values.Add(Convert.ToInt64(inlinedParam.ValueExpression.Value));
+                            value = inlinedParam.ValueExpression.Value;
                         }
-                        else if (arg is SqlConstantExpression constant &&
-                                constant.Value != null)
+                        else if (arg is SqlConstantExpression constant)
                         {
-                            values.Add(Convert.ToInt64(constant.Value));
+                            value = constant.Value;
+                        }
+                        
+                        if (value != null)
+                        {
+                            try
+                            {
+                                // Convert to decimal to handle int, long, decimal, double, float
+                                values.Add(Convert.ToDecimal(value));
+                            }
+                            catch
+                            {
+                                // Skip invalid values
+                            }
                         }
                     }
 
@@ -101,7 +114,18 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
                         var isLeast = sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase);
                         var result = isLeast ? values.Min() : values.Max();
                         
-                        return _sqlExpressionFactory.Constant(result, sqlFunctionExpression.TypeMapping);
+                        // Convert result back to the original type if possible
+                        object typedResult = result;
+                        if (sqlFunctionExpression.Type == typeof(int))
+                        {
+                            typedResult = (int)result;
+                        }
+                        else if (sqlFunctionExpression.Type == typeof(long))
+                        {
+                            typedResult = (long)result;
+                        }
+                        
+                        return _sqlExpressionFactory.Constant(typedResult, sqlFunctionExpression.TypeMapping);
                     }
                     
                     // Fallback: return function with inlined arguments
