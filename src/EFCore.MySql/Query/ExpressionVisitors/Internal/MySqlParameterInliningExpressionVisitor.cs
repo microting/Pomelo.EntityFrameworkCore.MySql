@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
@@ -64,21 +65,46 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
 
     protected virtual Expression VisitSqlFunction(SqlFunctionExpression sqlFunctionExpression)
     {
-        // For LEAST/GREATEST functions, inline parameters (MariaDB 11.6.2 doesn't support functions in LIMIT)
+        // For LEAST/GREATEST functions, evaluate and replace with constant (MariaDB 11.6.2 doesn't support functions in LIMIT)
         if (sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase) ||
             sqlFunctionExpression.Name.Equals("GREATEST", StringComparison.OrdinalIgnoreCase))
         {
             return NewInlineParametersScope(
                 inlineParameters: true,
                 () => {
-                    // Visit arguments with parameter inlining enabled
-                    var visitedArguments = new SqlExpression[sqlFunctionExpression.Arguments.Count];
-                    for (var i = 0; i < sqlFunctionExpression.Arguments.Count; i++)
+                    // Visit arguments to ensure they're inlined
+                    var visitedArguments = new List<SqlExpression>();
+                    foreach (var arg in sqlFunctionExpression.Arguments)
                     {
-                        visitedArguments[i] = (SqlExpression)Visit(sqlFunctionExpression.Arguments[i]);
+                        visitedArguments.Add((SqlExpression)Visit(arg));
                     }
                     
-                    // Reconstruct the function with visited arguments
+                    // Extract constant values from inlined parameters
+                    var values = new List<long>();
+                    foreach (var arg in visitedArguments)
+                    {
+                        if (arg is MySqlInlinedParameterExpression inlinedParam &&
+                            inlinedParam.ValueExpression.Value != null)
+                        {
+                            values.Add(Convert.ToInt64(inlinedParam.ValueExpression.Value));
+                        }
+                        else if (arg is SqlConstantExpression constant &&
+                                constant.Value != null)
+                        {
+                            values.Add(Convert.ToInt64(constant.Value));
+                        }
+                    }
+
+                    // If we have values, evaluate LEAST/GREATEST and return constant
+                    if (values.Count > 0)
+                    {
+                        var isLeast = sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase);
+                        var result = isLeast ? values.Min() : values.Max();
+                        
+                        return _sqlExpressionFactory.Constant(result, sqlFunctionExpression.TypeMapping);
+                    }
+                    
+                    // Fallback: return function with inlined arguments
                     return sqlFunctionExpression.Update(
                         sqlFunctionExpression.Instance,
                         visitedArguments);
