@@ -54,6 +54,7 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
         {
             MySqlJsonTableExpression jsonTableExpression => VisitJsonTable(jsonTableExpression),
             SelectExpression selectExpression => VisitSelect(selectExpression),
+            SqlFunctionExpression sqlFunctionExpression => VisitSqlFunction(sqlFunctionExpression),
             SqlParameterExpression sqlParameterExpression => VisitSqlParameter(sqlParameterExpression),
             ShapedQueryExpression shapedQueryExpression => shapedQueryExpression.Update(
                 Visit(shapedQueryExpression.QueryExpression),
@@ -61,25 +62,36 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
             _ => base.VisitExtension(extensionExpression)
         };
 
+    protected virtual Expression VisitSqlFunction(SqlFunctionExpression sqlFunctionExpression)
+    {
+        // For LEAST/GREATEST functions, inline parameters (MariaDB 11.6.2 doesn't support functions in LIMIT)
+        if (sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase) ||
+            sqlFunctionExpression.Name.Equals("GREATEST", StringComparison.OrdinalIgnoreCase))
+        {
+            return NewInlineParametersScope(
+                inlineParameters: true,
+                () => {
+                    // Visit arguments with parameter inlining enabled
+                    var visitedArguments = new SqlExpression[sqlFunctionExpression.Arguments.Count];
+                    for (var i = 0; i < sqlFunctionExpression.Arguments.Count; i++)
+                    {
+                        visitedArguments[i] = (SqlExpression)Visit(sqlFunctionExpression.Arguments[i]);
+                    }
+                    
+                    // Reconstruct the function with visited arguments
+                    return sqlFunctionExpression.Update(
+                        sqlFunctionExpression.Instance,
+                        visitedArguments);
+                });
+        }
+
+        return base.VisitExtension(sqlFunctionExpression);
+    }
+
     protected virtual Expression VisitSelect(SelectExpression selectExpression)
         => NewInlineParametersScope(
             inlineParameters: false,
             () => base.VisitExtension(selectExpression));
-        // => NewInlineParametersScope(
-        //     inlineParameters: false,
-        //     () => selectExpression.Offset is not null
-        //         ? selectExpression.Update(
-        //             selectExpression.Projection,
-        //             selectExpression.Tables,
-        //             selectExpression.Predicate,
-        //             selectExpression.GroupBy,
-        //             selectExpression.Having,
-        //             selectExpression.Orderings,
-        //             selectExpression.Limit,
-        //             NewInlineParametersScope(
-        //                 inlineParameters: true,
-        //                 () => (SqlExpression)Visit(selectExpression.Offset)))
-        //         : base.VisitExtension(selectExpression));
 
     // For test simplicity, we currently inline parameters even for non MySQL database engines (even though it should not be necessary
     // for e.g. MariaDB).
