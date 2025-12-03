@@ -5,8 +5,13 @@ using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
-public class OperatorsProceduralMySqlTest(NonSharedFixture fixture) : OperatorsProceduralQueryTestBase(fixture)
+public class OperatorsProceduralMySqlTest : OperatorsProceduralQueryTestBase
 {
+    public OperatorsProceduralMySqlTest(NonSharedFixture fixture)
+        : base(fixture)
+    {
+    }
+
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
 }

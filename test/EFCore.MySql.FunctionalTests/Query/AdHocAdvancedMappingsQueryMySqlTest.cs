@@ -9,8 +9,13 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
-public class AdHocAdvancedMappingsQueryMySqlTest(NonSharedFixture fixture) : AdHocAdvancedMappingsQueryRelationalTestBase(fixture)
+public class AdHocAdvancedMappingsQueryMySqlTest : AdHocAdvancedMappingsQueryRelationalTestBase
 {
+    public AdHocAdvancedMappingsQueryMySqlTest(NonSharedFixture fixture)
+        : base(fixture)
+    {
+    }
+
     [SkippableTheory]
     public override async Task Query_generates_correct_datetime2_parameter_definition(int? fractionalSeconds, string postfix)
     {

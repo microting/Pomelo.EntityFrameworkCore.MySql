@@ -9,8 +9,13 @@ using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
-    public class SharedTypeQueryMySqlTest(NonSharedFixture fixture) : SharedTypeQueryRelationalTestBase(fixture)
+    public class SharedTypeQueryMySqlTest : SharedTypeQueryRelationalTestBase
     {
+        public SharedTypeQueryMySqlTest(NonSharedFixture fixture)
+            : base(fixture)
+        {
+        }
+
         protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
 
         public override async Task Can_use_shared_type_entity_type_in_query_filter(bool async)

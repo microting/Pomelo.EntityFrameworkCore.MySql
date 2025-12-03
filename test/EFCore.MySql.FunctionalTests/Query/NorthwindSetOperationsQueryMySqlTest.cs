@@ -142,7 +142,8 @@ FROM (
             await base.Except_nested(async);
 
             AssertSql(
-                @"(
+"""
+(
     SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
     FROM `Customers` AS `c`
     WHERE `c`.`ContactTitle` = 'Owner'
@@ -154,7 +155,8 @@ FROM (
 EXCEPT
 SELECT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM `Customers` AS `c1`
-WHERE `c1`.`City` = 'Seattle'");
+WHERE `c1`.`City` = 'Seattle'
+""");
         }
 
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.ExceptIntercept))]

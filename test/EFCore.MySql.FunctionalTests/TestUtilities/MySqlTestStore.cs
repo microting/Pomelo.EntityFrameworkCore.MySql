@@ -111,8 +111,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
             return builder
                 // Our UseMySql() methods explicitly set TranslateParameterizedCollectionsToConstants() as the default, which is not the
                 // default that the EF Core tests expect.
-                // TODO EF Core 10: Replace obsolete API when UseParameterizedCollectionMode is available
-                // .TranslateParameterizedCollectionsToParameters()
+                .UseParameterizedCollectionMode(ParameterTranslationMode.MultipleParameters)
                 .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)
                 .CommandTimeout(GetCommandTimeout())
                 .ExecutionStrategy(d => new TestMySqlRetryingExecutionStrategy(d));
