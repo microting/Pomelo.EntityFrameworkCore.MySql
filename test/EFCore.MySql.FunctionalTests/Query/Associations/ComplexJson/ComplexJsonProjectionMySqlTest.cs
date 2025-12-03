@@ -18,11 +18,11 @@ public class ComplexJsonProjectionMySqlTest : ComplexJsonProjectionRelationalTes
     }
 
     // TODO: Remove these skips once TransformJsonQueryToTable is fully implemented for MySQL.
-    // Currently, SelectMany over JSON collections of structural types is not supported due to
-    // EF Core query assembly issues. The MySQL provider throws InvalidOperationException because
-    // composing LINQ operators (such as SelectMany) over collections of structural types inside JSON
-    // documents requires fixes in EF Core's query assembly logic or MySQL-specific SQL generation.
-    // See MySqlQueryableMethodTranslatingExpressionVisitor.TransformJsonQueryToTable.
+    // Currently, SelectMany over JSON collections of structural types is not supported.
+    // The MySQL provider's TransformJsonQueryToTable method throws InvalidOperationException because
+    // EF Core's SelectExpression.AddCrossJoin does not properly generate the CROSS JOIN keyword when
+    // combining table expressions with JSON_TABLE functions, resulting in invalid SQL syntax.
+    // See MySqlQueryableMethodTranslatingExpressionVisitor.TransformJsonQueryToTable (line 248).
 
     [ConditionalTheory(Skip = "SelectMany over JSON collections of structural types not yet supported")]
     [MemberData(nameof(TrackingData))]
