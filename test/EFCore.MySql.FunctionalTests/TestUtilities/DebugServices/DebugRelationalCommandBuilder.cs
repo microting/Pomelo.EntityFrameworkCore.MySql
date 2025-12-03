@@ -12,7 +12,7 @@ public class DebugRelationalCommandBuilder : RelationalCommandBuilder
 
     public override IRelationalCommand Build()
     {
-        var builtCommand = base.Build();
-        return new DebugRelationalCommand(Dependencies, builtCommand.CommandText, string.Empty, Parameters);
+        var relationalCommand = base.Build();
+        return new DebugRelationalCommand(Dependencies, relationalCommand.CommandText, relationalCommand.LogCommandText, Parameters);
     }
 }

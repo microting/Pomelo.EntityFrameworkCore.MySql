@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,9 +10,8 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
-    // Disabled via internal access. JSON functionality is not currently supported.
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
-    internal class JsonNewtonsoftPocoQueryTest : JsonPocoQueryTestBase<JsonNewtonsoftPocoQueryTest.JsonNewtonsoftPocoQueryFixture>
+    public class JsonNewtonsoftPocoQueryTest : JsonPocoQueryTestBase<JsonNewtonsoftPocoQueryTest.JsonNewtonsoftPocoQueryFixture>
     {
         public JsonNewtonsoftPocoQueryTest(JsonNewtonsoftPocoQueryFixture fixture, ITestOutputHelper testOutputHelper)
             : base (fixture)

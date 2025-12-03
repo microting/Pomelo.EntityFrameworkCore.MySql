@@ -31,8 +31,13 @@ using Xunit;
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Scaffolding;
 
 // TODO: Add more Pomelo specific cases.
-public class CompiledModelMySqlTest(NonSharedFixture fixture) : CompiledModelRelationalTestBase(fixture)
+public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
 {
+    public CompiledModelMySqlTest(NonSharedFixture fixture)
+        : base(fixture)
+    {
+    }
+
     protected override void BuildBigModel(ModelBuilder modelBuilder, bool jsonColumns)
     {
         base.BuildBigModel(modelBuilder, jsonColumns);
@@ -327,6 +332,13 @@ public class CompiledModelMySqlTest(NonSharedFixture fixture) : CompiledModelRel
                     .HasRowsAffectedParameter(
                         p => p.HasName("RowsAffected"));
             });
+    }
+
+    public override async Task BigModel_with_JSON_columns()
+    {
+        Assert.Equal(
+            MySqlStrings.Ef7CoreJsonMappingNotSupported,
+            (await Assert.ThrowsAsync<InvalidOperationException>(() => base.BigModel_with_JSON_columns())).Message);
     }
 
     // TODO: 9.0

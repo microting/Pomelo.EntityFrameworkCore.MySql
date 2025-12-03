@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -15,9 +15,8 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
-    // Disabled via internal access. JSON functionality is not currently supported.
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
-    internal class JsonMicrosoftDomQueryTest : IClassFixture<JsonMicrosoftDomQueryTest.JsonMicrosoftDomQueryFixture>
+    public class JsonMicrosoftDomQueryTest : IClassFixture<JsonMicrosoftDomQueryTest.JsonMicrosoftDomQueryFixture>
     {
         protected JsonMicrosoftDomQueryFixture Fixture { get; }
 
@@ -78,19 +77,23 @@ WHERE `j`.`CustomerDocument` = '{""Name"":""Test customer"",""Age"":80}'");
 
             Assert.Equal(actual, expected);
             AssertSql(
-                @"@p='1'
+"""
+@p='1'
 
 SELECT `j`.`Id`, `j`.`CustomerDocument`, `j`.`CustomerElement`
 FROM `JsonEntities` AS `j`
 WHERE `j`.`Id` = @p
-LIMIT 1",
+LIMIT 1
+""",
                 //
-                $@"{InsertJsonDocument(@"@expected='{""ID"":""00000000-0000-0000-0000-000000000000"",""Age"":25,""Name"":""Joe"",""IsVip"":false,""Orders"":[{""Price"":99.5,""ShippingDate"":""2019-10-01"",""ShippingAddress"":""Some address 1""},{""Price"":23.1,""ShippingDate"":""2019-10-10"",""ShippingAddress"":""Some address 2""}],""Statistics"":{""Nested"":{""IntArray"":[3,4],""SomeProperty"":10,""SomeNullableInt"":20,""SomeNullableGuid"":""d5f2685d-e5c4-47e5-97aa-d0266154eb2d""},""Visits"":4,""Purchases"":3}}'", @"@expected='{""Name"":""Joe"",""Age"":25,""ID"":""00000000-0000-0000-0000-000000000000"",""IsVip"":false,""Statistics"":{""Visits"":4,""Purchases"":3,""Nested"":{""SomeProperty"":10,""SomeNullableInt"":20,""SomeNullableGuid"":""d5f2685d-e5c4-47e5-97aa-d0266154eb2d"",""IntArray"":[3,4]}},""Orders"":[{""Price"":99.5,""ShippingAddress"":""Some address 1"",""ShippingDate"":""2019-10-01""},{""Price"":23.1,""ShippingAddress"":""Some address 2"",""ShippingDate"":""2019-10-10""}]}'")} (Size = 4000)
+                """
+@expected='{"ID":"00000000-0000-0000-0000-000000000000","Age":25,"Name":"Joe","IsVip":false,"Orders":[{"Price":99.5,"ShippingDate":"2019-10-01","ShippingAddress":"Some address 1"},{"Price":23.1,"ShippingDate":"2019-10-10","ShippingAddress":"Some address 2"}],"Statistics":{"Nested":{"IntArray":[3,4],"SomeProperty":10,"SomeNullableInt":20,"SomeNullableGuid":"d5f2685d-e5c4-47e5-97aa-d0266154eb2d"},"Visits":4,"Purchases":3}}' (Size = 4000)
 
 SELECT `j`.`Id`, `j`.`CustomerDocument`, `j`.`CustomerElement`
 FROM `JsonEntities` AS `j`
-WHERE `j`.`CustomerDocument` = {InsertJsonConvert("@expected")}
-LIMIT 2");
+WHERE `j`.`CustomerDocument` = CAST(@expected AS json)
+LIMIT 2
+""");
         }
 
         [Fact]
@@ -102,19 +105,23 @@ LIMIT 2");
 
             Assert.Equal(actual, expected);
             AssertSql(
-                @"@p='1'
+"""
+@p='1'
 
 SELECT `j`.`Id`, `j`.`CustomerDocument`, `j`.`CustomerElement`
 FROM `JsonEntities` AS `j`
 WHERE `j`.`Id` = @p
-LIMIT 1",
+LIMIT 1
+""",
                 //
-                $@"{InsertJsonDocument(@"@expected='{""ID"":""00000000-0000-0000-0000-000000000000"",""Age"":25,""Name"":""Joe"",""IsVip"":false,""Orders"":[{""Price"":99.5,""ShippingDate"":""2019-10-01"",""ShippingAddress"":""Some address 1""},{""Price"":23.1,""ShippingDate"":""2019-10-10"",""ShippingAddress"":""Some address 2""}],""Statistics"":{""Nested"":{""IntArray"":[3,4],""SomeProperty"":10,""SomeNullableInt"":20,""SomeNullableGuid"":""d5f2685d-e5c4-47e5-97aa-d0266154eb2d""},""Visits"":4,""Purchases"":3}}'", @"@expected='{""Name"":""Joe"",""Age"":25,""ID"":""00000000-0000-0000-0000-000000000000"",""IsVip"":false,""Statistics"":{""Visits"":4,""Purchases"":3,""Nested"":{""SomeProperty"":10,""SomeNullableInt"":20,""SomeNullableGuid"":""d5f2685d-e5c4-47e5-97aa-d0266154eb2d"",""IntArray"":[3,4]}},""Orders"":[{""Price"":99.5,""ShippingAddress"":""Some address 1"",""ShippingDate"":""2019-10-01""},{""Price"":23.1,""ShippingAddress"":""Some address 2"",""ShippingDate"":""2019-10-10""}]}'")} (Nullable = false) (Size = 4000)
+                """
+@expected='{"ID":"00000000-0000-0000-0000-000000000000","Age":25,"Name":"Joe","IsVip":false,"Orders":[{"Price":99.5,"ShippingDate":"2019-10-01","ShippingAddress":"Some address 1"},{"Price":23.1,"ShippingDate":"2019-10-10","ShippingAddress":"Some address 2"}],"Statistics":{"Nested":{"IntArray":[3,4],"SomeProperty":10,"SomeNullableInt":20,"SomeNullableGuid":"d5f2685d-e5c4-47e5-97aa-d0266154eb2d"},"Visits":4,"Purchases":3}}' (Nullable = false) (Size = 4000)
 
 SELECT `j`.`Id`, `j`.`CustomerDocument`, `j`.`CustomerElement`
 FROM `JsonEntities` AS `j`
-WHERE `j`.`CustomerElement` = {InsertJsonConvert("@expected")}
-LIMIT 2");
+WHERE `j`.`CustomerElement` = CAST(@expected AS json)
+LIMIT 2
+""");
         }
 
         [Fact]
@@ -254,12 +261,14 @@ LIMIT 2");
 
             Assert.Equal("Joe", x.CustomerElement.GetProperty("Name").GetString());
             AssertSql(
-                @"@i='1'
+"""
+@i='1'
 
 SELECT `j`.`Id`, `j`.`CustomerDocument`, `j`.`CustomerElement`
 FROM `JsonEntities` AS `j`
 WHERE JSON_EXTRACT(`j`.`CustomerElement`, CONCAT('$.Statistics.Nested.IntArray[', @i, ']')) = 4
-LIMIT 2");
+LIMIT 2
+""");
         }
 
         [Fact]

@@ -8,8 +8,13 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.BulkUpdates;
 
-public class NonSharedModelBulkUpdatesMySqlTest(NonSharedFixture fixture) : NonSharedModelBulkUpdatesRelationalTestBase(fixture)
+public class NonSharedModelBulkUpdatesMySqlTest : NonSharedModelBulkUpdatesRelationalTestBase
 {
+    public NonSharedModelBulkUpdatesMySqlTest(NonSharedFixture fixture)
+        : base(fixture)
+    {
+    }
+
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
 
@@ -78,10 +83,8 @@ SET `o`.`Title` = @p
 
         AssertSql(
 """
-@p='_Suffix' (Size = 4000)
-
 UPDATE `Owner` AS `o`
-SET `o`.`Title` = CONCAT(COALESCE(`o`.`Title`, ''), @p)
+SET `o`.`Title` = CONCAT(COALESCE(`o`.`Title`, ''), '_Suffix')
 """);
     }
 
@@ -92,8 +95,8 @@ SET `o`.`Title` = CONCAT(COALESCE(`o`.`Title`, ''), @p)
         AssertSql(
 """
 UPDATE `Owner` AS `o`
-SET `o`.`OwnedReference_Number` = CHAR_LENGTH(`o`.`Title`),
-    `o`.`Title` = COALESCE(CAST(`o`.`OwnedReference_Number` AS char), '')
+SET `o`.`Title` = COALESCE(CAST(`o`.`OwnedReference_Number` AS char), ''),
+    `o`.`OwnedReference_Number` = CHAR_LENGTH(`o`.`Title`)
 """);
     }
 
@@ -103,10 +106,8 @@ SET `o`.`OwnedReference_Number` = CHAR_LENGTH(`o`.`Title`),
 
         AssertSql(
 """
-@p='2020-01-01 00:00:00' (DbType = DateTime)
-
 UPDATE `Blogs` AS `b`
-SET `b`.`CreationTimestamp` = @p
+SET `b`.`CreationTimestamp` = TIMESTAMP '2020-01-01 00:00:00'
 """);
     }
 

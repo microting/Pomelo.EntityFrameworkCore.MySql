@@ -1,8 +1,6 @@
 using System.Data.Common;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.TestModels.Northwind;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
@@ -436,9 +434,9 @@ SELECT * FROM `Customers` WHERE `City` = @p0 AND `ContactTitle` = @title
                 //
                 """
 @city='London' (Nullable = false)
-p1='Sales Representative' (Size = 4000)
+p0='Sales Representative' (Size = 4000)
 
-SELECT * FROM `Customers` WHERE `City` = @city AND `ContactTitle` = @p1
+SELECT * FROM `Customers` WHERE `City` = @city AND `ContactTitle` = @p0
 """);
     }
 
@@ -662,7 +660,7 @@ WHERE `m`.`CustomerID` IN (
                 //
                 """
 @city='London' (Nullable = false)
-p1='Sales Representative' (Size = 4000)
+p0='Sales Representative' (Size = 4000)
 
 SELECT `m`.`CustomerID`, `m`.`EmployeeID`, `m`.`Freight`, `m`.`OrderDate`, `m`.`OrderID`, `m`.`RequiredDate`, `m`.`ShipAddress`, `m`.`ShipCity`, `m`.`ShipCountry`, `m`.`ShipName`, `m`.`ShipPostalCode`, `m`.`ShipRegion`, `m`.`ShipVia`, `m`.`ShippedDate`
 FROM (
@@ -671,41 +669,11 @@ FROM (
 WHERE `m`.`CustomerID` IN (
     SELECT `m0`.`CustomerID`
     FROM (
-        SELECT * FROM `Customers` WHERE `City` = @city AND `ContactTitle` = @p1
+        SELECT * FROM `Customers` WHERE `City` = @city AND `ContactTitle` = @p0
     ) AS `m0`
 )
 """);
     }
-
-    /* Disabled: FromSql API changed in EF Core 10 - method no longer available on IQueryable<T>
-    [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Multiple_occurrences_of_SqlQuery_with_db_parameter_adds_parameter_only_once(bool async)
-    {
-        await AssertQuery(
-            async,
-            ss => ss.Set<Customer>()
-                .FromSql($"SELECT * FROM `Customers` WHERE `City` = {"Seattle"}")
-                .Intersect(
-                    ss.Set<Customer>()
-                        .FromSql($"SELECT * FROM `Customers` WHERE `City` = {"Seattle"}")));
-
-        AssertSql(
-"""
-city='Seattle' (Nullable = false)
-
-SELECT `m`.`Address`, `m`.`City`, `m`.`CompanyName`, `m`.`ContactName`, `m`.`ContactTitle`, `m`.`Country`, `m`.`CustomerID`, `m`.`Fax`, `m`.`Phone`, `m`.`Region`, `m`.`PostalCode`
-FROM (
-    SELECT * FROM `Customers` WHERE `City` = @city
-) AS `m`
-INTERSECT
-SELECT `m0`.`Address`, `m0`.`City`, `m0`.`CompanyName`, `m0`.`ContactName`, `m0`.`ContactTitle`, `m0`.`Country`, `m0`.`CustomerID`, `m0`.`Fax`, `m0`.`Phone`, `m0`.`Region`, `m0`.`PostalCode`
-FROM (
-    SELECT * FROM `Customers` WHERE `City` = @city
-) AS `m0`
-""");
-    }
-    */
 
     public override async Task Bad_data_error_handling_invalid_cast_key(bool async)
     {

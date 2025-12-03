@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using NameSpace1;
@@ -8,10 +9,22 @@ using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
-public class AdHocMiscellaneousQueryMySqlTest(NonSharedFixture fixture) : AdHocMiscellaneousQueryRelationalTestBase(fixture)
+public class AdHocMiscellaneousQueryMySqlTest : AdHocMiscellaneousQueryRelationalTestBase
 {
+    public AdHocMiscellaneousQueryMySqlTest(NonSharedFixture fixture)
+        : base(fixture)
+    {
+    }
+
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
+
+    protected override DbContextOptionsBuilder SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode parameterizedCollectionMode)
+    {
+        new MySqlDbContextOptionsBuilder(optionsBuilder).UseParameterizedCollectionMode(parameterizedCollectionMode);
+
+        return optionsBuilder;
+    }
 
     protected override Task Seed2951(Context2951 context)
         => context.Database.ExecuteSqlRawAsync(
@@ -32,12 +45,5 @@ INSERT INTO `ZeroKey` VALUES (NULL)
         //var good1 = context.Set<NameSpace1.TestQuery>().FromSqlRaw(@"SELECT 1 AS MyValue").ToList(); // OK
         //var good2 = context.Set<NameSpace2.TestQuery>().FromSqlRaw(@"SELECT 1 AS MyValue").ToList(); // OK
         var bad = context.Set<TestQuery>().FromSqlRaw(@"SELECT cast(null as signed) AS MyValue").ToList(); // Exception
-    }
-
-    protected override DbContextOptionsBuilder SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode mode)
-    {
-        // MySQL-specific parameter handling configuration
-        // For now, use default MySQL behavior as the implementation is provider-specific
-        return optionsBuilder;
     }
 }

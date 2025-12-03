@@ -134,9 +134,11 @@ ORDER BY `c`.`CustomerID`
             await base.GroupBy_group_Distinct_Select_Distinct_aggregate(async);
 
             AssertSql(
-                @"SELECT `o`.`CustomerID` AS `Key`, MAX(DISTINCT (`o`.`OrderDate`)) AS `Max`
+"""
+SELECT `o`.`CustomerID` AS `Key`, MAX(`o`.`OrderDate`) AS `Max`
 FROM `Orders` AS `o`
-GROUP BY `o`.`CustomerID`");
+GROUP BY `o`.`CustomerID`
+""");
         }
 
         public override async Task GroupBy_Property_Select_Average(bool async)
@@ -1501,7 +1503,7 @@ GROUP BY `o0`.`CustomerID`
 
             AssertSql(
 """
-@p='500'
+@p0='500'
 @p='80'
 
 SELECT MAX(`o0`.`OrderID`)
@@ -1509,7 +1511,7 @@ FROM (
     SELECT `o`.`OrderID`, `o`.`CustomerID`
     FROM `Orders` AS `o`
     ORDER BY `o`.`OrderID`
-    LIMIT @p OFFSET @p
+    LIMIT @p0 OFFSET @p
 ) AS `o0`
 GROUP BY `o0`.`CustomerID`
 """);
@@ -1591,8 +1593,8 @@ GROUP BY `o0`.`CustomerID`
             AssertSql(
 """
 @p='100'
-@p='50'
-@p='10'
+@p1='50'
+@p0='10'
 
 SELECT `c0`.`CustomerID` AS `Key`, AVG(CAST(`o0`.`OrderID` AS double)) AS `Count`
 FROM (
@@ -1607,7 +1609,7 @@ INNER JOIN (
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` NOT IN ('DRACD', 'FOLKO')
     ORDER BY `c`.`City`
-    LIMIT @p OFFSET @p
+    LIMIT @p1 OFFSET @p0
 ) AS `c0` ON `o0`.`CustomerID` = `c0`.`CustomerID`
 GROUP BY `c0`.`CustomerID`
 """);
@@ -1698,9 +1700,9 @@ GROUP BY `c`.`Country`
 
             AssertSql(
 """
-@p='50'
+@p0='50'
 @p='10'
-@p='100'
+@p1='100'
 
 SELECT `o0`.`CustomerID` AS `Key`, AVG(CAST(`o0`.`OrderID` AS double)) AS `Count`
 FROM (
@@ -1708,14 +1710,14 @@ FROM (
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` NOT IN ('DRACD', 'FOLKO')
     ORDER BY `c`.`City`
-    LIMIT @p OFFSET @p
+    LIMIT @p0 OFFSET @p
 ) AS `c0`
 INNER JOIN (
     SELECT `o`.`OrderID`, `o`.`CustomerID`
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10400
     ORDER BY `o`.`OrderDate`
-    LIMIT @p
+    LIMIT @p1
 ) AS `o0` ON `c0`.`CustomerID` = `o0`.`CustomerID`
 WHERE `o0`.`OrderID` > 10300
 GROUP BY `o0`.`CustomerID`
@@ -1919,7 +1921,7 @@ WHERE EXISTS (
             AssertSql(
 """
 @p='20'
-@p='4'
+@p0='4'
 
 SELECT `o0`.`CustomerID`
 FROM (
@@ -1931,7 +1933,7 @@ FROM (
     LIMIT @p
 ) AS `o0`
 ORDER BY `o0`.`CustomerID`
-LIMIT 18446744073709551610 OFFSET @p
+LIMIT 18446744073709551610 OFFSET @p0
 """);
         }
 
@@ -1942,7 +1944,7 @@ LIMIT 18446744073709551610 OFFSET @p
             AssertSql(
 """
 @p='20'
-@p='4'
+@p0='4'
 
 SELECT `o0`.`Key`, `o0`.`Max`
 FROM (
@@ -1954,7 +1956,7 @@ FROM (
     LIMIT @p
 ) AS `o0`
 ORDER BY `o0`.`Key`
-LIMIT 18446744073709551610 OFFSET @p
+LIMIT 18446744073709551610 OFFSET @p0
 """);
         }
 
@@ -1965,7 +1967,7 @@ LIMIT 18446744073709551610 OFFSET @p
             AssertSql(
 """
 @p='20'
-@p='4'
+@p0='4'
 
 SELECT CHAR_LENGTH(`o0`.`CustomerID`)
 FROM (
@@ -1977,7 +1979,7 @@ FROM (
     LIMIT @p
 ) AS `o0`
 ORDER BY `o0`.`CustomerID`
-LIMIT 18446744073709551610 OFFSET @p
+LIMIT 18446744073709551610 OFFSET @p0
 """);
         }
 
@@ -1988,7 +1990,7 @@ LIMIT 18446744073709551610 OFFSET @p
             AssertSql(
 """
 @p='20'
-@p='4'
+@p0='4'
 
 SELECT 5
 FROM (
@@ -2000,7 +2002,7 @@ FROM (
     LIMIT @p
 ) AS `o0`
 ORDER BY `o0`.`CustomerID`
-LIMIT 18446744073709551610 OFFSET @p
+LIMIT 18446744073709551610 OFFSET @p0
 """);
         }
 
@@ -2612,13 +2614,13 @@ FROM (
 GROUP BY `o0`.`CustomerID`
 """
                     : """
-@p='0'
+@__p_0='0'
 
 SELECT `o0`.`CustomerID` AS `Key`, COUNT(*) AS `Total`
 FROM (
     SELECT `o`.`CustomerID`
     FROM `Orders` AS `o`
-    LIMIT @p OFFSET @p
+    LIMIT @__p_0 OFFSET @__p_0
 ) AS `o0`
 GROUP BY `o0`.`CustomerID`
 """);
@@ -2638,13 +2640,13 @@ GROUP BY `o`.`CustomerID`
 HAVING FALSE
 """
                     : """
-@p='0'
+@__p_0='0'
 
 SELECT `o`.`CustomerID` AS `Key`, COUNT(*) AS `Total`
 FROM `Orders` AS `o`
 WHERE `o`.`OrderID` > 10500
 GROUP BY `o`.`CustomerID`
-LIMIT @p OFFSET @p
+LIMIT @__p_0 OFFSET @__p_0
 """);
         }
 
@@ -2877,7 +2879,7 @@ FROM (
 
             AssertSql(
 """
-SELECT `o`.`CustomerID` AS `Key`, AVG(DISTINCT (CAST(`o`.`OrderID` AS double))) AS `Average`, COUNT(DISTINCT (`o`.`EmployeeID`)) AS `Count`, COUNT(DISTINCT (`o`.`EmployeeID`)) AS `LongCount`, MAX(DISTINCT (`o`.`OrderDate`)) AS `Max`, MIN(DISTINCT (`o`.`OrderDate`)) AS `Min`, COALESCE(SUM(DISTINCT (`o`.`OrderID`)), 0) AS `Sum`
+SELECT `o`.`CustomerID` AS `Key`, AVG(DISTINCT (CAST(`o`.`OrderID` AS double))) AS `Average`, COUNT(DISTINCT (`o`.`EmployeeID`)) AS `Count`, COUNT(DISTINCT (`o`.`EmployeeID`)) AS `LongCount`, MAX(`o`.`OrderDate`) AS `Max`, MIN(`o`.`OrderDate`) AS `Min`, COALESCE(SUM(DISTINCT (`o`.`OrderID`)), 0) AS `Sum`
 FROM `Orders` AS `o`
 GROUP BY `o`.`CustomerID`
 """);

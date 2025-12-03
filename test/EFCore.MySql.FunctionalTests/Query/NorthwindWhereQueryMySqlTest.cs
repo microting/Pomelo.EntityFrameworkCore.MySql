@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestModels.Northwind;
 using Microsoft.EntityFrameworkCore.TestUtilities;
+using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 using Xunit.Abstractions;
@@ -21,250 +22,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         {
             ClearLog();
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_now(bool async)
-        {
-            var myDatetime = new DateTime(2015, 4, 10);
-
-            await AssertQuery(
-                async,
-                ss => ss.Set<Customer>().Where(c => DateTime.Now != myDatetime));
-
-            AssertSql(
-                @"@myDatetime='2015-04-10T00:00:00.0000000' (DbType = DateTime)
-
-SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE CURRENT_TIMESTAMP(6) <> @myDatetime");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_utcnow(bool async)
-        {
-            var myDatetime = new DateTime(2015, 4, 10);
-
-            await AssertQuery(
-                async,
-                ss => ss.Set<Customer>().Where(c => DateTime.UtcNow != myDatetime));
-
-            AssertSql(
-                @"@myDatetime='2015-04-10T00:00:00.0000000' (DbType = DateTime)
-
-SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE UTC_TIMESTAMP(6) <> @myDatetime");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_today(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Employee>().Where(e => DateTime.Now.Date == DateTime.Today));
-
-            AssertSql(
-                @"SELECT `e`.`EmployeeID`, `e`.`City`, `e`.`Country`, `e`.`FirstName`, `e`.`ReportsTo`, `e`.`Title`
-FROM `Employees` AS `e`
-WHERE CONVERT(CURRENT_TIMESTAMP(6), date) = CURDATE()");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_date_component(bool async)
-        {
-            var myDatetime = new DateTime(1998, 5, 4);
-
-            await AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Date == myDatetime));
-
-            AssertSql(
-                @"@myDatetime='1998-05-04T00:00:00.0000000' (DbType = DateTime)
-
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE CONVERT(`o`.`OrderDate`, date) = @myDatetime");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_year_component(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Year == 1998));
-
-            AssertSql(
-                @"SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE EXTRACT(year FROM `o`.`OrderDate`) = 1998");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_month_component(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Month == 4));
-
-            AssertSql(
-                @"SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE EXTRACT(month FROM `o`.`OrderDate`) = 4");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_dayOfYear_component(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.DayOfYear == 68));
-
-            AssertSql(
-                @"SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE DAYOFYEAR(`o`.`OrderDate`) = 68");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_day_component(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Day == 4));
-
-            AssertSql(
-                @"SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE EXTRACT(day FROM `o`.`OrderDate`) = 4");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_hour_component(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Hour == 0));
-
-            AssertSql(
-"""
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE EXTRACT(hour FROM `o`.`OrderDate`) = 0
-""");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_minute_component(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Minute == 0));
-
-            AssertSql(
-"""
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE EXTRACT(minute FROM `o`.`OrderDate`) = 0
-""");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_second_component(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Second == 0));
-
-            AssertSql(
-"""
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE EXTRACT(second FROM `o`.`OrderDate`) = 0
-""");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_datetime_millisecond_component(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.OrderDate.Value.Millisecond == 0));
-
-            AssertSql(
-"""
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE (EXTRACT(microsecond FROM `o`.`OrderDate`)) DIV (1000) = 0
-""");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_string_length(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Customer>().Where(c => c.City.Length == 6));
-
-            AssertSql(
-                @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE CHAR_LENGTH(`c`.`City`) = 6");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_string_indexof(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Customer>().Where(c => c.City.IndexOf("Sea") != -1));
-
-            AssertSql(
-                @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE ((LOCATE('Sea', `c`.`City`) - 1) <> -1) OR `c`.`City` IS NULL");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_string_replace(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Customer>().Where(c => c.City.Replace("Sea", "Rea") == "Reattle"));
-
-            AssertSql(
-                @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE REPLACE(`c`.`City`, 'Sea', 'Rea') = 'Reattle'");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_string_substring(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Customer>().Where(c => c.City.Substring(1, 2) == "ea"));
-
-            AssertSql(
-                @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE SUBSTRING(`c`.`City`, 1 + 1, 2) = 'ea'");
         }
 
         [ConditionalTheory(Skip = "issue #573")]
@@ -325,56 +82,12 @@ WHERE CONCAT(SUBSTRING(`c`.`City`, 1, 3), SUBSTRING(`c`.`City`, (3 + 1) + 1, CHA
                 assertEmpty: true);
 
             AssertSql(
-                @"@guidParameter='4d68fe70-ddb0-47d7-b6db-437684fa3e1f'
+"""
+@guidParameter='4d68fe70-ddb0-47d7-b6db-437684fa3e1f'
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE @guidParameter = UUID()");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_string_concat_method_comparison_2(bool async)
-        {
-            var i = "A";
-            var j = "B";
-            
-            await AssertQuery(
-                async,
-                ss => ss.Set<Customer>().Where(c => string.Concat(i, j, c.CustomerID) == "ABANATR").Select(c => c.CustomerID));
-
-            AssertSql(
-"""
-@i='A' (Size = 4000)
-@j='B' (Size = 4000)
-
-SELECT `c`.`CustomerID`
-FROM `Customers` AS `c`
-WHERE CONCAT(@i, @j, `c`.`CustomerID`) = 'ABANATR'
-""");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_string_concat_method_comparison_3(bool async)
-        {
-            var i = "A";
-            var j = "B";
-            var k = "C";
-            
-            await AssertQuery(
-                async,
-                ss => ss.Set<Customer>().Where(c => string.Concat(i, j, k, c.CustomerID) == "ABCANTON").Select(c => c.CustomerID));
-
-            AssertSql(
-"""
-@i='A' (Size = 4000)
-@j='B' (Size = 4000)
-@k='C' (Size = 4000)
-
-SELECT `c`.`CustomerID`
-FROM `Customers` AS `c`
-WHERE CONCAT(@i, @j, @k, `c`.`CustomerID`) = 'ABCANTON'
+WHERE @guidParameter = UUID()
 """);
         }
 
@@ -390,11 +103,13 @@ WHERE CONCAT(@i, @j, @k, `c`.`CustomerID`) = 'ABCANTON'
                 assertEmpty: true);
 
             AssertSql(
-                @"@Concat='1' (Size = 40)
+"""
+@Concat='1' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @Concat = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`
+""");
         }
 
         [ConditionalTheory]
@@ -409,11 +124,13 @@ WHERE @Concat = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@i='1' (Size = 4000)
+"""
+@i='1' (Size = 4000)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE CONCAT(@i, `c`.`CustomerID`) = `c`.`CompanyName`");
+WHERE CONCAT(@i, `c`.`CustomerID`) = `c`.`CompanyName`
+""");
         }
 
         [ConditionalTheory]
@@ -429,12 +146,14 @@ WHERE CONCAT(@i, `c`.`CustomerID`) = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@i='1' (Size = 4000)
+"""
+@i='1' (Size = 4000)
 @j='2' (Size = 4000)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE CONCAT(@i, @j, `c`.`CustomerID`) = `c`.`CompanyName`");
+WHERE CONCAT(@i, @j, `c`.`CustomerID`) = `c`.`CompanyName`
+""");
         }
 
         [ConditionalTheory]
@@ -501,11 +220,13 @@ WHERE CONCAT(@i, @j, @k, @m, `c`.`CustomerID`) = `c`.`CompanyName`
                 assertEmpty: true);
 
             AssertSql(
-                @"@Concat='ABCD' (Size = 40)
+"""
+@Concat='ABCD' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @Concat = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`
+""");
         }
 
         [ConditionalTheory]
@@ -520,11 +241,13 @@ WHERE @Concat = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@Concat='A' (Size = 40)
+"""
+@Concat='A' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @Concat = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`
+""");
         }
 
         [ConditionalTheory]
@@ -566,11 +289,13 @@ WHERE CONCAT(@i, @j, @k, @m, `c`.`CustomerID`) = `c`.`CompanyName`
                 assertEmpty: true);
 
             AssertSql(
-                @"@Concat='1234' (Size = 40)
+"""
+@Concat='1234' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @Concat = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`
+""");
         }
 
         [ConditionalTheory]
@@ -585,11 +310,13 @@ WHERE @Concat = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@Concat='1' (Size = 40)
+"""
+@Concat='1' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @Concat = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`
+""");
         }
 
         [ConditionalTheory]
@@ -604,11 +331,13 @@ WHERE @Concat = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@Concat='ABCD' (Size = 40)
+"""
+@Concat='ABCD' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @Concat = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`
+""");
         }
 
         [ConditionalTheory]
@@ -623,11 +352,13 @@ WHERE @Concat = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@Concat='A' (Size = 40)
+"""
+@Concat='A' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @Concat = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`
+""");
         }
 
         [ConditionalTheory]
@@ -642,11 +373,13 @@ WHERE @Concat = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@Concat='1234' (Size = 40)
+"""
+@Concat='1234' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @Concat = `c`.`CompanyName`");
+WHERE @Concat = `c`.`CompanyName`
+""");
         }
 
         [ConditionalTheory]
@@ -661,104 +394,14 @@ WHERE @Concat = `c`.`CompanyName`");
                 assertEmpty: true);
 
             AssertSql(
-                @"@Concat='1' (Size = 40)
+"""
+@Concat='1' (Size = 40)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE @Concat = `c`.`CompanyName`");
-        }
-
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        public virtual async Task Where_bitwise_xor(bool async)
-        {
-            await AssertQuery(
-                async,
-                ss => ss.Set<Customer>().Where(c => (c.CustomerID == "ALFKI") ^ true));
-
-            AssertSql(
-"""
-SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE (`c`.`CustomerID` = 'ALFKI') ^ TRUE
+WHERE @Concat = `c`.`CompanyName`
 """);
         }
-
-        // TODO: 9.0
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
-"""
-There is some strange collation behavior with MariaDB 11.4.x and this test (seems fixed in 11.5).
-The default utf8mb4 collation was changed in 11.4.2 from utf8mb4_general_ci to utf8mb4_uca1400_ai_ci.
-We changed MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersion.DefaultUtf8CsCollation accordingly.
-If we run the this test against a Ubuntu hosted MariaDB, the test always works.
-If we run the this test against a Windows hosted MariaDB, the test fails only on the first execution (when the database does not preexist). But it works on all consecutive runs.
-If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersion.DefaultUtf8CsCollation to use the new default collations only from 11.5.0, the Ubuntu/Windows behavior flips to Windows always working and Ubuntu not successfully executing the test on the first run.
-The error is:
-    MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
-""")]
-        public virtual Task Where_concat_string_int_comparison1(bool async)
-            => AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => (o.OrderID + 10248).ToString() == o.CustomerID));
-
-        // TODO: 9.0
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
-"""
-There is some strange collation behavior with MariaDB 11.4.x and this test (seems fixed in 11.5).
-The default utf8mb4 collation was changed in 11.4.2 from utf8mb4_general_ci to utf8mb4_uca1400_ai_ci.
-We changed MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersion.DefaultUtf8CsCollation accordingly.
-If we run the this test against a Ubuntu hosted MariaDB, the test always works.
-If we run the this test against a Windows hosted MariaDB, the test fails only on the first execution (when the database does not preexist). But it works on all consecutive runs.
-If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersion.DefaultUtf8CsCollation to use the new default collations only from 11.5.0, the Ubuntu/Windows behavior flips to Windows always working and Ubuntu not successfully executing the test on the first run.
-The error is:
-    MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
-""")]
-        public virtual Task Where_concat_string_int_comparison2(bool async)
-            => AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => (10248 + o.OrderID).ToString() == o.CustomerID));
-
-        // TODO: 9.0
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
-"""
-There is some strange collation behavior with MariaDB 11.4.x and this test (seems fixed in 11.5).
-The default utf8mb4 collation was changed in 11.4.2 from utf8mb4_general_ci to utf8mb4_uca1400_ai_ci.
-We changed MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersion.DefaultUtf8CsCollation accordingly.
-If we run the this test against a Ubuntu hosted MariaDB, the test always works.
-If we run the this test against a Windows hosted MariaDB, the test fails only on the first execution (when the database does not preexist). But it works on all consecutive runs.
-If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersion.DefaultUtf8CsCollation to use the new default collations only from 11.5.0, the Ubuntu/Windows behavior flips to Windows always working and Ubuntu not successfully executing the test on the first run.
-The error is:
-    MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
-""")]
-        public virtual Task Where_concat_string_int_comparison3(bool async)
-            => AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.CustomerID == (o.OrderID + 10248).ToString()));
-
-        // TODO: 9.0
-        [ConditionalTheory]
-        [MemberData(nameof(IsAsyncData))]
-        [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
-"""
-There is some strange collation behavior with MariaDB 11.4.x and this test (seems fixed in 11.5).
-The default utf8mb4 collation was changed in 11.4.2 from utf8mb4_general_ci to utf8mb4_uca1400_ai_ci.
-We changed MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersion.DefaultUtf8CsCollation accordingly.
-If we run the this test against a Ubuntu hosted MariaDB, the test always works.
-If we run the this test against a Windows hosted MariaDB, the test fails only on the first execution (when the database does not preexist). But it works on all consecutive runs.
-If we change MariaDbServerVersion.DefaultUtf8CiCollation and MariaDbServerVersion.DefaultUtf8CsCollation to use the new default collations only from 11.5.0, the Ubuntu/Windows behavior flips to Windows always working and Ubuntu not successfully executing the test on the first run.
-The error is:
-    MySqlConnector.MySqlException : Illegal mix of collations (utf8mb4_bin,NONE) and (utf8mb4_general_ci,IMPLICIT) for operation '='
-""")]
-        public virtual Task Where_concat_string_int_comparison4(bool async)
-            => AssertQuery(
-                async,
-                ss => ss.Set<Order>().Where(o => o.CustomerID == (10248 + o.OrderID).ToString()));
 
         // TODO: 9.0
         [SupportedServerVersionBetweenCondition("11.4.2-mariadb", "11.5.0-mariadb", Invert = true, Skip =
@@ -848,6 +491,10 @@ The error is:
 
             AssertSql();
         }
+
+        [ConditionalFact]
+        public virtual void Check_all_tests_overridden()
+            => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
         private void AssertSql(params string[] expected)
             => Fixture.TestSqlLoggerFactory.AssertBaseline(expected);

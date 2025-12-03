@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestModels.Operators;
@@ -9,8 +10,13 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
-public class OperatorsQueryMySqlTest(NonSharedFixture fixture) : OperatorsQueryTestBase(fixture)
+public class OperatorsQueryMySqlTest : OperatorsQueryTestBase
 {
+    public OperatorsQueryMySqlTest([NotNull] NonSharedFixture fixture)
+        : base(fixture)
+    {
+    }
+
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
 
