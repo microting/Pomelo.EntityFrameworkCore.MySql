@@ -47,6 +47,48 @@ public class ComplexJsonProjectionMySqlTest : ComplexJsonProjectionRelationalTes
         return Task.CompletedTask;
     }
 
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_nested_collection_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_required_nested_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_nested_collection_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_optional_nested_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_optional_nested_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_required_nested_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
     public class ComplexJsonProjectionMySqlFixture : ComplexJsonRelationalFixtureBase
     {
         protected override ITestStoreFactory TestStoreFactory

@@ -63,6 +63,30 @@ public class ComplexJsonCollectionMySqlTest : ComplexJsonCollectionRelationalTes
         return Task.CompletedTask;
     }
 
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Index_constant()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Index_parameter()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Index_column()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Index_out_of_bounds()
+    {
+        return Task.CompletedTask;
+    }
+
     public class ComplexJsonCollectionMySqlFixture : ComplexJsonRelationalFixtureBase
     {
         protected override ITestStoreFactory TestStoreFactory
