@@ -3,9 +3,6 @@
   <Import Project="Development.props" Condition="Exists('Development.props')" />
 
   <PropertyGroup>
-    <RootNamespace>Pomelo</RootNamespace>
-    <AssemblyName>Pomelo</AssemblyName>
-    <Product>Pomelo</Product>
     <StrongNameKeyId>Pomelo.EntityFrameworkCore.MySql</StrongNameKeyId>
     <PackageTags>pomelo;mysql;mariadb;Entity Framework Core;entity-framework-core;ef;efcore;ef core;orm;sql</PackageTags>
     <Product>Pomelo.EntityFrameworkCore.MySql</Product>
@@ -34,7 +31,7 @@
     <EfCoreTargetFramework>net10.0</EfCoreTargetFramework>
     <EfCoreTestTargetFramework>net10.0</EfCoreTestTargetFramework>
     <MySqlConnectorTargetFramework>net10.0</MySqlConnectorTargetFramework>
-    <MySqlConnectorDependencyInjectionTargetFramework>net10.0</MySqlConnectorDependencyInjectionTargetFramework>
+    <MySqlConnectorDependencyInjectionTargetFramework>net8.0</MySqlConnectorDependencyInjectionTargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
