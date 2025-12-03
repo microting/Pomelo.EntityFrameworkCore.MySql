@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Associations.ComplexJson;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
@@ -83,6 +84,19 @@ public class ComplexJsonCollectionMySqlTest : ComplexJsonCollectionRelationalTes
 
     [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
     public override Task Index_out_of_bounds()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Distinct_over_projected_filtered_nested_collection()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Distinct_projected(Microsoft.EntityFrameworkCore.QueryTrackingBehavior queryTrackingBehavior)
     {
         return Task.CompletedTask;
     }
