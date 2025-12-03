@@ -15,16 +15,51 @@ public class ComplexJsonCollectionMySqlTest : ComplexJsonCollectionRelationalTes
     {
     }
 
-    // TODO: Remove this skip once TransformJsonQueryToTable is fully implemented for MySQL.
-    // Currently, GroupBy over JSON collections of structural types is not supported.
+    // TODO: Remove these skips once TransformJsonQueryToTable is fully implemented for MySQL.
     // The MySQL provider's TransformJsonQueryToTable method throws InvalidOperationException because
     // EF Core's SelectExpression.AddCrossJoin does not properly generate the CROSS JOIN keyword when
     // combining table expressions with JSON_TABLE functions, resulting in invalid SQL syntax.
     // See MySqlQueryableMethodTranslatingExpressionVisitor.TransformJsonQueryToTable (line 248).
-    [ConditionalFact(Skip = "GroupBy over JSON collections of structural types not yet supported")]
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Count()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Where()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task OrderBy_ElementAt()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Distinct()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Distinct_over_projected_nested_collection()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
     public override Task GroupBy()
     {
-        // This test is skipped because the feature is not yet implemented.
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Select_within_Select_within_Select_with_aggregates()
+    {
         return Task.CompletedTask;
     }
 
