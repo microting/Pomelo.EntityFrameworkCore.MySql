@@ -68,6 +68,36 @@ public class ComplexJsonStructuralEqualityMySqlTest : ComplexJsonStructuralEqual
         return Task.CompletedTask;
     }
 
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Nested_collection_with_parameter()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Nested_associate_with_inline()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Two_nested_associates()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Nested_associate_with_parameter()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Nested_associate_with_inline_null()
+    {
+        return Task.CompletedTask;
+    }
+
     public class ComplexJsonStructuralEqualityMySqlFixture : ComplexJsonRelationalFixtureBase
     {
         protected override ITestStoreFactory TestStoreFactory

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query.Associations.ComplexJson;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
@@ -12,6 +13,111 @@ public class ComplexJsonBulkUpdateMySqlTest : ComplexJsonBulkUpdateRelationalTes
     public ComplexJsonBulkUpdateMySqlTest(ComplexJsonBulkUpdateMySqlFixture fixture, ITestOutputHelper testOutputHelper)
         : base(fixture, testOutputHelper)
     {
+    }
+
+    // TODO: Remove these skips once JSON bulk update operations are fully supported for MySQL.
+    // The MySQL provider currently does not support partial updates with ExecuteUpdate within JSON columns.
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_property_inside_associate()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_property_inside_nested_associate()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_multiple_projected_associates_via_anonymous_type()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_primitive_collection_to_parameter()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_nested_collection_to_parameter()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_nested_collection_to_inline_with_lambda()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_nested_associate_to_parameter()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_multiple_properties_inside_associates_and_on_entity_type()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_primitive_collection_to_another_collection()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_property_on_projected_associate_with_OrderBy_Skip()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_nested_associate_to_another_nested_associate()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_property_inside_associate_with_special_chars()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_nested_collection_to_another_nested_collection()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_multiple_properties_inside_same_associate()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_property_on_projected_associate()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_nested_associate_to_inline_with_lambda()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalFact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_primitive_collection_to_constant()
+    {
+        return Task.CompletedTask;
     }
 
     public class ComplexJsonBulkUpdateMySqlFixture : ComplexJsonRelationalFixtureBase

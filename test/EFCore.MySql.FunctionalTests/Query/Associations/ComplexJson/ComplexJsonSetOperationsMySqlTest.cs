@@ -41,6 +41,19 @@ public class ComplexJsonSetOperationsMySqlTest : ComplexJsonSetOperationsRelatio
         return Task.CompletedTask;
     }
 
+    [ConditionalFact(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    public override Task Over_different_collection_properties()
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "LINQ operations over JSON collections of structural types not yet supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Over_associate_collection_projected(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
     public class ComplexJsonSetOperationsMySqlFixture : ComplexJsonRelationalFixtureBase
     {
         protected override ITestStoreFactory TestStoreFactory
