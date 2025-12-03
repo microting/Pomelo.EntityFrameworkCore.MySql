@@ -1,17 +1,24 @@
 <Project>
   <PropertyGroup Label="Common Versions">
+    <!-- In theory, the following should work, but it doesn't: [10.0.0,10.1.0-0)
+         `-0` is the smallest possible prerelease version according to SemVer2.
+    -->
     <EFCoreVersion>[10.0.0,10.0.999]</EFCoreVersion>
   </PropertyGroup>
+
   <ItemGroup Label="Dependencies">
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EFCoreVersion)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational.Specification.Tests" Version="$(EFCoreVersion)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFCoreVersion)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EFCoreVersion)" />
-    <PackageVersion Include="MySqlConnector" Version="2.4.0" />
-    <PackageVersion Include="MySqlConnector.DependencyInjection" Version="2.4.0" />
+
+    <PackageVersion Include="MySqlConnector" Version="2.5.0" />
+    <PackageVersion Include="MySqlConnector.DependencyInjection" Version="2.5.0" />
+
     <PackageVersion Include="NetTopologySuite" Version="2.6.0" />
-    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageVersion Include="Castle.Core" Version="5.1.1" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
+
+    <PackageVersion Include="Castle.Core" Version="5.2.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.0" />
@@ -21,12 +28,11 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="$(EFCoreVersion)" />
-    <!-- CHECK: used? -->
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.0" /> <!-- CHECK: used? -->
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="10.0.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <PackageVersion Include="Moq" Version="4.20.72" />
     <PackageVersion Include="System.Collections.Immutable" Version="10.0.0" />
@@ -34,19 +40,15 @@
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="10.0.0" />
     <PackageVersion Include="GitHubActionsTestLogger" Version="2.4.1" />
     <PackageVersion Include="Xunit.SkippableFact" Version="1.5.23" />
+
     <!-- Keep at the same level that the EF Core projects use. -->
     <PackageVersion Include="xunit.assert" Version="2.9.3" />
     <PackageVersion Include="xunit.core" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.console" Version="2.9.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageVersion>
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageVersion>
+    <PackageVersion Include="xunit.runner.console" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
     <PackageVersion Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
+
     <!-- Needed when using EFCore.Design assembly from local EF Core repository. -->
     <PackageVersion Include="Microsoft.CodeAnalysis" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
