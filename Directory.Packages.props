@@ -50,7 +50,6 @@
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
 
     <!-- Needed when using EFCore.Design assembly from local EF Core repository. -->
-    <!-- Needed when using EFCore.Design assembly from local EF Core repository. -->
     <PackageVersion Include="Microsoft.CodeAnalysis" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Features" Version="4.14.0" />
