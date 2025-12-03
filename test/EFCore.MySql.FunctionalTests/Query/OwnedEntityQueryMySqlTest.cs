@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +9,13 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
-    public class OwnedEntityQueryMySqlTest(NonSharedFixture fixture) : OwnedEntityQueryRelationalTestBase(fixture)
+    public class OwnedEntityQueryMySqlTest : OwnedEntityQueryRelationalTestBase
     {
+        public OwnedEntityQueryMySqlTest(NonSharedFixture fixture)
+            : base(fixture)
+        {
+        }
+
         protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
 
         public override async Task Multiple_single_result_in_projection_containing_owned_types(bool async)

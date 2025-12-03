@@ -10,8 +10,13 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
-public class AdHocQueryFiltersQueryMySqlTest(NonSharedFixture fixture) : AdHocQueryFiltersQueryRelationalTestBase(fixture)
+public class AdHocQueryFiltersQueryMySqlTest : AdHocQueryFiltersQueryRelationalTestBase
 {
+    public AdHocQueryFiltersQueryMySqlTest(NonSharedFixture fixture)
+        : base(fixture)
+    {
+    }
+
     public override async Task Group_by_multiple_aggregate_joining_different_tables(bool async)
     {
         if (!AppConfig.ServerVersion.Supports.OuterReferenceInMultiLevelSubquery)

@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -12,8 +11,13 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
-public class NonSharedPrimitiveCollectionsQueryMySqlTest(NonSharedFixture fixture) : NonSharedPrimitiveCollectionsQueryRelationalTestBase(fixture)
+public class NonSharedPrimitiveCollectionsQueryMySqlTest : NonSharedPrimitiveCollectionsQueryRelationalTestBase
 {
+    public NonSharedPrimitiveCollectionsQueryMySqlTest(NonSharedFixture fixture)
+        : base(fixture)
+    {
+    }
+
     #region Support for specific element types
 
     public override async Task Array_of_string()
@@ -472,103 +476,51 @@ LIMIT 2
         }
     }
 
+    public override async Task Column_collection_inside_json_owned_entity()
+    {
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => base.Column_collection_inside_json_owned_entity());
+        Assert.Equal(MySqlStrings.Ef7CoreJsonMappingNotSupported, exception.Message);
+    }
+
     #endregion Type mapping inference
 
-    [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_constants(bool async)
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode(ParameterTranslationMode mode)
     {
-        var contextFactory = await InitializeAsync<Context30572>(seed: c => { c.Seed(); return Task.CompletedTask; });
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode(mode);
 
-        await using var context = contextFactory.CreateContext();
-        
-        var query = context.Set<Context30572.TestEntity>()
-            .Where(t => new[] { 2, 999 }.Count(i => i > t.Id) == 1);
-        
-        var results = async ? await query.ToListAsync() : query.ToList();
-        
-        Assert.Single(results);
+        switch (mode)
+        {
+            case ParameterTranslationMode.MultipleParameters:
+                AssertSql(
+"""
+@ids1='2'
+@ids2='999'
 
-        AssertSql(
-$"""
 SELECT `t`.`Id`
 FROM `TestEntity` AS `t`
 WHERE (
     SELECT COUNT(*)
-    FROM (SELECT 2 AS `Value` UNION ALL VALUES {(AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty)}(999)) AS `i`
+    FROM (SELECT @ids1 AS `Value` UNION ALL VALUES ROW(@ids2)) AS `i`
     WHERE `i`.`Value` > `t`.`Id`) = 1
 """);
-    }
-
-    [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_constants(bool async)
-    {
-        var contextFactory = await InitializeAsync<Context30572>(seed: c => { c.Seed(); return Task.CompletedTask; });
-
-        await using var context = contextFactory.CreateContext();
-        
-        var query = context.Set<Context30572.TestEntity>()
-            .Where(t => new[] { 2, 999 }.Contains(t.Id));
-        
-        var results = async ? await query.ToListAsync() : query.ToList();
-        
-        Assert.Equal(2, results.Count);
-
-        AssertSql(
+                break;
+            case ParameterTranslationMode.Constant:
+                AssertSql(
 """
 SELECT `t`.`Id`
 FROM `TestEntity` AS `t`
-WHERE `t`.`Id` IN (2, 999)
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES ROW(999)) AS `i`
+    WHERE `i`.`Value` > `t`.`Id`) = 1
 """);
-    }
-
-    [ConditionalTheory(Skip = "AssertQuery method removed from EF Core 10 base class")]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_constants_EF_Parameter(bool async)
-    {
-        // TODO: Rewrite for EF Core 10 test infrastructure
-        await Task.CompletedTask;
-    }
-
-    [ConditionalTheory(Skip = "AssertQuery method removed from EF Core 10 base class")]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_constants_EF_Parameter(bool async)
-    {
-        // TODO: Rewrite for EF Core 10 test infrastructure
-        await Task.CompletedTask;
-    }
-
-    [ConditionalTheory(Skip = "AssertQuery method removed from EF Core 10 base class")]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_parameters(bool async)
-    {
-        // TODO: Rewrite for EF Core 10 test infrastructure
-        await Task.CompletedTask;
-    }
-
-    [ConditionalTheory(Skip = "AssertQuery method removed from EF Core 10 base class")]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_parameters(bool async)
-    {
-        // TODO: Rewrite for EF Core 10 test infrastructure
-        await Task.CompletedTask;
-    }
-
-    [ConditionalTheory(Skip = "AssertQuery method removed from EF Core 10 base class")]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Parameter_collection_Count_with_column_predicate_with_default_parameters_EF_Constant(bool async)
-    {
-        // TODO: Rewrite for EF Core 10 test infrastructure
-        await Task.CompletedTask;
-    }
-
-    [ConditionalTheory(Skip = "AssertQuery method removed from EF Core 10 base class")]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Parameter_collection_of_ints_Contains_int_with_default_parameters_EF_Constant(bool async)
-    {
-        // TODO: Rewrite for EF Core 10 test infrastructure
-        await Task.CompletedTask;
+                break;
+            case ParameterTranslationMode.Parameter:
+                AssertSql("");
+                break;
+            default:
+                throw new NotImplementedException();
+        }
     }
 
     public override async Task Project_collection_from_entity_type_with_owned()
@@ -586,25 +538,11 @@ FROM `TestEntityWithOwned` AS `t`
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
-    protected override DbContextOptionsBuilder SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode mode)
+    protected override DbContextOptionsBuilder SetParameterizedCollectionMode(
+        DbContextOptionsBuilder optionsBuilder,
+        ParameterTranslationMode parameterizedCollectionMode)
     {
-        // MySQL-specific parameter handling configuration
-        // For now, use default MySQL behavior as the implementation is provider-specific
-        return optionsBuilder;
-    }
-
-    protected virtual DbContextOptionsBuilder SetTranslateParameterizedCollectionsToConstants(DbContextOptionsBuilder optionsBuilder)
-    {
-        // TODO EF Core 10: Replace obsolete API when UseParameterizedCollectionMode is available
-        // new MySqlDbContextOptionsBuilder(optionsBuilder).TranslateParameterizedCollectionsToConstants();
-
-        return optionsBuilder;
-    }
-
-    protected virtual DbContextOptionsBuilder SetTranslateParameterizedCollectionsToParameters(DbContextOptionsBuilder optionsBuilder)
-    {
-        // TODO EF Core 10: Replace obsolete API when UseParameterizedCollectionMode is available
-        // new MySqlDbContextOptionsBuilder(optionsBuilder).TranslateParameterizedCollectionsToParameters();
+        new MySqlDbContextOptionsBuilder(optionsBuilder).UseParameterizedCollectionMode(parameterizedCollectionMode);
 
         return optionsBuilder;
     }

@@ -662,7 +662,7 @@ ORDER BY `c`.`CustomerID`, `o`.`OrderID`
         {
             AssertSql(
 """
-@p='1'
+@__p_1='1'
 
 SELECT `t`.`CustomerID`, `t`.`Address`, `t`.`City`, `t`.`CompanyName`, `t`.`ContactName`, `t`.`ContactTitle`, `t`.`Country`, `t`.`Fax`, `t`.`Phone`, `t`.`PostalCode`, `t`.`Region`, `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM (
@@ -682,7 +682,7 @@ FROM (
             `value` char(5) PATH '$[0]'
         )) AS `l`
     ), FALSE))
-    LIMIT 18446744073709551610 OFFSET @p
+    LIMIT 18446744073709551610 OFFSET @__p_1
 ) AS `t`
 LEFT JOIN `Orders` AS `o` ON `t`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `t`.`c`, `t`.`CustomerID`
@@ -692,14 +692,15 @@ ORDER BY `t`.`c`, `t`.`CustomerID`
         {
         AssertSql(
 """
+@list1='ALFKI' (Size = 5) (DbType = StringFixedLength)
 @p='1'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`, `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM (
-    SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`, `c`.`CustomerID` <> 'ALFKI' AS `c`
+    SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`, `c`.`CustomerID` <> @list1 AS `c`
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` LIKE 'A%'
-    ORDER BY `c`.`CustomerID` <> 'ALFKI'
+    ORDER BY `c`.`CustomerID` <> @list1
     LIMIT 18446744073709551610 OFFSET @p
 ) AS `c0`
 LEFT JOIN `Orders` AS `o` ON `c0`.`CustomerID` = `o`.`CustomerID`
@@ -822,7 +823,7 @@ ORDER BY `c`.`City`, `c`.`CustomerID`, `o`.`OrderID`
 
         AssertSql(
 """
-@p='1'
+@__p_0='1'
 
 SELECT `c1`.`CustomerID`, `s`.`OrderID`, `s`.`CustomerID`, `s`.`EmployeeID`, `s`.`OrderDate`, `s`.`OrderID0`, `s`.`ProductID`, `s`.`Discount`, `s`.`Quantity`, `s`.`UnitPrice`
 FROM (
@@ -832,7 +833,7 @@ FROM (
         FROM `Customers` AS `c`
         WHERE `c`.`CustomerID` LIKE 'A%'
         ORDER BY `c`.`CustomerID`
-        LIMIT @p
+        LIMIT @__p_0
     ) AS `c0`
     ORDER BY `c0`.`CustomerID`
     LIMIT 1
@@ -1007,7 +1008,7 @@ ORDER BY `o1`.`OrderID`, `s`.`OrderID`, `s`.`ProductID`
 
         AssertSql(
 """
-@p='1'
+@__p_0='1'
 
 SELECT `c1`.`CustomerID`, `s`.`OrderID`, `s`.`CustomerID`, `s`.`EmployeeID`, `s`.`OrderDate`, `s`.`OrderID0`, `s`.`ProductID`, `s`.`Discount`, `s`.`Quantity`, `s`.`UnitPrice`
 FROM (
@@ -1017,7 +1018,7 @@ FROM (
         FROM `Customers` AS `c`
         WHERE `c`.`CustomerID` LIKE 'A%'
         ORDER BY `c`.`CustomerID`
-        LIMIT @p OFFSET @p
+        LIMIT @__p_0 OFFSET @__p_0
     ) AS `c0`
     ORDER BY `c0`.`CustomerID`
     LIMIT 1
@@ -1039,7 +1040,7 @@ ORDER BY `c1`.`CustomerID`, `s`.`OrderID`, `s`.`OrderID0`
         {
             AssertSql(
 """
-@p='1'
+@__p_1='1'
 
 SELECT `t`.`CustomerID`, `t`.`Address`, `t`.`City`, `t`.`CompanyName`, `t`.`ContactName`, `t`.`ContactTitle`, `t`.`Country`, `t`.`Fax`, `t`.`Phone`, `t`.`PostalCode`, `t`.`Region`, `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM (
@@ -1059,7 +1060,7 @@ FROM (
             `value` char(5) PATH '$[0]'
         )) AS `l`
     ), FALSE)
-    LIMIT 18446744073709551610 OFFSET @p
+    LIMIT 18446744073709551610 OFFSET @__p_1
 ) AS `t`
 LEFT JOIN `Orders` AS `o` ON `t`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `t`.`c`, `t`.`CustomerID`
@@ -1446,7 +1447,7 @@ ORDER BY `s`.`OrderID`, `s1`.`OrderID`, `s1`.`OrderID0`, `s1`.`ProductID`, `o3`.
         {
             AssertSql(
 """
-@p='1'
+@__p_1='1'
 
 SELECT `t`.`CustomerID`, `t`.`Address`, `t`.`City`, `t`.`CompanyName`, `t`.`ContactName`, `t`.`ContactTitle`, `t`.`Country`, `t`.`Fax`, `t`.`Phone`, `t`.`PostalCode`, `t`.`Region`, `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM (
@@ -1466,7 +1467,7 @@ FROM (
             `value` char(5) PATH '$[0]'
         )) AS `l`
     ), FALSE)
-    LIMIT 18446744073709551610 OFFSET @p
+    LIMIT 18446744073709551610 OFFSET @__p_1
 ) AS `t`
 LEFT JOIN `Orders` AS `o` ON `t`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `t`.`c`, `t`.`CustomerID`
@@ -1476,14 +1477,15 @@ ORDER BY `t`.`c`, `t`.`CustomerID`
         {
         AssertSql(
 """
+@list1='ALFKI' (Size = 5) (DbType = StringFixedLength)
 @p='1'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`, `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM (
-    SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`, `c`.`CustomerID` = 'ALFKI' AS `c`
+    SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`, `c`.`CustomerID` = @list1 AS `c`
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` LIKE 'A%'
-    ORDER BY `c`.`CustomerID` = 'ALFKI'
+    ORDER BY `c`.`CustomerID` = @list1
     LIMIT 18446744073709551610 OFFSET @p
 ) AS `c0`
 LEFT JOIN `Orders` AS `o` ON `c0`.`CustomerID` = `o`.`CustomerID`
@@ -1606,7 +1608,7 @@ FROM `Orders` AS `o`
         AssertSql(
 """
 @p='2'
-@p='1'
+@p0='1'
 
 SELECT `s`.`CustomerID`, `s`.`Address`, `s`.`City`, `s`.`CompanyName`, `s`.`ContactName`, `s`.`ContactTitle`, `s`.`Country`, `s`.`Fax`, `s`.`Phone`, `s`.`PostalCode`, `s`.`Region`, `s`.`CustomerID0`, `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, `s`.`Address0`, `s`.`City0`, `s`.`CompanyName0`, `s`.`ContactName0`, `s`.`ContactTitle0`, `s`.`Country0`, `s`.`Fax0`, `s`.`Phone0`, `s`.`PostalCode0`, `s`.`Region0`, `o1`.`OrderID`, `o1`.`CustomerID`, `o1`.`EmployeeID`, `o1`.`OrderDate`
 FROM (
@@ -1628,7 +1630,7 @@ FROM (
         LIMIT 2 OFFSET 2
     ) AS `c2`
     ORDER BY `c1`.`CustomerID`, `c2`.`CustomerID`
-    LIMIT @p
+    LIMIT @p0
 ) AS `s`
 LEFT JOIN `Orders` AS `o0` ON `s`.`CustomerID` = `o0`.`CustomerID`
 LEFT JOIN `Orders` AS `o1` ON `s`.`CustomerID0` = `o1`.`CustomerID`
@@ -1966,7 +1968,7 @@ ORDER BY `c0`.`CompanyName` DESC, `c0`.`CustomerID`
         {
             AssertSql(
 """
-@p='1'
+@__p_1='1'
 
 SELECT `t`.`CustomerID`, `t`.`Address`, `t`.`City`, `t`.`CompanyName`, `t`.`ContactName`, `t`.`ContactTitle`, `t`.`Country`, `t`.`Fax`, `t`.`Phone`, `t`.`PostalCode`, `t`.`Region`, `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM (
@@ -1986,7 +1988,7 @@ FROM (
             `value` char(5) PATH '$[0]'
         )) AS `l`
     ), FALSE))
-    LIMIT 18446744073709551610 OFFSET @p
+    LIMIT 18446744073709551610 OFFSET @__p_1
 ) AS `t`
 LEFT JOIN `Orders` AS `o` ON `t`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `t`.`c`, `t`.`CustomerID`
@@ -2222,7 +2224,7 @@ ORDER BY `o`.`OrderID`, `o`.`ProductID`, `o0`.`OrderID`, `c`.`CustomerID`, `p`.`
 
         AssertSql(
 """
-@p='2'
+@p0='2'
 @p='1'
 
 SELECT `o0`.`CustomerID`
@@ -2231,7 +2233,7 @@ FROM (
     FROM `Order Details` AS `o`
     WHERE `o`.`Quantity` = 10
     ORDER BY `o`.`OrderID`, `o`.`ProductID`
-    LIMIT @p OFFSET @p
+    LIMIT @p0 OFFSET @p
 ) AS `o1`
 INNER JOIN `Orders` AS `o0` ON `o1`.`OrderID` = `o0`.`OrderID`
 ORDER BY `o1`.`OrderID`, `o1`.`ProductID`

@@ -6,8 +6,13 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
 {
-    public class TPTTableSplittingMySqlTest(ITestOutputHelper testOutputHelper) : TPTTableSplittingTestBase(new NonSharedFixture(), testOutputHelper)
+    public class TPTTableSplittingMySqlTest : TPTTableSplittingTestBase
     {
+        public TPTTableSplittingMySqlTest(NonSharedFixture fixture, ITestOutputHelper testOutputHelper)
+            : base(fixture, testOutputHelper)
+        {
+        }
+
         public override Task Can_insert_dependent_with_just_one_parent()
         {
             // This scenario is not valid for TPT

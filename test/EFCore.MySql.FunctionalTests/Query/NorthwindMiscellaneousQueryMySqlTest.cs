@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestModels.Northwind;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
+using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Internal;
 using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
@@ -30,130 +30,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-
-
-
-
-
-
-
-
-        [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Where_bitwise_or_with_logical_or(bool async)
-        {
-            await AssertQuery(
-            async,
-            ss => ss.Set<Customer>().Where(c => (c.CustomerID == "ALFKI" || c.CustomerID == "ANATR") | (c.CustomerID == "ANTON")));
-
-        AssertSql(
-"""
-SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` IN ('ALFKI', 'ANATR', 'ANTON')
-""");
-        }
-
-        [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Where_bitwise_and_with_logical_and(bool async)
-        {
-            await AssertQuery(
-            async,
-            ss => ss.Set<Customer>().Where(c => (c.CustomerID == "ALFKI" || c.CustomerID == "ANATR") & (c.CustomerID == "ANTON" || c.CustomerID == "ALFKI")));
-
-        AssertSql(
-"""
-SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` = 'ALFKI'
-""");
-        }
-
-        [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Where_bitwise_or_with_logical_and(bool async)
-        {
-            await AssertQuery(
-            async,
-            ss => ss.Set<Customer>().Where(c => (c.CustomerID == "ALFKI" & c.CustomerID == "ANATR") | (c.CustomerID == "ANTON")));
-
-        AssertSql(
-"""
-SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` IN ('ALFKI', 'ANATR') AND (`c`.`Country` = 'Germany')
-""");
-        }
-
-        [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Where_bitwise_and_with_logical_or(bool async)
-        {
-            await AssertQuery(
-            async,
-            ss => ss.Set<Customer>().Where(c => (c.CustomerID == "ALFKI" | c.CustomerID == "ANATR") & (c.CustomerID == "ANTON")));
-
-        AssertSql(
-"""
-SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-FROM `Customers` AS `c`
-WHERE `c`.`CustomerID` = 'ANTON'
-""");
-        }
-
-        [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Where_bitwise_binary_not(bool async)
-        {
-            await AssertQuery(
-            async,
-            ss => ss.Set<Customer>().Where(c => ~c.CustomerID.Length == -6));
-
-            AssertSql(
-                @"@negatedId='-10249'
-
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE CAST(~`o`.`OrderID` AS signed) = @negatedId");
-        }
-
-        [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Where_bitwise_binary_and(bool async)
-        {
-            await AssertQuery(
-            async,
-            ss => ss.Set<Order>().Where(o => (o.OrderID & 10248) == 10248));
-
-            AssertSql(
-"""
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE CAST(`o`.`OrderID` & 10248 AS signed) = 10248
-""");
-        }
-
-        [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    public virtual async Task Where_bitwise_binary_or(bool async)
-        {
-            await AssertQuery(
-            async,
-            ss => ss.Set<Order>().Where(o => (o.OrderID | 10248) == 10248));
-
-            AssertSql(
-"""
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE CAST(`o`.`OrderID` | 10248 AS signed) = 10248
-""");
-        }
-
-
-
-
-
         [ConditionalTheory]
         public override async Task Take_Skip(bool async)
         {
@@ -162,7 +38,7 @@ WHERE CAST(`o`.`OrderID` | 10248 AS signed) = 10248
         AssertSql(
 """
 @p='10'
-@p='5'
+@p0='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
 FROM (
@@ -172,7 +48,7 @@ FROM (
     LIMIT @p
 ) AS `c0`
 ORDER BY `c0`.`ContactName`
-LIMIT 18446744073709551610 OFFSET @p
+LIMIT 18446744073709551610 OFFSET @p0
 """);
         }
 
@@ -182,11 +58,13 @@ LIMIT 18446744073709551610 OFFSET @p
             await base.Select_expression_references_are_updated_correctly_with_subquery(async);
 
             AssertSql(
-                @"@nextYear='2017'
+"""
+@nextYear='2017'
 
 SELECT DISTINCT EXTRACT(year FROM `o`.`OrderDate`)
 FROM `Orders` AS `o`
-WHERE `o`.`OrderDate` IS NOT NULL AND (EXTRACT(year FROM `o`.`OrderDate`) < @nextYear)");
+WHERE `o`.`OrderDate` IS NOT NULL AND (EXTRACT(year FROM `o`.`OrderDate`) < @nextYear)
+""");
         }
 
         public override Task Entity_equality_orderby_subquery(bool async)
@@ -279,7 +157,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
 
         AssertSql(
 """
-@p='10'
+@p0='10'
 @p='5'
 
 SELECT `o1`.`OrderID`, `o0`.`ProductID`, `o0`.`OrderID`
@@ -288,7 +166,7 @@ FROM (
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
     ORDER BY `o`.`OrderID`
-    LIMIT @p OFFSET @p
+    LIMIT @p0 OFFSET @p
 ) AS `o1`
 LEFT JOIN `Order Details` AS `o0` ON `o1`.`OrderID` = `o0`.`OrderID`
 ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
@@ -477,6 +355,10 @@ ORDER BY `o0`.`CustomerID`, `o1`.`OrderID`
         {
             return base.DefaultIfEmpty_Sum_over_collection_navigation(async);
         }
+
+        [ConditionalFact]
+        public virtual void Check_all_tests_overridden()
+            => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
         private void AssertSql(params string[] expected)
             => Fixture.TestSqlLoggerFactory.AssertBaseline(expected);

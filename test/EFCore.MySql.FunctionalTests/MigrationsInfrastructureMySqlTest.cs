@@ -36,15 +36,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
                 ignoreLineEndingDifferences: true);
         }
 
-        // TODO add better test for this
-        public override async Task Can_apply_two_migrations_in_transaction_async()
-        {
-            // await base.Can_apply_two_migrations_in_transaction_async();
-
-            // Assert.Null(Sql);
-            await Task.Delay(1);
-        }
-
         public override async Task Can_generate_no_migration_script()
         {
             await base.Can_generate_no_migration_script();
