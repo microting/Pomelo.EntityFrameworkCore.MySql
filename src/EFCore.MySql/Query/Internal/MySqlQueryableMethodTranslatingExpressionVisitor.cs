@@ -2,8 +2,6 @@
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
@@ -81,6 +79,18 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                        && subquery.Projection.FirstOrDefault(p => p.Alias == "key")?.Expression is ColumnExpression projectedColumn
                        && IsJsonEachKeyColumn(subquery, projectedColumn)));
     }
+
+    protected override bool IsValidSelectExpressionForExecuteDelete(SelectExpression selectExpression)
+        => selectExpression is
+           {
+               Orderings: [],
+               Offset: null,
+               Limit: null,
+               GroupBy: [],
+               Having: null
+           } &&
+           selectExpression.Tables[0] is TableExpression &&
+           selectExpression.Tables.Skip(1).All(t => t is InnerJoinExpression);
 
     protected override bool IsValidSelectExpressionForExecuteUpdate(
         SelectExpression selectExpression,
