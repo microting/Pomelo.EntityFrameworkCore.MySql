@@ -164,31 +164,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Internal
             var table = StoreObjectIdentifier.Table(column.Table.Name, column.Table.Schema);
             var properties = column.PropertyMappings.Select(m => m.Property).ToArray();
 
-            // Check if this is a container column for a JSON-mapped complex property
-            // Container columns don't have property mappings in the traditional sense
-            if (column.PropertyMappings.Count == 0 && column.Name != null)
-            {
-                // This might be a container column for a complex property
-                // Check if there's a complex property with this name that has JSON mapping
-                var entityTypes = column.Table.EntityTypeMappings.Select(m => m.TypeBase as IEntityType).Where(e => e != null);
-                foreach (var entityType in entityTypes)
-                {
-                    foreach (var complexProperty in entityType.GetComplexProperties())
-                    {
-                        // Cast to IReadOnlyTypeBase to access GetContainerColumnName
-                        var containerColumnName = (complexProperty.ComplexType as IReadOnlyTypeBase)?.GetContainerColumnName();
-                        if (containerColumnName == column.Name && complexProperty.GetJsonPropertyName() != null)
-                        {
-                            // This is a JSON container column - set the column type to "json"
-                            yield return new Annotation(
-                                RelationalAnnotationNames.ColumnType,
-                                "json");
-                            yield break;
-                        }
-                    }
-                }
-            }
-
             if (column.PropertyMappings.Where(
                     m => (m.TableMapping.IsSharedTablePrincipal ?? true) &&
                          m.TableMapping.TypeBase == m.Property.DeclaringType)
