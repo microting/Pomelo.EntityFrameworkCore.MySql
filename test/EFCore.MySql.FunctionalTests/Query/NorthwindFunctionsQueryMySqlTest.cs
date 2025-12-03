@@ -469,9 +469,9 @@ WHERE `o`.`OrderID` < 10250");
             ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Min(od.OrderID, od.ProductID) }));
 
             AssertSql(
-                @"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+                @"SELECT `o`.`OrderID`, LEAST(`o`.`OrderID`, `o`.`ProductID`) AS `Result`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (LEAST(`o`.`OrderID`, `o`.`ProductID`) = `o`.`ProductID`)");
+WHERE `o`.`OrderID` = 11077");
         }
 
         [ConditionalTheory]
@@ -483,9 +483,9 @@ WHERE (`o`.`OrderID` = 11077) AND (LEAST(`o`.`OrderID`, `o`.`ProductID`) = `o`.`
             ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 11077).Select(od => new { od.OrderID, Result = Math.Max(od.OrderID, od.ProductID) }));
 
             AssertSql(
-                @"SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+                @"SELECT `o`.`OrderID`, GREATEST(`o`.`OrderID`, `o`.`ProductID`) AS `Result`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (GREATEST(`o`.`OrderID`, `o`.`ProductID`) = `o`.`OrderID`)");
+WHERE `o`.`OrderID` = 11077");
         }
 
         [ConditionalTheory]
@@ -3200,7 +3200,7 @@ WHERE CONCAT_WS('|', `c`.`CompanyName`, @foo, '', 'bar') = 'Around the Horn|foo|
 """
 SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (GREATEST(`o`.`OrderID`, `o`.`ProductID`, 1) = `o`.`OrderID`)
+WHERE GREATEST(`o`.`OrderID`, `o`.`ProductID`, CAST(`o`.`Quantity` AS signed)) > 10
 """);
         }
 
@@ -3232,7 +3232,7 @@ WHERE GREATEST(`o`.`OrderID`, `o`.`ProductID`, CAST(`o`.`Quantity` AS signed)) >
 """
 SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (LEAST(`o`.`OrderID`, `o`.`ProductID`, 99999) = `o`.`ProductID`)
+WHERE LEAST(`o`.`OrderID`, `o`.`ProductID`, CAST(`o`.`Quantity` AS signed)) > 10
 """);
         }
 
@@ -3248,7 +3248,7 @@ WHERE (`o`.`OrderID` = 11077) AND (LEAST(`o`.`OrderID`, `o`.`ProductID`, 99999) 
 """
 SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
 FROM `Order Details` AS `o`
-WHERE (`o`.`OrderID` = 11077) AND (LEAST(99999, `o`.`OrderID`, 99998, `o`.`ProductID`) = `o`.`ProductID`)
+WHERE LEAST(`o`.`OrderID`, `o`.`ProductID`, CAST(`o`.`Quantity` AS signed)) > 10
 """);
         }
 
