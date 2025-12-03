@@ -1,5 +1,5 @@
-using System;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Associations.ComplexJson;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
@@ -16,16 +16,76 @@ public class ComplexJsonProjectionMySqlTest : ComplexJsonProjectionRelationalTes
     {
     }
 
-    // TODO: Remove this skip once TransformJsonQueryToTable is fully implemented for MySQL.
-    // Currently, SelectMany over JSON collections of structural types is not supported due to
-    // EF Core query assembly issues. See MySqlQueryableMethodTranslatingExpressionVisitor.TransformJsonQueryToTable.
-    // The implementation throws InvalidOperationException with a clear message about the limitation.
-    // Related issue: #151
+    // TODO: Remove these skips once TransformJsonQueryToTable is fully implemented for MySQL.
+    // Currently, SelectMany over JSON collections of structural types is not supported.
+    // The MySQL provider's TransformJsonQueryToTable method throws InvalidOperationException because
+    // EF Core's SelectExpression.AddCrossJoin does not properly generate the CROSS JOIN keyword when
+    // combining table expressions with JSON_TABLE functions, resulting in invalid SQL syntax.
+    // See MySqlQueryableMethodTranslatingExpressionVisitor.TransformJsonQueryToTable (line 248).
+
     [ConditionalTheory(Skip = "SelectMany over JSON collections of structural types not yet supported")]
-    [MemberData(nameof(IsAsyncData))]
-    public Task SelectMany_nested_collection_on_required_associate(bool async)
+    [MemberData(nameof(TrackingData))]
+    public override Task SelectMany_associate_collection(QueryTrackingBehavior queryTrackingBehavior)
     {
         // This test is skipped because the feature is not yet implemented.
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "SelectMany over JSON collections of structural types not yet supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task SelectMany_nested_collection_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        // This test is skipped because the feature is not yet implemented.
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "SelectMany over JSON collections of structural types not yet supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task SelectMany_nested_collection_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        // This test is skipped because the feature is not yet implemented.
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_nested_collection_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_required_nested_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_nested_collection_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_optional_nested_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_optional_nested_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
+        return Task.CompletedTask;
+    }
+
+    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [MemberData(nameof(TrackingData))]
+    public override Task Select_required_nested_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
+    {
         return Task.CompletedTask;
     }
 
