@@ -423,18 +423,30 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
         }
 
         public override SqlExpression GenerateGreatest(IReadOnlyList<SqlExpression> expressions, Type resultType)
-            => _sqlExpressionFactory.NullableFunction(
+        {
+            var typeMapping = expressions.FirstOrDefault()?.TypeMapping 
+                ?? _sqlExpressionFactory.FindMapping(resultType, null);
+            
+            return _sqlExpressionFactory.NullableFunction(
                 "GREATEST",
                 expressions,
                 resultType,
+                typeMapping,
                 true);
+        }
 
         public override SqlExpression GenerateLeast(IReadOnlyList<SqlExpression> expressions, Type resultType)
-            => _sqlExpressionFactory.NullableFunction(
+        {
+            var typeMapping = expressions.FirstOrDefault()?.TypeMapping 
+                ?? _sqlExpressionFactory.FindMapping(resultType, null);
+            
+            return _sqlExpressionFactory.NullableFunction(
                 "LEAST",
                 expressions,
                 resultType,
+                typeMapping,
                 true);
+        }
 
         #region Copied from RelationalSqlTranslatingExpressionVisitor
 
