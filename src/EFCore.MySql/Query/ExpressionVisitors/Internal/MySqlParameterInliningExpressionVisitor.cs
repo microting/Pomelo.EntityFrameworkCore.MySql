@@ -69,6 +69,11 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
         if (sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase) ||
             sqlFunctionExpression.Name.Equals("GREATEST", StringComparison.OrdinalIgnoreCase))
         {
+            // Two-pass approach: We must visit arguments twice because:
+            // 1. First pass checks for column references without inlining (preserves parameter names in SQL)
+            // 2. Second pass inlines parameters for evaluation (converts @p to its value)
+            // We cannot combine these as they require different visitation contexts.
+            
             // First pass: visit arguments WITHOUT inlining to check if all are constants/parameters
             var checkArguments = sqlFunctionExpression.Arguments
                 .Select(arg => (SqlExpression)Visit(arg))
