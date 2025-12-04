@@ -77,8 +77,7 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
             
             if (!canEvaluate)
             {
-                // If there are column references or other complex expressions, 
-                // visit normally and preserve the function as-is
+                // If there are column references, visit normally and preserve the function as-is
                 var visitedArgs = sqlFunctionExpression.Arguments
                     .Select(arg => (SqlExpression)Visit(arg))
                     .ToList();
