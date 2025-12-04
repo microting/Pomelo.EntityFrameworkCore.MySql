@@ -12328,7 +12328,7 @@ LEFT JOIN (
     ) AS `w0`
     WHERE `w0`.`row` <= COALESCE((
         SELECT `n`.`Value`
-        FROM (SELECT @numbers1 AS `Value` UNION ALL VALUES ROW(@numbers2), ROW(@numbers3)) AS `n`
+        FROM (SELECT @numbers1 AS `Value` UNION ALL VALUES (@numbers2), (@numbers3)) AS `n`
         ORDER BY `n`.`Value`
         LIMIT 1 OFFSET 1), 0)
 ) AS `w1` ON `u`.`FullName` = `w1`.`OwnerFullName`
