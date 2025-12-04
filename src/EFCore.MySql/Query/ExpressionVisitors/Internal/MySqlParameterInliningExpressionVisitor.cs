@@ -70,11 +70,9 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
             sqlFunctionExpression.Name.Equals("GREATEST", StringComparison.OrdinalIgnoreCase))
         {
             // First pass: visit arguments WITHOUT inlining to check if all are constants/parameters
-            var checkArguments = new List<SqlExpression>();
-            foreach (var arg in sqlFunctionExpression.Arguments)
-            {
-                checkArguments.Add((SqlExpression)Visit(arg));
-            }
+            var checkArguments = sqlFunctionExpression.Arguments
+                .Select(arg => (SqlExpression)Visit(arg))
+                .ToList();
             
             // Check if all arguments are constants or parameters (no column references)
             var canEvaluate = checkArguments.All(arg => 
@@ -94,11 +92,9 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
                 inlineParameters: true,
                 () => {
                     // Visit arguments to ensure they're inlined
-                    var visitedArguments = new List<SqlExpression>();
-                    foreach (var arg in sqlFunctionExpression.Arguments)
-                    {
-                        visitedArguments.Add((SqlExpression)Visit(arg));
-                    }
+                    var visitedArguments = sqlFunctionExpression.Arguments
+                        .Select(arg => (SqlExpression)Visit(arg))
+                        .ToList();
                     
                     // Extract constant values from inlined parameters
                     var values = new List<decimal>();
@@ -130,7 +126,8 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
                     }
 
                     // Evaluate LEAST/GREATEST and return constant
-                    if (values.Count > 0)
+                    // Ensure all arguments were successfully converted to values
+                    if (values.Count > 0 && values.Count == visitedArguments.Count)
                     {
                         var isLeast = sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase);
                         var result = isLeast ? values.Min() : values.Max();
