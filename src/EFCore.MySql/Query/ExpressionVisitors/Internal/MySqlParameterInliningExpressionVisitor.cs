@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
@@ -54,6 +55,7 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
         {
             MySqlJsonTableExpression jsonTableExpression => VisitJsonTable(jsonTableExpression),
             SelectExpression selectExpression => VisitSelect(selectExpression),
+            SqlFunctionExpression sqlFunctionExpression => VisitSqlFunction(sqlFunctionExpression),
             SqlParameterExpression sqlParameterExpression => VisitSqlParameter(sqlParameterExpression),
             ShapedQueryExpression shapedQueryExpression => shapedQueryExpression.Update(
                 Visit(shapedQueryExpression.QueryExpression),
@@ -61,25 +63,85 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
             _ => base.VisitExtension(extensionExpression)
         };
 
+    protected virtual Expression VisitSqlFunction(SqlFunctionExpression sqlFunctionExpression)
+    {
+        // For LEAST/GREATEST functions, evaluate and replace with constant (MariaDB 11.6.2 doesn't support functions in LIMIT)
+        if (sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase) ||
+            sqlFunctionExpression.Name.Equals("GREATEST", StringComparison.OrdinalIgnoreCase))
+        {
+            return NewInlineParametersScope(
+                inlineParameters: true,
+                () => {
+                    // Visit arguments to ensure they're inlined
+                    var visitedArguments = new List<SqlExpression>();
+                    foreach (var arg in sqlFunctionExpression.Arguments)
+                    {
+                        visitedArguments.Add((SqlExpression)Visit(arg));
+                    }
+                    
+                    // Extract constant values from inlined parameters
+                    var values = new List<decimal>();
+                    foreach (var arg in visitedArguments)
+                    {
+                        object value = null;
+                        
+                        if (arg is MySqlInlinedParameterExpression inlinedParam)
+                        {
+                            value = inlinedParam.ValueExpression.Value;
+                        }
+                        else if (arg is SqlConstantExpression constant)
+                        {
+                            value = constant.Value;
+                        }
+                        
+                        if (value != null)
+                        {
+                            try
+                            {
+                                // Convert to decimal to handle int, long, decimal, double, float
+                                values.Add(Convert.ToDecimal(value));
+                            }
+                            catch
+                            {
+                                // Skip invalid values
+                            }
+                        }
+                    }
+
+                    // If we have values, evaluate LEAST/GREATEST and return constant
+                    if (values.Count > 0)
+                    {
+                        var isLeast = sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase);
+                        var result = isLeast ? values.Min() : values.Max();
+                        
+                        // Convert result back to the original type if possible
+                        object typedResult = result;
+                        if (sqlFunctionExpression.Type == typeof(int))
+                        {
+                            typedResult = (int)result;
+                        }
+                        else if (sqlFunctionExpression.Type == typeof(long))
+                        {
+                            typedResult = (long)result;
+                        }
+                        
+                        return _sqlExpressionFactory.Constant(typedResult, sqlFunctionExpression.TypeMapping);
+                    }
+                    
+                    // Fallback: return function with inlined arguments
+                    return sqlFunctionExpression.Update(
+                        sqlFunctionExpression.Instance,
+                        visitedArguments);
+                });
+        }
+
+        return base.VisitExtension(sqlFunctionExpression);
+    }
+
     protected virtual Expression VisitSelect(SelectExpression selectExpression)
         => NewInlineParametersScope(
             inlineParameters: false,
             () => base.VisitExtension(selectExpression));
-        // => NewInlineParametersScope(
-        //     inlineParameters: false,
-        //     () => selectExpression.Offset is not null
-        //         ? selectExpression.Update(
-        //             selectExpression.Projection,
-        //             selectExpression.Tables,
-        //             selectExpression.Predicate,
-        //             selectExpression.GroupBy,
-        //             selectExpression.Having,
-        //             selectExpression.Orderings,
-        //             selectExpression.Limit,
-        //             NewInlineParametersScope(
-        //                 inlineParameters: true,
-        //                 () => (SqlExpression)Visit(selectExpression.Offset)))
-        //         : base.VisitExtension(selectExpression));
 
     // For test simplicity, we currently inline parameters even for non MySQL database engines (even though it should not be necessary
     // for e.g. MariaDB).

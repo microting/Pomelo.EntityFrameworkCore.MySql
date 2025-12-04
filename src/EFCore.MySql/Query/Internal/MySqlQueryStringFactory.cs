@@ -2,6 +2,7 @@
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal
     {
         private static readonly Lazy<Regex> _limitExpressionParameterRegex = new Lazy<Regex>(
             () => new Regex(
-                $@"(?<=\W)LIMIT\s+(?:(?<leading_offset>@?\w+),\s*)?(?<row_count>@?\w+)(?:\s*OFFSET\s*(?<trailing_offset>@?\w+))?",
+                $@"(?<=\W)LIMIT\s+(?:(?<leading_offset>@?\w+),\s*)?(?<row_count>(?:LEAST|GREATEST)\s*\([^)]+\)|@?\w+)(?:\s*OFFSET\s*(?<trailing_offset>@?\w+))?",
                 RegexOptions.Singleline | RegexOptions.IgnoreCase));
 
         private static readonly Lazy<Regex> _extractParameterRegex = new Lazy<Regex>(() => new Regex(@"@\w+"));
@@ -65,6 +66,51 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal
                 : typeMapping != null
                     ? typeMapping.GenerateSqlLiteral(parameter.Value)
                     : parameter.Value.ToString();
+        }
+
+        private string EvaluateLeastGreatest(string functionCall, DbParameterCollection parameters)
+        {
+            // Extract function name (LEAST or GREATEST)
+            var isLeast = functionCall.StartsWith("LEAST", StringComparison.OrdinalIgnoreCase);
+            
+            // Extract parameter names from the function call
+            var paramMatches = _extractParameterRegex.Value.Matches(functionCall);
+            if (paramMatches.Count == 0)
+            {
+                return functionCall; // No parameters, return as-is
+            }
+
+            // Get parameter values and evaluate
+            var values = new List<decimal>();
+            foreach (Match match in paramMatches)
+            {
+                var paramName = match.Value;
+                if (parameters.Contains(paramName))
+                {
+                    var param = parameters[paramName];
+                    if (param.Value != null && param.Value != DBNull.Value)
+                    {
+                        try
+                        {
+                            // Convert to decimal for comparison (handles int, long, decimal, double, float)
+                            values.Add(Convert.ToDecimal(param.Value));
+                        }
+                        catch
+                        {
+                            // Skip invalid values
+                        }
+                    }
+                }
+            }
+
+            if (values.Count == 0)
+            {
+                return functionCall; // No valid values
+            }
+
+            // Compute LEAST or GREATEST
+            var result = isLeast ? values.Min() : values.Max();
+            return result.ToString();
         }
 
         protected virtual void PrepareCommand(DbCommand command)
@@ -119,8 +165,43 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal
                 .Where(t => !string.IsNullOrEmpty(t.ParameterName))
                 .ToList();
 
+            // Handle LEAST/GREATEST function calls in LIMIT clauses by evaluating them
+            // MariaDB 11.6.2 does not support function calls in LIMIT clauses
+            var functionsToReplace = limitGroupsWithParameter
+                .Where(c => c.Value.StartsWith("LEAST", StringComparison.OrdinalIgnoreCase) || 
+                           c.Value.StartsWith("GREATEST", StringComparison.OrdinalIgnoreCase))
+                .Select(c => new
+                {
+                    Index = c.Index,
+                    FunctionCall = c.Value,
+                    EvaluatedValue = EvaluateLeastGreatest(c.Value, command.Parameters)
+                })
+                .OrderByDescending(f => f.Index)
+                .ToList();
+
+            // Replace LEAST/GREATEST function calls with their evaluated values
+            foreach (var func in functionsToReplace)
+            {
+                command.CommandText = command.CommandText.Substring(0, func.Index) +
+                                     func.EvaluatedValue +
+                                     command.CommandText.Substring(func.Index + func.FunctionCall.Length);
+                
+                // Remove the parameters used in this function from the parameters collection
+                var paramMatches = _extractParameterRegex.Value.Matches(func.FunctionCall);
+                foreach (Match match in paramMatches)
+                {
+                    var paramName = match.Value;
+                    if (command.Parameters.Contains(paramName))
+                    {
+                        command.Parameters.Remove(command.Parameters[paramName]);
+                    }
+                }
+            }
+
             var validParameters = (limitGroupsWithParameter
-                    .Where(c => parameterPositions.Contains(c.Index) &&
+                    .Where(c => !c.Value.StartsWith("LEAST", StringComparison.OrdinalIgnoreCase) && 
+                                !c.Value.StartsWith("GREATEST", StringComparison.OrdinalIgnoreCase) &&
+                                parameterPositions.Contains(c.Index) &&
                                 command.Parameters.Contains(c.Value))
                     .Select(c => new {Index = c.Index, ParameterName = c.Value}))
                 .Concat(stringParameterNames.SelectMany(s => parameters.Where(p => p.ParameterName == s)))
@@ -133,10 +214,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal
                 var parameterIndex = validParameter.Index;
                 var parameterName = validParameter.ParameterName;
 
-                parameters.RemoveAt(
-                    parameters.FindIndex(
-                        t => t.Index == parameterIndex &&
-                             t.ParameterName == parameterName));
+                var paramIndex = parameters.FindIndex(
+                    t => t.Index == parameterIndex &&
+                         t.ParameterName == parameterName);
+                
+                if (paramIndex >= 0)
+                {
+                    parameters.RemoveAt(paramIndex);
+                }
 
                 var parameter = command.Parameters[parameterName];
                 var parameterValue = GetParameterValue(parameter);
