@@ -108,8 +108,9 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
                         }
                     }
 
-                    // If we have values, evaluate LEAST/GREATEST and return constant
-                    if (values.Count > 0)
+                    // Only evaluate LEAST/GREATEST if ALL arguments are constants
+                    // If any argument is a column reference or other non-constant, we must preserve the function
+                    if (values.Count > 0 && values.Count == visitedArguments.Count)
                     {
                         var isLeast = sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase);
                         var result = isLeast ? values.Min() : values.Max();
