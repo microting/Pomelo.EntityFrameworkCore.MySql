@@ -110,23 +110,41 @@ CREATE TABLE `Table1` (
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('00000000000001_Migration1', '7.0.0-test');
 
+COMMIT;
+
+START TRANSACTION;
 ALTER TABLE `Table1` RENAME COLUMN `Foo` TO `Bar`;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('00000000000002_Migration2', '7.0.0-test');
 
+COMMIT;
+
+START TRANSACTION;
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('00000000000003_Migration3', '7.0.0-test');
 
+COMMIT;
+
+START TRANSACTION;
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('00000000000004_Migration4', '7.0.0-test');
 
+COMMIT;
+
+START TRANSACTION;
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('00000000000005_Migration5', '7.0.0-test');
 
+COMMIT;
+
+START TRANSACTION;
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('00000000000006_Migration6', '7.0.0-test');
 
+COMMIT;
+
+START TRANSACTION;
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('00000000000007_Migration7', '7.0.0-test');
 
@@ -136,23 +154,41 @@ START TRANSACTION;
 DELETE FROM `__EFMigrationsHistory`
 WHERE `MigrationId` = '00000000000007_Migration7';
 
+COMMIT;
+
+START TRANSACTION;
 DELETE FROM `__EFMigrationsHistory`
 WHERE `MigrationId` = '00000000000006_Migration6';
 
+COMMIT;
+
+START TRANSACTION;
 DELETE FROM `__EFMigrationsHistory`
 WHERE `MigrationId` = '00000000000005_Migration5';
 
+COMMIT;
+
+START TRANSACTION;
 DELETE FROM `__EFMigrationsHistory`
 WHERE `MigrationId` = '00000000000004_Migration4';
 
+COMMIT;
+
+START TRANSACTION;
 DELETE FROM `__EFMigrationsHistory`
 WHERE `MigrationId` = '00000000000003_Migration3';
 
+COMMIT;
+
+START TRANSACTION;
 ALTER TABLE `Table1` RENAME COLUMN `Bar` TO `Foo`;
 
 DELETE FROM `__EFMigrationsHistory`
 WHERE `MigrationId` = '00000000000002_Migration2';
 
+COMMIT;
+
+START TRANSACTION;
 DROP TABLE `Table1`;
 
 DELETE FROM `__EFMigrationsHistory`
@@ -343,6 +379,9 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+COMMIT;
+
+START TRANSACTION;
 DROP PROCEDURE IF EXISTS MigrationsScript;
 DELIMITER //
 CREATE PROCEDURE MigrationsScript()

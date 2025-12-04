@@ -80,10 +80,12 @@ WHERE FALSE
 
         AssertSql(
 """
-DELETE
-FROM `Order Details`
-WHERE `OrderID` < 10300
-ORDER BY `OrderID`
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM `Order Details` AS `o0`
+    WHERE (`o0`.`OrderID` < 10300) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
     }
 
@@ -372,9 +374,12 @@ WHERE EXTRACT(year FROM `o0`.`OrderDate`) = 2000
 """
 DELETE `o`
 FROM `Order Details` AS `o`
-INNER JOIN `Orders` AS `o0` ON `o`.`OrderID` = `o0`.`OrderID`
-LEFT JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
-WHERE `c`.`CustomerID` LIKE 'F%'
+WHERE EXISTS (
+    SELECT 1
+    FROM `Order Details` AS `o0`
+    INNER JOIN `Orders` AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
+    LEFT JOIN `Customers` AS `c` ON `o1`.`CustomerID` = `c`.`CustomerID`
+    WHERE (`c`.`CustomerID` LIKE 'F%') AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
     }
 
@@ -517,9 +522,12 @@ WHERE EXISTS (
 """
 DELETE `o`
 FROM `Order Details` AS `o`
-INNER JOIN `Orders` AS `o0` ON `o`.`OrderID` = `o0`.`OrderID`
-LEFT JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
-WHERE `c`.`City` LIKE 'Se%'
+WHERE EXISTS (
+    SELECT 1
+    FROM `Order Details` AS `o0`
+    INNER JOIN `Orders` AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
+    LEFT JOIN `Customers` AS `c` ON `o1`.`CustomerID` = `c`.`CustomerID`
+    WHERE (`c`.`City` LIKE 'Se%') AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
     }
 
@@ -550,19 +558,22 @@ INNER JOIN (
 
         AssertSql(
 """
-@__p_1='100'
-@__p_0='0'
+@p0='100'
+@p='0'
 
 DELETE `o`
 FROM `Order Details` AS `o`
-LEFT JOIN (
-    SELECT `o0`.`OrderID`
-    FROM `Orders` AS `o0`
-    WHERE `o0`.`OrderID` < 10300
-    ORDER BY `o0`.`OrderID`
-    LIMIT @__p_1 OFFSET @__p_0
-) AS `o1` ON `o`.`OrderID` = `o1`.`OrderID`
-WHERE `o`.`OrderID` < 10276
+WHERE EXISTS (
+    SELECT 1
+    FROM `Order Details` AS `o0`
+    LEFT JOIN (
+        SELECT `o2`.`OrderID`
+        FROM `Orders` AS `o2`
+        WHERE `o2`.`OrderID` < 10300
+        ORDER BY `o2`.`OrderID`
+        LIMIT @p0 OFFSET @p
+    ) AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
+    WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
     }
 
@@ -574,14 +585,17 @@ WHERE `o`.`OrderID` < 10276
 """
 DELETE `o`
 FROM `Order Details` AS `o`
-CROSS JOIN (
+WHERE EXISTS (
     SELECT 1
-    FROM `Orders` AS `o0`
-    WHERE `o0`.`OrderID` < 10300
-    ORDER BY `o0`.`OrderID`
-    LIMIT 100 OFFSET 0
-) AS `o1`
-WHERE `o`.`OrderID` < 10276
+    FROM `Order Details` AS `o0`
+    CROSS JOIN (
+        SELECT 1
+        FROM `Orders` AS `o2`
+        WHERE `o2`.`OrderID` < 10300
+        ORDER BY `o2`.`OrderID`
+        LIMIT 100 OFFSET 0
+    ) AS `o1`
+    WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
     }
 
@@ -980,8 +994,10 @@ WHERE `c`.`CustomerID` = (
 
             AssertExecuteUpdateSql(
 """
+@p='Updated' (Size = 30)
+
 UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = 'Updated'
+SET `c`.`ContactName` = @p
 WHERE `c`.`CustomerID` IN (
     SELECT (
         SELECT `c0`.`CustomerID`

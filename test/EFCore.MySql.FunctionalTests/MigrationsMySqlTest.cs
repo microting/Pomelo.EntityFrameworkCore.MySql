@@ -2057,6 +2057,9 @@ CREATE TABLE `Contacts` (
     `MyComplex_Prop` longtext NULL,
     `MyComplex_MyNestedComplex_Bar` datetime(6) NULL,
     `MyComplex_MyNestedComplex_Foo` int NULL,
+    `MyComplex_Nested_Bar` datetime(6) NULL,
+    `MyComplex_Nested_Foo` int NULL,
+    `NestedCollection` json NULL,
     CONSTRAINT `PK_Contacts` PRIMARY KEY (`Id`)
 ) CHARACTER SET=utf8mb4;
 """);
