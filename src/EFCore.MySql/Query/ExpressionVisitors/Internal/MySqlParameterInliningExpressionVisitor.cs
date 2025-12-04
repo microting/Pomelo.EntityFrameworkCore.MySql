@@ -69,6 +69,27 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
         if (sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase) ||
             sqlFunctionExpression.Name.Equals("GREATEST", StringComparison.OrdinalIgnoreCase))
         {
+            // First pass: visit arguments WITHOUT inlining to check if all are constants/parameters
+            var checkArguments = new List<SqlExpression>();
+            foreach (var arg in sqlFunctionExpression.Arguments)
+            {
+                checkArguments.Add((SqlExpression)Visit(arg));
+            }
+            
+            // Check if all arguments are constants or parameters (no column references)
+            var canEvaluate = checkArguments.All(arg => 
+                arg is SqlConstantExpression || 
+                arg is SqlParameterExpression);
+            
+            if (!canEvaluate)
+            {
+                // If there are column references, preserve the function as-is
+                return sqlFunctionExpression.Update(
+                    sqlFunctionExpression.Instance,
+                    checkArguments);
+            }
+            
+            // Second pass: inline parameters and evaluate
             return NewInlineParametersScope(
                 inlineParameters: true,
                 () => {
@@ -108,9 +129,8 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
                         }
                     }
 
-                    // Only evaluate LEAST/GREATEST if ALL arguments are constants
-                    // If any argument is a column reference or other non-constant, we must preserve the function
-                    if (values.Count > 0 && values.Count == visitedArguments.Count)
+                    // Evaluate LEAST/GREATEST and return constant
+                    if (values.Count > 0)
                     {
                         var isLeast = sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase);
                         var result = isLeast ? values.Min() : values.Max();
