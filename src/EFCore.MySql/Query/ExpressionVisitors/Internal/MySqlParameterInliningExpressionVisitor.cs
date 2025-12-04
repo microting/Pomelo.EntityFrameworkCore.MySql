@@ -69,30 +69,26 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
         if (sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase) ||
             sqlFunctionExpression.Name.Equals("GREATEST", StringComparison.OrdinalIgnoreCase))
         {
-            // Two-pass approach: We must visit arguments twice because:
-            // 1. First pass checks for column references without inlining (preserves parameter names in SQL)
-            // 2. Second pass inlines parameters for evaluation (converts @p to its value)
-            // We cannot combine these as they require different visitation contexts.
-            
-            // First pass: visit arguments WITHOUT inlining to check if all are constants/parameters
-            var checkArguments = sqlFunctionExpression.Arguments
-                .Select(arg => (SqlExpression)Visit(arg))
-                .ToList();
-            
-            // Check if all arguments are constants or parameters (no column references)
-            var canEvaluate = checkArguments.All(arg => 
+            // Check if all arguments are constants or parameters BEFORE visiting
+            // This avoids double-visiting which can cause parameter naming issues
+            var canEvaluate = sqlFunctionExpression.Arguments.All(arg => 
                 arg is SqlConstantExpression || 
                 arg is SqlParameterExpression);
             
             if (!canEvaluate)
             {
-                // If there are column references, preserve the function as-is
+                // If there are column references or other complex expressions, 
+                // visit normally and preserve the function as-is
+                var visitedArgs = sqlFunctionExpression.Arguments
+                    .Select(arg => (SqlExpression)Visit(arg))
+                    .ToList();
+                
                 return sqlFunctionExpression.Update(
                     sqlFunctionExpression.Instance,
-                    checkArguments);
+                    visitedArgs);
             }
             
-            // Second pass: inline parameters and evaluate
+            // All arguments are constants/parameters - inline and evaluate
             return NewInlineParametersScope(
                 inlineParameters: true,
                 () => {

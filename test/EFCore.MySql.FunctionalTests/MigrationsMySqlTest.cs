@@ -2266,6 +2266,27 @@ ALTER TABLE `Customers` ADD `Numbers` longtext CHARACTER SET utf8mb4 NOT NULL DE
         public override Task Rename_json_column()
             => Assert.ThrowsAsync<NullReferenceException>(() => base.Rename_json_column());
 
+        public override async Task Create_table_with_complex_properties_mapped_to_json()
+        {
+            await base.Create_table_with_complex_properties_mapped_to_json();
+
+            AssertSql();
+        }
+
+        public override async Task Create_table_with_complex_properties_with_nested_collection_mapped_to_json()
+        {
+            await base.Create_table_with_complex_properties_with_nested_collection_mapped_to_json();
+
+            AssertSql();
+        }
+
+        public override async Task Create_table_with_optional_complex_type_with_required_properties()
+        {
+            await base.Create_table_with_optional_complex_type_with_required_properties();
+
+            AssertSql();
+        }
+
         #endregion ToJson
 
         [ConditionalFact]
