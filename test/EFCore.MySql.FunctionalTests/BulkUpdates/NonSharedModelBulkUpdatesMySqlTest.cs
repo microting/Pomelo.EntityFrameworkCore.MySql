@@ -59,8 +59,12 @@ FROM `Owner` AS `o`
 """
 DELETE `p`
 FROM `Posts` AS `p`
-LEFT JOIN `Blogs` AS `b` ON `p`.`BlogId` = `b`.`Id`
-WHERE `b`.`Title` LIKE 'Arthur%'
+WHERE `p`.`Id` IN (
+    SELECT `p0`.`Id`
+    FROM `Posts` AS `p0`
+    LEFT JOIN `Blogs` AS `b` ON `p0`.`BlogId` = `b`.`Id`
+    WHERE `b`.`Title` LIKE 'Arthur%'
+)
 """);
     }
 
@@ -132,7 +136,11 @@ SET `b0`.`Title` = CAST(`b0`.`Rating` AS char),
 """
 DELETE `c`
 FROM `Context30572_Principal` AS `c`
-LEFT JOIN `Context30572_Dependent` AS `c0` ON `c`.`DependentId` = `c0`.`Id`
+WHERE `c`.`Id` IN (
+    SELECT `c0`.`Id`
+    FROM `Context30572_Principal` AS `c0`
+    LEFT JOIN `Context30572_Dependent` AS `c1` ON `c0`.`DependentId` = `c1`.`Id`
+)
 """);
     }
 

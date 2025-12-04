@@ -1282,7 +1282,7 @@ WHERE (
     SELECT COUNT(*)
     FROM (
         SELECT `i`.`Value` AS `Value0`
-        FROM (SELECT 0 AS `_ord`, @ints1 AS `Value` UNION ALL VALUES ROW(1, @ints2)) AS `i`
+        FROM (SELECT 0 AS `_ord`, @ints1 AS `Value` UNION ALL VALUES (1, @ints2)) AS `i`
         ORDER BY `i`.`_ord`
         LIMIT 18446744073709551610 OFFSET 1
     ) AS `i0`

@@ -374,9 +374,12 @@ WHERE EXTRACT(year FROM `o0`.`OrderDate`) = 2000
 """
 DELETE `o`
 FROM `Order Details` AS `o`
-INNER JOIN `Orders` AS `o0` ON `o`.`OrderID` = `o0`.`OrderID`
-LEFT JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
-WHERE `c`.`CustomerID` LIKE 'F%'
+WHERE EXISTS (
+    SELECT 1
+    FROM `Order Details` AS `o0`
+    INNER JOIN `Orders` AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
+    LEFT JOIN `Customers` AS `c` ON `o1`.`CustomerID` = `c`.`CustomerID`
+    WHERE (`c`.`CustomerID` LIKE 'F%') AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
     }
 
