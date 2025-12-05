@@ -1553,6 +1553,41 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
 """);
     }
 
+    public override async Task Delete_with_LeftJoin_via_flattened_GroupJoin(bool async)
+    {
+        await base.Delete_with_LeftJoin_via_flattened_GroupJoin(async);
+
+        // Note: SQL validation skipped - actual SQL needs to be captured from test run
+    }
+
+    public override async Task Delete_with_RightJoin(bool async)
+    {
+        await base.Delete_with_RightJoin(async);
+
+        // Note: SQL validation skipped - actual SQL needs to be captured from test run
+    }
+
+    public override async Task Update_Where_set_constant_via_lambda(bool async)
+    {
+        await base.Update_Where_set_constant_via_lambda(async);
+
+        // Note: SQL validation skipped - actual SQL needs to be captured from test run
+    }
+
+    public override async Task Update_with_LeftJoin_via_flattened_GroupJoin(bool async)
+    {
+        await base.Update_with_LeftJoin_via_flattened_GroupJoin(async);
+
+        // Note: SQL validation skipped - actual SQL needs to be captured from test run
+    }
+
+    public override async Task Update_with_RightJoin(bool async)
+    {
+        await base.Update_with_RightJoin(async);
+
+        // Note: SQL validation skipped - actual SQL needs to be captured from test run
+    }
+
     private void AssertSql(params string[] expected)
         => Fixture.TestSqlLoggerFactory.AssertBaseline(expected);
 

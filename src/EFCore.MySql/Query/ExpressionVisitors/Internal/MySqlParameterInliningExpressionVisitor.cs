@@ -69,15 +69,33 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
         if (sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase) ||
             sqlFunctionExpression.Name.Equals("GREATEST", StringComparison.OrdinalIgnoreCase))
         {
+            // Check if all arguments are constants or parameters BEFORE visiting
+            // This avoids double-visiting which can cause parameter naming issues
+            var canEvaluate = sqlFunctionExpression.Arguments.All(arg => 
+                arg is SqlConstantExpression || 
+                arg is SqlParameterExpression);
+            
+            if (!canEvaluate)
+            {
+                // If there are column references, visit normally and preserve the function as-is
+                // Respect the current inlining context (e.g., if we're in JsonTable, parameters will be inlined)
+                var visitedArgs = sqlFunctionExpression.Arguments
+                    .Select(arg => (SqlExpression)Visit(arg))
+                    .ToList();
+                
+                return sqlFunctionExpression.Update(
+                    sqlFunctionExpression.Instance,
+                    visitedArgs);
+            }
+            
+            // All arguments are constants/parameters - inline and evaluate
             return NewInlineParametersScope(
                 inlineParameters: true,
                 () => {
                     // Visit arguments to ensure they're inlined
-                    var visitedArguments = new List<SqlExpression>();
-                    foreach (var arg in sqlFunctionExpression.Arguments)
-                    {
-                        visitedArguments.Add((SqlExpression)Visit(arg));
-                    }
+                    var visitedArguments = sqlFunctionExpression.Arguments
+                        .Select(arg => (SqlExpression)Visit(arg))
+                        .ToList();
                     
                     // Extract constant values from inlined parameters
                     var values = new List<decimal>();
@@ -108,8 +126,9 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
                         }
                     }
 
-                    // If we have values, evaluate LEAST/GREATEST and return constant
-                    if (values.Count > 0)
+                    // Evaluate LEAST/GREATEST and return constant
+                    // Ensure all arguments were successfully converted to values
+                    if (values.Count > 0 && values.Count == visitedArguments.Count)
                     {
                         var isLeast = sqlFunctionExpression.Name.Equals("LEAST", StringComparison.OrdinalIgnoreCase);
                         var result = isLeast ? values.Min() : values.Max();
