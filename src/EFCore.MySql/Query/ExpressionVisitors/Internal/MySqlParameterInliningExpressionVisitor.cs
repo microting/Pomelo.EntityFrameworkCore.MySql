@@ -77,14 +77,18 @@ public class MySqlParameterInliningExpressionVisitor : ExpressionVisitor
             
             if (!canEvaluate)
             {
-                // If there are column references, visit normally and preserve the function as-is
-                var visitedArgs = sqlFunctionExpression.Arguments
-                    .Select(arg => (SqlExpression)Visit(arg))
-                    .ToList();
-                
-                return sqlFunctionExpression.Update(
-                    sqlFunctionExpression.Instance,
-                    visitedArgs);
+                // If there are column references, visit normally WITHOUT inlining and preserve the function as-is
+                return NewInlineParametersScope(
+                    inlineParameters: false,
+                    () => {
+                        var visitedArgs = sqlFunctionExpression.Arguments
+                            .Select(arg => (SqlExpression)Visit(arg))
+                            .ToList();
+                        
+                        return sqlFunctionExpression.Update(
+                            sqlFunctionExpression.Instance,
+                            visitedArgs);
+                    });
             }
             
             // All arguments are constants/parameters - inline and evaluate
