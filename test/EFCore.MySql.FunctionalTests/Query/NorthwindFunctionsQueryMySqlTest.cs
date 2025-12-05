@@ -134,6 +134,17 @@ WHERE `o`.`OrderID` < 10300
 """);
         }
 
+        public override async Task Client_evaluation_of_uncorrelated_method_call(bool async)
+        {
+            await base.Client_evaluation_of_uncorrelated_method_call(async);
+
+            AssertSql(
+"""
+SELECT `o`.`OrderID`, `o`.`ProductID`, `o`.`Discount`, `o`.`Quantity`, `o`.`UnitPrice`
+FROM `Order Details` AS `o`
+""");
+        }
+
         [ConditionalFact]
         public virtual void Check_all_tests_overridden()
             => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
