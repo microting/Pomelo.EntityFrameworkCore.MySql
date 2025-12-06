@@ -543,20 +543,8 @@ FROM `TestEntityWithOwned` AS `t`
         // EF.Constant forces constant translation regardless of mode
         var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
 
-        if (mode == ParameterTranslationMode.Parameter)
-        {
-            // When default mode is Parameter, the WHERE clause can't be translated
-            // so we get a simple query and client evaluation
-            AssertSql(
-"""
-SELECT `t`.`Id`
-FROM `TestEntity` AS `t`
-""");
-        }
-        else
-        {
-            // For Constant and MultipleParameters modes, EF.Constant produces constant SQL
-            AssertSql(
+        // EF.Constant works in all modes  
+        AssertSql(
 $"""
 SELECT `t`.`Id`
 FROM `TestEntity` AS `t`
@@ -565,14 +553,19 @@ WHERE (
     FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES {rowSql}(999)) AS `i`
     WHERE `i`.`Value` > `t`.`Id`) = 1
 """);
-        }
     }
 
     public override async Task Parameter_collection_Contains_with_default_mode_EF_Constant(ParameterTranslationMode mode)
     {
         await base.Parameter_collection_Contains_with_default_mode_EF_Constant(mode);
 
-        AssertSql();
+        // EF.Constant forces constant translation in all modes
+        AssertSql(
+"""
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE `t`.`Id` IN (2, 999)
+""");
     }
 
     public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter(ParameterTranslationMode mode)
@@ -595,20 +588,8 @@ WHERE (
 
         var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
 
-        if (mode == ParameterTranslationMode.Parameter)
-        {
-            // When default mode is Parameter, the WHERE clause can't be translated
-            // so we get a simple query and client evaluation
-            AssertSql(
-"""
-SELECT `t`.`Id`
-FROM `TestEntity` AS `t`
-""");
-        }
-        else
-        {
-            // For Constant and MultipleParameters modes
-            AssertSql(
+        // EF.Parameters works in all modes - it always generates SQL with parameters
+        AssertSql(
 $"""
 @ids1='2'
 @ids2='999'
@@ -620,15 +601,28 @@ WHERE (
     FROM (SELECT @ids1 AS `Value` UNION ALL VALUES {rowSql}(@ids2)) AS `i`
     WHERE `i`.`Value` > `t`.`Id`) = 1
 """);
-        }
     }
+
 
     public override async Task Parameter_collection_Contains_with_default_mode_EF_MultipleParameters(ParameterTranslationMode mode)
     {
         await base.Parameter_collection_Contains_with_default_mode_EF_MultipleParameters(mode);
 
-        AssertSql();
+        // EF.Parameters works in all modes (the collection is named 'ints' not 'ids')
+        // Note: When mode is Parameter, it still translates unlike _EF_Parameter variant
+        AssertSql(
+"""
+@ints1='2'
+@ints2='999'
+
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE `t`.`Id` IN (@ints1, @ints2)
+""");
     }
+
+
+
 
 
 
