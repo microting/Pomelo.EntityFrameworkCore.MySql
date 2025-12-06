@@ -488,11 +488,13 @@ LIMIT 2
     {
         await base.Parameter_collection_Count_with_column_predicate_with_default_mode(mode);
 
+        var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
+
         switch (mode)
         {
             case ParameterTranslationMode.MultipleParameters:
                 AssertSql(
-"""
+$"""
 @ids1='2'
 @ids2='999'
 
@@ -500,18 +502,18 @@ SELECT `t`.`Id`
 FROM `TestEntity` AS `t`
 WHERE (
     SELECT COUNT(*)
-    FROM (SELECT @ids1 AS `Value` UNION ALL VALUES (@ids2)) AS `i`
+    FROM (SELECT @ids1 AS `Value` UNION ALL VALUES {rowSql}(@ids2)) AS `i`
     WHERE `i`.`Value` > `t`.`Id`) = 1
 """);
                 break;
             case ParameterTranslationMode.Constant:
                 AssertSql(
-"""
+$"""
 SELECT `t`.`Id`
 FROM `TestEntity` AS `t`
 WHERE (
     SELECT COUNT(*)
-    FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES (999)) AS `i`
+    FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES {rowSql}(999)) AS `i`
     WHERE `i`.`Value` > `t`.`Id`) = 1
 """);
                 break;
@@ -534,61 +536,118 @@ FROM `TestEntityWithOwned` AS `t`
 """);
     }
 
-    [ConditionalFact]
-    public async Task Parameter_collection_Contains_with_default_mode()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant(ParameterTranslationMode mode)
     {
-        await Parameter_collection_Contains_with_default_mode(ParameterTranslationMode.MultipleParameters);
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant(mode);
+
+        // Same as Parameter_collection_Count_with_column_predicate_with_default_mode but with EF.Constant
+        var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
+
+        switch (mode)
+        {
+            case ParameterTranslationMode.Constant:
+                AssertSql(
+$"""
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES {rowSql}(999)) AS `i`
+    WHERE `i`.`Value` > `t`.`Id`) = 1
+""");
+                break;
+            case ParameterTranslationMode.MultipleParameters:
+                AssertSql(
+$"""
+@ids1='2'
+@ids2='999'
+
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT @ids1 AS `Value` UNION ALL VALUES {rowSql}(@ids2)) AS `i`
+    WHERE `i`.`Value` > `t`.`Id`) = 1
+""");
+                break;
+            case ParameterTranslationMode.Parameter:
+                AssertSql("");
+                break;
+            default:
+                throw new NotImplementedException();
+        }
+    }
+
+    public override async Task Parameter_collection_Contains_with_default_mode_EF_Constant(ParameterTranslationMode mode)
+    {
+        await base.Parameter_collection_Contains_with_default_mode_EF_Constant(mode);
 
         AssertSql();
     }
 
-    [ConditionalFact]
-    public async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter(ParameterTranslationMode mode)
     {
-        await Parameter_collection_Count_with_column_predicate_with_default_mode(ParameterTranslationMode.Constant);
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter(mode);
 
         AssertSql();
     }
 
-    [ConditionalFact]
-    public async Task Parameter_collection_Contains_with_default_mode_EF_Constant()
+    public override async Task Parameter_collection_Contains_with_default_mode_EF_Parameter(ParameterTranslationMode mode)
     {
-        await Parameter_collection_Contains_with_default_mode(ParameterTranslationMode.Constant);
+        await base.Parameter_collection_Contains_with_default_mode_EF_Parameter(mode);
 
         AssertSql();
     }
 
-    [ConditionalFact]
-    public async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_MultipleParameters(ParameterTranslationMode mode)
     {
-        await Parameter_collection_Count_with_column_predicate_with_default_mode(ParameterTranslationMode.Parameter);
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_MultipleParameters(mode);
+
+        var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
+
+        switch (mode)
+        {
+            case ParameterTranslationMode.Constant:
+                AssertSql(
+$"""
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES {rowSql}(999)) AS `i`
+    WHERE `i`.`Value` > `t`.`Id`) = 1
+""");
+                break;
+            case ParameterTranslationMode.MultipleParameters:
+                AssertSql(
+$"""
+@ids1='2'
+@ids2='999'
+
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT @ids1 AS `Value` UNION ALL VALUES {rowSql}(@ids2)) AS `i`
+    WHERE `i`.`Value` > `t`.`Id`) = 1
+""");
+                break;
+            case ParameterTranslationMode.Parameter:
+                AssertSql("");
+                break;
+            default:
+                throw new NotImplementedException();
+        }
+    }
+
+    public override async Task Parameter_collection_Contains_with_default_mode_EF_MultipleParameters(ParameterTranslationMode mode)
+    {
+        await base.Parameter_collection_Contains_with_default_mode_EF_MultipleParameters(mode);
 
         AssertSql();
     }
 
-    [ConditionalFact]
-    public async Task Parameter_collection_Contains_with_default_mode_EF_Parameter()
-    {
-        await Parameter_collection_Contains_with_default_mode(ParameterTranslationMode.Parameter);
 
-        AssertSql();
-    }
-
-    [ConditionalFact]
-    public async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_MultipleParameters()
-    {
-        await Parameter_collection_Count_with_column_predicate_with_default_mode(ParameterTranslationMode.MultipleParameters);
-
-        AssertSql();
-    }
-
-    [ConditionalFact]
-    public async Task Parameter_collection_Contains_with_default_mode_EF_MultipleParameters()
-    {
-        await Parameter_collection_Contains_with_default_mode(ParameterTranslationMode.MultipleParameters);
-
-        AssertSql();
-    }
 
     public override async Task Parameter_collection_Contains_parameter_bucketization()
     {
