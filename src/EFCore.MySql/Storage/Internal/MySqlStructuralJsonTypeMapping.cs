@@ -77,7 +77,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// </summary>
         public override Type ClrType => typeof(JsonTypePlaceholder);
 
-        protected string EscapeSqlLiteral(string literal)
+        protected virtual string EscapeSqlLiteral(string literal)
             => literal.Replace("'", "''");
 
         protected override string GenerateNonNullSqlLiteral(object value)
