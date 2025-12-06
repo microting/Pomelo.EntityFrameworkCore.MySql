@@ -194,22 +194,24 @@ SET `o0`.`Value` = @p
     {
         await base.Delete_with_view_mapping(async);
 
-        var sql = TestSqlLoggerFactory.Sql;
-        System.Console.WriteLine("=== DELETE SQL ===");
-        System.Console.WriteLine(sql);
-        System.Console.WriteLine("=== END SQL ===");
-        AssertSql();
+        AssertSql(
+"""
+DELETE `b`
+FROM `Blogs` AS `b`
+""");
     }
 
     public override async Task Update_with_view_mapping(bool async)
     {
         await base.Update_with_view_mapping(async);
 
-        var sql = TestSqlLoggerFactory.Sql;
-        System.Console.WriteLine("=== UPDATE SQL ===");
-        System.Console.WriteLine(sql);
-        System.Console.WriteLine("=== END SQL ===");
-        AssertSql();
+        AssertSql(
+"""
+@p='Updated' (Size = 4000)
+
+UPDATE `Blogs` AS `b`
+SET `b`.`Data` = @p
+""");
     }
 
     public override async Task Update_complex_type_with_view_mapping(bool async)
