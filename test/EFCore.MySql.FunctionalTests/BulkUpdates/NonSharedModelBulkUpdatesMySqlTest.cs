@@ -190,6 +190,37 @@ SET `o0`.`Value` = @p
 """);
     }
 
+    public override async Task Delete_with_view_mapping(bool async)
+    {
+        await base.Delete_with_view_mapping(async);
+
+        AssertSql(
+"""
+DELETE `b`
+FROM `Blogs` AS `b`
+""");
+    }
+
+    public override async Task Update_with_view_mapping(bool async)
+    {
+        await base.Update_with_view_mapping(async);
+
+        AssertSql(
+"""
+@p='Updated' (Size = 4000)
+
+UPDATE `Blogs` AS `b`
+SET `b`.`Data` = @p
+""");
+    }
+
+    public override async Task Update_complex_type_with_view_mapping(bool async)
+    {
+        await base.Update_complex_type_with_view_mapping(async);
+
+        AssertSql();
+    }
+
     private void AssertSql(params string[] expected)
         => TestSqlLoggerFactory.AssertBaseline(expected);
 
