@@ -540,13 +540,23 @@ FROM `TestEntityWithOwned` AS `t`
     {
         await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant(mode);
 
-        // Same as Parameter_collection_Count_with_column_predicate_with_default_mode but with EF.Constant
+        // EF.Constant forces constant translation regardless of mode
         var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
 
-        switch (mode)
+        if (mode == ParameterTranslationMode.Parameter)
         {
-            case ParameterTranslationMode.Constant:
-                AssertSql(
+            // When default mode is Parameter, the WHERE clause can't be translated
+            // so we get a simple query and client evaluation
+            AssertSql(
+"""
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+""");
+        }
+        else
+        {
+            // For Constant and MultipleParameters modes, EF.Constant produces constant SQL
+            AssertSql(
 $"""
 SELECT `t`.`Id`
 FROM `TestEntity` AS `t`
@@ -555,26 +565,6 @@ WHERE (
     FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES {rowSql}(999)) AS `i`
     WHERE `i`.`Value` > `t`.`Id`) = 1
 """);
-                break;
-            case ParameterTranslationMode.MultipleParameters:
-                AssertSql(
-$"""
-@ids1='2'
-@ids2='999'
-
-SELECT `t`.`Id`
-FROM `TestEntity` AS `t`
-WHERE (
-    SELECT COUNT(*)
-    FROM (SELECT @ids1 AS `Value` UNION ALL VALUES {rowSql}(@ids2)) AS `i`
-    WHERE `i`.`Value` > `t`.`Id`) = 1
-""");
-                break;
-            case ParameterTranslationMode.Parameter:
-                AssertSql("");
-                break;
-            default:
-                throw new NotImplementedException();
         }
     }
 
@@ -605,21 +595,20 @@ WHERE (
 
         var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
 
-        switch (mode)
+        if (mode == ParameterTranslationMode.Parameter)
         {
-            case ParameterTranslationMode.Constant:
-                AssertSql(
-$"""
+            // When default mode is Parameter, the WHERE clause can't be translated
+            // so we get a simple query and client evaluation
+            AssertSql(
+"""
 SELECT `t`.`Id`
 FROM `TestEntity` AS `t`
-WHERE (
-    SELECT COUNT(*)
-    FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES {rowSql}(999)) AS `i`
-    WHERE `i`.`Value` > `t`.`Id`) = 1
 """);
-                break;
-            case ParameterTranslationMode.MultipleParameters:
-                AssertSql(
+        }
+        else
+        {
+            // For Constant and MultipleParameters modes
+            AssertSql(
 $"""
 @ids1='2'
 @ids2='999'
@@ -631,12 +620,6 @@ WHERE (
     FROM (SELECT @ids1 AS `Value` UNION ALL VALUES {rowSql}(@ids2)) AS `i`
     WHERE `i`.`Value` > `t`.`Id`) = 1
 """);
-                break;
-            case ParameterTranslationMode.Parameter:
-                AssertSql("");
-                break;
-            default:
-                throw new NotImplementedException();
         }
     }
 
@@ -646,6 +629,7 @@ WHERE (
 
         AssertSql();
     }
+
 
 
 
