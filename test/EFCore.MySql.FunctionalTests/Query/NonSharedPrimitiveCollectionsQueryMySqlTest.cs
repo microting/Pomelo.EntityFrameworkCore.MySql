@@ -518,7 +518,7 @@ WHERE (
 """);
                 break;
             case ParameterTranslationMode.Parameter:
-                AssertSql("");
+                AssertSql();
                 break;
             default:
                 throw new NotImplementedException();
