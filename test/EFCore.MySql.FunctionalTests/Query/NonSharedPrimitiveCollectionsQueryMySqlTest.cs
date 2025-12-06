@@ -638,7 +638,6 @@ WHERE (
 """);
     }
 
-
     public override async Task Parameter_collection_Contains_with_default_mode_EF_MultipleParameters(ParameterTranslationMode mode)
     {
         await base.Parameter_collection_Contains_with_default_mode_EF_MultipleParameters(mode);
@@ -655,12 +654,6 @@ FROM `TestEntity` AS `t`
 WHERE `t`.`Id` IN (@ints1, @ints2)
 """);
     }
-
-
-
-
-
-
 
     public override async Task Parameter_collection_Contains_parameter_bucketization()
     {
