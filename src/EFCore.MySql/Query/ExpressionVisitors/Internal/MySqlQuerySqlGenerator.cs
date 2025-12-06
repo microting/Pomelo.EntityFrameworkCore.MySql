@@ -1011,14 +1011,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                         else
                         {
                             Sql.Append("', ");
-
-                            Visit(
-                                new SqlUnaryExpression(
-                                    ExpressionType.Convert,
-                                    arrayIndex,
-                                    typeof(string),
-                                    _typeMappingSource.GetMapping(typeof(string))));
-
+                            Visit(arrayIndex);
                             Sql.Append(", '");
                         }
 
