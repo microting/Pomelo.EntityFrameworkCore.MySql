@@ -190,6 +190,35 @@ SET `o0`.`Value` = @p
 """);
     }
 
+    public override async Task Delete_with_view_mapping(bool async)
+    {
+        await base.Delete_with_view_mapping(async);
+
+        var sql = TestSqlLoggerFactory.Sql;
+        System.Console.WriteLine("=== DELETE SQL ===");
+        System.Console.WriteLine(sql);
+        System.Console.WriteLine("=== END SQL ===");
+        AssertSql();
+    }
+
+    public override async Task Update_with_view_mapping(bool async)
+    {
+        await base.Update_with_view_mapping(async);
+
+        var sql = TestSqlLoggerFactory.Sql;
+        System.Console.WriteLine("=== UPDATE SQL ===");
+        System.Console.WriteLine(sql);
+        System.Console.WriteLine("=== END SQL ===");
+        AssertSql();
+    }
+
+    public override async Task Update_complex_type_with_view_mapping(bool async)
+    {
+        await base.Update_complex_type_with_view_mapping(async);
+
+        AssertSql();
+    }
+
     private void AssertSql(params string[] expected)
         => TestSqlLoggerFactory.AssertBaseline(expected);
 
