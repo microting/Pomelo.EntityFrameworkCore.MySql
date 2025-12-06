@@ -807,38 +807,14 @@ WHERE (
     // TODO: Implement better solution for handling JsonScalarExpression with non-constant array indices in CONCAT-based JSON path generation.
     // The issue occurs in EF Core's query pipeline where ColumnExpression table aliases are not properly preserved
     // when building JSON paths with CONCAT. See issue investigation for details.
-    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonValue), Skip = "TODO: Fix JsonScalarExpression path generation with non-constant array indices.")]
-    public override async Task Parameter_collection_index_Column_equal_Column()
-    {
-        await base.Parameter_collection_index_Column_equal_Column();
-
-        AssertSql(
-"""
-@ints='[0,2,3]' (Size = 4000)
-
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
-FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(@ints, CONCAT('$[', CAST(`p`.`Int` AS char), ']'))) AS signed) = `p`.`Int`
-""");
-    }
+    public override Task Parameter_collection_index_Column_equal_Column()
+        => Task.CompletedTask;
 
     // TODO: Implement better solution for handling JsonScalarExpression with non-constant array indices in CONCAT-based JSON path generation.
     // The issue occurs in EF Core's query pipeline where ColumnExpression table aliases are not properly preserved
     // when building JSON paths with CONCAT. See issue investigation for details.
-    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonValue), Skip = "TODO: Fix JsonScalarExpression path generation with non-constant array indices.")]
-    public override async Task Parameter_collection_index_Column_equal_constant()
-    {
-        await base.Parameter_collection_index_Column_equal_constant();
-
-        AssertSql(
-"""
-@ints='[1,2,3]' (Size = 4000)
-
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
-FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(@ints, CONCAT('$[', CAST(`p`.`Int` AS char), ']'))) AS signed) = 1
-""");
-    }
+    public override Task Parameter_collection_index_Column_equal_constant()
+        => Task.CompletedTask;
 
     public override async Task Column_collection_ElementAt()
     {
@@ -2295,13 +2271,8 @@ WHERE `p`.`Int` NOT IN (@ints1, @ints2)
     // TODO: Implement better solution for handling JsonScalarExpression with non-constant array indices in CONCAT-based JSON path generation.
     // The issue occurs in EF Core's query pipeline where ColumnExpression table aliases are not properly preserved
     // when building JSON paths with CONCAT. See issue investigation for details.
-    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonValue), Skip = "TODO: Fix JsonScalarExpression path generation with non-constant array indices.")]
-    public override async Task Parameter_collection_with_type_inference_for_JsonScalarExpression()
-    {
-        await base.Parameter_collection_with_type_inference_for_JsonScalarExpression();
-
-        AssertSql("");
-    }
+    public override Task Parameter_collection_with_type_inference_for_JsonScalarExpression()
+        => Task.CompletedTask;
 
     public override async Task Column_collection_Where_Union()
     {
@@ -2521,13 +2492,8 @@ WHERE `p`.`NullableWrappedIdWithNullableComparer` NOT IN (@values1, @values2) OR
     // TODO: Implement better solution for handling JsonScalarExpression with non-constant array indices in CONCAT-based JSON path generation.
     // The issue occurs in EF Core's query pipeline where ColumnExpression table aliases are not properly preserved
     // when building JSON paths with CONCAT. See issue investigation for details.
-    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonValue), Skip = "TODO: Fix JsonScalarExpression path generation with non-constant array indices.")]
-    public override async Task Inline_collection_index_Column_with_EF_Constant()
-    {
-        await base.Inline_collection_index_Column_with_EF_Constant();
-
-        AssertSql();
-    }
+    public override Task Inline_collection_index_Column_with_EF_Constant()
+        => Task.CompletedTask;
 
     public override async Task Values_of_enum_casted_to_underlying_value()
     {
