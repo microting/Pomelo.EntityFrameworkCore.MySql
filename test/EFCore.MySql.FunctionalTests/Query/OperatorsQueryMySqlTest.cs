@@ -149,8 +149,10 @@ WHERE `o`.`Value` NOT LIKE 'A%' OR (`o`.`Value` IS NULL)
 """);
     }
 
+    // EF Core 10 changed the translation for this test so it no longer throws an exception.
+    // The test now passes for both MySQL and MariaDB.
     public override Task Concat_and_json_scalar(bool async)
-        => Assert.ThrowsAsync<InvalidOperationException>(() => base.Concat_and_json_scalar(async));
+        => base.Concat_and_json_scalar(async);
 
     protected override async Task Seed(OperatorsContext ctx)
     {
