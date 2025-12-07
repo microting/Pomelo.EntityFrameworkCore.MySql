@@ -479,7 +479,7 @@ LIMIT 2
     public override async Task Column_collection_inside_json_owned_entity()
     {
         var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => base.Column_collection_inside_json_owned_entity());
-        Assert.Equal(MySqlStrings.Ef7CoreJsonMappingNotSupported, exception.Message);
+        Assert.Contains("The LINQ expression 't.Owned -> Strings'", exception.Message);
     }
 
     #endregion Type mapping inference
@@ -659,7 +659,33 @@ WHERE `t`.`Id` IN (@ints1, @ints2)
     {
         await base.Parameter_collection_Contains_parameter_bucketization();
 
-        AssertSql();
+        AssertSql(
+"""
+@ints1='2'
+@ints2='999'
+@ints3='2'
+@ints4='2'
+@ints5='2'
+@ints6='2'
+@ints7='2'
+@ints8='2'
+@ints9='2'
+@ints10='2'
+@ints11='2'
+@ints12='2'
+@ints13='2'
+@ints14='2'
+@ints15='2'
+@ints16='2'
+@ints17='2'
+@ints18='2'
+@ints19='2'
+@ints20='2'
+
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE `t`.`Id` IN (@ints1, @ints2, @ints3, @ints4, @ints5, @ints6, @ints7, @ints8, @ints9, @ints10, @ints11, @ints12, @ints13, @ints14, @ints15, @ints16, @ints17, @ints18, @ints19, @ints20)
+""");
     }
 
     [ConditionalFact]
