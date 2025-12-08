@@ -54,7 +54,7 @@ namespace TestNamespace
                 int (IInternalEntry entry) => DependentBaseUnsafeAccessors<int>.Id(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
                 int (IInternalEntry entry) => DependentBaseUnsafeAccessors<int>.Id(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
                 int (IInternalEntry entry) => entry.ReadOriginalValue<int>(id, 0),
-                int (IInternalEntry entry) => (InternalEntityEntry)entry).ReadRelationshipSnapshotValue<int>(id, 0));
+                int (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<int>(id, 0));
             id.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
@@ -121,10 +121,7 @@ namespace TestNamespace
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
                     int (string v) => ((object)v).GetHashCode(),
-                    string (string v) => v),
-                mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "longtext"),
-                storeTypePostfix: StoreTypePostfix.None);
+                    string (string v) => v));
             data.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var key = runtimeEntityType.AddKey(
@@ -144,7 +141,7 @@ namespace TestNamespace
             runtimeEntityType.SetOriginalValuesFactory(
                 ISnapshot (IInternalEntry source) =>
                 {
-                    var instance = ((CompiledModelTestBase.DependentDerived<int>)(source.Entity));
+                    var structuralType = ((CompiledModelTestBase.DependentDerived<int>)(source.Entity));
                     return ((ISnapshot)(new Snapshot<int, string>(((ValueComparer<int>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(id)), (source.GetCurrentValue<string>(data) == null ? null : ((ValueComparer<string>)(((IProperty)data).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(data))))));
                 });
             runtimeEntityType.SetStoreGeneratedValuesFactory(
@@ -158,17 +155,18 @@ namespace TestNamespace
             runtimeEntityType.SetRelationshipSnapshotFactory(
                 ISnapshot (IInternalEntry source) =>
                 {
-                    var instance = ((CompiledModelTestBase.DependentDerived<int>)(source.Entity));
+                    var structuralType = ((CompiledModelTestBase.DependentDerived<int>)(source.Entity));
                     return ((ISnapshot)(new Snapshot<int>(((ValueComparer<int>)(((IProperty)id).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<int>(id)))));
                 });
-            runtimeEntityType.Counts = new PropertyCounts(
+            runtimeEntityType.SetCounts(new PropertyCounts(
                 propertyCount: 2,
                 navigationCount: 0,
                 complexPropertyCount: 0,
+                complexCollectionCount: 0,
                 originalValueCount: 2,
                 shadowCount: 0,
                 relationshipCount: 1,
-                storeGeneratedCount: 0);
+                storeGeneratedCount: 0));
             runtimeEntityType.AddAnnotation("Relational:FunctionName", null);
             runtimeEntityType.AddAnnotation("Relational:Schema", null);
             runtimeEntityType.AddAnnotation("Relational:SqlQuery", null);
