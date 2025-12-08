@@ -37,18 +37,16 @@ namespace TestNamespace
                 sentinel: 0);
             id.SetGetter(
                 int (CompiledModelTestBase.DependentDerived<int> instance) => DependentBaseUnsafeAccessors<int>.Id(instance),
-                bool (CompiledModelTestBase.DependentDerived<int> instance) => DependentBaseUnsafeAccessors<int>.Id(instance) == 0,
-                int (CompiledModelTestBase.DependentDerived<int> instance) => DependentBaseUnsafeAccessors<int>.Id(instance),
                 bool (CompiledModelTestBase.DependentDerived<int> instance) => DependentBaseUnsafeAccessors<int>.Id(instance) == 0);
             id.SetSetter(
                 (CompiledModelTestBase.DependentDerived<int> instance, int value) => DependentBaseUnsafeAccessors<int>.Id(instance) = value);
             id.SetMaterializationSetter(
                 (CompiledModelTestBase.DependentDerived<int> instance, int value) => DependentBaseUnsafeAccessors<int>.Id(instance) = value);
             id.SetAccessors(
-                int (InternalEntityEntry entry) => DependentBaseUnsafeAccessors<int>.Id(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
-                int (InternalEntityEntry entry) => DependentBaseUnsafeAccessors<int>.Id(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
-                int (InternalEntityEntry entry) => entry.ReadOriginalValue<int>(id, 0),
-                int (InternalEntityEntry entry) => entry.ReadRelationshipSnapshotValue<int>(id, 0),
+                int (IInternalEntry entry) => DependentBaseUnsafeAccessors<int>.Id(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
+                int (IInternalEntry entry) => DependentBaseUnsafeAccessors<int>.Id(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
+                int (IInternalEntry entry) => entry.ReadOriginalValue<int>(id, 0),
+                int (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<int>(id, 0),
                 object (ValueBuffer valueBuffer) => valueBuffer[0]);
             id.SetPropertyIndexes(
                 index: 0,
@@ -80,18 +78,16 @@ namespace TestNamespace
                 nullable: true);
             data.SetGetter(
                 string (CompiledModelTestBase.DependentDerived<int> instance) => DependentDerivedUnsafeAccessors<int>.Data(instance),
-                bool (CompiledModelTestBase.DependentDerived<int> instance) => DependentDerivedUnsafeAccessors<int>.Data(instance) == null,
-                string (CompiledModelTestBase.DependentDerived<int> instance) => DependentDerivedUnsafeAccessors<int>.Data(instance),
                 bool (CompiledModelTestBase.DependentDerived<int> instance) => DependentDerivedUnsafeAccessors<int>.Data(instance) == null);
             data.SetSetter(
                 (CompiledModelTestBase.DependentDerived<int> instance, string value) => DependentDerivedUnsafeAccessors<int>.Data(instance) = value);
             data.SetMaterializationSetter(
                 (CompiledModelTestBase.DependentDerived<int> instance, string value) => DependentDerivedUnsafeAccessors<int>.Data(instance) = value);
             data.SetAccessors(
-                string (InternalEntityEntry entry) => DependentDerivedUnsafeAccessors<int>.Data(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
-                string (InternalEntityEntry entry) => DependentDerivedUnsafeAccessors<int>.Data(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
-                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(data, 1),
-                string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(data),
+                string (IInternalEntry entry) => DependentDerivedUnsafeAccessors<int>.Data(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
+                string (IInternalEntry entry) => DependentDerivedUnsafeAccessors<int>.Data(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
+                string (IInternalEntry entry) => entry.ReadOriginalValue<string>(data, 1),
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(data),
                 object (ValueBuffer valueBuffer) => valueBuffer[1]);
             data.SetPropertyIndexes(
                 index: 1,
@@ -132,7 +128,7 @@ namespace TestNamespace
             key.SetPrincipalKeyValueFactory(KeyValueFactoryFactory.CreateSimpleNonNullableFactory<int>(key));
             key.SetIdentityMapFactory(IdentityMapFactoryFactory.CreateFactory<int>(key));
             runtimeEntityType.SetOriginalValuesFactory(
-                ISnapshot (InternalEntityEntry source) =>
+                ISnapshot (IInternalEntry source) =>
                 {
                     var instance = ((CompiledModelTestBase.DependentDerived<int>)(source.Entity));
                     return ((ISnapshot)(new Snapshot<int, string>(((ValueComparer<int>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(id)), (source.GetCurrentValue<string>(data) == null ? null : ((ValueComparer<string>)(((IProperty)data).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(data))))));
@@ -140,13 +136,13 @@ namespace TestNamespace
             runtimeEntityType.SetStoreGeneratedValuesFactory(
                 ISnapshot () => Snapshot.Empty);
             runtimeEntityType.SetTemporaryValuesFactory(
-                ISnapshot (InternalEntityEntry source) => Snapshot.Empty);
+                ISnapshot (IInternalEntry source) => Snapshot.Empty);
             runtimeEntityType.SetShadowValuesFactory(
                 ISnapshot (IDictionary<string, object> source) => Snapshot.Empty);
             runtimeEntityType.SetEmptyShadowValuesFactory(
                 ISnapshot () => Snapshot.Empty);
             runtimeEntityType.SetRelationshipSnapshotFactory(
-                ISnapshot (InternalEntityEntry source) =>
+                ISnapshot (IInternalEntry source) =>
                 {
                     var instance = ((CompiledModelTestBase.DependentDerived<int>)(source.Entity));
                     return ((ISnapshot)(new Snapshot<int>(((ValueComparer<int>)(((IProperty)id).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<int>(id)))));
