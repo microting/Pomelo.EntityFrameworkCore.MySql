@@ -1129,6 +1129,13 @@ LEFT JOIN (
 """);
     }
 
+    public override async Task Project_nullable_struct_complex_type_via_optional_navigation(bool async)
+    {
+        await base.Project_nullable_struct_complex_type_via_optional_navigation(async);
+
+        AssertSql();
+    }
+
     [ConditionalFact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
