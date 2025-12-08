@@ -55,8 +55,7 @@ namespace TestNamespace
                 long? (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<long?>(0) : (entry.FlaggedAsTemporary(0) && !(PrincipalBaseUnsafeAccessors.Id(((CompiledModelTestBase.PrincipalBase)(entry.Entity))).HasValue) ? entry.ReadTemporaryValue<long?>(0) : PrincipalBaseUnsafeAccessors.Id(((CompiledModelTestBase.PrincipalBase)(entry.Entity))))),
                 long? (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.Id(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 long? (IInternalEntry entry) => entry.ReadOriginalValue<long?>(id, 0),
-                long? (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<long?>(id, 0),
-                object (ValueBuffer valueBuffer) => valueBuffer[0]);
+                long? (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<long?>(id, 0));
             id.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
@@ -110,8 +109,7 @@ namespace TestNamespace
                 Guid (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(1) ? entry.ReadStoreGeneratedValue<Guid>(1) : (entry.FlaggedAsTemporary(1) && ((CompiledModelTestBase.PrincipalBase)(entry.Entity)).AlternateId == new Guid("00000000-0000-0000-0000-000000000000") ? entry.ReadTemporaryValue<Guid>(1) : ((CompiledModelTestBase.PrincipalBase)(entry.Entity)).AlternateId)),
                 Guid (IInternalEntry entry) => ((CompiledModelTestBase.PrincipalBase)(entry.Entity)).AlternateId,
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(alternateId, 1),
-                Guid (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<Guid>(alternateId, 1),
-                object (ValueBuffer valueBuffer) => valueBuffer[1]);
+                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(alternateId, 1));
             alternateId.SetPropertyIndexes(
                 index: 1,
                 originalValueIndex: 1,
@@ -150,8 +148,7 @@ namespace TestNamespace
                 CompiledModelTestBase.AnEnum (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.Enum1(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 CompiledModelTestBase.AnEnum (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.Enum1(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 CompiledModelTestBase.AnEnum (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.AnEnum>(enum1, 2),
-                CompiledModelTestBase.AnEnum (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.AnEnum>(enum1),
-                object (ValueBuffer valueBuffer) => valueBuffer[2]);
+                CompiledModelTestBase.AnEnum (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.AnEnum>(enum1));
             enum1.SetPropertyIndexes(
                 index: 2,
                 originalValueIndex: 2,
@@ -199,8 +196,7 @@ namespace TestNamespace
                 CompiledModelTestBase.AnEnum? (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.Enum2(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 CompiledModelTestBase.AnEnum? (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.Enum2(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 CompiledModelTestBase.AnEnum? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.AnEnum?>(enum2, 3),
-                CompiledModelTestBase.AnEnum? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.AnEnum?>(enum2),
-                object (ValueBuffer valueBuffer) => valueBuffer[3]);
+                CompiledModelTestBase.AnEnum? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.AnEnum?>(enum2));
             enum2.SetPropertyIndexes(
                 index: 3,
                 originalValueIndex: 3,
@@ -248,8 +244,7 @@ namespace TestNamespace
                 CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.FlagsEnum1(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.FlagsEnum1(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.AFlagsEnum>(flagsEnum1, 4),
-                CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.AFlagsEnum>(flagsEnum1),
-                object (ValueBuffer valueBuffer) => valueBuffer[4]);
+                CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.AFlagsEnum>(flagsEnum1));
             flagsEnum1.SetPropertyIndexes(
                 index: 4,
                 originalValueIndex: 4,
@@ -297,8 +292,7 @@ namespace TestNamespace
                 CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.Get_FlagsEnum2(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.Get_FlagsEnum2(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.AFlagsEnum>(flagsEnum2, 5),
-                CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.AFlagsEnum>(flagsEnum2),
-                object (ValueBuffer valueBuffer) => valueBuffer[5]);
+                CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.AFlagsEnum>(flagsEnum2));
             flagsEnum2.SetPropertyIndexes(
                 index: 5,
                 originalValueIndex: 5,
@@ -341,8 +335,7 @@ namespace TestNamespace
                 Point (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(6) ? entry.ReadStoreGeneratedValue<Point>(2) : (entry.FlaggedAsTemporary(6) && entry.ReadShadowValue<Point>(0) == null ? entry.ReadTemporaryValue<Point>(2) : entry.ReadShadowValue<Point>(0))),
                 Point (IInternalEntry entry) => entry.ReadShadowValue<Point>(0),
                 Point (IInternalEntry entry) => entry.ReadOriginalValue<Point>(point, 6),
-                Point (IInternalEntry entry) => entry.GetCurrentValue<Point>(point),
-                object (ValueBuffer valueBuffer) => valueBuffer[6]);
+                Point (IInternalEntry entry) => entry.GetCurrentValue<Point>(point));
             point.SetPropertyIndexes(
                 index: 6,
                 originalValueIndex: 6,
@@ -371,8 +364,7 @@ namespace TestNamespace
                 IPAddress[] (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.RefTypeArray(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 IPAddress[] (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.RefTypeArray(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 IPAddress[] (IInternalEntry entry) => entry.ReadOriginalValue<IPAddress[]>(refTypeArray, 7),
-                IPAddress[] (IInternalEntry entry) => entry.GetCurrentValue<IPAddress[]>(refTypeArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[7]);
+                IPAddress[] (IInternalEntry entry) => entry.GetCurrentValue<IPAddress[]>(refTypeArray));
             refTypeArray.SetPropertyIndexes(
                 index: 7,
                 originalValueIndex: 7,
@@ -450,8 +442,7 @@ namespace TestNamespace
                 IEnumerable<string> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.RefTypeEnumerable(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 IEnumerable<string> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.RefTypeEnumerable(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 IEnumerable<string> (IInternalEntry entry) => entry.ReadOriginalValue<IEnumerable<string>>(refTypeEnumerable, 8),
-                IEnumerable<string> (IInternalEntry entry) => entry.GetCurrentValue<IEnumerable<string>>(refTypeEnumerable),
-                object (ValueBuffer valueBuffer) => valueBuffer[8]);
+                IEnumerable<string> (IInternalEntry entry) => entry.GetCurrentValue<IEnumerable<string>>(refTypeEnumerable));
             refTypeEnumerable.SetPropertyIndexes(
                 index: 8,
                 originalValueIndex: 8,
@@ -513,8 +504,7 @@ namespace TestNamespace
                 IList<string> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.RefTypeIList(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 IList<string> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.RefTypeIList(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 IList<string> (IInternalEntry entry) => entry.ReadOriginalValue<IList<string>>(refTypeIList, 9),
-                IList<string> (IInternalEntry entry) => entry.GetCurrentValue<IList<string>>(refTypeIList),
-                object (ValueBuffer valueBuffer) => valueBuffer[9]);
+                IList<string> (IInternalEntry entry) => entry.GetCurrentValue<IList<string>>(refTypeIList));
             refTypeIList.SetPropertyIndexes(
                 index: 9,
                 originalValueIndex: 9,
@@ -576,8 +566,7 @@ namespace TestNamespace
                 List<IPAddress> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.RefTypeList(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 List<IPAddress> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.RefTypeList(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 List<IPAddress> (IInternalEntry entry) => entry.ReadOriginalValue<List<IPAddress>>(refTypeList, 10),
-                List<IPAddress> (IInternalEntry entry) => entry.GetCurrentValue<List<IPAddress>>(refTypeList),
-                object (ValueBuffer valueBuffer) => valueBuffer[10]);
+                List<IPAddress> (IInternalEntry entry) => entry.GetCurrentValue<List<IPAddress>>(refTypeList));
             refTypeList.SetPropertyIndexes(
                 index: 10,
                 originalValueIndex: 10,
@@ -650,8 +639,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(11) ? entry.ReadStoreGeneratedValue<string>(3) : (entry.FlaggedAsTemporary(11) && entry.ReadShadowValue<string>(1) == null ? entry.ReadTemporaryValue<string>(3) : entry.ReadShadowValue<string>(1))),
                 string (IInternalEntry entry) => entry.ReadShadowValue<string>(1),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringWithCharSet, 11),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringWithCharSet),
-                object (ValueBuffer valueBuffer) => valueBuffer[11]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringWithCharSet));
             stringWithCharSet.SetPropertyIndexes(
                 index: 11,
                 originalValueIndex: 11,
@@ -698,8 +686,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(12) ? entry.ReadStoreGeneratedValue<string>(4) : (entry.FlaggedAsTemporary(12) && entry.ReadShadowValue<string>(2) == null ? entry.ReadTemporaryValue<string>(4) : entry.ReadShadowValue<string>(2))),
                 string (IInternalEntry entry) => entry.ReadShadowValue<string>(2),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringWithCollation, 12),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringWithCollation),
-                object (ValueBuffer valueBuffer) => valueBuffer[12]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringWithCollation));
             stringWithCollation.SetPropertyIndexes(
                 index: 12,
                 originalValueIndex: 12,
@@ -751,8 +738,7 @@ namespace TestNamespace
                 DateTime[] (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.ValueTypeArray(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 DateTime[] (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.ValueTypeArray(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 DateTime[] (IInternalEntry entry) => entry.ReadOriginalValue<DateTime[]>(valueTypeArray, 13),
-                DateTime[] (IInternalEntry entry) => entry.GetCurrentValue<DateTime[]>(valueTypeArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[13]);
+                DateTime[] (IInternalEntry entry) => entry.GetCurrentValue<DateTime[]>(valueTypeArray));
             valueTypeArray.SetPropertyIndexes(
                 index: 13,
                 originalValueIndex: 13,
@@ -814,8 +800,7 @@ namespace TestNamespace
                 IEnumerable<byte> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.ValueTypeEnumerable(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 IEnumerable<byte> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.ValueTypeEnumerable(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 IEnumerable<byte> (IInternalEntry entry) => entry.ReadOriginalValue<IEnumerable<byte>>(valueTypeEnumerable, 14),
-                IEnumerable<byte> (IInternalEntry entry) => entry.GetCurrentValue<IEnumerable<byte>>(valueTypeEnumerable),
-                object (ValueBuffer valueBuffer) => valueBuffer[14]);
+                IEnumerable<byte> (IInternalEntry entry) => entry.GetCurrentValue<IEnumerable<byte>>(valueTypeEnumerable));
             valueTypeEnumerable.SetPropertyIndexes(
                 index: 14,
                 originalValueIndex: 14,
@@ -874,8 +859,7 @@ namespace TestNamespace
                 IList<byte> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.ValueTypeIList(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 IList<byte> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.ValueTypeIList(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 IList<byte> (IInternalEntry entry) => entry.ReadOriginalValue<IList<byte>>(valueTypeIList, 15),
-                IList<byte> (IInternalEntry entry) => entry.GetCurrentValue<IList<byte>>(valueTypeIList),
-                object (ValueBuffer valueBuffer) => valueBuffer[15]);
+                IList<byte> (IInternalEntry entry) => entry.GetCurrentValue<IList<byte>>(valueTypeIList));
             valueTypeIList.SetPropertyIndexes(
                 index: 15,
                 originalValueIndex: 15,
@@ -934,8 +918,7 @@ namespace TestNamespace
                 List<short> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.ValueTypeList(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 List<short> (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.ValueTypeList(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 List<short> (IInternalEntry entry) => entry.ReadOriginalValue<List<short>>(valueTypeList, 16),
-                List<short> (IInternalEntry entry) => entry.GetCurrentValue<List<short>>(valueTypeList),
-                object (ValueBuffer valueBuffer) => valueBuffer[16]);
+                List<short> (IInternalEntry entry) => entry.GetCurrentValue<List<short>>(valueTypeList));
             valueTypeList.SetPropertyIndexes(
                 index: 16,
                 originalValueIndex: 16,

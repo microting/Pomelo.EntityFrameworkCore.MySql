@@ -78,7 +78,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(long) : ((long)(nullableValue)));
                 },
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(derivedsId, 0),
-                long (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<long>(derivedsId, 0),
+                long (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(derivedsId, 0),
                 object (ValueBuffer valueBuffer) => valueBuffer[0]);
             derivedsId.SetPropertyIndexes(
                 index: 0,
@@ -144,7 +144,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(Guid) : ((Guid)(nullableValue)));
                 },
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(derivedsAlternateId, 1),
-                Guid (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<Guid>(derivedsAlternateId, 1),
+                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(derivedsAlternateId, 1),
                 object (ValueBuffer valueBuffer) => valueBuffer[1]);
             derivedsAlternateId.SetPropertyIndexes(
                 index: 1,
@@ -210,7 +210,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(long) : ((long)(nullableValue)));
                 },
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(principalsId, 2),
-                long (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<long>(principalsId, 2),
+                long (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(principalsId, 2),
                 object (ValueBuffer valueBuffer) => valueBuffer[2]);
             principalsId.SetPropertyIndexes(
                 index: 2,
@@ -276,7 +276,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(Guid) : ((Guid)(nullableValue)));
                 },
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(principalsAlternateId, 3),
-                Guid (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<Guid>(principalsAlternateId, 3),
+                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(principalsAlternateId, 3),
                 object (ValueBuffer valueBuffer) => valueBuffer[3]);
             principalsAlternateId.SetPropertyIndexes(
                 index: 3,
@@ -322,8 +322,7 @@ namespace TestNamespace
                 byte[] (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(4) ? entry.ReadStoreGeneratedValue<byte[]>(4) : (entry.FlaggedAsTemporary(4) && (((IDictionary<string, object>)((Dictionary<string, object>)(entry.Entity))).ContainsKey("rowid") ? ((Dictionary<string, object>)(entry.Entity))["rowid"] : null) == null ? entry.ReadTemporaryValue<byte[]>(4) : ((byte[])((((IDictionary<string, object>)((Dictionary<string, object>)(entry.Entity))).ContainsKey("rowid") ? ((Dictionary<string, object>)(entry.Entity))["rowid"] : null))))),
                 byte[] (IInternalEntry entry) => ((byte[])((((IDictionary<string, object>)((Dictionary<string, object>)(entry.Entity))).ContainsKey("rowid") ? ((Dictionary<string, object>)(entry.Entity))["rowid"] : null))),
                 byte[] (IInternalEntry entry) => entry.ReadOriginalValue<byte[]>(rowid, 4),
-                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(rowid),
-                object (ValueBuffer valueBuffer) => valueBuffer[4]);
+                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(rowid));
             rowid.SetPropertyIndexes(
                 index: 4,
                 originalValueIndex: 4,

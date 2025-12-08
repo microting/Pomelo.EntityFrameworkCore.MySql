@@ -56,8 +56,7 @@ namespace TestNamespace
                 CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<CompiledModelTestBase.ManyTypesId>(0) : (entry.FlaggedAsTemporary(0) && ManyTypesUnsafeAccessors.Id(((CompiledModelTestBase.ManyTypes)(entry.Entity))).Equals(default(CompiledModelTestBase.ManyTypesId)) ? entry.ReadTemporaryValue<CompiledModelTestBase.ManyTypesId>(0) : ManyTypesUnsafeAccessors.Id(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => ManyTypesUnsafeAccessors.Id(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.ManyTypesId>(id, 0),
-                CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<CompiledModelTestBase.ManyTypesId>(id, 0),
-                object (ValueBuffer valueBuffer) => valueBuffer[0]);
+                CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<CompiledModelTestBase.ManyTypesId>(id, 0));
             id.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
@@ -106,8 +105,7 @@ namespace TestNamespace
                 bool (IInternalEntry entry) => ManyTypesUnsafeAccessors.Bool(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool (IInternalEntry entry) => ManyTypesUnsafeAccessors.Bool(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool (IInternalEntry entry) => entry.ReadOriginalValue<bool>(@bool, 1),
-                bool (IInternalEntry entry) => entry.GetCurrentValue<bool>(@bool),
-                object (ValueBuffer valueBuffer) => valueBuffer[1]);
+                bool (IInternalEntry entry) => entry.GetCurrentValue<bool>(@bool));
             @bool.SetPropertyIndexes(
                 index: 1,
                 originalValueIndex: 1,
@@ -145,8 +143,7 @@ namespace TestNamespace
                 bool[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.BoolArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.BoolArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool[] (IInternalEntry entry) => entry.ReadOriginalValue<bool[]>(boolArray, 2),
-                bool[] (IInternalEntry entry) => entry.GetCurrentValue<bool[]>(boolArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[2]);
+                bool[] (IInternalEntry entry) => entry.GetCurrentValue<bool[]>(boolArray));
             boolArray.SetPropertyIndexes(
                 index: 2,
                 originalValueIndex: 2,
@@ -204,8 +201,7 @@ namespace TestNamespace
                 IReadOnlyCollection<bool> (IInternalEntry entry) => ((IReadOnlyCollection<bool>)(ManyTypesUnsafeAccessors._boolReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 IReadOnlyCollection<bool> (IInternalEntry entry) => ((IReadOnlyCollection<bool>)(ManyTypesUnsafeAccessors._boolReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 IReadOnlyCollection<bool> (IInternalEntry entry) => entry.ReadOriginalValue<IReadOnlyCollection<bool>>(boolReadOnlyCollection, 3),
-                IReadOnlyCollection<bool> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<bool>>(boolReadOnlyCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[3]);
+                IReadOnlyCollection<bool> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<bool>>(boolReadOnlyCollection));
             boolReadOnlyCollection.SetPropertyIndexes(
                 index: 3,
                 originalValueIndex: 3,
@@ -263,8 +259,7 @@ namespace TestNamespace
                 bool (IInternalEntry entry) => ManyTypesUnsafeAccessors.BoolToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool (IInternalEntry entry) => ManyTypesUnsafeAccessors.BoolToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool (IInternalEntry entry) => entry.ReadOriginalValue<bool>(boolToStringConverterProperty, 4),
-                bool (IInternalEntry entry) => entry.GetCurrentValue<bool>(boolToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[4]);
+                bool (IInternalEntry entry) => entry.GetCurrentValue<bool>(boolToStringConverterProperty));
             boolToStringConverterProperty.SetPropertyIndexes(
                 index: 4,
                 originalValueIndex: 4,
@@ -314,8 +309,7 @@ namespace TestNamespace
                 bool (IInternalEntry entry) => ManyTypesUnsafeAccessors.BoolToTwoValuesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool (IInternalEntry entry) => ManyTypesUnsafeAccessors.BoolToTwoValuesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool (IInternalEntry entry) => entry.ReadOriginalValue<bool>(boolToTwoValuesConverterProperty, 5),
-                bool (IInternalEntry entry) => entry.GetCurrentValue<bool>(boolToTwoValuesConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[5]);
+                bool (IInternalEntry entry) => entry.GetCurrentValue<bool>(boolToTwoValuesConverterProperty));
             boolToTwoValuesConverterProperty.SetPropertyIndexes(
                 index: 5,
                 originalValueIndex: 5,
@@ -363,8 +357,7 @@ namespace TestNamespace
                 bool (IInternalEntry entry) => ManyTypesUnsafeAccessors.BoolToZeroOneConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool (IInternalEntry entry) => ManyTypesUnsafeAccessors.BoolToZeroOneConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool (IInternalEntry entry) => entry.ReadOriginalValue<bool>(boolToZeroOneConverterProperty, 6),
-                bool (IInternalEntry entry) => entry.GetCurrentValue<bool>(boolToZeroOneConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[6]);
+                bool (IInternalEntry entry) => entry.GetCurrentValue<bool>(boolToZeroOneConverterProperty));
             boolToZeroOneConverterProperty.SetPropertyIndexes(
                 index: 6,
                 originalValueIndex: 6,
@@ -411,8 +404,7 @@ namespace TestNamespace
                 byte[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Bytes(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Bytes(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[] (IInternalEntry entry) => entry.ReadOriginalValue<byte[]>(bytes, 7),
-                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(bytes),
-                object (ValueBuffer valueBuffer) => valueBuffer[7]);
+                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(bytes));
             bytes.SetPropertyIndexes(
                 index: 7,
                 originalValueIndex: 7,
@@ -450,8 +442,7 @@ namespace TestNamespace
                 byte[][] (IInternalEntry entry) => ManyTypesUnsafeAccessors.BytesArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[][] (IInternalEntry entry) => ManyTypesUnsafeAccessors.BytesArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[][] (IInternalEntry entry) => entry.ReadOriginalValue<byte[][]>(bytesArray, 8),
-                byte[][] (IInternalEntry entry) => entry.GetCurrentValue<byte[][]>(bytesArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[8]);
+                byte[][] (IInternalEntry entry) => entry.GetCurrentValue<byte[][]>(bytesArray));
             bytesArray.SetPropertyIndexes(
                 index: 8,
                 originalValueIndex: 8,
@@ -511,8 +502,7 @@ namespace TestNamespace
                 byte[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.BytesToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.BytesToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[] (IInternalEntry entry) => entry.ReadOriginalValue<byte[]>(bytesToStringConverterProperty, 9),
-                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(bytesToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[9]);
+                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(bytesToStringConverterProperty));
             bytesToStringConverterProperty.SetPropertyIndexes(
                 index: 9,
                 originalValueIndex: 9,
@@ -562,8 +552,7 @@ namespace TestNamespace
                 int (IInternalEntry entry) => ManyTypesUnsafeAccessors.CastingConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int (IInternalEntry entry) => ManyTypesUnsafeAccessors.CastingConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int (IInternalEntry entry) => entry.ReadOriginalValue<int>(castingConverterProperty, 10),
-                int (IInternalEntry entry) => entry.GetCurrentValue<int>(castingConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[10]);
+                int (IInternalEntry entry) => entry.GetCurrentValue<int>(castingConverterProperty));
             castingConverterProperty.SetPropertyIndexes(
                 index: 10,
                 originalValueIndex: 10,
@@ -610,8 +599,7 @@ namespace TestNamespace
                 char (IInternalEntry entry) => ManyTypesUnsafeAccessors.Char(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 char (IInternalEntry entry) => ManyTypesUnsafeAccessors.Char(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 char (IInternalEntry entry) => entry.ReadOriginalValue<char>(@char, 11),
-                char (IInternalEntry entry) => entry.GetCurrentValue<char>(@char),
-                object (ValueBuffer valueBuffer) => valueBuffer[11]);
+                char (IInternalEntry entry) => entry.GetCurrentValue<char>(@char));
             @char.SetPropertyIndexes(
                 index: 11,
                 originalValueIndex: 11,
@@ -661,8 +649,7 @@ namespace TestNamespace
                 char[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.CharArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 char[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.CharArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 char[] (IInternalEntry entry) => entry.ReadOriginalValue<char[]>(charArray, 12),
-                char[] (IInternalEntry entry) => entry.GetCurrentValue<char[]>(charArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[12]);
+                char[] (IInternalEntry entry) => entry.GetCurrentValue<char[]>(charArray));
             charArray.SetPropertyIndexes(
                 index: 12,
                 originalValueIndex: 12,
@@ -740,8 +727,7 @@ namespace TestNamespace
                 char (IInternalEntry entry) => ManyTypesUnsafeAccessors.CharToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 char (IInternalEntry entry) => ManyTypesUnsafeAccessors.CharToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 char (IInternalEntry entry) => entry.ReadOriginalValue<char>(charToStringConverterProperty, 13),
-                char (IInternalEntry entry) => entry.GetCurrentValue<char>(charToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[13]);
+                char (IInternalEntry entry) => entry.GetCurrentValue<char>(charToStringConverterProperty));
             charToStringConverterProperty.SetPropertyIndexes(
                 index: 13,
                 originalValueIndex: 13,
@@ -792,8 +778,7 @@ namespace TestNamespace
                 DateOnly (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateOnly(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateOnly (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateOnly(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateOnly (IInternalEntry entry) => entry.ReadOriginalValue<DateOnly>(dateOnly, 14),
-                DateOnly (IInternalEntry entry) => entry.GetCurrentValue<DateOnly>(dateOnly),
-                object (ValueBuffer valueBuffer) => valueBuffer[14]);
+                DateOnly (IInternalEntry entry) => entry.GetCurrentValue<DateOnly>(dateOnly));
             dateOnly.SetPropertyIndexes(
                 index: 14,
                 originalValueIndex: 14,
@@ -831,8 +816,7 @@ namespace TestNamespace
                 DateOnly[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateOnlyArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateOnly[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateOnlyArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateOnly[] (IInternalEntry entry) => entry.ReadOriginalValue<DateOnly[]>(dateOnlyArray, 15),
-                DateOnly[] (IInternalEntry entry) => entry.GetCurrentValue<DateOnly[]>(dateOnlyArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[15]);
+                DateOnly[] (IInternalEntry entry) => entry.GetCurrentValue<DateOnly[]>(dateOnlyArray));
             dateOnlyArray.SetPropertyIndexes(
                 index: 15,
                 originalValueIndex: 15,
@@ -891,8 +875,7 @@ namespace TestNamespace
                 DateOnly (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateOnlyToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateOnly (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateOnlyToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateOnly (IInternalEntry entry) => entry.ReadOriginalValue<DateOnly>(dateOnlyToStringConverterProperty, 16),
-                DateOnly (IInternalEntry entry) => entry.GetCurrentValue<DateOnly>(dateOnlyToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[16]);
+                DateOnly (IInternalEntry entry) => entry.GetCurrentValue<DateOnly>(dateOnlyToStringConverterProperty));
             dateOnlyToStringConverterProperty.SetPropertyIndexes(
                 index: 16,
                 originalValueIndex: 16,
@@ -943,8 +926,7 @@ namespace TestNamespace
                 DateTime (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTime(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTime(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime (IInternalEntry entry) => entry.ReadOriginalValue<DateTime>(dateTime, 17),
-                DateTime (IInternalEntry entry) => entry.GetCurrentValue<DateTime>(dateTime),
-                object (ValueBuffer valueBuffer) => valueBuffer[17]);
+                DateTime (IInternalEntry entry) => entry.GetCurrentValue<DateTime>(dateTime));
             dateTime.SetPropertyIndexes(
                 index: 17,
                 originalValueIndex: 17,
@@ -985,8 +967,7 @@ namespace TestNamespace
                 DateTime[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime[] (IInternalEntry entry) => entry.ReadOriginalValue<DateTime[]>(dateTimeArray, 18),
-                DateTime[] (IInternalEntry entry) => entry.GetCurrentValue<DateTime[]>(dateTimeArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[18]);
+                DateTime[] (IInternalEntry entry) => entry.GetCurrentValue<DateTime[]>(dateTimeArray));
             dateTimeArray.SetPropertyIndexes(
                 index: 18,
                 originalValueIndex: 18,
@@ -1048,8 +1029,7 @@ namespace TestNamespace
                 DateTimeOffset (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeOffsetToBinaryConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTimeOffset (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeOffsetToBinaryConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTimeOffset (IInternalEntry entry) => entry.ReadOriginalValue<DateTimeOffset>(dateTimeOffsetToBinaryConverterProperty, 19),
-                DateTimeOffset (IInternalEntry entry) => entry.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToBinaryConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[19]);
+                DateTimeOffset (IInternalEntry entry) => entry.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToBinaryConverterProperty));
             dateTimeOffsetToBinaryConverterProperty.SetPropertyIndexes(
                 index: 19,
                 originalValueIndex: 19,
@@ -1097,8 +1077,7 @@ namespace TestNamespace
                 DateTimeOffset (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeOffsetToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTimeOffset (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeOffsetToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTimeOffset (IInternalEntry entry) => entry.ReadOriginalValue<DateTimeOffset>(dateTimeOffsetToBytesConverterProperty, 20),
-                DateTimeOffset (IInternalEntry entry) => entry.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToBytesConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[20]);
+                DateTimeOffset (IInternalEntry entry) => entry.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToBytesConverterProperty));
             dateTimeOffsetToBytesConverterProperty.SetPropertyIndexes(
                 index: 20,
                 originalValueIndex: 20,
@@ -1150,8 +1129,7 @@ namespace TestNamespace
                 DateTimeOffset (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeOffsetToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTimeOffset (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeOffsetToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTimeOffset (IInternalEntry entry) => entry.ReadOriginalValue<DateTimeOffset>(dateTimeOffsetToStringConverterProperty, 21),
-                DateTimeOffset (IInternalEntry entry) => entry.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[21]);
+                DateTimeOffset (IInternalEntry entry) => entry.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToStringConverterProperty));
             dateTimeOffsetToStringConverterProperty.SetPropertyIndexes(
                 index: 21,
                 originalValueIndex: 21,
@@ -1202,8 +1180,7 @@ namespace TestNamespace
                 DateTime (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeToBinaryConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeToBinaryConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime (IInternalEntry entry) => entry.ReadOriginalValue<DateTime>(dateTimeToBinaryConverterProperty, 22),
-                DateTime (IInternalEntry entry) => entry.GetCurrentValue<DateTime>(dateTimeToBinaryConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[22]);
+                DateTime (IInternalEntry entry) => entry.GetCurrentValue<DateTime>(dateTimeToBinaryConverterProperty));
             dateTimeToBinaryConverterProperty.SetPropertyIndexes(
                 index: 22,
                 originalValueIndex: 22,
@@ -1251,8 +1228,7 @@ namespace TestNamespace
                 DateTime (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime (IInternalEntry entry) => entry.ReadOriginalValue<DateTime>(dateTimeToStringConverterProperty, 23),
-                DateTime (IInternalEntry entry) => entry.GetCurrentValue<DateTime>(dateTimeToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[23]);
+                DateTime (IInternalEntry entry) => entry.GetCurrentValue<DateTime>(dateTimeToStringConverterProperty));
             dateTimeToStringConverterProperty.SetPropertyIndexes(
                 index: 23,
                 originalValueIndex: 23,
@@ -1303,8 +1279,7 @@ namespace TestNamespace
                 DateTime (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeToTicksConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime (IInternalEntry entry) => ManyTypesUnsafeAccessors.DateTimeToTicksConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime (IInternalEntry entry) => entry.ReadOriginalValue<DateTime>(dateTimeToTicksConverterProperty, 24),
-                DateTime (IInternalEntry entry) => entry.GetCurrentValue<DateTime>(dateTimeToTicksConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[24]);
+                DateTime (IInternalEntry entry) => entry.GetCurrentValue<DateTime>(dateTimeToTicksConverterProperty));
             dateTimeToTicksConverterProperty.SetPropertyIndexes(
                 index: 24,
                 originalValueIndex: 24,
@@ -1346,8 +1321,7 @@ namespace TestNamespace
                 decimal (IInternalEntry entry) => ManyTypesUnsafeAccessors.Decimal(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal (IInternalEntry entry) => ManyTypesUnsafeAccessors.Decimal(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal (IInternalEntry entry) => entry.ReadOriginalValue<decimal>(@decimal, 25),
-                decimal (IInternalEntry entry) => entry.GetCurrentValue<decimal>(@decimal),
-                object (ValueBuffer valueBuffer) => valueBuffer[25]);
+                decimal (IInternalEntry entry) => entry.GetCurrentValue<decimal>(@decimal));
             @decimal.SetPropertyIndexes(
                 index: 25,
                 originalValueIndex: 25,
@@ -1385,8 +1359,7 @@ namespace TestNamespace
                 decimal[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.DecimalArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.DecimalArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal[] (IInternalEntry entry) => entry.ReadOriginalValue<decimal[]>(decimalArray, 26),
-                decimal[] (IInternalEntry entry) => entry.GetCurrentValue<decimal[]>(decimalArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[26]);
+                decimal[] (IInternalEntry entry) => entry.GetCurrentValue<decimal[]>(decimalArray));
             decimalArray.SetPropertyIndexes(
                 index: 26,
                 originalValueIndex: 26,
@@ -1445,8 +1418,7 @@ namespace TestNamespace
                 decimal (IInternalEntry entry) => ManyTypesUnsafeAccessors.DecimalNumberToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal (IInternalEntry entry) => ManyTypesUnsafeAccessors.DecimalNumberToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal (IInternalEntry entry) => entry.ReadOriginalValue<decimal>(decimalNumberToBytesConverterProperty, 27),
-                decimal (IInternalEntry entry) => entry.GetCurrentValue<decimal>(decimalNumberToBytesConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[27]);
+                decimal (IInternalEntry entry) => entry.GetCurrentValue<decimal>(decimalNumberToBytesConverterProperty));
             decimalNumberToBytesConverterProperty.SetPropertyIndexes(
                 index: 27,
                 originalValueIndex: 27,
@@ -1498,8 +1470,7 @@ namespace TestNamespace
                 decimal (IInternalEntry entry) => ManyTypesUnsafeAccessors.DecimalNumberToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal (IInternalEntry entry) => ManyTypesUnsafeAccessors.DecimalNumberToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal (IInternalEntry entry) => entry.ReadOriginalValue<decimal>(decimalNumberToStringConverterProperty, 28),
-                decimal (IInternalEntry entry) => entry.GetCurrentValue<decimal>(decimalNumberToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[28]);
+                decimal (IInternalEntry entry) => entry.GetCurrentValue<decimal>(decimalNumberToStringConverterProperty));
             decimalNumberToStringConverterProperty.SetPropertyIndexes(
                 index: 28,
                 originalValueIndex: 28,
@@ -1550,8 +1521,7 @@ namespace TestNamespace
                 double (IInternalEntry entry) => ManyTypesUnsafeAccessors.Double(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double (IInternalEntry entry) => ManyTypesUnsafeAccessors.Double(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double (IInternalEntry entry) => entry.ReadOriginalValue<double>(@double, 29),
-                double (IInternalEntry entry) => entry.GetCurrentValue<double>(@double),
-                object (ValueBuffer valueBuffer) => valueBuffer[29]);
+                double (IInternalEntry entry) => entry.GetCurrentValue<double>(@double));
             @double.SetPropertyIndexes(
                 index: 29,
                 originalValueIndex: 29,
@@ -1589,8 +1559,7 @@ namespace TestNamespace
                 double[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.DoubleArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.DoubleArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double[] (IInternalEntry entry) => entry.ReadOriginalValue<double[]>(doubleArray, 30),
-                double[] (IInternalEntry entry) => entry.GetCurrentValue<double[]>(doubleArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[30]);
+                double[] (IInternalEntry entry) => entry.GetCurrentValue<double[]>(doubleArray));
             doubleArray.SetPropertyIndexes(
                 index: 30,
                 originalValueIndex: 30,
@@ -1649,8 +1618,7 @@ namespace TestNamespace
                 double (IInternalEntry entry) => ManyTypesUnsafeAccessors.DoubleNumberToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double (IInternalEntry entry) => ManyTypesUnsafeAccessors.DoubleNumberToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double (IInternalEntry entry) => entry.ReadOriginalValue<double>(doubleNumberToBytesConverterProperty, 31),
-                double (IInternalEntry entry) => entry.GetCurrentValue<double>(doubleNumberToBytesConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[31]);
+                double (IInternalEntry entry) => entry.GetCurrentValue<double>(doubleNumberToBytesConverterProperty));
             doubleNumberToBytesConverterProperty.SetPropertyIndexes(
                 index: 31,
                 originalValueIndex: 31,
@@ -1702,8 +1670,7 @@ namespace TestNamespace
                 double (IInternalEntry entry) => ManyTypesUnsafeAccessors.DoubleNumberToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double (IInternalEntry entry) => ManyTypesUnsafeAccessors.DoubleNumberToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double (IInternalEntry entry) => entry.ReadOriginalValue<double>(doubleNumberToStringConverterProperty, 32),
-                double (IInternalEntry entry) => entry.GetCurrentValue<double>(doubleNumberToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[32]);
+                double (IInternalEntry entry) => entry.GetCurrentValue<double>(doubleNumberToStringConverterProperty));
             doubleNumberToStringConverterProperty.SetPropertyIndexes(
                 index: 32,
                 originalValueIndex: 32,
@@ -1753,8 +1720,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum16 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum16>(enum16, 33),
-                CompiledModelTestBase.Enum16 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16>(enum16),
-                object (ValueBuffer valueBuffer) => valueBuffer[33]);
+                CompiledModelTestBase.Enum16 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16>(enum16));
             enum16.SetPropertyIndexes(
                 index: 33,
                 originalValueIndex: 33,
@@ -1801,8 +1767,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum16[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum16[]>(enum16Array, 34),
-                CompiledModelTestBase.Enum16[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[34]);
+                CompiledModelTestBase.Enum16[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16Array));
             enum16Array.SetPropertyIndexes(
                 index: 34,
                 originalValueIndex: 34,
@@ -1877,8 +1842,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum16 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum16>(enum16AsString, 35),
-                CompiledModelTestBase.Enum16 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16>(enum16AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[35]);
+                CompiledModelTestBase.Enum16 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16>(enum16AsString));
             enum16AsString.SetPropertyIndexes(
                 index: 35,
                 originalValueIndex: 35,
@@ -1928,8 +1892,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum16[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum16[]>(enum16AsStringArray, 36),
-                CompiledModelTestBase.Enum16[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[36]);
+                CompiledModelTestBase.Enum16[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16AsStringArray));
             enum16AsStringArray.SetPropertyIndexes(
                 index: 36,
                 originalValueIndex: 36,
@@ -2006,8 +1969,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum16> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum16> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum16> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum16>>(enum16AsStringCollection, 37),
-                List<CompiledModelTestBase.Enum16> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[37]);
+                List<CompiledModelTestBase.Enum16> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16AsStringCollection));
             enum16AsStringCollection.SetPropertyIndexes(
                 index: 37,
                 originalValueIndex: 37,
@@ -2084,8 +2046,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum16> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum16> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum16Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum16> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum16>>(enum16Collection, 38),
-                List<CompiledModelTestBase.Enum16> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[38]);
+                List<CompiledModelTestBase.Enum16> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16Collection));
             enum16Collection.SetPropertyIndexes(
                 index: 38,
                 originalValueIndex: 38,
@@ -2159,8 +2120,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum32>(enum32, 39),
-                CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32>(enum32),
-                object (ValueBuffer valueBuffer) => valueBuffer[39]);
+                CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32>(enum32));
             enum32.SetPropertyIndexes(
                 index: 39,
                 originalValueIndex: 39,
@@ -2207,8 +2167,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum32[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum32[]>(enum32Array, 40),
-                CompiledModelTestBase.Enum32[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[40]);
+                CompiledModelTestBase.Enum32[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32Array));
             enum32Array.SetPropertyIndexes(
                 index: 40,
                 originalValueIndex: 40,
@@ -2283,8 +2242,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum32>(enum32AsString, 41),
-                CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32>(enum32AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[41]);
+                CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32>(enum32AsString));
             enum32AsString.SetPropertyIndexes(
                 index: 41,
                 originalValueIndex: 41,
@@ -2334,8 +2292,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum32[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum32[]>(enum32AsStringArray, 42),
-                CompiledModelTestBase.Enum32[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[42]);
+                CompiledModelTestBase.Enum32[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32AsStringArray));
             enum32AsStringArray.SetPropertyIndexes(
                 index: 42,
                 originalValueIndex: 42,
@@ -2412,8 +2369,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum32> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum32> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum32> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum32>>(enum32AsStringCollection, 43),
-                List<CompiledModelTestBase.Enum32> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[43]);
+                List<CompiledModelTestBase.Enum32> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32AsStringCollection));
             enum32AsStringCollection.SetPropertyIndexes(
                 index: 43,
                 originalValueIndex: 43,
@@ -2490,8 +2446,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum32> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum32> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum32Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum32> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum32>>(enum32Collection, 44),
-                List<CompiledModelTestBase.Enum32> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[44]);
+                List<CompiledModelTestBase.Enum32> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32Collection));
             enum32Collection.SetPropertyIndexes(
                 index: 44,
                 originalValueIndex: 44,
@@ -2565,8 +2520,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum64 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum64>(enum64, 45),
-                CompiledModelTestBase.Enum64 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64>(enum64),
-                object (ValueBuffer valueBuffer) => valueBuffer[45]);
+                CompiledModelTestBase.Enum64 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64>(enum64));
             enum64.SetPropertyIndexes(
                 index: 45,
                 originalValueIndex: 45,
@@ -2613,8 +2567,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum64[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum64[]>(enum64Array, 46),
-                CompiledModelTestBase.Enum64[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[46]);
+                CompiledModelTestBase.Enum64[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64Array));
             enum64Array.SetPropertyIndexes(
                 index: 46,
                 originalValueIndex: 46,
@@ -2689,8 +2642,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum64 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum64>(enum64AsString, 47),
-                CompiledModelTestBase.Enum64 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64>(enum64AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[47]);
+                CompiledModelTestBase.Enum64 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64>(enum64AsString));
             enum64AsString.SetPropertyIndexes(
                 index: 47,
                 originalValueIndex: 47,
@@ -2740,8 +2692,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum64[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum64[]>(enum64AsStringArray, 48),
-                CompiledModelTestBase.Enum64[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[48]);
+                CompiledModelTestBase.Enum64[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64AsStringArray));
             enum64AsStringArray.SetPropertyIndexes(
                 index: 48,
                 originalValueIndex: 48,
@@ -2818,8 +2769,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum64> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum64> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum64> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum64>>(enum64AsStringCollection, 49),
-                List<CompiledModelTestBase.Enum64> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[49]);
+                List<CompiledModelTestBase.Enum64> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64AsStringCollection));
             enum64AsStringCollection.SetPropertyIndexes(
                 index: 49,
                 originalValueIndex: 49,
@@ -2896,8 +2846,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum64> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum64> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum64Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum64> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum64>>(enum64Collection, 50),
-                List<CompiledModelTestBase.Enum64> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[50]);
+                List<CompiledModelTestBase.Enum64> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64Collection));
             enum64Collection.SetPropertyIndexes(
                 index: 50,
                 originalValueIndex: 50,
@@ -2971,8 +2920,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum8 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum8>(enum8, 51),
-                CompiledModelTestBase.Enum8 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8>(enum8),
-                object (ValueBuffer valueBuffer) => valueBuffer[51]);
+                CompiledModelTestBase.Enum8 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8>(enum8));
             enum8.SetPropertyIndexes(
                 index: 51,
                 originalValueIndex: 51,
@@ -3019,8 +2967,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum8[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum8[]>(enum8Array, 52),
-                CompiledModelTestBase.Enum8[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[52]);
+                CompiledModelTestBase.Enum8[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8Array));
             enum8Array.SetPropertyIndexes(
                 index: 52,
                 originalValueIndex: 52,
@@ -3095,8 +3042,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum8 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8 (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum8>(enum8AsString, 53),
-                CompiledModelTestBase.Enum8 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8>(enum8AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[53]);
+                CompiledModelTestBase.Enum8 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8>(enum8AsString));
             enum8AsString.SetPropertyIndexes(
                 index: 53,
                 originalValueIndex: 53,
@@ -3146,8 +3092,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum8[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum8[]>(enum8AsStringArray, 54),
-                CompiledModelTestBase.Enum8[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[54]);
+                CompiledModelTestBase.Enum8[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8AsStringArray));
             enum8AsStringArray.SetPropertyIndexes(
                 index: 54,
                 originalValueIndex: 54,
@@ -3224,8 +3169,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum8> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum8> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum8> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum8>>(enum8AsStringCollection, 55),
-                List<CompiledModelTestBase.Enum8> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[55]);
+                List<CompiledModelTestBase.Enum8> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8AsStringCollection));
             enum8AsStringCollection.SetPropertyIndexes(
                 index: 55,
                 originalValueIndex: 55,
@@ -3302,8 +3246,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum8> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum8> (IInternalEntry entry) => ManyTypesUnsafeAccessors.Enum8Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum8> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum8>>(enum8Collection, 56),
-                List<CompiledModelTestBase.Enum8> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[56]);
+                List<CompiledModelTestBase.Enum8> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8Collection));
             enum8Collection.SetPropertyIndexes(
                 index: 56,
                 originalValueIndex: 56,
@@ -3378,8 +3321,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumToNumberConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumToNumberConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum32>(enumToNumberConverterProperty, 57),
-                CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32>(enumToNumberConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[57]);
+                CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32>(enumToNumberConverterProperty));
             enumToNumberConverterProperty.SetPropertyIndexes(
                 index: 57,
                 originalValueIndex: 57,
@@ -3427,8 +3369,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum32>(enumToStringConverterProperty, 58),
-                CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32>(enumToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[58]);
+                CompiledModelTestBase.Enum32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32>(enumToStringConverterProperty));
             enumToStringConverterProperty.SetPropertyIndexes(
                 index: 58,
                 originalValueIndex: 58,
@@ -3478,8 +3419,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU16 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU16>(enumU16, 59),
-                CompiledModelTestBase.EnumU16 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16>(enumU16),
-                object (ValueBuffer valueBuffer) => valueBuffer[59]);
+                CompiledModelTestBase.EnumU16 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16>(enumU16));
             enumU16.SetPropertyIndexes(
                 index: 59,
                 originalValueIndex: 59,
@@ -3526,8 +3466,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU16[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU16[]>(enumU16Array, 60),
-                CompiledModelTestBase.EnumU16[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[60]);
+                CompiledModelTestBase.EnumU16[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16Array));
             enumU16Array.SetPropertyIndexes(
                 index: 60,
                 originalValueIndex: 60,
@@ -3602,8 +3541,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU16 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU16>(enumU16AsString, 61),
-                CompiledModelTestBase.EnumU16 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16>(enumU16AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[61]);
+                CompiledModelTestBase.EnumU16 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16>(enumU16AsString));
             enumU16AsString.SetPropertyIndexes(
                 index: 61,
                 originalValueIndex: 61,
@@ -3653,8 +3591,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU16[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU16[]>(enumU16AsStringArray, 62),
-                CompiledModelTestBase.EnumU16[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[62]);
+                CompiledModelTestBase.EnumU16[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16AsStringArray));
             enumU16AsStringArray.SetPropertyIndexes(
                 index: 62,
                 originalValueIndex: 62,
@@ -3731,8 +3668,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU16> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU16> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU16> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU16>>(enumU16AsStringCollection, 63),
-                List<CompiledModelTestBase.EnumU16> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[63]);
+                List<CompiledModelTestBase.EnumU16> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16AsStringCollection));
             enumU16AsStringCollection.SetPropertyIndexes(
                 index: 63,
                 originalValueIndex: 63,
@@ -3809,8 +3745,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU16> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU16> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU16Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU16> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU16>>(enumU16Collection, 64),
-                List<CompiledModelTestBase.EnumU16> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[64]);
+                List<CompiledModelTestBase.EnumU16> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16Collection));
             enumU16Collection.SetPropertyIndexes(
                 index: 64,
                 originalValueIndex: 64,
@@ -3884,8 +3819,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU32>(enumU32, 65),
-                CompiledModelTestBase.EnumU32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32>(enumU32),
-                object (ValueBuffer valueBuffer) => valueBuffer[65]);
+                CompiledModelTestBase.EnumU32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32>(enumU32));
             enumU32.SetPropertyIndexes(
                 index: 65,
                 originalValueIndex: 65,
@@ -3932,8 +3866,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU32[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU32[]>(enumU32Array, 66),
-                CompiledModelTestBase.EnumU32[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[66]);
+                CompiledModelTestBase.EnumU32[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32Array));
             enumU32Array.SetPropertyIndexes(
                 index: 66,
                 originalValueIndex: 66,
@@ -4008,8 +3941,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU32>(enumU32AsString, 67),
-                CompiledModelTestBase.EnumU32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32>(enumU32AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[67]);
+                CompiledModelTestBase.EnumU32 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32>(enumU32AsString));
             enumU32AsString.SetPropertyIndexes(
                 index: 67,
                 originalValueIndex: 67,
@@ -4059,8 +3991,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU32[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU32[]>(enumU32AsStringArray, 68),
-                CompiledModelTestBase.EnumU32[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[68]);
+                CompiledModelTestBase.EnumU32[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32AsStringArray));
             enumU32AsStringArray.SetPropertyIndexes(
                 index: 68,
                 originalValueIndex: 68,
@@ -4137,8 +4068,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU32> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU32> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU32> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU32>>(enumU32AsStringCollection, 69),
-                List<CompiledModelTestBase.EnumU32> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[69]);
+                List<CompiledModelTestBase.EnumU32> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32AsStringCollection));
             enumU32AsStringCollection.SetPropertyIndexes(
                 index: 69,
                 originalValueIndex: 69,
@@ -4215,8 +4145,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU32> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU32> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU32Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU32> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU32>>(enumU32Collection, 70),
-                List<CompiledModelTestBase.EnumU32> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[70]);
+                List<CompiledModelTestBase.EnumU32> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32Collection));
             enumU32Collection.SetPropertyIndexes(
                 index: 70,
                 originalValueIndex: 70,
@@ -4290,8 +4219,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU64 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU64>(enumU64, 71),
-                CompiledModelTestBase.EnumU64 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64>(enumU64),
-                object (ValueBuffer valueBuffer) => valueBuffer[71]);
+                CompiledModelTestBase.EnumU64 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64>(enumU64));
             enumU64.SetPropertyIndexes(
                 index: 71,
                 originalValueIndex: 71,
@@ -4338,8 +4266,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU64[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU64[]>(enumU64Array, 72),
-                CompiledModelTestBase.EnumU64[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[72]);
+                CompiledModelTestBase.EnumU64[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64Array));
             enumU64Array.SetPropertyIndexes(
                 index: 72,
                 originalValueIndex: 72,
@@ -4414,8 +4341,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU64 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU64>(enumU64AsString, 73),
-                CompiledModelTestBase.EnumU64 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64>(enumU64AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[73]);
+                CompiledModelTestBase.EnumU64 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64>(enumU64AsString));
             enumU64AsString.SetPropertyIndexes(
                 index: 73,
                 originalValueIndex: 73,
@@ -4465,8 +4391,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU64[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU64[]>(enumU64AsStringArray, 74),
-                CompiledModelTestBase.EnumU64[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[74]);
+                CompiledModelTestBase.EnumU64[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64AsStringArray));
             enumU64AsStringArray.SetPropertyIndexes(
                 index: 74,
                 originalValueIndex: 74,
@@ -4543,8 +4468,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU64> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU64> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU64> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU64>>(enumU64AsStringCollection, 75),
-                List<CompiledModelTestBase.EnumU64> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[75]);
+                List<CompiledModelTestBase.EnumU64> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64AsStringCollection));
             enumU64AsStringCollection.SetPropertyIndexes(
                 index: 75,
                 originalValueIndex: 75,
@@ -4621,8 +4545,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU64> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU64> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU64Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU64> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU64>>(enumU64Collection, 76),
-                List<CompiledModelTestBase.EnumU64> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[76]);
+                List<CompiledModelTestBase.EnumU64> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64Collection));
             enumU64Collection.SetPropertyIndexes(
                 index: 76,
                 originalValueIndex: 76,
@@ -4696,8 +4619,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU8 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU8>(enumU8, 77),
-                CompiledModelTestBase.EnumU8 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8>(enumU8),
-                object (ValueBuffer valueBuffer) => valueBuffer[77]);
+                CompiledModelTestBase.EnumU8 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8>(enumU8));
             enumU8.SetPropertyIndexes(
                 index: 77,
                 originalValueIndex: 77,
@@ -4744,8 +4666,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU8[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU8[]>(enumU8Array, 78),
-                CompiledModelTestBase.EnumU8[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[78]);
+                CompiledModelTestBase.EnumU8[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8Array));
             enumU8Array.SetPropertyIndexes(
                 index: 78,
                 originalValueIndex: 78,
@@ -4820,8 +4741,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU8 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8 (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU8>(enumU8AsString, 79),
-                CompiledModelTestBase.EnumU8 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8>(enumU8AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[79]);
+                CompiledModelTestBase.EnumU8 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8>(enumU8AsString));
             enumU8AsString.SetPropertyIndexes(
                 index: 79,
                 originalValueIndex: 79,
@@ -4871,8 +4791,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU8[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8[] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU8[]>(enumU8AsStringArray, 80),
-                CompiledModelTestBase.EnumU8[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[80]);
+                CompiledModelTestBase.EnumU8[] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8AsStringArray));
             enumU8AsStringArray.SetPropertyIndexes(
                 index: 80,
                 originalValueIndex: 80,
@@ -4949,8 +4868,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU8> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU8> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU8> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU8>>(enumU8AsStringCollection, 81),
-                List<CompiledModelTestBase.EnumU8> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[81]);
+                List<CompiledModelTestBase.EnumU8> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8AsStringCollection));
             enumU8AsStringCollection.SetPropertyIndexes(
                 index: 81,
                 originalValueIndex: 81,
@@ -5027,8 +4945,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU8> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU8> (IInternalEntry entry) => ManyTypesUnsafeAccessors.EnumU8Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU8> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU8>>(enumU8Collection, 82),
-                List<CompiledModelTestBase.EnumU8> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[82]);
+                List<CompiledModelTestBase.EnumU8> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8Collection));
             enumU8Collection.SetPropertyIndexes(
                 index: 82,
                 originalValueIndex: 82,
@@ -5103,8 +5020,7 @@ namespace TestNamespace
                 float (IInternalEntry entry) => ManyTypesUnsafeAccessors.Float(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 float (IInternalEntry entry) => ManyTypesUnsafeAccessors.Float(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 float (IInternalEntry entry) => entry.ReadOriginalValue<float>(@float, 83),
-                float (IInternalEntry entry) => entry.GetCurrentValue<float>(@float),
-                object (ValueBuffer valueBuffer) => valueBuffer[83]);
+                float (IInternalEntry entry) => entry.GetCurrentValue<float>(@float));
             @float.SetPropertyIndexes(
                 index: 83,
                 originalValueIndex: 83,
@@ -5142,8 +5058,7 @@ namespace TestNamespace
                 float[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.FloatArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 float[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.FloatArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 float[] (IInternalEntry entry) => entry.ReadOriginalValue<float[]>(floatArray, 84),
-                float[] (IInternalEntry entry) => entry.GetCurrentValue<float[]>(floatArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[84]);
+                float[] (IInternalEntry entry) => entry.GetCurrentValue<float[]>(floatArray));
             floatArray.SetPropertyIndexes(
                 index: 84,
                 originalValueIndex: 84,
@@ -5202,8 +5117,7 @@ namespace TestNamespace
                 Guid (IInternalEntry entry) => ManyTypesUnsafeAccessors.Guid(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid (IInternalEntry entry) => ManyTypesUnsafeAccessors.Guid(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(guid, 85),
-                Guid (IInternalEntry entry) => entry.GetCurrentValue<Guid>(guid),
-                object (ValueBuffer valueBuffer) => valueBuffer[85]);
+                Guid (IInternalEntry entry) => entry.GetCurrentValue<Guid>(guid));
             guid.SetPropertyIndexes(
                 index: 85,
                 originalValueIndex: 85,
@@ -5241,8 +5155,7 @@ namespace TestNamespace
                 Guid[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.GuidArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.GuidArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid[] (IInternalEntry entry) => entry.ReadOriginalValue<Guid[]>(guidArray, 86),
-                Guid[] (IInternalEntry entry) => entry.GetCurrentValue<Guid[]>(guidArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[86]);
+                Guid[] (IInternalEntry entry) => entry.GetCurrentValue<Guid[]>(guidArray));
             guidArray.SetPropertyIndexes(
                 index: 86,
                 originalValueIndex: 86,
@@ -5301,8 +5214,7 @@ namespace TestNamespace
                 Guid (IInternalEntry entry) => ManyTypesUnsafeAccessors.GuidToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid (IInternalEntry entry) => ManyTypesUnsafeAccessors.GuidToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(guidToBytesConverterProperty, 87),
-                Guid (IInternalEntry entry) => entry.GetCurrentValue<Guid>(guidToBytesConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[87]);
+                Guid (IInternalEntry entry) => entry.GetCurrentValue<Guid>(guidToBytesConverterProperty));
             guidToBytesConverterProperty.SetPropertyIndexes(
                 index: 87,
                 originalValueIndex: 87,
@@ -5354,8 +5266,7 @@ namespace TestNamespace
                 Guid (IInternalEntry entry) => ManyTypesUnsafeAccessors.GuidToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid (IInternalEntry entry) => ManyTypesUnsafeAccessors.GuidToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(guidToStringConverterProperty, 88),
-                Guid (IInternalEntry entry) => entry.GetCurrentValue<Guid>(guidToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[88]);
+                Guid (IInternalEntry entry) => entry.GetCurrentValue<Guid>(guidToStringConverterProperty));
             guidToStringConverterProperty.SetPropertyIndexes(
                 index: 88,
                 originalValueIndex: 88,
@@ -5405,8 +5316,7 @@ namespace TestNamespace
                 IPAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.IPAddress(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.IPAddress(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress (IInternalEntry entry) => entry.ReadOriginalValue<IPAddress>(iPAddress, 89),
-                IPAddress (IInternalEntry entry) => entry.GetCurrentValue<IPAddress>(iPAddress),
-                object (ValueBuffer valueBuffer) => valueBuffer[89]);
+                IPAddress (IInternalEntry entry) => entry.GetCurrentValue<IPAddress>(iPAddress));
             iPAddress.SetPropertyIndexes(
                 index: 89,
                 originalValueIndex: 89,
@@ -5455,8 +5365,7 @@ namespace TestNamespace
                 IPAddress[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.IPAddressArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.IPAddressArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress[] (IInternalEntry entry) => entry.ReadOriginalValue<IPAddress[]>(iPAddressArray, 90),
-                IPAddress[] (IInternalEntry entry) => entry.GetCurrentValue<IPAddress[]>(iPAddressArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[90]);
+                IPAddress[] (IInternalEntry entry) => entry.GetCurrentValue<IPAddress[]>(iPAddressArray));
             iPAddressArray.SetPropertyIndexes(
                 index: 90,
                 originalValueIndex: 90,
@@ -5533,8 +5442,7 @@ namespace TestNamespace
                 IReadOnlyCollection<IPAddress> (IInternalEntry entry) => ((IReadOnlyCollection<IPAddress>)(ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 IReadOnlyCollection<IPAddress> (IInternalEntry entry) => ((IReadOnlyCollection<IPAddress>)(ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 IReadOnlyCollection<IPAddress> (IInternalEntry entry) => entry.ReadOriginalValue<IReadOnlyCollection<IPAddress>>(iPAddressReadOnlyCollection, 91),
-                IReadOnlyCollection<IPAddress> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<IPAddress>>(iPAddressReadOnlyCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[91]);
+                IReadOnlyCollection<IPAddress> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<IPAddress>>(iPAddressReadOnlyCollection));
             iPAddressReadOnlyCollection.SetPropertyIndexes(
                 index: 91,
                 originalValueIndex: 91,
@@ -5612,8 +5520,7 @@ namespace TestNamespace
                 IPAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.IPAddressToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.IPAddressToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress (IInternalEntry entry) => entry.ReadOriginalValue<IPAddress>(iPAddressToBytesConverterProperty, 92),
-                IPAddress (IInternalEntry entry) => entry.GetCurrentValue<IPAddress>(iPAddressToBytesConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[92]);
+                IPAddress (IInternalEntry entry) => entry.GetCurrentValue<IPAddress>(iPAddressToBytesConverterProperty));
             iPAddressToBytesConverterProperty.SetPropertyIndexes(
                 index: 92,
                 originalValueIndex: 92,
@@ -5664,8 +5571,7 @@ namespace TestNamespace
                 IPAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.IPAddressToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.IPAddressToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress (IInternalEntry entry) => entry.ReadOriginalValue<IPAddress>(iPAddressToStringConverterProperty, 93),
-                IPAddress (IInternalEntry entry) => entry.GetCurrentValue<IPAddress>(iPAddressToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[93]);
+                IPAddress (IInternalEntry entry) => entry.GetCurrentValue<IPAddress>(iPAddressToStringConverterProperty));
             iPAddressToStringConverterProperty.SetPropertyIndexes(
                 index: 93,
                 originalValueIndex: 93,
@@ -5715,8 +5621,7 @@ namespace TestNamespace
                 short (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 short (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 short (IInternalEntry entry) => entry.ReadOriginalValue<short>(int16, 94),
-                short (IInternalEntry entry) => entry.GetCurrentValue<short>(int16),
-                object (ValueBuffer valueBuffer) => valueBuffer[94]);
+                short (IInternalEntry entry) => entry.GetCurrentValue<short>(int16));
             int16.SetPropertyIndexes(
                 index: 94,
                 originalValueIndex: 94,
@@ -5754,8 +5659,7 @@ namespace TestNamespace
                 short[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 short[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 short[] (IInternalEntry entry) => entry.ReadOriginalValue<short[]>(int16Array, 95),
-                short[] (IInternalEntry entry) => entry.GetCurrentValue<short[]>(int16Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[95]);
+                short[] (IInternalEntry entry) => entry.GetCurrentValue<short[]>(int16Array));
             int16Array.SetPropertyIndexes(
                 index: 95,
                 originalValueIndex: 95,
@@ -5814,8 +5718,7 @@ namespace TestNamespace
                 int (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int (IInternalEntry entry) => entry.ReadOriginalValue<int>(int32, 96),
-                int (IInternalEntry entry) => entry.GetCurrentValue<int>(int32),
-                object (ValueBuffer valueBuffer) => valueBuffer[96]);
+                int (IInternalEntry entry) => entry.GetCurrentValue<int>(int32));
             int32.SetPropertyIndexes(
                 index: 96,
                 originalValueIndex: 96,
@@ -5853,8 +5756,7 @@ namespace TestNamespace
                 int[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int[] (IInternalEntry entry) => entry.ReadOriginalValue<int[]>(int32Array, 97),
-                int[] (IInternalEntry entry) => entry.GetCurrentValue<int[]>(int32Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[97]);
+                int[] (IInternalEntry entry) => entry.GetCurrentValue<int[]>(int32Array));
             int32Array.SetPropertyIndexes(
                 index: 97,
                 originalValueIndex: 97,
@@ -5912,8 +5814,7 @@ namespace TestNamespace
                 IReadOnlyCollection<int> (IInternalEntry entry) => ((IReadOnlyCollection<int>)(ManyTypesUnsafeAccessors._int32ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 IReadOnlyCollection<int> (IInternalEntry entry) => ((IReadOnlyCollection<int>)(ManyTypesUnsafeAccessors._int32ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 IReadOnlyCollection<int> (IInternalEntry entry) => entry.ReadOriginalValue<IReadOnlyCollection<int>>(int32ReadOnlyCollection, 98),
-                IReadOnlyCollection<int> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<int>>(int32ReadOnlyCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[98]);
+                IReadOnlyCollection<int> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<int>>(int32ReadOnlyCollection));
             int32ReadOnlyCollection.SetPropertyIndexes(
                 index: 98,
                 originalValueIndex: 98,
@@ -5972,8 +5873,7 @@ namespace TestNamespace
                 long (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 long (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(int64, 99),
-                long (IInternalEntry entry) => entry.GetCurrentValue<long>(int64),
-                object (ValueBuffer valueBuffer) => valueBuffer[99]);
+                long (IInternalEntry entry) => entry.GetCurrentValue<long>(int64));
             int64.SetPropertyIndexes(
                 index: 99,
                 originalValueIndex: 99,
@@ -6011,8 +5911,7 @@ namespace TestNamespace
                 long[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 long[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 long[] (IInternalEntry entry) => entry.ReadOriginalValue<long[]>(int64Array, 100),
-                long[] (IInternalEntry entry) => entry.GetCurrentValue<long[]>(int64Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[100]);
+                long[] (IInternalEntry entry) => entry.GetCurrentValue<long[]>(int64Array));
             int64Array.SetPropertyIndexes(
                 index: 100,
                 originalValueIndex: 100,
@@ -6071,8 +5970,7 @@ namespace TestNamespace
                 sbyte (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 sbyte (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 sbyte (IInternalEntry entry) => entry.ReadOriginalValue<sbyte>(int8, 101),
-                sbyte (IInternalEntry entry) => entry.GetCurrentValue<sbyte>(int8),
-                object (ValueBuffer valueBuffer) => valueBuffer[101]);
+                sbyte (IInternalEntry entry) => entry.GetCurrentValue<sbyte>(int8));
             int8.SetPropertyIndexes(
                 index: 101,
                 originalValueIndex: 101,
@@ -6110,8 +6008,7 @@ namespace TestNamespace
                 sbyte[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 sbyte[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.Int8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 sbyte[] (IInternalEntry entry) => entry.ReadOriginalValue<sbyte[]>(int8Array, 102),
-                sbyte[] (IInternalEntry entry) => entry.GetCurrentValue<sbyte[]>(int8Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[102]);
+                sbyte[] (IInternalEntry entry) => entry.GetCurrentValue<sbyte[]>(int8Array));
             int8Array.SetPropertyIndexes(
                 index: 102,
                 originalValueIndex: 102,
@@ -6170,8 +6067,7 @@ namespace TestNamespace
                 int (IInternalEntry entry) => ManyTypesUnsafeAccessors.IntNumberToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int (IInternalEntry entry) => ManyTypesUnsafeAccessors.IntNumberToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int (IInternalEntry entry) => entry.ReadOriginalValue<int>(intNumberToBytesConverterProperty, 103),
-                int (IInternalEntry entry) => entry.GetCurrentValue<int>(intNumberToBytesConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[103]);
+                int (IInternalEntry entry) => entry.GetCurrentValue<int>(intNumberToBytesConverterProperty));
             intNumberToBytesConverterProperty.SetPropertyIndexes(
                 index: 103,
                 originalValueIndex: 103,
@@ -6223,8 +6119,7 @@ namespace TestNamespace
                 int (IInternalEntry entry) => ManyTypesUnsafeAccessors.IntNumberToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int (IInternalEntry entry) => ManyTypesUnsafeAccessors.IntNumberToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int (IInternalEntry entry) => entry.ReadOriginalValue<int>(intNumberToStringConverterProperty, 104),
-                int (IInternalEntry entry) => entry.GetCurrentValue<int>(intNumberToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[104]);
+                int (IInternalEntry entry) => entry.GetCurrentValue<int>(intNumberToStringConverterProperty));
             intNumberToStringConverterProperty.SetPropertyIndexes(
                 index: 104,
                 originalValueIndex: 104,
@@ -6276,8 +6171,7 @@ namespace TestNamespace
                 int? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullIntToNullStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullIntToNullStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int? (IInternalEntry entry) => entry.ReadOriginalValue<int?>(nullIntToNullStringConverterProperty, 105),
-                int? (IInternalEntry entry) => entry.GetCurrentValue<int?>(nullIntToNullStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[105]);
+                int? (IInternalEntry entry) => entry.GetCurrentValue<int?>(nullIntToNullStringConverterProperty));
             nullIntToNullStringConverterProperty.SetPropertyIndexes(
                 index: 105,
                 originalValueIndex: 105,
@@ -6329,8 +6223,7 @@ namespace TestNamespace
                 bool? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableBool(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableBool(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool? (IInternalEntry entry) => entry.ReadOriginalValue<bool?>(nullableBool, 106),
-                bool? (IInternalEntry entry) => entry.GetCurrentValue<bool?>(nullableBool),
-                object (ValueBuffer valueBuffer) => valueBuffer[106]);
+                bool? (IInternalEntry entry) => entry.GetCurrentValue<bool?>(nullableBool));
             nullableBool.SetPropertyIndexes(
                 index: 106,
                 originalValueIndex: 106,
@@ -6370,8 +6263,7 @@ namespace TestNamespace
                 bool? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableBoolArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableBoolArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 bool? [] (IInternalEntry entry) => entry.ReadOriginalValue<bool? []>(nullableBoolArray, 107),
-                bool? [] (IInternalEntry entry) => entry.GetCurrentValue<bool? []>(nullableBoolArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[107]);
+                bool? [] (IInternalEntry entry) => entry.GetCurrentValue<bool? []>(nullableBoolArray));
             nullableBoolArray.SetPropertyIndexes(
                 index: 107,
                 originalValueIndex: 107,
@@ -6430,8 +6322,7 @@ namespace TestNamespace
                 byte[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableBytes(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableBytes(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[] (IInternalEntry entry) => entry.ReadOriginalValue<byte[]>(nullableBytes, 108),
-                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(nullableBytes),
-                object (ValueBuffer valueBuffer) => valueBuffer[108]);
+                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(nullableBytes));
             nullableBytes.SetPropertyIndexes(
                 index: 108,
                 originalValueIndex: 108,
@@ -6469,8 +6360,7 @@ namespace TestNamespace
                 byte[][] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableBytesArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[][] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableBytesArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[][] (IInternalEntry entry) => entry.ReadOriginalValue<byte[][]>(nullableBytesArray, 109),
-                byte[][] (IInternalEntry entry) => entry.GetCurrentValue<byte[][]>(nullableBytesArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[109]);
+                byte[][] (IInternalEntry entry) => entry.GetCurrentValue<byte[][]>(nullableBytesArray));
             nullableBytesArray.SetPropertyIndexes(
                 index: 109,
                 originalValueIndex: 109,
@@ -6529,8 +6419,7 @@ namespace TestNamespace
                 char? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableChar(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 char? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableChar(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 char? (IInternalEntry entry) => entry.ReadOriginalValue<char?>(nullableChar, 110),
-                char? (IInternalEntry entry) => entry.GetCurrentValue<char?>(nullableChar),
-                object (ValueBuffer valueBuffer) => valueBuffer[110]);
+                char? (IInternalEntry entry) => entry.GetCurrentValue<char?>(nullableChar));
             nullableChar.SetPropertyIndexes(
                 index: 110,
                 originalValueIndex: 110,
@@ -6581,8 +6470,7 @@ namespace TestNamespace
                 char? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableCharArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 char? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableCharArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 char? [] (IInternalEntry entry) => entry.ReadOriginalValue<char? []>(nullableCharArray, 111),
-                char? [] (IInternalEntry entry) => entry.GetCurrentValue<char? []>(nullableCharArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[111]);
+                char? [] (IInternalEntry entry) => entry.GetCurrentValue<char? []>(nullableCharArray));
             nullableCharArray.SetPropertyIndexes(
                 index: 111,
                 originalValueIndex: 111,
@@ -6660,8 +6548,7 @@ namespace TestNamespace
                 DateOnly? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDateOnly(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateOnly? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDateOnly(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateOnly? (IInternalEntry entry) => entry.ReadOriginalValue<DateOnly?>(nullableDateOnly, 112),
-                DateOnly? (IInternalEntry entry) => entry.GetCurrentValue<DateOnly?>(nullableDateOnly),
-                object (ValueBuffer valueBuffer) => valueBuffer[112]);
+                DateOnly? (IInternalEntry entry) => entry.GetCurrentValue<DateOnly?>(nullableDateOnly));
             nullableDateOnly.SetPropertyIndexes(
                 index: 112,
                 originalValueIndex: 112,
@@ -6701,8 +6588,7 @@ namespace TestNamespace
                 DateOnly? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDateOnlyArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateOnly? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDateOnlyArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateOnly? [] (IInternalEntry entry) => entry.ReadOriginalValue<DateOnly? []>(nullableDateOnlyArray, 113),
-                DateOnly? [] (IInternalEntry entry) => entry.GetCurrentValue<DateOnly? []>(nullableDateOnlyArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[113]);
+                DateOnly? [] (IInternalEntry entry) => entry.GetCurrentValue<DateOnly? []>(nullableDateOnlyArray));
             nullableDateOnlyArray.SetPropertyIndexes(
                 index: 113,
                 originalValueIndex: 113,
@@ -6761,8 +6647,7 @@ namespace TestNamespace
                 DateTime? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDateTime(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDateTime(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime? (IInternalEntry entry) => entry.ReadOriginalValue<DateTime?>(nullableDateTime, 114),
-                DateTime? (IInternalEntry entry) => entry.GetCurrentValue<DateTime?>(nullableDateTime),
-                object (ValueBuffer valueBuffer) => valueBuffer[114]);
+                DateTime? (IInternalEntry entry) => entry.GetCurrentValue<DateTime?>(nullableDateTime));
             nullableDateTime.SetPropertyIndexes(
                 index: 114,
                 originalValueIndex: 114,
@@ -6805,8 +6690,7 @@ namespace TestNamespace
                 DateTime? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDateTimeArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDateTimeArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 DateTime? [] (IInternalEntry entry) => entry.ReadOriginalValue<DateTime? []>(nullableDateTimeArray, 115),
-                DateTime? [] (IInternalEntry entry) => entry.GetCurrentValue<DateTime? []>(nullableDateTimeArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[115]);
+                DateTime? [] (IInternalEntry entry) => entry.GetCurrentValue<DateTime? []>(nullableDateTimeArray));
             nullableDateTimeArray.SetPropertyIndexes(
                 index: 115,
                 originalValueIndex: 115,
@@ -6868,8 +6752,7 @@ namespace TestNamespace
                 decimal? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDecimal(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDecimal(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal? (IInternalEntry entry) => entry.ReadOriginalValue<decimal?>(nullableDecimal, 116),
-                decimal? (IInternalEntry entry) => entry.GetCurrentValue<decimal?>(nullableDecimal),
-                object (ValueBuffer valueBuffer) => valueBuffer[116]);
+                decimal? (IInternalEntry entry) => entry.GetCurrentValue<decimal?>(nullableDecimal));
             nullableDecimal.SetPropertyIndexes(
                 index: 116,
                 originalValueIndex: 116,
@@ -6909,8 +6792,7 @@ namespace TestNamespace
                 decimal? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDecimalArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDecimalArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 decimal? [] (IInternalEntry entry) => entry.ReadOriginalValue<decimal? []>(nullableDecimalArray, 117),
-                decimal? [] (IInternalEntry entry) => entry.GetCurrentValue<decimal? []>(nullableDecimalArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[117]);
+                decimal? [] (IInternalEntry entry) => entry.GetCurrentValue<decimal? []>(nullableDecimalArray));
             nullableDecimalArray.SetPropertyIndexes(
                 index: 117,
                 originalValueIndex: 117,
@@ -6969,8 +6851,7 @@ namespace TestNamespace
                 double? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDouble(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDouble(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double? (IInternalEntry entry) => entry.ReadOriginalValue<double?>(nullableDouble, 118),
-                double? (IInternalEntry entry) => entry.GetCurrentValue<double?>(nullableDouble),
-                object (ValueBuffer valueBuffer) => valueBuffer[118]);
+                double? (IInternalEntry entry) => entry.GetCurrentValue<double?>(nullableDouble));
             nullableDouble.SetPropertyIndexes(
                 index: 118,
                 originalValueIndex: 118,
@@ -7010,8 +6891,7 @@ namespace TestNamespace
                 double? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDoubleArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableDoubleArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 double? [] (IInternalEntry entry) => entry.ReadOriginalValue<double? []>(nullableDoubleArray, 119),
-                double? [] (IInternalEntry entry) => entry.GetCurrentValue<double? []>(nullableDoubleArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[119]);
+                double? [] (IInternalEntry entry) => entry.GetCurrentValue<double? []>(nullableDoubleArray));
             nullableDoubleArray.SetPropertyIndexes(
                 index: 119,
                 originalValueIndex: 119,
@@ -7070,8 +6950,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum16? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum16?>(nullableEnum16, 120),
-                CompiledModelTestBase.Enum16? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16),
-                object (ValueBuffer valueBuffer) => valueBuffer[120]);
+                CompiledModelTestBase.Enum16? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16));
             nullableEnum16.SetPropertyIndexes(
                 index: 120,
                 originalValueIndex: 120,
@@ -7119,8 +6998,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum16? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum16? []>(nullableEnum16Array, 121),
-                CompiledModelTestBase.Enum16? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[121]);
+                CompiledModelTestBase.Enum16? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16Array));
             nullableEnum16Array.SetPropertyIndexes(
                 index: 121,
                 originalValueIndex: 121,
@@ -7195,8 +7073,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum16? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum16?>(nullableEnum16AsString, 122),
-                CompiledModelTestBase.Enum16? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[122]);
+                CompiledModelTestBase.Enum16? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16AsString));
             nullableEnum16AsString.SetPropertyIndexes(
                 index: 122,
                 originalValueIndex: 122,
@@ -7244,8 +7121,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum16? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum16? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum16? []>(nullableEnum16AsStringArray, 123),
-                CompiledModelTestBase.Enum16? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[123]);
+                CompiledModelTestBase.Enum16? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16AsStringArray));
             nullableEnum16AsStringArray.SetPropertyIndexes(
                 index: 123,
                 originalValueIndex: 123,
@@ -7319,8 +7195,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum16?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum16?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum16?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16AsStringCollection, 124),
-                List<CompiledModelTestBase.Enum16?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[124]);
+                List<CompiledModelTestBase.Enum16?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16AsStringCollection));
             nullableEnum16AsStringCollection.SetPropertyIndexes(
                 index: 124,
                 originalValueIndex: 124,
@@ -7394,8 +7269,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum16?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum16?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum16Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum16?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16Collection, 125),
-                List<CompiledModelTestBase.Enum16?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[125]);
+                List<CompiledModelTestBase.Enum16?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16Collection));
             nullableEnum16Collection.SetPropertyIndexes(
                 index: 125,
                 originalValueIndex: 125,
@@ -7470,8 +7344,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum32? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum32?>(nullableEnum32, 126),
-                CompiledModelTestBase.Enum32? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32),
-                object (ValueBuffer valueBuffer) => valueBuffer[126]);
+                CompiledModelTestBase.Enum32? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32));
             nullableEnum32.SetPropertyIndexes(
                 index: 126,
                 originalValueIndex: 126,
@@ -7519,8 +7392,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum32? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum32? []>(nullableEnum32Array, 127),
-                CompiledModelTestBase.Enum32? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[127]);
+                CompiledModelTestBase.Enum32? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32Array));
             nullableEnum32Array.SetPropertyIndexes(
                 index: 127,
                 originalValueIndex: 127,
@@ -7595,8 +7467,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum32? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum32?>(nullableEnum32AsString, 128),
-                CompiledModelTestBase.Enum32? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[128]);
+                CompiledModelTestBase.Enum32? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32AsString));
             nullableEnum32AsString.SetPropertyIndexes(
                 index: 128,
                 originalValueIndex: 128,
@@ -7644,8 +7515,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum32? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum32? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum32? []>(nullableEnum32AsStringArray, 129),
-                CompiledModelTestBase.Enum32? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[129]);
+                CompiledModelTestBase.Enum32? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32AsStringArray));
             nullableEnum32AsStringArray.SetPropertyIndexes(
                 index: 129,
                 originalValueIndex: 129,
@@ -7719,8 +7589,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum32?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum32?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum32?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32AsStringCollection, 130),
-                List<CompiledModelTestBase.Enum32?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[130]);
+                List<CompiledModelTestBase.Enum32?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32AsStringCollection));
             nullableEnum32AsStringCollection.SetPropertyIndexes(
                 index: 130,
                 originalValueIndex: 130,
@@ -7794,8 +7663,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum32?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum32?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum32Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum32?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32Collection, 131),
-                List<CompiledModelTestBase.Enum32?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[131]);
+                List<CompiledModelTestBase.Enum32?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32Collection));
             nullableEnum32Collection.SetPropertyIndexes(
                 index: 131,
                 originalValueIndex: 131,
@@ -7870,8 +7738,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum64? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum64?>(nullableEnum64, 132),
-                CompiledModelTestBase.Enum64? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64),
-                object (ValueBuffer valueBuffer) => valueBuffer[132]);
+                CompiledModelTestBase.Enum64? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64));
             nullableEnum64.SetPropertyIndexes(
                 index: 132,
                 originalValueIndex: 132,
@@ -7919,8 +7786,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum64? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum64? []>(nullableEnum64Array, 133),
-                CompiledModelTestBase.Enum64? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[133]);
+                CompiledModelTestBase.Enum64? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64Array));
             nullableEnum64Array.SetPropertyIndexes(
                 index: 133,
                 originalValueIndex: 133,
@@ -7995,8 +7861,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum64? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum64?>(nullableEnum64AsString, 134),
-                CompiledModelTestBase.Enum64? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[134]);
+                CompiledModelTestBase.Enum64? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64AsString));
             nullableEnum64AsString.SetPropertyIndexes(
                 index: 134,
                 originalValueIndex: 134,
@@ -8044,8 +7909,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum64? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum64? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum64? []>(nullableEnum64AsStringArray, 135),
-                CompiledModelTestBase.Enum64? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[135]);
+                CompiledModelTestBase.Enum64? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64AsStringArray));
             nullableEnum64AsStringArray.SetPropertyIndexes(
                 index: 135,
                 originalValueIndex: 135,
@@ -8119,8 +7983,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum64?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum64?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum64?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64AsStringCollection, 136),
-                List<CompiledModelTestBase.Enum64?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[136]);
+                List<CompiledModelTestBase.Enum64?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64AsStringCollection));
             nullableEnum64AsStringCollection.SetPropertyIndexes(
                 index: 136,
                 originalValueIndex: 136,
@@ -8194,8 +8057,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum64?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum64?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum64Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum64?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64Collection, 137),
-                List<CompiledModelTestBase.Enum64?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[137]);
+                List<CompiledModelTestBase.Enum64?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64Collection));
             nullableEnum64Collection.SetPropertyIndexes(
                 index: 137,
                 originalValueIndex: 137,
@@ -8270,8 +8132,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum8? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum8?>(nullableEnum8, 138),
-                CompiledModelTestBase.Enum8? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8),
-                object (ValueBuffer valueBuffer) => valueBuffer[138]);
+                CompiledModelTestBase.Enum8? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8));
             nullableEnum8.SetPropertyIndexes(
                 index: 138,
                 originalValueIndex: 138,
@@ -8319,8 +8180,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum8? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum8? []>(nullableEnum8Array, 139),
-                CompiledModelTestBase.Enum8? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[139]);
+                CompiledModelTestBase.Enum8? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8Array));
             nullableEnum8Array.SetPropertyIndexes(
                 index: 139,
                 originalValueIndex: 139,
@@ -8395,8 +8255,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum8? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum8?>(nullableEnum8AsString, 140),
-                CompiledModelTestBase.Enum8? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[140]);
+                CompiledModelTestBase.Enum8? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8AsString));
             nullableEnum8AsString.SetPropertyIndexes(
                 index: 140,
                 originalValueIndex: 140,
@@ -8444,8 +8303,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum8? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.Enum8? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum8? []>(nullableEnum8AsStringArray, 141),
-                CompiledModelTestBase.Enum8? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[141]);
+                CompiledModelTestBase.Enum8? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8AsStringArray));
             nullableEnum8AsStringArray.SetPropertyIndexes(
                 index: 141,
                 originalValueIndex: 141,
@@ -8519,8 +8377,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum8?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum8?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum8?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8AsStringCollection, 142),
-                List<CompiledModelTestBase.Enum8?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[142]);
+                List<CompiledModelTestBase.Enum8?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8AsStringCollection));
             nullableEnum8AsStringCollection.SetPropertyIndexes(
                 index: 142,
                 originalValueIndex: 142,
@@ -8594,8 +8451,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.Enum8?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum8?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnum8Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.Enum8?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8Collection, 143),
-                List<CompiledModelTestBase.Enum8?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[143]);
+                List<CompiledModelTestBase.Enum8?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8Collection));
             nullableEnum8Collection.SetPropertyIndexes(
                 index: 143,
                 originalValueIndex: 143,
@@ -8670,8 +8526,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU16? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16, 144),
-                CompiledModelTestBase.EnumU16? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16),
-                object (ValueBuffer valueBuffer) => valueBuffer[144]);
+                CompiledModelTestBase.EnumU16? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16));
             nullableEnumU16.SetPropertyIndexes(
                 index: 144,
                 originalValueIndex: 144,
@@ -8719,8 +8574,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU16? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16Array, 145),
-                CompiledModelTestBase.EnumU16? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[145]);
+                CompiledModelTestBase.EnumU16? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16Array));
             nullableEnumU16Array.SetPropertyIndexes(
                 index: 145,
                 originalValueIndex: 145,
@@ -8795,8 +8649,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU16? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16AsString, 146),
-                CompiledModelTestBase.EnumU16? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[146]);
+                CompiledModelTestBase.EnumU16? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16AsString));
             nullableEnumU16AsString.SetPropertyIndexes(
                 index: 146,
                 originalValueIndex: 146,
@@ -8844,8 +8697,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU16? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU16? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16AsStringArray, 147),
-                CompiledModelTestBase.EnumU16? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[147]);
+                CompiledModelTestBase.EnumU16? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16AsStringArray));
             nullableEnumU16AsStringArray.SetPropertyIndexes(
                 index: 147,
                 originalValueIndex: 147,
@@ -8919,8 +8771,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU16?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU16?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU16?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16AsStringCollection, 148),
-                List<CompiledModelTestBase.EnumU16?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[148]);
+                List<CompiledModelTestBase.EnumU16?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16AsStringCollection));
             nullableEnumU16AsStringCollection.SetPropertyIndexes(
                 index: 148,
                 originalValueIndex: 148,
@@ -8994,8 +8845,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU16?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU16?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU16Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU16?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16Collection, 149),
-                List<CompiledModelTestBase.EnumU16?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[149]);
+                List<CompiledModelTestBase.EnumU16?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16Collection));
             nullableEnumU16Collection.SetPropertyIndexes(
                 index: 149,
                 originalValueIndex: 149,
@@ -9070,8 +8920,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU32? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32, 150),
-                CompiledModelTestBase.EnumU32? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32),
-                object (ValueBuffer valueBuffer) => valueBuffer[150]);
+                CompiledModelTestBase.EnumU32? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32));
             nullableEnumU32.SetPropertyIndexes(
                 index: 150,
                 originalValueIndex: 150,
@@ -9119,8 +8968,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU32? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32Array, 151),
-                CompiledModelTestBase.EnumU32? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[151]);
+                CompiledModelTestBase.EnumU32? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32Array));
             nullableEnumU32Array.SetPropertyIndexes(
                 index: 151,
                 originalValueIndex: 151,
@@ -9195,8 +9043,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU32? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32AsString, 152),
-                CompiledModelTestBase.EnumU32? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[152]);
+                CompiledModelTestBase.EnumU32? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32AsString));
             nullableEnumU32AsString.SetPropertyIndexes(
                 index: 152,
                 originalValueIndex: 152,
@@ -9244,8 +9091,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU32? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU32? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32AsStringArray, 153),
-                CompiledModelTestBase.EnumU32? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[153]);
+                CompiledModelTestBase.EnumU32? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32AsStringArray));
             nullableEnumU32AsStringArray.SetPropertyIndexes(
                 index: 153,
                 originalValueIndex: 153,
@@ -9319,8 +9165,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU32?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU32?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU32?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32AsStringCollection, 154),
-                List<CompiledModelTestBase.EnumU32?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[154]);
+                List<CompiledModelTestBase.EnumU32?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32AsStringCollection));
             nullableEnumU32AsStringCollection.SetPropertyIndexes(
                 index: 154,
                 originalValueIndex: 154,
@@ -9394,8 +9239,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU32?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU32?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU32Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU32?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32Collection, 155),
-                List<CompiledModelTestBase.EnumU32?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[155]);
+                List<CompiledModelTestBase.EnumU32?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32Collection));
             nullableEnumU32Collection.SetPropertyIndexes(
                 index: 155,
                 originalValueIndex: 155,
@@ -9470,8 +9314,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU64? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64, 156),
-                CompiledModelTestBase.EnumU64? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64),
-                object (ValueBuffer valueBuffer) => valueBuffer[156]);
+                CompiledModelTestBase.EnumU64? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64));
             nullableEnumU64.SetPropertyIndexes(
                 index: 156,
                 originalValueIndex: 156,
@@ -9519,8 +9362,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU64? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64Array, 157),
-                CompiledModelTestBase.EnumU64? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[157]);
+                CompiledModelTestBase.EnumU64? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64Array));
             nullableEnumU64Array.SetPropertyIndexes(
                 index: 157,
                 originalValueIndex: 157,
@@ -9595,8 +9437,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU64? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64AsString, 158),
-                CompiledModelTestBase.EnumU64? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[158]);
+                CompiledModelTestBase.EnumU64? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64AsString));
             nullableEnumU64AsString.SetPropertyIndexes(
                 index: 158,
                 originalValueIndex: 158,
@@ -9644,8 +9485,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU64? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU64? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64AsStringArray, 159),
-                CompiledModelTestBase.EnumU64? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[159]);
+                CompiledModelTestBase.EnumU64? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64AsStringArray));
             nullableEnumU64AsStringArray.SetPropertyIndexes(
                 index: 159,
                 originalValueIndex: 159,
@@ -9719,8 +9559,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU64?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU64?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU64?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64AsStringCollection, 160),
-                List<CompiledModelTestBase.EnumU64?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[160]);
+                List<CompiledModelTestBase.EnumU64?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64AsStringCollection));
             nullableEnumU64AsStringCollection.SetPropertyIndexes(
                 index: 160,
                 originalValueIndex: 160,
@@ -9794,8 +9633,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU64?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU64?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU64Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU64?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64Collection, 161),
-                List<CompiledModelTestBase.EnumU64?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[161]);
+                List<CompiledModelTestBase.EnumU64?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64Collection));
             nullableEnumU64Collection.SetPropertyIndexes(
                 index: 161,
                 originalValueIndex: 161,
@@ -9870,8 +9708,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU8? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8, 162),
-                CompiledModelTestBase.EnumU8? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8),
-                object (ValueBuffer valueBuffer) => valueBuffer[162]);
+                CompiledModelTestBase.EnumU8? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8));
             nullableEnumU8.SetPropertyIndexes(
                 index: 162,
                 originalValueIndex: 162,
@@ -9919,8 +9756,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU8? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8Array, 163),
-                CompiledModelTestBase.EnumU8? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[163]);
+                CompiledModelTestBase.EnumU8? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8Array));
             nullableEnumU8Array.SetPropertyIndexes(
                 index: 163,
                 originalValueIndex: 163,
@@ -9995,8 +9831,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU8? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8AsString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8? (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8AsString, 164),
-                CompiledModelTestBase.EnumU8? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8AsString),
-                object (ValueBuffer valueBuffer) => valueBuffer[164]);
+                CompiledModelTestBase.EnumU8? (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8AsString));
             nullableEnumU8AsString.SetPropertyIndexes(
                 index: 164,
                 originalValueIndex: 164,
@@ -10044,8 +9879,7 @@ namespace TestNamespace
                 CompiledModelTestBase.EnumU8? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8AsStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.EnumU8? [] (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8AsStringArray, 165),
-                CompiledModelTestBase.EnumU8? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8AsStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[165]);
+                CompiledModelTestBase.EnumU8? [] (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8AsStringArray));
             nullableEnumU8AsStringArray.SetPropertyIndexes(
                 index: 165,
                 originalValueIndex: 165,
@@ -10119,8 +9953,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU8?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU8?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8AsStringCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU8?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8AsStringCollection, 166),
-                List<CompiledModelTestBase.EnumU8?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8AsStringCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[166]);
+                List<CompiledModelTestBase.EnumU8?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8AsStringCollection));
             nullableEnumU8AsStringCollection.SetPropertyIndexes(
                 index: 166,
                 originalValueIndex: 166,
@@ -10194,8 +10027,7 @@ namespace TestNamespace
                 List<CompiledModelTestBase.EnumU8?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU8?> (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableEnumU8Collection(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 List<CompiledModelTestBase.EnumU8?> (IInternalEntry entry) => entry.ReadOriginalValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8Collection, 167),
-                List<CompiledModelTestBase.EnumU8?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8Collection),
-                object (ValueBuffer valueBuffer) => valueBuffer[167]);
+                List<CompiledModelTestBase.EnumU8?> (IInternalEntry entry) => entry.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8Collection));
             nullableEnumU8Collection.SetPropertyIndexes(
                 index: 167,
                 originalValueIndex: 167,
@@ -10270,8 +10102,7 @@ namespace TestNamespace
                 float? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableFloat(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 float? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableFloat(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 float? (IInternalEntry entry) => entry.ReadOriginalValue<float?>(nullableFloat, 168),
-                float? (IInternalEntry entry) => entry.GetCurrentValue<float?>(nullableFloat),
-                object (ValueBuffer valueBuffer) => valueBuffer[168]);
+                float? (IInternalEntry entry) => entry.GetCurrentValue<float?>(nullableFloat));
             nullableFloat.SetPropertyIndexes(
                 index: 168,
                 originalValueIndex: 168,
@@ -10311,8 +10142,7 @@ namespace TestNamespace
                 float? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableFloatArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 float? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableFloatArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 float? [] (IInternalEntry entry) => entry.ReadOriginalValue<float? []>(nullableFloatArray, 169),
-                float? [] (IInternalEntry entry) => entry.GetCurrentValue<float? []>(nullableFloatArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[169]);
+                float? [] (IInternalEntry entry) => entry.GetCurrentValue<float? []>(nullableFloatArray));
             nullableFloatArray.SetPropertyIndexes(
                 index: 169,
                 originalValueIndex: 169,
@@ -10371,8 +10201,7 @@ namespace TestNamespace
                 Guid? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableGuid(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableGuid(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid? (IInternalEntry entry) => entry.ReadOriginalValue<Guid?>(nullableGuid, 170),
-                Guid? (IInternalEntry entry) => entry.GetCurrentValue<Guid?>(nullableGuid),
-                object (ValueBuffer valueBuffer) => valueBuffer[170]);
+                Guid? (IInternalEntry entry) => entry.GetCurrentValue<Guid?>(nullableGuid));
             nullableGuid.SetPropertyIndexes(
                 index: 170,
                 originalValueIndex: 170,
@@ -10412,8 +10241,7 @@ namespace TestNamespace
                 Guid? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableGuidArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableGuidArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Guid? [] (IInternalEntry entry) => entry.ReadOriginalValue<Guid? []>(nullableGuidArray, 171),
-                Guid? [] (IInternalEntry entry) => entry.GetCurrentValue<Guid? []>(nullableGuidArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[171]);
+                Guid? [] (IInternalEntry entry) => entry.GetCurrentValue<Guid? []>(nullableGuidArray));
             nullableGuidArray.SetPropertyIndexes(
                 index: 171,
                 originalValueIndex: 171,
@@ -10472,8 +10300,7 @@ namespace TestNamespace
                 IPAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableIPAddress(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableIPAddress(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress (IInternalEntry entry) => entry.ReadOriginalValue<IPAddress>(nullableIPAddress, 172),
-                IPAddress (IInternalEntry entry) => entry.GetCurrentValue<IPAddress>(nullableIPAddress),
-                object (ValueBuffer valueBuffer) => valueBuffer[172]);
+                IPAddress (IInternalEntry entry) => entry.GetCurrentValue<IPAddress>(nullableIPAddress));
             nullableIPAddress.SetPropertyIndexes(
                 index: 172,
                 originalValueIndex: 172,
@@ -10522,8 +10349,7 @@ namespace TestNamespace
                 IPAddress[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableIPAddressArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableIPAddressArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 IPAddress[] (IInternalEntry entry) => entry.ReadOriginalValue<IPAddress[]>(nullableIPAddressArray, 173),
-                IPAddress[] (IInternalEntry entry) => entry.GetCurrentValue<IPAddress[]>(nullableIPAddressArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[173]);
+                IPAddress[] (IInternalEntry entry) => entry.GetCurrentValue<IPAddress[]>(nullableIPAddressArray));
             nullableIPAddressArray.SetPropertyIndexes(
                 index: 173,
                 originalValueIndex: 173,
@@ -10601,8 +10427,7 @@ namespace TestNamespace
                 short? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 short? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 short? (IInternalEntry entry) => entry.ReadOriginalValue<short?>(nullableInt16, 174),
-                short? (IInternalEntry entry) => entry.GetCurrentValue<short?>(nullableInt16),
-                object (ValueBuffer valueBuffer) => valueBuffer[174]);
+                short? (IInternalEntry entry) => entry.GetCurrentValue<short?>(nullableInt16));
             nullableInt16.SetPropertyIndexes(
                 index: 174,
                 originalValueIndex: 174,
@@ -10642,8 +10467,7 @@ namespace TestNamespace
                 short? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 short? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 short? [] (IInternalEntry entry) => entry.ReadOriginalValue<short? []>(nullableInt16Array, 175),
-                short? [] (IInternalEntry entry) => entry.GetCurrentValue<short? []>(nullableInt16Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[175]);
+                short? [] (IInternalEntry entry) => entry.GetCurrentValue<short? []>(nullableInt16Array));
             nullableInt16Array.SetPropertyIndexes(
                 index: 175,
                 originalValueIndex: 175,
@@ -10702,8 +10526,7 @@ namespace TestNamespace
                 int? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int? (IInternalEntry entry) => entry.ReadOriginalValue<int?>(nullableInt32, 176),
-                int? (IInternalEntry entry) => entry.GetCurrentValue<int?>(nullableInt32),
-                object (ValueBuffer valueBuffer) => valueBuffer[176]);
+                int? (IInternalEntry entry) => entry.GetCurrentValue<int?>(nullableInt32));
             nullableInt32.SetPropertyIndexes(
                 index: 176,
                 originalValueIndex: 176,
@@ -10743,8 +10566,7 @@ namespace TestNamespace
                 int? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 int? [] (IInternalEntry entry) => entry.ReadOriginalValue<int? []>(nullableInt32Array, 177),
-                int? [] (IInternalEntry entry) => entry.GetCurrentValue<int? []>(nullableInt32Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[177]);
+                int? [] (IInternalEntry entry) => entry.GetCurrentValue<int? []>(nullableInt32Array));
             nullableInt32Array.SetPropertyIndexes(
                 index: 177,
                 originalValueIndex: 177,
@@ -10803,8 +10625,7 @@ namespace TestNamespace
                 long? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 long? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 long? (IInternalEntry entry) => entry.ReadOriginalValue<long?>(nullableInt64, 178),
-                long? (IInternalEntry entry) => entry.GetCurrentValue<long?>(nullableInt64),
-                object (ValueBuffer valueBuffer) => valueBuffer[178]);
+                long? (IInternalEntry entry) => entry.GetCurrentValue<long?>(nullableInt64));
             nullableInt64.SetPropertyIndexes(
                 index: 178,
                 originalValueIndex: 178,
@@ -10844,8 +10665,7 @@ namespace TestNamespace
                 long? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 long? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 long? [] (IInternalEntry entry) => entry.ReadOriginalValue<long? []>(nullableInt64Array, 179),
-                long? [] (IInternalEntry entry) => entry.GetCurrentValue<long? []>(nullableInt64Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[179]);
+                long? [] (IInternalEntry entry) => entry.GetCurrentValue<long? []>(nullableInt64Array));
             nullableInt64Array.SetPropertyIndexes(
                 index: 179,
                 originalValueIndex: 179,
@@ -10904,8 +10724,7 @@ namespace TestNamespace
                 sbyte? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 sbyte? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 sbyte? (IInternalEntry entry) => entry.ReadOriginalValue<sbyte?>(nullableInt8, 180),
-                sbyte? (IInternalEntry entry) => entry.GetCurrentValue<sbyte?>(nullableInt8),
-                object (ValueBuffer valueBuffer) => valueBuffer[180]);
+                sbyte? (IInternalEntry entry) => entry.GetCurrentValue<sbyte?>(nullableInt8));
             nullableInt8.SetPropertyIndexes(
                 index: 180,
                 originalValueIndex: 180,
@@ -10945,8 +10764,7 @@ namespace TestNamespace
                 sbyte? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 sbyte? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableInt8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 sbyte? [] (IInternalEntry entry) => entry.ReadOriginalValue<sbyte? []>(nullableInt8Array, 181),
-                sbyte? [] (IInternalEntry entry) => entry.GetCurrentValue<sbyte? []>(nullableInt8Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[181]);
+                sbyte? [] (IInternalEntry entry) => entry.GetCurrentValue<sbyte? []>(nullableInt8Array));
             nullableInt8Array.SetPropertyIndexes(
                 index: 181,
                 originalValueIndex: 181,
@@ -11005,8 +10823,7 @@ namespace TestNamespace
                 PhysicalAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullablePhysicalAddress(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullablePhysicalAddress(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress (IInternalEntry entry) => entry.ReadOriginalValue<PhysicalAddress>(nullablePhysicalAddress, 182),
-                PhysicalAddress (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress>(nullablePhysicalAddress),
-                object (ValueBuffer valueBuffer) => valueBuffer[182]);
+                PhysicalAddress (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress>(nullablePhysicalAddress));
             nullablePhysicalAddress.SetPropertyIndexes(
                 index: 182,
                 originalValueIndex: 182,
@@ -11055,8 +10872,7 @@ namespace TestNamespace
                 PhysicalAddress[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullablePhysicalAddressArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullablePhysicalAddressArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress[] (IInternalEntry entry) => entry.ReadOriginalValue<PhysicalAddress[]>(nullablePhysicalAddressArray, 183),
-                PhysicalAddress[] (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress[]>(nullablePhysicalAddressArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[183]);
+                PhysicalAddress[] (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress[]>(nullablePhysicalAddressArray));
             nullablePhysicalAddressArray.SetPropertyIndexes(
                 index: 183,
                 originalValueIndex: 183,
@@ -11134,8 +10950,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableString(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(nullableString, 184),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(nullableString),
-                object (ValueBuffer valueBuffer) => valueBuffer[184]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(nullableString));
             nullableString.SetPropertyIndexes(
                 index: 184,
                 originalValueIndex: 184,
@@ -11176,8 +10991,7 @@ namespace TestNamespace
                 string[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableStringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string[] (IInternalEntry entry) => entry.ReadOriginalValue<string[]>(nullableStringArray, 185),
-                string[] (IInternalEntry entry) => entry.GetCurrentValue<string[]>(nullableStringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[185]);
+                string[] (IInternalEntry entry) => entry.GetCurrentValue<string[]>(nullableStringArray));
             nullableStringArray.SetPropertyIndexes(
                 index: 185,
                 originalValueIndex: 185,
@@ -11239,8 +11053,7 @@ namespace TestNamespace
                 TimeOnly? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableTimeOnly(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableTimeOnly(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly? (IInternalEntry entry) => entry.ReadOriginalValue<TimeOnly?>(nullableTimeOnly, 186),
-                TimeOnly? (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly?>(nullableTimeOnly),
-                object (ValueBuffer valueBuffer) => valueBuffer[186]);
+                TimeOnly? (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly?>(nullableTimeOnly));
             nullableTimeOnly.SetPropertyIndexes(
                 index: 186,
                 originalValueIndex: 186,
@@ -11283,8 +11096,7 @@ namespace TestNamespace
                 TimeOnly? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableTimeOnlyArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableTimeOnlyArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly? [] (IInternalEntry entry) => entry.ReadOriginalValue<TimeOnly? []>(nullableTimeOnlyArray, 187),
-                TimeOnly? [] (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly? []>(nullableTimeOnlyArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[187]);
+                TimeOnly? [] (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly? []>(nullableTimeOnlyArray));
             nullableTimeOnlyArray.SetPropertyIndexes(
                 index: 187,
                 originalValueIndex: 187,
@@ -11346,8 +11158,7 @@ namespace TestNamespace
                 TimeSpan? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableTimeSpan(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableTimeSpan(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan? (IInternalEntry entry) => entry.ReadOriginalValue<TimeSpan?>(nullableTimeSpan, 188),
-                TimeSpan? (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan?>(nullableTimeSpan),
-                object (ValueBuffer valueBuffer) => valueBuffer[188]);
+                TimeSpan? (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan?>(nullableTimeSpan));
             nullableTimeSpan.SetPropertyIndexes(
                 index: 188,
                 originalValueIndex: 188,
@@ -11391,8 +11202,7 @@ namespace TestNamespace
                 TimeSpan? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableTimeSpanArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableTimeSpanArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan? [] (IInternalEntry entry) => entry.ReadOriginalValue<TimeSpan? []>(nullableTimeSpanArray, 189),
-                TimeSpan? [] (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan? []>(nullableTimeSpanArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[189]);
+                TimeSpan? [] (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan? []>(nullableTimeSpanArray));
             nullableTimeSpanArray.SetPropertyIndexes(
                 index: 189,
                 originalValueIndex: 189,
@@ -11457,8 +11267,7 @@ namespace TestNamespace
                 ushort? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ushort? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ushort? (IInternalEntry entry) => entry.ReadOriginalValue<ushort?>(nullableUInt16, 190),
-                ushort? (IInternalEntry entry) => entry.GetCurrentValue<ushort?>(nullableUInt16),
-                object (ValueBuffer valueBuffer) => valueBuffer[190]);
+                ushort? (IInternalEntry entry) => entry.GetCurrentValue<ushort?>(nullableUInt16));
             nullableUInt16.SetPropertyIndexes(
                 index: 190,
                 originalValueIndex: 190,
@@ -11498,8 +11307,7 @@ namespace TestNamespace
                 ushort? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ushort? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ushort? [] (IInternalEntry entry) => entry.ReadOriginalValue<ushort? []>(nullableUInt16Array, 191),
-                ushort? [] (IInternalEntry entry) => entry.GetCurrentValue<ushort? []>(nullableUInt16Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[191]);
+                ushort? [] (IInternalEntry entry) => entry.GetCurrentValue<ushort? []>(nullableUInt16Array));
             nullableUInt16Array.SetPropertyIndexes(
                 index: 191,
                 originalValueIndex: 191,
@@ -11558,8 +11366,7 @@ namespace TestNamespace
                 uint? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 uint? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 uint? (IInternalEntry entry) => entry.ReadOriginalValue<uint?>(nullableUInt32, 192),
-                uint? (IInternalEntry entry) => entry.GetCurrentValue<uint?>(nullableUInt32),
-                object (ValueBuffer valueBuffer) => valueBuffer[192]);
+                uint? (IInternalEntry entry) => entry.GetCurrentValue<uint?>(nullableUInt32));
             nullableUInt32.SetPropertyIndexes(
                 index: 192,
                 originalValueIndex: 192,
@@ -11599,8 +11406,7 @@ namespace TestNamespace
                 uint? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 uint? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 uint? [] (IInternalEntry entry) => entry.ReadOriginalValue<uint? []>(nullableUInt32Array, 193),
-                uint? [] (IInternalEntry entry) => entry.GetCurrentValue<uint? []>(nullableUInt32Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[193]);
+                uint? [] (IInternalEntry entry) => entry.GetCurrentValue<uint? []>(nullableUInt32Array));
             nullableUInt32Array.SetPropertyIndexes(
                 index: 193,
                 originalValueIndex: 193,
@@ -11659,8 +11465,7 @@ namespace TestNamespace
                 ulong? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ulong? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ulong? (IInternalEntry entry) => entry.ReadOriginalValue<ulong?>(nullableUInt64, 194),
-                ulong? (IInternalEntry entry) => entry.GetCurrentValue<ulong?>(nullableUInt64),
-                object (ValueBuffer valueBuffer) => valueBuffer[194]);
+                ulong? (IInternalEntry entry) => entry.GetCurrentValue<ulong?>(nullableUInt64));
             nullableUInt64.SetPropertyIndexes(
                 index: 194,
                 originalValueIndex: 194,
@@ -11700,8 +11505,7 @@ namespace TestNamespace
                 ulong? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ulong? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ulong? [] (IInternalEntry entry) => entry.ReadOriginalValue<ulong? []>(nullableUInt64Array, 195),
-                ulong? [] (IInternalEntry entry) => entry.GetCurrentValue<ulong? []>(nullableUInt64Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[195]);
+                ulong? [] (IInternalEntry entry) => entry.GetCurrentValue<ulong? []>(nullableUInt64Array));
             nullableUInt64Array.SetPropertyIndexes(
                 index: 195,
                 originalValueIndex: 195,
@@ -11760,8 +11564,7 @@ namespace TestNamespace
                 byte? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte? (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte? (IInternalEntry entry) => entry.ReadOriginalValue<byte?>(nullableUInt8, 196),
-                byte? (IInternalEntry entry) => entry.GetCurrentValue<byte?>(nullableUInt8),
-                object (ValueBuffer valueBuffer) => valueBuffer[196]);
+                byte? (IInternalEntry entry) => entry.GetCurrentValue<byte?>(nullableUInt8));
             nullableUInt8.SetPropertyIndexes(
                 index: 196,
                 originalValueIndex: 196,
@@ -11801,8 +11604,7 @@ namespace TestNamespace
                 byte? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte? [] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUInt8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte? [] (IInternalEntry entry) => entry.ReadOriginalValue<byte? []>(nullableUInt8Array, 197),
-                byte? [] (IInternalEntry entry) => entry.GetCurrentValue<byte? []>(nullableUInt8Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[197]);
+                byte? [] (IInternalEntry entry) => entry.GetCurrentValue<byte? []>(nullableUInt8Array));
             nullableUInt8Array.SetPropertyIndexes(
                 index: 197,
                 originalValueIndex: 197,
@@ -11861,8 +11663,7 @@ namespace TestNamespace
                 Uri (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUri(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Uri (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUri(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Uri (IInternalEntry entry) => entry.ReadOriginalValue<Uri>(nullableUri, 198),
-                Uri (IInternalEntry entry) => entry.GetCurrentValue<Uri>(nullableUri),
-                object (ValueBuffer valueBuffer) => valueBuffer[198]);
+                Uri (IInternalEntry entry) => entry.GetCurrentValue<Uri>(nullableUri));
             nullableUri.SetPropertyIndexes(
                 index: 198,
                 originalValueIndex: 198,
@@ -11911,8 +11712,7 @@ namespace TestNamespace
                 Uri[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUriArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Uri[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.NullableUriArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Uri[] (IInternalEntry entry) => entry.ReadOriginalValue<Uri[]>(nullableUriArray, 199),
-                Uri[] (IInternalEntry entry) => entry.GetCurrentValue<Uri[]>(nullableUriArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[199]);
+                Uri[] (IInternalEntry entry) => entry.GetCurrentValue<Uri[]>(nullableUriArray));
             nullableUriArray.SetPropertyIndexes(
                 index: 199,
                 originalValueIndex: 199,
@@ -11989,8 +11789,7 @@ namespace TestNamespace
                 PhysicalAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.PhysicalAddress(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.PhysicalAddress(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress (IInternalEntry entry) => entry.ReadOriginalValue<PhysicalAddress>(physicalAddress, 200),
-                PhysicalAddress (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress>(physicalAddress),
-                object (ValueBuffer valueBuffer) => valueBuffer[200]);
+                PhysicalAddress (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress>(physicalAddress));
             physicalAddress.SetPropertyIndexes(
                 index: 200,
                 originalValueIndex: 200,
@@ -12039,8 +11838,7 @@ namespace TestNamespace
                 PhysicalAddress[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.PhysicalAddressArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.PhysicalAddressArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress[] (IInternalEntry entry) => entry.ReadOriginalValue<PhysicalAddress[]>(physicalAddressArray, 201),
-                PhysicalAddress[] (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress[]>(physicalAddressArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[201]);
+                PhysicalAddress[] (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress[]>(physicalAddressArray));
             physicalAddressArray.SetPropertyIndexes(
                 index: 201,
                 originalValueIndex: 201,
@@ -12118,8 +11916,7 @@ namespace TestNamespace
                 PhysicalAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.PhysicalAddressToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.PhysicalAddressToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress (IInternalEntry entry) => entry.ReadOriginalValue<PhysicalAddress>(physicalAddressToBytesConverterProperty, 202),
-                PhysicalAddress (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress>(physicalAddressToBytesConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[202]);
+                PhysicalAddress (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress>(physicalAddressToBytesConverterProperty));
             physicalAddressToBytesConverterProperty.SetPropertyIndexes(
                 index: 202,
                 originalValueIndex: 202,
@@ -12170,8 +11967,7 @@ namespace TestNamespace
                 PhysicalAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.PhysicalAddressToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress (IInternalEntry entry) => ManyTypesUnsafeAccessors.PhysicalAddressToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 PhysicalAddress (IInternalEntry entry) => entry.ReadOriginalValue<PhysicalAddress>(physicalAddressToStringConverterProperty, 203),
-                PhysicalAddress (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress>(physicalAddressToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[203]);
+                PhysicalAddress (IInternalEntry entry) => entry.GetCurrentValue<PhysicalAddress>(physicalAddressToStringConverterProperty));
             physicalAddressToStringConverterProperty.SetPropertyIndexes(
                 index: 203,
                 originalValueIndex: 203,
@@ -12220,8 +12016,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.String(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.String(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(@string, 204),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(@string),
-                object (ValueBuffer valueBuffer) => valueBuffer[204]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(@string));
             @string.SetPropertyIndexes(
                 index: 204,
                 originalValueIndex: 204,
@@ -12262,8 +12057,7 @@ namespace TestNamespace
                 string[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string[] (IInternalEntry entry) => entry.ReadOriginalValue<string[]>(stringArray, 205),
-                string[] (IInternalEntry entry) => entry.GetCurrentValue<string[]>(stringArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[205]);
+                string[] (IInternalEntry entry) => entry.GetCurrentValue<string[]>(stringArray));
             stringArray.SetPropertyIndexes(
                 index: 205,
                 originalValueIndex: 205,
@@ -12324,8 +12118,7 @@ namespace TestNamespace
                 IReadOnlyCollection<string> (IInternalEntry entry) => ((IReadOnlyCollection<string>)(ManyTypesUnsafeAccessors._stringReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 IReadOnlyCollection<string> (IInternalEntry entry) => ((IReadOnlyCollection<string>)(ManyTypesUnsafeAccessors._stringReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 IReadOnlyCollection<string> (IInternalEntry entry) => entry.ReadOriginalValue<IReadOnlyCollection<string>>(stringReadOnlyCollection, 206),
-                IReadOnlyCollection<string> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<string>>(stringReadOnlyCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[206]);
+                IReadOnlyCollection<string> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<string>>(stringReadOnlyCollection));
             stringReadOnlyCollection.SetPropertyIndexes(
                 index: 206,
                 originalValueIndex: 206,
@@ -12387,8 +12180,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToBoolConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToBoolConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToBoolConverterProperty, 207),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToBoolConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[207]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToBoolConverterProperty));
             stringToBoolConverterProperty.SetPropertyIndexes(
                 index: 207,
                 originalValueIndex: 207,
@@ -12435,8 +12227,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToBytesConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToBytesConverterProperty, 208),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToBytesConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[208]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToBytesConverterProperty));
             stringToBytesConverterProperty.SetPropertyIndexes(
                 index: 208,
                 originalValueIndex: 208,
@@ -12483,8 +12274,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToCharConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToCharConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToCharConverterProperty, 209),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToCharConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[209]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToCharConverterProperty));
             stringToCharConverterProperty.SetPropertyIndexes(
                 index: 209,
                 originalValueIndex: 209,
@@ -12534,8 +12324,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToDateOnlyConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToDateOnlyConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToDateOnlyConverterProperty, 210),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToDateOnlyConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[210]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToDateOnlyConverterProperty));
             stringToDateOnlyConverterProperty.SetPropertyIndexes(
                 index: 210,
                 originalValueIndex: 210,
@@ -12584,8 +12373,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToDateTimeConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToDateTimeConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToDateTimeConverterProperty, 211),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToDateTimeConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[211]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToDateTimeConverterProperty));
             stringToDateTimeConverterProperty.SetPropertyIndexes(
                 index: 211,
                 originalValueIndex: 211,
@@ -12636,8 +12424,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToDateTimeOffsetConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToDateTimeOffsetConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToDateTimeOffsetConverterProperty, 212),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToDateTimeOffsetConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[212]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToDateTimeOffsetConverterProperty));
             stringToDateTimeOffsetConverterProperty.SetPropertyIndexes(
                 index: 212,
                 originalValueIndex: 212,
@@ -12688,8 +12475,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToDecimalNumberConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToDecimalNumberConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToDecimalNumberConverterProperty, 213),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToDecimalNumberConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[213]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToDecimalNumberConverterProperty));
             stringToDecimalNumberConverterProperty.SetPropertyIndexes(
                 index: 213,
                 originalValueIndex: 213,
@@ -12738,8 +12524,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToDoubleNumberConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToDoubleNumberConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToDoubleNumberConverterProperty, 214),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToDoubleNumberConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[214]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToDoubleNumberConverterProperty));
             stringToDoubleNumberConverterProperty.SetPropertyIndexes(
                 index: 214,
                 originalValueIndex: 214,
@@ -12788,8 +12573,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToEnumConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToEnumConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToEnumConverterProperty, 215),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToEnumConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[215]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToEnumConverterProperty));
             stringToEnumConverterProperty.SetPropertyIndexes(
                 index: 215,
                 originalValueIndex: 215,
@@ -12835,8 +12619,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToGuidConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToGuidConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToGuidConverterProperty, 216),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToGuidConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[216]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToGuidConverterProperty));
             stringToGuidConverterProperty.SetPropertyIndexes(
                 index: 216,
                 originalValueIndex: 216,
@@ -12878,8 +12661,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToIntNumberConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToIntNumberConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToIntNumberConverterProperty, 217),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToIntNumberConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[217]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToIntNumberConverterProperty));
             stringToIntNumberConverterProperty.SetPropertyIndexes(
                 index: 217,
                 originalValueIndex: 217,
@@ -12928,8 +12710,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToTimeOnlyConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToTimeOnlyConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToTimeOnlyConverterProperty, 218),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToTimeOnlyConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[218]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToTimeOnlyConverterProperty));
             stringToTimeOnlyConverterProperty.SetPropertyIndexes(
                 index: 218,
                 originalValueIndex: 218,
@@ -12980,8 +12761,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToTimeSpanConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToTimeSpanConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToTimeSpanConverterProperty, 219),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToTimeSpanConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[219]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToTimeSpanConverterProperty));
             stringToTimeSpanConverterProperty.SetPropertyIndexes(
                 index: 219,
                 originalValueIndex: 219,
@@ -13032,8 +12812,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToUriConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => ManyTypesUnsafeAccessors.StringToUriConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringToUriConverterProperty, 220),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToUriConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[220]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringToUriConverterProperty));
             stringToUriConverterProperty.SetPropertyIndexes(
                 index: 220,
                 originalValueIndex: 220,
@@ -13083,8 +12862,7 @@ namespace TestNamespace
                 TimeOnly (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeOnly(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeOnly(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly (IInternalEntry entry) => entry.ReadOriginalValue<TimeOnly>(timeOnly, 221),
-                TimeOnly (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly>(timeOnly),
-                object (ValueBuffer valueBuffer) => valueBuffer[221]);
+                TimeOnly (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly>(timeOnly));
             timeOnly.SetPropertyIndexes(
                 index: 221,
                 originalValueIndex: 221,
@@ -13125,8 +12903,7 @@ namespace TestNamespace
                 TimeOnly[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeOnlyArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeOnlyArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly[] (IInternalEntry entry) => entry.ReadOriginalValue<TimeOnly[]>(timeOnlyArray, 222),
-                TimeOnly[] (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly[]>(timeOnlyArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[222]);
+                TimeOnly[] (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly[]>(timeOnlyArray));
             timeOnlyArray.SetPropertyIndexes(
                 index: 222,
                 originalValueIndex: 222,
@@ -13188,8 +12965,7 @@ namespace TestNamespace
                 TimeOnly (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeOnlyToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeOnlyToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly (IInternalEntry entry) => entry.ReadOriginalValue<TimeOnly>(timeOnlyToStringConverterProperty, 223),
-                TimeOnly (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly>(timeOnlyToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[223]);
+                TimeOnly (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly>(timeOnlyToStringConverterProperty));
             timeOnlyToStringConverterProperty.SetPropertyIndexes(
                 index: 223,
                 originalValueIndex: 223,
@@ -13240,8 +13016,7 @@ namespace TestNamespace
                 TimeOnly (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeOnlyToTicksConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeOnlyToTicksConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeOnly (IInternalEntry entry) => entry.ReadOriginalValue<TimeOnly>(timeOnlyToTicksConverterProperty, 224),
-                TimeOnly (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly>(timeOnlyToTicksConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[224]);
+                TimeOnly (IInternalEntry entry) => entry.GetCurrentValue<TimeOnly>(timeOnlyToTicksConverterProperty));
             timeOnlyToTicksConverterProperty.SetPropertyIndexes(
                 index: 224,
                 originalValueIndex: 224,
@@ -13289,8 +13064,7 @@ namespace TestNamespace
                 TimeSpan (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeSpan(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeSpan(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan (IInternalEntry entry) => entry.ReadOriginalValue<TimeSpan>(timeSpan, 225),
-                TimeSpan (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan>(timeSpan),
-                object (ValueBuffer valueBuffer) => valueBuffer[225]);
+                TimeSpan (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan>(timeSpan));
             timeSpan.SetPropertyIndexes(
                 index: 225,
                 originalValueIndex: 225,
@@ -13332,8 +13106,7 @@ namespace TestNamespace
                 TimeSpan[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeSpanArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeSpanArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan[] (IInternalEntry entry) => entry.ReadOriginalValue<TimeSpan[]>(timeSpanArray, 226),
-                TimeSpan[] (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan[]>(timeSpanArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[226]);
+                TimeSpan[] (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan[]>(timeSpanArray));
             timeSpanArray.SetPropertyIndexes(
                 index: 226,
                 originalValueIndex: 226,
@@ -13398,8 +13171,7 @@ namespace TestNamespace
                 TimeSpan (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeSpanToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeSpanToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan (IInternalEntry entry) => entry.ReadOriginalValue<TimeSpan>(timeSpanToStringConverterProperty, 227),
-                TimeSpan (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan>(timeSpanToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[227]);
+                TimeSpan (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan>(timeSpanToStringConverterProperty));
             timeSpanToStringConverterProperty.SetPropertyIndexes(
                 index: 227,
                 originalValueIndex: 227,
@@ -13450,8 +13222,7 @@ namespace TestNamespace
                 TimeSpan (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeSpanToTicksConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan (IInternalEntry entry) => ManyTypesUnsafeAccessors.TimeSpanToTicksConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 TimeSpan (IInternalEntry entry) => entry.ReadOriginalValue<TimeSpan>(timeSpanToTicksConverterProperty, 228),
-                TimeSpan (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan>(timeSpanToTicksConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[228]);
+                TimeSpan (IInternalEntry entry) => entry.GetCurrentValue<TimeSpan>(timeSpanToTicksConverterProperty));
             timeSpanToTicksConverterProperty.SetPropertyIndexes(
                 index: 228,
                 originalValueIndex: 228,
@@ -13499,8 +13270,7 @@ namespace TestNamespace
                 ushort (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ushort (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt16(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ushort (IInternalEntry entry) => entry.ReadOriginalValue<ushort>(uInt16, 229),
-                ushort (IInternalEntry entry) => entry.GetCurrentValue<ushort>(uInt16),
-                object (ValueBuffer valueBuffer) => valueBuffer[229]);
+                ushort (IInternalEntry entry) => entry.GetCurrentValue<ushort>(uInt16));
             uInt16.SetPropertyIndexes(
                 index: 229,
                 originalValueIndex: 229,
@@ -13538,8 +13308,7 @@ namespace TestNamespace
                 ushort[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ushort[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt16Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ushort[] (IInternalEntry entry) => entry.ReadOriginalValue<ushort[]>(uInt16Array, 230),
-                ushort[] (IInternalEntry entry) => entry.GetCurrentValue<ushort[]>(uInt16Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[230]);
+                ushort[] (IInternalEntry entry) => entry.GetCurrentValue<ushort[]>(uInt16Array));
             uInt16Array.SetPropertyIndexes(
                 index: 230,
                 originalValueIndex: 230,
@@ -13598,8 +13367,7 @@ namespace TestNamespace
                 uint (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 uint (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt32(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 uint (IInternalEntry entry) => entry.ReadOriginalValue<uint>(uInt32, 231),
-                uint (IInternalEntry entry) => entry.GetCurrentValue<uint>(uInt32),
-                object (ValueBuffer valueBuffer) => valueBuffer[231]);
+                uint (IInternalEntry entry) => entry.GetCurrentValue<uint>(uInt32));
             uInt32.SetPropertyIndexes(
                 index: 231,
                 originalValueIndex: 231,
@@ -13637,8 +13405,7 @@ namespace TestNamespace
                 uint[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 uint[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt32Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 uint[] (IInternalEntry entry) => entry.ReadOriginalValue<uint[]>(uInt32Array, 232),
-                uint[] (IInternalEntry entry) => entry.GetCurrentValue<uint[]>(uInt32Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[232]);
+                uint[] (IInternalEntry entry) => entry.GetCurrentValue<uint[]>(uInt32Array));
             uInt32Array.SetPropertyIndexes(
                 index: 232,
                 originalValueIndex: 232,
@@ -13697,8 +13464,7 @@ namespace TestNamespace
                 ulong (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ulong (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt64(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ulong (IInternalEntry entry) => entry.ReadOriginalValue<ulong>(uInt64, 233),
-                ulong (IInternalEntry entry) => entry.GetCurrentValue<ulong>(uInt64),
-                object (ValueBuffer valueBuffer) => valueBuffer[233]);
+                ulong (IInternalEntry entry) => entry.GetCurrentValue<ulong>(uInt64));
             uInt64.SetPropertyIndexes(
                 index: 233,
                 originalValueIndex: 233,
@@ -13736,8 +13502,7 @@ namespace TestNamespace
                 ulong[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ulong[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt64Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 ulong[] (IInternalEntry entry) => entry.ReadOriginalValue<ulong[]>(uInt64Array, 234),
-                ulong[] (IInternalEntry entry) => entry.GetCurrentValue<ulong[]>(uInt64Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[234]);
+                ulong[] (IInternalEntry entry) => entry.GetCurrentValue<ulong[]>(uInt64Array));
             uInt64Array.SetPropertyIndexes(
                 index: 234,
                 originalValueIndex: 234,
@@ -13796,8 +13561,7 @@ namespace TestNamespace
                 byte (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt8(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte (IInternalEntry entry) => entry.ReadOriginalValue<byte>(uInt8, 235),
-                byte (IInternalEntry entry) => entry.GetCurrentValue<byte>(uInt8),
-                object (ValueBuffer valueBuffer) => valueBuffer[235]);
+                byte (IInternalEntry entry) => entry.GetCurrentValue<byte>(uInt8));
             uInt8.SetPropertyIndexes(
                 index: 235,
                 originalValueIndex: 235,
@@ -13835,8 +13599,7 @@ namespace TestNamespace
                 byte[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.UInt8Array(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 byte[] (IInternalEntry entry) => entry.ReadOriginalValue<byte[]>(uInt8Array, 236),
-                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(uInt8Array),
-                object (ValueBuffer valueBuffer) => valueBuffer[236]);
+                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(uInt8Array));
             uInt8Array.SetPropertyIndexes(
                 index: 236,
                 originalValueIndex: 236,
@@ -13874,8 +13637,7 @@ namespace TestNamespace
                 IReadOnlyCollection<byte> (IInternalEntry entry) => ((IReadOnlyCollection<byte>)(ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 IReadOnlyCollection<byte> (IInternalEntry entry) => ((IReadOnlyCollection<byte>)(ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
                 IReadOnlyCollection<byte> (IInternalEntry entry) => entry.ReadOriginalValue<IReadOnlyCollection<byte>>(uInt8ReadOnlyCollection, 237),
-                IReadOnlyCollection<byte> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<byte>>(uInt8ReadOnlyCollection),
-                object (ValueBuffer valueBuffer) => valueBuffer[237]);
+                IReadOnlyCollection<byte> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<byte>>(uInt8ReadOnlyCollection));
             uInt8ReadOnlyCollection.SetPropertyIndexes(
                 index: 237,
                 originalValueIndex: 237,
@@ -13933,8 +13695,7 @@ namespace TestNamespace
                 Uri (IInternalEntry entry) => ManyTypesUnsafeAccessors.Uri(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Uri (IInternalEntry entry) => ManyTypesUnsafeAccessors.Uri(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Uri (IInternalEntry entry) => entry.ReadOriginalValue<Uri>(uri, 238),
-                Uri (IInternalEntry entry) => entry.GetCurrentValue<Uri>(uri),
-                object (ValueBuffer valueBuffer) => valueBuffer[238]);
+                Uri (IInternalEntry entry) => entry.GetCurrentValue<Uri>(uri));
             uri.SetPropertyIndexes(
                 index: 238,
                 originalValueIndex: 238,
@@ -13983,8 +13744,7 @@ namespace TestNamespace
                 Uri[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.UriArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Uri[] (IInternalEntry entry) => ManyTypesUnsafeAccessors.UriArray(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Uri[] (IInternalEntry entry) => entry.ReadOriginalValue<Uri[]>(uriArray, 239),
-                Uri[] (IInternalEntry entry) => entry.GetCurrentValue<Uri[]>(uriArray),
-                object (ValueBuffer valueBuffer) => valueBuffer[239]);
+                Uri[] (IInternalEntry entry) => entry.GetCurrentValue<Uri[]>(uriArray));
             uriArray.SetPropertyIndexes(
                 index: 239,
                 originalValueIndex: 239,
@@ -14062,8 +13822,7 @@ namespace TestNamespace
                 Uri (IInternalEntry entry) => ManyTypesUnsafeAccessors.UriToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Uri (IInternalEntry entry) => ManyTypesUnsafeAccessors.UriToStringConverterProperty(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 Uri (IInternalEntry entry) => entry.ReadOriginalValue<Uri>(uriToStringConverterProperty, 240),
-                Uri (IInternalEntry entry) => entry.GetCurrentValue<Uri>(uriToStringConverterProperty),
-                object (ValueBuffer valueBuffer) => valueBuffer[240]);
+                Uri (IInternalEntry entry) => entry.GetCurrentValue<Uri>(uriToStringConverterProperty));
             uriToStringConverterProperty.SetPropertyIndexes(
                 index: 240,
                 originalValueIndex: 240,

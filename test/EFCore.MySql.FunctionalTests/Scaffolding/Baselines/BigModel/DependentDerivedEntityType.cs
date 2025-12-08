@@ -48,8 +48,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => DependentDerivedUnsafeAccessors<byte?>.Data(((CompiledModelTestBase.DependentDerived<byte?>)(entry.Entity))),
                 string (IInternalEntry entry) => DependentDerivedUnsafeAccessors<byte?>.Data(((CompiledModelTestBase.DependentDerived<byte?>)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(data, 4),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(data),
-                object (ValueBuffer valueBuffer) => valueBuffer[4]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(data));
             data.SetPropertyIndexes(
                 index: 4,
                 originalValueIndex: 4,
@@ -88,8 +87,7 @@ namespace TestNamespace
                 decimal (IInternalEntry entry) => entry.ReadShadowValue<decimal>(3),
                 decimal (IInternalEntry entry) => entry.ReadShadowValue<decimal>(3),
                 decimal (IInternalEntry entry) => entry.ReadOriginalValue<decimal>(money, 5),
-                decimal (IInternalEntry entry) => entry.GetCurrentValue<decimal>(money),
-                object (ValueBuffer valueBuffer) => valueBuffer[5]);
+                decimal (IInternalEntry entry) => entry.GetCurrentValue<decimal>(money));
             money.SetPropertyIndexes(
                 index: 5,
                 originalValueIndex: 5,
