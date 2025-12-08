@@ -43,8 +43,7 @@ namespace TestNamespace
                 int (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<int>(0) : (entry.FlaggedAsTemporary(0) && entry.ReadShadowValue<int>(0) == 0 ? entry.ReadTemporaryValue<int>(0) : entry.ReadShadowValue<int>(0))),
                 int (IInternalEntry entry) => entry.ReadShadowValue<int>(0),
                 int (IInternalEntry entry) => entry.ReadOriginalValue<int>(id, 0),
-                int (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<int>(id, 0),
-                object (ValueBuffer valueBuffer) => valueBuffer[0]);
+                int (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<int>(id, 0));
             id.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
@@ -84,8 +83,7 @@ namespace TestNamespace
                 byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
                 byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
                 byte[] (IInternalEntry entry) => entry.ReadOriginalValue<byte[]>(blob, 1),
-                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(blob),
-                object (ValueBuffer valueBuffer) => valueBuffer[1]);
+                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(blob));
             blob.SetPropertyIndexes(
                 index: 1,
                 originalValueIndex: 1,
@@ -115,8 +113,7 @@ namespace TestNamespace
                 Point (IInternalEntry entry) => entry.ReadShadowValue<Point>(1),
                 Point (IInternalEntry entry) => entry.ReadShadowValue<Point>(1),
                 Point (IInternalEntry entry) => entry.ReadOriginalValue<Point>(point, 2),
-                Point (IInternalEntry entry) => entry.GetCurrentValue<Point>(point),
-                object (ValueBuffer valueBuffer) => valueBuffer[2]);
+                Point (IInternalEntry entry) => entry.GetCurrentValue<Point>(point));
             point.SetPropertyIndexes(
                 index: 2,
                 originalValueIndex: 2,
@@ -138,8 +135,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(3) ? entry.ReadStoreGeneratedValue<string>(1) : (entry.FlaggedAsTemporary(3) && entry.ReadShadowValue<string>(2) == null ? entry.ReadTemporaryValue<string>(1) : entry.ReadShadowValue<string>(2))),
                 string (IInternalEntry entry) => entry.ReadShadowValue<string>(2),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringWithCharSet, 3),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringWithCharSet),
-                object (ValueBuffer valueBuffer) => valueBuffer[3]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringWithCharSet));
             stringWithCharSet.SetPropertyIndexes(
                 index: 3,
                 originalValueIndex: 3,
@@ -186,8 +182,7 @@ namespace TestNamespace
                 string (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(4) ? entry.ReadStoreGeneratedValue<string>(2) : (entry.FlaggedAsTemporary(4) && entry.ReadShadowValue<string>(3) == null ? entry.ReadTemporaryValue<string>(2) : entry.ReadShadowValue<string>(3))),
                 string (IInternalEntry entry) => entry.ReadShadowValue<string>(3),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringWithCollation, 4),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringWithCollation),
-                object (ValueBuffer valueBuffer) => valueBuffer[4]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringWithCollation));
             stringWithCollation.SetPropertyIndexes(
                 index: 4,
                 originalValueIndex: 4,

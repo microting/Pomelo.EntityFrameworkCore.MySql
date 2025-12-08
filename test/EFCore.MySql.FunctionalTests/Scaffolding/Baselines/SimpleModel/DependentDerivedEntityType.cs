@@ -39,15 +39,22 @@ namespace TestNamespace
                 int (CompiledModelTestBase.DependentDerived<int> instance) => DependentBaseUnsafeAccessors<int>.Id(instance),
                 bool (CompiledModelTestBase.DependentDerived<int> instance) => DependentBaseUnsafeAccessors<int>.Id(instance) == 0);
             id.SetSetter(
-                (CompiledModelTestBase.DependentDerived<int> instance, int value) => DependentBaseUnsafeAccessors<int>.Id(instance) = value);
+                CompiledModelTestBase.DependentDerived<int> (CompiledModelTestBase.DependentDerived<int> instance, int value) =>
+                {
+                    DependentBaseUnsafeAccessors<int>.Id(instance) = value;
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (CompiledModelTestBase.DependentDerived<int> instance, int value) => DependentBaseUnsafeAccessors<int>.Id(instance) = value);
+                CompiledModelTestBase.DependentDerived<int> (CompiledModelTestBase.DependentDerived<int> instance, int value) =>
+                {
+                    DependentBaseUnsafeAccessors<int>.Id(instance) = value;
+                    return instance;
+                });
             id.SetAccessors(
                 int (IInternalEntry entry) => DependentBaseUnsafeAccessors<int>.Id(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
                 int (IInternalEntry entry) => DependentBaseUnsafeAccessors<int>.Id(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
                 int (IInternalEntry entry) => entry.ReadOriginalValue<int>(id, 0),
-                int (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<int>(id, 0),
-                object (ValueBuffer valueBuffer) => valueBuffer[0]);
+                int (IInternalEntry entry) => (InternalEntityEntry)entry).ReadRelationshipSnapshotValue<int>(id, 0));
             id.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
@@ -80,15 +87,22 @@ namespace TestNamespace
                 string (CompiledModelTestBase.DependentDerived<int> instance) => DependentDerivedUnsafeAccessors<int>.Data(instance),
                 bool (CompiledModelTestBase.DependentDerived<int> instance) => DependentDerivedUnsafeAccessors<int>.Data(instance) == null);
             data.SetSetter(
-                (CompiledModelTestBase.DependentDerived<int> instance, string value) => DependentDerivedUnsafeAccessors<int>.Data(instance) = value);
+                CompiledModelTestBase.DependentDerived<int> (CompiledModelTestBase.DependentDerived<int> instance, string value) =>
+                {
+                    DependentDerivedUnsafeAccessors<int>.Data(instance) = value;
+                    return instance;
+                });
             data.SetMaterializationSetter(
-                (CompiledModelTestBase.DependentDerived<int> instance, string value) => DependentDerivedUnsafeAccessors<int>.Data(instance) = value);
+                CompiledModelTestBase.DependentDerived<int> (CompiledModelTestBase.DependentDerived<int> instance, string value) =>
+                {
+                    DependentDerivedUnsafeAccessors<int>.Data(instance) = value;
+                    return instance;
+                });
             data.SetAccessors(
                 string (IInternalEntry entry) => DependentDerivedUnsafeAccessors<int>.Data(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
                 string (IInternalEntry entry) => DependentDerivedUnsafeAccessors<int>.Data(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
                 string (IInternalEntry entry) => entry.ReadOriginalValue<string>(data, 1),
-                string (IInternalEntry entry) => entry.GetCurrentValue<string>(data),
-                object (ValueBuffer valueBuffer) => valueBuffer[1]);
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(data));
             data.SetPropertyIndexes(
                 index: 1,
                 originalValueIndex: 1,

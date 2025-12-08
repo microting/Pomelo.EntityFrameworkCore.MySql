@@ -47,8 +47,7 @@ namespace TestNamespace
                 long (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<long>(0) : (entry.FlaggedAsTemporary(0) && entry.ReadShadowValue<long>(0) == 0L ? entry.ReadTemporaryValue<long>(0) : entry.ReadShadowValue<long>(0))),
                 long (IInternalEntry entry) => entry.ReadShadowValue<long>(0),
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(principalId, 0),
-                long (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<long>(principalId, 0),
-                object (ValueBuffer valueBuffer) => valueBuffer[0]);
+                long (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(principalId, 0));
             principalId.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
@@ -80,8 +79,7 @@ namespace TestNamespace
                 Guid (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(1) ? entry.ReadStoreGeneratedValue<Guid>(1) : (entry.FlaggedAsTemporary(1) && entry.ReadShadowValue<Guid>(1) == new Guid("00000000-0000-0000-0000-000000000000") ? entry.ReadTemporaryValue<Guid>(1) : entry.ReadShadowValue<Guid>(1))),
                 Guid (IInternalEntry entry) => entry.ReadShadowValue<Guid>(1),
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(principalAlternateId, 1),
-                Guid (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<Guid>(principalAlternateId, 1),
-                object (ValueBuffer valueBuffer) => valueBuffer[1]);
+                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(principalAlternateId, 1));
             principalAlternateId.SetPropertyIndexes(
                 index: 1,
                 originalValueIndex: 1,
@@ -113,8 +111,7 @@ namespace TestNamespace
                 CompiledModelTestBase.Enum1 (IInternalEntry entry) => entry.ReadShadowValue<CompiledModelTestBase.Enum1>(2),
                 CompiledModelTestBase.Enum1 (IInternalEntry entry) => entry.ReadShadowValue<CompiledModelTestBase.Enum1>(2),
                 CompiledModelTestBase.Enum1 (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.Enum1>(enumDiscriminator, 2),
-                CompiledModelTestBase.Enum1 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum1>(enumDiscriminator),
-                object (ValueBuffer valueBuffer) => valueBuffer[2]);
+                CompiledModelTestBase.Enum1 (IInternalEntry entry) => entry.GetCurrentValue<CompiledModelTestBase.Enum1>(enumDiscriminator));
             enumDiscriminator.SetPropertyIndexes(
                 index: 2,
                 originalValueIndex: 2,
@@ -162,8 +159,7 @@ namespace TestNamespace
                 byte? (IInternalEntry entry) => DependentBaseUnsafeAccessors<byte?>.Id(((CompiledModelTestBase.DependentBase<byte?>)(entry.Entity))),
                 byte? (IInternalEntry entry) => DependentBaseUnsafeAccessors<byte?>.Id(((CompiledModelTestBase.DependentBase<byte?>)(entry.Entity))),
                 byte? (IInternalEntry entry) => entry.ReadOriginalValue<byte?>(id, 3),
-                byte? (IInternalEntry entry) => entry.GetCurrentValue<byte?>(id),
-                object (ValueBuffer valueBuffer) => valueBuffer[3]);
+                byte? (IInternalEntry entry) => entry.GetCurrentValue<byte?>(id));
             id.SetPropertyIndexes(
                 index: 3,
                 originalValueIndex: 3,

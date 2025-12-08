@@ -46,8 +46,7 @@ namespace TestNamespace
                 byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
                 byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
                 byte[] (IInternalEntry entry) => entry.ReadOriginalValue<byte[]>(blob, 0),
-                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(blob),
-                object (ValueBuffer valueBuffer) => valueBuffer[0]);
+                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(blob));
             blob.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
