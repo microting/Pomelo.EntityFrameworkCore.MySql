@@ -132,7 +132,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
 
         public static bool HasPrimitiveCollectionsSupport(DbContextOptions options)
             => AppConfig.ServerVersion.Supports.JsonTable &&
-               AppConfig.ServerVersion.Supports.JsonTableImplementationWithAggregate &&
                options.GetExtension<MySqlOptionsExtension>().PrimitiveCollectionsSupport;
 
         /// <summary>
