@@ -40,10 +40,10 @@ namespace TestNamespace
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 sentinel: 0);
             id.SetAccessors(
-                int (InternalEntityEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<int>(0) : (entry.FlaggedAsTemporary(0) && entry.ReadShadowValue<int>(0) == 0 ? entry.ReadTemporaryValue<int>(0) : entry.ReadShadowValue<int>(0))),
-                int (InternalEntityEntry entry) => entry.ReadShadowValue<int>(0),
-                int (InternalEntityEntry entry) => entry.ReadOriginalValue<int>(id, 0),
-                int (InternalEntityEntry entry) => entry.ReadRelationshipSnapshotValue<int>(id, 0),
+                int (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<int>(0) : (entry.FlaggedAsTemporary(0) && entry.ReadShadowValue<int>(0) == 0 ? entry.ReadTemporaryValue<int>(0) : entry.ReadShadowValue<int>(0))),
+                int (IInternalEntry entry) => entry.ReadShadowValue<int>(0),
+                int (IInternalEntry entry) => entry.ReadOriginalValue<int>(id, 0),
+                int (IInternalEntry entry) => entry.ReadRelationshipSnapshotValue<int>(id, 0),
                 object (ValueBuffer valueBuffer) => valueBuffer[0]);
             id.SetPropertyIndexes(
                 index: 0,
@@ -75,18 +75,16 @@ namespace TestNamespace
                 nullable: true);
             blob.SetGetter(
                 byte[] (CompiledModelTestBase.Data entity) => DataUnsafeAccessors.Blob(entity),
-                bool (CompiledModelTestBase.Data entity) => DataUnsafeAccessors.Blob(entity) == null,
-                byte[] (CompiledModelTestBase.Data instance) => DataUnsafeAccessors.Blob(instance),
-                bool (CompiledModelTestBase.Data instance) => DataUnsafeAccessors.Blob(instance) == null);
+                bool (CompiledModelTestBase.Data entity) => DataUnsafeAccessors.Blob(entity) == null);
             blob.SetSetter(
                 (CompiledModelTestBase.Data entity, byte[] value) => DataUnsafeAccessors.Blob(entity) = value);
             blob.SetMaterializationSetter(
                 (CompiledModelTestBase.Data entity, byte[] value) => DataUnsafeAccessors.Blob(entity) = value);
             blob.SetAccessors(
-                byte[] (InternalEntityEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
-                byte[] (InternalEntityEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
-                byte[] (InternalEntityEntry entry) => entry.ReadOriginalValue<byte[]>(blob, 1),
-                byte[] (InternalEntityEntry entry) => entry.GetCurrentValue<byte[]>(blob),
+                byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
+                byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
+                byte[] (IInternalEntry entry) => entry.ReadOriginalValue<byte[]>(blob, 1),
+                byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(blob),
                 object (ValueBuffer valueBuffer) => valueBuffer[1]);
             blob.SetPropertyIndexes(
                 index: 1,
@@ -114,10 +112,10 @@ namespace TestNamespace
                 typeof(Point),
                 nullable: true);
             point.SetAccessors(
-                Point (InternalEntityEntry entry) => entry.ReadShadowValue<Point>(1),
-                Point (InternalEntityEntry entry) => entry.ReadShadowValue<Point>(1),
-                Point (InternalEntityEntry entry) => entry.ReadOriginalValue<Point>(point, 2),
-                Point (InternalEntityEntry entry) => entry.GetCurrentValue<Point>(point),
+                Point (IInternalEntry entry) => entry.ReadShadowValue<Point>(1),
+                Point (IInternalEntry entry) => entry.ReadShadowValue<Point>(1),
+                Point (IInternalEntry entry) => entry.ReadOriginalValue<Point>(point, 2),
+                Point (IInternalEntry entry) => entry.GetCurrentValue<Point>(point),
                 object (ValueBuffer valueBuffer) => valueBuffer[2]);
             point.SetPropertyIndexes(
                 index: 2,
@@ -137,10 +135,10 @@ namespace TestNamespace
                 valueComparer: new CompiledModelTestBase.CustomValueComparer<string>(),
                 providerValueComparer: new CompiledModelTestBase.CustomValueComparer<string>());
             stringWithCharSet.SetAccessors(
-                string (InternalEntityEntry entry) => (entry.FlaggedAsStoreGenerated(3) ? entry.ReadStoreGeneratedValue<string>(1) : (entry.FlaggedAsTemporary(3) && entry.ReadShadowValue<string>(2) == null ? entry.ReadTemporaryValue<string>(1) : entry.ReadShadowValue<string>(2))),
-                string (InternalEntityEntry entry) => entry.ReadShadowValue<string>(2),
-                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(stringWithCharSet, 3),
-                string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(stringWithCharSet),
+                string (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(3) ? entry.ReadStoreGeneratedValue<string>(1) : (entry.FlaggedAsTemporary(3) && entry.ReadShadowValue<string>(2) == null ? entry.ReadTemporaryValue<string>(1) : entry.ReadShadowValue<string>(2))),
+                string (IInternalEntry entry) => entry.ReadShadowValue<string>(2),
+                string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringWithCharSet, 3),
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringWithCharSet),
                 object (ValueBuffer valueBuffer) => valueBuffer[3]);
             stringWithCharSet.SetPropertyIndexes(
                 index: 3,
@@ -185,10 +183,10 @@ namespace TestNamespace
                 valueComparer: new CompiledModelTestBase.CustomValueComparer<string>(),
                 providerValueComparer: new CompiledModelTestBase.CustomValueComparer<string>());
             stringWithCollation.SetAccessors(
-                string (InternalEntityEntry entry) => (entry.FlaggedAsStoreGenerated(4) ? entry.ReadStoreGeneratedValue<string>(2) : (entry.FlaggedAsTemporary(4) && entry.ReadShadowValue<string>(3) == null ? entry.ReadTemporaryValue<string>(2) : entry.ReadShadowValue<string>(3))),
-                string (InternalEntityEntry entry) => entry.ReadShadowValue<string>(3),
-                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(stringWithCollation, 4),
-                string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(stringWithCollation),
+                string (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(4) ? entry.ReadStoreGeneratedValue<string>(2) : (entry.FlaggedAsTemporary(4) && entry.ReadShadowValue<string>(3) == null ? entry.ReadTemporaryValue<string>(2) : entry.ReadShadowValue<string>(3))),
+                string (IInternalEntry entry) => entry.ReadShadowValue<string>(3),
+                string (IInternalEntry entry) => entry.ReadOriginalValue<string>(stringWithCollation, 4),
+                string (IInternalEntry entry) => entry.GetCurrentValue<string>(stringWithCollation),
                 object (ValueBuffer valueBuffer) => valueBuffer[4]);
             stringWithCollation.SetPropertyIndexes(
                 index: 4,
@@ -242,7 +240,7 @@ namespace TestNamespace
             key.SetPrincipalKeyValueFactory(KeyValueFactoryFactory.CreateSimpleNonNullableFactory<int>(key));
             key.SetIdentityMapFactory(IdentityMapFactoryFactory.CreateFactory<int>(key));
             runtimeEntityType.SetOriginalValuesFactory(
-                ISnapshot (InternalEntityEntry source) =>
+                ISnapshot (IInternalEntry source) =>
                 {
                     var entity = ((CompiledModelTestBase.Data)(source.Entity));
                     return ((ISnapshot)(new Snapshot<int, byte[], Point, string, string>(((ValueComparer<int>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(id)), (source.GetCurrentValue<byte[]>(blob) == null ? null : ((ValueComparer<byte[]>)(((IProperty)blob).GetValueComparer())).Snapshot(source.GetCurrentValue<byte[]>(blob))), (source.GetCurrentValue<Point>(point) == null ? null : ((ValueComparer<Point>)(((IProperty)point).GetValueComparer())).Snapshot(source.GetCurrentValue<Point>(point))), (source.GetCurrentValue<string>(stringWithCharSet) == null ? null : ((ValueComparer<string>)(((IProperty)stringWithCharSet).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringWithCharSet))), (source.GetCurrentValue<string>(stringWithCollation) == null ? null : ((ValueComparer<string>)(((IProperty)stringWithCollation).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringWithCollation))))));
@@ -250,13 +248,13 @@ namespace TestNamespace
             runtimeEntityType.SetStoreGeneratedValuesFactory(
                 ISnapshot () => ((ISnapshot)(new Snapshot<int, string, string>(((ValueComparer<int>)(((IProperty)id).GetValueComparer())).Snapshot(default(int)), (default(string) == null ? null : ((ValueComparer<string>)(((IProperty)stringWithCharSet).GetValueComparer())).Snapshot(default(string))), (default(string) == null ? null : ((ValueComparer<string>)(((IProperty)stringWithCollation).GetValueComparer())).Snapshot(default(string)))))));
             runtimeEntityType.SetTemporaryValuesFactory(
-                ISnapshot (InternalEntityEntry source) => ((ISnapshot)(new Snapshot<int, string, string>(default(int), default(string), default(string)))));
+                ISnapshot (IInternalEntry source) => ((ISnapshot)(new Snapshot<int, string, string>(default(int), default(string), default(string)))));
             runtimeEntityType.SetShadowValuesFactory(
                 ISnapshot (IDictionary<string, object> source) => ((ISnapshot)(new Snapshot<int, Point, string, string>((source.ContainsKey("Id") ? ((int)(source["Id"])) : 0), (source.ContainsKey("Point") ? ((Point)(source["Point"])) : null), (source.ContainsKey("StringWithCharSet") ? ((string)(source["StringWithCharSet"])) : null), (source.ContainsKey("StringWithCollation") ? ((string)(source["StringWithCollation"])) : null)))));
             runtimeEntityType.SetEmptyShadowValuesFactory(
                 ISnapshot () => ((ISnapshot)(new Snapshot<int, Point, string, string>(default(int), default(Point), default(string), default(string)))));
             runtimeEntityType.SetRelationshipSnapshotFactory(
-                ISnapshot (InternalEntityEntry source) =>
+                ISnapshot (IInternalEntry source) =>
                 {
                     var entity = ((CompiledModelTestBase.Data)(source.Entity));
                     return ((ISnapshot)(new Snapshot<int>(((ValueComparer<int>)(((IProperty)id).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<int>(id)))));
