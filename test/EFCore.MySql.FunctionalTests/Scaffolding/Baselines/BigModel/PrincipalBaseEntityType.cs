@@ -63,7 +63,7 @@ namespace TestNamespace
                 long? (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<long?>(0) : (entry.FlaggedAsTemporary(0) && !(PrincipalBaseUnsafeAccessors.Id(((CompiledModelTestBase.PrincipalBase)(entry.Entity))).HasValue) ? entry.ReadTemporaryValue<long?>(0) : PrincipalBaseUnsafeAccessors.Id(((CompiledModelTestBase.PrincipalBase)(entry.Entity))))),
                 long? (IInternalEntry entry) => PrincipalBaseUnsafeAccessors.Id(((CompiledModelTestBase.PrincipalBase)(entry.Entity))),
                 long? (IInternalEntry entry) => entry.ReadOriginalValue<long?>(id, 0),
-                long? (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long?>(id, 0));
+                long? (IInternalEntry entry) => (InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long?>(id, 0));
             id.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
@@ -125,7 +125,7 @@ namespace TestNamespace
                 Guid (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(1) ? entry.ReadStoreGeneratedValue<Guid>(1) : (entry.FlaggedAsTemporary(1) && ((CompiledModelTestBase.PrincipalBase)(entry.Entity)).AlternateId == new Guid("00000000-0000-0000-0000-000000000000") ? entry.ReadTemporaryValue<Guid>(1) : ((CompiledModelTestBase.PrincipalBase)(entry.Entity)).AlternateId)),
                 Guid (IInternalEntry entry) => ((CompiledModelTestBase.PrincipalBase)(entry.Entity)).AlternateId,
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(alternateId, 1),
-                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(alternateId, 1));
+                Guid (IInternalEntry entry) => (InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(alternateId, 1));
             alternateId.SetPropertyIndexes(
                 index: 1,
                 originalValueIndex: 1,

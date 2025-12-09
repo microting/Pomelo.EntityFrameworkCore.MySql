@@ -83,7 +83,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(long) : ((long)nullableValue));
                 },
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(derivedsId, 0),
-                long (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(derivedsId, 0));
+                long (IInternalEntry entry) => (InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(derivedsId, 0));
             derivedsId.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
@@ -154,7 +154,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(Guid) : ((Guid)nullableValue));
                 },
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(derivedsAlternateId, 1),
-                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(derivedsAlternateId, 1));
+                Guid (IInternalEntry entry) => (InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(derivedsAlternateId, 1));
             derivedsAlternateId.SetPropertyIndexes(
                 index: 1,
                 originalValueIndex: 1,
@@ -227,7 +227,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(long) : ((long)nullableValue));
                 },
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(principalsId, 2),
-                long (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(principalsId, 2));
+                long (IInternalEntry entry) => (InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(principalsId, 2));
             principalsId.SetPropertyIndexes(
                 index: 2,
                 originalValueIndex: 2,
@@ -298,7 +298,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(Guid) : ((Guid)nullableValue));
                 },
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(principalsAlternateId, 3),
-                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(principalsAlternateId, 3));
+                Guid (IInternalEntry entry) => (InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(principalsAlternateId, 3));
             principalsAlternateId.SetPropertyIndexes(
                 index: 3,
                 originalValueIndex: 3,
