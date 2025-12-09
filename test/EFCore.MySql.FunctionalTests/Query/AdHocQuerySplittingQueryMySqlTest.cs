@@ -27,16 +27,15 @@ public class AdHocQuerySplittingQueryMySqlTest : AdHocQuerySplittingQueryTestBas
     protected override DbContextOptionsBuilder ClearQuerySplittingBehavior(DbContextOptionsBuilder optionsBuilder)
     {
         var extension = optionsBuilder.Options.FindExtension<MySqlOptionsExtension>();
-        if (extension == null)
-        {
-            extension = new MySqlOptionsExtension();
-        }
-        else
-        {
-            _querySplittingBehaviorFieldInfo.SetValue(extension, null);
-        }
+        
+        // Create a new extension instance to avoid modifying the existing one
+        var newExtension = extension != null 
+            ? new MySqlOptionsExtension(extension) 
+            : new MySqlOptionsExtension();
+        
+        _querySplittingBehaviorFieldInfo.SetValue(newExtension, null);
 
-        ((IDbContextOptionsBuilderInfrastructure)optionsBuilder).AddOrUpdateExtension(extension);
+        ((IDbContextOptionsBuilderInfrastructure)optionsBuilder).AddOrUpdateExtension(newExtension);
 
         return optionsBuilder;
     }
