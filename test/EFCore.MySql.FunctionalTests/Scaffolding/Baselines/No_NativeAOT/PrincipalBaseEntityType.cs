@@ -8,8 +8,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding;
 using Microsoft.EntityFrameworkCore.Storage.Json;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NetTopologySuite.Geometries;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
@@ -27,7 +25,7 @@ namespace TestNamespace
                 baseEntityType,
                 discriminatorValue: "PrincipalBase",
                 derivedTypesCount: 1,
-                propertyCount: 17,
+                propertyCount: 14,
                 navigationCount: 1,
                 skipNavigationCount: 1,
                 unnamedIndexCount: 1,
@@ -38,6 +36,7 @@ namespace TestNamespace
                 typeof(long?),
                 propertyInfo: typeof(CompiledModelTestBase.PrincipalBase).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.PrincipalBase).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw);
 
             var overrides = new StoreObjectDictionary<RuntimeRelationalPropertyOverrides>();
@@ -49,7 +48,7 @@ namespace TestNamespace
             overrides.Add(StoreObjectIdentifier.Table("PrincipalDerived", null), idPrincipalDerived);
             id.AddAnnotation("Relational:RelationalOverrides", overrides);
 
-            id.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
+            id.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
             var alternateId = runtimeEntityType.AddProperty(
                 "AlternateId",
@@ -94,24 +93,13 @@ namespace TestNamespace
             flagsEnum2.SetSentinelFromProviderValue(6);
             flagsEnum2.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
-            var point = runtimeEntityType.AddProperty(
-                "Point",
-                typeof(Point),
-                nullable: true,
-                valueGenerated: ValueGenerated.OnAdd,
-                valueConverter: new CastingConverter<Point, Point>(),
-                valueComparer: new CompiledModelTestBase.CustomValueComparer<Point>(),
-                providerValueComparer: new CompiledModelTestBase.CustomValueComparer<Point>());
-            point.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
-            point.AddAnnotation("Relational:ColumnType", "geometry");
-            point.AddAnnotation("Relational:DefaultValue", (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=0;POINT Z(0 0 0)"));
-
             var refTypeArray = runtimeEntityType.AddProperty(
                 "RefTypeArray",
                 typeof(IPAddress[]),
                 propertyInfo: typeof(CompiledModelTestBase.PrincipalBase).GetProperty("RefTypeArray", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.PrincipalBase).GetField("<RefTypeArray>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
+            var refTypeArrayElementType = refTypeArray.SetElementType(typeof(IPAddress));
             refTypeArray.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var refTypeEnumerable = runtimeEntityType.AddProperty(
@@ -120,6 +108,7 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.PrincipalBase).GetProperty("RefTypeEnumerable", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.PrincipalBase).GetField("<RefTypeEnumerable>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
+            var refTypeEnumerableElementType = refTypeEnumerable.SetElementType(typeof(string));
             refTypeEnumerable.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var refTypeIList = runtimeEntityType.AddProperty(
@@ -128,6 +117,7 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.PrincipalBase).GetProperty("RefTypeIList", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.PrincipalBase).GetField("<RefTypeIList>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
+            var refTypeIListElementType = refTypeIList.SetElementType(typeof(string));
             refTypeIList.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var refTypeList = runtimeEntityType.AddProperty(
@@ -136,31 +126,8 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.PrincipalBase).GetProperty("RefTypeList", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.PrincipalBase).GetField("<RefTypeList>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
+            var refTypeListElementType = refTypeList.SetElementType(typeof(IPAddress));
             refTypeList.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
-
-            var stringWithCharSet = runtimeEntityType.AddProperty(
-                "StringWithCharSet",
-                typeof(string),
-                nullable: true,
-                valueGenerated: ValueGenerated.OnAdd,
-                valueConverter: new CastingConverter<string, string>(),
-                valueComparer: new CompiledModelTestBase.CustomValueComparer<string>(),
-                providerValueComparer: new CompiledModelTestBase.CustomValueComparer<string>());
-            stringWithCharSet.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
-            stringWithCharSet.AddAnnotation("Relational:ColumnType", "varchar(128)");
-            stringWithCharSet.AddAnnotation("Relational:DefaultValue", "String having charset");
-
-            var stringWithCollation = runtimeEntityType.AddProperty(
-                "StringWithCollation",
-                typeof(string),
-                nullable: true,
-                valueGenerated: ValueGenerated.OnAdd,
-                valueConverter: new CastingConverter<string, string>(),
-                valueComparer: new CompiledModelTestBase.CustomValueComparer<string>(),
-                providerValueComparer: new CompiledModelTestBase.CustomValueComparer<string>());
-            stringWithCollation.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
-            stringWithCollation.AddAnnotation("Relational:ColumnType", "varchar(128)");
-            stringWithCollation.AddAnnotation("Relational:DefaultValue", "String using collation");
 
             var valueTypeArray = runtimeEntityType.AddProperty(
                 "ValueTypeArray",
@@ -168,6 +135,7 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.PrincipalBase).GetProperty("ValueTypeArray", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.PrincipalBase).GetField("<ValueTypeArray>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
+            var valueTypeArrayElementType = valueTypeArray.SetElementType(typeof(DateTime));
             valueTypeArray.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var valueTypeEnumerable = runtimeEntityType.AddProperty(
@@ -176,6 +144,7 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.PrincipalBase).GetProperty("ValueTypeEnumerable", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.PrincipalBase).GetField("<ValueTypeEnumerable>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
+            var valueTypeEnumerableElementType = valueTypeEnumerable.SetElementType(typeof(byte));
             valueTypeEnumerable.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var valueTypeIList = runtimeEntityType.AddProperty(
@@ -184,6 +153,7 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.PrincipalBase).GetProperty("ValueTypeIList", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.PrincipalBase).GetField("<ValueTypeIList>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
+            var valueTypeIListElementType = valueTypeIList.SetElementType(typeof(byte));
             valueTypeIList.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var valueTypeList = runtimeEntityType.AddProperty(
@@ -192,6 +162,7 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.PrincipalBase).GetProperty("ValueTypeList", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.PrincipalBase).GetField("<ValueTypeList>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
+            var valueTypeListElementType = valueTypeList.SetElementType(typeof(short));
             valueTypeList.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var key = runtimeEntityType.AddKey(
