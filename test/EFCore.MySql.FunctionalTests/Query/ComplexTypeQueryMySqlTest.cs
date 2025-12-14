@@ -1133,7 +1133,12 @@ LEFT JOIN (
     {
         await base.Project_nullable_struct_complex_type_via_optional_navigation(async);
 
-        AssertSql();
+        AssertSql(
+"""
+SELECT `v0`.`ShippingAddress_AddressLine1`, `v0`.`ShippingAddress_AddressLine2`, `v0`.`ShippingAddress_ZipCode`, `v0`.`ShippingAddress_Country_Code`, `v0`.`ShippingAddress_Country_FullName`
+FROM `ValuedCustomerGroup` AS `v`
+LEFT JOIN `ValuedCustomer` AS `v0` ON `v`.`OptionalCustomerId` = `v0`.`Id`
+""");
     }
 
     [ConditionalFact]
