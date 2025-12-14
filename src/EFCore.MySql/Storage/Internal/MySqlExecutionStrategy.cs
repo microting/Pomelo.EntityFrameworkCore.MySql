@@ -31,6 +31,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         protected override bool ShouldRetryOn(Exception exception)
-            => MySqlTransientExceptionDetector.ShouldRetryOn(exception);
+            => false;  // Never retry since this is a non-retrying strategy
     }
 }
