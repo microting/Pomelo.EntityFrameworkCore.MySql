@@ -429,7 +429,7 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
+                    storeTypeName: "longtext",
                     unicode: true,
                     dbType: System.Data.DbType.String),
                 converter: new CollectionToJsonStringConverter<IPAddress>(new JsonCollectionOfReferencesReaderWriter<IPAddress[], IPAddress>(
@@ -521,7 +521,7 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
+                    storeTypeName: "longtext",
                     unicode: true,
                     dbType: System.Data.DbType.String),
                 converter: new CollectionToJsonStringConverter<string>(new JsonCollectionOfReferencesReaderWriter<List<string>, string>(
@@ -543,7 +543,7 @@ namespace TestNamespace
                         int (string v) => ((object)v).GetHashCode(),
                         string (string v) => v),
                     mappingInfo: new RelationalTypeMappingInfo(
-                        storeTypeName: "nvarchar(max)",
+                        storeTypeName: "longtext",
                         unicode: true,
                         dbType: System.Data.DbType.String),
                     storeTypePostfix: StoreTypePostfix.None));
@@ -597,7 +597,7 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
+                    storeTypeName: "longtext",
                     unicode: true,
                     dbType: System.Data.DbType.String),
                 converter: new CollectionToJsonStringConverter<string>(new JsonCollectionOfReferencesReaderWriter<List<string>, string>(
@@ -619,7 +619,7 @@ namespace TestNamespace
                         int (string v) => ((object)v).GetHashCode(),
                         string (string v) => v),
                     mappingInfo: new RelationalTypeMappingInfo(
-                        storeTypeName: "nvarchar(max)",
+                        storeTypeName: "longtext",
                         unicode: true,
                         dbType: System.Data.DbType.String),
                     storeTypePostfix: StoreTypePostfix.None));
@@ -673,7 +673,7 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
+                    storeTypeName: "longtext",
                     unicode: true,
                     dbType: System.Data.DbType.String),
                 converter: new CollectionToJsonStringConverter<IPAddress>(new JsonCollectionOfReferencesReaderWriter<List<IPAddress>, IPAddress>(
@@ -765,7 +765,7 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
+                    storeTypeName: "longtext",
                     unicode: true,
                     dbType: System.Data.DbType.String),
                 converter: new CollectionToJsonStringConverter<DateTime>(new JsonCollectionOfStructsReaderWriter<DateTime[], DateTime>(
@@ -836,7 +836,7 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
+                    storeTypeName: "longtext",
                     unicode: true,
                     dbType: System.Data.DbType.String),
                 converter: new CollectionToJsonStringConverter<byte>(new JsonCollectionOfStructsReaderWriter<List<byte>, byte>(
@@ -907,7 +907,7 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
+                    storeTypeName: "longtext",
                     unicode: true,
                     dbType: System.Data.DbType.String),
                 converter: new CollectionToJsonStringConverter<byte>(new JsonCollectionOfStructsReaderWriter<List<byte>, byte>(
@@ -978,7 +978,7 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
+                    storeTypeName: "longtext",
                     unicode: true,
                     dbType: System.Data.DbType.String),
                 converter: new CollectionToJsonStringConverter<short>(new JsonCollectionOfStructsReaderWriter<List<short>, short>(
@@ -1250,7 +1250,7 @@ namespace TestNamespace
                         int (string v) => ((object)v).GetHashCode(),
                         string (string v) => v),
                     mappingInfo: new RelationalTypeMappingInfo(
-                        storeTypeName: "nvarchar(max)",
+                        storeTypeName: "longtext",
                         unicode: true,
                         dbType: System.Data.DbType.String),
                     converter: new CollectionToJsonStringConverter<IPAddress>(new JsonCollectionOfReferencesReaderWriter<IPAddress[], IPAddress>(
@@ -1354,7 +1354,7 @@ namespace TestNamespace
                         int (string v) => ((object)v).GetHashCode(),
                         string (string v) => v),
                     mappingInfo: new RelationalTypeMappingInfo(
-                        storeTypeName: "nvarchar(max)",
+                        storeTypeName: "longtext",
                         unicode: true,
                         dbType: System.Data.DbType.String),
                     converter: new CollectionToJsonStringConverter<string>(new JsonCollectionOfReferencesReaderWriter<List<string>, string>(
@@ -1376,7 +1376,7 @@ namespace TestNamespace
                             int (string v) => ((object)v).GetHashCode(),
                             string (string v) => v),
                         mappingInfo: new RelationalTypeMappingInfo(
-                            storeTypeName: "nvarchar(max)",
+                            storeTypeName: "longtext",
                             unicode: true,
                             dbType: System.Data.DbType.String),
                         storeTypePostfix: StoreTypePostfix.None));
@@ -1442,7 +1442,7 @@ namespace TestNamespace
                         int (string v) => ((object)v).GetHashCode(),
                         string (string v) => v),
                     mappingInfo: new RelationalTypeMappingInfo(
-                        storeTypeName: "nvarchar(max)",
+                        storeTypeName: "longtext",
                         unicode: true,
                         dbType: System.Data.DbType.String),
                     converter: new CollectionToJsonStringConverter<string>(new JsonCollectionOfReferencesReaderWriter<List<string>, string>(
@@ -1464,7 +1464,7 @@ namespace TestNamespace
                             int (string v) => ((object)v).GetHashCode(),
                             string (string v) => v),
                         mappingInfo: new RelationalTypeMappingInfo(
-                            storeTypeName: "nvarchar(max)",
+                            storeTypeName: "longtext",
                             unicode: true,
                             dbType: System.Data.DbType.String),
                         storeTypePostfix: StoreTypePostfix.None));
@@ -1530,7 +1530,7 @@ namespace TestNamespace
                         int (string v) => ((object)v).GetHashCode(),
                         string (string v) => v),
                     mappingInfo: new RelationalTypeMappingInfo(
-                        storeTypeName: "nvarchar(max)",
+                        storeTypeName: "longtext",
                         unicode: true,
                         dbType: System.Data.DbType.String),
                     converter: new CollectionToJsonStringConverter<IPAddress>(new JsonCollectionOfReferencesReaderWriter<List<IPAddress>, IPAddress>(
@@ -1634,7 +1634,7 @@ namespace TestNamespace
                         int (string v) => ((object)v).GetHashCode(),
                         string (string v) => v),
                     mappingInfo: new RelationalTypeMappingInfo(
-                        storeTypeName: "nvarchar(max)",
+                        storeTypeName: "longtext",
                         unicode: true,
                         dbType: System.Data.DbType.String),
                     converter: new CollectionToJsonStringConverter<DateTime>(new JsonCollectionOfStructsReaderWriter<DateTime[], DateTime>(
@@ -1717,7 +1717,7 @@ namespace TestNamespace
                         int (string v) => ((object)v).GetHashCode(),
                         string (string v) => v),
                     mappingInfo: new RelationalTypeMappingInfo(
-                        storeTypeName: "nvarchar(max)",
+                        storeTypeName: "longtext",
                         unicode: true,
                         dbType: System.Data.DbType.String),
                     converter: new CollectionToJsonStringConverter<byte>(new JsonCollectionOfStructsReaderWriter<List<byte>, byte>(
@@ -1800,7 +1800,7 @@ namespace TestNamespace
                         int (string v) => ((object)v).GetHashCode(),
                         string (string v) => v),
                     mappingInfo: new RelationalTypeMappingInfo(
-                        storeTypeName: "nvarchar(max)",
+                        storeTypeName: "longtext",
                         unicode: true,
                         dbType: System.Data.DbType.String),
                     converter: new CollectionToJsonStringConverter<byte>(new JsonCollectionOfStructsReaderWriter<List<byte>, byte>(
@@ -1883,7 +1883,7 @@ namespace TestNamespace
                         int (string v) => ((object)v).GetHashCode(),
                         string (string v) => v),
                     mappingInfo: new RelationalTypeMappingInfo(
-                        storeTypeName: "nvarchar(max)",
+                        storeTypeName: "longtext",
                         unicode: true,
                         dbType: System.Data.DbType.String),
                     converter: new CollectionToJsonStringConverter<short>(new JsonCollectionOfStructsReaderWriter<List<short>, short>(
@@ -2435,7 +2435,7 @@ namespace TestNamespace
                             int (string v) => ((object)v).GetHashCode(),
                             string (string v) => v),
                         mappingInfo: new RelationalTypeMappingInfo(
-                            storeTypeName: "nvarchar(max)",
+                            storeTypeName: "longtext",
                             unicode: true,
                             dbType: System.Data.DbType.String),
                         converter: new CollectionToJsonStringConverter<IPAddress>(new JsonCollectionOfReferencesReaderWriter<IPAddress[], IPAddress>(
@@ -2541,7 +2541,7 @@ namespace TestNamespace
                             int (string v) => ((object)v).GetHashCode(),
                             string (string v) => v),
                         mappingInfo: new RelationalTypeMappingInfo(
-                            storeTypeName: "nvarchar(max)",
+                            storeTypeName: "longtext",
                             unicode: true,
                             dbType: System.Data.DbType.String),
                         converter: new CollectionToJsonStringConverter<string>(new JsonCollectionOfReferencesReaderWriter<List<string>, string>(
@@ -2563,7 +2563,7 @@ namespace TestNamespace
                                 int (string v) => ((object)v).GetHashCode(),
                                 string (string v) => v),
                             mappingInfo: new RelationalTypeMappingInfo(
-                                storeTypeName: "nvarchar(max)",
+                                storeTypeName: "longtext",
                                 unicode: true,
                                 dbType: System.Data.DbType.String),
                             storeTypePostfix: StoreTypePostfix.None));
@@ -2631,7 +2631,7 @@ namespace TestNamespace
                             int (string v) => ((object)v).GetHashCode(),
                             string (string v) => v),
                         mappingInfo: new RelationalTypeMappingInfo(
-                            storeTypeName: "nvarchar(max)",
+                            storeTypeName: "longtext",
                             unicode: true,
                             dbType: System.Data.DbType.String),
                         converter: new CollectionToJsonStringConverter<string>(new JsonCollectionOfReferencesReaderWriter<List<string>, string>(
@@ -2653,7 +2653,7 @@ namespace TestNamespace
                                 int (string v) => ((object)v).GetHashCode(),
                                 string (string v) => v),
                             mappingInfo: new RelationalTypeMappingInfo(
-                                storeTypeName: "nvarchar(max)",
+                                storeTypeName: "longtext",
                                 unicode: true,
                                 dbType: System.Data.DbType.String),
                             storeTypePostfix: StoreTypePostfix.None));
@@ -2721,7 +2721,7 @@ namespace TestNamespace
                             int (string v) => ((object)v).GetHashCode(),
                             string (string v) => v),
                         mappingInfo: new RelationalTypeMappingInfo(
-                            storeTypeName: "nvarchar(max)",
+                            storeTypeName: "longtext",
                             unicode: true,
                             dbType: System.Data.DbType.String),
                         converter: new CollectionToJsonStringConverter<IPAddress>(new JsonCollectionOfReferencesReaderWriter<List<IPAddress>, IPAddress>(
@@ -2827,7 +2827,7 @@ namespace TestNamespace
                             int (string v) => ((object)v).GetHashCode(),
                             string (string v) => v),
                         mappingInfo: new RelationalTypeMappingInfo(
-                            storeTypeName: "nvarchar(max)",
+                            storeTypeName: "longtext",
                             unicode: true,
                             dbType: System.Data.DbType.String),
                         converter: new CollectionToJsonStringConverter<DateTime>(new JsonCollectionOfStructsReaderWriter<DateTime[], DateTime>(
@@ -2912,7 +2912,7 @@ namespace TestNamespace
                             int (string v) => ((object)v).GetHashCode(),
                             string (string v) => v),
                         mappingInfo: new RelationalTypeMappingInfo(
-                            storeTypeName: "nvarchar(max)",
+                            storeTypeName: "longtext",
                             unicode: true,
                             dbType: System.Data.DbType.String),
                         converter: new CollectionToJsonStringConverter<byte>(new JsonCollectionOfStructsReaderWriter<List<byte>, byte>(
@@ -2997,7 +2997,7 @@ namespace TestNamespace
                             int (string v) => ((object)v).GetHashCode(),
                             string (string v) => v),
                         mappingInfo: new RelationalTypeMappingInfo(
-                            storeTypeName: "nvarchar(max)",
+                            storeTypeName: "longtext",
                             unicode: true,
                             dbType: System.Data.DbType.String),
                         converter: new CollectionToJsonStringConverter<byte>(new JsonCollectionOfStructsReaderWriter<List<byte>, byte>(
@@ -3082,7 +3082,7 @@ namespace TestNamespace
                             int (string v) => ((object)v).GetHashCode(),
                             string (string v) => v),
                         mappingInfo: new RelationalTypeMappingInfo(
-                            storeTypeName: "nvarchar(max)",
+                            storeTypeName: "longtext",
                             unicode: true,
                             dbType: System.Data.DbType.String),
                         converter: new CollectionToJsonStringConverter<short>(new JsonCollectionOfStructsReaderWriter<List<short>, short>(
