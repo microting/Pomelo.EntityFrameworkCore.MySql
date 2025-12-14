@@ -123,9 +123,7 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(max)",
-                    unicode: true,
-                    dbType: System.Data.DbType.String),
+                    storeTypeName: "longtext"),
                 storeTypePostfix: StoreTypePostfix.None);
             data.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
