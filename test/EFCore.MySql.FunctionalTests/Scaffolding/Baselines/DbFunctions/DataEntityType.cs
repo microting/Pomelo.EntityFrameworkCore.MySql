@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Scaffolding;
-using Microsoft.EntityFrameworkCore.Storage;
 using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 
 #pragma warning disable 219, 612, 618
@@ -73,10 +72,7 @@ namespace TestNamespace
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
                     int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
-                    byte[] (byte[] source) => source.ToArray()),
-                mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "varbinary(max)"),
-                storeTypePostfix: StoreTypePostfix.None);
+                    byte[] (byte[] source) => source.ToArray()));
             blob.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             return runtimeEntityType;
