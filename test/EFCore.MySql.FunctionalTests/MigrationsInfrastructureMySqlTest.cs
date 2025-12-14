@@ -1,5 +1,4 @@
 using System;
-using System.Data;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.TestUtilities;
@@ -564,7 +563,7 @@ DROP PROCEDURE MigrationsScript;
         protected override Task ExecuteSqlAsync(string value)
             => ((MySqlTestStore)Fixture.TestStore).ExecuteNonQueryAsync(value);
 
-        [ConditionalFact(Skip = "EF Core 10 transaction state management issue - connection already in transaction")]
+        [ConditionalFact(Skip = "EF Core 10 issue: RelationalConnection maintains transaction state across migration operations when tests share fixture")]
         public override Task Can_apply_two_migrations_in_transaction_async()
             => base.Can_apply_two_migrations_in_transaction_async();
 
