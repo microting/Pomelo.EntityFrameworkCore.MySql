@@ -2614,13 +2614,13 @@ FROM (
 GROUP BY `o0`.`CustomerID`
 """
                     : """
-@__p_0='0'
+@p='0'
 
 SELECT `o0`.`CustomerID` AS `Key`, COUNT(*) AS `Total`
 FROM (
     SELECT `o`.`CustomerID`
     FROM `Orders` AS `o`
-    LIMIT @__p_0 OFFSET @__p_0
+    LIMIT @p OFFSET @p
 ) AS `o0`
 GROUP BY `o0`.`CustomerID`
 """);
@@ -2640,13 +2640,13 @@ GROUP BY `o`.`CustomerID`
 HAVING FALSE
 """
                     : """
-@__p_0='0'
+@p='0'
 
 SELECT `o`.`CustomerID` AS `Key`, COUNT(*) AS `Total`
 FROM `Orders` AS `o`
 WHERE `o`.`OrderID` > 10500
 GROUP BY `o`.`CustomerID`
-LIMIT @__p_0 OFFSET @__p_0
+LIMIT @p OFFSET @p
 """);
         }
 
