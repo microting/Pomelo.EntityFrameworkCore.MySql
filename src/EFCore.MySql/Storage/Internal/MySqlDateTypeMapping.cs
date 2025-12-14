@@ -34,7 +34,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
                 new RelationalTypeMappingParameters(
                     new CoreTypeMappingParameters(
                         clrType,
-                        jsonValueReaderWriter: JsonDateOnlyReaderWriter.Instance),
+                        jsonValueReaderWriter: clrType == typeof(DateOnly)
+                            ? JsonDateOnlyReaderWriter.Instance
+                            : clrType == typeof(DateTime)
+                                ? JsonDateTimeReaderWriter.Instance
+                                : throw new ArgumentException("clrType must be DateOnly or DateTime", nameof(clrType))),
                     storeType,
                     dbType: System.Data.DbType.Date),
                 isDefaultValueCompatible)
