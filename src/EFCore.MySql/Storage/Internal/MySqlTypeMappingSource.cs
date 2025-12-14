@@ -317,7 +317,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
             // This MUST be checked first, before any store type lookups, similar to SQL Server's implementation.
             if (clrType?.Name == "JsonTypePlaceholder")
             {
-                Console.WriteLine($"[DEBUG] MySqlTypeMappingSource: Detected JsonTypePlaceholder - returning MySqlStructuralJsonTypeMapping");
                 return _jsonStructural;
             }
 

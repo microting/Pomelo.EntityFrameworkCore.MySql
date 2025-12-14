@@ -73,12 +73,12 @@ namespace TestNamespace
                 fieldInfo: typeof(CompiledModelTestBase.Data).GetField("<Blob>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
             blob.SetGetter(
-                byte[] (CompiledModelTestBase.Data entity) => DataUnsafeAccessors.Blob(entity),
-                bool (CompiledModelTestBase.Data entity) => DataUnsafeAccessors.Blob(entity) == null);
+                byte[] (CompiledModelTestBase.Data instance) => DataUnsafeAccessors.Blob(instance),
+                bool (CompiledModelTestBase.Data instance) => DataUnsafeAccessors.Blob(instance) == null);
             blob.SetSetter(
-                (CompiledModelTestBase.Data entity, byte[] value) => DataUnsafeAccessors.Blob(entity) = value);
+                (CompiledModelTestBase.Data instance, byte[] value) => DataUnsafeAccessors.Blob(instance) = value);
             blob.SetMaterializationSetter(
-                (CompiledModelTestBase.Data entity, byte[] value) => DataUnsafeAccessors.Blob(entity) = value);
+                (CompiledModelTestBase.Data instance, byte[] value) => DataUnsafeAccessors.Blob(instance) = value);
             blob.SetAccessors(
                 byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
                 byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),

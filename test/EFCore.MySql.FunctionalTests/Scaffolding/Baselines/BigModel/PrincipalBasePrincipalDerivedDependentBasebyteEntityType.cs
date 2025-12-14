@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.MySql.Storage.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
-using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
@@ -83,14 +83,14 @@ namespace TestNamespace
                     return (nullableValue == null ? default(long) : ((long)nullableValue));
                 },
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(derivedsId, 0),
-                long (IInternalEntry entry) => ((InternalEntityEntry)(entry)).ReadRelationshipSnapshotValue<long>(derivedsId, 0));
+                long (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(derivedsId, 0));
             derivedsId.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
                 shadowIndex: -1,
                 relationshipIndex: 0,
                 storeGenerationIndex: 0);
-            derivedsId.TypeMapping = SqlServerLongTypeMapping.Default.Clone(
+            derivedsId.TypeMapping = MySqlLongTypeMapping.Default.Clone(
                 comparer: new ValueComparer<long>(
                     bool (long v1, long v2) => v1 == v2,
                     int (long v) => ((object)v).GetHashCode(),
@@ -154,7 +154,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(Guid) : ((Guid)nullableValue));
                 },
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(derivedsAlternateId, 1),
-                Guid (IInternalEntry entry) => ((InternalEntityEntry)(entry)).ReadRelationshipSnapshotValue<Guid>(derivedsAlternateId, 1));
+                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(derivedsAlternateId, 1));
             derivedsAlternateId.SetPropertyIndexes(
                 index: 1,
                 originalValueIndex: 1,
@@ -227,14 +227,14 @@ namespace TestNamespace
                     return (nullableValue == null ? default(long) : ((long)nullableValue));
                 },
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(principalsId, 2),
-                long (IInternalEntry entry) => ((InternalEntityEntry)(entry)).ReadRelationshipSnapshotValue<long>(principalsId, 2));
+                long (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(principalsId, 2));
             principalsId.SetPropertyIndexes(
                 index: 2,
                 originalValueIndex: 2,
                 shadowIndex: -1,
                 relationshipIndex: 2,
                 storeGenerationIndex: 2);
-            principalsId.TypeMapping = SqlServerLongTypeMapping.Default.Clone(
+            principalsId.TypeMapping = MySqlLongTypeMapping.Default.Clone(
                 comparer: new ValueComparer<long>(
                     bool (long v1, long v2) => v1 == v2,
                     int (long v) => ((object)v).GetHashCode(),
@@ -298,7 +298,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(Guid) : ((Guid)nullableValue));
                 },
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(principalsAlternateId, 3),
-                Guid (IInternalEntry entry) => ((InternalEntityEntry)(entry)).ReadRelationshipSnapshotValue<Guid>(principalsAlternateId, 3));
+                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(principalsAlternateId, 3));
             principalsAlternateId.SetPropertyIndexes(
                 index: 3,
                 originalValueIndex: 3,
@@ -364,12 +364,12 @@ namespace TestNamespace
                     int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(v),
                     byte[] (byte[] v) => v.ToArray()),
                 keyComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "rowversion",
@@ -454,7 +454,7 @@ namespace TestNamespace
             runtimeEntityType.AddAnnotation("Relational:TableName", "PrincipalBasePrincipalDerived<DependentBase<byte?>>");
             runtimeEntityType.AddAnnotation("Relational:ViewName", null);
             runtimeEntityType.AddAnnotation("Relational:ViewSchema", null);
-            runtimeEntityType.AddAnnotation("SqlServer:MemoryOptimized", true);
+            runtimeEntityType.AddAnnotation("MySql:MemoryOptimized", true);
 
             Customize(runtimeEntityType);
         }
