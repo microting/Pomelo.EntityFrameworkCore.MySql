@@ -70,10 +70,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
             _useConnectionString = useConnectionString;
             _noBackslashEscapes = noBackslashEscapes;
 
-            if (useConnectionString)
-            {
-                _connectionString = CreateConnectionString(name, _noBackslashEscapes, guidFormat);
-            }
+            _connectionString = CreateConnectionString(name, _noBackslashEscapes, guidFormat);
 
             ServerVersion = new Lazy<ServerVersion>(() => Microsoft.EntityFrameworkCore.ServerVersion.AutoDetect((MySqlConnection)Connection));
             DatabaseCharSet = databaseCharSet ?? "utf8mb4";
@@ -102,7 +99,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
         private static int GetCommandTimeout() => AppConfig.Config.GetValue("Data:CommandTimeout", DefaultCommandTimeout);
 
         public override DbContextOptionsBuilder AddProviderOptions(DbContextOptionsBuilder builder)
-            => _useConnectionString
+            => (_useConnectionString || UseConnectionString)
                 ? builder.UseMySql(_connectionString, AppConfig.ServerVersion, x => AddOptions(x, _noBackslashEscapes))
                 : builder.UseMySql(Connection, AppConfig.ServerVersion, x => AddOptions(x, _noBackslashEscapes));
 
