@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Scaffolding;
+using Microsoft.EntityFrameworkCore.MySql.Storage.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
-using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
@@ -101,7 +101,7 @@ namespace TestNamespace
                 shadowIndex: 3,
                 relationshipIndex: -1,
                 storeGenerationIndex: -1);
-            money.TypeMapping = SqlServerDecimalTypeMapping.Default.Clone(
+            money.TypeMapping = MySqlDecimalTypeMapping.Default.Clone(
                 comparer: new ValueComparer<decimal>(
                     bool (decimal v1, decimal v2) => v1 == v2,
                     int (decimal v) => ((object)v).GetHashCode(),
