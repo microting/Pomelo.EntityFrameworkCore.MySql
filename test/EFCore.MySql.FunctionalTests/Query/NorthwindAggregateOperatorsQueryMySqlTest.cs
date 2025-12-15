@@ -79,6 +79,13 @@ FROM `Order Details` AS `o`
             AssertSql();
         }
 
+        public override Task Contains_inside_Average_without_GroupBy(bool async)
+            => AssertAverage(
+                async,
+                ss => ss.Set<OrderDetail>().Where(od => od.OrderID == 10250),
+                selector: od => od.UnitPrice,
+                asserter: (a, b) => Assert.Equal(a, b, 6)); // added floating point precision tolerance
+
         private void AssertSql(params string[] expected)
             => Fixture.TestSqlLoggerFactory.AssertBaseline(expected);
 
