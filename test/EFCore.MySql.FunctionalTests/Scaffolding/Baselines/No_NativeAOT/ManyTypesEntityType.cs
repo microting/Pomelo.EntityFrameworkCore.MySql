@@ -10,9 +10,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding;
 using Microsoft.EntityFrameworkCore.Storage;
-using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
@@ -85,10 +85,8 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 mappingInfo: new RelationalTypeMappingInfo(
-                    storeTypeName: "nvarchar(1)",
-                    size: 1,
-                    unicode: true,
-                    dbType: System.Data.DbType.String),
+                    storeTypeName: "varchar(1)",
+                    size: 1),
                 converter: new ValueConverter<bool, string>(
                     string (bool v) => ((string)((v ? "B" : "A"))),
                     bool (string v) => !(string.IsNullOrEmpty(v)) && ((int)(v.ToUpperInvariant()[0])) == ((int)("B".ToUpperInvariant()[0]))),
@@ -176,7 +174,6 @@ namespace TestNamespace
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<CharToStringConverterProperty>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueConverter: new CharToStringConverter());
             charToStringConverterProperty.SetSentinelFromProviderValue("\0");
-            charToStringConverterProperty.AddAnnotation("Relational:IsFixedLength", true);
             charToStringConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var dateOnly = runtimeEntityType.AddProperty(
@@ -499,7 +496,7 @@ namespace TestNamespace
                 typeof(CompiledModelTestBase.Enum8),
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("Enum8", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<Enum8>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            enum8.SetSentinelFromProviderValue((short)0);
+            enum8.SetSentinelFromProviderValue((sbyte)0);
             enum8.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var enum8Array = runtimeEntityType.AddProperty(
@@ -568,7 +565,7 @@ namespace TestNamespace
                 typeof(CompiledModelTestBase.EnumU16),
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("EnumU16", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<EnumU16>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            enumU16.SetSentinelFromProviderValue(0);
+            enumU16.SetSentinelFromProviderValue((ushort)0);
             enumU16.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var enumU16Array = runtimeEntityType.AddProperty(
@@ -619,7 +616,7 @@ namespace TestNamespace
                 typeof(CompiledModelTestBase.EnumU32),
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("EnumU32", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<EnumU32>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            enumU32.SetSentinelFromProviderValue(0L);
+            enumU32.SetSentinelFromProviderValue(0u);
             enumU32.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var enumU32Array = runtimeEntityType.AddProperty(
@@ -670,7 +667,7 @@ namespace TestNamespace
                 typeof(CompiledModelTestBase.EnumU64),
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("EnumU64", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<EnumU64>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            enumU64.SetSentinelFromProviderValue(0m);
+            enumU64.SetSentinelFromProviderValue(0ul);
             enumU64.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var enumU64Array = runtimeEntityType.AddProperty(
@@ -917,8 +914,8 @@ namespace TestNamespace
                 "Int8",
                 typeof(sbyte),
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("Int8", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<Int8>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            int8.SetSentinelFromProviderValue((short)0);
+                fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<Int8>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                sentinel: (sbyte)0);
             int8.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var int8Array = runtimeEntityType.AddProperty(
@@ -2003,8 +2000,8 @@ namespace TestNamespace
                 "UInt16",
                 typeof(ushort),
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("UInt16", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<UInt16>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            uInt16.SetSentinelFromProviderValue(0);
+                fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<UInt16>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                sentinel: (ushort)0);
             uInt16.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var uInt16Array = runtimeEntityType.AddProperty(
@@ -2019,8 +2016,8 @@ namespace TestNamespace
                 "UInt32",
                 typeof(uint),
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("UInt32", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<UInt32>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            uInt32.SetSentinelFromProviderValue(0L);
+                fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<UInt32>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                sentinel: 0u);
             uInt32.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var uInt32Array = runtimeEntityType.AddProperty(
@@ -2035,8 +2032,8 @@ namespace TestNamespace
                 "UInt64",
                 typeof(ulong),
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("UInt64", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<UInt64>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            uInt64.SetSentinelFromProviderValue(0m);
+                fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<UInt64>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                sentinel: 0ul);
             uInt64.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var uInt64Array = runtimeEntityType.AddProperty(

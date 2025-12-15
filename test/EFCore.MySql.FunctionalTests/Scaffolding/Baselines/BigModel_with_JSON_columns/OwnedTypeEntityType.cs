@@ -33,7 +33,7 @@ namespace TestNamespace
                 changeTrackingStrategy: ChangeTrackingStrategy.ChangingAndChangedNotificationsWithOriginalValues,
                 propertyCount: 12,
                 servicePropertyCount: 1,
-                foreignKeyCount: 2,
+                foreignKeyCount: 1,
                 keyCount: 1);
 
             var principalBaseId = runtimeEntityType.AddProperty(
@@ -67,16 +67,6 @@ namespace TestNamespace
                     int (long v) => ((object)v).GetHashCode(),
                     long (long v) => v));
             principalBaseId.SetCurrentValueComparer(new EntryCurrentValueComparer<long>(principalBaseId));
-
-            var overrides = new StoreObjectDictionary<RuntimeRelationalPropertyOverrides>();
-            var principalBaseIdPrincipalBase = new RuntimeRelationalPropertyOverrides(
-                principalBaseId,
-                StoreObjectIdentifier.Table("PrincipalBase", "mySchema"),
-                false,
-                null);
-            overrides.Add(StoreObjectIdentifier.Table("PrincipalBase", "mySchema"), principalBaseIdPrincipalBase);
-            principalBaseId.AddAnnotation("Relational:RelationalOverrides", overrides);
-
             principalBaseId.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var principalBaseAlternateId = runtimeEntityType.AddProperty(
@@ -161,16 +151,6 @@ namespace TestNamespace
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "longtext"),
                 storeTypePostfix: StoreTypePostfix.None);
-
-            var overrides0 = new StoreObjectDictionary<RuntimeRelationalPropertyOverrides>();
-            var detailsDetails = new RuntimeRelationalPropertyOverrides(
-                details,
-                StoreObjectIdentifier.Table("Details", null),
-                false,
-                null);
-            overrides0.Add(StoreObjectIdentifier.Table("Details", null), detailsDetails);
-            details.AddAnnotation("Relational:RelationalOverrides", overrides0);
-
             details.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var number = runtimeEntityType.AddProperty(
@@ -895,19 +875,6 @@ namespace TestNamespace
             return runtimeForeignKey;
         }
 
-        public static RuntimeForeignKey CreateForeignKey2(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
-        {
-            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("PrincipalBaseId"), declaringEntityType.FindProperty("PrincipalBaseAlternateId") },
-                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("PrincipalBaseId"), principalEntityType.FindProperty("PrincipalBaseAlternateId") }),
-                principalEntityType,
-                deleteBehavior: DeleteBehavior.Cascade,
-                unique: true,
-                required: true,
-                requiredDependent: true);
-
-            return runtimeForeignKey;
-        }
-
         public static void CreateAnnotations(RuntimeEntityType runtimeEntityType)
         {
             var principalBaseId = runtimeEntityType.FindProperty("PrincipalBaseId");
@@ -954,15 +921,9 @@ namespace TestNamespace
                 shadowCount: 2,
                 relationshipCount: 2,
                 storeGeneratedCount: 2));
-            var fragments = new StoreObjectDictionary<RuntimeEntityTypeMappingFragment>();
-            var detailsFragment = new RuntimeEntityTypeMappingFragment(
-                runtimeEntityType,
-                StoreObjectIdentifier.Table("Details", null),
-                null);
-            fragments.Add(StoreObjectIdentifier.Table("Details", null), detailsFragment);
-            runtimeEntityType.AddAnnotation("Relational:MappingFragments", fragments);
+            runtimeEntityType.AddAnnotation("Relational:ContainerColumnName", "Owned");
             runtimeEntityType.AddAnnotation("Relational:FunctionName", null);
-            runtimeEntityType.AddAnnotation("Relational:Schema", "mySchema");
+            runtimeEntityType.AddAnnotation("Relational:Schema", null);
             runtimeEntityType.AddAnnotation("Relational:SqlQuery", null);
             runtimeEntityType.AddAnnotation("Relational:TableName", "PrincipalBase");
             runtimeEntityType.AddAnnotation("Relational:ViewName", null);

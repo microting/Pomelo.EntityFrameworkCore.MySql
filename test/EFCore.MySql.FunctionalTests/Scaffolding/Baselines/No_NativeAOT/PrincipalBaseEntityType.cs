@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding;
 using Microsoft.EntityFrameworkCore.Storage.Json;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetTopologySuite.Geometries;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
@@ -25,7 +27,7 @@ namespace TestNamespace
                 baseEntityType,
                 discriminatorValue: "PrincipalBase",
                 derivedTypesCount: 1,
-                propertyCount: 14,
+                propertyCount: 17,
                 navigationCount: 1,
                 skipNavigationCount: 1,
                 unnamedIndexCount: 1,
@@ -36,7 +38,6 @@ namespace TestNamespace
                 typeof(long?),
                 propertyInfo: typeof(CompiledModelTestBase.PrincipalBase).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.PrincipalBase).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw);
 
             var overrides = new StoreObjectDictionary<RuntimeRelationalPropertyOverrides>();
@@ -48,7 +49,7 @@ namespace TestNamespace
             overrides.Add(StoreObjectIdentifier.Table("PrincipalDerived", null), idPrincipalDerived);
             id.AddAnnotation("Relational:RelationalOverrides", overrides);
 
-            id.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
+            id.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var alternateId = runtimeEntityType.AddProperty(
                 "AlternateId",
@@ -93,6 +94,18 @@ namespace TestNamespace
             flagsEnum2.SetSentinelFromProviderValue(6);
             flagsEnum2.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
+            var point = runtimeEntityType.AddProperty(
+                "Point",
+                typeof(Point),
+                nullable: true,
+                valueGenerated: ValueGenerated.OnAdd,
+                valueConverter: new CastingConverter<Point, Point>(),
+                valueComparer: new CompiledModelTestBase.CustomValueComparer<Point>(),
+                providerValueComparer: new CompiledModelTestBase.CustomValueComparer<Point>());
+            point.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
+            point.AddAnnotation("Relational:ColumnType", "geometry");
+            point.AddAnnotation("Relational:DefaultValue", (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=0;POINT Z(0 0 0)"));
+
             var refTypeArray = runtimeEntityType.AddProperty(
                 "RefTypeArray",
                 typeof(IPAddress[]),
@@ -128,6 +141,30 @@ namespace TestNamespace
                 nullable: true);
             var refTypeListElementType = refTypeList.SetElementType(typeof(IPAddress));
             refTypeList.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
+
+            var stringWithCharSet = runtimeEntityType.AddProperty(
+                "StringWithCharSet",
+                typeof(string),
+                nullable: true,
+                valueGenerated: ValueGenerated.OnAdd,
+                valueConverter: new CastingConverter<string, string>(),
+                valueComparer: new CompiledModelTestBase.CustomValueComparer<string>(),
+                providerValueComparer: new CompiledModelTestBase.CustomValueComparer<string>());
+            stringWithCharSet.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
+            stringWithCharSet.AddAnnotation("Relational:ColumnType", "varchar(128)");
+            stringWithCharSet.AddAnnotation("Relational:DefaultValue", "String having charset");
+
+            var stringWithCollation = runtimeEntityType.AddProperty(
+                "StringWithCollation",
+                typeof(string),
+                nullable: true,
+                valueGenerated: ValueGenerated.OnAdd,
+                valueConverter: new CastingConverter<string, string>(),
+                valueComparer: new CompiledModelTestBase.CustomValueComparer<string>(),
+                providerValueComparer: new CompiledModelTestBase.CustomValueComparer<string>());
+            stringWithCollation.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
+            stringWithCollation.AddAnnotation("Relational:ColumnType", "varchar(128)");
+            stringWithCollation.AddAnnotation("Relational:DefaultValue", "String using collation");
 
             var valueTypeArray = runtimeEntityType.AddProperty(
                 "ValueTypeArray",

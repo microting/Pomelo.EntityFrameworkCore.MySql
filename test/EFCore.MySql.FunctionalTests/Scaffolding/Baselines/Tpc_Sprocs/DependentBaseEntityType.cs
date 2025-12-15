@@ -63,18 +63,18 @@ namespace TestNamespace
                 shadowIndex: -1,
                 relationshipIndex: 0,
                 storeGenerationIndex: -1);
-            id.TypeMapping = SqlServerByteTypeMapping.Default.Clone(
+            id.TypeMapping = MySqlByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)v),
+                    int (byte v) => ((int)(v)),
                     byte (byte v) => v),
                 keyComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)v),
+                    int (byte v) => ((int)(v)),
                     byte (byte v) => v),
                 providerValueComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)v),
+                    int (byte v) => ((int)(v)),
                     byte (byte v) => v));
             id.SetCurrentValueComparer(new EntryCurrentValueComparer<byte?>(id));
             id.SetComparer(new NullableValueComparer<byte>(id.TypeMapping.Comparer));
@@ -96,7 +96,7 @@ namespace TestNamespace
                 shadowIndex: 0,
                 relationshipIndex: 1,
                 storeGenerationIndex: 0);
-            principalId.TypeMapping = SqlServerLongTypeMapping.Default.Clone(
+            principalId.TypeMapping = MySqlLongTypeMapping.Default.Clone(
                 comparer: new ValueComparer<long>(
                     bool (long v1, long v2) => v1 == v2,
                     int (long v) => ((object)v).GetHashCode(),
@@ -121,7 +121,6 @@ namespace TestNamespace
             var index = runtimeEntityType.AddIndex(
                 new[] { principalId },
                 unique: true);
-            index.AddAnnotation("Relational:Filter", "[PrincipalId] IS NOT NULL");
 
             return runtimeEntityType;
         }
