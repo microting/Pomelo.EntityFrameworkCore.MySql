@@ -12648,6 +12648,127 @@ FROM `LocustHordes` AS `l`
         Assert.Equal("Unable to cast object of type 'System.Decimal' to type 'System.TimeSpan'.", exception.Message);
     }
 
+    public override async Task Conditional_Navigation_With_Trivial_Member_Access(bool async)
+    {
+        await base.Conditional_Navigation_With_Trivial_Member_Access(async);
+
+        AssertSql(
+"""
+SELECT `u`.`Nickname`
+FROM (
+    SELECT `g`.`Nickname`, `g`.`AssignedCityName`, `g`.`CityOfBirthName`
+    FROM `Gears` AS `g`
+    UNION ALL
+    SELECT `o`.`Nickname`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`
+    FROM `Officers` AS `o`
+) AS `u`
+LEFT JOIN `Cities` AS `c` ON `u`.`AssignedCityName` = `c`.`Name`
+INNER JOIN `Cities` AS `c0` ON `u`.`CityOfBirthName` = `c0`.`Name`
+WHERE CASE
+    WHEN `c`.`Name` IS NOT NULL THEN `c`.`Name`
+    ELSE `c0`.`Name`
+END <> 'Ephyra'
+""");
+    }
+
+    public override async Task Conditional_Navigation_With_Member_Access_On_Same_Type(bool async)
+    {
+        await base.Conditional_Navigation_With_Member_Access_On_Same_Type(async);
+
+        AssertSql(
+"""
+SELECT `u`.`Nickname`, `u`.`FullName`
+FROM (
+    SELECT `g`.`Nickname`, `g`.`AssignedCityName`, `g`.`CityOfBirthName`, `g`.`FullName`
+    FROM `Gears` AS `g`
+    UNION ALL
+    SELECT `o`.`Nickname`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`
+    FROM `Officers` AS `o`
+) AS `u`
+LEFT JOIN `Cities` AS `c` ON `u`.`AssignedCityName` = `c`.`Name`
+INNER JOIN `Cities` AS `c0` ON `u`.`CityOfBirthName` = `c0`.`Name`
+WHERE CASE
+    WHEN `c`.`Name` IS NOT NULL THEN `c`.`Nation`
+    ELSE `c0`.`Nation`
+END = 'Tyrus'
+""");
+    }
+
+    public override async Task Conditional_Navigation_With_Member_Access_On_Related_Types(bool async)
+    {
+        await base.Conditional_Navigation_With_Member_Access_On_Related_Types(async);
+
+        AssertSql(
+"""
+SELECT `l`.`Name`
+FROM `LocustHordes` AS `l`
+LEFT JOIN (
+    SELECT `l0`.`Name`, `l0`.`ThreatLevel`
+    FROM `LocustLeaders` AS `l0`
+    UNION ALL
+    SELECT `l1`.`Name`, `l1`.`ThreatLevel`
+    FROM `LocustCommanders` AS `l1`
+) AS `u` ON `l`.`DeputyCommanderName` = `u`.`Name`
+LEFT JOIN `LocustCommanders` AS `l2` ON `l`.`CommanderName` = `l2`.`Name`
+WHERE CASE
+    WHEN `u`.`Name` IS NOT NULL THEN `u`.`ThreatLevel`
+    ELSE `l2`.`ThreatLevel`
+END = 4
+""");
+    }
+
+    public override async Task Correlated_collections_on_RightJoin_with_predicate(bool async)
+    {
+        await base.Correlated_collections_on_RightJoin_with_predicate(async);
+
+        AssertSql(
+"""
+SELECT `u`.`Nickname`, `u`.`SquadId`, `t`.`Id`, `w`.`Name`, `w`.`Id`
+FROM (
+    SELECT `g`.`Nickname`, `g`.`SquadId`, `g`.`FullName`, `g`.`HasSoulPatch`
+    FROM `Gears` AS `g`
+    UNION ALL
+    SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`FullName`, `o`.`HasSoulPatch`
+    FROM `Officers` AS `o`
+) AS `u`
+RIGHT JOIN `Tags` AS `t` ON `u`.`Nickname` = `t`.`GearNickName`
+LEFT JOIN `Weapons` AS `w` ON `u`.`FullName` = `w`.`OwnerFullName`
+WHERE `u`.`HasSoulPatch` = FALSE
+ORDER BY `u`.`Nickname`, `u`.`SquadId`, `t`.`Id`
+""");
+    }
+
+    public override async Task Coalesce_with_non_root_evaluatable_Convert(bool async)
+    {
+        await base.Coalesce_with_non_root_evaluatable_Convert(async);
+
+        AssertSql(
+"""
+@rank='1' (Nullable = true)
+
+SELECT `u`.`Nickname`, `u`.`SquadId`, `u`.`AssignedCityName`, `u`.`CityOfBirthName`, `u`.`FullName`, `u`.`HasSoulPatch`, `u`.`LeaderNickname`, `u`.`LeaderSquadId`, `u`.`Rank`, `u`.`Discriminator`
+FROM (
+    SELECT `g`.`Nickname`, `g`.`SquadId`, `g`.`AssignedCityName`, `g`.`CityOfBirthName`, `g`.`FullName`, `g`.`HasSoulPatch`, `g`.`LeaderNickname`, `g`.`LeaderSquadId`, `g`.`Rank`, 'Gear' AS `Discriminator`
+    FROM `Gears` AS `g`
+    UNION ALL
+    SELECT `o`.`Nickname`, `o`.`SquadId`, `o`.`AssignedCityName`, `o`.`CityOfBirthName`, `o`.`FullName`, `o`.`HasSoulPatch`, `o`.`LeaderNickname`, `o`.`LeaderSquadId`, `o`.`Rank`, 'Officer' AS `Discriminator`
+    FROM `Officers` AS `o`
+) AS `u`
+WHERE @rank = `u`.`Rank`
+""");
+    }
+
+    public override async Task Project_equality_with_value_converted_property(bool async)
+    {
+        await base.Project_equality_with_value_converted_property(async);
+
+        AssertSql(
+"""
+SELECT `m`.`Difficulty` = 'Unknown'
+FROM `Missions` AS `m`
+""");
+    }
+
     [ConditionalFact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
