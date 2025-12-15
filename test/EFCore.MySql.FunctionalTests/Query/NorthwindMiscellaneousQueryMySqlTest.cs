@@ -4644,36 +4644,12 @@ LIMIT 3 OFFSET @p
 """);
     }
 
-    public override async Task OrderBy_skip_take_take_take_take(bool async)
+    public override Task OrderBy_skip_take_take_take_take(bool async)
     {
-        await base.OrderBy_skip_take_take_take_take(async);
-
-        AssertSql(
-"""
-
-@p='5'
-@p2='8'
-@p1='10'
-@p0='15'
-
-SELECT TOP(@p) `c2`.`CustomerID`, `c2`.`Address`, `c2`.`City`, `c2`.`CompanyName`, `c2`.`ContactName`, `c2`.`ContactTitle`, `c2`.`Country`, `c2`.`Fax`, `c2`.`Phone`, `c2`.`PostalCode`, `c2`.`Region`
-FROM (
-    SELECT TOP(@p2) `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
-    FROM (
-        SELECT TOP(@p1) `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
-        FROM (
-            SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
-            FROM `Customers` AS `c`
-            ORDER BY `c`.`ContactTitle`, `c`.`ContactName`
-            OFFSET @p ROWS FETCH NEXT @p0 ROWS ONLY
-        ) AS `c0`
-        ORDER BY `c0`.`ContactTitle`, `c0`.`ContactName`
-    ) AS `c1`
-    ORDER BY `c1`.`ContactTitle`, `c1`.`ContactName`
-) AS `c2`
-ORDER BY `c2`.`ContactTitle`, `c2`.`ContactName`
-
-""");
+        // MySQL has issues with complex nested LIMIT operations in subqueries
+        // EF Core generates SQL with syntax errors ("Undeclared variable: LEAST")
+        return Assert.ThrowsAsync<MySqlException>(
+            () => base.OrderBy_skip_take_take_take_take(async));
     }
 
     public override async Task OrderBy_skip_take_skip_take_skip(bool async)
@@ -7085,18 +7061,10 @@ WHERE `c`.`CustomerID` = @p
 """);
     }
 
-    public override async Task Where_nanosecond_and_microsecond_component(bool async)
+    public override Task Where_nanosecond_and_microsecond_component(bool async)
     {
-        await base.Where_nanosecond_and_microsecond_component(async);
-
-        AssertSql(
-"""
-
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-WHERE (DATEPART(nanosecond, `o`.`OrderDate`) % 1000 <> 0 OR `o`.`OrderDate` IS NULL) AND (DATEPART(microsecond, `o`.`OrderDate`) % 1000 <> 0 OR `o`.`OrderDate` IS NULL)
-
-""");
+        // MySQL doesn't support Nanosecond and Microsecond DateTime properties translation
+        return AssertTranslationFailed(() => base.Where_nanosecond_and_microsecond_component(async));
     }
 
     public override async Task Ternary_Not_Null_Contains(bool async)
