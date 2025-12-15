@@ -513,6 +513,22 @@ The error is:
 
         }
 
+        public override async Task<string> Where_simple_closure(bool async)
+        {
+            var result = await base.Where_simple_closure(async);
+
+            AssertSql(
+"""
+@city='London' (Size = 15)
+
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+WHERE `c`.`City` = @city
+""");
+            
+            return result;
+        }
+
         public override async Task Where_indexer_closure(bool async)
         {
             await base.Where_indexer_closure(async);

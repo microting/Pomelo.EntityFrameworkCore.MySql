@@ -1,6 +1,9 @@
 using System.Data.Common;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.TestModels.Northwind;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
@@ -870,9 +873,49 @@ WHERE `m`.`ContactName` LIKE '%z%'
 
     public override async Task Multiple_occurrences_of_SqlQuery_with_db_parameter_adds_two_parameters(bool async)
     {
-        await base.Multiple_occurrences_of_SqlQuery_with_db_parameter_adds_two_parameters(async);
+        // MySQL/MariaDB doesn't differentiate parameters based on Size attribute alone
+        // Both parameters with the same name and value are treated as identical
+        // So INTERSECT returns results instead of empty set
+        using var context = CreateContext();
+        var city = "Seattle";
 
-        AssertSql();
+        var dbParameter1 = CreateDbParameter("city", city);
+        dbParameter1.Size = 7;
+        var subquery1 = context.Database.SqlQueryRaw<UnmappedCustomer>(
+            NormalizeDelimitersInRawString("SELECT * FROM [Customers] WHERE [City] = {0}"),
+            dbParameter1);
+
+        var dbParameter2 = CreateDbParameter("city", city);
+        dbParameter2.Size = 3;
+        var subquery2 = context.Database.SqlQueryRaw<UnmappedCustomer>(
+            NormalizeDelimitersInRawString("SELECT * FROM [Customers] WHERE [City] = {0}"),
+            dbParameter2);
+
+        var query = subquery1.Intersect(subquery2);
+
+        var actual = async
+            ? await query.ToArrayAsync()
+            : query.ToArray();
+
+        // MySQL treats both parameters as identical, so INTERSECT returns results
+        Assert.Single(actual);
+        Assert.Equal("WHITC", actual[0].CustomerID);
+
+        AssertSql(
+"""
+city='Seattle' (Nullable = false) (Size = 7)
+city0='Seattle' (Nullable = false) (Size = 3)
+
+SELECT `m`.`Address`, `m`.`City`, `m`.`CompanyName`, `m`.`ContactName`, `m`.`ContactTitle`, `m`.`Country`, `m`.`CustomerID`, `m`.`Fax`, `m`.`Phone`, `m`.`Region`, `m`.`PostalCode`
+FROM (
+    SELECT * FROM `Customers` WHERE `City` = @city
+) AS `m`
+INTERSECT
+SELECT `m0`.`Address`, `m0`.`City`, `m0`.`CompanyName`, `m0`.`ContactName`, `m0`.`ContactTitle`, `m0`.`Country`, `m0`.`CustomerID`, `m0`.`Fax`, `m0`.`Phone`, `m0`.`Region`, `m0`.`PostalCode`
+FROM (
+    SELECT * FROM `Customers` WHERE `City` = @city0
+) AS `m0`
+""");
     }
 
     [ConditionalFact]
