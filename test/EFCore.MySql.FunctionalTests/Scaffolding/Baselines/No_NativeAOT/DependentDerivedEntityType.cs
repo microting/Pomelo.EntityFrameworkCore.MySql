@@ -31,8 +31,8 @@ namespace TestNamespace
                 nullable: true,
                 maxLength: 20,
                 unicode: false);
-            data.AddAnnotation("Relational:IsFixedLength", true);
             data.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
+            data.AddAnnotation("Relational:IsFixedLength", true);
 
             var money = runtimeEntityType.AddProperty(
                 "Money",

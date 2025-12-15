@@ -93,9 +93,10 @@ namespace TestNamespace
             var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("PrincipalsId"), declaringEntityType.FindProperty("PrincipalsAlternateId") },
                 principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id"), principalEntityType.FindProperty("AlternateId") }),
                 principalEntityType,
-                deleteBehavior: DeleteBehavior.ClientCascade,
+                deleteBehavior: DeleteBehavior.Cascade,
                 required: true);
 
+            runtimeForeignKey.AddAnnotation("Relational:Name", "FK_PrincipalBasePrincipalDerived<DependentBase<byte?>>_Princip~1");
             return runtimeForeignKey;
         }
 
@@ -107,7 +108,6 @@ namespace TestNamespace
             runtimeEntityType.AddAnnotation("Relational:TableName", "PrincipalBasePrincipalDerived<DependentBase<byte?>>");
             runtimeEntityType.AddAnnotation("Relational:ViewName", null);
             runtimeEntityType.AddAnnotation("Relational:ViewSchema", null);
-            runtimeEntityType.AddAnnotation("SqlServer:MemoryOptimized", true);
 
             Customize(runtimeEntityType);
         }
