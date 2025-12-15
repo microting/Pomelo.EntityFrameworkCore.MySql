@@ -3796,7 +3796,14 @@ ORDER BY `o2`.`Key`
         {
             await base.Final_GroupBy_TagWith(async);
 
-            AssertSql();
+            AssertSql(
+"""
+-- foo
+
+SELECT `c`.`City`, `c`.`CustomerID`, `c`.`Address`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+ORDER BY `c`.`City`
+""");
         }
 
         [ConditionalFact]
