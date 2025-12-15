@@ -513,6 +513,13 @@ The error is:
 
         }
 
+        public override void Where_simple_closure()
+        {
+            base.Where_simple_closure();
+
+            AssertSql();
+        }
+
         public override async Task Where_indexer_closure(bool async)
         {
             await base.Where_indexer_closure(async);

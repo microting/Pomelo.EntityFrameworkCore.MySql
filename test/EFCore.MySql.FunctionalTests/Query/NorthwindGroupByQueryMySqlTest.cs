@@ -3792,6 +3792,13 @@ ORDER BY `o2`.`Key`
             return base.GroupBy_constant_with_where_on_grouping_with_aggregate_operators(async);
         }
 
+        public override async Task Final_GroupBy_TagWith(bool async)
+        {
+            await base.Final_GroupBy_TagWith(async);
+
+            AssertSql();
+        }
+
         [ConditionalFact]
         public virtual void Check_all_tests_overridden()
             => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
