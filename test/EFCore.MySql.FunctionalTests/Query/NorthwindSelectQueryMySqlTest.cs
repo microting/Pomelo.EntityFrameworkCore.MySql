@@ -179,7 +179,8 @@ ORDER BY `t`.`OrderDate`, `t`.`CustomerID`
             }
             else
             {
-                Assert.Contains("Primitive collections support has not been enabled.", message);
+                // EF Core 10 changed the error message
+                Assert.Contains("Unable to translate a collection subquery", message);
             }
 
             AssertSql();
