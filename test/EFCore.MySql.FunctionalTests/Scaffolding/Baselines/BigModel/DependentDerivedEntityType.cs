@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Scaffolding;
-using Microsoft.EntityFrameworkCore.MySql.Storage.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
+using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
@@ -79,10 +79,11 @@ namespace TestNamespace
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "char(20)",
                     size: 20,
+                    unicode: false,
                     fixedLength: true,
-                    dbType: System.Data.DbType.AnsiStringFixedLength));
-            data.AddAnnotation("Relational:IsFixedLength", true);
+                    dbType: System.Data.DbType.StringFixedLength));
             data.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
+            data.AddAnnotation("Relational:IsFixedLength", true);
 
             var money = runtimeEntityType.AddProperty(
                 "Money",
