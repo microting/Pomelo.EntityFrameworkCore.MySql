@@ -33,7 +33,6 @@ namespace TestNamespace
                 "PrincipalBaseId",
                 typeof(long),
                 propertyAccessMode: PropertyAccessMode.Field,
-                valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 sentinel: 0L);
 
@@ -43,11 +42,10 @@ namespace TestNamespace
                 StoreObjectIdentifier.Table("PrincipalBase", "mySchema"),
                 false,
                 null);
-            principalBaseIdPrincipalBase.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
             overrides.Add(StoreObjectIdentifier.Table("PrincipalBase", "mySchema"), principalBaseIdPrincipalBase);
             principalBaseId.AddAnnotation("Relational:RelationalOverrides", overrides);
 
-            principalBaseId.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
+            principalBaseId.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var principalBaseAlternateId = runtimeEntityType.AddProperty(
                 "PrincipalBaseAlternateId",
