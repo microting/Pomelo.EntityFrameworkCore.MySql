@@ -259,8 +259,10 @@ WHERE `p`.`Id` NOT IN (2, 999)
     {
         await base.Parameter_collection_Count();
 
+        var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
+
         AssertSql(
-"""
+$"""
 @ids1='2'
 @ids2='999'
 
@@ -268,7 +270,7 @@ SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
-    FROM (SELECT @ids1 AS `Value` UNION ALL VALUES (@ids2)) AS `i`
+    FROM (SELECT @ids1 AS `Value` UNION ALL VALUES {rowSql}(@ids2)) AS `i`
     WHERE `i`.`Value` > `p`.`Id`) = 1
 """);
     }
@@ -1267,8 +1269,10 @@ WHERE (
     {
         await base.Parameter_collection_in_subquery_Count_as_compiled_query();
 
+        var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
+
         AssertSql(
-"""
+$"""
 @ints1='10'
 @ints2='111'
 
@@ -1278,7 +1282,7 @@ WHERE (
     SELECT COUNT(*)
     FROM (
         SELECT `i`.`Value` AS `Value0`
-        FROM (SELECT 0 AS `_ord`, @ints1 AS `Value` UNION ALL VALUES (1, @ints2)) AS `i`
+        FROM (SELECT 0 AS `_ord`, @ints1 AS `Value` UNION ALL VALUES {rowSql}(1, @ints2)) AS `i`
         ORDER BY `i`.`_ord`
         LIMIT 18446744073709551610 OFFSET 1
     ) AS `i0`
@@ -1764,7 +1768,7 @@ SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
-    FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES (999), (1000)) AS `i`
+    FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES {rowSql}(999), {rowSql}(1000)) AS `i`
     WHERE `i`.`Value` > `p`.`Id`) = 2
 """);
     }
@@ -2511,13 +2515,15 @@ WHERE `p`.`NullableWrappedIdWithNullableComparer` NOT IN (@values1, @values2) OR
     {
         await base.Values_of_enum_casted_to_underlying_value();
 
+        var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
+
         AssertSql(
-"""
+$"""
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
-    FROM (SELECT CAST(0 AS signed) AS `Value` UNION ALL VALUES (1), (2), (3)) AS `v`
+    FROM (SELECT CAST(0 AS signed) AS `Value` UNION ALL VALUES {rowSql}(1), {rowSql}(2), {rowSql}(3)) AS `v`
     WHERE `v`.`Value` = `p`.`Int`) > 0
 """);
     }
