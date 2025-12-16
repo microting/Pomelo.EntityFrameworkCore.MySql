@@ -6826,14 +6826,49 @@ FROM `Customers` AS `c`
     {
         await base.Correlated_collection_with_distinct_without_default_identifiers_projecting_columns(async);
 
-        AssertSql();
+        if (AppConfig.ServerVersion.Supports.OuterApply)
+        {
+            AssertSql(
+                """
+SELECT `c`.`CustomerID`, `o0`.`First`, `o0`.`Second`
+FROM `Customers` AS `c`
+LEFT JOIN LATERAL (
+    SELECT DISTINCT `o`.`OrderID` AS `First`, `o`.`OrderDate` AS `Second`
+    FROM `Orders` AS `o`
+    WHERE `c`.`CustomerID` = `o`.`CustomerID`
+) AS `o0` ON TRUE
+ORDER BY `c`.`CustomerID`
+""");
+        }
+        else
+        {
+            AssertSql();
+        }
     }
 
     public override async Task Correlated_collection_with_distinct_without_default_identifiers_projecting_columns_with_navigation(bool async)
     {
         await base.Correlated_collection_with_distinct_without_default_identifiers_projecting_columns_with_navigation(async);
 
-        AssertSql();
+        if (AppConfig.ServerVersion.Supports.OuterApply)
+        {
+            AssertSql(
+                """
+SELECT `c`.`CustomerID`, `s`.`First`, `s`.`Second`, `s`.`Third`
+FROM `Customers` AS `c`
+LEFT JOIN LATERAL (
+    SELECT DISTINCT `o`.`OrderID` AS `First`, `o`.`OrderDate` AS `Second`, `c0`.`City` AS `Third`
+    FROM `Orders` AS `o`
+    LEFT JOIN `Customers` AS `c0` ON `o`.`CustomerID` = `c0`.`CustomerID`
+    WHERE `c`.`CustomerID` = `o`.`CustomerID`
+) AS `s` ON TRUE
+ORDER BY `c`.`CustomerID`, `s`.`First`, `s`.`Second`
+""");
+        }
+        else
+        {
+            AssertSql();
+        }
     }
 
     public override async Task Select_nested_collection_with_distinct(bool async)
