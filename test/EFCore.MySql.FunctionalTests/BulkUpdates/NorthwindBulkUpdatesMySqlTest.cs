@@ -76,9 +76,14 @@ WHERE FALSE
 
     public override async Task Delete_Where_OrderBy(bool async)
     {
-        await base.Delete_Where_OrderBy(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_Where_OrderBy(async));
 
-        AssertSql(
+            AssertSql(
 """
 DELETE `o`
 FROM `Order Details` AS `o`
@@ -87,13 +92,33 @@ WHERE EXISTS (
     FROM `Order Details` AS `o0`
     WHERE (`o0`.`OrderID` < 10300) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
+        }
+        else
+        {
+            await base.Delete_Where_OrderBy(async);
+
+            AssertSql(
+"""
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM `Order Details` AS `o0`
+    WHERE (`o0`.`OrderID` < 10300) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
+""");
+        }
     }
 
     public override async Task Delete_Where_OrderBy_Skip(bool async)
     {
-        await base.Delete_Where_OrderBy_Skip(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_Where_OrderBy_Skip(async));
 
-        AssertSql(
+            AssertSql(
 """
 @p='100'
 
@@ -110,13 +135,41 @@ WHERE EXISTS (
     ) AS `o1`
     WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
 """);
+        }
+        else
+        {
+            await base.Delete_Where_OrderBy_Skip(async);
+
+            AssertSql(
+"""
+@p='100'
+
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`ProductID`
+        FROM `Order Details` AS `o0`
+        WHERE `o0`.`OrderID` < 10300
+        ORDER BY `o0`.`OrderID`
+        LIMIT 18446744073709551610 OFFSET @p
+    ) AS `o1`
+    WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
+""");
+        }
     }
 
     public override async Task Delete_Where_OrderBy_Take(bool async)
     {
-        await base.Delete_Where_OrderBy_Take(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_Where_OrderBy_Take(async));
 
-        AssertSql(
+            AssertSql(
 """
 @p='100'
 
@@ -133,13 +186,41 @@ WHERE EXISTS (
     ) AS `o1`
     WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
 """);
+        }
+        else
+        {
+            await base.Delete_Where_OrderBy_Take(async);
+
+            AssertSql(
+"""
+@p='100'
+
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`ProductID`
+        FROM `Order Details` AS `o0`
+        WHERE `o0`.`OrderID` < 10300
+        ORDER BY `o0`.`OrderID`
+        LIMIT @p
+    ) AS `o1`
+    WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
+""");
+        }
     }
 
     public override async Task Delete_Where_OrderBy_Skip_Take(bool async)
     {
-        await base.Delete_Where_OrderBy_Skip_Take(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_Where_OrderBy_Skip_Take(async));
 
-        AssertSql(
+            AssertSql(
 """
 @p='100'
 
@@ -156,13 +237,41 @@ WHERE EXISTS (
     ) AS `o1`
     WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
 """);
+        }
+        else
+        {
+            await base.Delete_Where_OrderBy_Skip_Take(async);
+
+            AssertSql(
+"""
+@p='100'
+
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`ProductID`
+        FROM `Order Details` AS `o0`
+        WHERE `o0`.`OrderID` < 10300
+        ORDER BY `o0`.`OrderID`
+        LIMIT @p OFFSET @p
+    ) AS `o1`
+    WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
+""");
+        }
     }
 
     public override async Task Delete_Where_Skip(bool async)
     {
-        await base.Delete_Where_Skip(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_Where_Skip(async));
 
-        AssertSql(
+            AssertSql(
 """
 @p='100'
 
@@ -178,13 +287,40 @@ WHERE EXISTS (
     ) AS `o1`
     WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
 """);
+        }
+        else
+        {
+            await base.Delete_Where_Skip(async);
+
+            AssertSql(
+"""
+@p='100'
+
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`ProductID`
+        FROM `Order Details` AS `o0`
+        WHERE `o0`.`OrderID` < 10300
+        LIMIT 18446744073709551610 OFFSET @p
+    ) AS `o1`
+    WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
+""");
+        }
     }
 
     public override async Task Delete_Where_Take(bool async)
     {
-        await base.Delete_Where_Take(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_Where_Take(async));
 
-        AssertSql(
+            AssertSql(
 """
 @p='100'
 
@@ -200,13 +336,40 @@ WHERE EXISTS (
     ) AS `o1`
     WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
 """);
+        }
+        else
+        {
+            await base.Delete_Where_Take(async);
+
+            AssertSql(
+"""
+@p='100'
+
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`ProductID`
+        FROM `Order Details` AS `o0`
+        WHERE `o0`.`OrderID` < 10300
+        LIMIT @p
+    ) AS `o1`
+    WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
+""");
+        }
     }
 
     public override async Task Delete_Where_Skip_Take(bool async)
     {
-        await base.Delete_Where_Skip_Take(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_Where_Skip_Take(async));
 
-        AssertSql(
+            AssertSql(
 """
 @p='100'
 
@@ -222,6 +385,28 @@ WHERE EXISTS (
     ) AS `o1`
     WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
 """);
+        }
+        else
+        {
+            await base.Delete_Where_Skip_Take(async);
+
+            AssertSql(
+"""
+@p='100'
+
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`ProductID`
+        FROM `Order Details` AS `o0`
+        WHERE `o0`.`OrderID` < 10300
+        LIMIT @p OFFSET @p
+    ) AS `o1`
+    WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
+""");
+        }
     }
 
     public override async Task Delete_Where_predicate_with_GroupBy_aggregate(bool async)
@@ -283,9 +468,14 @@ WHERE `o0`.`OrderID` IN (
 
     public override async Task Delete_Where_Skip_Take_Skip_Take_causing_subquery(bool async)
     {
-        await base.Delete_Where_Skip_Take_Skip_Take_causing_subquery(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_Where_Skip_Take_Skip_Take_causing_subquery(async));
 
-        AssertSql(
+            AssertSql(
 """
 @p='100'
 @p2='5'
@@ -307,6 +497,34 @@ WHERE EXISTS (
     ) AS `o2`
     WHERE (`o2`.`OrderID` = `o`.`OrderID`) AND (`o2`.`ProductID` = `o`.`ProductID`))
 """);
+        }
+        else
+        {
+            await base.Delete_Where_Skip_Take_Skip_Take_causing_subquery(async);
+
+            AssertSql(
+"""
+@p='100'
+@p2='5'
+@p1='20'
+
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`ProductID`
+        FROM (
+            SELECT `o1`.`OrderID`, `o1`.`ProductID`
+            FROM `Order Details` AS `o1`
+            WHERE `o1`.`OrderID` < 10300
+            LIMIT @p OFFSET @p
+        ) AS `o0`
+        LIMIT @p2 OFFSET @p1
+    ) AS `o2`
+    WHERE (`o2`.`OrderID` = `o`.`OrderID`) AND (`o2`.`ProductID` = `o`.`ProductID`))
+""");
+        }
     }
 
     public override async Task Delete_Where_Distinct(bool async)
@@ -610,9 +828,14 @@ WHERE EXISTS (
 
     public override async Task Delete_with_cross_join(bool async)
     {
-        await base.Delete_with_cross_join(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_with_cross_join(async));
 
-        AssertSql(
+            AssertSql(
 """
 DELETE `o`
 FROM `Order Details` AS `o`
@@ -628,6 +851,28 @@ WHERE EXISTS (
     ) AS `o1`
     WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
+        }
+        else
+        {
+            await base.Delete_with_cross_join(async);
+
+            AssertSql(
+"""
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM `Order Details` AS `o0`
+    CROSS JOIN (
+        SELECT 1
+        FROM `Orders` AS `o2`
+        WHERE `o2`.`OrderID` < 10300
+        ORDER BY `o2`.`OrderID`
+        LIMIT 100 OFFSET 0
+    ) AS `o1`
+    WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
+""");
+        }
     }
 
     public override async Task Delete_with_cross_apply(bool async)
