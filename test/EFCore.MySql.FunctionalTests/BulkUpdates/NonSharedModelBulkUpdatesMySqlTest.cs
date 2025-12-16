@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.BulkUpdates;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
+using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.BulkUpdates;
@@ -53,9 +54,11 @@ FROM `Owner` AS `o`
 
     public override async Task Delete_predicate_based_on_optional_navigation(bool async)
     {
-        await base.Delete_predicate_based_on_optional_navigation(async);
+        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            await base.Delete_predicate_based_on_optional_navigation(async);
 
-        AssertSql(
+            AssertSql(
 """
 DELETE `p`
 FROM `Posts` AS `p`
@@ -66,6 +69,14 @@ WHERE `p`.`Id` IN (
     WHERE `b`.`Title` LIKE 'Arthur%'
 )
 """);
+        }
+        else
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'p' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_predicate_based_on_optional_navigation(async));
+        }
     }
 
     public override async Task Update_non_owned_property_on_entity_with_owned(bool async)
@@ -130,9 +141,11 @@ SET `b0`.`Title` = CAST(`b0`.`Rating` AS char),
 
     public override async Task Delete_entity_with_auto_include(bool async)
     {
-        await base.Delete_entity_with_auto_include(async);
+        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            await base.Delete_entity_with_auto_include(async);
 
-        AssertSql(
+            AssertSql(
 """
 DELETE `c`
 FROM `Context30572_Principal` AS `c`
@@ -142,6 +155,14 @@ WHERE `c`.`Id` IN (
     LEFT JOIN `Context30572_Dependent` AS `c1` ON `c0`.`DependentId` = `c1`.`Id`
 )
 """);
+        }
+        else
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'c' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_entity_with_auto_include(async));
+        }
     }
 
     public override async Task Update_with_alias_uniquification_in_setter_subquery(bool async)
