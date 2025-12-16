@@ -610,9 +610,14 @@ WHERE EXISTS (
 
     public override async Task Delete_with_cross_join(bool async)
     {
-        await base.Delete_with_cross_join(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_with_cross_join(async));
 
-        AssertSql(
+            AssertSql(
 """
 DELETE `o`
 FROM `Order Details` AS `o`
@@ -628,6 +633,28 @@ WHERE EXISTS (
     ) AS `o1`
     WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
+        }
+        else
+        {
+            await base.Delete_with_cross_join(async);
+
+            AssertSql(
+"""
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM `Order Details` AS `o0`
+    CROSS JOIN (
+        SELECT 1
+        FROM `Orders` AS `o2`
+        WHERE `o2`.`OrderID` < 10300
+        ORDER BY `o2`.`OrderID`
+        LIMIT 100 OFFSET 0
+    ) AS `o1`
+    WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
+""");
+        }
     }
 
     public override async Task Delete_with_cross_apply(bool async)
