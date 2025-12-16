@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestModels.GearsOfWarModel;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 using Xunit.Abstractions;
@@ -12306,8 +12307,10 @@ WHERE (
     {
         await base.Subquery_inside_Take_argument(async);
 
+        var rowSql = AppConfig.ServerVersion.Supports.ValuesWithRows ? "ROW" : string.Empty;
+
         AssertSql(
-"""
+$"""
 @numbers1='0'
 @numbers2='1'
 @numbers3='2'
@@ -12328,7 +12331,7 @@ LEFT JOIN (
     ) AS `w0`
     WHERE `w0`.`row` <= COALESCE((
         SELECT `n`.`Value`
-        FROM (SELECT @numbers1 AS `Value` UNION ALL VALUES (@numbers2), (@numbers3)) AS `n`
+        FROM (SELECT @numbers1 AS `Value` UNION ALL VALUES {rowSql}(@numbers2), {rowSql}(@numbers3)) AS `n`
         ORDER BY `n`.`Value`
         LIMIT 1 OFFSET 1), 0)
 ) AS `w1` ON `u`.`FullName` = `w1`.`OwnerFullName`
