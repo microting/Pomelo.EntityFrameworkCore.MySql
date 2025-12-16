@@ -1880,7 +1880,18 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
 
     public override async Task Delete_with_RightJoin(bool async)
     {
-        await base.Delete_with_RightJoin(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_with_RightJoin(async));
+        }
+        else
+        {
+            // Works as expected in MariaDB 11+.
+            await base.Delete_with_RightJoin(async);
+        }
 
         // Note: SQL validation skipped - actual SQL needs to be captured from test run
     }
