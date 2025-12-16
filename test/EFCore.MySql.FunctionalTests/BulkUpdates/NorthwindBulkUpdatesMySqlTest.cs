@@ -735,8 +735,11 @@ WHERE EXISTS (
 
     public override async Task Delete_Where_optional_navigation_predicate(bool async)
     {
-        await base.Delete_Where_optional_navigation_predicate(async);
-        AssertSql(
+        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            await base.Delete_Where_optional_navigation_predicate(async);
+
+            AssertSql(
 """
 DELETE `o`
 FROM `Order Details` AS `o`
@@ -747,6 +750,14 @@ WHERE EXISTS (
     LEFT JOIN `Customers` AS `c` ON `o1`.`CustomerID` = `c`.`CustomerID`
     WHERE (`c`.`City` LIKE 'Se%') AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
+        }
+        else
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_Where_optional_navigation_predicate(async));
+        }
     }
 
     public override async Task Delete_with_join(bool async)
@@ -877,9 +888,11 @@ WHERE EXISTS (
 
     public override async Task Delete_with_cross_apply(bool async)
     {
-        await base.Delete_with_cross_apply(async);
+        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            await base.Delete_with_cross_apply(async);
 
-        AssertSql(
+            AssertSql(
 """
 DELETE `o`
 FROM `Order Details` AS `o`
@@ -892,13 +905,23 @@ JOIN LATERAL (
 ) AS `o1` ON TRUE
 WHERE `o`.`OrderID` < 10276
 """);
+        }
+        else
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_with_cross_apply(async));
+        }
     }
 
     public override async Task Delete_with_outer_apply(bool async)
     {
-        await base.Delete_with_outer_apply(async);
+        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            await base.Delete_with_outer_apply(async);
 
-        AssertSql(
+            AssertSql(
 """
 DELETE `o`
 FROM `Order Details` AS `o`
@@ -911,6 +934,14 @@ LEFT JOIN LATERAL (
 ) AS `o1` ON TRUE
 WHERE `o`.`OrderID` < 10276
 """);
+        }
+        else
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_with_outer_apply(async));
+        }
     }
 
     public override async Task Update_Where_set_constant_TagWith(bool async)
@@ -1849,7 +1880,18 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
 
     public override async Task Delete_with_RightJoin(bool async)
     {
-        await base.Delete_with_RightJoin(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_with_RightJoin(async));
+        }
+        else
+        {
+            // Works as expected in MariaDB 11+.
+            await base.Delete_with_RightJoin(async);
+        }
 
         // Note: SQL validation skipped - actual SQL needs to be captured from test run
     }
