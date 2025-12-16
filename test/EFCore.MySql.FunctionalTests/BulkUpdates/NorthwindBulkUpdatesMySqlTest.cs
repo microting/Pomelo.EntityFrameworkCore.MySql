@@ -554,9 +554,14 @@ INNER JOIN (
 
     public override async Task Delete_with_LeftJoin(bool async)
     {
-        await base.Delete_with_LeftJoin(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_with_LeftJoin(async));
 
-        AssertSql(
+            AssertSql(
 """
 @p0='100'
 @p='0'
@@ -575,6 +580,32 @@ WHERE EXISTS (
     ) AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
     WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
+        }
+        else
+        {
+            // Works as expected in MariaDB 11+.
+            await base.Delete_with_LeftJoin(async);
+
+            AssertSql(
+"""
+@p0='100'
+@p='0'
+
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM `Order Details` AS `o0`
+    LEFT JOIN (
+        SELECT `o2`.`OrderID`
+        FROM `Orders` AS `o2`
+        WHERE `o2`.`OrderID` < 10300
+        ORDER BY `o2`.`OrderID`
+        LIMIT @p0 OFFSET @p
+    ) AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
+    WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
+""");
+        }
     }
 
     public override async Task Delete_with_cross_join(bool async)
@@ -980,16 +1011,16 @@ WHERE `c`.`CustomerID` = (
 
     public override async Task Update_Where_GroupBy_First_set_constant_3(bool async)
     {
-        if (AppConfig.ServerVersion.Type == ServerType.MySql)
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
         {
-            // Not supported by MySQL:
+            // Not supported by MySQL and older MariaDB versions:
             //     Error Code: 1093. You can't specify target table 'c' for update in FROM clause
             await Assert.ThrowsAsync<MySqlException>(
                 () => base.Update_Where_GroupBy_First_set_constant_3(async));
         }
         else
         {
-            // Works as expected in MariaDB.
+            // Works as expected in MariaDB 11+.
             await base.Update_Where_GroupBy_First_set_constant_3(async);
 
             AssertExecuteUpdateSql(
@@ -1555,7 +1586,18 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
 
     public override async Task Delete_with_LeftJoin_via_flattened_GroupJoin(bool async)
     {
-        await base.Delete_with_LeftJoin_via_flattened_GroupJoin(async);
+        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_with_LeftJoin_via_flattened_GroupJoin(async));
+        }
+        else
+        {
+            // Works as expected in MariaDB 11+.
+            await base.Delete_with_LeftJoin_via_flattened_GroupJoin(async);
+        }
 
         // Note: SQL validation skipped - actual SQL needs to be captured from test run
     }

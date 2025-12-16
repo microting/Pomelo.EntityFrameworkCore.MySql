@@ -94,8 +94,7 @@ WHERE (
 
     public override async Task Delete_GroupBy_Where_Select_First_3(bool async)
     {
-        if (AppConfig.ServerVersion.Type == ServerType.MariaDb &&
-            AppConfig.ServerVersion.Version >= new Version(11, 1))
+        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
         {
             await base.Delete_GroupBy_Where_Select_First_3(async);
 
@@ -118,7 +117,7 @@ WHERE (`a`.`CountryId` = 1) AND `a`.`Id` IN (
         }
         else
         {
-            // Not supported by MySQL:
+            // Not supported by MySQL and older MariaDB versions:
             //     Error Code: 1093. You can't specify target table 'c' for update in FROM clause
             await Assert.ThrowsAsync<MySqlException>(
                 () => base.Delete_GroupBy_Where_Select_First_3(async));
