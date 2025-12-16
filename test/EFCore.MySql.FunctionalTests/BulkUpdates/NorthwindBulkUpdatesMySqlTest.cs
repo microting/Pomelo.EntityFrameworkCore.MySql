@@ -1011,16 +1011,16 @@ WHERE `c`.`CustomerID` = (
 
     public override async Task Update_Where_GroupBy_First_set_constant_3(bool async)
     {
-        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        if (AppConfig.ServerVersion.Type == ServerType.MySql)
         {
-            // Not supported by MySQL and older MariaDB versions:
+            // Not supported by MySQL:
             //     Error Code: 1093. You can't specify target table 'c' for update in FROM clause
             await Assert.ThrowsAsync<MySqlException>(
                 () => base.Update_Where_GroupBy_First_set_constant_3(async));
         }
         else
         {
-            // Works as expected in MariaDB 11+.
+            // Works as expected in MariaDB (all versions).
             await base.Update_Where_GroupBy_First_set_constant_3(async);
 
             AssertExecuteUpdateSql(
