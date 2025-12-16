@@ -64,7 +64,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             AppendValuesHeader(commandStringBuilder, writeOperations);
             AppendValues(commandStringBuilder, name, schema, writeOperations);
             
-            // MariaDB supports RETURNING clause, but MySQL does not
+            // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
+            // so we disable it for both databases to ensure consistent behavior across all DML operations.
             if (_options.ServerVersion.Supports.Returning && readOperations.Count > 0)
             {
                 AppendReturningClause(commandStringBuilder, readOperations);
@@ -226,7 +227,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             AppendUpdateCommandHeader(commandStringBuilder, name, schema, writeOperations);
             AppendWhereClause(commandStringBuilder, conditionOperations);
             
-            // MariaDB supports RETURNING clause, but MySQL does not
+            // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
+            // so we disable it for both databases to ensure consistent behavior across all DML operations.
             if (_options.ServerVersion.Supports.Returning)
             {
                 AppendReturningClause(commandStringBuilder, readOperations, anyReadOperations ? null : "1");
@@ -271,7 +273,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             AppendDeleteCommandHeader(commandStringBuilder, name, schema);
             AppendWhereClause(commandStringBuilder, conditionOperations);
             
-            // MariaDB supports RETURNING clause, but MySQL does not
+            // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
+            // so we disable it for both databases to ensure consistent behavior across all DML operations.
             if (_options.ServerVersion.Supports.Returning)
             {
                 AppendReturningClause(commandStringBuilder, [], "1");
