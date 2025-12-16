@@ -89,7 +89,7 @@ namespace Microsoft.EntityFrameworkCore
             public override bool InformationSchemaCheckConstraintsTable => ServerVersion.Version >= new Version(8, 0, 16); // MySQL is missing the explicit TABLE_NAME column that MariaDB supports, so always join the TABLE_CONSTRAINTS table when accessing CHECK_CONSTRAINTS for any database server that supports CHECK_CONSTRAINTS.
             public override bool MySqlBugLimit0Offset0ExistsWorkaround => true;
             public override bool DescendingIndexes => ServerVersion.Version >= new Version(8, 0, 1);
-            public override bool Returning => ServerVersion.Version >= new Version(8, 0, 21);
+            public override bool Returning => false; // MySQL does not support the RETURNING clause
             public override bool CommonTableExpressions => ServerVersion.Version >= new Version(8, 0, 1);
             public override bool LimitWithinInAllAnySomeSubquery => false;
             public override bool LimitWithNonConstantValue => false;
