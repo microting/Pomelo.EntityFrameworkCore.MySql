@@ -79,6 +79,16 @@ FROM `Order Details` AS `o`
             AssertSql();
         }
 
+        public override async Task Contains_with_local_enumerable_inline_closure_mix(bool async)
+        {
+            // Issue #31776
+            await Assert.ThrowsAsync<InvalidOperationException>(
+                async () =>
+                    await base.Contains_with_local_enumerable_inline_closure_mix(async));
+
+            AssertSql();
+        }
+
         public override Task Contains_inside_Average_without_GroupBy(bool async)
             => AssertAverage(
                 async,
