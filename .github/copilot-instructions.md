@@ -1,13 +1,13 @@
 # Pomelo.EntityFrameworkCore.MySql
 
-Pomelo.EntityFrameworkCore.MySql is the most popular Entity Framework Core provider for MySQL compatible databases. It supports EF Core 9.0 and uses MySqlConnector for high-performance database server communication. The repository contains multiple NuGet packages and a comprehensive test suite.
+Pomelo.EntityFrameworkCore.MySql is the most popular Entity Framework Core provider for MySQL compatible databases. It supports EF Core 10.0 and uses MySqlConnector for high-performance database server communication. The repository contains multiple NuGet packages and a comprehensive test suite.
 
 Always reference these instructions first and only fallback to search or bash commands when you encounter unexpected information that does not match the info here.
 
 ## Working Effectively
 
 ### Prerequisites and Setup
-- Install .NET 9.0.100 SDK: `curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 9.0.100`
+- Install .NET 10.0.100 SDK: `curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 10.0.100`
 - Add to PATH: `export PATH="$HOME/.dotnet:$PATH"`
 - Install EF Core tools: `dotnet tool restore` (takes ~1-2 seconds)
 - **CRITICAL**: Create `/tmp/nuget.config` with clean NuGet sources due to network access issues:
@@ -63,7 +63,7 @@ echo "MySQL is ready!"
 **WARNING**: The full test suite includes hundreds of tests across multiple projects. Each functional/integration test requires database connections and can be slow. Plan accordingly.
 
 ### EF Core Tools
-- **Verify tools**: `dotnet ef --version` (should show version 9.0.0)
+- **Verify tools**: `dotnet ef --version` (should show version 10.0.0)
 - **Scaffolding**: `dotnet ef dbcontext scaffold "<connection-string>" "Pomelo.EntityFrameworkCore.MySql" --output-dir <dir> --context <ContextName> --force`
 - **Migration commands**: Available but require properly configured DbContext
 
