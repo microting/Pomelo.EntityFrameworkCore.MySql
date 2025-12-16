@@ -6676,7 +6676,17 @@ LIMIT @p OFFSET @p
         await base.Skip_0_Take_0_works_when_constant(async);
 
         AssertSql(
-            """
+            AppConfig.ServerVersion.Supports.MySqlBugLimit0Offset0ExistsWorkaround
+                ? """
+SELECT EXISTS (
+    SELECT 1
+    FROM `Orders` AS `o`
+    WHERE FALSE)
+FROM `Customers` AS `c`
+WHERE `c`.`CustomerID` LIKE 'F%'
+ORDER BY `c`.`CustomerID`
+"""
+                : """
 SELECT EXISTS (
     SELECT 1
     FROM `Orders` AS `o`
