@@ -114,14 +114,25 @@ WHERE `j`.`Id` = @p
 LIMIT 1
 """,
                 //
-                """
+                InsertJsonDocument(
+                    // MySQL 8.0.40+ reorders JSON keys alphabetically
+                    mySqlDocument: """
+@expected='{"ID":"00000000-0000-0000-0000-000000000000","Age":25,"Name":"Joe","IsVip":false,"Orders":[{"Price":99.5,"ShippingDate":"2019-10-01","ShippingAddress":"Some address 1"},{"Price":23.1,"ShippingDate":"2019-10-10","ShippingAddress":"Some address 2"}],"Statistics":{"Nested":{"IntArray":[3,4],"SomeProperty":10,"SomeNullableInt":20,"SomeNullableGuid":"d5f2685d-e5c4-47e5-97aa-d0266154eb2d"},"Visits":4,"Purchases":3}}' (Size = 4000)
+
+SELECT `j`.`Id`, `j`.`CustomerJObject`, `j`.`CustomerJToken`
+FROM `JsonEntities` AS `j`
+WHERE `j`.`CustomerJToken` = CAST(@expected AS json)
+LIMIT 2
+""",
+                    // MariaDB preserves original JSON key order
+                    mariaDbDocument: """
 @expected='{"Name":"Joe","Age":25,"ID":"00000000-0000-0000-0000-000000000000","IsVip":false,"Statistics":{"Visits":4,"Purchases":3,"Nested":{"SomeProperty":10,"SomeNullableInt":20,"SomeNullableGuid":"d5f2685d-e5c4-47e5-97aa-d0266154eb2d","IntArray":[3,4]}},"Orders":[{"Price":99.5,"ShippingAddress":"Some address 1","ShippingDate":"2019-10-01"},{"Price":23.1,"ShippingAddress":"Some address 2","ShippingDate":"2019-10-10"}]}' (Size = 4000)
 
 SELECT `j`.`Id`, `j`.`CustomerJObject`, `j`.`CustomerJToken`
 FROM `JsonEntities` AS `j`
 WHERE `j`.`CustomerJToken` = @expected
 LIMIT 2
-""");
+"""));
         }
 
         [Fact]
