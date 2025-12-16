@@ -99,6 +99,7 @@ namespace Microsoft.EntityFrameworkCore
             public override bool WhereSubqueryReferencesOuterQuery => false;
             public override bool FieldReferenceInTableValueConstructor => false;
             public override bool CollationCharacterSetApplicabilityWithFullCollationNameColumn => ServerVersion.Version >= new Version(10, 10, 1);
+            public override bool DeleteWithSelfReferencingSubquery => ServerVersion.Version >= new Version(11, 0, 0); // MariaDB 11+ supports DELETE with self-referencing subqueries
 
             public override bool JsonTableImplementationStable => false;
             public override bool JsonTableImplementationWithoutMariaDbBugs => false;
