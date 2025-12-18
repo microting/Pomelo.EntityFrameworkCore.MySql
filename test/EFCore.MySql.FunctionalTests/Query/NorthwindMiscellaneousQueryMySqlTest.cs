@@ -2165,7 +2165,25 @@ ORDER BY `c`.`CustomerID`
     {
         await base.Select_correlated_subquery_ordered(async);
 
-        AssertSql();
+        AssertSql(
+            """
+@p='3'
+
+SELECT `c0`.`CustomerID`, `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`
+FROM (
+    SELECT `c`.`CustomerID`
+    FROM `Customers` AS `c`
+    ORDER BY `c`.`CustomerID`
+    LIMIT @p
+) AS `c0`
+LEFT JOIN LATERAL (
+    SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`, `c0`.`CustomerID` AS `CustomerID0`
+    FROM `Orders` AS `o`
+    ORDER BY `o`.`OrderID`, `c0`.`CustomerID`
+    LIMIT 2 OFFSET 100
+) AS `o0` ON TRUE
+ORDER BY `c0`.`CustomerID`, `o0`.`OrderID`, `o0`.`CustomerID0`
+""");
     }
 
     public override async Task Select_nested_collection_in_anonymous_type_returning_ordered_queryable(bool async)
@@ -2204,7 +2222,17 @@ ORDER BY `c`.`CustomerID`, `o0`.`OrderID`
     {
         await base.Select_subquery_recursive_trivial(async);
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `e`.`EmployeeID`, `s`.`EmployeeID`, `s`.`EmployeeID0`, `s`.`City`, `s`.`Country`, `s`.`FirstName`, `s`.`ReportsTo`, `s`.`Title`
+FROM `Employees` AS `e`
+LEFT JOIN LATERAL (
+    SELECT `e0`.`EmployeeID`, `e1`.`EmployeeID` AS `EmployeeID0`, `e1`.`City`, `e1`.`Country`, `e1`.`FirstName`, `e1`.`ReportsTo`, `e1`.`Title`
+    FROM `Employees` AS `e0`
+    LEFT JOIN `Employees` AS `e1` ON TRUE
+) AS `s` ON TRUE
+ORDER BY `e`.`EmployeeID`, `s`.`EmployeeID`, `s`.`EmployeeID0`
+""");
     }
 
     public override async Task Where_subquery_on_bool(bool async)
@@ -2774,7 +2802,32 @@ LEFT JOIN (
     {
         await base.SelectMany_correlated_subquery_hard(async);
 
-        AssertSql();
+        AssertSql(
+            """
+@p='91'
+
+SELECT `c1`.`City` AS `c1`, `e0`.`City`, `e0`.`c1`
+FROM (
+    SELECT DISTINCT `c0`.`City`
+    FROM (
+        SELECT `c`.`City`
+        FROM `Customers` AS `c`
+        LIMIT @p
+    ) AS `c0`
+) AS `c1`
+JOIN LATERAL (
+    SELECT `e`.`City`, `c1`.`City` AS `c1`
+    FROM `Employees` AS `e`
+    WHERE (`c1`.`City` = `e`.`City`) OR (`c1`.`City` IS NULL AND (`e`.`City` IS NULL))
+    LIMIT 9
+) AS `e0` ON TRUE
+JOIN LATERAL (
+    SELECT 1
+    FROM `Employees` AS `e1`
+    WHERE (`e0`.`City` = `e1`.`City`) OR (`e0`.`City` IS NULL AND (`e1`.`City` IS NULL))
+    LIMIT 9
+) AS `e2` ON TRUE
+""");
     }
 
     public override async Task SelectMany_cartesian_product_with_ordering(bool async)
