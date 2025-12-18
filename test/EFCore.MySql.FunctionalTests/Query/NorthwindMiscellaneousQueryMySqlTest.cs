@@ -2795,7 +2795,17 @@ LEFT JOIN (
     {
         await base.SelectMany_correlated_with_Select_value_type_and_DefaultIfEmpty_in_selector(async);
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT COALESCE(`o0`.`OrderID`, 0)
+FROM `Customers` AS `c`
+LEFT JOIN LATERAL (
+    SELECT `o`.`OrderID`
+    FROM `Orders` AS `o`
+    WHERE (`c`.`CustomerID` = `o`.`CustomerID`) AND (`o`.`CustomerID` = 'NONEXISTENT')
+    LIMIT 2
+) AS `o0` ON TRUE
+""");
     }
 
     public override async Task SelectMany_correlated_subquery_hard(bool async)
@@ -4641,7 +4651,29 @@ ORDER BY `s`.`OrderID`, `o1`.`OrderDate`
     {
         await base.DefaultIfEmpty_in_subquery_nested_filter_order_comparison(async);
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `c`.`CustomerID`, `s`.`OrderID`, `o2`.`OrderDate`
+FROM `Customers` AS `c`
+CROSS JOIN (
+    SELECT `o0`.`OrderID`
+    FROM (
+        SELECT 1
+    ) AS `e`
+    LEFT JOIN (
+        SELECT `o`.`OrderID`
+        FROM `Orders` AS `o`
+        WHERE `o`.`OrderID` > 11050
+    ) AS `o0` ON TRUE
+) AS `s`
+LEFT JOIN LATERAL (
+    SELECT `o1`.`OrderID`, `o1`.`OrderDate`
+    FROM `Orders` AS `o1`
+    WHERE `o1`.`OrderID` <= (CHAR_LENGTH(`c`.`CustomerID`) + 10250)
+) AS `o2` ON TRUE
+WHERE (`c`.`City` = 'Seattle') AND (`s`.`OrderID` IS NOT NULL AND (`o2`.`OrderID` IS NOT NULL))
+ORDER BY `s`.`OrderID`, `o2`.`OrderDate`
+""");
     }
 
     public override async Task OrderBy_skip_take(bool async)
