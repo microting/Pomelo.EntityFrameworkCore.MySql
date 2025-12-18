@@ -25,6 +25,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
 
         private SelectExpression _currentSelectExpression;
         private SelectExpression _parentSelectExpression;
+        private bool _insideDeleteOrUpdate;
 
         private readonly MySqlContainsAggregateFunctionExpressionVisitor _mySqlContainsAggregateFunctionExpressionVisitor = new MySqlContainsAggregateFunctionExpressionVisitor();
 
@@ -45,6 +46,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                 MySqlJsonTableExpression jsonTableExpression => VisitJsonTable(jsonTableExpression),
 
                 SelectExpression selectExpression => VisitSelect(selectExpression),
+                DeleteExpression deleteExpression => VisitDelete(deleteExpression),
+                UpdateExpression updateExpression => VisitUpdate(updateExpression),
 
                 ShapedQueryExpression shapedQueryExpression => shapedQueryExpression.Update(Visit(shapedQueryExpression.QueryExpression), Visit(shapedQueryExpression.ShaperExpression)),
                 _ => base.VisitExtension(extensionExpression)
@@ -54,10 +57,22 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             => CheckSupport(rowNumberExpression, _options.ServerVersion.Supports.WindowFunctions);
 
         protected virtual Expression VisitCrossApply(CrossApplyExpression crossApplyExpression)
-            => CheckSupport(crossApplyExpression, _options.ServerVersion.Supports.CrossApply);
+        {
+            // When inside DELETE/UPDATE operations and DeleteWithSelfReferencingSubquery is not supported,
+            // allow the query to reach the database so it can throw the expected MySqlException
+            // (Error Code 1093: "You can't specify target table for update in FROM clause")
+            var shouldCheckSupport = !_insideDeleteOrUpdate || _options.ServerVersion.Supports.DeleteWithSelfReferencingSubquery;
+            return CheckSupport(crossApplyExpression, shouldCheckSupport && _options.ServerVersion.Supports.CrossApply);
+        }
 
         protected virtual Expression VisitOuterApply(OuterApplyExpression outerApplyExpression)
-            => CheckSupport(outerApplyExpression, _options.ServerVersion.Supports.OuterApply);
+        {
+            // When inside DELETE/UPDATE operations and DeleteWithSelfReferencingSubquery is not supported,
+            // allow the query to reach the database so it can throw the expected MySqlException
+            // (Error Code 1093: "You can't specify target table for update in FROM clause")
+            var shouldCheckSupport = !_insideDeleteOrUpdate || _options.ServerVersion.Supports.DeleteWithSelfReferencingSubquery;
+            return CheckSupport(outerApplyExpression, shouldCheckSupport && _options.ServerVersion.Supports.OuterApply);
+        }
 
         protected virtual Expression VisitExcept(ExceptExpression exceptExpression)
             => CheckSupport(exceptExpression, _options.ServerVersion.Supports.ExceptIntercept);
@@ -139,6 +154,24 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             _parentSelectExpression = grandParentSelectExpression;
 
             return selectExpression;
+        }
+
+        protected virtual Expression VisitDelete(DeleteExpression deleteExpression)
+        {
+            var previousInsideDeleteOrUpdate = _insideDeleteOrUpdate;
+            _insideDeleteOrUpdate = true;
+            var result = base.VisitExtension(deleteExpression);
+            _insideDeleteOrUpdate = previousInsideDeleteOrUpdate;
+            return result;
+        }
+
+        protected virtual Expression VisitUpdate(UpdateExpression updateExpression)
+        {
+            var previousInsideDeleteOrUpdate = _insideDeleteOrUpdate;
+            _insideDeleteOrUpdate = true;
+            var result = base.VisitExtension(updateExpression);
+            _insideDeleteOrUpdate = previousInsideDeleteOrUpdate;
+            return result;
         }
 
         protected virtual Expression CheckSupport(Expression expression, bool isSupported)
