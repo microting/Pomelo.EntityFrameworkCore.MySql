@@ -167,19 +167,16 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
         }
 
         protected virtual Expression VisitDelete(DeleteExpression deleteExpression)
-        {
-            var previousInsideDeleteOrUpdate = _insideDeleteOrUpdate;
-            _insideDeleteOrUpdate = true;
-            var result = base.VisitExtension(deleteExpression);
-            _insideDeleteOrUpdate = previousInsideDeleteOrUpdate;
-            return result;
-        }
+            => VisitNonQueryExpression(deleteExpression);
 
         protected virtual Expression VisitUpdate(UpdateExpression updateExpression)
+            => VisitNonQueryExpression(updateExpression);
+
+        private Expression VisitNonQueryExpression(Expression expression)
         {
             var previousInsideDeleteOrUpdate = _insideDeleteOrUpdate;
             _insideDeleteOrUpdate = true;
-            var result = base.VisitExtension(updateExpression);
+            var result = base.VisitExtension(expression);
             _insideDeleteOrUpdate = previousInsideDeleteOrUpdate;
             return result;
         }
