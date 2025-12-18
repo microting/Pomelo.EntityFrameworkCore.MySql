@@ -410,8 +410,10 @@ WHERE EXTRACT(year FROM `o0`.`OrderDate`) = 2000
 
     public override async Task Delete_Where_using_navigation_2(bool async)
     {
-        await base.Delete_Where_using_navigation_2(async);
-        AssertSql(
+        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+        {
+            await base.Delete_Where_using_navigation_2(async);
+            AssertSql(
 """
 DELETE `o`
 FROM `Order Details` AS `o`
@@ -422,6 +424,26 @@ WHERE EXISTS (
     LEFT JOIN `Customers` AS `c` ON `o1`.`CustomerID` = `c`.`CustomerID`
     WHERE (`c`.`CustomerID` LIKE 'F%') AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
+        }
+        else
+        {
+            // Not supported by MySQL and older MariaDB versions:
+            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
+            await Assert.ThrowsAsync<MySqlException>(
+                () => base.Delete_Where_using_navigation_2(async));
+
+            AssertSql(
+"""
+DELETE `o`
+FROM `Order Details` AS `o`
+WHERE EXISTS (
+    SELECT 1
+    FROM `Order Details` AS `o0`
+    INNER JOIN `Orders` AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
+    LEFT JOIN `Customers` AS `c` ON `o1`.`CustomerID` = `c`.`CustomerID`
+    WHERE (`c`.`CustomerID` LIKE 'F%') AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
+""");
+        }
     }
 
     public override async Task Delete_Union(bool async)
