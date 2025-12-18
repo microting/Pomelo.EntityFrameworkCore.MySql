@@ -58,20 +58,30 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
 
         protected virtual Expression VisitCrossApply(CrossApplyExpression crossApplyExpression)
         {
-            // When inside DELETE/UPDATE operations and DeleteWithSelfReferencingSubquery is not supported,
-            // allow the query to reach the database so it can throw the expected MySqlException
-            // (Error Code 1093: "You can't specify target table for update in FROM clause")
-            var shouldCheckSupport = !_insideDeleteOrUpdate || _options.ServerVersion.Supports.DeleteWithSelfReferencingSubquery;
-            return CheckSupport(crossApplyExpression, shouldCheckSupport && _options.ServerVersion.Supports.CrossApply);
+            // When inside DELETE/UPDATE operations, allow the query to pass through without checking support.
+            // This allows:
+            // - Older databases to throw MySqlException (Error 1093: "You can't specify target table for update in FROM clause")
+            // - Newer databases to translate to JOIN LATERAL or handle natively
+            if (_insideDeleteOrUpdate)
+            {
+                return base.VisitExtension(crossApplyExpression);
+            }
+            
+            return CheckSupport(crossApplyExpression, _options.ServerVersion.Supports.CrossApply);
         }
 
         protected virtual Expression VisitOuterApply(OuterApplyExpression outerApplyExpression)
         {
-            // When inside DELETE/UPDATE operations and DeleteWithSelfReferencingSubquery is not supported,
-            // allow the query to reach the database so it can throw the expected MySqlException
-            // (Error Code 1093: "You can't specify target table for update in FROM clause")
-            var shouldCheckSupport = !_insideDeleteOrUpdate || _options.ServerVersion.Supports.DeleteWithSelfReferencingSubquery;
-            return CheckSupport(outerApplyExpression, shouldCheckSupport && _options.ServerVersion.Supports.OuterApply);
+            // When inside DELETE/UPDATE operations, allow the query to pass through without checking support.
+            // This allows:
+            // - Older databases to throw MySqlException (Error 1093: "You can't specify target table for update in FROM clause")
+            // - Newer databases to translate to LEFT JOIN LATERAL or handle natively
+            if (_insideDeleteOrUpdate)
+            {
+                return base.VisitExtension(outerApplyExpression);
+            }
+            
+            return CheckSupport(outerApplyExpression, _options.ServerVersion.Supports.OuterApply);
         }
 
         protected virtual Expression VisitExcept(ExceptExpression exceptExpression)
