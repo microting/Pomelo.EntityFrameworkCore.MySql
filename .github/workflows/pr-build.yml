@@ -314,7 +314,7 @@ jobs:
       - name: Functional Tests
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
-        run: dotnet test test/EFCore.MySql.FunctionalTests -c Debug --no-build --logger "GitHubActions;report-warnings=false" --verbosity detailed
+        run: dotnet test test/EFCore.MySql.FunctionalTests -c Debug --no-build --logger "GitHubActions;report-warnings=false" --verbosity normal
       - name: Tests
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
