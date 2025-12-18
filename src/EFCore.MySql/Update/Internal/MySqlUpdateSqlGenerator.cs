@@ -63,14 +63,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             AppendInsertCommandHeader(commandStringBuilder, name, schema, writeOperations);
             AppendValuesHeader(commandStringBuilder, writeOperations);
             AppendValues(commandStringBuilder, name, schema, writeOperations);
-            
+
             // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
             // so we disable it for both databases to ensure consistent behavior across all DML operations.
             if (_options.ServerVersion.Supports.Returning && readOperations.Count > 0)
             {
                 AppendReturningClause(commandStringBuilder, readOperations);
             }
-            
+
             commandStringBuilder.AppendLine(SqlGenerationHelper.StatementTerminator);
 
             requiresTransaction = false;
@@ -183,17 +183,17 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             int commandPosition,
             out bool requiresTransaction)
         {
-            var startLength = commandStringBuilder.Length;
+            // var startLength = commandStringBuilder.Length;
             var result = _options.ServerVersion.Supports.Returning
                 ? AppendUpdateReturningOperation(commandStringBuilder, command, commandPosition, out requiresTransaction)
                 : base.AppendUpdateOperation(commandStringBuilder, command, commandPosition, out requiresTransaction);
-            
+
             // Debug: Log the generated SQL
-            var generatedSql = commandStringBuilder.ToString(startLength, commandStringBuilder.Length - startLength);
-            Console.WriteLine($"[DEBUG SQL Generated] AppendUpdateOperation:");
-            Console.WriteLine(generatedSql);
-            Console.WriteLine($"[DEBUG SQL Generated] Table: {command.TableName}, Columns: {command.ColumnModifications.Count}");
-            
+            // var generatedSql = commandStringBuilder.ToString(startLength, commandStringBuilder.Length - startLength);
+            // Console.WriteLine($"[DEBUG SQL Generated] AppendUpdateOperation:");
+            // Console.WriteLine(generatedSql);
+            // Console.WriteLine($"[DEBUG SQL Generated] Table: {command.TableName}, Columns: {command.ColumnModifications.Count}");
+
             return result;
         }
 
@@ -226,14 +226,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
 
             AppendUpdateCommandHeader(commandStringBuilder, name, schema, writeOperations);
             AppendWhereClause(commandStringBuilder, conditionOperations);
-            
+
             // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
             // so we disable it for both databases to ensure consistent behavior across all DML operations.
             if (_options.ServerVersion.Supports.Returning)
             {
                 AppendReturningClause(commandStringBuilder, readOperations, anyReadOperations ? null : "1");
             }
-            
+
             commandStringBuilder.AppendLine(SqlGenerationHelper.StatementTerminator);
 
             return anyReadOperations
@@ -272,14 +272,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
 
             AppendDeleteCommandHeader(commandStringBuilder, name, schema);
             AppendWhereClause(commandStringBuilder, conditionOperations);
-            
+
             // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
             // so we disable it for both databases to ensure consistent behavior across all DML operations.
             if (_options.ServerVersion.Supports.Returning)
             {
                 AppendReturningClause(commandStringBuilder, [], "1");
             }
-            
+
             commandStringBuilder.AppendLine(SqlGenerationHelper.StatementTerminator);
 
             return ResultSetMapping.LastInResultSet | ResultSetMapping.ResultSetWithRowsAffectedOnly;
