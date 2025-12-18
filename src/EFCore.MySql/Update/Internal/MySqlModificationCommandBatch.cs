@@ -120,11 +120,11 @@ public class MySqlModificationCommandBatch : AffectedCountModificationCommandBat
         ApplyPendingBulkInsertCommands();
 
         base.Complete(moreBatchesExpected);
-        
+
         // DEBUG: Log the complete SQL command
-        var sqlText = SqlBuilder.ToString();
-        Console.WriteLine($"[DEBUG SQL COMPLETE] SQL Text Length: {sqlText.Length}");
-        Console.WriteLine($"[DEBUG SQL COMPLETE] SQL Text: {sqlText}");
+        // var sqlText = SqlBuilder.ToString();
+        // Console.WriteLine($"[DEBUG SQL COMPLETE] SQL Text Length: {sqlText.Length}");
+        // Console.WriteLine($"[DEBUG SQL COMPLETE] SQL Text: {sqlText}");
     }
 
     /// <summary>
