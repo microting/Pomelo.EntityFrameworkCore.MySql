@@ -6651,8 +6651,29 @@ ORDER BY `c`.`CustomerID`
     {
         await base.Skip_0_Take_0_works_when_parameter(async);
 
-        AssertSql(
-            """
+        if (AppConfig.ServerVersion.Supports.MySqlBugLimit0Offset0ExistsWorkaround)
+        {
+            AssertSql(
+                """
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+WHERE FALSE
+ORDER BY `c`.`CustomerID`
+""",
+                //
+                """
+@p='1'
+
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+WHERE FALSE
+ORDER BY `c`.`CustomerID`
+""");
+        }
+        else
+        {
+            AssertSql(
+                """
 @p='0'
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -6660,8 +6681,8 @@ FROM `Customers` AS `c`
 ORDER BY `c`.`CustomerID`
 LIMIT @p OFFSET @p
 """,
-            //
-            """
+                //
+                """
 @p='1'
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -6669,6 +6690,7 @@ FROM `Customers` AS `c`
 ORDER BY `c`.`CustomerID`
 LIMIT @p OFFSET @p
 """);
+        }
     }
 
     public override async Task Skip_0_Take_0_works_when_constant(bool async)
