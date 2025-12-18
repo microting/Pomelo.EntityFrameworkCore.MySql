@@ -36,13 +36,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         public MySqlStructuralJsonTypeMapping(string storeType)
             : base(storeType, typeof(JsonTypePlaceholder), dbType: null)
         {
-            Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping created - StoreType: {storeType}, ClrType: JsonTypePlaceholder, DbType: null");
+            // Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping created - StoreType: {storeType}, ClrType: JsonTypePlaceholder, DbType: null");
         }
 
         protected MySqlStructuralJsonTypeMapping(RelationalTypeMappingParameters parameters)
             : base(parameters)
         {
-            Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping cloned - StoreType: {parameters.StoreType}");
+            // Console.WriteLine($"[DEBUG] MySqlStructuralJsonTypeMapping cloned - StoreType: {parameters.StoreType}");
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// </summary>
         public override MethodInfo GetDataReaderMethod()
         {
-            Console.WriteLine("[DEBUG] MySqlStructuralJsonTypeMapping.GetDataReaderMethod() called - returning DbDataReader.GetString");
+            // Console.WriteLine("[DEBUG] MySqlStructuralJsonTypeMapping.GetDataReaderMethod() called - returning DbDataReader.GetString");
             return _getStringMethod;
         }
 
@@ -60,7 +60,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// </summary>
         public override Expression CustomizeDataReaderExpression(Expression expression)
         {
-            Console.WriteLine("[DEBUG] MySqlStructuralJsonTypeMapping.CustomizeDataReaderExpression() called - converting string to MemoryStream");
+            // Console.WriteLine("[DEBUG] MySqlStructuralJsonTypeMapping.CustomizeDataReaderExpression() called - converting string to MemoryStream");
             return Expression.New(
                 _memoryStreamConstructor,
                 Expression.Call(
