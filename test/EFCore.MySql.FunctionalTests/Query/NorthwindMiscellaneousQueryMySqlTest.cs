@@ -6651,17 +6651,16 @@ ORDER BY `c`.`CustomerID`
     {
         await base.Skip_0_Take_0_works_when_parameter(async);
 
-        AssertSql(
-            """
-@p='0'
-
+        if (AppConfig.ServerVersion.Supports.MySqlBugLimit0Offset0ExistsWorkaround)
+        {
+            AssertSql(
+                """
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-ORDER BY `c`.`CustomerID`
-LIMIT @p OFFSET @p
+WHERE FALSE
 """,
-            //
-            """
+                //
+                """
 @p='1'
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
@@ -6669,6 +6668,28 @@ FROM `Customers` AS `c`
 ORDER BY `c`.`CustomerID`
 LIMIT @p OFFSET @p
 """);
+        }
+        else
+        {
+            AssertSql(
+                """
+@p='0'
+
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+ORDER BY `c`.`CustomerID`
+LIMIT @p OFFSET @p
+""",
+                //
+                """
+@p='1'
+
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+ORDER BY `c`.`CustomerID`
+LIMIT @p OFFSET @p
+""");
+        }
     }
 
     public override async Task Skip_0_Take_0_works_when_constant(bool async)
@@ -6676,7 +6697,17 @@ LIMIT @p OFFSET @p
         await base.Skip_0_Take_0_works_when_constant(async);
 
         AssertSql(
-            """
+            AppConfig.ServerVersion.Supports.MySqlBugLimit0Offset0ExistsWorkaround
+                ? """
+SELECT EXISTS (
+    SELECT 1
+    FROM `Orders` AS `o`
+    WHERE FALSE)
+FROM `Customers` AS `c`
+WHERE `c`.`CustomerID` LIKE 'F%'
+ORDER BY `c`.`CustomerID`
+"""
+                : """
 SELECT EXISTS (
     SELECT 1
     FROM `Orders` AS `o`
