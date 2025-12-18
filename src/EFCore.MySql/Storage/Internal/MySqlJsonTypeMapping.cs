@@ -131,7 +131,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// </summary>
         public override MethodInfo GetDataReaderMethod()
         {
-            Console.WriteLine($"[DEBUG] MySqlJsonTypeMapping.GetDataReaderMethod() called - ClrType: {ClrType.Name} - returning DbDataReader.GetString");
+            // Console.WriteLine($"[DEBUG] MySqlJsonTypeMapping.GetDataReaderMethod() called - ClrType: {ClrType.Name} - returning DbDataReader.GetString");
             return _getString;
         }
 
@@ -142,7 +142,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Storage.Internal
         /// </summary>
         public override Expression CustomizeDataReaderExpression(Expression expression)
         {
-            Console.WriteLine($"[DEBUG] MySqlJsonTypeMapping.CustomizeDataReaderExpression() called - ClrType: {ClrType.Name} - no conversion");
+            // Console.WriteLine($"[DEBUG] MySqlJsonTypeMapping.CustomizeDataReaderExpression() called - ClrType: {ClrType.Name} - no conversion");
             // For regular JSON columns, no conversion needed - just return the string
             return base.CustomizeDataReaderExpression(expression);
         }
