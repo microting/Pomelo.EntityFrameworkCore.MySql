@@ -37,12 +37,15 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
 
                 // MySQL has a real JSON datatype, and string parameters need to be converted to it.
                 // MariaDB defines the JSON datatype just as a synonym for LONGTEXT.
-                if (typeMapping is not null && !_options.ServerVersion.Supports.JsonDataTypeEmulation)
+                if (!_options.ServerVersion.Supports.JsonDataTypeEmulation)
                 {
+                    // Use the found type mapping, or fall back to the parameter's existing type mapping if FindMapping returns null
+                    var targetTypeMapping = typeMapping ?? sqlParameterExpression.TypeMapping;
+                    
                     return _sqlExpressionFactory.Convert(
                         sqlParameterExpression,
-                        typeMapping.ClrType, // will be typeof(string) when `sqlParameterExpression.Type`
-                        typeMapping);        // is typeof(MySqlJsonString)
+                        targetTypeMapping.ClrType, // will be typeof(string) when `sqlParameterExpression.Type`
+                        targetTypeMapping);         // is typeof(MySqlJsonString)
                 }
             }
 
