@@ -24,6 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         dbVersion:
+          - 9.4.0-mysql
           - 8.4.3-mysql
           - 8.0.40-mysql
           - 11.6.2-mariadb
