@@ -15,8 +15,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query
 
         // MySQL 9.4+ and MariaDB 11.4+ handle incompatible collations without throwing exceptions.
         // This test verifies that older versions still throw as expected.
-        [SupportedServerVersionLessThanCondition("11.4.0-mariadb")]
-        [SupportedServerVersionLessThanCondition("9.4.0-mysql")]
+        [SupportedServerVersionLessThanCondition("11.4.0-mariadb", "9.4.0-mysql")]
         [ConditionalFact]
         public void Where_with_incompatible_collations_fails()
         {
