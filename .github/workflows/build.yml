@@ -60,8 +60,8 @@ jobs:
           # MariaDB 11.8+ - Ubuntu only (Windows package not available yet)
           - dbVersion: 11.8.5-mariadb
             os: ubuntu-latest
-          # MariaDB 11.7.x - Both platforms
-          - dbVersion: 11.7.1-mariadb
+          # MariaDB 11.7.x - Both platforms (different patch versions)
+          - dbVersion: 11.7.2-mariadb
             os: ubuntu-latest
           - dbVersion: 11.7.1-mariadb
             os: windows-latest

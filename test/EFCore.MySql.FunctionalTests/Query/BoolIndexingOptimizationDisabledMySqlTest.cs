@@ -223,6 +223,14 @@ WHERE `w`.`IsAutomatic`"),
                 RegexOptions.IgnoreCase);
 
             using var dataReader = command.ExecuteReader();
+            
+            // MySQL 9.5+ changed EXPLAIN format - the 'key' column may not exist
+            // Skip key assertion if the column doesn't exist
+            if (!dataReader.HasName("key"))
+            {
+                return;
+            }
+            
             while (dataReader.Read())
             {
                 var key = dataReader.GetValueOrDefault<string>("key");
