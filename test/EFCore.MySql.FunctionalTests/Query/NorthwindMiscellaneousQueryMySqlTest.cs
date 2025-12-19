@@ -215,6 +215,12 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
         {
             if (AppConfig.ServerVersion.Supports.OuterApply)
             {
+                // MySQL >= 9.0 now supports this query pattern correctly
+                if (AppConfig.ServerVersion.Type == ServerType.MySql && AppConfig.ServerVersion.Version >= new Version(9, 0))
+                {
+                    return base.Complex_nested_query_doesnt_try_binding_to_grandparent_when_parent_returns_complex_result(async);
+                }
+
                 // MySql.Data.MySqlClient.MySqlException: Reference 'CustomerID' not supported (forward reference in item list)
                 return Assert.ThrowsAsync<MySqlException>(
                     () => base.Complex_nested_query_doesnt_try_binding_to_grandparent_when_parent_returns_complex_result(async));
