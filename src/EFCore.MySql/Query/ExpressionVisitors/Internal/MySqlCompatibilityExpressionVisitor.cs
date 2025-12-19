@@ -58,13 +58,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
 
         protected virtual Expression VisitCrossApply(CrossApplyExpression crossApplyExpression)
         {
-            // When inside DELETE/UPDATE operations, allow the query to pass through without checking support.
-            // This allows:
-            // - Older databases to throw MySqlException (Error 1093: "You can't specify target table for update in FROM clause")
-            // - Newer databases to translate to JOIN LATERAL or handle natively
-            if (_insideDeleteOrUpdate)
+            // When inside DELETE/UPDATE operations with databases that don't support self-referencing subqueries,
+            // skip the compatibility check to allow the query to reach the database where it will throw MySqlException (Error 1093).
+            // For databases that DO support self-referencing subqueries, check support normally so proper translation/handling occurs.
+            if (_insideDeleteOrUpdate && !_options.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
             {
-                return base.VisitExtension(crossApplyExpression);
+                return crossApplyExpression.Update((TableExpressionBase)Visit(crossApplyExpression.Table));
             }
             
             return CheckSupport(crossApplyExpression, _options.ServerVersion.Supports.CrossApply);
@@ -72,13 +71,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
 
         protected virtual Expression VisitOuterApply(OuterApplyExpression outerApplyExpression)
         {
-            // When inside DELETE/UPDATE operations, allow the query to pass through without checking support.
-            // This allows:
-            // - Older databases to throw MySqlException (Error 1093: "You can't specify target table for update in FROM clause")
-            // - Newer databases to translate to LEFT JOIN LATERAL or handle natively
-            if (_insideDeleteOrUpdate)
+            // When inside DELETE/UPDATE operations with databases that don't support self-referencing subqueries,
+            // skip the compatibility check to allow the query to reach the database where it will throw MySqlException (Error 1093).
+            // For databases that DO support self-referencing subqueries, check support normally so proper translation/handling occurs.
+            if (_insideDeleteOrUpdate && !_options.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
             {
-                return base.VisitExtension(outerApplyExpression);
+                return outerApplyExpression.Update((TableExpressionBase)Visit(outerApplyExpression.Table));
             }
             
             return CheckSupport(outerApplyExpression, _options.ServerVersion.Supports.OuterApply);
