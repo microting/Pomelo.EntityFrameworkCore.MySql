@@ -21,19 +21,30 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # MySQL 9.x - Ubuntu only (Windows packages not available yet)
+          # MySQL 9.5.x - Ubuntu only (Windows package not available yet)
           - dbVersion: 9.5.0-mysql
             os: ubuntu-latest
+          # MySQL 9.x - Both platforms
           - dbVersion: 9.4.0-mysql
             os: ubuntu-latest
+          - dbVersion: 9.4.0-mysql
+            os: windows-latest
           - dbVersion: 9.3.0-mysql
             os: ubuntu-latest
+          - dbVersion: 9.3.0-mysql
+            os: windows-latest
           - dbVersion: 9.2.0-mysql
             os: ubuntu-latest
+          - dbVersion: 9.2.0-mysql
+            os: windows-latest
           - dbVersion: 9.1.0-mysql
             os: ubuntu-latest
+          - dbVersion: 9.1.0-mysql
+            os: windows-latest
           - dbVersion: 9.0.1-mysql
             os: ubuntu-latest
+          - dbVersion: 9.0.1-mysql
+            os: windows-latest
           # MySQL 8.x - Both platforms
           - dbVersion: 8.4.3-mysql
             os: ubuntu-latest
@@ -43,11 +54,14 @@ jobs:
             os: ubuntu-latest
           - dbVersion: 8.0.40-mysql
             os: windows-latest
-          # MariaDB 11.7+ - Ubuntu only (Windows packages not available yet)
+          # MariaDB 11.8+ - Ubuntu only (Windows package not available yet)
           - dbVersion: 11.8.5-mariadb
             os: ubuntu-latest
-          - dbVersion: 11.7.2-mariadb
+          # MariaDB 11.7.x - Both platforms
+          - dbVersion: 11.7.1-mariadb
             os: ubuntu-latest
+          - dbVersion: 11.7.1-mariadb
+            os: windows-latest
           # MariaDB 11.x - Both platforms
           - dbVersion: 11.6.2-mariadb
             os: ubuntu-latest
