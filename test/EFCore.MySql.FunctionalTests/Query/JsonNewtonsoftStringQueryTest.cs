@@ -9,7 +9,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     // Disabled via internal access. JSON functionality is not currently supported.
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
-    internal class JsonNewtonsoftStringQueryTest : JsonStringQueryTestBase<JsonNewtonsoftStringQueryTest.JsonMicrosoftStringQueryFixture>
+    [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.JsonDataTypeEmulation))]
+    public class JsonNewtonsoftStringQueryTest : JsonStringQueryTestBase<JsonNewtonsoftStringQueryTest.JsonMicrosoftStringQueryFixture>
     {
         public JsonNewtonsoftStringQueryTest(JsonMicrosoftStringQueryFixture fixture, ITestOutputHelper testOutputHelper)
             : base(fixture)
