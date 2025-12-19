@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Associations.ComplexJson;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -18,5 +20,12 @@ public class ComplexJsonPrimitiveCollectionMySqlTest : ComplexJsonPrimitiveColle
     {
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
+
+        public override DbContextOptionsBuilder AddOptions(DbContextOptionsBuilder builder)
+        {
+            var optionsBuilder = base.AddOptions(builder);
+            new MySqlDbContextOptionsBuilder(optionsBuilder).EnablePrimitiveCollectionsSupport();
+            return optionsBuilder;
+        }
     }
 }
