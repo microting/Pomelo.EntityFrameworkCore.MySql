@@ -16,7 +16,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
 // Re-enabled to test ad-hoc JSON query scenarios
 // Skip on MariaDB due to JsonDataTypeEmulation limitations
-[SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.JsonDataTypeEmulation))]
+[SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationStable))]
 public class AdHocJsonQueryMySqlTest : AdHocJsonQueryRelationalTestBase
 {
     public AdHocJsonQueryMySqlTest(NonSharedFixture fixture)
