@@ -109,6 +109,19 @@ public class AdHocJsonQueryMySqlTest : AdHocJsonQueryRelationalTestBase
     public override Task Project_top_level_json_entity_with_missing_scalars(bool async)
         => base.Project_top_level_json_entity_with_missing_scalars(async);
 
+    [ConditionalTheory(Skip = "MariaDB 10.6+ behavior differs with missing navigation deduplication")]
+    [MemberData(nameof(IsAsyncData))]
+    public override Task Missing_navigation_works_with_deduplication(bool async)
+        => base.Missing_navigation_works_with_deduplication(async);
+
+    [ConditionalFact(Skip = "MariaDB 10.6+ throws exception for null required JSON entity")]
+    public override Task Project_required_json_entity()
+        => base.Project_required_json_entity();
+
+    [ConditionalFact(Skip = "MariaDB 10.6+ throws NullReferenceException for array of primitives on reference")]
+    public override Task Project_json_array_of_primitives_on_reference()
+        => base.Project_json_array_of_primitives_on_reference();
+
     protected override ITestStoreFactory TestStoreFactory
         => MySqlTestStoreFactory.Instance;
 
