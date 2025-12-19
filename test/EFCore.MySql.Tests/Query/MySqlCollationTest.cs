@@ -13,10 +13,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query
         {
         }
 
-        // TODO: 9.0
-        // For some reason, this test does not throw on MariaDB 11.5 (Ubuntu/Windows) or MariaDB 11.4 Ubuntu (but throws on Windows).
-        // MySQL 9.4+ also handles incompatible collations without throwing.
-        // The test is supposed to throw on older versions.
+        // MySQL 9.4+ and MariaDB 11.4+ handle incompatible collations without throwing exceptions.
+        // This test verifies that older versions still throw as expected.
         [SupportedServerVersionLessThanCondition("11.4.0-mariadb")]
         [SupportedServerVersionLessThanCondition("9.4.0-mysql")]
         [ConditionalFact]
