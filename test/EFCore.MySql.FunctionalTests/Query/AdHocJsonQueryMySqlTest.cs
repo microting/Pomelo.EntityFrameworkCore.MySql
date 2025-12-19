@@ -8,12 +8,16 @@ using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.Diagnostics.Internal;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
-// Disabled via internal access. The EF Core 7.0 JSON support isn't currently implemented.
-internal class AdHocJsonQueryMySqlTest : AdHocJsonQueryRelationalTestBase
+// Re-enabled to test ad-hoc JSON query scenarios
+// Skip on MariaDB due to JsonDataTypeEmulation limitations
+[SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.JsonDataTypeEmulation))]
+public class AdHocJsonQueryMySqlTest : AdHocJsonQueryRelationalTestBase
 {
     public AdHocJsonQueryMySqlTest(NonSharedFixture fixture)
         : base(fixture)
