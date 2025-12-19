@@ -16,9 +16,9 @@ using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
-    // Disabled via internal access. JSON functionality is not currently supported.
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
-    internal class JsonMicrosoftDomChangeTrackingTest : IClassFixture<JsonMicrosoftDomChangeTrackingTest.JsonMicrosoftDomChangeTrackingFixture>
+    [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.JsonDataTypeEmulation))]
+    public class JsonMicrosoftDomChangeTrackingTest : IClassFixture<JsonMicrosoftDomChangeTrackingTest.JsonMicrosoftDomChangeTrackingFixture>
     {
         public JsonMicrosoftDomChangeTrackingTest(JsonMicrosoftDomChangeTrackingFixture fixture)
         {
