@@ -9,7 +9,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     // Re-enabled to test JSON string query functionality using Microsoft System.Text.Json
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
-    [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.JsonDataTypeEmulation))]
+    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationStable))]
     public class JsonMicrosoftStringQueryTest : JsonStringQueryTestBase<JsonMicrosoftStringQueryTest.JsonMicrosoftStringQueryFixture>
     {
         public JsonMicrosoftStringQueryTest(JsonMicrosoftStringQueryFixture fixture, ITestOutputHelper testOutputHelper)
