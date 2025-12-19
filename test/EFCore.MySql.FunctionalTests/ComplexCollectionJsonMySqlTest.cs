@@ -21,10 +21,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests;
 /// 
 /// Requirements:
 /// - MySQL 5.7.8+ (JSON type support)
-/// - MariaDB 10.2.4+ (JSON functions support) - Currently skipped due to JsonDataTypeEmulation limitations
+/// - MariaDB 10.2.7+ (JSON alias for LONGTEXT with JSON_VALID constraint)
 /// </summary>
 [SupportedServerVersionCondition("Json")]
-[SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.JsonDataTypeEmulation))]
 public class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJsonMySqlTest.ComplexCollectionJsonMySqlFixture>
 {
     private readonly ComplexCollectionJsonMySqlFixture _fixture;
