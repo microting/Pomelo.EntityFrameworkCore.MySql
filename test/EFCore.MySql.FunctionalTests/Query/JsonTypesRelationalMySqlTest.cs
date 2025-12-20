@@ -20,22 +20,22 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        // Skip spatial type tests - MariaDB 10.6+ has different spatial JSON handling
-        [ConditionalFact(Skip = "MariaDB 10.6+ has different spatial type JSON handling (NullReferenceException)")]
+        // Skip spatial type tests for MariaDB < 11.8 (different spatial JSON handling)
+        [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.SpatialJsonSupport))]
         public override Task Can_read_write_line_string()
-            => Task.CompletedTask;
+            => base.Can_read_write_line_string();
 
-        [ConditionalFact(Skip = "MariaDB 10.6+ has different spatial type JSON handling (NullReferenceException)")]
+        [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.SpatialJsonSupport))]
         public override Task Can_read_write_point()
-            => Task.CompletedTask;
+            => base.Can_read_write_point();
 
-        [ConditionalFact(Skip = "MariaDB 10.6+ has different spatial type JSON handling (NullReferenceException)")]
+        [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.SpatialJsonSupport))]
         public override Task Can_read_write_polygon()
-            => Task.CompletedTask;
+            => base.Can_read_write_polygon();
 
-        [ConditionalFact(Skip = "MariaDB 10.6+ has different spatial type JSON handling (NullReferenceException)")]
+        [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.SpatialJsonSupport))]
         public override Task Can_read_write_multi_line_string()
-            => Task.CompletedTask;
+            => base.Can_read_write_multi_line_string();
 
         // Skip ulong enum test - MariaDB serializes UInt64 Max differently
         [ConditionalFact(Skip = "MariaDB 10.6+ serializes UInt64.MaxValue as full number instead of -1")]
