@@ -59,9 +59,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
 
             // We have our own JSON support for now
             // AdHocJsonQueryTestBase and AdHocJsonQueryRelationalTestBase are now enabled (public class)
+            // JsonTypesRelationalTestBase is now enabled (public class JsonTypesRelationalMySqlTest)
             typeof(JsonQueryRelationalTestBase<>),
             typeof(JsonQueryTestBase<>),
-            typeof(JsonTypesRelationalTestBase),
             typeof(JsonTypesTestBase),
             typeof(JsonUpdateTestBase<>),
             typeof(OptionalDependentQueryTestBase<>),
