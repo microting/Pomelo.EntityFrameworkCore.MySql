@@ -37,9 +37,17 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public override Task Can_read_write_multi_line_string()
             => base.Can_read_write_multi_line_string();
 
-        // Skip ulong enum test - MariaDB serializes UInt64 Max differently
+        [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.SpatialJsonSupport))]
+        public override Task Can_read_write_point_with_M()
+            => base.Can_read_write_point_with_M();
+
+        // Skip ulong enum tests - MariaDB serializes UInt64 Max differently
         [ConditionalFact(Skip = "MariaDB 10.6+ serializes UInt64.MaxValue as full number instead of -1")]
         public override Task Can_read_write_collection_of_nullable_ulong_enum_JSON_values()
+            => Task.CompletedTask;
+
+        [ConditionalFact(Skip = "MariaDB 10.6+ serializes UInt64.MaxValue as full number instead of -1")]
+        public override Task Can_read_write_collection_of_ulong_enum_JSON_values()
             => Task.CompletedTask;
 
         protected override ITestStoreFactory TestStoreFactory
