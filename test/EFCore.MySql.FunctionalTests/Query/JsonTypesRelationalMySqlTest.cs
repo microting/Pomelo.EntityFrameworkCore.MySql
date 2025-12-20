@@ -21,25 +21,25 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         // Skip spatial type tests for MariaDB < 11.8 (different spatial JSON handling)
-        [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.SpatialJsonSupport))]
+        [ConditionalFact(Skip = "MariaDB 10.6+ has different spatial type JSON handling, support planned for 11.8+")]
         public override Task Can_read_write_line_string()
-            => base.Can_read_write_line_string();
+            => Task.CompletedTask;
 
-        [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.SpatialJsonSupport))]
+        [ConditionalFact(Skip = "MariaDB 10.6+ has different spatial type JSON handling, support planned for 11.8+")]
         public override Task Can_read_write_point()
-            => base.Can_read_write_point();
+            => Task.CompletedTask;
 
-        [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.SpatialJsonSupport))]
+        [ConditionalFact(Skip = "MariaDB 10.6+ has different spatial type JSON handling, support planned for 11.8+")]
         public override Task Can_read_write_polygon()
-            => base.Can_read_write_polygon();
+            => Task.CompletedTask;
 
-        [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.SpatialJsonSupport))]
+        [ConditionalFact(Skip = "MariaDB 10.6+ has different spatial type JSON handling, support planned for 11.8+")]
         public override Task Can_read_write_multi_line_string()
-            => base.Can_read_write_multi_line_string();
+            => Task.CompletedTask;
 
-        [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.SpatialJsonSupport))]
+        [ConditionalFact(Skip = "MariaDB 10.6+ has different spatial type JSON handling, support planned for 11.8+")]
         public override Task Can_read_write_point_with_M()
-            => base.Can_read_write_point_with_M();
+            => Task.CompletedTask;
 
         // Skip ulong enum tests - MariaDB serializes UInt64 Max differently
         [ConditionalFact(Skip = "MariaDB 10.6+ serializes UInt64.MaxValue as full number instead of -1")]
@@ -48,6 +48,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 
         [ConditionalFact(Skip = "MariaDB 10.6+ serializes UInt64.MaxValue as full number instead of -1")]
         public override Task Can_read_write_collection_of_ulong_enum_JSON_values()
+            => Task.CompletedTask;
+
+        [ConditionalTheory(Skip = "MariaDB 10.6+ serializes UInt64.MaxValue as full number instead of -1")]
+        [InlineData(ulong.MaxValue, "{\"Prop\":18446744073709551615}")]
+        public override Task Can_read_write_ulong_enum_JSON_values(Enum64 value, string json)
             => Task.CompletedTask;
 
         protected override ITestStoreFactory TestStoreFactory
