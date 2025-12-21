@@ -61,15 +61,27 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         [InlineData(EnumU64.Default, """{"Prop":0}""")]
         [InlineData(EnumU64.One, """{"Prop":1}""")]
         [InlineData((EnumU64)8, """{"Prop":8}""")]
-        [InlineData((EnumU64)18446744073709551615, """{"Prop":-1}""")]  // UInt64.MaxValue as numeric literal - will be adjusted for MariaDB at runtime
+        [InlineData((EnumU64)18446744073709551615, """{"Prop":18446744073709551615}""")]  // UInt64.MaxValue as numeric literal - MariaDB format
         public new async Task Can_read_write_ulong_enum_JSON_values(EnumU64 value, string json)
         {
             // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
-            // Adjust the expected JSON value for MariaDB to match its actual behavior
+            // For MySQL, we need to adjust the numeric literal case to expect "-1"
             // Check if the value is UInt64.MaxValue (works for both enum and numeric literal)
-            if (AppConfig.ServerVersion.Type == ServerType.MariaDb && value == EnumU64.Max)
+            if (AppConfig.ServerVersion.Type == ServerType.MariaDb)
             {
-                json = """{"Prop":18446744073709551615}""";
+                // On MariaDB, both EnumU64.Max and the numeric literal should use the full number format
+                if (value == EnumU64.Max)
+                {
+                    json = """{"Prop":18446744073709551615}""";
+                }
+            }
+            else
+            {
+                // On MySQL, the numeric literal test case expects the full number but should be -1
+                if (value == EnumU64.Max && json == """{"Prop":18446744073709551615}""")
+                {
+                    json = """{"Prop":-1}""";
+                }
             }
             
             await base.Can_read_write_ulong_enum_JSON_values(value, json);
@@ -84,15 +96,27 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         [InlineData(EnumU64.Default, """{"Prop":0}""")]
         [InlineData(EnumU64.One, """{"Prop":1}""")]
         [InlineData((EnumU64)8, """{"Prop":8}""")]
-        [InlineData((EnumU64)18446744073709551615, """{"Prop":-1}""")]  // UInt64.MaxValue as numeric literal - will be adjusted for MariaDB at runtime
+        [InlineData((EnumU64)18446744073709551615, """{"Prop":18446744073709551615}""")]  // UInt64.MaxValue as numeric literal - MariaDB format
         public async Task Can_read_write_nullable_ulong_enum_JSON_values(EnumU64? value, string json)
         {
             // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
-            // Adjust the expected JSON value for MariaDB to match its actual behavior  
+            // For MySQL, we need to adjust the numeric literal case to expect "-1"
             // Check if the value is UInt64.MaxValue (works for both enum and numeric literal)
-            if (AppConfig.ServerVersion.Type == ServerType.MariaDb && value.HasValue && value.Value == EnumU64.Max)
+            if (AppConfig.ServerVersion.Type == ServerType.MariaDb)
             {
-                json = """{"Prop":18446744073709551615}""";
+                // On MariaDB, both EnumU64.Max and the numeric literal should use the full number format
+                if (value.HasValue && value.Value == EnumU64.Max)
+                {
+                    json = """{"Prop":18446744073709551615}""";
+                }
+            }
+            else
+            {
+                // On MySQL, the numeric literal test case expects the full number but should be -1
+                if (value.HasValue && value.Value == EnumU64.Max && json == """{"Prop":18446744073709551615}""")
+                {
+                    json = """{"Prop":-1}""";
+                }
             }
             
             await base.Can_read_write_nullable_ulong_enum_JSON_values(value, json);
