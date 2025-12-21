@@ -66,8 +66,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         {
             // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
             // Adjust the expected JSON value for MariaDB to match its actual behavior
-            // Check for both EnumU64.Max and the numeric literal (both represent UInt64.MaxValue)
-            if (AppConfig.ServerVersion.Type == ServerType.MariaDb && (ulong)value == 18446744073709551615)
+            // Check if the value is UInt64.MaxValue (works for both enum and numeric literal)
+            if (AppConfig.ServerVersion.Type == ServerType.MariaDb && value == EnumU64.Max)
             {
                 json = """{"Prop":18446744073709551615}""";
             }
@@ -88,9 +88,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public async Task Can_read_write_nullable_ulong_enum_JSON_values(EnumU64? value, string json)
         {
             // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
-            // Adjust the expected JSON value for MariaDB to match its actual behavior
-            // Check for both EnumU64.Max and the numeric literal (both represent UInt64.MaxValue)
-            if (AppConfig.ServerVersion.Type == ServerType.MariaDb && value.HasValue && (ulong)value.Value == 18446744073709551615)
+            // Adjust the expected JSON value for MariaDB to match its actual behavior  
+            // Check if the value is UInt64.MaxValue (works for both enum and numeric literal)
+            if (AppConfig.ServerVersion.Type == ServerType.MariaDb && value.HasValue && value.Value == EnumU64.Max)
             {
                 json = """{"Prop":18446744073709551615}""";
             }
