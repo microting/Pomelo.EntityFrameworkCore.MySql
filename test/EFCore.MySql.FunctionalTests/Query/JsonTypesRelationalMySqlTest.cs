@@ -60,7 +60,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         [InlineData(EnumU64.Default, """{"Prop":0}""")]
         [InlineData(EnumU64.One, """{"Prop":1}""")]
         [InlineData((EnumU64)8, """{"Prop":8}""")]
-        public Task Can_read_write_ulong_enum_JSON_values(EnumU64 value, string json)
+        public new Task Can_read_write_ulong_enum_JSON_values(EnumU64 value, string json)
         {
             // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
             // Adjust the expected JSON value for MariaDB to match its behavior
