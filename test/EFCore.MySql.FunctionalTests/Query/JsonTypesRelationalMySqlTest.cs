@@ -51,8 +51,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public override Task Can_read_write_collection_of_ulong_enum_JSON_values()
             => Task.CompletedTask;
 
-        // Override the parameterized Theory method to conditionally skip MariaDB test cases
-        [SkippableTheory]
+        // Override the parameterized Theory method to adjust expected JSON for MariaDB
+        [Theory]
         [InlineData((Enum64)0, """{"Prop":0}""")]
         [InlineData(Enum64.Min, """{"Prop":-9223372036854775808}""")]
         [InlineData(Enum64.Max, """{"Prop":-1}""")]
@@ -61,10 +61,12 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         [InlineData((Enum64)8, """{"Prop":8}""")]
         public override Task Can_read_write_ulong_enum_JSON_values(Enum64 value, string json)
         {
-            // Skip the UInt64.MaxValue test case on MariaDB as it serializes differently
             // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
-            Skip.If(AppConfig.ServerVersion.Type == ServerType.MariaDb && value == Enum64.Max,
-                "MariaDB 10.6+ serializes UInt64.MaxValue as full number 18446744073709551615 instead of -1");
+            // Adjust the expected JSON value for MariaDB to match its behavior
+            if (AppConfig.ServerVersion.Type == ServerType.MariaDb && value == Enum64.Max)
+            {
+                json = """{"Prop":18446744073709551615}""";
+            }
             
             return base.Can_read_write_ulong_enum_JSON_values(value, json);
         }
