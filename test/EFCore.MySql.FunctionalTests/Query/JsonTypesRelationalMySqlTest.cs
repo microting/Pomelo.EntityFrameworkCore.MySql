@@ -90,13 +90,13 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         // Provide database-aware test for nullable UInt64 enum serialization
         // Same as above but for nullable enums
         [Theory]
-        [InlineData((EnumU64)0, """{"Prop":0}""")]
-        [InlineData(EnumU64.Min, """{"Prop":0}""")]
-        [InlineData(EnumU64.Max, """{"Prop":-1}""")]  // This will be adjusted for MariaDB at runtime
-        [InlineData(EnumU64.Default, """{"Prop":0}""")]
-        [InlineData(EnumU64.One, """{"Prop":1}""")]
-        [InlineData((EnumU64)8, """{"Prop":8}""")]
-        [InlineData((EnumU64)18446744073709551615, """{"Prop":18446744073709551615}""")]  // UInt64.MaxValue as numeric literal - MariaDB format
+        [InlineData(0UL, """{"Prop":0}""")]
+        [InlineData(0UL, """{"Prop":0}""")]  // Min
+        [InlineData(18446744073709551615UL, """{"Prop":-1}""")]  // Max - This will be adjusted for MariaDB at runtime
+        [InlineData(0UL, """{"Prop":0}""")]  // Default
+        [InlineData(1UL, """{"Prop":1}""")]  // One
+        [InlineData(8UL, """{"Prop":8}""")]
+        [InlineData(18446744073709551615UL, """{"Prop":18446744073709551615}""")]  // UInt64.MaxValue as numeric literal - MariaDB format
         public async Task Can_read_write_nullable_ulong_enum_JSON_values(EnumU64? value, string json)
         {
             // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
@@ -105,7 +105,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             if (AppConfig.ServerVersion.Type == ServerType.MariaDb)
             {
                 // On MariaDB, both EnumU64.Max and the numeric literal should use the full number format
-                if (value.HasValue && value.Value == EnumU64.Max)
+                if (value.HasValue && (ulong)value.Value == 18446744073709551615UL)
                 {
                     json = """{"Prop":18446744073709551615}""";
                 }
@@ -113,7 +113,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             else
             {
                 // On MySQL, the numeric literal test case expects the full number but should be -1
-                if (value.HasValue && value.Value == EnumU64.Max && json == """{"Prop":18446744073709551615}""")
+                if (value.HasValue && (ulong)value.Value == 18446744073709551615UL && json == """{"Prop":18446744073709551615}""")
                 {
                     json = """{"Prop":-1}""";
                 }
