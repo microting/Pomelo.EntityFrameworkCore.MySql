@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.TestUtilities;
 using Microsoft.EntityFrameworkCore.Types;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 using Xunit.Abstractions;
@@ -50,10 +51,23 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public override Task Can_read_write_collection_of_ulong_enum_JSON_values()
             => Task.CompletedTask;
 
-        // Note: Can_read_write_ulong_enum_JSON_values is a parameterized Theory method that cannot be overridden.
-        // The test case with UInt64.MaxValue (18446744073709551615) will fail on MariaDB due to different
-        // serialization behavior. This is a known limitation documented in the PR description.
-        // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1".
+        // Override the parameterized Theory method to conditionally skip MariaDB test cases
+        [SkippableTheory]
+        [InlineData((Enum64)0, """{"Prop":0}""")]
+        [InlineData(Enum64.Min, """{"Prop":-9223372036854775808}""")]
+        [InlineData(Enum64.Max, """{"Prop":-1}""")]
+        [InlineData(Enum64.Default, """{"Prop":0}""")]
+        [InlineData(Enum64.One, """{"Prop":1}""")]
+        [InlineData((Enum64)8, """{"Prop":8}""")]
+        public override Task Can_read_write_ulong_enum_JSON_values(Enum64 value, string json)
+        {
+            // Skip the UInt64.MaxValue test case on MariaDB as it serializes differently
+            // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
+            Skip.If(AppConfig.ServerVersion.Type == ServerType.MariaDb && value == Enum64.Max,
+                "MariaDB 10.6+ serializes UInt64.MaxValue as full number 18446744073709551615 instead of -1");
+            
+            return base.Can_read_write_ulong_enum_JSON_values(value, json);
+        }
 
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
