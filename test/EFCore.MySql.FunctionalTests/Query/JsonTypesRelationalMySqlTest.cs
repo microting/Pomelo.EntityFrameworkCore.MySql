@@ -50,6 +50,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public override Task Can_read_write_collection_of_ulong_enum_JSON_values()
             => Task.CompletedTask;
 
+        // Note: Can_read_write_ulong_enum_JSON_values is a parameterized Theory method that cannot be overridden.
+        // The test case with UInt64.MaxValue (18446744073709551615) will fail on MariaDB due to different
+        // serialization behavior. This is a known limitation documented in the PR description.
+        // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1".
+
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
     }
