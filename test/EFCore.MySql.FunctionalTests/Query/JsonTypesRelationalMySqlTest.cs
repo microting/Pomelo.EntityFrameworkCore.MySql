@@ -50,11 +50,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public override Task Can_read_write_collection_of_ulong_enum_JSON_values()
             => Task.CompletedTask;
 
-        [ConditionalTheory(Skip = "MariaDB 10.6+ serializes UInt64.MaxValue as full number instead of -1")]
-        [InlineData(ulong.MaxValue, "{\"Prop\":18446744073709551615}")]
-        public override Task Can_read_write_ulong_enum_JSON_values(Enum64 value, string json)
-            => Task.CompletedTask;
-
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
     }
