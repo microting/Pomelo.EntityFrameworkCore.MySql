@@ -51,20 +51,20 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public override Task Can_read_write_collection_of_ulong_enum_JSON_values()
             => Task.CompletedTask;
 
-        // Hide the base parameterized Theory method to adjust expected JSON for MariaDB
-        // Using 'new' keyword to hide the base class method since it's not virtual
+        // Provide database-aware test for UInt64 enum serialization
+        // MariaDB serializes UInt64.MaxValue differently than MySQL
         [Theory]
-        [InlineData((Enum64)0, """{"Prop":0}""")]
-        [InlineData(Enum64.Min, """{"Prop":-9223372036854775808}""")]
-        [InlineData(Enum64.Max, """{"Prop":-1}""")]
-        [InlineData(Enum64.Default, """{"Prop":0}""")]
-        [InlineData(Enum64.One, """{"Prop":1}""")]
-        [InlineData((Enum64)8, """{"Prop":8}""")]
-        public new Task Can_read_write_ulong_enum_JSON_values(Enum64 value, string json)
+        [InlineData((EnumU64)0, """{"Prop":0}""")]
+        [InlineData(EnumU64.Min, """{"Prop":0}""")]
+        [InlineData(EnumU64.Max, """{"Prop":-1}""")]
+        [InlineData(EnumU64.Default, """{"Prop":0}""")]
+        [InlineData(EnumU64.One, """{"Prop":1}""")]
+        [InlineData((EnumU64)8, """{"Prop":8}""")]
+        public Task Can_read_write_ulong_enum_JSON_values(EnumU64 value, string json)
         {
             // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
             // Adjust the expected JSON value for MariaDB to match its behavior
-            if (AppConfig.ServerVersion.Type == ServerType.MariaDb && value == Enum64.Max)
+            if (AppConfig.ServerVersion.Type == ServerType.MariaDb && value == EnumU64.Max)
             {
                 json = """{"Prop":18446744073709551615}""";
             }
