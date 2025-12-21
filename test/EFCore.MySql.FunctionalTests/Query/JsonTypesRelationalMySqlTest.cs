@@ -75,6 +75,29 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             await base.Can_read_write_ulong_enum_JSON_values(value, json);
         }
 
+        // Provide database-aware test for nullable UInt64 enum serialization
+        // Same as above but for nullable enums
+        [Theory]
+        [InlineData((EnumU64)0, """{"Prop":0}""")]
+        [InlineData(EnumU64.Min, """{"Prop":0}""")]
+        [InlineData(EnumU64.Max, """{"Prop":-1}""")]  // This will be adjusted for MariaDB at runtime
+        [InlineData(EnumU64.Default, """{"Prop":0}""")]
+        [InlineData(EnumU64.One, """{"Prop":1}""")]
+        [InlineData((EnumU64)8, """{"Prop":8}""")]
+        [InlineData((EnumU64)18446744073709551615, """{"Prop":-1}""")]  // UInt64.MaxValue as numeric literal - will be adjusted for MariaDB at runtime
+        public new async Task Can_read_write_nullable_ulong_enum_JSON_values(EnumU64 value, string json)
+        {
+            // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
+            // Adjust the expected JSON value for MariaDB to match its actual behavior
+            // Check for both EnumU64.Max and the numeric literal (both represent UInt64.MaxValue)
+            if (AppConfig.ServerVersion.Type == ServerType.MariaDb && (ulong)value == 18446744073709551615)
+            {
+                json = """{"Prop":18446744073709551615}""";
+            }
+            
+            await base.Can_read_write_nullable_ulong_enum_JSON_values(value, json);
+        }
+
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
     }
