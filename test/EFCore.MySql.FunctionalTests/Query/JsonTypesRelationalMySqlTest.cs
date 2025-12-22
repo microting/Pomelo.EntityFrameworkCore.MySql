@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.TestUtilities;
@@ -51,57 +52,27 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public override Task Can_read_write_collection_of_ulong_enum_JSON_values()
             => Task.CompletedTask;
 
-        // Provide database-aware test for UInt64 enum serialization
-        // MariaDB serializes UInt64.MaxValue differently than MySQL
-        // MySQL expects -1, MariaDB expects the full number 18446744073709551615
-        [Theory]
-        [InlineData((EnumU64)0, """{"Prop":0}""")]
-        [InlineData(EnumU64.Min, """{"Prop":0}""")]
-        [InlineData(EnumU64.Max, """{"Prop":-1}""")]  // MySQL format - This will be adjusted for MariaDB at runtime
-        [InlineData(EnumU64.Default, """{"Prop":0}""")]
-        [InlineData(EnumU64.One, """{"Prop":1}""")]
-        [InlineData((EnumU64)8, """{"Prop":8}""")]
-        [InlineData((EnumU64)18446744073709551615, """{"Prop":-1}""")]  // UInt64.MaxValue as numeric literal - MySQL format
-        public new async Task Can_read_write_ulong_enum_JSON_values(EnumU64 value, string json)
+        // Override to handle database-specific serialization of UInt64.MaxValue
+        // MariaDB serializes UInt64.MaxValue as "18446744073709551615" while MySQL uses "-1"
+        public override async Task Can_read_write_ulong_enum_JSON_values(EnumU64 value, string json)
         {
-            // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
-            // Adjust expectation based on database type
-            if (AppConfig.ServerVersion.Type == ServerType.MariaDb)
+            // Adjust expectation based on database type for UInt64.MaxValue
+            // The base class has test cases with both MySQL format (-1) and MariaDB format (full number)
+            // We need to ensure the correct format is used for each database
+            if (value == EnumU64.Max)
             {
-                // On MariaDB, adjust both test cases with -1 to use the full number
-                if (value == EnumU64.Max && json == """{"Prop":-1}""")
-                {
-                    json = """{"Prop":18446744073709551615}""";
-                }
+                // Check if we're running on MariaDB by checking the config
+                // AppConfig is initialized by the test infrastructure
+                var serverVersion = AppConfig.ServerVersion;
+                var isMariaDb = serverVersion.Type == ServerType.MariaDb;
+                
+                // Normalize the json to match the database we're running on
+                json = isMariaDb 
+                    ? """{"Prop":18446744073709551615}"""  // MariaDB format
+                    : """{"Prop":-1}""";                     // MySQL format
             }
             
             await base.Can_read_write_ulong_enum_JSON_values(value, json);
-        }
-
-        // Provide database-aware test for nullable UInt64 enum serialization
-        // Same as above but for nullable enums
-        [Theory]
-        [InlineData(EnumU64.Min, """{"Prop":0}""")]
-        [InlineData((EnumU64)0, """{"Prop":0}""")]
-        [InlineData(EnumU64.Max, """{"Prop":-1}""")]  // MySQL format - This will be adjusted for MariaDB at runtime
-        [InlineData(EnumU64.Default, """{"Prop":0}""")]
-        [InlineData(EnumU64.One, """{"Prop":1}""")]
-        [InlineData((EnumU64)8, """{"Prop":8}""")]
-        [InlineData((EnumU64)18446744073709551615, """{"Prop":-1}""")]  // UInt64.MaxValue as numeric literal - MySQL format
-        public async Task Can_read_write_nullable_ulong_enum_JSON_values(EnumU64? value, string json)
-        {
-            // MariaDB serializes UInt64.MaxValue as "18446744073709551615" instead of "-1"
-            // Adjust expectation based on database type
-            if (AppConfig.ServerVersion.Type == ServerType.MariaDb)
-            {
-                // On MariaDB, adjust both test cases with -1 to use the full number
-                if (value.HasValue && value.Value == EnumU64.Max && json == """{"Prop":-1}""")
-                {
-                    json = """{"Prop":18446744073709551615}""";
-                }
-            }
-            
-            await base.Can_read_write_nullable_ulong_enum_JSON_values(value, json);
         }
 
         protected override ITestStoreFactory TestStoreFactory
