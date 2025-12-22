@@ -104,5 +104,6 @@ namespace Pomelo.EntityFrameworkCore.MySql.Infrastructure
         public virtual bool JsonTableImplementationWithoutMariaDbBugs => JsonTable;
         public virtual bool JsonTableImplementationUsingParameterAsSourceWithoutEngineCrash => JsonTable;
         public virtual bool JsonTableImplementationWithAggregate => JsonTable;
+        public virtual bool SpatialJsonSupport => false; // MariaDB 11.8+ spatial JSON support
     }
 }

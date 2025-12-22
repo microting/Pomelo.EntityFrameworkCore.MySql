@@ -58,11 +58,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             typeof(LoggingRelationalTestBase<,>),
 
             // We have our own JSON support for now
-            typeof(AdHocJsonQueryTestBase),
-            typeof(AdHocJsonQueryRelationalTestBase),
+            // AdHocJsonQueryTestBase and AdHocJsonQueryRelationalTestBase are now enabled (public class)
+            // JsonTypesRelationalTestBase is now enabled (public class JsonTypesRelationalMySqlTest)
             typeof(JsonQueryRelationalTestBase<>),
             typeof(JsonQueryTestBase<>),
-            typeof(JsonTypesRelationalTestBase),
             typeof(JsonTypesTestBase),
             typeof(JsonUpdateTestBase<>),
             typeof(OptionalDependentQueryTestBase<>),
@@ -179,8 +178,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             typeof(ComplexPropertiesSetOperationsTestBase<>),
             typeof(ComplexPropertiesStructuralEqualityTestBase<>),
 
-            // TODO: 10.0 - BadDataJsonDeserialization test
-            typeof(BadDataJsonDeserializationTestBase),
+            // BadDataJsonDeserialization test is now enabled (public class)
 
             // Complex JSON tests are now supported for MySQL 5.7.8+ and MariaDB 10.2.4+
             // These tests should use [SupportedServerVersionCondition("Json")] to skip on older versions

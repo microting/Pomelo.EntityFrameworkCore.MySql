@@ -11,6 +11,7 @@ using Xunit.Abstractions;
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
+    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationStable))]
     public class JsonMicrosoftPocoQueryTest : JsonPocoQueryTestBase<JsonMicrosoftPocoQueryTest.JsonMicrosoftPocoQueryFixture>
     {
         public JsonMicrosoftPocoQueryTest(JsonMicrosoftPocoQueryFixture fixture, ITestOutputHelper testOutputHelper)

@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 
@@ -19,11 +21,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests;
 /// 
 /// Requirements:
 /// - MySQL 5.7.8+ (JSON type support)
-/// - MariaDB 10.2.4+ (JSON functions support)
+/// - MariaDB 10.2.7+ (JSON alias for LONGTEXT with JSON_VALID constraint)
 /// </summary>
-// Disabled via internal access and Skip attributes. JSON functionality is not currently supported.
 [SupportedServerVersionCondition("Json")]
-internal class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJsonMySqlTest.ComplexCollectionJsonMySqlFixture>
+public class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJsonMySqlTest.ComplexCollectionJsonMySqlFixture>
 {
     private readonly ComplexCollectionJsonMySqlFixture _fixture;
 
@@ -32,7 +33,7 @@ internal class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJ
         _fixture = fixture;
     }
 
-    [ConditionalFact(Skip = "JSON functionality is not currently supported")]
+    [ConditionalFact]
     public virtual async Task Can_insert_and_read_complex_collection()
     {
         using var context = _fixture.CreateContext();
@@ -63,7 +64,7 @@ internal class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJ
         Assert.Equal(80000, retrieved.Departments[1].Budget);
     }
 
-    [ConditionalFact(Skip = "JSON functionality is not currently supported")]
+    [ConditionalFact]
     public virtual async Task Can_query_complex_collection_property()
     {
         using var context = _fixture.CreateContext();
@@ -134,5 +135,12 @@ internal class ComplexCollectionJsonMySqlTest : IClassFixture<ComplexCollectionJ
     {
         protected override string StoreName => "ComplexCollectionJsonTest";
         protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
+
+        public override DbContextOptionsBuilder AddOptions(DbContextOptionsBuilder builder)
+        {
+            var optionsBuilder = base.AddOptions(builder);
+            new MySqlDbContextOptionsBuilder(optionsBuilder).EnablePrimitiveCollectionsSupport();
+            return optionsBuilder;
+        }
     }
 }

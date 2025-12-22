@@ -102,9 +102,10 @@ namespace Microsoft.EntityFrameworkCore
             public override bool CollationCharacterSetApplicabilityWithFullCollationNameColumn => ServerVersion.Version >= new Version(10, 10, 1);
             public override bool DeleteWithSelfReferencingSubquery => ServerVersion.Version >= new Version(11, 0, 0); // MariaDB 11+ supports DELETE with self-referencing subqueries
 
-            public override bool JsonTableImplementationStable => false;
-            public override bool JsonTableImplementationWithoutMariaDbBugs => false;
+            public override bool JsonTableImplementationStable => ServerVersion.Version >= new Version(10, 6, 0); // MariaDB 10.6+ has stable JSON_TABLE support
+            public override bool JsonTableImplementationWithoutMariaDbBugs => ServerVersion.Version >= new Version(10, 6, 0);
             public override bool JsonTableImplementationWithAggregate => false; // All kinds of wrong results because of the missing LATERAL support, but without any error thrown by MariaDb. It usually just uses the first values of the first row of the outer table.
+            public override bool SpatialJsonSupport => ServerVersion.Version >= new Version(11, 8, 0); // MariaDB 11.8+ has improved spatial type JSON handling
         }
     }
 }
