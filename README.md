@@ -57,15 +57,15 @@ The codebase is prepared for EF Core 10 upgrade when .NET 10 becomes available, 
 
 Currently tested versions are:
 
+- MySQL 8.4
 - MySQL 8.0
+- MariaDB 11.6
+- MariaDB 11.5
+- MariaDB 11.4 (LTS)
 - MariaDB 11.3
-- MariaDB 11.2
-- MariaDB 11.1
-- MariaDB 11.0
 - MariaDB 10.11 (LTS)
 - MariaDB 10.6 (LTS)
 - MariaDB 10.5 (LTS)
-- MariaDB 10.4 (LTS)
 
 ## Schedule and Roadmap
 
@@ -73,7 +73,6 @@ Milestone | Status   | Release Date
 ----------|----------|-------------
 9.0.8 | Released | 2025-08-05
 9.0.0 | Released | 2025-08-05
-9.0.0-preview.3.efcore.9.0.0 | Released | 2025-02-23
 8.0.3 | Released | 2025-03-02
 7.0.0 | Released | 2023-01-16
 6.0.3 | Released | 2024-03-16
@@ -124,7 +123,7 @@ Ensure that your `.csproj` file contains the following reference:
 
 ### 2. Services Configuration
 
-Add `Pomelo.EntityFrameworkCore.MySql` to the services configuration in your the `Startup.cs` file of your ASP.NET Core project:
+Add `Pomelo.EntityFrameworkCore.MySql` to the services configuration in your `Startup.cs` file of your ASP.NET Core project:
 
 ```c#
 public class Startup
@@ -138,7 +137,7 @@ public class Startup
         // Use 'MariaDbServerVersion' for MariaDB.
         // Alternatively, use 'ServerVersion.AutoDetect(connectionString)'.
         // For common usages, see pull request #1233.
-        var serverVersion = new MySqlServerVersion(new Version(8, 0, 40));
+        var serverVersion = new MySqlServerVersion(new Version(8, 4, 6));
 
         // Replace 'YourDbContext' with the name of your own DbContext derived class.
         services.AddDbContext<YourDbContext>(
