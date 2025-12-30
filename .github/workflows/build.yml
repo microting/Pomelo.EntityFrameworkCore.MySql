@@ -369,6 +369,11 @@ jobs:
           Copy-Item test/EFCore.MySql.FunctionalTests/config.json.example test/EFCore.MySql.FunctionalTests/config.json
           Copy-Item test/EFCore.MySql.IntegrationTests/appsettings.ci.json test/EFCore.MySql.IntegrationTests/appsettings.json
           Copy-Item test/EFCore.MySql.IntegrationTests/config.json.example test/EFCore.MySql.IntegrationTests/config.json
+      - name: Build Solution
+        shell: pwsh
+        run: |
+          dotnet build -c Debug
+          dotnet build -c Release
       - name: Setup Integration Tests
         shell: pwsh
         run: |
