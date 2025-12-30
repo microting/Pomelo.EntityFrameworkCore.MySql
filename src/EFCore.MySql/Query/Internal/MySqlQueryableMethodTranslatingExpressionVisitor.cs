@@ -52,6 +52,7 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
     {
         _sqlExpressionFactory = parentVisitor._sqlExpressionFactory;
         _typeMappingSource = parentVisitor._typeMappingSource;
+        _sqlAliasManager = parentVisitor._sqlAliasManager;
         _options = parentVisitor._options;
     }
 
@@ -226,38 +227,11 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
 
     protected override ShapedQueryExpression TransformJsonQueryToTable(JsonQueryExpression jsonQueryExpression)
     {
-        // TODO: Implement JSON_TABLE support for structural types (entities/complex types) in JSON collections.
-        //
-        // Current Status:
-        // - TransformJsonQueryToTable implementation is complete and matches Npgsql pattern
-        // - JSON_TABLE syntax and COLUMNS clause generation is correct
-        // - Issue is in EF Core base SelectExpression.AddCrossJoin or MySQL SQL generator
-        // - When TranslateSelectMany calls AddCrossJoin, the CROSS JOIN keyword is not generated
-        // - This results in invalid SQL: "FROM table1 JSON_TABLE(...)" instead of "FROM table1 CROSS JOIN JSON_TABLE(...)"
-        //
-        // Investigation completed:
-        // - Npgsql uses identical CreateSelect pattern and it works for PostgreSQL
-        // - MySQL supports both comma and CROSS JOIN syntax with JSON_TABLE (manually verified)
-        // - The bug is in query assembly, not in provider-specific logic
-        // - Requires either: override TranslateSelectMany, patch EF Core AddCrossJoin, or fix MySQL SQL generator
-        //
-        // Partial implementation preserved below for reference (currently commented out).
-        // See commits: 11dc6b2, e17a1e9, 4b80703 for full implementation details.
-
-        // For now, throw a clear exception to inform users this is not yet supported
-        throw new InvalidOperationException(
-            "Composing LINQ operators (such as SelectMany) over collections of structural types inside JSON documents " +
-            "is not currently supported by the MySQL provider. This feature requires fixes in EF Core's query assembly " +
-            "logic or MySQL-specific SQL generation. As a workaround, consider materializing the JSON data to the client " +
-            "using .AsEnumerable() or .ToList() before performing collection operations.");
-
-        /* PARTIAL IMPLEMENTATION - PRESERVED FOR FUTURE WORK
-        
         // Calculate the table alias for the JSON_TABLE function based on the last named path segment
         // (or the JSON column name if there are none)
-        var lastNamedPathSegment = jsonQueryExpression.Path.LastOrDefault(ps => ps.PropertyName is not null);
+        var lastNamedPathSegmentPropertyName = jsonQueryExpression.Path.LastOrDefault(ps => ps.PropertyName is not null).PropertyName;
         var tableAlias = _sqlAliasManager.GenerateTableAlias(
-            lastNamedPathSegment.PropertyName ?? jsonQueryExpression.JsonColumn.Name);
+            lastNamedPathSegmentPropertyName ?? jsonQueryExpression.JsonColumn.Name);
 
         var jsonTypeMapping = jsonQueryExpression.JsonColumn.TypeMapping!;
 
@@ -273,8 +247,8 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                     new MySqlJsonTableExpression.ColumnInfo(
                         Name: jsonPropertyName,
                         TypeMapping: property.GetRelationalTypeMapping(),
-                        // Path for JSON_TABLE: $[0] to access array element properties
-                        Path: [new PathSegment(_sqlExpressionFactory.Constant(0, _typeMappingSource.FindMapping(typeof(int))))],
+                        // Path for JSON_TABLE COLUMNS: each row is already an array element, so access properties directly
+                        Path: [new PathSegment(jsonPropertyName)],
                         AsJson: false));
             }
         }
@@ -295,7 +269,7 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                         new MySqlJsonTableExpression.ColumnInfo(
                             Name: jsonNavigationName,
                             TypeMapping: jsonTypeMapping,
-                            Path: [new PathSegment(_sqlExpressionFactory.Constant(0, _typeMappingSource.FindMapping(typeof(int))))],
+                            Path: [new PathSegment(jsonNavigationName)],
                             AsJson: true));
                 }
                 break;
@@ -310,7 +284,7 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                         new MySqlJsonTableExpression.ColumnInfo(
                             Name: jsonPropertyName,
                             TypeMapping: jsonTypeMapping,
-                            Path: [new PathSegment(_sqlExpressionFactory.Constant(0, _typeMappingSource.FindMapping(typeof(int))))],
+                            Path: [new PathSegment(jsonPropertyName)],
                             AsJson: true));
                 }
                 break;
@@ -319,10 +293,10 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                 throw new UnreachableException();
         }
 
-        // MySQL JSON_TABLE requires the nested JSON document as raw JSON (not extracted as a scalar value).
-        // We need to use JSON_EXTRACT (not JSON_VALUE) to get the JSON fragment with proper structure.
-        // Unlike Npgsql which can use JsonScalarExpression (translates to json extraction in PostgreSQL),
-        // MySQL's JsonScalarExpression translates to JSON_VALUE which strips quotes and can't feed JSON_TABLE.
+        // json_to_recordset in Npgsql uses JsonScalarExpression which PostgreSQL handles properly.
+        // However, MySQL's JsonScalarExpression translates to JSON_VALUE which extracts scalar values
+        // and strips JSON structure. For JSON_TABLE, we need the raw JSON fragment.
+        // Use JSON_EXTRACT explicitly to get the nested JSON array/object.
         
         SqlExpression jsonSource;
         if (jsonQueryExpression.Path.Count > 0)
@@ -341,7 +315,7 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                 }
             }
 
-            // Use JSON_EXTRACT to get the nested JSON document (not JSON_VALUE which extracts scalars)
+            // Use JSON_EXTRACT to get the nested JSON document with structure intact
             jsonSource = _sqlExpressionFactory.Function(
                 "JSON_EXTRACT",
                 [jsonQueryExpression.JsonColumn, _sqlExpressionFactory.Constant(pathBuilder.ToString())],
@@ -386,7 +360,6 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
                     new ProjectionMember(),
                     typeof(ValueBuffer)),
                 false));
-        */
     }
 
     protected override ShapedQueryExpression TranslatePrimitiveCollection(SqlExpression sqlExpression, IProperty property, string tableAlias)
