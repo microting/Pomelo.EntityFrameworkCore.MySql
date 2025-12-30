@@ -31,6 +31,9 @@ public class MySqlModelBuilderTestBase : RelationalModelBuilderTest
     public abstract class MySqlOwnedTypes(MySqlModelBuilderFixture fixture)
         : RelationalOwnedTypesTestBase(fixture), IClassFixture<MySqlModelBuilderFixture>;
 
+    public abstract class MySqlComplexCollection(MySqlModelBuilderFixture fixture)
+        : RelationalComplexCollectionTestBase(fixture), IClassFixture<MySqlModelBuilderFixture>;
+
     public class MySqlModelBuilderFixture : RelationalModelBuilderFixture
     {
         public override TestHelpers TestHelpers

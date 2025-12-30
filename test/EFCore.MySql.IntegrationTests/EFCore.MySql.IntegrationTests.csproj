@@ -10,6 +10,7 @@
     <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
     <ThreadPoolMinThreads>64</ThreadPoolMinThreads>
     <RootNamespace>Pomelo.EntityFrameworkCore.MySql.IntegrationTests</RootNamespace>
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>

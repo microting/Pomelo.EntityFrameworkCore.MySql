@@ -301,18 +301,21 @@ public class MySqlRelationalConnectionTest
         var singletonOptions = new MySqlOptions();
         singletonOptions.Initialize(options);
 
+        var exceptionDetector = new ExceptionDetector();
+        var loggingOptions = new LoggingOptions();
+        
         return new MySqlRelationalConnection(
             new RelationalConnectionDependencies(
                 options,
                 new DiagnosticsLogger<DbLoggerCategory.Database.Transaction>(
                     new LoggerFactory(),
-                    new LoggingOptions(),
+                    loggingOptions,
                     new DiagnosticListener("FakeDiagnosticListener"),
                     new MySqlLoggingDefinitions(),
                     new NullDbContextLogger()),
                 new RelationalConnectionDiagnosticsLogger(
                     new LoggerFactory(),
-                    new LoggingOptions(),
+                    loggingOptions,
                     new DiagnosticListener("FakeDiagnosticListener"),
                     new MySqlLoggingDefinitions(),
                     new NullDbContextLogger(),
@@ -329,7 +332,9 @@ public class MySqlRelationalConnectionTest
                             TestServiceFactory.Instance.Create<TypeMappingSourceDependencies>(),
                             TestServiceFactory.Instance.Create<RelationalTypeMappingSourceDependencies>(),
                             singletonOptions),
-                        new ExceptionDetector()))),
+                        exceptionDetector,
+                        loggingOptions)),
+                exceptionDetector),
             new MySqlConnectionStringOptionsValidator(),
             singletonOptions);
     }

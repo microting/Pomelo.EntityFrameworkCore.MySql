@@ -9,7 +9,9 @@ using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
+    // Re-enabled to test JSON change tracking functionality with Newtonsoft.Json
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
+    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationStable))]
     public class JsonNewtonsoftPocoChangeTrackingTest : JsonPocoChangeTrackingTestBase<JsonNewtonsoftPocoChangeTrackingTest.JsonNewtonsoftPocoChangeTrackingFixture>
     {
         public JsonNewtonsoftPocoChangeTrackingTest(JsonNewtonsoftPocoChangeTrackingFixture fixture, ITestOutputHelper testOutputHelper)

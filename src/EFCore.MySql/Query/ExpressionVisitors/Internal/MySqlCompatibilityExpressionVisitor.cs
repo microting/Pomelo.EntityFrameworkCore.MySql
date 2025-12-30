@@ -25,6 +25,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
 
         private SelectExpression _currentSelectExpression;
         private SelectExpression _parentSelectExpression;
+        private bool _insideDeleteOrUpdate;
 
         private readonly MySqlContainsAggregateFunctionExpressionVisitor _mySqlContainsAggregateFunctionExpressionVisitor = new MySqlContainsAggregateFunctionExpressionVisitor();
 
@@ -45,6 +46,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                 MySqlJsonTableExpression jsonTableExpression => VisitJsonTable(jsonTableExpression),
 
                 SelectExpression selectExpression => VisitSelect(selectExpression),
+                DeleteExpression deleteExpression => VisitDelete(deleteExpression),
+                UpdateExpression updateExpression => VisitUpdate(updateExpression),
 
                 ShapedQueryExpression shapedQueryExpression => shapedQueryExpression.Update(Visit(shapedQueryExpression.QueryExpression), Visit(shapedQueryExpression.ShaperExpression)),
                 _ => base.VisitExtension(extensionExpression)
@@ -54,10 +57,30 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             => CheckSupport(rowNumberExpression, _options.ServerVersion.Supports.WindowFunctions);
 
         protected virtual Expression VisitCrossApply(CrossApplyExpression crossApplyExpression)
-            => CheckSupport(crossApplyExpression, _options.ServerVersion.Supports.CrossApply);
+        {
+            // When inside DELETE/UPDATE operations with databases that don't support self-referencing subqueries,
+            // skip the compatibility check to allow the query to reach the database where it will throw MySqlException (Error 1093).
+            // For databases that DO support self-referencing subqueries, check support normally so proper translation/handling occurs.
+            if (_insideDeleteOrUpdate && !_options.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+            {
+                return crossApplyExpression.Update((TableExpressionBase)Visit(crossApplyExpression.Table));
+            }
+            
+            return CheckSupport(crossApplyExpression, _options.ServerVersion.Supports.CrossApply);
+        }
 
         protected virtual Expression VisitOuterApply(OuterApplyExpression outerApplyExpression)
-            => CheckSupport(outerApplyExpression, _options.ServerVersion.Supports.OuterApply);
+        {
+            // When inside DELETE/UPDATE operations with databases that don't support self-referencing subqueries,
+            // skip the compatibility check to allow the query to reach the database where it will throw MySqlException (Error 1093).
+            // For databases that DO support self-referencing subqueries, check support normally so proper translation/handling occurs.
+            if (_insideDeleteOrUpdate && !_options.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
+            {
+                return outerApplyExpression.Update((TableExpressionBase)Visit(outerApplyExpression.Table));
+            }
+            
+            return CheckSupport(outerApplyExpression, _options.ServerVersion.Supports.OuterApply);
+        }
 
         protected virtual Expression VisitExcept(ExceptExpression exceptExpression)
             => CheckSupport(exceptExpression, _options.ServerVersion.Supports.ExceptIntercept);
@@ -139,6 +162,21 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             _parentSelectExpression = grandParentSelectExpression;
 
             return selectExpression;
+        }
+
+        protected virtual Expression VisitDelete(DeleteExpression deleteExpression)
+            => VisitNonQueryExpression(deleteExpression);
+
+        protected virtual Expression VisitUpdate(UpdateExpression updateExpression)
+            => VisitNonQueryExpression(updateExpression);
+
+        private Expression VisitNonQueryExpression(Expression expression)
+        {
+            var previousInsideDeleteOrUpdate = _insideDeleteOrUpdate;
+            _insideDeleteOrUpdate = true;
+            var result = base.VisitExtension(expression);
+            _insideDeleteOrUpdate = previousInsideDeleteOrUpdate;
+            return result;
         }
 
         protected virtual Expression CheckSupport(Expression expression, bool isSupported)

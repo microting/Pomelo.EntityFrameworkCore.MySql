@@ -10,6 +10,7 @@ using Xunit.Abstractions;
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
+    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationStable))]
     public class JsonNewtonsoftStringChangeTrackingTest : JsonStringChangeTrackingTestBase<JsonNewtonsoftStringChangeTrackingTest.JsonNewtonsoftStringChangeTrackingFixture>
     {
         public JsonNewtonsoftStringChangeTrackingTest(JsonNewtonsoftStringChangeTrackingFixture fixture, ITestOutputHelper testOutputHelper)

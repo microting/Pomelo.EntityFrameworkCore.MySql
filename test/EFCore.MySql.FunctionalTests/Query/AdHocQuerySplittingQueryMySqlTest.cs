@@ -10,6 +10,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
 public class AdHocQuerySplittingQueryMySqlTest : AdHocQuerySplittingQueryTestBase
 {
+    public AdHocQuerySplittingQueryMySqlTest(NonSharedFixture fixture)
+        : base(fixture)
+    {
+    }
+
     protected override DbContextOptionsBuilder SetQuerySplittingBehavior(
         DbContextOptionsBuilder optionsBuilder,
         QuerySplittingBehavior splittingBehavior)
@@ -34,6 +39,13 @@ public class AdHocQuerySplittingQueryMySqlTest : AdHocQuerySplittingQueryTestBas
         ((IDbContextOptionsBuilderInfrastructure)optionsBuilder).AddOrUpdateExtension(extension);
 
         return optionsBuilder;
+    }
+
+    protected override TestStore CreateTestStore25225()
+    {
+        var testStore = MySqlTestStore.Create(StoreName);
+        testStore.UseConnectionString = true;
+        return testStore;
     }
 
     private static readonly FieldInfo _querySplittingBehaviorFieldInfo =

@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +11,7 @@ using Xunit.Abstractions;
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
+    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationStable))]
     public class JsonNewtonsoftPocoQueryTest : JsonPocoQueryTestBase<JsonNewtonsoftPocoQueryTest.JsonNewtonsoftPocoQueryFixture>
     {
         public JsonNewtonsoftPocoQueryTest(JsonNewtonsoftPocoQueryFixture fixture, ITestOutputHelper testOutputHelper)
@@ -30,11 +31,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 
             Assert.Equal(1, count);
             AssertSql(
-                $@"@__element_1='{{""Name"":""Joe"",""Age"":25}}' (Size = 4000)
+                $@"@element='{{""Name"":""Joe"",""Age"":25}}' (Size = 4000)
 
 SELECT COUNT(*)
 FROM `JsonEntities` AS `j`
-WHERE JSON_CONTAINS(`j`.`Customer`, {InsertJsonConvert("@__element_1")})");
+WHERE JSON_CONTAINS(`j`.`Customer`, {InsertJsonConvert("@element")})");
         }
 
         public class JsonNewtonsoftPocoQueryFixture : JsonPocoQueryFixtureBase

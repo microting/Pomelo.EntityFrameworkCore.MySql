@@ -477,6 +477,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             var path = jsonScalarExpression.Path;
             if (path.Count == 0)
             {
+                // For empty paths (selecting the entire JSON column), just visit the JSON expression
+                // This handles complex JSON types where we're projecting the whole column
+                Visit(jsonScalarExpression.Json);
                 return jsonScalarExpression;
             }
 
@@ -509,6 +512,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             // {
                 castStoreType = GetCastStoreType(jsonScalarExpression.TypeMapping);
             // }
+
+            // MariaDB does not support CAST(... AS json), so skip the CAST entirely when JsonDataTypeEmulation is enabled.
+            // MariaDB stores JSON as LONGTEXT, so no explicit cast is needed - the data is already in a compatible text format.
+            // This prevents SQL syntax errors like "near 'json) IS NULL'" on MariaDB while maintaining correct NULL comparison semantics.
+            if (castStoreType == "json" && _options?.ServerVersion?.Supports?.JsonDataTypeEmulation == true)
+            {
+                castStoreType = null;
+            }
 
             if (castStoreType is not null)
             {
@@ -715,9 +726,19 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                                          operandUnary.OperatorType == ExpressionType.Convert &&
                                          castMapping.Equals(GetCastStoreType(operandUnary.TypeMapping), StringComparison.OrdinalIgnoreCase);
 
-            if (castMapping == "json" && !_options.ServerVersion.Supports.JsonDataTypeEmulation ||
-                !castMapping.Equals(sqlUnaryExpression.Operand.TypeMapping.StoreType, StringComparison.OrdinalIgnoreCase) &&
-                !sameInnerCastStoreType)
+            // MariaDB does not support CAST(... AS json) syntax, so skip the conversion entirely when JsonDataTypeEmulation is enabled.
+            // MariaDB stores JSON as LONGTEXT, so no explicit cast is needed - comparisons work correctly without it.
+            // This avoids SQL syntax errors on MariaDB while maintaining correct NULL and equality comparison semantics.
+            if (castMapping == "json" && _options?.ServerVersion?.Supports?.JsonDataTypeEmulation == true)
+            {
+                // For MariaDB with JsonDataTypeEmulation, skip the CAST by returning early
+                Visit(sqlUnaryExpression.Operand);
+                return sqlUnaryExpression;
+            }
+
+            if ((castMapping == "json" && !_options.ServerVersion.Supports.JsonDataTypeEmulation ||
+                 !castMapping.Equals(sqlUnaryExpression.Operand.TypeMapping.StoreType, StringComparison.OrdinalIgnoreCase) &&
+                 !sameInnerCastStoreType))
             {
                 var useDecimalToDoubleWorkaround = false;
 
@@ -990,14 +1011,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                         else
                         {
                             Sql.Append("', ");
-
-                            Visit(
-                                new SqlUnaryExpression(
-                                    ExpressionType.Convert,
-                                    arrayIndex,
-                                    typeof(string),
-                                    _typeMappingSource.GetMapping(typeof(string))));
-
+                            Visit(arrayIndex);
                             Sql.Append(", '");
                         }
 
@@ -1022,6 +1036,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
         {
             // MySQL supports CTE (WITH) expressions within subqueries, as well as others,
             // so we allow any raw SQL to be composed over.
+        }
+
+        protected override Expression VisitSelect(SelectExpression selectExpression)
+        {
+            return base.VisitSelect(selectExpression);
         }
     }
 }

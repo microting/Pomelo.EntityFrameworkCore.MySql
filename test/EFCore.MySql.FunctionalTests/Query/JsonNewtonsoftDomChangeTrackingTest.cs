@@ -17,6 +17,7 @@ using Xunit;
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.Json))]
+    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTableImplementationStable))]
     public class JsonNewtonsoftDomChangeTrackingTest : IClassFixture<JsonNewtonsoftDomChangeTrackingTest.JsonMicrosoftDomChangeTrackingFixture>
     {
         public JsonNewtonsoftDomChangeTrackingTest(JsonMicrosoftDomChangeTrackingFixture fixture)

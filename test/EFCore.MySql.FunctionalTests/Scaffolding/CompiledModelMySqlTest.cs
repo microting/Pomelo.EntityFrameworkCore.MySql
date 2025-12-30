@@ -33,6 +33,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Scaffolding;
 // TODO: Add more Pomelo specific cases.
 public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
 {
+    public CompiledModelMySqlTest(NonSharedFixture fixture)
+        : base(fixture)
+    {
+    }
+
     protected override void BuildBigModel(ModelBuilder modelBuilder, bool jsonColumns)
     {
         base.BuildBigModel(modelBuilder, jsonColumns);
@@ -329,12 +334,13 @@ public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
             });
     }
 
-    public override async Task BigModel_with_JSON_columns()
-    {
-        Assert.Equal(
-            MySqlStrings.Ef7CoreJsonMappingNotSupported,
-            (await Assert.ThrowsAsync<InvalidOperationException>(() => base.BigModel_with_JSON_columns())).Message);
-    }
+    // JSON columns are now supported in EF Core 10
+    // public override async Task BigModel_with_JSON_columns()
+    // {
+    //     Assert.Equal(
+    //         MySqlStrings.Ef7CoreJsonMappingNotSupported,
+    //         (await Assert.ThrowsAsync<InvalidOperationException>(() => base.BigModel_with_JSON_columns())).Message);
+    // }
 
     // TODO: 9.0
     // Check, if we can make this work.
