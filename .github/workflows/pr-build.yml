@@ -15,6 +15,7 @@ env:
   maxConnections: 512
   skipAllTests: false
   skipWindowsTests: false
+  enableBenchmarks: true
 jobs:
   BuildAndTest:
     strategy:
@@ -431,3 +432,40 @@ jobs:
         run: |
           $env:EF_DATABASE = "pomelo_test2"
           dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests
+      - name: Run Benchmarks
+        # Benchmarks are enabled by default. Set enableBenchmarks=false in env to disable.
+        if: ${{ env.skipTests != 'true' && github.event_name == 'pull_request' && env.enableBenchmarks == 'true' }}
+        shell: pwsh
+        run: |
+          echo "Running performance benchmarks for ${{ env.databaseServerType }} ${{ env.databaseServerVersion }}"
+          
+          # Set benchmark database connection environment variables
+          $env:BENCHMARK_DB_HOST = "localhost"
+          $env:BENCHMARK_DB_PORT = "3306"
+          $env:BENCHMARK_DB_NAME = "pomelo_benchmark"
+          $env:BENCHMARK_DB_USER = "root"
+          $env:BENCHMARK_DB_PASSWORD = "Password12!"
+          
+          # Change to benchmark directory so BenchmarkDotNet creates artifacts in the right location
+          cd benchmark/EFCore.MySql.Benchmarks
+          
+          # Run benchmark suite (quick mode for CI)
+          dotnet run -c Release -- all
+          
+          # Verify results were generated
+          if (Test-Path "BenchmarkDotNet.Artifacts")
+          {
+            echo "Benchmark results generated successfully at: $(Get-Location)/BenchmarkDotNet.Artifacts"
+            Get-ChildItem -Path "BenchmarkDotNet.Artifacts" -Recurse | Select-Object -First 10 | ForEach-Object { echo "  $($_.FullName)" }
+          }
+          else
+          {
+            echo "WARNING: BenchmarkDotNet.Artifacts directory not found"
+          }
+      - name: Upload Benchmark Results
+        if: ${{ env.skipTests != 'true' && github.event_name == 'pull_request' && env.enableBenchmarks == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results-${{ matrix.dbVersion }}-${{ matrix.os }}
+          path: benchmark/EFCore.MySql.Benchmarks/BenchmarkDotNet.Artifacts/**/*
+          retention-days: 30
