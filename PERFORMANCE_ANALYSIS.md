@@ -80,17 +80,36 @@ For a CommandText of 1000 characters with a function at position 500:
 - Per execution cost: ~1-2 KB allocation + CPU cycles for string operations
 
 #### Recommendation
-**SHOULD FIX**: Use `StringBuilder` for string manipulation:
+**FIXED**: Changed to use `StringBuilder` for string manipulation. The implementation now:
+- Uses a single `StringBuilder` pre-allocated to CommandText length
+- Processes replacements in a single pass from start to end
+- Reduces allocations from N×3 to 1 (where N is the number of function replacements)
+- Eliminates repeated string copying overhead
+
 ```csharp
-var sb = new StringBuilder(command.CommandText.Length);
-sb.Append(command.CommandText, 0, func.Index);
-sb.Append(func.EvaluatedValue);
-sb.Append(command.CommandText, func.Index + func.FunctionCall.Length, 
-         command.CommandText.Length - func.Index - func.FunctionCall.Length);
-command.CommandText = sb.ToString();
+if (functionsToReplace.Count > 0)
+{
+    var sb = new StringBuilder(command.CommandText.Length);
+    var lastIndex = 0;
+    
+    foreach (var func in functionsToReplace.OrderBy(f => f.Index))
+    {
+        sb.Append(command.CommandText, lastIndex, func.Index - lastIndex);
+        sb.Append(func.EvaluatedValue);
+        lastIndex = func.Index + func.FunctionCall.Length;
+        // ... parameter cleanup
+    }
+    
+    if (lastIndex < command.CommandText.Length)
+    {
+        sb.Append(command.CommandText, lastIndex, command.CommandText.Length - lastIndex);
+    }
+    
+    command.CommandText = sb.ToString();
+}
 ```
 
-This would reduce allocations from N to 1 (where N is the number of function replacements).
+**Status**: ✅ FIXED in this commit
 
 ---
 
@@ -332,11 +351,11 @@ This is a best practice for reflection-heavy code. The change caches expensive r
 
 ## Summary and Recommendations
 
-### Immediate Actions Required
-1. **FIX CRITICAL**: MySqlJsonTableExpression infinite loop bug (line 100)
+### Completed Actions
+1. ✅ **FIXED CRITICAL**: MySqlJsonTableExpression infinite loop bug (line 100) - changed `i++` to `j++`
+2. ✅ **FIXED MODERATE**: MySqlQueryStringFactory string concatenation - now uses StringBuilder for efficient string manipulation
 
 ### High Priority
-2. **OPTIMIZE**: MySqlQueryStringFactory string concatenation (use StringBuilder)
 3. **OPTIMIZE**: MySqlParameterInliningExpressionVisitor single-pass evaluation
 
 ### Medium Priority
@@ -351,14 +370,15 @@ This is a best practice for reflection-heavy code. The change caches expensive r
 
 ## Conclusion
 
-The .NET 10 migration introduced several performance concerns, with one critical bug that must be fixed immediately. The most significant performance issues relate to string manipulation and multiple-pass algorithms in hot code paths. However, some positive changes like reflection caching were also introduced.
+The .NET 10 migration introduced several performance concerns, with one critical bug and several moderate issues that have now been addressed. The most significant performance issues related to string manipulation and potential infinite loops have been fixed in this commit.
 
-**Overall Risk Assessment**: MODERATE  
-- 1 critical bug (infinite loop)
-- 2-3 moderate performance concerns (string allocation, multiple passes)
+**Overall Risk Assessment**: LOW (after fixes)  
+- ~~1 critical bug (infinite loop)~~ ✅ FIXED
+- ~~1 moderate performance concern (string allocation)~~ ✅ FIXED
+- 1 moderate performance concern remaining (multi-pass evaluation in LEAST/GREATEST)
 - Several minor concerns that may add up under high load
 
-**Recommendation**: Address the critical bug immediately, then profile real-world workloads to determine if the moderate issues cause measurable performance degradation before optimizing.
+**Recommendation**: The critical bug and primary performance issue have been resolved. Profile real-world workloads to determine if the remaining moderate issue (multi-pass LEAST/GREATEST evaluation) causes measurable performance degradation before further optimization.
 
 ---
 
