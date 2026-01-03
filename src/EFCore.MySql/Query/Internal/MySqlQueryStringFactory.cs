@@ -180,22 +180,43 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal
                 .ToList();
 
             // Replace LEAST/GREATEST function calls with their evaluated values
-            foreach (var func in functionsToReplace)
+            // Use StringBuilder to avoid multiple string allocations
+            if (functionsToReplace.Count > 0)
             {
-                command.CommandText = command.CommandText.Substring(0, func.Index) +
-                                     func.EvaluatedValue +
-                                     command.CommandText.Substring(func.Index + func.FunctionCall.Length);
+                var sb = new StringBuilder(command.CommandText.Length);
+                var lastIndex = 0;
                 
-                // Remove the parameters used in this function from the parameters collection
-                var paramMatches = _extractParameterRegex.Value.Matches(func.FunctionCall);
-                foreach (Match match in paramMatches)
+                // Process replacements from start to end (list is sorted descending, so reverse it)
+                foreach (var func in functionsToReplace.OrderBy(f => f.Index))
                 {
-                    var paramName = match.Value;
-                    if (command.Parameters.Contains(paramName))
+                    // Append text from last position to current function
+                    sb.Append(command.CommandText, lastIndex, func.Index - lastIndex);
+                    
+                    // Append the evaluated value
+                    sb.Append(func.EvaluatedValue);
+                    
+                    // Update last index to after the function call
+                    lastIndex = func.Index + func.FunctionCall.Length;
+                    
+                    // Remove the parameters used in this function from the parameters collection
+                    var paramMatches = _extractParameterRegex.Value.Matches(func.FunctionCall);
+                    foreach (Match match in paramMatches)
                     {
-                        command.Parameters.Remove(command.Parameters[paramName]);
+                        var paramName = match.Value;
+                        if (command.Parameters.Contains(paramName))
+                        {
+                            command.Parameters.Remove(command.Parameters[paramName]);
+                        }
                     }
                 }
+                
+                // Append remaining text after last replacement
+                if (lastIndex < command.CommandText.Length)
+                {
+                    sb.Append(command.CommandText, lastIndex, command.CommandText.Length - lastIndex);
+                }
+                
+                command.CommandText = sb.ToString();
             }
 
             var validParameters = (limitGroupsWithParameter
