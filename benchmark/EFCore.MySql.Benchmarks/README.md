@@ -127,7 +127,9 @@ BenchmarkDotNet produces detailed reports including:
 - **Gen0/Gen1/Gen2**: Garbage collection statistics
 - **Allocated**: Total memory allocated
 
-Results are saved to `BenchmarkDotNet.Artifacts/` directory.
+Results are saved to `BenchmarkDotNet.Artifacts/` directory in the current working directory where the benchmark is executed (typically `benchmark/EFCore.MySql.Benchmarks/`).
+
+**Note**: The artifacts directory is created relative to where you run the benchmark from. When running from the benchmark project directory, artifacts will be at `./BenchmarkDotNet.Artifacts/`. When running from the repository root with `dotnet run --project benchmark/EFCore.MySql.Benchmarks`, artifacts will be at the repository root.
 
 ## CI/CD Integration
 

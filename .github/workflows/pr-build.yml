@@ -446,13 +446,21 @@ jobs:
           $env:BENCHMARK_DB_USER = "root"
           $env:BENCHMARK_DB_PASSWORD = "Password12!"
           
-          # Run benchmark suite (quick mode for CI)
-          dotnet run --project benchmark/EFCore.MySql.Benchmarks -c Release -- all
+          # Change to benchmark directory so BenchmarkDotNet creates artifacts in the right location
+          cd benchmark/EFCore.MySql.Benchmarks
           
-          # Save results as artifacts
-          if (Test-Path "benchmark/EFCore.MySql.Benchmarks/BenchmarkDotNet.Artifacts")
+          # Run benchmark suite (quick mode for CI)
+          dotnet run -c Release -- all
+          
+          # Verify results were generated
+          if (Test-Path "BenchmarkDotNet.Artifacts")
           {
-            echo "Benchmark results generated successfully"
+            echo "Benchmark results generated successfully at: $(Get-Location)/BenchmarkDotNet.Artifacts"
+            Get-ChildItem -Path "BenchmarkDotNet.Artifacts" -Recurse | Select-Object -First 10 | ForEach-Object { echo "  $($_.FullName)" }
+          }
+          else
+          {
+            echo "WARNING: BenchmarkDotNet.Artifacts directory not found"
           }
       - name: Upload Benchmark Results
         if: ${{ env.skipTests != 'true' && github.event_name == 'pull_request' && env.enableBenchmarks == 'true' }}
