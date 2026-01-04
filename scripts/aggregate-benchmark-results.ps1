@@ -35,6 +35,9 @@ function Get-BenchmarkMeanTime {
         }
         
         $meanTimes = @()
+        $totalRows = 0
+        $validRows = 0
+        $naRows = 0
         
         # Check which column name contains mean timing data
         # BenchmarkDotNet uses "Mean" column for average execution time
@@ -55,7 +58,14 @@ function Get-BenchmarkMeanTime {
         
         # Extract mean times from all benchmarks
         foreach ($row in $csvData) {
+            $totalRows++
             $meanValue = $row.$meanColumn
+            
+            # Check for NA values (benchmark didn't complete or failed)
+            if ($meanValue -eq 'NA' -or $meanValue -eq 'N/A' -or [string]::IsNullOrWhiteSpace($meanValue)) {
+                $naRows++
+                continue
+            }
             
             # Try to parse the mean value, handling different formats
             # BenchmarkDotNet may include units like "123.45 ns" or just "123.45"
@@ -74,12 +84,22 @@ function Get-BenchmarkMeanTime {
                 }
                 
                 $meanTimes += $meanMs
+                $validRows++
             }
+        }
+        
+        # Provide feedback about data quality
+        if ($totalRows -gt 0) {
+            Write-Host "  Processed $totalRows benchmarks: $validRows valid, $naRows with NA/missing data"
         }
         
         if ($meanTimes.Count -gt 0) {
             $avgTime = ($meanTimes | Measure-Object -Average).Average
             return [math]::Round($avgTime, 2)
+        }
+        else {
+            Write-Host "  Warning: No valid timing data found (all values are NA or invalid)"
+            return $null
         }
     }
     catch {
