@@ -26,21 +26,54 @@ function Get-BenchmarkMeanTime {
     }
     
     try {
-        $content = Get-Content $CsvFile
+        # Import CSV properly to handle quoted fields and column names
+        $csvData = Import-Csv -Path $CsvFile
+        
+        if ($csvData.Count -eq 0) {
+            Write-Host "  Warning: No data in CSV: $CsvFile"
+            return $null
+        }
+        
         $meanTimes = @()
         
-        # Skip header and parse CSV
-        for ($i = 1; $i -lt $content.Length; $i++) {
-            $line = $content[$i]
-            if ($line -match ',(\d+\.?\d*),') {
-                # Extract Mean column (typically 3rd column in BenchmarkDotNet CSV)
-                $columns = $line -split ','
-                if ($columns.Length -gt 4) {
-                    # Mean is usually in nanoseconds, convert to milliseconds
-                    $meanNs = [double]$columns[3]
-                    $meanMs = $meanNs / 1000000.0
-                    $meanTimes += $meanMs
+        # Check which column name contains mean timing data
+        # BenchmarkDotNet uses "Mean" column for average execution time
+        $meanColumn = $null
+        $properties = $csvData[0].PSObject.Properties.Name
+        
+        foreach ($prop in $properties) {
+            if ($prop -match '^Mean$') {
+                $meanColumn = $prop
+                break
+            }
+        }
+        
+        if (-not $meanColumn) {
+            Write-Host "  Warning: 'Mean' column not found in CSV: $CsvFile"
+            return $null
+        }
+        
+        # Extract mean times from all benchmarks
+        foreach ($row in $csvData) {
+            $meanValue = $row.$meanColumn
+            
+            # Try to parse the mean value, handling different formats
+            # BenchmarkDotNet may include units like "123.45 ns" or just "123.45"
+            if ($meanValue -match '([\d.]+)\s*(ns|μs|ms|s)?') {
+                $numericValue = [double]$matches[1]
+                $unit = $matches[2]
+                
+                # Convert to milliseconds based on unit
+                $meanMs = switch ($unit) {
+                    'ns' { $numericValue / 1000000.0 }
+                    'μs' { $numericValue / 1000.0 }
+                    'us' { $numericValue / 1000.0 }
+                    'ms' { $numericValue }
+                    's'  { $numericValue * 1000.0 }
+                    default { $numericValue / 1000000.0 }  # Assume nanoseconds if no unit
                 }
+                
+                $meanTimes += $meanMs
             }
         }
         
