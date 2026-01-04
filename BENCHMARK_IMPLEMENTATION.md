@@ -183,37 +183,53 @@ The benchmarks are designed to:
 
 ## Files Changed
 
-1. `.github/workflows/pr-build.yml` - Added benchmark steps with enableBenchmarks flag
+1. `.github/workflows/pr-build.yml` - Added benchmark steps with enableBenchmarks flag and aggregation job
 2. `Directory.Packages.props` - Added BenchmarkDotNet package version
 3. `Pomelo.EFCore.MySql.sln` - Added benchmark project to solution
 4. `docs/DatabaseVersions.md` - New documentation with benchmark time placeholders
 5. `benchmark/` - New directory with entire benchmark project (9 files)
-6. `scripts/update-benchmark-times.ps1` - Helper script for updating benchmark times
+6. `scripts/update-benchmark-times.ps1` - Helper script for manual benchmark time updates
+7. `scripts/aggregate-benchmark-results.ps1` - Automated script for CI aggregation
 
 ## Updating Benchmark Times
 
-After benchmarks run in CI, the `TIME_PLACEHOLDER` values in `docs/DatabaseVersions.md` can be updated with actual performance data:
+After benchmarks run in CI, the `TIME_PLACEHOLDER` values in `docs/DatabaseVersions.md` are automatically updated with actual performance data:
 
-### Manual Update Process
+### Automated CI Update Process
 
-1. **Download Artifacts**: After CI completes, download the benchmark artifacts from GitHub Actions
-2. **Review Reports**: Open `BenchmarkDotNet.Artifacts/results/*.csv` or `*.html` files
-3. **Extract Times**: Calculate average "Mean" execution times for each benchmark category
-4. **Update Document**: Replace `TIME_PLACEHOLDER` with actual millisecond values in DatabaseVersions.md
+The GitHub Actions workflow includes an `AggregateBenchmarkResults` job that:
 
-### Automated Update (Future Enhancement)
+1. **Runs After All Tests**: Depends on the `BuildAndTest` job completing for all database versions
+2. **Downloads Artifacts**: Collects all benchmark results from the matrix runs
+3. **Parses Results**: Extracts mean execution times from BenchmarkDotNet CSV reports
+4. **Updates Documentation**: Replaces `TIME_PLACEHOLDER` markers with actual timing data
+5. **Uploads Updated File**: Creates a `benchmark-summary-documentation` artifact containing:
+   - `DatabaseVersions-Updated.md` - Updated documentation with real benchmark times
+   - `benchmark-summary.md` - Summary of the aggregation process
 
-The `scripts/update-benchmark-times.ps1` script provides a framework for automated updates:
+### How to Access Updated Results
+
+After a PR build completes with benchmarks enabled:
+
+1. Go to the **Actions** tab for the PR
+2. Find the completed workflow run
+3. Download the **benchmark-summary-documentation** artifact
+4. Extract and review **DatabaseVersions-Updated.md** to see actual performance data
+
+### Manual Update Process (Optional)
+
+For local testing or manual updates, use the aggregation script:
 
 ```powershell
-# After downloading artifacts
-./scripts/update-benchmark-times.ps1 -ArtifactsPath ./benchmark-artifacts
+# After downloading individual benchmark artifacts
+./scripts/aggregate-benchmark-results.ps1 -ArtifactsDir ./benchmark-artifacts -OutputFile docs/DatabaseVersions.md
 ```
 
-This script is currently a placeholder and needs full implementation to:
-- Parse BenchmarkDotNet CSV/JSON output files
-- Calculate aggregate statistics per benchmark category
-- Update the markdown table with actual values
+The script:
+- Parses BenchmarkDotNet CSV output files
+- Calculates average Mean execution times per benchmark category
+- Updates the markdown table with actual millisecond values
+- Reports remaining placeholders and completion status
 
 ## Future Enhancements
 

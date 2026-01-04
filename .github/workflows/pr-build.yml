@@ -469,3 +469,82 @@ jobs:
           name: benchmark-results-${{ matrix.dbVersion }}-${{ matrix.os }}
           path: benchmark/EFCore.MySql.Benchmarks/BenchmarkDotNet.Artifacts/**/*
           retention-days: 30
+
+  AggregateBenchmarkResults:
+    name: Aggregate Benchmark Results
+    needs: BuildAndTest
+    if: ${{ github.event_name == 'pull_request' && !cancelled() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Download All Benchmark Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: benchmark-results-*
+          path: ./benchmark-artifacts
+      
+      - name: List Downloaded Artifacts
+        shell: pwsh
+        run: |
+          echo "Downloaded artifacts:"
+          Get-ChildItem -Path ./benchmark-artifacts -Recurse | Select-Object -First 20 | ForEach-Object { echo "  $($_.FullName)" }
+      
+      - name: Aggregate Results and Update Documentation
+        shell: pwsh
+        run: |
+          echo "Aggregating benchmark results..."
+          
+          # Copy the original DatabaseVersions.md to working directory
+          Copy-Item docs/DatabaseVersions.md ./DatabaseVersions-Updated.md
+          
+          # Run aggregation script
+          ./scripts/aggregate-benchmark-results.ps1 -ArtifactsDir ./benchmark-artifacts -OutputFile ./DatabaseVersions-Updated.md
+          
+          # Show diff
+          echo ""
+          echo "Changes made to DatabaseVersions.md:"
+          git diff --no-index docs/DatabaseVersions.md ./DatabaseVersions-Updated.md || true
+      
+      - name: Upload Updated Documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-summary-documentation
+          path: ./DatabaseVersions-Updated.md
+          retention-days: 30
+      
+      - name: Upload Summary Comment
+        shell: pwsh
+        run: |
+          # Create a summary markdown for the PR
+          $summary = @"
+          ## 📊 Benchmark Results Summary
+          
+          Benchmark results have been aggregated from all database versions.
+          
+          **Download the updated documentation:**
+          - Artifact: ``benchmark-summary-documentation``
+          - File: ``DatabaseVersions-Updated.md``
+          
+          The updated file includes actual benchmark timing data replacing the ``TIME_PLACEHOLDER`` markers.
+          
+          ### How to view results:
+          1. Go to the Actions tab for this PR
+          2. Find the workflow run
+          3. Download the ``benchmark-summary-documentation`` artifact
+          4. Review the updated ``DatabaseVersions-Updated.md`` file
+          "@
+          
+          echo $summary > benchmark-summary.md
+          echo ""
+          echo "Benchmark aggregation complete!"
+          echo ""
+          cat benchmark-summary.md
+      
+      - name: Upload Summary as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-summary
+          path: ./benchmark-summary.md
+          retention-days: 30

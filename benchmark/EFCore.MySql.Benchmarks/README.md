@@ -135,10 +135,28 @@ Results are saved to `BenchmarkDotNet.Artifacts/` directory in the current worki
 
 Benchmarks can be run in GitHub Actions as part of the PR build workflow. See `.github/workflows/pr-build.yml` for configuration.
 
-The workflow:
-1. Runs tests first to ensure correctness
-2. Executes benchmarks for each database version in the matrix
-3. Compares results to detect performance regressions
+### Workflow Overview
+
+The CI/CD pipeline includes two jobs:
+
+1. **BuildAndTest Job** (Matrix):
+   - Runs tests first to ensure correctness
+   - Executes benchmarks for each database version in the matrix (31 combinations)
+   - Uploads individual benchmark results as artifacts
+
+2. **AggregateBenchmarkResults Job** (After all tests):
+   - Downloads all benchmark artifacts from the matrix runs
+   - Parses BenchmarkDotNet CSV reports to extract timing data
+   - Updates `docs/DatabaseVersions.md` with actual performance metrics
+   - Uploads the updated documentation as `benchmark-summary-documentation` artifact
+
+### Accessing Results
+
+After a PR build completes:
+1. Go to the Actions tab
+2. Find the workflow run
+3. Download the `benchmark-summary-documentation` artifact
+4. Extract and review `DatabaseVersions-Updated.md` for consolidated results
 
 ## Best Practices
 
