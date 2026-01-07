@@ -439,6 +439,32 @@ jobs:
         run: |
           $env:EF_DATABASE = "pomelo_test2"
           dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests
+      - name: PassKey Sample Test - Check JSON Support
+        if: ${{ env.skipTests != 'true' }}
+        id: check-json-support
+        shell: pwsh
+        run: |
+          # MySQL 5.7.8+ supports JSON, MariaDB 10.2.4+ supports JSON (through emulation)
+          $dbVersion = [Version]'${{ env.databaseServerVersion }}'
+          $supportsJson = $false
+          
+          if ('${{ env.databaseServerType }}' -eq 'mysql')
+          {
+            $supportsJson = $dbVersion -ge [Version]'5.7.8'
+          }
+          elseif ('${{ env.databaseServerType }}' -eq 'mariadb')
+          {
+            $supportsJson = $dbVersion -ge [Version]'10.2.4'
+          }
+          
+          echo "supportsJson=$supportsJson" >> $env:GITHUB_OUTPUT
+          echo "Database ${{ env.databaseServerType }} ${{ env.databaseServerVersion }} JSON support: $supportsJson"
+      - name: PassKey Sample Test - Run Test
+        if: ${{ env.skipTests != 'true' && steps.check-json-support.outputs.supportsJson == 'True' }}
+        shell: pwsh
+        run: |
+          echo "Running PassKey test for ${{ env.databaseServerType }} ${{ env.databaseServerVersion }} (supports JSON)"
+          dotnet run --project samples/PassKeyTest --no-build
   NuGet:
     needs: BuildAndTest
     if: (github.event_name == 'push' || github.event_name == 'release') && github.repository == 'PomeloFoundation/Pomelo.EntityFrameworkCore.MySql'
