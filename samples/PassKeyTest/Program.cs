@@ -30,16 +30,29 @@ try
     Console.WriteLine("   ✓ Database created successfully!");
     
     Console.WriteLine("\n3. Checking if AspNetUserPasskeys table was created...");
-    var tableExists = await context.Database
-        .ExecuteSqlRawAsync(@"
-            SELECT COUNT(*) 
-            FROM information_schema.TABLES 
-            WHERE TABLE_SCHEMA = 'passkey_test' 
-            AND TABLE_NAME = 'AspNetUserPasskeys'") >= 0;
-    Console.WriteLine("   ✓ AspNetUserPasskeys table exists!");
+    var command = context.Database.GetDbConnection().CreateCommand();
+    command.CommandText = @"
+        SELECT COUNT(*) 
+        FROM information_schema.TABLES 
+        WHERE TABLE_SCHEMA = 'passkey_test' 
+        AND TABLE_NAME = 'AspNetUserPasskeys'";
+    
+    await context.Database.OpenConnectionAsync();
+    var tableCount = (long)(await command.ExecuteScalarAsync() ?? 0L);
+    await context.Database.CloseConnectionAsync();
+    
+    if (tableCount > 0)
+    {
+        Console.WriteLine("   ✓ AspNetUserPasskeys table exists!");
+    }
+    else
+    {
+        Console.WriteLine("   ✗ ERROR: AspNetUserPasskeys table was not created!");
+        return 1;
+    }
     
     Console.WriteLine("\n4. Checking Data column type in AspNetUserPasskeys...");
-    var command = context.Database.GetDbConnection().CreateCommand();
+    command = context.Database.GetDbConnection().CreateCommand();
     command.CommandText = @"
         SELECT COLUMN_NAME, DATA_TYPE, COLUMN_TYPE
         FROM information_schema.COLUMNS
@@ -56,13 +69,14 @@ try
         var columnType = reader.GetString(2);
         Console.WriteLine($"   ✓ Column: {columnName}, Type: {dataType}, Full Type: {columnType}");
         
-        if (dataType == "json")
+        // MariaDB stores JSON as longtext, MySQL 8.0+ uses json type
+        if (dataType == "json" || dataType == "longtext")
         {
-            Console.WriteLine("   ✓ Data column is correctly mapped as JSON!");
+            Console.WriteLine($"   ✓ Data column is correctly mapped for JSON storage ({dataType})!");
         }
         else
         {
-            Console.WriteLine($"   ⚠ WARNING: Data column is {dataType}, expected JSON");
+            Console.WriteLine($"   ⚠ WARNING: Data column is {dataType}, expected json or longtext");
         }
     }
     await context.Database.CloseConnectionAsync();
