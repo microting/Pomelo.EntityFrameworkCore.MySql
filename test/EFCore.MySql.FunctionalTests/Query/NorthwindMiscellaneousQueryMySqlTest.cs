@@ -4814,7 +4814,7 @@ FROM (
 
         AssertSql(
             """
-@p0='15'
+@p1='15'
 @p='5'
 
 SELECT DISTINCT `p0`.`ProductID`, `p0`.`Discontinued`, `p0`.`ProductName`, `p0`.`SupplierID`, `p0`.`UnitPrice`, `p0`.`UnitsInStock`
@@ -4822,7 +4822,7 @@ FROM (
     SELECT `p`.`ProductID`, `p`.`Discontinued`, `p`.`ProductName`, `p`.`SupplierID`, `p`.`UnitPrice`, `p`.`UnitsInStock`
     FROM `Products` AS `p`
     ORDER BY COALESCE(`p`.`UnitPrice`, 0.0)
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `p0`
 """);
     }
