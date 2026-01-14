@@ -1105,7 +1105,7 @@ FROM (
         AssertSql(
 """
 @p='20'
-@p0='30'
+@p1='30'
 
 SELECT `c3`.`BillingAddress_ZipCode` AS `Zip1`, `c4`.`ShippingAddress_ZipCode` AS `Zip2`
 FROM (

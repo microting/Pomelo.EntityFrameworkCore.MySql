@@ -38,7 +38,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         AssertSql(
 """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
 FROM (
@@ -1328,7 +1328,7 @@ SELECT EXISTS (
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT DISTINCT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM (
@@ -1352,7 +1352,7 @@ FROM (
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT DISTINCT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM (
@@ -1370,7 +1370,7 @@ FROM (
             //
             """
 @p='15'
-@p0='10'
+@p1='10'
 
 SELECT DISTINCT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM (
@@ -3784,7 +3784,7 @@ WHERE COALESCE(`c`.`ContactName`, `c`.`CompanyName`) = 'Liz Nixon'
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT DISTINCT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM (
@@ -3823,7 +3823,7 @@ LIMIT @p
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`CompanyName`, COALESCE(`c0`.`Region`, 'ZZ') AS `Region`
 FROM (
@@ -3844,7 +3844,7 @@ LIMIT 18446744073709551610 OFFSET @p0
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`CompanyName`, `c0`.`Region`
 FROM (
@@ -3865,7 +3865,7 @@ LIMIT 18446744073709551610 OFFSET @p0
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
 FROM (

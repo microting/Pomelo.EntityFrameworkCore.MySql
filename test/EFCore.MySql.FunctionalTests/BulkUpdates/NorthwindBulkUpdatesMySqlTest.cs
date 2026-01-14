@@ -915,7 +915,7 @@ WHERE `c`.`CustomerID` LIKE 'F%'
         AssertExecuteUpdateSql(
 """
 @p='4'
-@p0='Updated' (Size = 30)
+@p1='Updated' (Size = 30)
 
 UPDATE `Customers` AS `c0`
 INNER JOIN (
@@ -997,7 +997,7 @@ SET `c0`.`ContactName` = @p
         AssertExecuteUpdateSql(
 """
 @p='4'
-@p0='Updated' (Size = 30)
+@p1='Updated' (Size = 30)
 
 UPDATE `Customers` AS `c0`
 INNER JOIN (
@@ -1018,7 +1018,7 @@ SET `c0`.`ContactName` = @p0
         AssertExecuteUpdateSql(
 """
 @p='4'
-@p0='Updated' (Size = 30)
+@p1='Updated' (Size = 30)
 
 UPDATE `Customers` AS `c0`
 INNER JOIN (
