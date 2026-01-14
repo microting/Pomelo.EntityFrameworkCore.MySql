@@ -1172,7 +1172,7 @@ FROM `Customers` AS `c`
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
@@ -1181,7 +1181,7 @@ FROM (
     FROM `Customers` AS `c`
 ) AS `c0`
 ORDER BY `c0`.`ContactName`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -3796,7 +3796,7 @@ FROM (
         LIMIT @p
     ) AS `c0`
     ORDER BY `c0`.`c`
-    LIMIT 18446744073709551610 OFFSET @p0
+    LIMIT 18446744073709551610 OFFSET @p1
 ) AS `c1`
 """);
     }
