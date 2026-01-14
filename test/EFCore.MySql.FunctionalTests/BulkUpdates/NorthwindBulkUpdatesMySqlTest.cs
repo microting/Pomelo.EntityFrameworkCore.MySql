@@ -329,8 +329,8 @@ WHERE `o0`.`OrderID` IN (
         AssertSql(
 """
 @p='100'
-@p2='5'
-@p1='20'
+@p3='5'
+@p2='20'
 
 DELETE `o`
 FROM `Order Details` AS `o`
