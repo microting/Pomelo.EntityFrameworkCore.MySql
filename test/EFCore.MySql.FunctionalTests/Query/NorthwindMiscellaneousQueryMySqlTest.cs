@@ -1009,13 +1009,13 @@ LIMIT 18446744073709551610 OFFSET @p
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
 ORDER BY `c`.`ContactName`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -4688,13 +4688,13 @@ ORDER BY `s`.`OrderID`, `o2`.`OrderDate`
 
         AssertSql(
             """
-@p0='8'
+@p1='8'
 @p='5'
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
 ORDER BY `c`.`ContactTitle`, `c`.`ContactName`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
