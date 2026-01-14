@@ -1209,15 +1209,15 @@ FROM (
 
         AssertSql(
             """
-@p1='10'
-@p='5'
+@p='10'
+@p1='5'
 
 SELECT DISTINCT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
 FROM (
     SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
     FROM `Customers` AS `c`
     ORDER BY `c`.`ContactName`
-    LIMIT @p1 OFFSET @p
+    LIMIT @p OFFSET @p1
 ) AS `c0`
 """);
     }
@@ -4777,7 +4777,7 @@ LIMIT 18446744073709551610 OFFSET @p
 
         AssertSql(
             """
-@p0='15'
+@p1='15'
 @p='5'
 
 SELECT DISTINCT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
@@ -4785,7 +4785,7 @@ FROM (
     SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
     FROM `Customers` AS `c`
     ORDER BY `c`.`ContactTitle`, `c`.`ContactName`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `c0`
 """);
     }
@@ -6157,14 +6157,14 @@ FROM `Customers` AS `c`
 
         AssertSql(
             """
-@p0='20'
+@p1='20'
 @p='0'
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
 LEFT JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
 ORDER BY `o`.`OrderID`, `o`.`OrderDate`, `c`.`CustomerID`, `c`.`City`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -6394,7 +6394,7 @@ LEFT JOIN (
 
         AssertSql(
             """
-@p0='1'
+@p1='1'
 @p='0'
 
 SELECT `o1`.`OrderID`, `o1`.`CustomerID`, `o1`.`EmployeeID`, `o1`.`OrderDate`
@@ -6402,7 +6402,7 @@ FROM (
     SELECT `c`.`CustomerID`
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` = 'FISSA'
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `c0`
 LEFT JOIN (
     SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`
