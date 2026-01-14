@@ -924,7 +924,7 @@ INNER JOIN (
     WHERE `c`.`CustomerID` LIKE 'F%'
     LIMIT 18446744073709551610 OFFSET @p
 ) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = @p0
+SET `c0`.`ContactName` = @p1
 """);
     }
 
@@ -1760,6 +1760,12 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
         await base.Update_with_RightJoin(async);
 
         // Note: SQL validation skipped - actual SQL needs to be captured from test run
+    }
+
+    public override async Task Update_with_PK_pushdown_and_join_and_multiple_setters(bool async)
+    {
+        await base.Update_with_PK_pushdown_and_join_and_multiple_setters(async);
+        AssertExecuteUpdateSql();
     }
 
     private void AssertSql(params string[] expected)

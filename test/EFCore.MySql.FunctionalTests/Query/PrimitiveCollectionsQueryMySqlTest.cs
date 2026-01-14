@@ -2619,6 +2619,24 @@ INNER JOIN (
         AssertSql();
     }
 
+    public override async Task Contains_on_Enumerable()
+    {
+        await base.Contains_on_Enumerable();
+        AssertSql();
+    }
+
+    public override async Task Contains_on_MemoryExtensions()
+    {
+        await base.Contains_on_MemoryExtensions();
+        AssertSql();
+    }
+
+    public override async Task Contains_with_MemoryExtensions_with_null_comparer()
+    {
+        await base.Contains_with_MemoryExtensions_with_null_comparer();
+        AssertSql();
+    }
+
     [ConditionalFact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
