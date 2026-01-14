@@ -1503,7 +1503,7 @@ GROUP BY `o0`.`CustomerID`
 
             AssertSql(
 """
-@p0='500'
+@p1='500'
 @p='80'
 
 SELECT MAX(`o0`.`OrderID`)
@@ -1511,7 +1511,7 @@ FROM (
     SELECT `o`.`OrderID`, `o`.`CustomerID`
     FROM `Orders` AS `o`
     ORDER BY `o`.`OrderID`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `o0`
 GROUP BY `o0`.`CustomerID`
 """);
@@ -1921,7 +1921,7 @@ WHERE EXISTS (
             AssertSql(
 """
 @p='20'
-@p0='4'
+@p1='4'
 
 SELECT `o0`.`CustomerID`
 FROM (
@@ -1933,7 +1933,7 @@ FROM (
     LIMIT @p
 ) AS `o0`
 ORDER BY `o0`.`CustomerID`
-LIMIT 18446744073709551610 OFFSET @p0
+LIMIT 18446744073709551610 OFFSET @p1
 """);
         }
 
@@ -1944,7 +1944,7 @@ LIMIT 18446744073709551610 OFFSET @p0
             AssertSql(
 """
 @p='20'
-@p0='4'
+@p1='4'
 
 SELECT `o0`.`Key`, `o0`.`Max`
 FROM (
@@ -1956,7 +1956,7 @@ FROM (
     LIMIT @p
 ) AS `o0`
 ORDER BY `o0`.`Key`
-LIMIT 18446744073709551610 OFFSET @p0
+LIMIT 18446744073709551610 OFFSET @p1
 """);
         }
 
@@ -1967,7 +1967,7 @@ LIMIT 18446744073709551610 OFFSET @p0
             AssertSql(
 """
 @p='20'
-@p0='4'
+@p1='4'
 
 SELECT CHAR_LENGTH(`o0`.`CustomerID`)
 FROM (
@@ -1979,7 +1979,7 @@ FROM (
     LIMIT @p
 ) AS `o0`
 ORDER BY `o0`.`CustomerID`
-LIMIT 18446744073709551610 OFFSET @p0
+LIMIT 18446744073709551610 OFFSET @p1
 """);
         }
 
@@ -1990,7 +1990,7 @@ LIMIT 18446744073709551610 OFFSET @p0
             AssertSql(
 """
 @p='20'
-@p0='4'
+@p1='4'
 
 SELECT 5
 FROM (
@@ -2002,7 +2002,7 @@ FROM (
     LIMIT @p
 ) AS `o0`
 ORDER BY `o0`.`CustomerID`
-LIMIT 18446744073709551610 OFFSET @p0
+LIMIT 18446744073709551610 OFFSET @p1
 """);
         }
 
