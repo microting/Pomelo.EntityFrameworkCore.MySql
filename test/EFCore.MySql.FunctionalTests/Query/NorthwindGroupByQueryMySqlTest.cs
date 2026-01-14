@@ -1593,8 +1593,8 @@ GROUP BY `o0`.`CustomerID`
             AssertSql(
 """
 @p='100'
-@p1='50'
-@p0='10'
+@p2='50'
+@p1='10'
 
 SELECT `c0`.`CustomerID` AS `Key`, AVG(CAST(`o0`.`OrderID` AS double)) AS `Count`
 FROM (
@@ -1609,7 +1609,7 @@ INNER JOIN (
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` NOT IN ('DRACD', 'FOLKO')
     ORDER BY `c`.`City`
-    LIMIT @p1 OFFSET @p0
+    LIMIT @p2 OFFSET @p1
 ) AS `c0` ON `o0`.`CustomerID` = `c0`.`CustomerID`
 GROUP BY `c0`.`CustomerID`
 """);
@@ -1700,9 +1700,9 @@ GROUP BY `c`.`Country`
 
             AssertSql(
 """
-@p0='50'
+@p1='50'
 @p='10'
-@p1='100'
+@p2='100'
 
 SELECT `o0`.`CustomerID` AS `Key`, AVG(CAST(`o0`.`OrderID` AS double)) AS `Count`
 FROM (
@@ -1710,14 +1710,14 @@ FROM (
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` NOT IN ('DRACD', 'FOLKO')
     ORDER BY `c`.`City`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `c0`
 INNER JOIN (
     SELECT `o`.`OrderID`, `o`.`CustomerID`
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10400
     ORDER BY `o`.`OrderDate`
-    LIMIT @p1
+    LIMIT @p2
 ) AS `o0` ON `c0`.`CustomerID` = `o0`.`CustomerID`
 WHERE `o0`.`OrderID` > 10300
 GROUP BY `o0`.`CustomerID`
