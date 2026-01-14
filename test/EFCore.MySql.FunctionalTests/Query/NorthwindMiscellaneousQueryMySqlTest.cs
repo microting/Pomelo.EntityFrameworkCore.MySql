@@ -157,7 +157,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
 
         AssertSql(
 """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `o1`.`OrderID`, `o0`.`ProductID`, `o0`.`OrderID`
@@ -1209,15 +1209,15 @@ FROM (
 
         AssertSql(
             """
-@p='10'
-@p1='5'
+@p1='10'
+@p='5'
 
 SELECT DISTINCT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
 FROM (
     SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
     FROM `Customers` AS `c`
     ORDER BY `c`.`ContactName`
-    LIMIT @p OFFSET @p1
+    LIMIT @p1 OFFSET @p
 ) AS `c0`
 """);
     }
@@ -1286,7 +1286,7 @@ SELECT NOT EXISTS (
 
         AssertSql(
             """
-@p0='7'
+@p1='7'
 @p='5'
 
 SELECT EXISTS (
@@ -1295,7 +1295,7 @@ SELECT EXISTS (
         SELECT `c`.`CustomerID`
         FROM `Customers` AS `c`
         ORDER BY `c`.`CustomerID`
-        LIMIT @p0 OFFSET @p
+        LIMIT @p1 OFFSET @p
     ) AS `c0`
     WHERE `c0`.`CustomerID` LIKE 'C%')
 """);
@@ -1340,7 +1340,7 @@ FROM (
         LIMIT @p
     ) AS `c0`
     ORDER BY `c0`.`ContactName`
-    LIMIT 18446744073709551610 OFFSET @p0
+    LIMIT 18446744073709551610 OFFSET @p1
 ) AS `c1`
 """);
     }
