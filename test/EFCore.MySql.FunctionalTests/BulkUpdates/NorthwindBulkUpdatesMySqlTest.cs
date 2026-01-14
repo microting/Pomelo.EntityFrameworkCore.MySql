@@ -344,7 +344,7 @@ WHERE EXISTS (
             WHERE `o1`.`OrderID` < 10300
             LIMIT @p OFFSET @p
         ) AS `o0`
-        LIMIT @p2 OFFSET @p1
+        LIMIT @p3 OFFSET @p2
     ) AS `o2`
     WHERE (`o2`.`OrderID` = `o`.`OrderID`) AND (`o2`.`ProductID` = `o`.`ProductID`))
 """);
