@@ -1765,7 +1765,26 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
     public override async Task Update_with_PK_pushdown_and_join_and_multiple_setters(bool async)
     {
         await base.Update_with_PK_pushdown_and_join_and_multiple_setters(async);
-        AssertExecuteUpdateSql();
+        AssertExecuteUpdateSql(
+            """
+@p='1'
+
+SELECT `o1`.`OrderID`, `o1`.`ProductID`, `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
+FROM `Orders` AS `o`
+INNER JOIN `Order Details` AS `o1` ON `o`.`OrderID` = `o1`.`OrderID`
+WHERE `o`.`OrderID` < @p
+""",
+            """
+UPDATE `Orders` AS `o`
+INNER JOIN (
+    SELECT `o2`.`OrderID`, `o2`.`ProductID`
+    FROM `Orders` AS `o1`
+    INNER JOIN `Order Details` AS `o2` ON `o1`.`OrderID` = `o2`.`OrderID`
+    WHERE `o1`.`OrderID` < 10250
+) AS `o0` ON `o`.`OrderID` = `o0`.`OrderID`
+SET `o`.`OrderDate` = NULL,
+    `o`.`ShipVia` = `o0`.`ProductID`
+""");
     }
 
     private void AssertSql(params string[] expected)
