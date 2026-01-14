@@ -1768,22 +1768,17 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
         AssertExecuteUpdateSql(
             """
 @p='1'
+@p2='10'
 
-SELECT `o1`.`OrderID`, `o1`.`ProductID`, `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
-FROM `Orders` AS `o`
-INNER JOIN `Order Details` AS `o1` ON `o`.`OrderID` = `o1`.`OrderID`
-WHERE `o`.`OrderID` < @p
-""",
-            """
-UPDATE `Orders` AS `o`
+UPDATE `Order Details` AS `o0`
 INNER JOIN (
     SELECT `o2`.`OrderID`, `o2`.`ProductID`
     FROM `Orders` AS `o1`
     INNER JOIN `Order Details` AS `o2` ON `o1`.`OrderID` = `o2`.`OrderID`
-    WHERE `o1`.`OrderID` < 10250
-) AS `o0` ON `o`.`OrderID` = `o0`.`OrderID`
-SET `o`.`OrderDate` = NULL,
-    `o`.`ShipVia` = `o0`.`ProductID`
+    WHERE `o1`.`OrderID` < @p
+) AS `o` ON `o0`.`OrderID` = `o`.`OrderID` AND `o0`.`ProductID` = `o`.`ProductID`
+SET `o0`.`Quantity` = CAST(@p2 AS signed),
+    `o0`.`UnitPrice` = `o0`.`UnitPrice`
 """);
     }
 
