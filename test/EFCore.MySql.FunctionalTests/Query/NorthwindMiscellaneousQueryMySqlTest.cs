@@ -1059,14 +1059,14 @@ LIMIT @p0 OFFSET @p
 
         AssertSql(
             """
-@p0='5'
+@p1='5'
 @p='10'
 
 SELECT CONCAT(CONCAT(COALESCE(`c`.`ContactName`, ''), ' '), COALESCE(`c`.`ContactTitle`, '')) AS `Contact`, `o`.`OrderID`
 FROM `Customers` AS `c`
 INNER JOIN `Orders` AS `o` ON `c`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `o`.`OrderID`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -1245,7 +1245,7 @@ SELECT EXISTS (
 
         AssertSql(
             """
-@p0='7'
+@p1='7'
 @p='4'
 
 SELECT NOT EXISTS (
@@ -1254,7 +1254,7 @@ SELECT NOT EXISTS (
         SELECT `c`.`CustomerID`
         FROM `Customers` AS `c`
         ORDER BY `c`.`CustomerID`
-        LIMIT @p0 OFFSET @p
+        LIMIT @p1 OFFSET @p
     ) AS `c0`
     WHERE `c0`.`CustomerID` NOT LIKE 'B%')
 """);
