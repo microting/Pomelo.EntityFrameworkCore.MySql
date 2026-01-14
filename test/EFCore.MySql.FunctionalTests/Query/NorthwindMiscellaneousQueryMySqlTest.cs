@@ -4705,8 +4705,8 @@ LIMIT @p1 OFFSET @p
         AssertSql(
             """
 @p='5'
-@p1='3'
-@p0='8'
+@p2='3'
+@p1='8'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
 FROM (
@@ -4716,7 +4716,7 @@ FROM (
     LIMIT 18446744073709551610 OFFSET @p
 ) AS `c0`
 ORDER BY `c0`.`ContactTitle`, `c0`.`ContactName`
-LIMIT @p1 OFFSET @p0
+LIMIT @p2 OFFSET @p1
 """);
     }
 

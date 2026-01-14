@@ -611,7 +611,7 @@ WHERE EXISTS (
 
         AssertSql(
 """
-@p0='100'
+@p1='100'
 @p='0'
 
 DELETE `o`
@@ -621,7 +621,7 @@ INNER JOIN (
     FROM `Orders` AS `o0`
     WHERE `o0`.`OrderID` < 10300
     ORDER BY `o0`.`OrderID`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `o1` ON `o`.`OrderID` = `o1`.`OrderID`
 """);
     }
