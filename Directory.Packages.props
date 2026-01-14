@@ -3,7 +3,7 @@
     <!-- In theory, the following should work, but it doesn't: [10.0.1,10.1.0-0)
          `-0` is the smallest possible prerelease version according to SemVer2.
     -->
-    <EFCoreVersion>[10.0.1,10.0.999]</EFCoreVersion>
+    <EFCoreVersion>[10.0.2, 10.0.999]</EFCoreVersion>
   </PropertyGroup>
   <ItemGroup Label="Dependencies">
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EFCoreVersion)" />
