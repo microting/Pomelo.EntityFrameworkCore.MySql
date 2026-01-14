@@ -4868,7 +4868,7 @@ FROM (
     ) AS `c0`
 ) AS `c1`
 ORDER BY `c1`.`ContactTitle`
-LIMIT @p1
+LIMIT @p2
 """);
     }
 
