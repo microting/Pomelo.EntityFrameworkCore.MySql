@@ -47,13 +47,13 @@ namespace TestNamespace
             derivedsId.SetSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, long value) =>
                 {
-                    instance["DerivedsId"] = ((object)(value));
+                    instance["DerivedsId"] = ((object)value));
                     return instance;
                 });
             derivedsId.SetMaterializationSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, long value) =>
                 {
-                    instance["DerivedsId"] = ((object)(value));
+                    instance["DerivedsId"] = ((object)value));
                     return instance;
                 });
             derivedsId.SetAccessors(
@@ -84,7 +84,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(long) : ((long)(nullableValue)));
                 },
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(derivedsId, 0),
-                long (IInternalEntry entry) => ((InternalEntityEntry)(entry)).ReadRelationshipSnapshotValue<long>(derivedsId, 0));
+                long (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(derivedsId, 0));
             derivedsId.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
@@ -118,13 +118,13 @@ namespace TestNamespace
             derivedsAlternateId.SetSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, Guid value) =>
                 {
-                    instance["DerivedsAlternateId"] = ((object)(value));
+                    instance["DerivedsAlternateId"] = ((object)value));
                     return instance;
                 });
             derivedsAlternateId.SetMaterializationSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, Guid value) =>
                 {
-                    instance["DerivedsAlternateId"] = ((object)(value));
+                    instance["DerivedsAlternateId"] = ((object)value));
                     return instance;
                 });
             derivedsAlternateId.SetAccessors(
@@ -155,7 +155,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(Guid) : ((Guid)(nullableValue)));
                 },
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(derivedsAlternateId, 1),
-                Guid (IInternalEntry entry) => ((InternalEntityEntry)(entry)).ReadRelationshipSnapshotValue<Guid>(derivedsAlternateId, 1));
+                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(derivedsAlternateId, 1));
             derivedsAlternateId.SetPropertyIndexes(
                 index: 1,
                 originalValueIndex: 1,
@@ -189,13 +189,13 @@ namespace TestNamespace
             principalsId.SetSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, long value) =>
                 {
-                    instance["PrincipalsId"] = ((object)(value));
+                    instance["PrincipalsId"] = ((object)value));
                     return instance;
                 });
             principalsId.SetMaterializationSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, long value) =>
                 {
-                    instance["PrincipalsId"] = ((object)(value));
+                    instance["PrincipalsId"] = ((object)value));
                     return instance;
                 });
             principalsId.SetAccessors(
@@ -226,7 +226,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(long) : ((long)(nullableValue)));
                 },
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(principalsId, 2),
-                long (IInternalEntry entry) => ((InternalEntityEntry)(entry)).ReadRelationshipSnapshotValue<long>(principalsId, 2));
+                long (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<long>(principalsId, 2));
             principalsId.SetPropertyIndexes(
                 index: 2,
                 originalValueIndex: 2,
@@ -260,13 +260,13 @@ namespace TestNamespace
             principalsAlternateId.SetSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, Guid value) =>
                 {
-                    instance["PrincipalsAlternateId"] = ((object)(value));
+                    instance["PrincipalsAlternateId"] = ((object)value));
                     return instance;
                 });
             principalsAlternateId.SetMaterializationSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, Guid value) =>
                 {
-                    instance["PrincipalsAlternateId"] = ((object)(value));
+                    instance["PrincipalsAlternateId"] = ((object)value));
                     return instance;
                 });
             principalsAlternateId.SetAccessors(
@@ -297,7 +297,7 @@ namespace TestNamespace
                     return (nullableValue == null ? default(Guid) : ((Guid)(nullableValue)));
                 },
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(principalsAlternateId, 3),
-                Guid (IInternalEntry entry) => ((InternalEntityEntry)(entry)).ReadRelationshipSnapshotValue<Guid>(principalsAlternateId, 3));
+                Guid (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<Guid>(principalsAlternateId, 3));
             principalsAlternateId.SetPropertyIndexes(
                 index: 3,
                 originalValueIndex: 3,
@@ -335,13 +335,13 @@ namespace TestNamespace
             rowid.SetSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, byte[] value) =>
                 {
-                    instance["rowid"] = ((object)(value));
+                    instance["rowid"] = ((object)value));
                     return instance;
                 });
             rowid.SetMaterializationSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, byte[] value) =>
                 {
-                    instance["rowid"] = ((object)(value));
+                    instance["rowid"] = ((object)value));
                     return instance;
                 });
             rowid.SetAccessors(
@@ -361,8 +361,8 @@ namespace TestNamespace
                     int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(v),
                     byte[] (byte[] v) => (v == null ? null : v.ToArray())),
                 keyComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1)), ((object)v2))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<DateTime>(
                     bool (DateTime v1, DateTime v2) => v1.Equals(v2),
