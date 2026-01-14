@@ -1038,9 +1038,9 @@ SET `c0`.`ContactName` = @p0
 
         AssertExecuteUpdateSql(
 """
-@p0='4'
+@p1='4'
 @p='2'
-@p1='Updated' (Size = 30)
+@p2='Updated' (Size = 30)
 
 UPDATE `Customers` AS `c0`
 INNER JOIN (
@@ -1048,9 +1048,9 @@ INNER JOIN (
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` LIKE 'F%'
     ORDER BY `c`.`City`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = @p1
+SET `c0`.`ContactName` = @p2
 """);
     }
 
