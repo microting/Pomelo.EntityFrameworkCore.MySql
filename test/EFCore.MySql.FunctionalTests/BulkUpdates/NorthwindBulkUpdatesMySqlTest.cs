@@ -637,7 +637,7 @@ INNER JOIN (
 
             AssertSql(
 """
-@p0='100'
+@p1='100'
 @p='0'
 
 DELETE `o`
@@ -650,7 +650,7 @@ WHERE EXISTS (
         FROM `Orders` AS `o2`
         WHERE `o2`.`OrderID` < 10300
         ORDER BY `o2`.`OrderID`
-        LIMIT @p0 OFFSET @p
+        LIMIT @p1 OFFSET @p
     ) AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
     WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
@@ -1060,9 +1060,9 @@ SET `c0`.`ContactName` = @p2
 
         AssertExecuteUpdateSql(
 """
-@p0='6'
+@p1='6'
 @p='2'
-@p3='Updated' (Size = 30)
+@p4='Updated' (Size = 30)
 
 UPDATE `Customers` AS `c1`
 INNER JOIN (
@@ -1072,12 +1072,12 @@ INNER JOIN (
         FROM `Customers` AS `c`
         WHERE `c`.`CustomerID` LIKE 'F%'
         ORDER BY `c`.`City`
-        LIMIT @p0 OFFSET @p
+        LIMIT @p1 OFFSET @p
     ) AS `c0`
     ORDER BY `c0`.`City`
     LIMIT @p OFFSET @p
 ) AS `c2` ON `c1`.`CustomerID` = `c2`.`CustomerID`
-SET `c1`.`ContactName` = @p3
+SET `c1`.`ContactName` = @p4
 """);
     }
 
