@@ -14,12 +14,11 @@ public class AdHocComplexTypeQueryMySqlTest : AdHocComplexTypeQueryRelationalTes
         => MySqlTestStoreFactory.Instance;
 
     public AdHocComplexTypeQueryMySqlTest(ITestOutputHelper testOutputHelper)
+        : base()
     {
-        TestOutputHelper = testOutputHelper;
+        Fixture.TestSqlLoggerFactory.Clear();
+        Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
-
-    protected override void ClearLog()
-        => Fixture.TestSqlLoggerFactory.Clear();
 
     protected void AssertSql(params string[] expected)
         => Fixture.TestSqlLoggerFactory.AssertBaseline(expected);
