@@ -47,13 +47,13 @@ namespace TestNamespace
             derivedsId.SetSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, long value) =>
                 {
-                    instance["DerivedsId"] = ((object)value));
+                    instance["DerivedsId"] = ((object)value);
                     return instance;
                 });
             derivedsId.SetMaterializationSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, long value) =>
                 {
-                    instance["DerivedsId"] = ((object)value));
+                    instance["DerivedsId"] = ((object)value);
                     return instance;
                 });
             derivedsId.SetAccessors(
@@ -118,13 +118,13 @@ namespace TestNamespace
             derivedsAlternateId.SetSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, Guid value) =>
                 {
-                    instance["DerivedsAlternateId"] = ((object)value));
+                    instance["DerivedsAlternateId"] = ((object)value);
                     return instance;
                 });
             derivedsAlternateId.SetMaterializationSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, Guid value) =>
                 {
-                    instance["DerivedsAlternateId"] = ((object)value));
+                    instance["DerivedsAlternateId"] = ((object)value);
                     return instance;
                 });
             derivedsAlternateId.SetAccessors(
@@ -189,13 +189,13 @@ namespace TestNamespace
             principalsId.SetSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, long value) =>
                 {
-                    instance["PrincipalsId"] = ((object)value));
+                    instance["PrincipalsId"] = ((object)value);
                     return instance;
                 });
             principalsId.SetMaterializationSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, long value) =>
                 {
-                    instance["PrincipalsId"] = ((object)value));
+                    instance["PrincipalsId"] = ((object)value);
                     return instance;
                 });
             principalsId.SetAccessors(
@@ -260,13 +260,13 @@ namespace TestNamespace
             principalsAlternateId.SetSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, Guid value) =>
                 {
-                    instance["PrincipalsAlternateId"] = ((object)value));
+                    instance["PrincipalsAlternateId"] = ((object)value);
                     return instance;
                 });
             principalsAlternateId.SetMaterializationSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, Guid value) =>
                 {
-                    instance["PrincipalsAlternateId"] = ((object)value));
+                    instance["PrincipalsAlternateId"] = ((object)value);
                     return instance;
                 });
             principalsAlternateId.SetAccessors(
@@ -335,13 +335,13 @@ namespace TestNamespace
             rowid.SetSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, byte[] value) =>
                 {
-                    instance["rowid"] = ((object)value));
+                    instance["rowid"] = ((object)value);
                     return instance;
                 });
             rowid.SetMaterializationSetter(
                 Dictionary<string, object> (Dictionary<string, object> instance, byte[] value) =>
                 {
-                    instance["rowid"] = ((object)value));
+                    instance["rowid"] = ((object)value);
                     return instance;
                 });
             rowid.SetAccessors(
@@ -361,7 +361,7 @@ namespace TestNamespace
                     int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(v),
                     byte[] (byte[] v) => (v == null ? null : v.ToArray())),
                 keyComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)))),
                     int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<DateTime>(

@@ -119,11 +119,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumDiscriminator.TypeMapping = MySqlIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum1>(
-                    bool (CompiledModelTestBase.Enum1 v1, CompiledModelTestBase.Enum1 v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.Enum1 v1, CompiledModelTestBase.Enum1 v2) => object.Equals(((object)v1), ((object)v2)))),
                     int (CompiledModelTestBase.Enum1 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum1 (CompiledModelTestBase.Enum1 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum1>(
-                    bool (CompiledModelTestBase.Enum1 v1, CompiledModelTestBase.Enum1 v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.Enum1 v1, CompiledModelTestBase.Enum1 v2) => object.Equals(((object)v1), ((object)v2)))),
                     int (CompiledModelTestBase.Enum1 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum1 (CompiledModelTestBase.Enum1 v) => v),
                 providerValueComparer: new ValueComparer<int>(
