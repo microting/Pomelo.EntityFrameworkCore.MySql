@@ -1776,7 +1776,8 @@ INNER JOIN (
     FROM (
         SELECT `o`.`OrderID`, `o`.`ProductID`
         FROM `Order Details` AS `o`
-        WHERE `o`.`OrderID` < @p
+        ORDER BY `o`.`OrderID`
+        LIMIT @p
     ) AS `o`
     INNER JOIN `Order Details` AS `o1` ON `o`.`OrderID` = `o1`.`OrderID`
 ) AS `o0` ON `o2`.`OrderID` = `o0`.`OrderID` AND `o2`.`ProductID` = `o0`.`ProductID`
