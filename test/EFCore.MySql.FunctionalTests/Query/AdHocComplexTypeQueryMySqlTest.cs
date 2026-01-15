@@ -4,22 +4,16 @@
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
-using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
 public class AdHocComplexTypeQueryMySqlTest : AdHocComplexTypeQueryRelationalTestBase
 {
-    protected override ITestStoreFactory TestStoreFactory
-        => MySqlTestStoreFactory.Instance;
-
-    public AdHocComplexTypeQueryMySqlTest(ITestOutputHelper testOutputHelper)
-        : base()
+    public AdHocComplexTypeQueryMySqlTest(NonSharedFixture fixture)
+        : base(fixture)
     {
-        Fixture.TestSqlLoggerFactory.Clear();
-        Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
-    protected void AssertSql(params string[] expected)
-        => Fixture.TestSqlLoggerFactory.AssertBaseline(expected);
+    protected override ITestStoreFactory TestStoreFactory
+        => MySqlTestStoreFactory.Instance;
 }
