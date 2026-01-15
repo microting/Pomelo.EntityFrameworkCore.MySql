@@ -1774,7 +1774,7 @@ UPDATE `Order Details` AS `o2`
 INNER JOIN (
     SELECT `o1`.`OrderID`, `o1`.`ProductID`
     FROM (
-        SELECT `o`.`OrderID`
+        SELECT `o`.`OrderID`, `o`.`ProductID`
         FROM `Orders` AS `o`
         WHERE `o`.`OrderID` < @p
     ) AS `o`
