@@ -1772,14 +1772,14 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
 
 UPDATE `Order Details` AS `o2`
 INNER JOIN (
-    SELECT `o1`.`OrderID`, `o1`.`ProductID`
+    SELECT `o0`.`OrderID`, `o0`.`ProductID`
     FROM (
         SELECT `o`.`OrderID`, `o`.`ProductID`
         FROM `Order Details` AS `o`
         ORDER BY `o`.`OrderID`
         LIMIT 18446744073709551610 OFFSET @p
-    ) AS `o`
-    INNER JOIN `Order Details` AS `o1` ON `o`.`OrderID` = `o1`.`OrderID`
+    ) AS `o1`
+    INNER JOIN `Order Details` AS `o0` ON `o1`.`OrderID` = `o0`.`OrderID`
 ) AS `o0` ON `o2`.`OrderID` = `o0`.`OrderID` AND `o2`.`ProductID` = `o0`.`ProductID`
 SET `o2`.`Quantity` = CAST(@p2 AS signed),
     `o2`.`UnitPrice` = `o2`.`UnitPrice`
