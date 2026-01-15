@@ -88,8 +88,8 @@ namespace TestNamespace
                     return instance;
                 });
             blob.SetAccessors(
-                byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
-                byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
+                byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)entry.Entity)),
+                byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)entry.Entity)),
                 byte[] (IInternalEntry entry) => entry.ReadOriginalValue<byte[]>(blob, 1),
                 byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(blob));
             blob.SetPropertyIndexes(
@@ -100,15 +100,15 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             blob.TypeMapping = MySqlByteArrayTypeMapping.Default.Clone(
                 comparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1)), ((object)v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2))),
                     int (byte[] v) => ((object)v).GetHashCode(),
                     byte[] (byte[] v) => v),
                 keyComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1)), ((object)v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2))),
                     int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1)), ((object)v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2))),
                     int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
                     byte[] (byte[] source) => source.ToArray()));
             blob.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -167,13 +167,13 @@ namespace TestNamespace
                     storeTypeName: "varchar(128)",
                     size: 128),
                 converter: new ValueConverter<string, string>(
-                    string (string v) => ((string)(v)),
-                    string (string v) => ((string)(v))),
+                    string (string v) => ((string)v),
+                    string (string v) => ((string)v)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<string, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<string, string>(
-                        string (string v) => ((string)(v)),
-                        string (string v) => ((string)(v)))));
+                        string (string v) => ((string)v),
+                        string (string v) => ((string)v))));
             stringWithCharSet.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
             stringWithCharSet.AddAnnotation("Relational:ColumnType", "varchar(128)");
             stringWithCharSet.AddAnnotation("Relational:DefaultValue", "String having charset");
@@ -214,13 +214,13 @@ namespace TestNamespace
                     storeTypeName: "varchar(128)",
                     size: 128),
                 converter: new ValueConverter<string, string>(
-                    string (string v) => ((string)(v)),
-                    string (string v) => ((string)(v))),
+                    string (string v) => ((string)v),
+                    string (string v) => ((string)v)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<string, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<string, string>(
-                        string (string v) => ((string)(v)),
-                        string (string v) => ((string)(v)))));
+                        string (string v) => ((string)v),
+                        string (string v) => ((string)v))));
             stringWithCollation.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
             stringWithCollation.AddAnnotation("Relational:ColumnType", "varchar(128)");
             stringWithCollation.AddAnnotation("Relational:DefaultValue", "String using collation");
@@ -245,7 +245,7 @@ namespace TestNamespace
             runtimeEntityType.SetOriginalValuesFactory(
                 ISnapshot (IInternalEntry source) =>
                 {
-                    var structuralType = ((CompiledModelTestBase.Data)(source.Entity));
+                    var structuralType = ((CompiledModelTestBase.Data)source.Entity);
                     return ((ISnapshot)(new Snapshot<int, byte[], Point, string, string>(((ValueComparer<int>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(id)), (source.GetCurrentValue<byte[]>(blob) == null ? null : ((ValueComparer<byte[]>)(((IProperty)blob).GetValueComparer())).Snapshot(source.GetCurrentValue<byte[]>(blob))), (source.GetCurrentValue<Point>(point) == null ? null : ((ValueComparer<Point>)(((IProperty)point).GetValueComparer())).Snapshot(source.GetCurrentValue<Point>(point))), (source.GetCurrentValue<string>(stringWithCharSet) == null ? null : ((ValueComparer<string>)(((IProperty)stringWithCharSet).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringWithCharSet))), (source.GetCurrentValue<string>(stringWithCollation) == null ? null : ((ValueComparer<string>)(((IProperty)stringWithCollation).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringWithCollation))))));
                 });
             runtimeEntityType.SetStoreGeneratedValuesFactory(
@@ -253,13 +253,13 @@ namespace TestNamespace
             runtimeEntityType.SetTemporaryValuesFactory(
                 ISnapshot (IInternalEntry source) => ((ISnapshot)(new Snapshot<int, string, string>(default(int), default(string), default(string)))));
             runtimeEntityType.SetShadowValuesFactory(
-                ISnapshot (IDictionary<string, object> source) => ((ISnapshot)(new Snapshot<int, Point, string, string>((source.ContainsKey("Id") ? ((int)(source["Id"])) : 0), (source.ContainsKey("Point") ? ((Point)(source["Point"])) : null), (source.ContainsKey("StringWithCharSet") ? ((string)(source["StringWithCharSet"])) : null), (source.ContainsKey("StringWithCollation") ? ((string)(source["StringWithCollation"])) : null)))));
+                ISnapshot (IDictionary<string, object> source) => ((ISnapshot)(new Snapshot<int, Point, string, string>((source.ContainsKey("Id") ? ((int)source["Id"]) : 0), (source.ContainsKey("Point") ? ((Point)source["Point"]) : null), (source.ContainsKey("StringWithCharSet") ? ((string)source["StringWithCharSet"]) : null), (source.ContainsKey("StringWithCollation") ? ((string)source["StringWithCollation"]) : null)))));
             runtimeEntityType.SetEmptyShadowValuesFactory(
                 ISnapshot () => ((ISnapshot)(new Snapshot<int, Point, string, string>(default(int), default(Point), default(string), default(string)))));
             runtimeEntityType.SetRelationshipSnapshotFactory(
                 ISnapshot (IInternalEntry source) =>
                 {
-                    var structuralType = ((CompiledModelTestBase.Data)(source.Entity));
+                    var structuralType = ((CompiledModelTestBase.Data)source.Entity);
                     return ((ISnapshot)(new Snapshot<int>(((ValueComparer<int>)(((IProperty)id).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<int>(id)))));
                 });
             runtimeEntityType.SetCounts(new PropertyCounts(
