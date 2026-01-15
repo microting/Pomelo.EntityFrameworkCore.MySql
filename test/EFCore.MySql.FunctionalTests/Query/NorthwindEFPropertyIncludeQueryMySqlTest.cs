@@ -1618,7 +1618,7 @@ FROM (
         LIMIT 2 OFFSET 2
     ) AS `c2`
     ORDER BY `c1`.`CustomerID`, `c2`.`CustomerID`
-    LIMIT @p0
+    LIMIT @p2
 ) AS `s`
 LEFT JOIN `Orders` AS `o0` ON `s`.`CustomerID` = `o0`.`CustomerID`
 LEFT JOIN `Orders` AS `o1` ON `s`.`CustomerID0` = `o1`.`CustomerID`
