@@ -1025,14 +1025,14 @@ LIMIT @p1 OFFSET @p
 
         AssertSql(
             """
-@p0='5'
+@p1='5'
 @p='10'
 
 SELECT `c`.`ContactName`, `o`.`OrderID`
 FROM `Customers` AS `c`
 INNER JOIN `Orders` AS `o` ON `c`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `o`.`OrderID`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -1042,14 +1042,14 @@ LIMIT @p0 OFFSET @p
 
         AssertSql(
             """
-@p0='5'
+@p1='5'
 @p='10'
 
 SELECT 'Foo'
 FROM `Customers` AS `c`
 INNER JOIN `Orders` AS `o` ON `c`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `o`.`OrderID`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -1076,7 +1076,7 @@ LIMIT @p1 OFFSET @p
 
         AssertSql(
             """
-@p0='5'
+@p1='5'
 @p='10'
 
 SELECT `o`.`OrderID`, `c`.`CustomerID` AS `CustomerIDA`, `c0`.`CustomerID` AS `CustomerIDB`, `c`.`ContactName` AS `ContactNameA`, `c0`.`ContactName` AS `ContactNameB`
@@ -1084,7 +1084,7 @@ FROM `Orders` AS `o`
 INNER JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
 INNER JOIN `Customers` AS `c0` ON `o`.`CustomerID` = `c0`.`CustomerID`
 ORDER BY `o`.`OrderID`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -1228,14 +1228,14 @@ FROM (
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT EXISTS (
     SELECT 1
     FROM `Customers` AS `c`
     ORDER BY `c`.`ContactName`
-    LIMIT @p0 OFFSET @p)
+    LIMIT @p1 OFFSET @p)
 """);
     }
 
@@ -2317,7 +2317,7 @@ ORDER BY `e1`.`EmployeeID`
 
         AssertSql(
             """
-@p0='3'
+@p1='3'
 @p='4'
 
 SELECT `e1`.`EmployeeID`, `e1`.`City`, `e1`.`Country`, `e1`.`FirstName`, `e1`.`ReportsTo`, `e1`.`Title`
@@ -2325,7 +2325,7 @@ FROM (
     SELECT `e`.`EmployeeID`, `e`.`City`, `e`.`Country`, `e`.`FirstName`, `e`.`ReportsTo`, `e`.`Title`
     FROM `Employees` AS `e`
     ORDER BY `e`.`EmployeeID`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `e1`
 WHERE EXISTS (
     SELECT 1
@@ -5202,7 +5202,7 @@ ORDER BY (
 
         AssertSql(
             """
-@p0='5'
+@p1='5'
 @p='40'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`, `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
@@ -5211,7 +5211,7 @@ FROM (
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` NOT IN ('VAFFE', 'DRACD')
     ORDER BY `c`.`City`, `c`.`CustomerID`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `c0`
 LEFT JOIN `Orders` AS `o` ON `c0`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `c0`.`City`, `c0`.`CustomerID`
@@ -5910,13 +5910,13 @@ WHERE `c`.`CustomerID` = 'ALFKI'
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `c`.`CustomerID` AS `Id`
 FROM `Customers` AS `c`
 ORDER BY `c`.`CustomerID`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -6256,7 +6256,7 @@ ORDER BY `o0`.`OrderID`
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `c`.`City`
@@ -6265,7 +6265,7 @@ FROM (
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
     ORDER BY `o`.`OrderID`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `o0`
 LEFT JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
 ORDER BY `o0`.`OrderID`
