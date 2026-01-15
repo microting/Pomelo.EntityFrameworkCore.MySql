@@ -66,13 +66,13 @@ namespace TestNamespace
                     else
                     {
                         {
-                            if (entry.FlaggedAsTemporary(0) && (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("DerivedsId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsId"] : null) == null)
+                            if (entry.FlaggedAsTemporary(0) && (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("DerivedsId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsId"] : null) == null)
                             {
                                 return entry.ReadTemporaryValue<long>(0);
                             }
                             else
                             {
-                                var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("DerivedsId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsId"] : null);
+                                var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("DerivedsId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsId"] : null);
                                 return (nullableValue == null ? default(long) : ((long)nullableValue));
                             }
                         }
@@ -80,7 +80,7 @@ namespace TestNamespace
                 },
                 long (IInternalEntry entry) =>
                 {
-                    var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("DerivedsId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsId"] : null);
+                    var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("DerivedsId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsId"] : null);
                     return (nullableValue == null ? default(long) : ((long)nullableValue));
                 },
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(derivedsId, 0),
@@ -137,13 +137,13 @@ namespace TestNamespace
                     else
                     {
                         {
-                            if (entry.FlaggedAsTemporary(1) && (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("DerivedsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsAlternateId"] : null) == null)
+                            if (entry.FlaggedAsTemporary(1) && (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("DerivedsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsAlternateId"] : null) == null)
                             {
                                 return entry.ReadTemporaryValue<Guid>(1);
                             }
                             else
                             {
-                                var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("DerivedsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsAlternateId"] : null);
+                                var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("DerivedsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsAlternateId"] : null);
                                 return (nullableValue == null ? default(Guid) : ((Guid)nullableValue));
                             }
                         }
@@ -151,7 +151,7 @@ namespace TestNamespace
                 },
                 Guid (IInternalEntry entry) =>
                 {
-                    var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("DerivedsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsAlternateId"] : null);
+                    var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("DerivedsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["DerivedsAlternateId"] : null);
                     return (nullableValue == null ? default(Guid) : ((Guid)nullableValue));
                 },
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(derivedsAlternateId, 1),
@@ -208,13 +208,13 @@ namespace TestNamespace
                     else
                     {
                         {
-                            if (entry.FlaggedAsTemporary(2) && (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("PrincipalsId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsId"] : null) == null)
+                            if (entry.FlaggedAsTemporary(2) && (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("PrincipalsId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsId"] : null) == null)
                             {
                                 return entry.ReadTemporaryValue<long>(2);
                             }
                             else
                             {
-                                var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("PrincipalsId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsId"] : null);
+                                var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("PrincipalsId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsId"] : null);
                                 return (nullableValue == null ? default(long) : ((long)nullableValue));
                             }
                         }
@@ -222,7 +222,7 @@ namespace TestNamespace
                 },
                 long (IInternalEntry entry) =>
                 {
-                    var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("PrincipalsId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsId"] : null);
+                    var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("PrincipalsId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsId"] : null);
                     return (nullableValue == null ? default(long) : ((long)nullableValue));
                 },
                 long (IInternalEntry entry) => entry.ReadOriginalValue<long>(principalsId, 2),
@@ -279,13 +279,13 @@ namespace TestNamespace
                     else
                     {
                         {
-                            if (entry.FlaggedAsTemporary(3) && (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("PrincipalsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsAlternateId"] : null) == null)
+                            if (entry.FlaggedAsTemporary(3) && (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("PrincipalsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsAlternateId"] : null) == null)
                             {
                                 return entry.ReadTemporaryValue<Guid>(3);
                             }
                             else
                             {
-                                var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("PrincipalsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsAlternateId"] : null);
+                                var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("PrincipalsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsAlternateId"] : null);
                                 return (nullableValue == null ? default(Guid) : ((Guid)nullableValue));
                             }
                         }
@@ -293,7 +293,7 @@ namespace TestNamespace
                 },
                 Guid (IInternalEntry entry) =>
                 {
-                    var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("PrincipalsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsAlternateId"] : null);
+                    var nullableValue = (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("PrincipalsAlternateId") ? ((Dictionary<string, object>)entry.Entity)["PrincipalsAlternateId"] : null);
                     return (nullableValue == null ? default(Guid) : ((Guid)nullableValue));
                 },
                 Guid (IInternalEntry entry) => entry.ReadOriginalValue<Guid>(principalsAlternateId, 3),
@@ -345,8 +345,8 @@ namespace TestNamespace
                     return instance;
                 });
             rowid.SetAccessors(
-                byte[] (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(4) ? entry.ReadStoreGeneratedValue<byte[]>(4) : (entry.FlaggedAsTemporary(4) && (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("rowid") ? ((Dictionary<string, object>)entry.Entity)["rowid"] : null) == null ? entry.ReadTemporaryValue<byte[]>(4) : ((byte[])((((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("rowid") ? ((Dictionary<string, object>)entry.Entity)["rowid"] : null))))),
-                byte[] (IInternalEntry entry) => ((byte[])((((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity)).ContainsKey("rowid") ? ((Dictionary<string, object>)entry.Entity)["rowid"] : null))),
+                byte[] (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(4) ? entry.ReadStoreGeneratedValue<byte[]>(4) : (entry.FlaggedAsTemporary(4) && (((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("rowid") ? ((Dictionary<string, object>)entry.Entity)["rowid"] : null) == null ? entry.ReadTemporaryValue<byte[]>(4) : ((byte[])((((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("rowid") ? ((Dictionary<string, object>)entry.Entity)["rowid"] : null))))),
+                byte[] (IInternalEntry entry) => ((byte[])((((IDictionary<string, object>)((Dictionary<string, object>)entry.Entity).ContainsKey("rowid") ? ((Dictionary<string, object>)entry.Entity)["rowid"] : null))),
                 byte[] (IInternalEntry entry) => entry.ReadOriginalValue<byte[]>(rowid, 4),
                 byte[] (IInternalEntry entry) => entry.GetCurrentValue<byte[]>(rowid));
             rowid.SetPropertyIndexes(
