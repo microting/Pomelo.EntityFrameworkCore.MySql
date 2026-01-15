@@ -1772,7 +1772,7 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
 
 UPDATE `Order Details` AS `o2`
 INNER JOIN (
-    SELECT `o0`.`OrderID`, `o0`.`ProductID`
+    SELECT `o1`.`OrderID`, `o1`.`ProductID`
     FROM (
         SELECT `o`.`OrderID`, `o`.`ProductID`
         FROM `Order Details` AS `o`
