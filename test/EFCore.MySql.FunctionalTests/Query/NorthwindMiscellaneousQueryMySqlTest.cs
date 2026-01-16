@@ -38,7 +38,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         AssertSql(
 """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
 FROM (
@@ -48,7 +48,7 @@ FROM (
     LIMIT @p
 ) AS `c0`
 ORDER BY `c0`.`ContactName`
-LIMIT 18446744073709551610 OFFSET @p0
+LIMIT 18446744073709551610 OFFSET @p1
 """);
         }
 
@@ -157,7 +157,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
 
         AssertSql(
 """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `o1`.`OrderID`, `o0`.`ProductID`, `o0`.`OrderID`
@@ -166,7 +166,7 @@ FROM (
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
     ORDER BY `o`.`OrderID`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `o1`
 LEFT JOIN `Order Details` AS `o0` ON `o1`.`OrderID` = `o0`.`OrderID`
 ORDER BY `o1`.`OrderID`, `o0`.`ProductID`
@@ -1009,13 +1009,13 @@ LIMIT 18446744073709551610 OFFSET @p
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
 ORDER BY `c`.`ContactName`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -1025,14 +1025,14 @@ LIMIT @p0 OFFSET @p
 
         AssertSql(
             """
-@p0='5'
+@p1='5'
 @p='10'
 
 SELECT `c`.`ContactName`, `o`.`OrderID`
 FROM `Customers` AS `c`
 INNER JOIN `Orders` AS `o` ON `c`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `o`.`OrderID`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -1042,14 +1042,14 @@ LIMIT @p0 OFFSET @p
 
         AssertSql(
             """
-@p0='5'
+@p1='5'
 @p='10'
 
 SELECT 'Foo'
 FROM `Customers` AS `c`
 INNER JOIN `Orders` AS `o` ON `c`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `o`.`OrderID`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -1059,14 +1059,14 @@ LIMIT @p0 OFFSET @p
 
         AssertSql(
             """
-@p0='5'
+@p1='5'
 @p='10'
 
 SELECT CONCAT(CONCAT(COALESCE(`c`.`ContactName`, ''), ' '), COALESCE(`c`.`ContactTitle`, '')) AS `Contact`, `o`.`OrderID`
 FROM `Customers` AS `c`
 INNER JOIN `Orders` AS `o` ON `c`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `o`.`OrderID`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -1076,7 +1076,7 @@ LIMIT @p0 OFFSET @p
 
         AssertSql(
             """
-@p0='5'
+@p1='5'
 @p='10'
 
 SELECT `o`.`OrderID`, `c`.`CustomerID` AS `CustomerIDA`, `c0`.`CustomerID` AS `CustomerIDB`, `c`.`ContactName` AS `ContactNameA`, `c0`.`ContactName` AS `ContactNameB`
@@ -1084,7 +1084,7 @@ FROM `Orders` AS `o`
 INNER JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
 INNER JOIN `Customers` AS `c0` ON `o`.`CustomerID` = `c0`.`CustomerID`
 ORDER BY `o`.`OrderID`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -1172,7 +1172,7 @@ FROM `Customers` AS `c`
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
@@ -1181,7 +1181,7 @@ FROM (
     FROM `Customers` AS `c`
 ) AS `c0`
 ORDER BY `c0`.`ContactName`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -1209,7 +1209,7 @@ FROM (
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT DISTINCT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
@@ -1217,7 +1217,7 @@ FROM (
     SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
     FROM `Customers` AS `c`
     ORDER BY `c`.`ContactName`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `c0`
 """);
     }
@@ -1228,14 +1228,14 @@ FROM (
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT EXISTS (
     SELECT 1
     FROM `Customers` AS `c`
     ORDER BY `c`.`ContactName`
-    LIMIT @p0 OFFSET @p)
+    LIMIT @p1 OFFSET @p)
 """);
     }
 
@@ -1245,7 +1245,7 @@ SELECT EXISTS (
 
         AssertSql(
             """
-@p0='7'
+@p1='7'
 @p='4'
 
 SELECT NOT EXISTS (
@@ -1254,7 +1254,7 @@ SELECT NOT EXISTS (
         SELECT `c`.`CustomerID`
         FROM `Customers` AS `c`
         ORDER BY `c`.`CustomerID`
-        LIMIT @p0 OFFSET @p
+        LIMIT @p1 OFFSET @p
     ) AS `c0`
     WHERE `c0`.`CustomerID` NOT LIKE 'B%')
 """);
@@ -1286,7 +1286,7 @@ SELECT NOT EXISTS (
 
         AssertSql(
             """
-@p0='7'
+@p1='7'
 @p='5'
 
 SELECT EXISTS (
@@ -1295,7 +1295,7 @@ SELECT EXISTS (
         SELECT `c`.`CustomerID`
         FROM `Customers` AS `c`
         ORDER BY `c`.`CustomerID`
-        LIMIT @p0 OFFSET @p
+        LIMIT @p1 OFFSET @p
     ) AS `c0`
     WHERE `c0`.`CustomerID` LIKE 'C%')
 """);
@@ -1328,7 +1328,7 @@ SELECT EXISTS (
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT DISTINCT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM (
@@ -1340,7 +1340,7 @@ FROM (
         LIMIT @p
     ) AS `c0`
     ORDER BY `c0`.`ContactName`
-    LIMIT 18446744073709551610 OFFSET @p0
+    LIMIT 18446744073709551610 OFFSET @p1
 ) AS `c1`
 """);
     }
@@ -1352,7 +1352,7 @@ FROM (
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT DISTINCT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM (
@@ -1364,13 +1364,13 @@ FROM (
         LIMIT @p
     ) AS `c0`
     ORDER BY `c0`.`ContactName`
-    LIMIT 18446744073709551610 OFFSET @p0
+    LIMIT 18446744073709551610 OFFSET @p1
 ) AS `c1`
 """,
             //
             """
 @p='15'
-@p0='10'
+@p1='10'
 
 SELECT DISTINCT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM (
@@ -1382,7 +1382,7 @@ FROM (
         LIMIT @p
     ) AS `c0`
     ORDER BY `c0`.`ContactName`
-    LIMIT 18446744073709551610 OFFSET @p0
+    LIMIT 18446744073709551610 OFFSET @p1
 ) AS `c1`
 """);
     }
@@ -2317,7 +2317,7 @@ ORDER BY `e1`.`EmployeeID`
 
         AssertSql(
             """
-@p0='3'
+@p1='3'
 @p='4'
 
 SELECT `e1`.`EmployeeID`, `e1`.`City`, `e1`.`Country`, `e1`.`FirstName`, `e1`.`ReportsTo`, `e1`.`Title`
@@ -2325,7 +2325,7 @@ FROM (
     SELECT `e`.`EmployeeID`, `e`.`City`, `e`.`Country`, `e`.`FirstName`, `e`.`ReportsTo`, `e`.`Title`
     FROM `Employees` AS `e`
     ORDER BY `e`.`EmployeeID`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `e1`
 WHERE EXISTS (
     SELECT 1
@@ -3784,7 +3784,7 @@ WHERE COALESCE(`c`.`ContactName`, `c`.`CompanyName`) = 'Liz Nixon'
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT DISTINCT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM (
@@ -3796,7 +3796,7 @@ FROM (
         LIMIT @p
     ) AS `c0`
     ORDER BY `c0`.`c`
-    LIMIT 18446744073709551610 OFFSET @p0
+    LIMIT 18446744073709551610 OFFSET @p1
 ) AS `c1`
 """);
     }
@@ -3823,7 +3823,7 @@ LIMIT @p
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`CompanyName`, COALESCE(`c0`.`Region`, 'ZZ') AS `Region`
 FROM (
@@ -3833,7 +3833,7 @@ FROM (
     LIMIT @p
 ) AS `c0`
 ORDER BY `c0`.`c`
-LIMIT 18446744073709551610 OFFSET @p0
+LIMIT 18446744073709551610 OFFSET @p1
 """);
     }
 
@@ -3844,7 +3844,7 @@ LIMIT 18446744073709551610 OFFSET @p0
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`CompanyName`, `c0`.`Region`
 FROM (
@@ -3854,7 +3854,7 @@ FROM (
     LIMIT @p
 ) AS `c0`
 ORDER BY `c0`.`c`
-LIMIT 18446744073709551610 OFFSET @p0
+LIMIT 18446744073709551610 OFFSET @p1
 """);
     }
 
@@ -3865,7 +3865,7 @@ LIMIT 18446744073709551610 OFFSET @p0
         AssertSql(
             """
 @p='10'
-@p0='5'
+@p1='5'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
 FROM (
@@ -3875,7 +3875,7 @@ FROM (
     LIMIT @p
 ) AS `c0`
 ORDER BY `c0`.`c`
-LIMIT 18446744073709551610 OFFSET @p0
+LIMIT 18446744073709551610 OFFSET @p1
 """);
     }
 
@@ -4688,13 +4688,13 @@ ORDER BY `s`.`OrderID`, `o2`.`OrderDate`
 
         AssertSql(
             """
-@p0='8'
+@p1='8'
 @p='5'
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
 ORDER BY `c`.`ContactTitle`, `c`.`ContactName`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -4705,8 +4705,8 @@ LIMIT @p0 OFFSET @p
         AssertSql(
             """
 @p='5'
-@p1='3'
-@p0='8'
+@p2='3'
+@p1='8'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
 FROM (
@@ -4716,7 +4716,7 @@ FROM (
     LIMIT 18446744073709551610 OFFSET @p
 ) AS `c0`
 ORDER BY `c0`.`ContactTitle`, `c0`.`ContactName`
-LIMIT @p1 OFFSET @p0
+LIMIT @p2 OFFSET @p1
 """);
     }
 
@@ -4749,10 +4749,10 @@ LIMIT 3 OFFSET @p
 
         AssertSql(
             """
-@p0='15'
+@p1='15'
 @p='5'
-@p2='8'
-@p1='2'
+@p3='8'
+@p2='2'
 
 SELECT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM (
@@ -4761,10 +4761,10 @@ FROM (
         SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
         FROM `Customers` AS `c`
         ORDER BY `c`.`ContactTitle`, `c`.`ContactName`
-        LIMIT @p0 OFFSET @p
+        LIMIT @p1 OFFSET @p
     ) AS `c0`
     ORDER BY `c0`.`ContactTitle`, `c0`.`ContactName`
-    LIMIT @p2 OFFSET @p1
+    LIMIT @p3 OFFSET @p2
 ) AS `c1`
 ORDER BY `c1`.`ContactTitle`, `c1`.`ContactName`
 LIMIT 18446744073709551610 OFFSET @p
@@ -4777,7 +4777,7 @@ LIMIT 18446744073709551610 OFFSET @p
 
         AssertSql(
             """
-@p0='15'
+@p1='15'
 @p='5'
 
 SELECT DISTINCT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`
@@ -4785,7 +4785,7 @@ FROM (
     SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
     FROM `Customers` AS `c`
     ORDER BY `c`.`ContactTitle`, `c`.`ContactName`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `c0`
 """);
     }
@@ -4814,7 +4814,7 @@ FROM (
 
         AssertSql(
             """
-@p0='15'
+@p1='15'
 @p='5'
 
 SELECT DISTINCT `p0`.`ProductID`, `p0`.`Discontinued`, `p0`.`ProductName`, `p0`.`SupplierID`, `p0`.`UnitPrice`, `p0`.`UnitsInStock`
@@ -4822,7 +4822,7 @@ FROM (
     SELECT `p`.`ProductID`, `p`.`Discontinued`, `p`.`ProductName`, `p`.`SupplierID`, `p`.`UnitPrice`, `p`.`UnitsInStock`
     FROM `Products` AS `p`
     ORDER BY COALESCE(`p`.`UnitPrice`, 0.0)
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `p0`
 """);
     }
@@ -4833,7 +4833,7 @@ FROM (
 
         AssertSql(
             """
-@p0='15'
+@p1='15'
 @p='5'
 
 SELECT DISTINCT `p0`.`ProductID`, `p0`.`Discontinued`, `p0`.`ProductName`, `p0`.`SupplierID`, `p0`.`UnitPrice`, `p0`.`UnitsInStock`
@@ -4841,7 +4841,7 @@ FROM (
     SELECT `p`.`ProductID`, `p`.`Discontinued`, `p`.`ProductName`, `p`.`SupplierID`, `p`.`UnitPrice`, `p`.`UnitsInStock`
     FROM `Products` AS `p`
     ORDER BY COALESCE(`p`.`UnitPrice`, 0.0)
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `p0`
 LIMIT @p
 """);
@@ -4853,9 +4853,9 @@ LIMIT @p
 
         AssertSql(
             """
-@p0='15'
+@p1='15'
 @p='5'
-@p1='8'
+@p2='8'
 
 SELECT `c1`.`CustomerID`, `c1`.`Address`, `c1`.`City`, `c1`.`CompanyName`, `c1`.`ContactName`, `c1`.`ContactTitle`, `c1`.`Country`, `c1`.`Fax`, `c1`.`Phone`, `c1`.`PostalCode`, `c1`.`Region`
 FROM (
@@ -4864,11 +4864,11 @@ FROM (
         SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
         FROM `Customers` AS `c`
         ORDER BY `c`.`ContactTitle`, `c`.`ContactName`
-        LIMIT @p0 OFFSET @p
+        LIMIT @p1 OFFSET @p
     ) AS `c0`
 ) AS `c1`
 ORDER BY `c1`.`ContactTitle`
-LIMIT @p1
+LIMIT @p2
 """);
     }
 
@@ -5202,7 +5202,7 @@ ORDER BY (
 
         AssertSql(
             """
-@p0='5'
+@p1='5'
 @p='40'
 
 SELECT `c0`.`CustomerID`, `c0`.`Address`, `c0`.`City`, `c0`.`CompanyName`, `c0`.`ContactName`, `c0`.`ContactTitle`, `c0`.`Country`, `c0`.`Fax`, `c0`.`Phone`, `c0`.`PostalCode`, `c0`.`Region`, `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
@@ -5211,7 +5211,7 @@ FROM (
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` NOT IN ('VAFFE', 'DRACD')
     ORDER BY `c`.`City`, `c`.`CustomerID`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `c0`
 LEFT JOIN `Orders` AS `o` ON `c0`.`CustomerID` = `o`.`CustomerID`
 ORDER BY `c0`.`City`, `c0`.`CustomerID`
@@ -5910,13 +5910,13 @@ WHERE `c`.`CustomerID` = 'ALFKI'
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `c`.`CustomerID` AS `Id`
 FROM `Customers` AS `c`
 ORDER BY `c`.`CustomerID`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -6157,14 +6157,14 @@ FROM `Customers` AS `c`
 
         AssertSql(
             """
-@p0='20'
+@p1='20'
 @p='0'
 
 SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`
 FROM `Orders` AS `o`
 LEFT JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
 ORDER BY `o`.`OrderID`, `o`.`OrderDate`, `c`.`CustomerID`, `c`.`City`
-LIMIT @p0 OFFSET @p
+LIMIT @p1 OFFSET @p
 """);
     }
 
@@ -6256,7 +6256,7 @@ ORDER BY `o0`.`OrderID`
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `c`.`City`
@@ -6265,7 +6265,7 @@ FROM (
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
     ORDER BY `o`.`OrderID`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `o0`
 LEFT JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
 ORDER BY `o0`.`OrderID`
@@ -6320,7 +6320,7 @@ ORDER BY `o1`.`OrderID`, `o0`.`OrderID`
 
         AssertSql(
             """
-@p0='10'
+@p1='10'
 @p='5'
 
 SELECT `o1`.`OrderID`, `o1`.`CustomerID`, `o1`.`EmployeeID`, `o1`.`OrderDate`, `o0`.`OrderID`, `o0`.`ProductID`, `o0`.`Discount`, `o0`.`Quantity`, `o0`.`UnitPrice`
@@ -6329,7 +6329,7 @@ FROM (
     FROM `Orders` AS `o`
     WHERE `o`.`OrderID` < 10300
     ORDER BY `o`.`OrderID`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `o1`
 LEFT JOIN `Order Details` AS `o0` ON `o1`.`OrderID` = `o0`.`OrderID`
 ORDER BY `o1`.`OrderID`, `o0`.`OrderID`
@@ -6394,7 +6394,7 @@ LEFT JOIN (
 
         AssertSql(
             """
-@p0='1'
+@p1='1'
 @p='0'
 
 SELECT `o1`.`OrderID`, `o1`.`CustomerID`, `o1`.`EmployeeID`, `o1`.`OrderDate`
@@ -6402,7 +6402,7 @@ FROM (
     SELECT `c`.`CustomerID`
     FROM `Customers` AS `c`
     WHERE `c`.`CustomerID` = 'FISSA'
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `c0`
 LEFT JOIN (
     SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`

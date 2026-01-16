@@ -10882,7 +10882,7 @@ LEFT JOIN `LocustHighCommands` AS `l2` ON `u`.`HighCommandId` = `l2`.`Id`
 
         AssertSql(
 """
-@p0='10'
+@p1='10'
 @p='0'
 
 SELECT `s`.`Nickname`, `s`.`SquadId`, `s`.`AssignedCityName`, `s`.`CityOfBirthName`, `s`.`FullName`, `s`.`HasSoulPatch`, `s`.`LeaderNickname`, `s`.`LeaderSquadId`, `s`.`Rank`, `s`.`Discriminator`, `s`.`HasSoulPatch0`, `w`.`Id`, `w`.`AmmunitionType`, `w`.`IsAutomatic`, `w`.`Name`, `w`.`OwnerFullName`, `w`.`SynergyWithId`
@@ -10908,7 +10908,7 @@ FROM (
         GROUP BY `u0`.`HasSoulPatch`
     ) AS `u1` ON CHAR_LENGTH(`u`.`Nickname`) = `u1`.`c`
     ORDER BY `u`.`Nickname`
-    LIMIT @p0 OFFSET @p
+    LIMIT @p1 OFFSET @p
 ) AS `s`
 LEFT JOIN `Weapons` AS `w` ON `s`.`FullName` = `w`.`OwnerFullName`
 ORDER BY `s`.`Nickname`, `s`.`SquadId`, `s`.`HasSoulPatch0`

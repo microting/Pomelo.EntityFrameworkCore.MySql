@@ -61,10 +61,10 @@ namespace TestNamespace
                     return instance;
                 });
             id.SetAccessors(
-                CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<CompiledModelTestBase.ManyTypesId>(0) : (entry.FlaggedAsTemporary(0) && ManyTypesUnsafeAccessors.Id(((CompiledModelTestBase.ManyTypes)(entry.Entity))).Equals(default(CompiledModelTestBase.ManyTypesId)) ? entry.ReadTemporaryValue<CompiledModelTestBase.ManyTypesId>(0) : ManyTypesUnsafeAccessors.Id(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
+                CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<CompiledModelTestBase.ManyTypesId>(0) : (entry.FlaggedAsTemporary(0) && ManyTypesUnsafeAccessors.Id(((CompiledModelTestBase.ManyTypes)(entry.Entity)).Equals(default(CompiledModelTestBase.ManyTypesId)) ? entry.ReadTemporaryValue<CompiledModelTestBase.ManyTypesId>(0) : ManyTypesUnsafeAccessors.Id(((CompiledModelTestBase.ManyTypes)entry.Entity))),
                 CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => ManyTypesUnsafeAccessors.Id(((CompiledModelTestBase.ManyTypes)(entry.Entity))),
                 CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => entry.ReadOriginalValue<CompiledModelTestBase.ManyTypesId>(id, 0),
-                CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => ((InternalEntityEntry)(entry)).ReadRelationshipSnapshotValue<CompiledModelTestBase.ManyTypesId>(id, 0));
+                CompiledModelTestBase.ManyTypesId (IInternalEntry entry) => ((InternalEntityEntry)entry).ReadRelationshipSnapshotValue<CompiledModelTestBase.ManyTypesId>(id, 0));
             id.SetPropertyIndexes(
                 index: 0,
                 originalValueIndex: 0,
@@ -217,23 +217,23 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("BoolReadOnlyCollection", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("_boolReadOnlyCollection", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             boolReadOnlyCollection.SetGetter(
-                IReadOnlyCollection<bool> (CompiledModelTestBase.ManyTypes instance) => (ManyTypesUnsafeAccessors._boolReadOnlyCollection(instance) == null ? null : ((IReadOnlyCollection<bool>)(ManyTypesUnsafeAccessors._boolReadOnlyCollection(instance)))),
+                IReadOnlyCollection<bool> (CompiledModelTestBase.ManyTypes instance) => (ManyTypesUnsafeAccessors._boolReadOnlyCollection(instance) == null ? null : ((IReadOnlyCollection<bool>)ManyTypesUnsafeAccessors._boolReadOnlyCollection(instance))),
                 bool (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors._boolReadOnlyCollection(instance) == null);
             boolReadOnlyCollection.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, IReadOnlyCollection<bool> value) =>
                 {
-                    ManyTypesUnsafeAccessors._boolReadOnlyCollection(instance) = ((List<bool>)(value));
+                    ManyTypesUnsafeAccessors._boolReadOnlyCollection(instance) = ((List<bool>)value);
                     return instance;
                 });
             boolReadOnlyCollection.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, IReadOnlyCollection<bool> value) =>
                 {
-                    ManyTypesUnsafeAccessors._boolReadOnlyCollection(instance) = ((List<bool>)(value));
+                    ManyTypesUnsafeAccessors._boolReadOnlyCollection(instance) = ((List<bool>)value);
                     return instance;
                 });
             boolReadOnlyCollection.SetAccessors(
-                IReadOnlyCollection<bool> (IInternalEntry entry) => ((IReadOnlyCollection<bool>)(ManyTypesUnsafeAccessors._boolReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
-                IReadOnlyCollection<bool> (IInternalEntry entry) => ((IReadOnlyCollection<bool>)(ManyTypesUnsafeAccessors._boolReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
+                IReadOnlyCollection<bool> (IInternalEntry entry) => ((IReadOnlyCollection<bool>)(ManyTypesUnsafeAccessors._boolReadOnlyCollection(((CompiledModelTestBase.ManyTypes)entry.Entity))),
+                IReadOnlyCollection<bool> (IInternalEntry entry) => ((IReadOnlyCollection<bool>)(ManyTypesUnsafeAccessors._boolReadOnlyCollection(((CompiledModelTestBase.ManyTypes)entry.Entity))),
                 IReadOnlyCollection<bool> (IInternalEntry entry) => entry.ReadOriginalValue<IReadOnlyCollection<bool>>(boolReadOnlyCollection, 3),
                 IReadOnlyCollection<bool> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<bool>>(boolReadOnlyCollection));
             boolReadOnlyCollection.SetPropertyIndexes(
@@ -327,12 +327,12 @@ namespace TestNamespace
                     storeTypeName: "varchar(1)",
                     size: 1),
                 converter: new ValueConverter<bool, string>(
-                    string (bool v) => ((string)((v ? "B" : "A"))),
+                    string (bool v) => ((string)(v ? "B" : "A")),
                     bool (string v) => !(string.IsNullOrEmpty(v)) && ((int)(v.ToUpperInvariant()[0])) == ((int)("B".ToUpperInvariant()[0]))),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<bool, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<bool, string>(
-                        string (bool v) => ((string)((v ? "B" : "A"))),
+                        string (bool v) => ((string)(v ? "B" : "A")),
                         bool (string v) => !(string.IsNullOrEmpty(v)) && ((int)(v.ToUpperInvariant()[0])) == ((int)("B".ToUpperInvariant()[0])))));
             boolToStringConverterProperty.SetSentinelFromProviderValue("A");
             boolToStringConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -379,15 +379,15 @@ namespace TestNamespace
                     bool (bool v) => v),
                 providerValueComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v),
                 converter: new ValueConverter<bool, byte>(
-                    byte (bool v) => ((byte)((v ? 1 : 0))),
+                    byte (bool v) => ((byte)(v ? 1 : 0)),
                     bool (byte v) => v == 1),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<bool, byte>(
                     JsonByteReaderWriter.Instance,
                     new ValueConverter<bool, byte>(
-                        byte (bool v) => ((byte)((v ? 1 : 0))),
+                        byte (bool v) => ((byte)(v ? 1 : 0)),
                         bool (byte v) => v == 1)));
             boolToTwoValuesConverterProperty.SetSentinelFromProviderValue((byte)0);
             boolToTwoValuesConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -435,15 +435,15 @@ namespace TestNamespace
                     bool (bool v) => v),
                 providerValueComparer: new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v),
                 converter: new ValueConverter<bool, short>(
-                    short (bool v) => ((short)((v ? 1 : 0))),
+                    short (bool v) => ((short)(v ? 1 : 0)),
                     bool (short v) => v == 1),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<bool, short>(
                     JsonInt16ReaderWriter.Instance,
                     new ValueConverter<bool, short>(
-                        short (bool v) => ((short)((v ? 1 : 0))),
+                        short (bool v) => ((short)(v ? 1 : 0)),
                         bool (short v) => v == 1)));
             boolToZeroOneConverterProperty.SetSentinelFromProviderValue((short)0);
             boolToZeroOneConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -481,16 +481,16 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             bytes.TypeMapping = MySqlByteArrayTypeMapping.Default.Clone(
                 comparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => ((object)v).GetHashCode(),
                     byte[] (byte[] v) => v),
                 keyComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()));
             bytes.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -527,11 +527,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             bytesArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfReferenceTypesComparer<byte[][], byte[]>(new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => ((object)v).GetHashCode(),
                     byte[] (byte[] v) => v)),
                 keyComparer: new ListOfReferenceTypesComparer<byte[][], byte[]>(new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => ((object)v).GetHashCode(),
                     byte[] (byte[] v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -547,16 +547,16 @@ namespace TestNamespace
                     JsonByteArrayReaderWriter.Instance),
                 elementMapping: MySqlByteArrayTypeMapping.Default.Clone(
                     comparer: new ValueComparer<byte[]>(
-                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
+                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                         int (byte[] v) => ((object)v).GetHashCode(),
                         byte[] (byte[] v) => v),
                     keyComparer: new ValueComparer<byte[]>(
-                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                         byte[] (byte[] source) => source.ToArray()),
                     providerValueComparer: new ValueComparer<byte[]>(
-                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                         byte[] (byte[] source) => source.ToArray())));
             var bytesArrayElementType = bytesArray.SetElementType(typeof(byte[]));
             bytesArrayElementType.TypeMapping = bytesArray.TypeMapping.ElementTypeMapping;
@@ -597,12 +597,12 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             bytesToStringConverterProperty.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => ((object)v).GetHashCode(),
                     byte[] (byte[] v) => v),
                 keyComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -667,13 +667,13 @@ namespace TestNamespace
                     int (decimal v) => ((object)v).GetHashCode(),
                     decimal (decimal v) => v),
                 converter: new ValueConverter<int, decimal>(
-                    decimal (int v) => ((decimal)(v)),
-                    int (decimal v) => ((int)(v))),
+                    decimal (int v) => ((decimal)v),
+                    int (decimal v) => ((int)v)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<int, decimal>(
                     JsonDecimalReaderWriter.Instance,
                     new ValueConverter<int, decimal>(
-                        decimal (int v) => ((decimal)(v)),
-                        int (decimal v) => ((int)(v)))));
+                        decimal (int v) => ((decimal)v),
+                        int (decimal v) => ((int)v))));
             castingConverterProperty.SetSentinelFromProviderValue(0m);
             castingConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -711,11 +711,11 @@ namespace TestNamespace
             @char.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<char>(
                     bool (char v1, char v2) => v1 == v2,
-                    int (char v) => ((int)(v)),
+                    int (char v) => ((int)v),
                     char (char v) => v),
                 keyComparer: new ValueComparer<char>(
                     bool (char v1, char v2) => v1 == v2,
-                    int (char v) => ((int)(v)),
+                    int (char v) => ((int)v),
                     char (char v) => v),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -725,12 +725,12 @@ namespace TestNamespace
                     storeTypeName: "varchar(1)",
                     size: 1),
                 converter: new ValueConverter<char, string>(
-                    string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                    string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                     char (string v) => (v.Length < 1 ? '\0' : v[0])),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<char, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<char, string>(
-                        string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                        string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                         char (string v) => (v.Length < 1 ? '\0' : v[0]))));
             @char.SetSentinelFromProviderValue("\0");
             @char.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -769,11 +769,11 @@ namespace TestNamespace
             charArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<char[], char>(new ValueComparer<char>(
                     bool (char v1, char v2) => v1 == v2,
-                    int (char v) => ((int)(v)),
+                    int (char v) => ((int)v),
                     char (char v) => v)),
                 keyComparer: new ListOfValueTypesComparer<char[], char>(new ValueComparer<char>(
                     bool (char v1, char v2) => v1 == v2,
-                    int (char v) => ((int)(v)),
+                    int (char v) => ((int)v),
                     char (char v) => v)),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -785,23 +785,23 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<char, string>(
                         JsonStringReaderWriter.Instance,
                         new ValueConverter<char, string>(
-                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                             char (string v) => (v.Length < 1 ? '\0' : v[0]))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<char[], char>(
                     new JsonConvertedValueReaderWriter<char, string>(
                         JsonStringReaderWriter.Instance,
                         new ValueConverter<char, string>(
-                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                             char (string v) => (v.Length < 1 ? '\0' : v[0])))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<char>(
                         bool (char v1, char v2) => v1 == v2,
-                        int (char v) => ((int)(v)),
+                        int (char v) => ((int)v),
                         char (char v) => v),
                     keyComparer: new ValueComparer<char>(
                         bool (char v1, char v2) => v1 == v2,
-                        int (char v) => ((int)(v)),
+                        int (char v) => ((int)v),
                         char (char v) => v),
                     providerValueComparer: new ValueComparer<string>(
                         bool (string v1, string v2) => v1 == v2,
@@ -811,12 +811,12 @@ namespace TestNamespace
                         storeTypeName: "varchar(1)",
                         size: 1),
                     converter: new ValueConverter<char, string>(
-                        string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                        string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                         char (string v) => (v.Length < 1 ? '\0' : v[0])),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<char, string>(
                         JsonStringReaderWriter.Instance,
                         new ValueConverter<char, string>(
-                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                             char (string v) => (v.Length < 1 ? '\0' : v[0])))));
             var charArrayElementType = charArray.SetElementType(typeof(char));
             charArrayElementType.TypeMapping = charArray.TypeMapping.ElementTypeMapping;
@@ -857,11 +857,11 @@ namespace TestNamespace
             charToStringConverterProperty.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<char>(
                     bool (char v1, char v2) => v1 == v2,
-                    int (char v) => ((int)(v)),
+                    int (char v) => ((int)v),
                     char (char v) => v),
                 keyComparer: new ValueComparer<char>(
                     bool (char v1, char v2) => v1 == v2,
-                    int (char v) => ((int)(v)),
+                    int (char v) => ((int)v),
                     char (char v) => v),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -871,12 +871,12 @@ namespace TestNamespace
                     storeTypeName: "varchar(1)",
                     size: 1),
                 converter: new ValueConverter<char, string>(
-                    string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                    string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                     char (string v) => (v.Length < 1 ? '\0' : v[0])),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<char, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<char, string>(
-                        string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                        string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                         char (string v) => (v.Length < 1 ? '\0' : v[0]))));
             charToStringConverterProperty.SetSentinelFromProviderValue("\0");
             charToStringConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -1274,8 +1274,8 @@ namespace TestNamespace
                     int (DateTimeOffset v) => ((object)v).GetHashCode(),
                     DateTimeOffset (DateTimeOffset v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(12)",
@@ -1673,8 +1673,8 @@ namespace TestNamespace
                     int (decimal v) => ((object)v).GetHashCode(),
                     decimal (decimal v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(16)",
@@ -1740,12 +1740,12 @@ namespace TestNamespace
                     storeTypeName: "varchar(64)",
                     size: 64),
                 converter: new ValueConverter<decimal, string>(
-                    string (decimal v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                    string (decimal v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                     decimal (string v) => decimal.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<decimal, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<decimal, string>(
-                        string (decimal v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                        string (decimal v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                         decimal (string v) => decimal.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture))));
             decimalNumberToStringConverterProperty.SetSentinelFromProviderValue("0");
             decimalNumberToStringConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -1907,8 +1907,8 @@ namespace TestNamespace
                     int (double v) => ((object)v).GetHashCode(),
                     double (double v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(8)",
@@ -1974,12 +1974,12 @@ namespace TestNamespace
                     storeTypeName: "varchar(64)",
                     size: 64),
                 converter: new ValueConverter<double, string>(
-                    string (double v) => string.Format(CultureInfo.InvariantCulture, "{0:R}", ((object)(v))),
+                    string (double v) => string.Format(CultureInfo.InvariantCulture, "{0:R}", ((object)v))),
                     double (string v) => double.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<double, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<double, string>(
-                        string (double v) => string.Format(CultureInfo.InvariantCulture, "{0:R}", ((object)(v))),
+                        string (double v) => string.Format(CultureInfo.InvariantCulture, "{0:R}", ((object)v))),
                         double (string v) => double.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture))));
             doubleNumberToStringConverterProperty.SetSentinelFromProviderValue("0");
             doubleNumberToStringConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -1991,7 +1991,7 @@ namespace TestNamespace
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<Enum16>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             enum16.SetGetter(
                 CompiledModelTestBase.Enum16 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.Enum16(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.Enum16(instance))), ((object)(CompiledModelTestBase.Enum16.Default))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.Enum16(instance)), ((object)CompiledModelTestBase.Enum16.Default)));
             enum16.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum16 value) =>
                 {
@@ -2017,25 +2017,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum16.TypeMapping = MySqlShortTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                 providerValueComparer: new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                    short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                    CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))),
+                    short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                    CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                     JsonInt16ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                        short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value)))));
+                        short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value))));
             enum16.SetSentinelFromProviderValue((short)0);
             enum16.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -2072,11 +2072,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum16Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum16[], CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum16[], CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -2089,36 +2089,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value)))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<CompiledModelTestBase.Enum16[], CompiledModelTestBase.Enum16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))),
                 elementMapping: MySqlShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     providerValueComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                        short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))),
+                        short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))));
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))));
             var enum16ArrayElementType = enum16Array.SetElementType(typeof(CompiledModelTestBase.Enum16));
             enum16ArrayElementType.TypeMapping = enum16Array.TypeMapping.ElementTypeMapping;
             enum16Array.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -2131,7 +2131,7 @@ namespace TestNamespace
                 providerPropertyType: typeof(string));
             enum16AsString.SetGetter(
                 CompiledModelTestBase.Enum16 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.Enum16AsString(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.Enum16AsString(instance))), ((object)(CompiledModelTestBase.Enum16.Default))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.Enum16AsString(instance)), ((object)CompiledModelTestBase.Enum16.Default)));
             enum16AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum16 value) =>
                 {
@@ -2157,11 +2157,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum16AsString.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                 providerValueComparer: new ValueComparer<string>(
@@ -2215,11 +2215,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum16AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum16[], CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum16[], CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -2243,11 +2243,11 @@ namespace TestNamespace
                             CompiledModelTestBase.Enum16 (string v) => StringEnumConverter<CompiledModelTestBase.Enum16, string, CompiledModelTestBase.Enum16>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -2303,11 +2303,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum16AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum16>, CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum16>, CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -2331,11 +2331,11 @@ namespace TestNamespace
                             CompiledModelTestBase.Enum16 (string v) => StringEnumConverter<CompiledModelTestBase.Enum16, string, CompiledModelTestBase.Enum16>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -2391,11 +2391,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum16Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum16>, CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum16>, CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -2408,36 +2408,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value)))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<List<CompiledModelTestBase.Enum16>, CompiledModelTestBase.Enum16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))),
                 elementMapping: MySqlShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     providerValueComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                        short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))),
+                        short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))));
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))));
             var enum16CollectionElementType = enum16Collection.SetElementType(typeof(CompiledModelTestBase.Enum16));
             enum16CollectionElementType.TypeMapping = enum16Collection.TypeMapping.ElementTypeMapping;
             enum16Collection.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -2449,7 +2449,7 @@ namespace TestNamespace
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<Enum32>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             enum32.SetGetter(
                 CompiledModelTestBase.Enum32 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.Enum32(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.Enum32(instance))), ((object)(CompiledModelTestBase.Enum32.Default))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.Enum32(instance)), ((object)CompiledModelTestBase.Enum32.Default)));
             enum32.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum32 value) =>
                 {
@@ -2475,11 +2475,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum32.TypeMapping = MySqlIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 providerValueComparer: new ValueComparer<int>(
@@ -2487,13 +2487,13 @@ namespace TestNamespace
                     int (int v) => v,
                     int (int v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                    int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                    CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))),
+                    int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                    CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                     JsonInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                        int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value)))));
+                        int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value))));
             enum32.SetSentinelFromProviderValue(0);
             enum32.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -2530,11 +2530,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum32Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum32[], CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum32[], CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -2547,22 +2547,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value)))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<CompiledModelTestBase.Enum32[], CompiledModelTestBase.Enum32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))),
                 elementMapping: MySqlIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     providerValueComparer: new ValueComparer<int>(
@@ -2570,13 +2570,13 @@ namespace TestNamespace
                         int (int v) => v,
                         int (int v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                        int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))),
+                        int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))));
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))));
             var enum32ArrayElementType = enum32Array.SetElementType(typeof(CompiledModelTestBase.Enum32));
             enum32ArrayElementType.TypeMapping = enum32Array.TypeMapping.ElementTypeMapping;
             enum32Array.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -2589,7 +2589,7 @@ namespace TestNamespace
                 providerPropertyType: typeof(string));
             enum32AsString.SetGetter(
                 CompiledModelTestBase.Enum32 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.Enum32AsString(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.Enum32AsString(instance))), ((object)(CompiledModelTestBase.Enum32.Default))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.Enum32AsString(instance)), ((object)CompiledModelTestBase.Enum32.Default)));
             enum32AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum32 value) =>
                 {
@@ -2615,11 +2615,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum32AsString.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 providerValueComparer: new ValueComparer<string>(
@@ -2673,11 +2673,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum32AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum32[], CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum32[], CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -2701,11 +2701,11 @@ namespace TestNamespace
                             CompiledModelTestBase.Enum32 (string v) => StringEnumConverter<CompiledModelTestBase.Enum32, string, CompiledModelTestBase.Enum32>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -2761,11 +2761,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum32AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum32>, CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum32>, CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -2789,11 +2789,11 @@ namespace TestNamespace
                             CompiledModelTestBase.Enum32 (string v) => StringEnumConverter<CompiledModelTestBase.Enum32, string, CompiledModelTestBase.Enum32>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -2849,11 +2849,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum32Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum32>, CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum32>, CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -2866,22 +2866,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value)))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<List<CompiledModelTestBase.Enum32>, CompiledModelTestBase.Enum32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))),
                 elementMapping: MySqlIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     providerValueComparer: new ValueComparer<int>(
@@ -2889,13 +2889,13 @@ namespace TestNamespace
                         int (int v) => v,
                         int (int v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                        int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))),
+                        int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))));
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))));
             var enum32CollectionElementType = enum32Collection.SetElementType(typeof(CompiledModelTestBase.Enum32));
             enum32CollectionElementType.TypeMapping = enum32Collection.TypeMapping.ElementTypeMapping;
             enum32Collection.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -2907,7 +2907,7 @@ namespace TestNamespace
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<Enum64>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             enum64.SetGetter(
                 CompiledModelTestBase.Enum64 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.Enum64(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.Enum64(instance))), ((object)(CompiledModelTestBase.Enum64.Default))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.Enum64(instance)), ((object)CompiledModelTestBase.Enum64.Default)));
             enum64.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum64 value) =>
                 {
@@ -2933,11 +2933,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum64.TypeMapping = MySqlLongTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                 providerValueComparer: new ValueComparer<long>(
@@ -2945,13 +2945,13 @@ namespace TestNamespace
                     int (long v) => ((object)v).GetHashCode(),
                     long (long v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                    long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                    CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))),
+                    long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                    CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                     JsonInt64ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                        long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value)))));
+                        long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value))));
             enum64.SetSentinelFromProviderValue(0L);
             enum64.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -2988,11 +2988,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum64Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum64[], CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum64[], CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -3005,22 +3005,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value)))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<CompiledModelTestBase.Enum64[], CompiledModelTestBase.Enum64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))),
                 elementMapping: MySqlLongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     providerValueComparer: new ValueComparer<long>(
@@ -3028,13 +3028,13 @@ namespace TestNamespace
                         int (long v) => ((object)v).GetHashCode(),
                         long (long v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                        long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))),
+                        long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))));
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))));
             var enum64ArrayElementType = enum64Array.SetElementType(typeof(CompiledModelTestBase.Enum64));
             enum64ArrayElementType.TypeMapping = enum64Array.TypeMapping.ElementTypeMapping;
             enum64Array.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -3047,7 +3047,7 @@ namespace TestNamespace
                 providerPropertyType: typeof(string));
             enum64AsString.SetGetter(
                 CompiledModelTestBase.Enum64 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.Enum64AsString(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.Enum64AsString(instance))), ((object)(CompiledModelTestBase.Enum64.Default))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.Enum64AsString(instance)), ((object)CompiledModelTestBase.Enum64.Default)));
             enum64AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum64 value) =>
                 {
@@ -3073,11 +3073,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum64AsString.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                 providerValueComparer: new ValueComparer<string>(
@@ -3131,11 +3131,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum64AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum64[], CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum64[], CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -3159,11 +3159,11 @@ namespace TestNamespace
                             CompiledModelTestBase.Enum64 (string v) => StringEnumConverter<CompiledModelTestBase.Enum64, string, CompiledModelTestBase.Enum64>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -3219,11 +3219,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum64AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum64>, CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum64>, CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -3247,11 +3247,11 @@ namespace TestNamespace
                             CompiledModelTestBase.Enum64 (string v) => StringEnumConverter<CompiledModelTestBase.Enum64, string, CompiledModelTestBase.Enum64>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -3307,11 +3307,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum64Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum64>, CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum64>, CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -3324,22 +3324,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value)))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<List<CompiledModelTestBase.Enum64>, CompiledModelTestBase.Enum64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))),
                 elementMapping: MySqlLongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     providerValueComparer: new ValueComparer<long>(
@@ -3347,13 +3347,13 @@ namespace TestNamespace
                         int (long v) => ((object)v).GetHashCode(),
                         long (long v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                        long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))),
+                        long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))));
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))));
             var enum64CollectionElementType = enum64Collection.SetElementType(typeof(CompiledModelTestBase.Enum64));
             enum64CollectionElementType.TypeMapping = enum64Collection.TypeMapping.ElementTypeMapping;
             enum64Collection.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -3365,7 +3365,7 @@ namespace TestNamespace
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<Enum8>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             enum8.SetGetter(
                 CompiledModelTestBase.Enum8 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.Enum8(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.Enum8(instance))), ((object)(CompiledModelTestBase.Enum8.Default))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.Enum8(instance)), ((object)CompiledModelTestBase.Enum8.Default)));
             enum8.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum8 value) =>
                 {
@@ -3391,25 +3391,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum8.TypeMapping = MySqlSByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                 providerValueComparer: new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                    sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                    CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))),
+                    sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                    CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                     JsonSByteReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value)))));
+                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value))));
             enum8.SetSentinelFromProviderValue((sbyte)0);
             enum8.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -3446,11 +3446,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum8Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum8[], CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum8[], CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -3463,36 +3463,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value)))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<CompiledModelTestBase.Enum8[], CompiledModelTestBase.Enum8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))),
                 elementMapping: MySqlSByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     providerValueComparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))),
+                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))));
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))));
             var enum8ArrayElementType = enum8Array.SetElementType(typeof(CompiledModelTestBase.Enum8));
             enum8ArrayElementType.TypeMapping = enum8Array.TypeMapping.ElementTypeMapping;
             enum8Array.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -3505,7 +3505,7 @@ namespace TestNamespace
                 providerPropertyType: typeof(string));
             enum8AsString.SetGetter(
                 CompiledModelTestBase.Enum8 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.Enum8AsString(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.Enum8AsString(instance))), ((object)(CompiledModelTestBase.Enum8.Default))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.Enum8AsString(instance)), ((object)CompiledModelTestBase.Enum8.Default)));
             enum8AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum8 value) =>
                 {
@@ -3531,11 +3531,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum8AsString.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                 providerValueComparer: new ValueComparer<string>(
@@ -3589,11 +3589,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum8AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum8[], CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.Enum8[], CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -3617,11 +3617,11 @@ namespace TestNamespace
                             CompiledModelTestBase.Enum8 (string v) => StringEnumConverter<CompiledModelTestBase.Enum8, string, CompiledModelTestBase.Enum8>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -3677,11 +3677,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum8AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum8>, CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum8>, CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -3705,11 +3705,11 @@ namespace TestNamespace
                             CompiledModelTestBase.Enum8 (string v) => StringEnumConverter<CompiledModelTestBase.Enum8, string, CompiledModelTestBase.Enum8>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -3765,11 +3765,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum8Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum8>, CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.Enum8>, CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -3782,36 +3782,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value)))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<List<CompiledModelTestBase.Enum8>, CompiledModelTestBase.Enum8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))),
                 elementMapping: MySqlSByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     providerValueComparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))),
+                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))));
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))));
             var enum8CollectionElementType = enum8Collection.SetElementType(typeof(CompiledModelTestBase.Enum8));
             enum8CollectionElementType.TypeMapping = enum8Collection.TypeMapping.ElementTypeMapping;
             enum8Collection.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -3824,7 +3824,7 @@ namespace TestNamespace
                 valueConverter: new EnumToNumberConverter<CompiledModelTestBase.Enum32, int>());
             enumToNumberConverterProperty.SetGetter(
                 CompiledModelTestBase.Enum32 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.EnumToNumberConverterProperty(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.EnumToNumberConverterProperty(instance))), ((object)(CompiledModelTestBase.Enum32.Default))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.EnumToNumberConverterProperty(instance)), ((object)CompiledModelTestBase.Enum32.Default)));
             enumToNumberConverterProperty.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum32 value) =>
                 {
@@ -3850,11 +3850,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumToNumberConverterProperty.TypeMapping = MySqlIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 providerValueComparer: new ValueComparer<int>(
@@ -3862,13 +3862,13 @@ namespace TestNamespace
                     int (int v) => v,
                     int (int v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                    int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                    CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))),
+                    int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                    CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                     JsonInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                        int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value)))));
+                        int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value))));
             enumToNumberConverterProperty.SetSentinelFromProviderValue(0);
             enumToNumberConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -3880,7 +3880,7 @@ namespace TestNamespace
                 valueConverter: new EnumToStringConverter<CompiledModelTestBase.Enum32>());
             enumToStringConverterProperty.SetGetter(
                 CompiledModelTestBase.Enum32 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.EnumToStringConverterProperty(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.EnumToStringConverterProperty(instance))), ((object)(CompiledModelTestBase.Enum32.Default))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.EnumToStringConverterProperty(instance)), ((object)CompiledModelTestBase.Enum32.Default)));
             enumToStringConverterProperty.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum32 value) =>
                 {
@@ -3906,11 +3906,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumToStringConverterProperty.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 providerValueComparer: new ValueComparer<string>(
@@ -3938,7 +3938,7 @@ namespace TestNamespace
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<EnumU16>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             enumU16.SetGetter(
                 CompiledModelTestBase.EnumU16 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.EnumU16(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.EnumU16(instance))), ((object)(CompiledModelTestBase.EnumU16.Min))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.EnumU16(instance)), ((object)CompiledModelTestBase.EnumU16.Min)));
             enumU16.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU16 value) =>
                 {
@@ -3964,25 +3964,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU16.TypeMapping = MySqlUShortTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                 providerValueComparer: new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                    ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                    CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))),
+                    ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                    CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                     JsonUInt16ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value)))));
+                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value))));
             enumU16.SetSentinelFromProviderValue((ushort)0);
             enumU16.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -4019,11 +4019,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU16Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU16[], CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU16[], CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -4036,36 +4036,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value)))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<CompiledModelTestBase.EnumU16[], CompiledModelTestBase.EnumU16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))),
                 elementMapping: MySqlUShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     providerValueComparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))),
+                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))));
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))));
             var enumU16ArrayElementType = enumU16Array.SetElementType(typeof(CompiledModelTestBase.EnumU16));
             enumU16ArrayElementType.TypeMapping = enumU16Array.TypeMapping.ElementTypeMapping;
             enumU16Array.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -4078,7 +4078,7 @@ namespace TestNamespace
                 providerPropertyType: typeof(string));
             enumU16AsString.SetGetter(
                 CompiledModelTestBase.EnumU16 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.EnumU16AsString(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.EnumU16AsString(instance))), ((object)(CompiledModelTestBase.EnumU16.Min))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.EnumU16AsString(instance)), ((object)CompiledModelTestBase.EnumU16.Min)));
             enumU16AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU16 value) =>
                 {
@@ -4104,11 +4104,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU16AsString.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                 providerValueComparer: new ValueComparer<string>(
@@ -4162,11 +4162,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU16AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU16[], CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU16[], CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -4190,11 +4190,11 @@ namespace TestNamespace
                             CompiledModelTestBase.EnumU16 (string v) => StringEnumConverter<CompiledModelTestBase.EnumU16, string, CompiledModelTestBase.EnumU16>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -4250,11 +4250,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU16AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU16>, CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU16>, CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -4278,11 +4278,11 @@ namespace TestNamespace
                             CompiledModelTestBase.EnumU16 (string v) => StringEnumConverter<CompiledModelTestBase.EnumU16, string, CompiledModelTestBase.EnumU16>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -4338,11 +4338,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU16Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU16>, CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU16>, CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -4355,36 +4355,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value)))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<List<CompiledModelTestBase.EnumU16>, CompiledModelTestBase.EnumU16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))),
                 elementMapping: MySqlUShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     providerValueComparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))),
+                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))));
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))));
             var enumU16CollectionElementType = enumU16Collection.SetElementType(typeof(CompiledModelTestBase.EnumU16));
             enumU16CollectionElementType.TypeMapping = enumU16Collection.TypeMapping.ElementTypeMapping;
             enumU16Collection.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -4396,7 +4396,7 @@ namespace TestNamespace
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<EnumU32>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             enumU32.SetGetter(
                 CompiledModelTestBase.EnumU32 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.EnumU32(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.EnumU32(instance))), ((object)(CompiledModelTestBase.EnumU32.Min))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.EnumU32(instance)), ((object)CompiledModelTestBase.EnumU32.Min)));
             enumU32.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU32 value) =>
                 {
@@ -4422,25 +4422,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU32.TypeMapping = MySqlUIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                 providerValueComparer: new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                    uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                    CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))),
+                    uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                    CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                     JsonUInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value)))));
+                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value))));
             enumU32.SetSentinelFromProviderValue(0u);
             enumU32.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -4477,11 +4477,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU32Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU32[], CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU32[], CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -4494,36 +4494,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value)))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<CompiledModelTestBase.EnumU32[], CompiledModelTestBase.EnumU32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))),
                 elementMapping: MySqlUIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     providerValueComparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))),
+                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))));
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))));
             var enumU32ArrayElementType = enumU32Array.SetElementType(typeof(CompiledModelTestBase.EnumU32));
             enumU32ArrayElementType.TypeMapping = enumU32Array.TypeMapping.ElementTypeMapping;
             enumU32Array.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -4536,7 +4536,7 @@ namespace TestNamespace
                 providerPropertyType: typeof(string));
             enumU32AsString.SetGetter(
                 CompiledModelTestBase.EnumU32 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.EnumU32AsString(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.EnumU32AsString(instance))), ((object)(CompiledModelTestBase.EnumU32.Min))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.EnumU32AsString(instance)), ((object)CompiledModelTestBase.EnumU32.Min)));
             enumU32AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU32 value) =>
                 {
@@ -4562,11 +4562,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU32AsString.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                 providerValueComparer: new ValueComparer<string>(
@@ -4620,11 +4620,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU32AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU32[], CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU32[], CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -4648,11 +4648,11 @@ namespace TestNamespace
                             CompiledModelTestBase.EnumU32 (string v) => StringEnumConverter<CompiledModelTestBase.EnumU32, string, CompiledModelTestBase.EnumU32>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -4708,11 +4708,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU32AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU32>, CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU32>, CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -4736,11 +4736,11 @@ namespace TestNamespace
                             CompiledModelTestBase.EnumU32 (string v) => StringEnumConverter<CompiledModelTestBase.EnumU32, string, CompiledModelTestBase.EnumU32>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -4796,11 +4796,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU32Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU32>, CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU32>, CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -4813,36 +4813,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value)))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<List<CompiledModelTestBase.EnumU32>, CompiledModelTestBase.EnumU32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))),
                 elementMapping: MySqlUIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     providerValueComparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))),
+                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))));
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))));
             var enumU32CollectionElementType = enumU32Collection.SetElementType(typeof(CompiledModelTestBase.EnumU32));
             enumU32CollectionElementType.TypeMapping = enumU32Collection.TypeMapping.ElementTypeMapping;
             enumU32Collection.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -4854,7 +4854,7 @@ namespace TestNamespace
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<EnumU64>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             enumU64.SetGetter(
                 CompiledModelTestBase.EnumU64 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.EnumU64(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.EnumU64(instance))), ((object)(CompiledModelTestBase.EnumU64.Min))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.EnumU64(instance)), ((object)CompiledModelTestBase.EnumU64.Min)));
             enumU64.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU64 value) =>
                 {
@@ -4880,11 +4880,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU64.TypeMapping = MySqlULongTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                 providerValueComparer: new ValueComparer<ulong>(
@@ -4892,13 +4892,13 @@ namespace TestNamespace
                     int (ulong v) => ((object)v).GetHashCode(),
                     ulong (ulong v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                    ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                    CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))),
+                    ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                    CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                     JsonUInt64ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value)))));
+                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value))));
             enumU64.SetSentinelFromProviderValue(0ul);
             enumU64.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -4935,11 +4935,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU64Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU64[], CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU64[], CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -4952,22 +4952,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value)))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<CompiledModelTestBase.EnumU64[], CompiledModelTestBase.EnumU64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))),
                 elementMapping: MySqlULongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     providerValueComparer: new ValueComparer<ulong>(
@@ -4975,13 +4975,13 @@ namespace TestNamespace
                         int (ulong v) => ((object)v).GetHashCode(),
                         ulong (ulong v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))),
+                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))));
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))));
             var enumU64ArrayElementType = enumU64Array.SetElementType(typeof(CompiledModelTestBase.EnumU64));
             enumU64ArrayElementType.TypeMapping = enumU64Array.TypeMapping.ElementTypeMapping;
             enumU64Array.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -4994,7 +4994,7 @@ namespace TestNamespace
                 providerPropertyType: typeof(string));
             enumU64AsString.SetGetter(
                 CompiledModelTestBase.EnumU64 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.EnumU64AsString(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.EnumU64AsString(instance))), ((object)(CompiledModelTestBase.EnumU64.Min))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.EnumU64AsString(instance)), ((object)CompiledModelTestBase.EnumU64.Min)));
             enumU64AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU64 value) =>
                 {
@@ -5020,11 +5020,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU64AsString.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                 providerValueComparer: new ValueComparer<string>(
@@ -5078,11 +5078,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU64AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU64[], CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU64[], CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -5106,11 +5106,11 @@ namespace TestNamespace
                             CompiledModelTestBase.EnumU64 (string v) => StringEnumConverter<CompiledModelTestBase.EnumU64, string, CompiledModelTestBase.EnumU64>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -5166,11 +5166,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU64AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU64>, CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU64>, CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -5194,11 +5194,11 @@ namespace TestNamespace
                             CompiledModelTestBase.EnumU64 (string v) => StringEnumConverter<CompiledModelTestBase.EnumU64, string, CompiledModelTestBase.EnumU64>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -5254,11 +5254,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU64Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU64>, CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU64>, CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -5271,22 +5271,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value)))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<List<CompiledModelTestBase.EnumU64>, CompiledModelTestBase.EnumU64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))),
                 elementMapping: MySqlULongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     providerValueComparer: new ValueComparer<ulong>(
@@ -5294,13 +5294,13 @@ namespace TestNamespace
                         int (ulong v) => ((object)v).GetHashCode(),
                         ulong (ulong v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))),
+                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))));
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))));
             var enumU64CollectionElementType = enumU64Collection.SetElementType(typeof(CompiledModelTestBase.EnumU64));
             enumU64CollectionElementType.TypeMapping = enumU64Collection.TypeMapping.ElementTypeMapping;
             enumU64Collection.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -5312,7 +5312,7 @@ namespace TestNamespace
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("<EnumU8>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             enumU8.SetGetter(
                 CompiledModelTestBase.EnumU8 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.EnumU8(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.EnumU8(instance))), ((object)(CompiledModelTestBase.EnumU8.Min))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.EnumU8(instance)), ((object)CompiledModelTestBase.EnumU8.Min)));
             enumU8.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU8 value) =>
                 {
@@ -5338,25 +5338,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU8.TypeMapping = MySqlByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                 providerValueComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                    byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                    CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))),
+                    byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                    CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                     JsonByteReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value)))));
+                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value))));
             enumU8.SetSentinelFromProviderValue((byte)0);
             enumU8.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -5393,11 +5393,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU8Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU8[], CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU8[], CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -5410,36 +5410,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value)))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<CompiledModelTestBase.EnumU8[], CompiledModelTestBase.EnumU8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))),
                 elementMapping: MySqlByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     providerValueComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))),
+                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))));
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))));
             var enumU8ArrayElementType = enumU8Array.SetElementType(typeof(CompiledModelTestBase.EnumU8));
             enumU8ArrayElementType.TypeMapping = enumU8Array.TypeMapping.ElementTypeMapping;
             enumU8Array.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -5452,7 +5452,7 @@ namespace TestNamespace
                 providerPropertyType: typeof(string));
             enumU8AsString.SetGetter(
                 CompiledModelTestBase.EnumU8 (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors.EnumU8AsString(instance),
-                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)(ManyTypesUnsafeAccessors.EnumU8AsString(instance))), ((object)(CompiledModelTestBase.EnumU8.Min))));
+                bool (CompiledModelTestBase.ManyTypes instance) => object.Equals(((object)ManyTypesUnsafeAccessors.EnumU8AsString(instance)), ((object)CompiledModelTestBase.EnumU8.Min)));
             enumU8AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU8 value) =>
                 {
@@ -5478,11 +5478,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU8AsString.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                 providerValueComparer: new ValueComparer<string>(
@@ -5536,11 +5536,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU8AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU8[], CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<CompiledModelTestBase.EnumU8[], CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -5564,11 +5564,11 @@ namespace TestNamespace
                             CompiledModelTestBase.EnumU8 (string v) => StringEnumConverter<CompiledModelTestBase.EnumU8, string, CompiledModelTestBase.EnumU8>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -5624,11 +5624,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU8AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU8>, CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU8>, CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -5652,11 +5652,11 @@ namespace TestNamespace
                             CompiledModelTestBase.EnumU8 (string v) => StringEnumConverter<CompiledModelTestBase.EnumU8, string, CompiledModelTestBase.EnumU8>.ConvertToEnum(v)))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     providerValueComparer: new ValueComparer<string>(
@@ -5712,11 +5712,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumU8Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU8>, CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<CompiledModelTestBase.EnumU8>, CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -5729,36 +5729,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value)))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfStructsReaderWriter<List<CompiledModelTestBase.EnumU8>, CompiledModelTestBase.EnumU8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))),
                 elementMapping: MySqlByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     providerValueComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))),
+                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))));
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))));
             var enumU8CollectionElementType = enumU8Collection.SetElementType(typeof(CompiledModelTestBase.EnumU8));
             enumU8CollectionElementType.TypeMapping = enumU8Collection.TypeMapping.ElementTypeMapping;
             enumU8Collection.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -6035,8 +6035,8 @@ namespace TestNamespace
                     int (Guid v) => ((object)v).GetHashCode(),
                     Guid (Guid v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(16)",
@@ -6262,23 +6262,23 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("IPAddressReadOnlyCollection", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("_ipAddressReadOnlyCollection", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             iPAddressReadOnlyCollection.SetGetter(
-                IReadOnlyCollection<IPAddress> (CompiledModelTestBase.ManyTypes instance) => (ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(instance) == null ? null : ((IReadOnlyCollection<IPAddress>)(ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(instance)))),
+                IReadOnlyCollection<IPAddress> (CompiledModelTestBase.ManyTypes instance) => (ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(instance) == null ? null : ((IReadOnlyCollection<IPAddress>)ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(instance))),
                 bool (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(instance) == null);
             iPAddressReadOnlyCollection.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, IReadOnlyCollection<IPAddress> value) =>
                 {
-                    ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(instance) = ((List<IPAddress>)(value));
+                    ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(instance) = ((List<IPAddress>)value);
                     return instance;
                 });
             iPAddressReadOnlyCollection.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, IReadOnlyCollection<IPAddress> value) =>
                 {
-                    ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(instance) = ((List<IPAddress>)(value));
+                    ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(instance) = ((List<IPAddress>)value);
                     return instance;
                 });
             iPAddressReadOnlyCollection.SetAccessors(
-                IReadOnlyCollection<IPAddress> (IInternalEntry entry) => ((IReadOnlyCollection<IPAddress>)(ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
-                IReadOnlyCollection<IPAddress> (IInternalEntry entry) => ((IReadOnlyCollection<IPAddress>)(ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
+                IReadOnlyCollection<IPAddress> (IInternalEntry entry) => ((IReadOnlyCollection<IPAddress>)(ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(((CompiledModelTestBase.ManyTypes)entry.Entity))),
+                IReadOnlyCollection<IPAddress> (IInternalEntry entry) => ((IReadOnlyCollection<IPAddress>)(ManyTypesUnsafeAccessors._ipAddressReadOnlyCollection(((CompiledModelTestBase.ManyTypes)entry.Entity))),
                 IReadOnlyCollection<IPAddress> (IInternalEntry entry) => entry.ReadOriginalValue<IReadOnlyCollection<IPAddress>>(iPAddressReadOnlyCollection, 91),
                 IReadOnlyCollection<IPAddress> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<IPAddress>>(iPAddressReadOnlyCollection));
             iPAddressReadOnlyCollection.SetPropertyIndexes(
@@ -6386,8 +6386,8 @@ namespace TestNamespace
                     int (IPAddress v) => ((object)v).GetHashCode(),
                     IPAddress (IPAddress v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(16)",
@@ -6496,15 +6496,15 @@ namespace TestNamespace
             int16.TypeMapping = MySqlShortTypeMapping.Default.Clone(
                 comparer: new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v),
                 keyComparer: new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v),
                 providerValueComparer: new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v));
             int16.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -6542,11 +6542,11 @@ namespace TestNamespace
             int16Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<short[], short>(new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v)),
                 keyComparer: new ListOfValueTypesComparer<short[], short>(new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v)),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -6562,15 +6562,15 @@ namespace TestNamespace
                 elementMapping: MySqlShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     keyComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     providerValueComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v)));
             var int16ArrayElementType = int16Array.SetElementType(typeof(short));
             int16ArrayElementType.TypeMapping = int16Array.TypeMapping.ElementTypeMapping;
@@ -6697,23 +6697,23 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("Int32ReadOnlyCollection", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("_int32ReadOnlyCollection", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             int32ReadOnlyCollection.SetGetter(
-                IReadOnlyCollection<int> (CompiledModelTestBase.ManyTypes instance) => (ManyTypesUnsafeAccessors._int32ReadOnlyCollection(instance) == null ? null : ((IReadOnlyCollection<int>)(ManyTypesUnsafeAccessors._int32ReadOnlyCollection(instance)))),
+                IReadOnlyCollection<int> (CompiledModelTestBase.ManyTypes instance) => (ManyTypesUnsafeAccessors._int32ReadOnlyCollection(instance) == null ? null : ((IReadOnlyCollection<int>)ManyTypesUnsafeAccessors._int32ReadOnlyCollection(instance))),
                 bool (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors._int32ReadOnlyCollection(instance) == null);
             int32ReadOnlyCollection.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, IReadOnlyCollection<int> value) =>
                 {
-                    ManyTypesUnsafeAccessors._int32ReadOnlyCollection(instance) = ((List<int>)(value));
+                    ManyTypesUnsafeAccessors._int32ReadOnlyCollection(instance) = ((List<int>)value);
                     return instance;
                 });
             int32ReadOnlyCollection.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, IReadOnlyCollection<int> value) =>
                 {
-                    ManyTypesUnsafeAccessors._int32ReadOnlyCollection(instance) = ((List<int>)(value));
+                    ManyTypesUnsafeAccessors._int32ReadOnlyCollection(instance) = ((List<int>)value);
                     return instance;
                 });
             int32ReadOnlyCollection.SetAccessors(
-                IReadOnlyCollection<int> (IInternalEntry entry) => ((IReadOnlyCollection<int>)(ManyTypesUnsafeAccessors._int32ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
-                IReadOnlyCollection<int> (IInternalEntry entry) => ((IReadOnlyCollection<int>)(ManyTypesUnsafeAccessors._int32ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
+                IReadOnlyCollection<int> (IInternalEntry entry) => ((IReadOnlyCollection<int>)(ManyTypesUnsafeAccessors._int32ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)entry.Entity))),
+                IReadOnlyCollection<int> (IInternalEntry entry) => ((IReadOnlyCollection<int>)(ManyTypesUnsafeAccessors._int32ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)entry.Entity))),
                 IReadOnlyCollection<int> (IInternalEntry entry) => entry.ReadOriginalValue<IReadOnlyCollection<int>>(int32ReadOnlyCollection, 98),
                 IReadOnlyCollection<int> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<int>>(int32ReadOnlyCollection));
             int32ReadOnlyCollection.SetPropertyIndexes(
@@ -6909,15 +6909,15 @@ namespace TestNamespace
             int8.TypeMapping = MySqlSByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v),
                 keyComparer: new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v),
                 providerValueComparer: new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v));
             int8.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -6955,11 +6955,11 @@ namespace TestNamespace
             int8Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<sbyte[], sbyte>(new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v)),
                 keyComparer: new ListOfValueTypesComparer<sbyte[], sbyte>(new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v)),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -6975,15 +6975,15 @@ namespace TestNamespace
                 elementMapping: MySqlSByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v),
                     keyComparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v),
                     providerValueComparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v)));
             var int8ArrayElementType = int8Array.SetElementType(typeof(sbyte));
             int8ArrayElementType.TypeMapping = int8Array.TypeMapping.ElementTypeMapping;
@@ -7031,8 +7031,8 @@ namespace TestNamespace
                     int (int v) => v,
                     int (int v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(4)",
@@ -7098,12 +7098,12 @@ namespace TestNamespace
                     storeTypeName: "varchar(64)",
                     size: 64),
                 converter: new ValueConverter<int, string>(
-                    string (int v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                    string (int v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                     int (string v) => int.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<int, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<int, string>(
-                        string (int v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                        string (int v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                         int (string v) => int.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture))));
             intNumberToStringConverterProperty.SetSentinelFromProviderValue("0");
             intNumberToStringConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -7144,11 +7144,11 @@ namespace TestNamespace
             nullIntToNullStringConverterProperty.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<int?>(
                     bool (int? v1, int? v2) => v1 == v2,
-                    int (int? v) => ((int)(v)),
+                    int (int? v) => ((int)v),
                     int? (int? v) => v),
                 keyComparer: new ValueComparer<int?>(
                     bool (int? v1, int? v2) => v1 == v2,
-                    int (int? v) => ((int)(v)),
+                    int (int? v) => ((int)v),
                     int? (int? v) => v),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -7158,14 +7158,14 @@ namespace TestNamespace
                     storeTypeName: "longtext"),
                 converter: new ValueConverter<int?, string>(
                     string (int? v) => (v == null ? null : ((object)v).ToString()),
-                    int? (string v) => (v == null || v == "<null>" ? null : ((int? )(int.Parse(v)))),
+                    int? (string v) => (v == null || v == "<null>" ? null : ((int? )int.Parse(v))),
                     convertsNulls: true),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<int?, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<int?, string>(
                         string (int? v) => (v == null ? null : ((object)v).ToString()),
-                        int? (string v) => (v == null || v == "<null>" ? null : ((int? )(int.Parse(v)))),
+                        int? (string v) => (v == null || v == "<null>" ? null : ((int? )int.Parse(v))),
                         convertsNulls: true)));
             nullIntToNullStringConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -7322,16 +7322,16 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableBytes.TypeMapping = MySqlByteArrayTypeMapping.Default.Clone(
                 comparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => ((object)v).GetHashCode(),
                     byte[] (byte[] v) => v),
                 keyComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()));
             nullableBytes.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -7368,11 +7368,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableBytesArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfReferenceTypesComparer<byte[][], byte[]>(new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => ((object)v).GetHashCode(),
                     byte[] (byte[] v) => v)),
                 keyComparer: new ListOfReferenceTypesComparer<byte[][], byte[]>(new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => ((object)v).GetHashCode(),
                     byte[] (byte[] v) => v)),
                 providerValueComparer: new ValueComparer<string>(
@@ -7388,16 +7388,16 @@ namespace TestNamespace
                     JsonByteArrayReaderWriter.Instance),
                 elementMapping: MySqlByteArrayTypeMapping.Default.Clone(
                     comparer: new ValueComparer<byte[]>(
-                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
+                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                         int (byte[] v) => ((object)v).GetHashCode(),
                         byte[] (byte[] v) => v),
                     keyComparer: new ValueComparer<byte[]>(
-                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                         byte[] (byte[] source) => source.ToArray()),
                     providerValueComparer: new ValueComparer<byte[]>(
-                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                        bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                         byte[] (byte[] source) => source.ToArray())));
             var nullableBytesArrayElementType = nullableBytesArray.SetElementType(typeof(byte[]),
                 nullable: true);
@@ -7439,11 +7439,11 @@ namespace TestNamespace
             nullableChar.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ValueComparer<char>(
                     bool (char v1, char v2) => v1 == v2,
-                    int (char v) => ((int)(v)),
+                    int (char v) => ((int)v),
                     char (char v) => v),
                 keyComparer: new ValueComparer<char>(
                     bool (char v1, char v2) => v1 == v2,
-                    int (char v) => ((int)(v)),
+                    int (char v) => ((int)v),
                     char (char v) => v),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -7453,12 +7453,12 @@ namespace TestNamespace
                     storeTypeName: "varchar(1)",
                     size: 1),
                 converter: new ValueConverter<char, string>(
-                    string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                    string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                     char (string v) => (v.Length < 1 ? '\0' : v[0])),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<char, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<char, string>(
-                        string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                        string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                         char (string v) => (v.Length < 1 ? '\0' : v[0]))));
             nullableChar.SetComparer(new NullableValueComparer<char>(nullableChar.TypeMapping.Comparer));
             nullableChar.SetKeyComparer(new NullableValueComparer<char>(nullableChar.TypeMapping.KeyComparer));
@@ -7498,11 +7498,11 @@ namespace TestNamespace
             nullableCharArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<char?[], char>(new NullableValueComparer<char>(new ValueComparer<char>(
                     bool (char v1, char v2) => v1 == v2,
-                    int (char v) => ((int)(v)),
+                    int (char v) => ((int)v),
                     char (char v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<char?[], char>(new NullableValueComparer<char>(new ValueComparer<char>(
                     bool (char v1, char v2) => v1 == v2,
-                    int (char v) => ((int)(v)),
+                    int (char v) => ((int)v),
                     char (char v) => v))),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -7514,23 +7514,23 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<char, string>(
                         JsonStringReaderWriter.Instance,
                         new ValueConverter<char, string>(
-                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                             char (string v) => (v.Length < 1 ? '\0' : v[0]))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<char?[], char>(
                     new JsonConvertedValueReaderWriter<char, string>(
                         JsonStringReaderWriter.Instance,
                         new ValueConverter<char, string>(
-                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                             char (string v) => (v.Length < 1 ? '\0' : v[0])))),
                 elementMapping: MySqlStringTypeMapping.Default.Clone(
                     comparer: new ValueComparer<char>(
                         bool (char v1, char v2) => v1 == v2,
-                        int (char v) => ((int)(v)),
+                        int (char v) => ((int)v),
                         char (char v) => v),
                     keyComparer: new ValueComparer<char>(
                         bool (char v1, char v2) => v1 == v2,
-                        int (char v) => ((int)(v)),
+                        int (char v) => ((int)v),
                         char (char v) => v),
                     providerValueComparer: new ValueComparer<string>(
                         bool (string v1, string v2) => v1 == v2,
@@ -7540,12 +7540,12 @@ namespace TestNamespace
                         storeTypeName: "varchar(1)",
                         size: 1),
                     converter: new ValueConverter<char, string>(
-                        string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                        string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                         char (string v) => (v.Length < 1 ? '\0' : v[0])),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<char, string>(
                         JsonStringReaderWriter.Instance,
                         new ValueConverter<char, string>(
-                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))),
+                            string (char v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))),
                             char (string v) => (v.Length < 1 ? '\0' : v[0])))));
             var nullableCharArrayElementType = nullableCharArray.SetElementType(typeof(char?),
                 nullable: true);
@@ -8047,13 +8047,13 @@ namespace TestNamespace
             nullableEnum16.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum16? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum16(instance) = (value == null ? value : ((CompiledModelTestBase.Enum16? )(((CompiledModelTestBase.Enum16)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum16(instance) = (value == null ? value : ((CompiledModelTestBase.Enum16? )(((CompiledModelTestBase.Enum16)value))));
                     return instance;
                 });
             nullableEnum16.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum16? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum16(instance) = (value == null ? value : ((CompiledModelTestBase.Enum16? )(((CompiledModelTestBase.Enum16)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum16(instance) = (value == null ? value : ((CompiledModelTestBase.Enum16? )(((CompiledModelTestBase.Enum16)value))));
                     return instance;
                 });
             nullableEnum16.SetAccessors(
@@ -8069,25 +8069,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum16.TypeMapping = MySqlShortTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                 providerValueComparer: new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                    short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                    CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))),
+                    short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                    CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                     JsonInt16ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                        short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value)))));
+                        short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value))));
             nullableEnum16.SetComparer(new NullableValueComparer<CompiledModelTestBase.Enum16>(nullableEnum16.TypeMapping.Comparer));
             nullableEnum16.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.Enum16>(nullableEnum16.TypeMapping.KeyComparer));
             nullableEnum16.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -8125,11 +8125,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum16Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum16?[], CompiledModelTestBase.Enum16>(new NullableValueComparer<CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum16?[], CompiledModelTestBase.Enum16>(new NullableValueComparer<CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -8142,36 +8142,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value)))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.Enum16?[], CompiledModelTestBase.Enum16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))),
                 elementMapping: MySqlShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     providerValueComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                        short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))),
+                        short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))));
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))));
             var nullableEnum16ArrayElementType = nullableEnum16Array.SetElementType(typeof(CompiledModelTestBase.Enum16?),
                 nullable: true);
             nullableEnum16ArrayElementType.TypeMapping = nullableEnum16Array.TypeMapping.ElementTypeMapping;
@@ -8190,13 +8190,13 @@ namespace TestNamespace
             nullableEnum16AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum16? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum16AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum16? )(((CompiledModelTestBase.Enum16)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum16AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum16? )(((CompiledModelTestBase.Enum16)value))));
                     return instance;
                 });
             nullableEnum16AsString.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum16? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum16AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum16? )(((CompiledModelTestBase.Enum16)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum16AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum16? )(((CompiledModelTestBase.Enum16)value))));
                     return instance;
                 });
             nullableEnum16AsString.SetAccessors(
@@ -8212,25 +8212,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum16AsString.TypeMapping = MySqlShortTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                 providerValueComparer: new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                    short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                    CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))),
+                    short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                    CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                     JsonInt16ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                        short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value)))));
+                        short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value))));
             nullableEnum16AsString.SetComparer(new NullableValueComparer<CompiledModelTestBase.Enum16>(nullableEnum16AsString.TypeMapping.Comparer));
             nullableEnum16AsString.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.Enum16>(nullableEnum16AsString.TypeMapping.KeyComparer));
             nullableEnum16AsString.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -8268,11 +8268,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum16AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum16?[], CompiledModelTestBase.Enum16>(new NullableValueComparer<CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum16?[], CompiledModelTestBase.Enum16>(new NullableValueComparer<CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -8285,36 +8285,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value)))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.Enum16?[], CompiledModelTestBase.Enum16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))),
                 elementMapping: MySqlShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     providerValueComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                        short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))),
+                        short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))));
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))));
             var nullableEnum16AsStringArrayElementType = nullableEnum16AsStringArray.SetElementType(typeof(CompiledModelTestBase.Enum16?),
                 nullable: true);
             nullableEnum16AsStringArrayElementType.TypeMapping = nullableEnum16AsStringArray.TypeMapping.ElementTypeMapping;
@@ -8354,11 +8354,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum16AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum16?>, CompiledModelTestBase.Enum16>(new NullableValueComparer<CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum16?>, CompiledModelTestBase.Enum16>(new NullableValueComparer<CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -8371,36 +8371,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value)))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.Enum16?>, CompiledModelTestBase.Enum16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))),
                 elementMapping: MySqlShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     providerValueComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                        short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))),
+                        short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))));
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))));
             var nullableEnum16AsStringCollectionElementType = nullableEnum16AsStringCollection.SetElementType(typeof(CompiledModelTestBase.Enum16?),
                 nullable: true);
             nullableEnum16AsStringCollectionElementType.TypeMapping = nullableEnum16AsStringCollection.TypeMapping.ElementTypeMapping;
@@ -8440,11 +8440,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum16Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum16?>, CompiledModelTestBase.Enum16>(new NullableValueComparer<CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum16?>, CompiledModelTestBase.Enum16>(new NullableValueComparer<CompiledModelTestBase.Enum16>(new ValueComparer<CompiledModelTestBase.Enum16>(
-                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -8457,36 +8457,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value)))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.Enum16?>, CompiledModelTestBase.Enum16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))),
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))),
                 elementMapping: MySqlShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum16>(
-                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum16 v1, CompiledModelTestBase.Enum16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum16 (CompiledModelTestBase.Enum16 v) => v),
                     providerValueComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                        short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))),
+                        short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                        CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum16, short>(
                         JsonInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum16, short>(
-                            short (CompiledModelTestBase.Enum16 value) => ((short)(value)),
-                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)(value))))));
+                            short (CompiledModelTestBase.Enum16 value) => ((short)value),
+                            CompiledModelTestBase.Enum16 (short value) => ((CompiledModelTestBase.Enum16)value)))));
             var nullableEnum16CollectionElementType = nullableEnum16Collection.SetElementType(typeof(CompiledModelTestBase.Enum16?),
                 nullable: true);
             nullableEnum16CollectionElementType.TypeMapping = nullableEnum16Collection.TypeMapping.ElementTypeMapping;
@@ -8505,13 +8505,13 @@ namespace TestNamespace
             nullableEnum32.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum32? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum32(instance) = (value == null ? value : ((CompiledModelTestBase.Enum32? )(((CompiledModelTestBase.Enum32)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum32(instance) = (value == null ? value : ((CompiledModelTestBase.Enum32? )(((CompiledModelTestBase.Enum32)value))));
                     return instance;
                 });
             nullableEnum32.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum32? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum32(instance) = (value == null ? value : ((CompiledModelTestBase.Enum32? )(((CompiledModelTestBase.Enum32)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum32(instance) = (value == null ? value : ((CompiledModelTestBase.Enum32? )(((CompiledModelTestBase.Enum32)value))));
                     return instance;
                 });
             nullableEnum32.SetAccessors(
@@ -8527,11 +8527,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum32.TypeMapping = MySqlIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 providerValueComparer: new ValueComparer<int>(
@@ -8539,13 +8539,13 @@ namespace TestNamespace
                     int (int v) => v,
                     int (int v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                    int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                    CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))),
+                    int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                    CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                     JsonInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                        int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value)))));
+                        int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value))));
             nullableEnum32.SetComparer(new NullableValueComparer<CompiledModelTestBase.Enum32>(nullableEnum32.TypeMapping.Comparer));
             nullableEnum32.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.Enum32>(nullableEnum32.TypeMapping.KeyComparer));
             nullableEnum32.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -8583,11 +8583,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum32Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum32?[], CompiledModelTestBase.Enum32>(new NullableValueComparer<CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum32?[], CompiledModelTestBase.Enum32>(new NullableValueComparer<CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -8600,22 +8600,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value)))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.Enum32?[], CompiledModelTestBase.Enum32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))),
                 elementMapping: MySqlIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     providerValueComparer: new ValueComparer<int>(
@@ -8623,13 +8623,13 @@ namespace TestNamespace
                         int (int v) => v,
                         int (int v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                        int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))),
+                        int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))));
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))));
             var nullableEnum32ArrayElementType = nullableEnum32Array.SetElementType(typeof(CompiledModelTestBase.Enum32?),
                 nullable: true);
             nullableEnum32ArrayElementType.TypeMapping = nullableEnum32Array.TypeMapping.ElementTypeMapping;
@@ -8648,13 +8648,13 @@ namespace TestNamespace
             nullableEnum32AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum32? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum32AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum32? )(((CompiledModelTestBase.Enum32)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum32AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum32? )(((CompiledModelTestBase.Enum32)value))));
                     return instance;
                 });
             nullableEnum32AsString.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum32? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum32AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum32? )(((CompiledModelTestBase.Enum32)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum32AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum32? )(((CompiledModelTestBase.Enum32)value))));
                     return instance;
                 });
             nullableEnum32AsString.SetAccessors(
@@ -8670,11 +8670,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum32AsString.TypeMapping = MySqlIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                 providerValueComparer: new ValueComparer<int>(
@@ -8682,13 +8682,13 @@ namespace TestNamespace
                     int (int v) => v,
                     int (int v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                    int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                    CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))),
+                    int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                    CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                     JsonInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                        int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value)))));
+                        int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value))));
             nullableEnum32AsString.SetComparer(new NullableValueComparer<CompiledModelTestBase.Enum32>(nullableEnum32AsString.TypeMapping.Comparer));
             nullableEnum32AsString.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.Enum32>(nullableEnum32AsString.TypeMapping.KeyComparer));
             nullableEnum32AsString.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -8726,11 +8726,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum32AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum32?[], CompiledModelTestBase.Enum32>(new NullableValueComparer<CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum32?[], CompiledModelTestBase.Enum32>(new NullableValueComparer<CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -8743,22 +8743,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value)))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.Enum32?[], CompiledModelTestBase.Enum32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))),
                 elementMapping: MySqlIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     providerValueComparer: new ValueComparer<int>(
@@ -8766,13 +8766,13 @@ namespace TestNamespace
                         int (int v) => v,
                         int (int v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                        int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))),
+                        int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))));
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))));
             var nullableEnum32AsStringArrayElementType = nullableEnum32AsStringArray.SetElementType(typeof(CompiledModelTestBase.Enum32?),
                 nullable: true);
             nullableEnum32AsStringArrayElementType.TypeMapping = nullableEnum32AsStringArray.TypeMapping.ElementTypeMapping;
@@ -8812,11 +8812,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum32AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum32?>, CompiledModelTestBase.Enum32>(new NullableValueComparer<CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum32?>, CompiledModelTestBase.Enum32>(new NullableValueComparer<CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -8829,22 +8829,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value)))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.Enum32?>, CompiledModelTestBase.Enum32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))),
                 elementMapping: MySqlIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     providerValueComparer: new ValueComparer<int>(
@@ -8852,13 +8852,13 @@ namespace TestNamespace
                         int (int v) => v,
                         int (int v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                        int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))),
+                        int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))));
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))));
             var nullableEnum32AsStringCollectionElementType = nullableEnum32AsStringCollection.SetElementType(typeof(CompiledModelTestBase.Enum32?),
                 nullable: true);
             nullableEnum32AsStringCollectionElementType.TypeMapping = nullableEnum32AsStringCollection.TypeMapping.ElementTypeMapping;
@@ -8898,11 +8898,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum32Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum32?>, CompiledModelTestBase.Enum32>(new NullableValueComparer<CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum32?>, CompiledModelTestBase.Enum32>(new NullableValueComparer<CompiledModelTestBase.Enum32>(new ValueComparer<CompiledModelTestBase.Enum32>(
-                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -8915,22 +8915,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value)))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.Enum32?>, CompiledModelTestBase.Enum32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))),
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))),
                 elementMapping: MySqlIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum32>(
-                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum32 v1, CompiledModelTestBase.Enum32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum32 (CompiledModelTestBase.Enum32 v) => v),
                     providerValueComparer: new ValueComparer<int>(
@@ -8938,13 +8938,13 @@ namespace TestNamespace
                         int (int v) => v,
                         int (int v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                        int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))),
+                        int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                        CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum32, int>(
                         JsonInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum32, int>(
-                            int (CompiledModelTestBase.Enum32 value) => ((int)(value)),
-                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)(value))))));
+                            int (CompiledModelTestBase.Enum32 value) => ((int)value),
+                            CompiledModelTestBase.Enum32 (int value) => ((CompiledModelTestBase.Enum32)value)))));
             var nullableEnum32CollectionElementType = nullableEnum32Collection.SetElementType(typeof(CompiledModelTestBase.Enum32?),
                 nullable: true);
             nullableEnum32CollectionElementType.TypeMapping = nullableEnum32Collection.TypeMapping.ElementTypeMapping;
@@ -8963,13 +8963,13 @@ namespace TestNamespace
             nullableEnum64.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum64? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum64(instance) = (value == null ? value : ((CompiledModelTestBase.Enum64? )(((CompiledModelTestBase.Enum64)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum64(instance) = (value == null ? value : ((CompiledModelTestBase.Enum64? )(((CompiledModelTestBase.Enum64)value))));
                     return instance;
                 });
             nullableEnum64.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum64? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum64(instance) = (value == null ? value : ((CompiledModelTestBase.Enum64? )(((CompiledModelTestBase.Enum64)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum64(instance) = (value == null ? value : ((CompiledModelTestBase.Enum64? )(((CompiledModelTestBase.Enum64)value))));
                     return instance;
                 });
             nullableEnum64.SetAccessors(
@@ -8985,11 +8985,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum64.TypeMapping = MySqlLongTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                 providerValueComparer: new ValueComparer<long>(
@@ -8997,13 +8997,13 @@ namespace TestNamespace
                     int (long v) => ((object)v).GetHashCode(),
                     long (long v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                    long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                    CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))),
+                    long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                    CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                     JsonInt64ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                        long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value)))));
+                        long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value))));
             nullableEnum64.SetComparer(new NullableValueComparer<CompiledModelTestBase.Enum64>(nullableEnum64.TypeMapping.Comparer));
             nullableEnum64.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.Enum64>(nullableEnum64.TypeMapping.KeyComparer));
             nullableEnum64.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -9041,11 +9041,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum64Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum64?[], CompiledModelTestBase.Enum64>(new NullableValueComparer<CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum64?[], CompiledModelTestBase.Enum64>(new NullableValueComparer<CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -9058,22 +9058,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value)))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.Enum64?[], CompiledModelTestBase.Enum64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))),
                 elementMapping: MySqlLongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     providerValueComparer: new ValueComparer<long>(
@@ -9081,13 +9081,13 @@ namespace TestNamespace
                         int (long v) => ((object)v).GetHashCode(),
                         long (long v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                        long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))),
+                        long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))));
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))));
             var nullableEnum64ArrayElementType = nullableEnum64Array.SetElementType(typeof(CompiledModelTestBase.Enum64?),
                 nullable: true);
             nullableEnum64ArrayElementType.TypeMapping = nullableEnum64Array.TypeMapping.ElementTypeMapping;
@@ -9106,13 +9106,13 @@ namespace TestNamespace
             nullableEnum64AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum64? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum64AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum64? )(((CompiledModelTestBase.Enum64)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum64AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum64? )(((CompiledModelTestBase.Enum64)value))));
                     return instance;
                 });
             nullableEnum64AsString.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum64? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum64AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum64? )(((CompiledModelTestBase.Enum64)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum64AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum64? )(((CompiledModelTestBase.Enum64)value))));
                     return instance;
                 });
             nullableEnum64AsString.SetAccessors(
@@ -9128,11 +9128,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum64AsString.TypeMapping = MySqlLongTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                 providerValueComparer: new ValueComparer<long>(
@@ -9140,13 +9140,13 @@ namespace TestNamespace
                     int (long v) => ((object)v).GetHashCode(),
                     long (long v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                    long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                    CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))),
+                    long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                    CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                     JsonInt64ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                        long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value)))));
+                        long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value))));
             nullableEnum64AsString.SetComparer(new NullableValueComparer<CompiledModelTestBase.Enum64>(nullableEnum64AsString.TypeMapping.Comparer));
             nullableEnum64AsString.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.Enum64>(nullableEnum64AsString.TypeMapping.KeyComparer));
             nullableEnum64AsString.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -9184,11 +9184,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum64AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum64?[], CompiledModelTestBase.Enum64>(new NullableValueComparer<CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum64?[], CompiledModelTestBase.Enum64>(new NullableValueComparer<CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -9201,22 +9201,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value)))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.Enum64?[], CompiledModelTestBase.Enum64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))),
                 elementMapping: MySqlLongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     providerValueComparer: new ValueComparer<long>(
@@ -9224,13 +9224,13 @@ namespace TestNamespace
                         int (long v) => ((object)v).GetHashCode(),
                         long (long v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                        long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))),
+                        long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))));
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))));
             var nullableEnum64AsStringArrayElementType = nullableEnum64AsStringArray.SetElementType(typeof(CompiledModelTestBase.Enum64?),
                 nullable: true);
             nullableEnum64AsStringArrayElementType.TypeMapping = nullableEnum64AsStringArray.TypeMapping.ElementTypeMapping;
@@ -9270,11 +9270,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum64AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum64?>, CompiledModelTestBase.Enum64>(new NullableValueComparer<CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum64?>, CompiledModelTestBase.Enum64>(new NullableValueComparer<CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -9287,22 +9287,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value)))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.Enum64?>, CompiledModelTestBase.Enum64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))),
                 elementMapping: MySqlLongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     providerValueComparer: new ValueComparer<long>(
@@ -9310,13 +9310,13 @@ namespace TestNamespace
                         int (long v) => ((object)v).GetHashCode(),
                         long (long v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                        long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))),
+                        long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))));
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))));
             var nullableEnum64AsStringCollectionElementType = nullableEnum64AsStringCollection.SetElementType(typeof(CompiledModelTestBase.Enum64?),
                 nullable: true);
             nullableEnum64AsStringCollectionElementType.TypeMapping = nullableEnum64AsStringCollection.TypeMapping.ElementTypeMapping;
@@ -9356,11 +9356,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum64Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum64?>, CompiledModelTestBase.Enum64>(new NullableValueComparer<CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum64?>, CompiledModelTestBase.Enum64>(new NullableValueComparer<CompiledModelTestBase.Enum64>(new ValueComparer<CompiledModelTestBase.Enum64>(
-                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -9373,22 +9373,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value)))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.Enum64?>, CompiledModelTestBase.Enum64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))),
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))),
                 elementMapping: MySqlLongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum64>(
-                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum64 v1, CompiledModelTestBase.Enum64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum64 (CompiledModelTestBase.Enum64 v) => v),
                     providerValueComparer: new ValueComparer<long>(
@@ -9396,13 +9396,13 @@ namespace TestNamespace
                         int (long v) => ((object)v).GetHashCode(),
                         long (long v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                        long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))),
+                        long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                        CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum64, long>(
                         JsonInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum64, long>(
-                            long (CompiledModelTestBase.Enum64 value) => ((long)(value)),
-                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)(value))))));
+                            long (CompiledModelTestBase.Enum64 value) => ((long)value),
+                            CompiledModelTestBase.Enum64 (long value) => ((CompiledModelTestBase.Enum64)value)))));
             var nullableEnum64CollectionElementType = nullableEnum64Collection.SetElementType(typeof(CompiledModelTestBase.Enum64?),
                 nullable: true);
             nullableEnum64CollectionElementType.TypeMapping = nullableEnum64Collection.TypeMapping.ElementTypeMapping;
@@ -9421,13 +9421,13 @@ namespace TestNamespace
             nullableEnum8.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum8? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum8(instance) = (value == null ? value : ((CompiledModelTestBase.Enum8? )(((CompiledModelTestBase.Enum8)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum8(instance) = (value == null ? value : ((CompiledModelTestBase.Enum8? )(((CompiledModelTestBase.Enum8)value))));
                     return instance;
                 });
             nullableEnum8.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum8? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum8(instance) = (value == null ? value : ((CompiledModelTestBase.Enum8? )(((CompiledModelTestBase.Enum8)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum8(instance) = (value == null ? value : ((CompiledModelTestBase.Enum8? )(((CompiledModelTestBase.Enum8)value))));
                     return instance;
                 });
             nullableEnum8.SetAccessors(
@@ -9443,25 +9443,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum8.TypeMapping = MySqlSByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                 providerValueComparer: new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                    sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                    CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))),
+                    sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                    CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                     JsonSByteReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value)))));
+                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value))));
             nullableEnum8.SetComparer(new NullableValueComparer<CompiledModelTestBase.Enum8>(nullableEnum8.TypeMapping.Comparer));
             nullableEnum8.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.Enum8>(nullableEnum8.TypeMapping.KeyComparer));
             nullableEnum8.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -9499,11 +9499,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum8Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum8?[], CompiledModelTestBase.Enum8>(new NullableValueComparer<CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum8?[], CompiledModelTestBase.Enum8>(new NullableValueComparer<CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -9516,36 +9516,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value)))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.Enum8?[], CompiledModelTestBase.Enum8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))),
                 elementMapping: MySqlSByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     providerValueComparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))),
+                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))));
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))));
             var nullableEnum8ArrayElementType = nullableEnum8Array.SetElementType(typeof(CompiledModelTestBase.Enum8?),
                 nullable: true);
             nullableEnum8ArrayElementType.TypeMapping = nullableEnum8Array.TypeMapping.ElementTypeMapping;
@@ -9564,13 +9564,13 @@ namespace TestNamespace
             nullableEnum8AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum8? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum8AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum8? )(((CompiledModelTestBase.Enum8)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum8AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum8? )(((CompiledModelTestBase.Enum8)value))));
                     return instance;
                 });
             nullableEnum8AsString.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.Enum8? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnum8AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum8? )(((CompiledModelTestBase.Enum8)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnum8AsString(instance) = (value == null ? value : ((CompiledModelTestBase.Enum8? )(((CompiledModelTestBase.Enum8)value))));
                     return instance;
                 });
             nullableEnum8AsString.SetAccessors(
@@ -9586,25 +9586,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum8AsString.TypeMapping = MySqlSByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                 providerValueComparer: new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                    sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                    CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))),
+                    sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                    CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                     JsonSByteReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value)))));
+                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value))));
             nullableEnum8AsString.SetComparer(new NullableValueComparer<CompiledModelTestBase.Enum8>(nullableEnum8AsString.TypeMapping.Comparer));
             nullableEnum8AsString.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.Enum8>(nullableEnum8AsString.TypeMapping.KeyComparer));
             nullableEnum8AsString.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -9642,11 +9642,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum8AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum8?[], CompiledModelTestBase.Enum8>(new NullableValueComparer<CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.Enum8?[], CompiledModelTestBase.Enum8>(new NullableValueComparer<CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -9659,36 +9659,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value)))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.Enum8?[], CompiledModelTestBase.Enum8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))),
                 elementMapping: MySqlSByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     providerValueComparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))),
+                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))));
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))));
             var nullableEnum8AsStringArrayElementType = nullableEnum8AsStringArray.SetElementType(typeof(CompiledModelTestBase.Enum8?),
                 nullable: true);
             nullableEnum8AsStringArrayElementType.TypeMapping = nullableEnum8AsStringArray.TypeMapping.ElementTypeMapping;
@@ -9728,11 +9728,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum8AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum8?>, CompiledModelTestBase.Enum8>(new NullableValueComparer<CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum8?>, CompiledModelTestBase.Enum8>(new NullableValueComparer<CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -9745,36 +9745,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value)))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.Enum8?>, CompiledModelTestBase.Enum8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))),
                 elementMapping: MySqlSByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     providerValueComparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))),
+                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))));
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))));
             var nullableEnum8AsStringCollectionElementType = nullableEnum8AsStringCollection.SetElementType(typeof(CompiledModelTestBase.Enum8?),
                 nullable: true);
             nullableEnum8AsStringCollectionElementType.TypeMapping = nullableEnum8AsStringCollection.TypeMapping.ElementTypeMapping;
@@ -9814,11 +9814,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnum8Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum8?>, CompiledModelTestBase.Enum8>(new NullableValueComparer<CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.Enum8?>, CompiledModelTestBase.Enum8>(new NullableValueComparer<CompiledModelTestBase.Enum8>(new ValueComparer<CompiledModelTestBase.Enum8>(
-                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -9831,36 +9831,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value)))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.Enum8?>, CompiledModelTestBase.Enum8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))),
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))),
                 elementMapping: MySqlSByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.Enum8>(
-                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.Enum8 v1, CompiledModelTestBase.Enum8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.Enum8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.Enum8 (CompiledModelTestBase.Enum8 v) => v),
                     providerValueComparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))),
+                        sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                        CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum8, sbyte>(
                         JsonSByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.Enum8, sbyte>(
-                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)(value)),
-                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)(value))))));
+                            sbyte (CompiledModelTestBase.Enum8 value) => ((sbyte)value),
+                            CompiledModelTestBase.Enum8 (sbyte value) => ((CompiledModelTestBase.Enum8)value)))));
             var nullableEnum8CollectionElementType = nullableEnum8Collection.SetElementType(typeof(CompiledModelTestBase.Enum8?),
                 nullable: true);
             nullableEnum8CollectionElementType.TypeMapping = nullableEnum8Collection.TypeMapping.ElementTypeMapping;
@@ -9879,13 +9879,13 @@ namespace TestNamespace
             nullableEnumU16.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU16? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU16(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU16? )(((CompiledModelTestBase.EnumU16)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU16(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU16? )(((CompiledModelTestBase.EnumU16)value))));
                     return instance;
                 });
             nullableEnumU16.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU16? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU16(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU16? )(((CompiledModelTestBase.EnumU16)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU16(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU16? )(((CompiledModelTestBase.EnumU16)value))));
                     return instance;
                 });
             nullableEnumU16.SetAccessors(
@@ -9901,25 +9901,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU16.TypeMapping = MySqlUShortTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                 providerValueComparer: new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                    ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                    CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))),
+                    ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                    CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                     JsonUInt16ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value)))));
+                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value))));
             nullableEnumU16.SetComparer(new NullableValueComparer<CompiledModelTestBase.EnumU16>(nullableEnumU16.TypeMapping.Comparer));
             nullableEnumU16.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.EnumU16>(nullableEnumU16.TypeMapping.KeyComparer));
             nullableEnumU16.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -9957,11 +9957,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU16Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU16?[], CompiledModelTestBase.EnumU16>(new NullableValueComparer<CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU16?[], CompiledModelTestBase.EnumU16>(new NullableValueComparer<CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -9974,36 +9974,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value)))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.EnumU16?[], CompiledModelTestBase.EnumU16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))),
                 elementMapping: MySqlUShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     providerValueComparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))),
+                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))));
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))));
             var nullableEnumU16ArrayElementType = nullableEnumU16Array.SetElementType(typeof(CompiledModelTestBase.EnumU16?),
                 nullable: true);
             nullableEnumU16ArrayElementType.TypeMapping = nullableEnumU16Array.TypeMapping.ElementTypeMapping;
@@ -10022,13 +10022,13 @@ namespace TestNamespace
             nullableEnumU16AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU16? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU16AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU16? )(((CompiledModelTestBase.EnumU16)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU16AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU16? )(((CompiledModelTestBase.EnumU16)value))));
                     return instance;
                 });
             nullableEnumU16AsString.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU16? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU16AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU16? )(((CompiledModelTestBase.EnumU16)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU16AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU16? )(((CompiledModelTestBase.EnumU16)value))));
                     return instance;
                 });
             nullableEnumU16AsString.SetAccessors(
@@ -10044,25 +10044,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU16AsString.TypeMapping = MySqlUShortTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                 providerValueComparer: new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                    ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                    CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))),
+                    ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                    CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                     JsonUInt16ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value)))));
+                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value))));
             nullableEnumU16AsString.SetComparer(new NullableValueComparer<CompiledModelTestBase.EnumU16>(nullableEnumU16AsString.TypeMapping.Comparer));
             nullableEnumU16AsString.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.EnumU16>(nullableEnumU16AsString.TypeMapping.KeyComparer));
             nullableEnumU16AsString.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -10100,11 +10100,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU16AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU16?[], CompiledModelTestBase.EnumU16>(new NullableValueComparer<CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU16?[], CompiledModelTestBase.EnumU16>(new NullableValueComparer<CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -10117,36 +10117,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value)))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.EnumU16?[], CompiledModelTestBase.EnumU16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))),
                 elementMapping: MySqlUShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     providerValueComparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))),
+                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))));
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))));
             var nullableEnumU16AsStringArrayElementType = nullableEnumU16AsStringArray.SetElementType(typeof(CompiledModelTestBase.EnumU16?),
                 nullable: true);
             nullableEnumU16AsStringArrayElementType.TypeMapping = nullableEnumU16AsStringArray.TypeMapping.ElementTypeMapping;
@@ -10186,11 +10186,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU16AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU16?>, CompiledModelTestBase.EnumU16>(new NullableValueComparer<CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU16?>, CompiledModelTestBase.EnumU16>(new NullableValueComparer<CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -10203,36 +10203,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value)))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.EnumU16?>, CompiledModelTestBase.EnumU16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))),
                 elementMapping: MySqlUShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     providerValueComparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))),
+                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))));
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))));
             var nullableEnumU16AsStringCollectionElementType = nullableEnumU16AsStringCollection.SetElementType(typeof(CompiledModelTestBase.EnumU16?),
                 nullable: true);
             nullableEnumU16AsStringCollectionElementType.TypeMapping = nullableEnumU16AsStringCollection.TypeMapping.ElementTypeMapping;
@@ -10272,11 +10272,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU16Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU16?>, CompiledModelTestBase.EnumU16>(new NullableValueComparer<CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU16?>, CompiledModelTestBase.EnumU16>(new NullableValueComparer<CompiledModelTestBase.EnumU16>(new ValueComparer<CompiledModelTestBase.EnumU16>(
-                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -10289,36 +10289,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value)))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.EnumU16?>, CompiledModelTestBase.EnumU16>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))),
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))),
                 elementMapping: MySqlUShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU16>(
-                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU16 v1, CompiledModelTestBase.EnumU16 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU16 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU16 (CompiledModelTestBase.EnumU16 v) => v),
                     providerValueComparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))),
+                        ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                        CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU16, ushort>(
                         JsonUInt16ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU16, ushort>(
-                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)(value)),
-                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)(value))))));
+                            ushort (CompiledModelTestBase.EnumU16 value) => ((ushort)value),
+                            CompiledModelTestBase.EnumU16 (ushort value) => ((CompiledModelTestBase.EnumU16)value)))));
             var nullableEnumU16CollectionElementType = nullableEnumU16Collection.SetElementType(typeof(CompiledModelTestBase.EnumU16?),
                 nullable: true);
             nullableEnumU16CollectionElementType.TypeMapping = nullableEnumU16Collection.TypeMapping.ElementTypeMapping;
@@ -10337,13 +10337,13 @@ namespace TestNamespace
             nullableEnumU32.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU32? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU32(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU32? )(((CompiledModelTestBase.EnumU32)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU32(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU32? )(((CompiledModelTestBase.EnumU32)value))));
                     return instance;
                 });
             nullableEnumU32.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU32? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU32(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU32? )(((CompiledModelTestBase.EnumU32)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU32(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU32? )(((CompiledModelTestBase.EnumU32)value))));
                     return instance;
                 });
             nullableEnumU32.SetAccessors(
@@ -10359,25 +10359,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU32.TypeMapping = MySqlUIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                 providerValueComparer: new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                    uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                    CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))),
+                    uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                    CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                     JsonUInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value)))));
+                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value))));
             nullableEnumU32.SetComparer(new NullableValueComparer<CompiledModelTestBase.EnumU32>(nullableEnumU32.TypeMapping.Comparer));
             nullableEnumU32.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.EnumU32>(nullableEnumU32.TypeMapping.KeyComparer));
             nullableEnumU32.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -10415,11 +10415,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU32Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU32?[], CompiledModelTestBase.EnumU32>(new NullableValueComparer<CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU32?[], CompiledModelTestBase.EnumU32>(new NullableValueComparer<CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -10432,36 +10432,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value)))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.EnumU32?[], CompiledModelTestBase.EnumU32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))),
                 elementMapping: MySqlUIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     providerValueComparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))),
+                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))));
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))));
             var nullableEnumU32ArrayElementType = nullableEnumU32Array.SetElementType(typeof(CompiledModelTestBase.EnumU32?),
                 nullable: true);
             nullableEnumU32ArrayElementType.TypeMapping = nullableEnumU32Array.TypeMapping.ElementTypeMapping;
@@ -10480,13 +10480,13 @@ namespace TestNamespace
             nullableEnumU32AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU32? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU32AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU32? )(((CompiledModelTestBase.EnumU32)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU32AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU32? )(((CompiledModelTestBase.EnumU32)value))));
                     return instance;
                 });
             nullableEnumU32AsString.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU32? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU32AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU32? )(((CompiledModelTestBase.EnumU32)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU32AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU32? )(((CompiledModelTestBase.EnumU32)value))));
                     return instance;
                 });
             nullableEnumU32AsString.SetAccessors(
@@ -10502,25 +10502,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU32AsString.TypeMapping = MySqlUIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                 providerValueComparer: new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                    uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                    CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))),
+                    uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                    CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                     JsonUInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value)))));
+                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value))));
             nullableEnumU32AsString.SetComparer(new NullableValueComparer<CompiledModelTestBase.EnumU32>(nullableEnumU32AsString.TypeMapping.Comparer));
             nullableEnumU32AsString.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.EnumU32>(nullableEnumU32AsString.TypeMapping.KeyComparer));
             nullableEnumU32AsString.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -10558,11 +10558,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU32AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU32?[], CompiledModelTestBase.EnumU32>(new NullableValueComparer<CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU32?[], CompiledModelTestBase.EnumU32>(new NullableValueComparer<CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -10575,36 +10575,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value)))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.EnumU32?[], CompiledModelTestBase.EnumU32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))),
                 elementMapping: MySqlUIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     providerValueComparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))),
+                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))));
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))));
             var nullableEnumU32AsStringArrayElementType = nullableEnumU32AsStringArray.SetElementType(typeof(CompiledModelTestBase.EnumU32?),
                 nullable: true);
             nullableEnumU32AsStringArrayElementType.TypeMapping = nullableEnumU32AsStringArray.TypeMapping.ElementTypeMapping;
@@ -10644,11 +10644,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU32AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU32?>, CompiledModelTestBase.EnumU32>(new NullableValueComparer<CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU32?>, CompiledModelTestBase.EnumU32>(new NullableValueComparer<CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -10661,36 +10661,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value)))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.EnumU32?>, CompiledModelTestBase.EnumU32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))),
                 elementMapping: MySqlUIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     providerValueComparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))),
+                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))));
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))));
             var nullableEnumU32AsStringCollectionElementType = nullableEnumU32AsStringCollection.SetElementType(typeof(CompiledModelTestBase.EnumU32?),
                 nullable: true);
             nullableEnumU32AsStringCollectionElementType.TypeMapping = nullableEnumU32AsStringCollection.TypeMapping.ElementTypeMapping;
@@ -10730,11 +10730,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU32Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU32?>, CompiledModelTestBase.EnumU32>(new NullableValueComparer<CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU32?>, CompiledModelTestBase.EnumU32>(new NullableValueComparer<CompiledModelTestBase.EnumU32>(new ValueComparer<CompiledModelTestBase.EnumU32>(
-                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -10747,36 +10747,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value)))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.EnumU32?>, CompiledModelTestBase.EnumU32>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))),
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))),
                 elementMapping: MySqlUIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU32>(
-                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU32 v1, CompiledModelTestBase.EnumU32 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU32 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU32 (CompiledModelTestBase.EnumU32 v) => v),
                     providerValueComparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))),
+                        uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                        CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU32, uint>(
                         JsonUInt32ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU32, uint>(
-                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)(value)),
-                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)(value))))));
+                            uint (CompiledModelTestBase.EnumU32 value) => ((uint)value),
+                            CompiledModelTestBase.EnumU32 (uint value) => ((CompiledModelTestBase.EnumU32)value)))));
             var nullableEnumU32CollectionElementType = nullableEnumU32Collection.SetElementType(typeof(CompiledModelTestBase.EnumU32?),
                 nullable: true);
             nullableEnumU32CollectionElementType.TypeMapping = nullableEnumU32Collection.TypeMapping.ElementTypeMapping;
@@ -10795,13 +10795,13 @@ namespace TestNamespace
             nullableEnumU64.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU64? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU64(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU64? )(((CompiledModelTestBase.EnumU64)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU64(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU64? )(((CompiledModelTestBase.EnumU64)value))));
                     return instance;
                 });
             nullableEnumU64.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU64? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU64(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU64? )(((CompiledModelTestBase.EnumU64)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU64(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU64? )(((CompiledModelTestBase.EnumU64)value))));
                     return instance;
                 });
             nullableEnumU64.SetAccessors(
@@ -10817,11 +10817,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU64.TypeMapping = MySqlULongTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                 providerValueComparer: new ValueComparer<ulong>(
@@ -10829,13 +10829,13 @@ namespace TestNamespace
                     int (ulong v) => ((object)v).GetHashCode(),
                     ulong (ulong v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                    ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                    CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))),
+                    ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                    CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                     JsonUInt64ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value)))));
+                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value))));
             nullableEnumU64.SetComparer(new NullableValueComparer<CompiledModelTestBase.EnumU64>(nullableEnumU64.TypeMapping.Comparer));
             nullableEnumU64.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.EnumU64>(nullableEnumU64.TypeMapping.KeyComparer));
             nullableEnumU64.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -10873,11 +10873,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU64Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU64?[], CompiledModelTestBase.EnumU64>(new NullableValueComparer<CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU64?[], CompiledModelTestBase.EnumU64>(new NullableValueComparer<CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -10890,22 +10890,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value)))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.EnumU64?[], CompiledModelTestBase.EnumU64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))),
                 elementMapping: MySqlULongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     providerValueComparer: new ValueComparer<ulong>(
@@ -10913,13 +10913,13 @@ namespace TestNamespace
                         int (ulong v) => ((object)v).GetHashCode(),
                         ulong (ulong v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))),
+                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))));
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))));
             var nullableEnumU64ArrayElementType = nullableEnumU64Array.SetElementType(typeof(CompiledModelTestBase.EnumU64?),
                 nullable: true);
             nullableEnumU64ArrayElementType.TypeMapping = nullableEnumU64Array.TypeMapping.ElementTypeMapping;
@@ -10938,13 +10938,13 @@ namespace TestNamespace
             nullableEnumU64AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU64? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU64AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU64? )(((CompiledModelTestBase.EnumU64)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU64AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU64? )(((CompiledModelTestBase.EnumU64)value))));
                     return instance;
                 });
             nullableEnumU64AsString.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU64? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU64AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU64? )(((CompiledModelTestBase.EnumU64)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU64AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU64? )(((CompiledModelTestBase.EnumU64)value))));
                     return instance;
                 });
             nullableEnumU64AsString.SetAccessors(
@@ -10960,11 +10960,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU64AsString.TypeMapping = MySqlULongTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                 providerValueComparer: new ValueComparer<ulong>(
@@ -10972,13 +10972,13 @@ namespace TestNamespace
                     int (ulong v) => ((object)v).GetHashCode(),
                     ulong (ulong v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                    ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                    CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))),
+                    ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                    CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                     JsonUInt64ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value)))));
+                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value))));
             nullableEnumU64AsString.SetComparer(new NullableValueComparer<CompiledModelTestBase.EnumU64>(nullableEnumU64AsString.TypeMapping.Comparer));
             nullableEnumU64AsString.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.EnumU64>(nullableEnumU64AsString.TypeMapping.KeyComparer));
             nullableEnumU64AsString.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -11016,11 +11016,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU64AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU64?[], CompiledModelTestBase.EnumU64>(new NullableValueComparer<CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU64?[], CompiledModelTestBase.EnumU64>(new NullableValueComparer<CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -11033,22 +11033,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value)))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.EnumU64?[], CompiledModelTestBase.EnumU64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))),
                 elementMapping: MySqlULongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     providerValueComparer: new ValueComparer<ulong>(
@@ -11056,13 +11056,13 @@ namespace TestNamespace
                         int (ulong v) => ((object)v).GetHashCode(),
                         ulong (ulong v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))),
+                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))));
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))));
             var nullableEnumU64AsStringArrayElementType = nullableEnumU64AsStringArray.SetElementType(typeof(CompiledModelTestBase.EnumU64?),
                 nullable: true);
             nullableEnumU64AsStringArrayElementType.TypeMapping = nullableEnumU64AsStringArray.TypeMapping.ElementTypeMapping;
@@ -11102,11 +11102,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU64AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU64?>, CompiledModelTestBase.EnumU64>(new NullableValueComparer<CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU64?>, CompiledModelTestBase.EnumU64>(new NullableValueComparer<CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -11119,22 +11119,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value)))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.EnumU64?>, CompiledModelTestBase.EnumU64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))),
                 elementMapping: MySqlULongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     providerValueComparer: new ValueComparer<ulong>(
@@ -11142,13 +11142,13 @@ namespace TestNamespace
                         int (ulong v) => ((object)v).GetHashCode(),
                         ulong (ulong v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))),
+                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))));
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))));
             var nullableEnumU64AsStringCollectionElementType = nullableEnumU64AsStringCollection.SetElementType(typeof(CompiledModelTestBase.EnumU64?),
                 nullable: true);
             nullableEnumU64AsStringCollectionElementType.TypeMapping = nullableEnumU64AsStringCollection.TypeMapping.ElementTypeMapping;
@@ -11188,11 +11188,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU64Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU64?>, CompiledModelTestBase.EnumU64>(new NullableValueComparer<CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU64?>, CompiledModelTestBase.EnumU64>(new NullableValueComparer<CompiledModelTestBase.EnumU64>(new ValueComparer<CompiledModelTestBase.EnumU64>(
-                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -11205,22 +11205,22 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value)))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.EnumU64?>, CompiledModelTestBase.EnumU64>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))),
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))),
                 elementMapping: MySqlULongTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU64>(
-                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU64 v1, CompiledModelTestBase.EnumU64 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU64 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU64 (CompiledModelTestBase.EnumU64 v) => v),
                     providerValueComparer: new ValueComparer<ulong>(
@@ -11228,13 +11228,13 @@ namespace TestNamespace
                         int (ulong v) => ((object)v).GetHashCode(),
                         ulong (ulong v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))),
+                        ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                        CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU64, ulong>(
                         JsonUInt64ReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU64, ulong>(
-                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)(value)),
-                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)(value))))));
+                            ulong (CompiledModelTestBase.EnumU64 value) => ((ulong)value),
+                            CompiledModelTestBase.EnumU64 (ulong value) => ((CompiledModelTestBase.EnumU64)value)))));
             var nullableEnumU64CollectionElementType = nullableEnumU64Collection.SetElementType(typeof(CompiledModelTestBase.EnumU64?),
                 nullable: true);
             nullableEnumU64CollectionElementType.TypeMapping = nullableEnumU64Collection.TypeMapping.ElementTypeMapping;
@@ -11253,13 +11253,13 @@ namespace TestNamespace
             nullableEnumU8.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU8? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU8(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU8? )(((CompiledModelTestBase.EnumU8)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU8(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU8? )(((CompiledModelTestBase.EnumU8)value))));
                     return instance;
                 });
             nullableEnumU8.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU8? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU8(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU8? )(((CompiledModelTestBase.EnumU8)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU8(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU8? )(((CompiledModelTestBase.EnumU8)value))));
                     return instance;
                 });
             nullableEnumU8.SetAccessors(
@@ -11275,25 +11275,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU8.TypeMapping = MySqlByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                 providerValueComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                    byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                    CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))),
+                    byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                    CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                     JsonByteReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value)))));
+                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value))));
             nullableEnumU8.SetComparer(new NullableValueComparer<CompiledModelTestBase.EnumU8>(nullableEnumU8.TypeMapping.Comparer));
             nullableEnumU8.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.EnumU8>(nullableEnumU8.TypeMapping.KeyComparer));
             nullableEnumU8.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -11331,11 +11331,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU8Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU8?[], CompiledModelTestBase.EnumU8>(new NullableValueComparer<CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU8?[], CompiledModelTestBase.EnumU8>(new NullableValueComparer<CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -11348,36 +11348,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value)))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.EnumU8?[], CompiledModelTestBase.EnumU8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))),
                 elementMapping: MySqlByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     providerValueComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))),
+                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))));
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))));
             var nullableEnumU8ArrayElementType = nullableEnumU8Array.SetElementType(typeof(CompiledModelTestBase.EnumU8?),
                 nullable: true);
             nullableEnumU8ArrayElementType.TypeMapping = nullableEnumU8Array.TypeMapping.ElementTypeMapping;
@@ -11396,13 +11396,13 @@ namespace TestNamespace
             nullableEnumU8AsString.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU8? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU8AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU8? )(((CompiledModelTestBase.EnumU8)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU8AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU8? )(((CompiledModelTestBase.EnumU8)value))));
                     return instance;
                 });
             nullableEnumU8AsString.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, CompiledModelTestBase.EnumU8? value) =>
                 {
-                    ManyTypesUnsafeAccessors.NullableEnumU8AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU8? )(((CompiledModelTestBase.EnumU8)(value)))));
+                    ManyTypesUnsafeAccessors.NullableEnumU8AsString(instance) = (value == null ? value : ((CompiledModelTestBase.EnumU8? )(((CompiledModelTestBase.EnumU8)value))));
                     return instance;
                 });
             nullableEnumU8AsString.SetAccessors(
@@ -11418,25 +11418,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU8AsString.TypeMapping = MySqlByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                 providerValueComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                    byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                    CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))),
+                    byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                    CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                     JsonByteReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value)))));
+                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value))));
             nullableEnumU8AsString.SetComparer(new NullableValueComparer<CompiledModelTestBase.EnumU8>(nullableEnumU8AsString.TypeMapping.Comparer));
             nullableEnumU8AsString.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.EnumU8>(nullableEnumU8AsString.TypeMapping.KeyComparer));
             nullableEnumU8AsString.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -11474,11 +11474,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU8AsStringArray.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU8?[], CompiledModelTestBase.EnumU8>(new NullableValueComparer<CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<CompiledModelTestBase.EnumU8?[], CompiledModelTestBase.EnumU8>(new NullableValueComparer<CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -11491,36 +11491,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value)))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<CompiledModelTestBase.EnumU8?[], CompiledModelTestBase.EnumU8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))),
                 elementMapping: MySqlByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     providerValueComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))),
+                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))));
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))));
             var nullableEnumU8AsStringArrayElementType = nullableEnumU8AsStringArray.SetElementType(typeof(CompiledModelTestBase.EnumU8?),
                 nullable: true);
             nullableEnumU8AsStringArrayElementType.TypeMapping = nullableEnumU8AsStringArray.TypeMapping.ElementTypeMapping;
@@ -11560,11 +11560,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU8AsStringCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU8?>, CompiledModelTestBase.EnumU8>(new NullableValueComparer<CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU8?>, CompiledModelTestBase.EnumU8>(new NullableValueComparer<CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -11577,36 +11577,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value)))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.EnumU8?>, CompiledModelTestBase.EnumU8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))),
                 elementMapping: MySqlByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     providerValueComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))),
+                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))));
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))));
             var nullableEnumU8AsStringCollectionElementType = nullableEnumU8AsStringCollection.SetElementType(typeof(CompiledModelTestBase.EnumU8?),
                 nullable: true);
             nullableEnumU8AsStringCollectionElementType.TypeMapping = nullableEnumU8AsStringCollection.TypeMapping.ElementTypeMapping;
@@ -11646,11 +11646,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             nullableEnumU8Collection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU8?>, CompiledModelTestBase.EnumU8>(new NullableValueComparer<CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<List<CompiledModelTestBase.EnumU8?>, CompiledModelTestBase.EnumU8>(new NullableValueComparer<CompiledModelTestBase.EnumU8>(new ValueComparer<CompiledModelTestBase.EnumU8>(
-                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                    bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v))),
                 providerValueComparer: new ValueComparer<string>(
@@ -11663,36 +11663,36 @@ namespace TestNamespace
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value)))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value))))),
                 storeTypePostfix: StoreTypePostfix.None,
                 jsonValueReaderWriter: new JsonCollectionOfNullableStructsReaderWriter<List<CompiledModelTestBase.EnumU8?>, CompiledModelTestBase.EnumU8>(
                     new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))),
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))),
                 elementMapping: MySqlByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     keyComparer: new ValueComparer<CompiledModelTestBase.EnumU8>(
-                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)(v1)), ((object)(v2))),
+                        bool (CompiledModelTestBase.EnumU8 v1, CompiledModelTestBase.EnumU8 v2) => object.Equals(((object)v1), ((object)v2)),
                         int (CompiledModelTestBase.EnumU8 v) => ((object)v).GetHashCode(),
                         CompiledModelTestBase.EnumU8 (CompiledModelTestBase.EnumU8 v) => v),
                     providerValueComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     converter: new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))),
+                        byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                        CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)),
                     jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.EnumU8, byte>(
                         JsonByteReaderWriter.Instance,
                         new ValueConverter<CompiledModelTestBase.EnumU8, byte>(
-                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)(value)),
-                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)(value))))));
+                            byte (CompiledModelTestBase.EnumU8 value) => ((byte)value),
+                            CompiledModelTestBase.EnumU8 (byte value) => ((CompiledModelTestBase.EnumU8)value)))));
             var nullableEnumU8CollectionElementType = nullableEnumU8Collection.SetElementType(typeof(CompiledModelTestBase.EnumU8?),
                 nullable: true);
             nullableEnumU8CollectionElementType.TypeMapping = nullableEnumU8Collection.TypeMapping.ElementTypeMapping;
@@ -12118,15 +12118,15 @@ namespace TestNamespace
             nullableInt16.TypeMapping = MySqlShortTypeMapping.Default.Clone(
                 comparer: new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v),
                 keyComparer: new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v),
                 providerValueComparer: new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v));
             nullableInt16.SetComparer(new NullableValueComparer<short>(nullableInt16.TypeMapping.Comparer));
             nullableInt16.SetKeyComparer(new NullableValueComparer<short>(nullableInt16.TypeMapping.KeyComparer));
@@ -12166,11 +12166,11 @@ namespace TestNamespace
             nullableInt16Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<short?[], short>(new NullableValueComparer<short>(new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<short?[], short>(new NullableValueComparer<short>(new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v))),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -12186,15 +12186,15 @@ namespace TestNamespace
                 elementMapping: MySqlShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     keyComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     providerValueComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v)));
             var nullableInt16ArrayElementType = nullableInt16Array.SetElementType(typeof(short?),
                 nullable: true);
@@ -12475,15 +12475,15 @@ namespace TestNamespace
             nullableInt8.TypeMapping = MySqlSByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v),
                 keyComparer: new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v),
                 providerValueComparer: new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v));
             nullableInt8.SetComparer(new NullableValueComparer<sbyte>(nullableInt8.TypeMapping.Comparer));
             nullableInt8.SetKeyComparer(new NullableValueComparer<sbyte>(nullableInt8.TypeMapping.KeyComparer));
@@ -12523,11 +12523,11 @@ namespace TestNamespace
             nullableInt8Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<sbyte?[], sbyte>(new NullableValueComparer<sbyte>(new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<sbyte?[], sbyte>(new NullableValueComparer<sbyte>(new ValueComparer<sbyte>(
                     bool (sbyte v1, sbyte v2) => v1 == v2,
-                    int (sbyte v) => ((int)(v)),
+                    int (sbyte v) => ((int)v),
                     sbyte (sbyte v) => v))),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -12543,15 +12543,15 @@ namespace TestNamespace
                 elementMapping: MySqlSByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v),
                     keyComparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v),
                     providerValueComparer: new ValueComparer<sbyte>(
                         bool (sbyte v1, sbyte v2) => v1 == v2,
-                        int (sbyte v) => ((int)(v)),
+                        int (sbyte v) => ((int)v),
                         sbyte (sbyte v) => v)));
             var nullableInt8ArrayElementType = nullableInt8Array.SetElementType(typeof(sbyte?),
                 nullable: true);
@@ -13116,15 +13116,15 @@ namespace TestNamespace
             nullableUInt16.TypeMapping = MySqlUShortTypeMapping.Default.Clone(
                 comparer: new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v),
                 keyComparer: new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v),
                 providerValueComparer: new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v));
             nullableUInt16.SetComparer(new NullableValueComparer<ushort>(nullableUInt16.TypeMapping.Comparer));
             nullableUInt16.SetKeyComparer(new NullableValueComparer<ushort>(nullableUInt16.TypeMapping.KeyComparer));
@@ -13164,11 +13164,11 @@ namespace TestNamespace
             nullableUInt16Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<ushort?[], ushort>(new NullableValueComparer<ushort>(new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<ushort?[], ushort>(new NullableValueComparer<ushort>(new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v))),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -13184,15 +13184,15 @@ namespace TestNamespace
                 elementMapping: MySqlUShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v),
                     keyComparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v),
                     providerValueComparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v)));
             var nullableUInt16ArrayElementType = nullableUInt16Array.SetElementType(typeof(ushort?),
                 nullable: true);
@@ -13235,15 +13235,15 @@ namespace TestNamespace
             nullableUInt32.TypeMapping = MySqlUIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v),
                 keyComparer: new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v),
                 providerValueComparer: new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v));
             nullableUInt32.SetComparer(new NullableValueComparer<uint>(nullableUInt32.TypeMapping.Comparer));
             nullableUInt32.SetKeyComparer(new NullableValueComparer<uint>(nullableUInt32.TypeMapping.KeyComparer));
@@ -13283,11 +13283,11 @@ namespace TestNamespace
             nullableUInt32Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<uint?[], uint>(new NullableValueComparer<uint>(new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<uint?[], uint>(new NullableValueComparer<uint>(new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v))),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -13303,15 +13303,15 @@ namespace TestNamespace
                 elementMapping: MySqlUIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v),
                     keyComparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v),
                     providerValueComparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v)));
             var nullableUInt32ArrayElementType = nullableUInt32Array.SetElementType(typeof(uint?),
                 nullable: true);
@@ -13473,15 +13473,15 @@ namespace TestNamespace
             nullableUInt8.TypeMapping = MySqlByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v),
                 keyComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v),
                 providerValueComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v));
             nullableUInt8.SetComparer(new NullableValueComparer<byte>(nullableUInt8.TypeMapping.Comparer));
             nullableUInt8.SetKeyComparer(new NullableValueComparer<byte>(nullableUInt8.TypeMapping.KeyComparer));
@@ -13521,11 +13521,11 @@ namespace TestNamespace
             nullableUInt8Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfNullableValueTypesComparer<byte?[], byte>(new NullableValueComparer<byte>(new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v))),
                 keyComparer: new ListOfNullableValueTypesComparer<byte?[], byte>(new NullableValueComparer<byte>(new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v))),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -13541,15 +13541,15 @@ namespace TestNamespace
                 elementMapping: MySqlByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     keyComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     providerValueComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v)));
             var nullableUInt8ArrayElementType = nullableUInt8Array.SetElementType(typeof(byte?),
                 nullable: true);
@@ -13889,8 +13889,8 @@ namespace TestNamespace
                     int (PhysicalAddress v) => ((object)v).GetHashCode(),
                     PhysicalAddress (PhysicalAddress v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(8)",
@@ -14090,23 +14090,23 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("StringReadOnlyCollection", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("_stringReadOnlyCollection", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             stringReadOnlyCollection.SetGetter(
-                IReadOnlyCollection<string> (CompiledModelTestBase.ManyTypes instance) => (ManyTypesUnsafeAccessors._stringReadOnlyCollection(instance) == null ? null : ((IReadOnlyCollection<string>)(ManyTypesUnsafeAccessors._stringReadOnlyCollection(instance)))),
+                IReadOnlyCollection<string> (CompiledModelTestBase.ManyTypes instance) => (ManyTypesUnsafeAccessors._stringReadOnlyCollection(instance) == null ? null : ((IReadOnlyCollection<string>)ManyTypesUnsafeAccessors._stringReadOnlyCollection(instance))),
                 bool (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors._stringReadOnlyCollection(instance) == null);
             stringReadOnlyCollection.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, IReadOnlyCollection<string> value) =>
                 {
-                    ManyTypesUnsafeAccessors._stringReadOnlyCollection(instance) = ((List<string>)(value));
+                    ManyTypesUnsafeAccessors._stringReadOnlyCollection(instance) = ((List<string>)value);
                     return instance;
                 });
             stringReadOnlyCollection.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, IReadOnlyCollection<string> value) =>
                 {
-                    ManyTypesUnsafeAccessors._stringReadOnlyCollection(instance) = ((List<string>)(value));
+                    ManyTypesUnsafeAccessors._stringReadOnlyCollection(instance) = ((List<string>)value);
                     return instance;
                 });
             stringReadOnlyCollection.SetAccessors(
-                IReadOnlyCollection<string> (IInternalEntry entry) => ((IReadOnlyCollection<string>)(ManyTypesUnsafeAccessors._stringReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
-                IReadOnlyCollection<string> (IInternalEntry entry) => ((IReadOnlyCollection<string>)(ManyTypesUnsafeAccessors._stringReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
+                IReadOnlyCollection<string> (IInternalEntry entry) => ((IReadOnlyCollection<string>)(ManyTypesUnsafeAccessors._stringReadOnlyCollection(((CompiledModelTestBase.ManyTypes)entry.Entity))),
+                IReadOnlyCollection<string> (IInternalEntry entry) => ((IReadOnlyCollection<string>)(ManyTypesUnsafeAccessors._stringReadOnlyCollection(((CompiledModelTestBase.ManyTypes)entry.Entity))),
                 IReadOnlyCollection<string> (IInternalEntry entry) => entry.ReadOriginalValue<IReadOnlyCollection<string>>(stringReadOnlyCollection, 206),
                 IReadOnlyCollection<string> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<string>>(stringReadOnlyCollection));
             stringReadOnlyCollection.SetPropertyIndexes(
@@ -14252,8 +14252,8 @@ namespace TestNamespace
                     int (string v) => ((object)v).GetHashCode(),
                     string (string v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 converter: new ValueConverter<string, byte[]>(
                     byte[] (string v) => Encoding.GetEncoding(12000).GetBytes(v),
@@ -14314,13 +14314,13 @@ namespace TestNamespace
                     storeTypeName: "varchar(1)",
                     size: 1),
                 converter: new ValueConverter<string, string>(
-                    string (string v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)((v.Length < 1 ? '\0' : v[0])))),
-                    string (string v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)((v.Length < 1 ? '\0' : v[0]))))),
+                    string (string v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v.Length < 1 ? '\0' : v[0]))),
+                    string (string v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v.Length < 1 ? '\0' : v[0])))),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<string, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<string, string>(
-                        string (string v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)((v.Length < 1 ? '\0' : v[0])))),
-                        string (string v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)((v.Length < 1 ? '\0' : v[0])))))));
+                        string (string v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v.Length < 1 ? '\0' : v[0]))),
+                        string (string v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v.Length < 1 ? '\0' : v[0]))))));
             stringToCharConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var stringToDateOnlyConverterProperty = runtimeEntityType.AddProperty(
@@ -14547,12 +14547,12 @@ namespace TestNamespace
                     size: 64),
                 converter: new ValueConverter<string, decimal>(
                     decimal (string v) => decimal.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture),
-                    string (decimal v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v)))),
+                    string (decimal v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v)))),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<string, decimal>(
                     JsonDecimalReaderWriter.Instance,
                     new ValueConverter<string, decimal>(
                         decimal (string v) => decimal.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture),
-                        string (decimal v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))))));
+                        string (decimal v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))))));
             stringToDecimalNumberConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var stringToDoubleNumberConverterProperty = runtimeEntityType.AddProperty(
@@ -14604,12 +14604,12 @@ namespace TestNamespace
                     size: 64),
                 converter: new ValueConverter<string, double>(
                     double (string v) => double.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture),
-                    string (double v) => string.Format(CultureInfo.InvariantCulture, "{0:R}", ((object)(v)))),
+                    string (double v) => string.Format(CultureInfo.InvariantCulture, "{0:R}", ((object)v)))),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<string, double>(
                     JsonDoubleReaderWriter.Instance,
                     new ValueConverter<string, double>(
                         double (string v) => double.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture),
-                        string (double v) => string.Format(CultureInfo.InvariantCulture, "{0:R}", ((object)(v))))));
+                        string (double v) => string.Format(CultureInfo.InvariantCulture, "{0:R}", ((object)v))))));
             stringToDoubleNumberConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var stringToEnumConverterProperty = runtimeEntityType.AddProperty(
@@ -14655,16 +14655,16 @@ namespace TestNamespace
                     string (string v) => v),
                 providerValueComparer: new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v),
                 converter: new ValueConverter<string, uint>(
-                    uint (string v) => ((uint)(StringEnumConverter<string, CompiledModelTestBase.EnumU32, CompiledModelTestBase.EnumU32>.ConvertToEnum(v))),
-                    string (uint value) => ((object)((CompiledModelTestBase.EnumU32)(value))).ToString()),
+                    uint (string v) => ((uint)StringEnumConverter<string, CompiledModelTestBase.EnumU32, CompiledModelTestBase.EnumU32>.ConvertToEnum(v)),
+                    string (uint value) => ((object)((CompiledModelTestBase.EnumU32)value)).ToString()),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<string, uint>(
                     JsonUInt32ReaderWriter.Instance,
                     new ValueConverter<string, uint>(
-                        uint (string v) => ((uint)(StringEnumConverter<string, CompiledModelTestBase.EnumU32, CompiledModelTestBase.EnumU32>.ConvertToEnum(v))),
-                        string (uint value) => ((object)((CompiledModelTestBase.EnumU32)(value))).ToString())));
+                        uint (string v) => ((uint)StringEnumConverter<string, CompiledModelTestBase.EnumU32, CompiledModelTestBase.EnumU32>.ConvertToEnum(v)),
+                        string (uint value) => ((object)((CompiledModelTestBase.EnumU32)value)).ToString())));
             stringToEnumConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var stringToGuidConverterProperty = runtimeEntityType.AddProperty(
@@ -14765,12 +14765,12 @@ namespace TestNamespace
                     size: 64),
                 converter: new ValueConverter<string, int>(
                     int (string v) => int.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture),
-                    string (int v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v)))),
+                    string (int v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v)))),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<string, int>(
                     JsonInt32ReaderWriter.Instance,
                     new ValueConverter<string, int>(
                         int (string v) => int.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture),
-                        string (int v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)(v))))));
+                        string (int v) => string.Format(CultureInfo.InvariantCulture, "{0}", ((object)v))))));
             stringToIntNumberConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var stringToTimeOnlyConverterProperty = runtimeEntityType.AddProperty(
@@ -14824,12 +14824,12 @@ namespace TestNamespace
                     precision: 6),
                 converter: new ValueConverter<string, TimeOnly>(
                     TimeOnly (string v) => TimeOnly.Parse(v, CultureInfo.InvariantCulture, DateTimeStyles.None),
-                    string (TimeOnly v) => (v.Ticks % 10000000L == 0L ? string.Format(CultureInfo.InvariantCulture, "{0:HH\\:mm\\:ss}", ((object)(v))) : v.ToString("o"))),
+                    string (TimeOnly v) => (v.Ticks % 10000000L == 0L ? string.Format(CultureInfo.InvariantCulture, "{0:HH\\:mm\\:ss}", ((object)v))) : v.ToString("o"))),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<string, TimeOnly>(
                     JsonTimeOnlyReaderWriter.Instance,
                     new ValueConverter<string, TimeOnly>(
                         TimeOnly (string v) => TimeOnly.Parse(v, CultureInfo.InvariantCulture, DateTimeStyles.None),
-                        string (TimeOnly v) => (v.Ticks % 10000000L == 0L ? string.Format(CultureInfo.InvariantCulture, "{0:HH\\:mm\\:ss}", ((object)(v))) : v.ToString("o")))));
+                        string (TimeOnly v) => (v.Ticks % 10000000L == 0L ? string.Format(CultureInfo.InvariantCulture, "{0:HH\\:mm\\:ss}", ((object)v))) : v.ToString("o")))));
             stringToTimeOnlyConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
             var stringToTimeSpanConverterProperty = runtimeEntityType.AddProperty(
@@ -15119,12 +15119,12 @@ namespace TestNamespace
                     storeTypeName: "varchar(48)",
                     size: 48),
                 converter: new ValueConverter<TimeOnly, string>(
-                    string (TimeOnly v) => (v.Ticks % 10000000L == 0L ? string.Format(CultureInfo.InvariantCulture, "{0:HH\\:mm\\:ss}", ((object)(v))) : v.ToString("o")),
+                    string (TimeOnly v) => (v.Ticks % 10000000L == 0L ? string.Format(CultureInfo.InvariantCulture, "{0:HH\\:mm\\:ss}", ((object)v))) : v.ToString("o")),
                     TimeOnly (string v) => TimeOnly.Parse(v, CultureInfo.InvariantCulture, DateTimeStyles.None)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<TimeOnly, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<TimeOnly, string>(
-                        string (TimeOnly v) => (v.Ticks % 10000000L == 0L ? string.Format(CultureInfo.InvariantCulture, "{0:HH\\:mm\\:ss}", ((object)(v))) : v.ToString("o")),
+                        string (TimeOnly v) => (v.Ticks % 10000000L == 0L ? string.Format(CultureInfo.InvariantCulture, "{0:HH\\:mm\\:ss}", ((object)v))) : v.ToString("o")),
                         TimeOnly (string v) => TimeOnly.Parse(v, CultureInfo.InvariantCulture, DateTimeStyles.None))));
             timeOnlyToStringConverterProperty.SetSentinelFromProviderValue("00:00:00");
             timeOnlyToStringConverterProperty.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -15460,15 +15460,15 @@ namespace TestNamespace
             uInt16.TypeMapping = MySqlUShortTypeMapping.Default.Clone(
                 comparer: new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v),
                 keyComparer: new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v),
                 providerValueComparer: new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v));
             uInt16.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -15506,11 +15506,11 @@ namespace TestNamespace
             uInt16Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<ushort[], ushort>(new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v)),
                 keyComparer: new ListOfValueTypesComparer<ushort[], ushort>(new ValueComparer<ushort>(
                     bool (ushort v1, ushort v2) => v1 == v2,
-                    int (ushort v) => ((int)(v)),
+                    int (ushort v) => ((int)v),
                     ushort (ushort v) => v)),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -15526,15 +15526,15 @@ namespace TestNamespace
                 elementMapping: MySqlUShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v),
                     keyComparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v),
                     providerValueComparer: new ValueComparer<ushort>(
                         bool (ushort v1, ushort v2) => v1 == v2,
-                        int (ushort v) => ((int)(v)),
+                        int (ushort v) => ((int)v),
                         ushort (ushort v) => v)));
             var uInt16ArrayElementType = uInt16Array.SetElementType(typeof(ushort));
             uInt16ArrayElementType.TypeMapping = uInt16Array.TypeMapping.ElementTypeMapping;
@@ -15575,15 +15575,15 @@ namespace TestNamespace
             uInt32.TypeMapping = MySqlUIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v),
                 keyComparer: new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v),
                 providerValueComparer: new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v));
             uInt32.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -15621,11 +15621,11 @@ namespace TestNamespace
             uInt32Array.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<uint[], uint>(new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v)),
                 keyComparer: new ListOfValueTypesComparer<uint[], uint>(new ValueComparer<uint>(
                     bool (uint v1, uint v2) => v1 == v2,
-                    int (uint v) => ((int)(v)),
+                    int (uint v) => ((int)v),
                     uint (uint v) => v)),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -15641,15 +15641,15 @@ namespace TestNamespace
                 elementMapping: MySqlUIntTypeMapping.Default.Clone(
                     comparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v),
                     keyComparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v),
                     providerValueComparer: new ValueComparer<uint>(
                         bool (uint v1, uint v2) => v1 == v2,
-                        int (uint v) => ((int)(v)),
+                        int (uint v) => ((int)v),
                         uint (uint v) => v)));
             var uInt32ArrayElementType = uInt32Array.SetElementType(typeof(uint));
             uInt32ArrayElementType.TypeMapping = uInt32Array.TypeMapping.ElementTypeMapping;
@@ -15805,15 +15805,15 @@ namespace TestNamespace
             uInt8.TypeMapping = MySqlByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v),
                 keyComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v),
                 providerValueComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v));
             uInt8.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -15850,16 +15850,16 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             uInt8Array.TypeMapping = MySqlByteArrayTypeMapping.Default.Clone(
                 comparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => ((object)v).GetHashCode(),
                     byte[] (byte[] v) => v),
                 keyComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)(v1)), ((object)(v2))),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)(v))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()));
             uInt8Array.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -15869,23 +15869,23 @@ namespace TestNamespace
                 propertyInfo: typeof(CompiledModelTestBase.ManyTypes).GetProperty("UInt8ReadOnlyCollection", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompiledModelTestBase.ManyTypes).GetField("_uInt8ReadOnlyCollection", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             uInt8ReadOnlyCollection.SetGetter(
-                IReadOnlyCollection<byte> (CompiledModelTestBase.ManyTypes instance) => (ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(instance) == null ? null : ((IReadOnlyCollection<byte>)(ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(instance)))),
+                IReadOnlyCollection<byte> (CompiledModelTestBase.ManyTypes instance) => (ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(instance) == null ? null : ((IReadOnlyCollection<byte>)ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(instance))),
                 bool (CompiledModelTestBase.ManyTypes instance) => ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(instance) == null);
             uInt8ReadOnlyCollection.SetSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, IReadOnlyCollection<byte> value) =>
                 {
-                    ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(instance) = ((List<byte>)(value));
+                    ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(instance) = ((List<byte>)value);
                     return instance;
                 });
             uInt8ReadOnlyCollection.SetMaterializationSetter(
                 CompiledModelTestBase.ManyTypes (CompiledModelTestBase.ManyTypes instance, IReadOnlyCollection<byte> value) =>
                 {
-                    ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(instance) = ((List<byte>)(value));
+                    ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(instance) = ((List<byte>)value);
                     return instance;
                 });
             uInt8ReadOnlyCollection.SetAccessors(
-                IReadOnlyCollection<byte> (IInternalEntry entry) => ((IReadOnlyCollection<byte>)(ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
-                IReadOnlyCollection<byte> (IInternalEntry entry) => ((IReadOnlyCollection<byte>)(ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)(entry.Entity))))),
+                IReadOnlyCollection<byte> (IInternalEntry entry) => ((IReadOnlyCollection<byte>)(ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)entry.Entity))),
+                IReadOnlyCollection<byte> (IInternalEntry entry) => ((IReadOnlyCollection<byte>)(ManyTypesUnsafeAccessors._uInt8ReadOnlyCollection(((CompiledModelTestBase.ManyTypes)entry.Entity))),
                 IReadOnlyCollection<byte> (IInternalEntry entry) => entry.ReadOriginalValue<IReadOnlyCollection<byte>>(uInt8ReadOnlyCollection, 237),
                 IReadOnlyCollection<byte> (IInternalEntry entry) => entry.GetCurrentValue<IReadOnlyCollection<byte>>(uInt8ReadOnlyCollection));
             uInt8ReadOnlyCollection.SetPropertyIndexes(
@@ -15897,11 +15897,11 @@ namespace TestNamespace
             uInt8ReadOnlyCollection.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<byte>, byte>(new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<byte>, byte>(new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v)),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -15917,15 +15917,15 @@ namespace TestNamespace
                 elementMapping: MySqlByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     keyComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     providerValueComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v)));
             var uInt8ReadOnlyCollectionElementType = uInt8ReadOnlyCollection.SetElementType(typeof(byte));
             uInt8ReadOnlyCollectionElementType.TypeMapping = uInt8ReadOnlyCollection.TypeMapping.ElementTypeMapping;
@@ -16390,28 +16390,28 @@ namespace TestNamespace
                 ISnapshot (IInternalEntry source) =>
                 {
                     var structuralType = ((CompiledModelTestBase.ManyTypes)(source.Entity));
-                    var liftedArg = ((ISnapshot)(new Snapshot<CompiledModelTestBase.ManyTypesId, bool, bool[], IReadOnlyCollection<bool>, bool, bool, bool, byte[], byte[][], byte[], int, char, char[], char, DateOnly, DateOnly[], DateOnly, DateTime, DateTime[], DateTimeOffset, DateTimeOffset, DateTimeOffset, DateTime, DateTime, DateTime, decimal, decimal[], decimal, decimal, double>(((ValueComparer<CompiledModelTestBase.ManyTypesId>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.ManyTypesId>(id)), ((ValueComparer<bool>)(((IProperty)@bool).GetValueComparer())).Snapshot(source.GetCurrentValue<bool>(@bool)), (((IEnumerable<bool>)(source.GetCurrentValue<bool[]>(boolArray))) == null ? null : ((bool[])(((ValueComparer<IEnumerable<bool>>)(((IProperty)boolArray).GetValueComparer())).Snapshot(((IEnumerable<bool>)(source.GetCurrentValue<bool[]>(boolArray))))))), (((IEnumerable<bool>)(source.GetCurrentValue<IReadOnlyCollection<bool>>(boolReadOnlyCollection))) == null ? null : ((IReadOnlyCollection<bool>)(((ValueComparer<IEnumerable<bool>>)(((IProperty)boolReadOnlyCollection).GetValueComparer())).Snapshot(((IEnumerable<bool>)(source.GetCurrentValue<IReadOnlyCollection<bool>>(boolReadOnlyCollection))))))), ((ValueComparer<bool>)(((IProperty)boolToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<bool>(boolToStringConverterProperty)), ((ValueComparer<bool>)(((IProperty)boolToTwoValuesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<bool>(boolToTwoValuesConverterProperty)), ((ValueComparer<bool>)(((IProperty)boolToZeroOneConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<bool>(boolToZeroOneConverterProperty)), (source.GetCurrentValue<byte[]>(bytes) == null ? null : ((ValueComparer<byte[]>)(((IProperty)bytes).GetValueComparer())).Snapshot(source.GetCurrentValue<byte[]>(bytes))), (((object)(source.GetCurrentValue<byte[][]>(bytesArray))) == null ? null : ((byte[][])(((ValueComparer<object>)(((IProperty)bytesArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<byte[][]>(bytesArray))))))), (source.GetCurrentValue<byte[]>(bytesToStringConverterProperty) == null ? null : ((ValueComparer<byte[]>)(((IProperty)bytesToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<byte[]>(bytesToStringConverterProperty))), ((ValueComparer<int>)(((IProperty)castingConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(castingConverterProperty)), ((ValueComparer<char>)(((IProperty)@char).GetValueComparer())).Snapshot(source.GetCurrentValue<char>(@char)), (((IEnumerable<char>)(source.GetCurrentValue<char[]>(charArray))) == null ? null : ((char[])(((ValueComparer<IEnumerable<char>>)(((IProperty)charArray).GetValueComparer())).Snapshot(((IEnumerable<char>)(source.GetCurrentValue<char[]>(charArray))))))), ((ValueComparer<char>)(((IProperty)charToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<char>(charToStringConverterProperty)), ((ValueComparer<DateOnly>)(((IProperty)dateOnly).GetValueComparer())).Snapshot(source.GetCurrentValue<DateOnly>(dateOnly)), (((IEnumerable<DateOnly>)(source.GetCurrentValue<DateOnly[]>(dateOnlyArray))) == null ? null : ((DateOnly[])(((ValueComparer<IEnumerable<DateOnly>>)(((IProperty)dateOnlyArray).GetValueComparer())).Snapshot(((IEnumerable<DateOnly>)(source.GetCurrentValue<DateOnly[]>(dateOnlyArray))))))), ((ValueComparer<DateOnly>)(((IProperty)dateOnlyToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateOnly>(dateOnlyToStringConverterProperty)), ((ValueComparer<DateTime>)(((IProperty)dateTime).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime>(dateTime)), (((IEnumerable<DateTime>)(source.GetCurrentValue<DateTime[]>(dateTimeArray))) == null ? null : ((DateTime[])(((ValueComparer<IEnumerable<DateTime>>)(((IProperty)dateTimeArray).GetValueComparer())).Snapshot(((IEnumerable<DateTime>)(source.GetCurrentValue<DateTime[]>(dateTimeArray))))))), ((ValueComparer<DateTimeOffset>)(((IProperty)dateTimeOffsetToBinaryConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToBinaryConverterProperty)), ((ValueComparer<DateTimeOffset>)(((IProperty)dateTimeOffsetToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToBytesConverterProperty)), ((ValueComparer<DateTimeOffset>)(((IProperty)dateTimeOffsetToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToStringConverterProperty)), ((ValueComparer<DateTime>)(((IProperty)dateTimeToBinaryConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime>(dateTimeToBinaryConverterProperty)), ((ValueComparer<DateTime>)(((IProperty)dateTimeToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime>(dateTimeToStringConverterProperty)), ((ValueComparer<DateTime>)(((IProperty)dateTimeToTicksConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime>(dateTimeToTicksConverterProperty)), ((ValueComparer<decimal>)(((IProperty)@decimal).GetValueComparer())).Snapshot(source.GetCurrentValue<decimal>(@decimal)), (((IEnumerable<decimal>)(source.GetCurrentValue<decimal[]>(decimalArray))) == null ? null : ((decimal[])(((ValueComparer<IEnumerable<decimal>>)(((IProperty)decimalArray).GetValueComparer())).Snapshot(((IEnumerable<decimal>)(source.GetCurrentValue<decimal[]>(decimalArray))))))), ((ValueComparer<decimal>)(((IProperty)decimalNumberToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<decimal>(decimalNumberToBytesConverterProperty)), ((ValueComparer<decimal>)(((IProperty)decimalNumberToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<decimal>(decimalNumberToStringConverterProperty)), ((ValueComparer<double>)(((IProperty)@double).GetValueComparer())).Snapshot(source.GetCurrentValue<double>(@double)))));
+                    var liftedArg = ((ISnapshot)(new Snapshot<CompiledModelTestBase.ManyTypesId, bool, bool[], IReadOnlyCollection<bool>, bool, bool, bool, byte[], byte[][], byte[], int, char, char[], char, DateOnly, DateOnly[], DateOnly, DateTime, DateTime[], DateTimeOffset, DateTimeOffset, DateTimeOffset, DateTime, DateTime, DateTime, decimal, decimal[], decimal, decimal, double>(((ValueComparer<CompiledModelTestBase.ManyTypesId>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.ManyTypesId>(id)), ((ValueComparer<bool>)(((IProperty)@bool).GetValueComparer())).Snapshot(source.GetCurrentValue<bool>(@bool)), (((IEnumerable<bool>)source.GetCurrentValue<bool[]>(boolArray)) == null ? null : ((bool[])(((ValueComparer<IEnumerable<bool>>)(((IProperty)boolArray).GetValueComparer())).Snapshot(((IEnumerable<bool>)source.GetCurrentValue<bool[]>(boolArray)))))), (((IEnumerable<bool>)source.GetCurrentValue<IReadOnlyCollection<bool>>(boolReadOnlyCollection)) == null ? null : ((IReadOnlyCollection<bool>)(((ValueComparer<IEnumerable<bool>>)(((IProperty)boolReadOnlyCollection).GetValueComparer())).Snapshot(((IEnumerable<bool>)source.GetCurrentValue<IReadOnlyCollection<bool>>(boolReadOnlyCollection)))))), ((ValueComparer<bool>)(((IProperty)boolToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<bool>(boolToStringConverterProperty)), ((ValueComparer<bool>)(((IProperty)boolToTwoValuesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<bool>(boolToTwoValuesConverterProperty)), ((ValueComparer<bool>)(((IProperty)boolToZeroOneConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<bool>(boolToZeroOneConverterProperty)), (source.GetCurrentValue<byte[]>(bytes) == null ? null : ((ValueComparer<byte[]>)(((IProperty)bytes).GetValueComparer())).Snapshot(source.GetCurrentValue<byte[]>(bytes))), (((object)source.GetCurrentValue<byte[][]>(bytesArray)) == null ? null : ((byte[][])(((ValueComparer<object>)(((IProperty)bytesArray).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<byte[][]>(bytesArray)))))), (source.GetCurrentValue<byte[]>(bytesToStringConverterProperty) == null ? null : ((ValueComparer<byte[]>)(((IProperty)bytesToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<byte[]>(bytesToStringConverterProperty))), ((ValueComparer<int>)(((IProperty)castingConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(castingConverterProperty)), ((ValueComparer<char>)(((IProperty)@char).GetValueComparer())).Snapshot(source.GetCurrentValue<char>(@char)), (((IEnumerable<char>)source.GetCurrentValue<char[]>(charArray)) == null ? null : ((char[])(((ValueComparer<IEnumerable<char>>)(((IProperty)charArray).GetValueComparer())).Snapshot(((IEnumerable<char>)source.GetCurrentValue<char[]>(charArray)))))), ((ValueComparer<char>)(((IProperty)charToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<char>(charToStringConverterProperty)), ((ValueComparer<DateOnly>)(((IProperty)dateOnly).GetValueComparer())).Snapshot(source.GetCurrentValue<DateOnly>(dateOnly)), (((IEnumerable<DateOnly>)source.GetCurrentValue<DateOnly[]>(dateOnlyArray)) == null ? null : ((DateOnly[])(((ValueComparer<IEnumerable<DateOnly>>)(((IProperty)dateOnlyArray).GetValueComparer())).Snapshot(((IEnumerable<DateOnly>)source.GetCurrentValue<DateOnly[]>(dateOnlyArray)))))), ((ValueComparer<DateOnly>)(((IProperty)dateOnlyToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateOnly>(dateOnlyToStringConverterProperty)), ((ValueComparer<DateTime>)(((IProperty)dateTime).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime>(dateTime)), (((IEnumerable<DateTime>)source.GetCurrentValue<DateTime[]>(dateTimeArray)) == null ? null : ((DateTime[])(((ValueComparer<IEnumerable<DateTime>>)(((IProperty)dateTimeArray).GetValueComparer())).Snapshot(((IEnumerable<DateTime>)source.GetCurrentValue<DateTime[]>(dateTimeArray)))))), ((ValueComparer<DateTimeOffset>)(((IProperty)dateTimeOffsetToBinaryConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToBinaryConverterProperty)), ((ValueComparer<DateTimeOffset>)(((IProperty)dateTimeOffsetToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToBytesConverterProperty)), ((ValueComparer<DateTimeOffset>)(((IProperty)dateTimeOffsetToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(dateTimeOffsetToStringConverterProperty)), ((ValueComparer<DateTime>)(((IProperty)dateTimeToBinaryConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime>(dateTimeToBinaryConverterProperty)), ((ValueComparer<DateTime>)(((IProperty)dateTimeToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime>(dateTimeToStringConverterProperty)), ((ValueComparer<DateTime>)(((IProperty)dateTimeToTicksConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime>(dateTimeToTicksConverterProperty)), ((ValueComparer<decimal>)(((IProperty)@decimal).GetValueComparer())).Snapshot(source.GetCurrentValue<decimal>(@decimal)), (((IEnumerable<decimal>)source.GetCurrentValue<decimal[]>(decimalArray)) == null ? null : ((decimal[])(((ValueComparer<IEnumerable<decimal>>)(((IProperty)decimalArray).GetValueComparer())).Snapshot(((IEnumerable<decimal>)source.GetCurrentValue<decimal[]>(decimalArray)))))), ((ValueComparer<decimal>)(((IProperty)decimalNumberToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<decimal>(decimalNumberToBytesConverterProperty)), ((ValueComparer<decimal>)(((IProperty)decimalNumberToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<decimal>(decimalNumberToStringConverterProperty)), ((ValueComparer<double>)(((IProperty)@double).GetValueComparer())).Snapshot(source.GetCurrentValue<double>(@double)))));
                     var structuralType0 = ((CompiledModelTestBase.ManyTypes)(source.Entity));
-                    var liftedArg0 = ((ISnapshot)(new Snapshot<double[], double, double, CompiledModelTestBase.Enum16, CompiledModelTestBase.Enum16[], CompiledModelTestBase.Enum16, CompiledModelTestBase.Enum16[], List<CompiledModelTestBase.Enum16>, List<CompiledModelTestBase.Enum16>, CompiledModelTestBase.Enum32, CompiledModelTestBase.Enum32[], CompiledModelTestBase.Enum32, CompiledModelTestBase.Enum32[], List<CompiledModelTestBase.Enum32>, List<CompiledModelTestBase.Enum32>, CompiledModelTestBase.Enum64, CompiledModelTestBase.Enum64[], CompiledModelTestBase.Enum64, CompiledModelTestBase.Enum64[], List<CompiledModelTestBase.Enum64>, List<CompiledModelTestBase.Enum64>, CompiledModelTestBase.Enum8, CompiledModelTestBase.Enum8[], CompiledModelTestBase.Enum8, CompiledModelTestBase.Enum8[], List<CompiledModelTestBase.Enum8>, List<CompiledModelTestBase.Enum8>, CompiledModelTestBase.Enum32, CompiledModelTestBase.Enum32, CompiledModelTestBase.EnumU16>((((IEnumerable<double>)(source.GetCurrentValue<double[]>(doubleArray))) == null ? null : ((double[])(((ValueComparer<IEnumerable<double>>)(((IProperty)doubleArray).GetValueComparer())).Snapshot(((IEnumerable<double>)(source.GetCurrentValue<double[]>(doubleArray))))))), ((ValueComparer<double>)(((IProperty)doubleNumberToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<double>(doubleNumberToBytesConverterProperty)), ((ValueComparer<double>)(((IProperty)doubleNumberToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<double>(doubleNumberToStringConverterProperty)), ((ValueComparer<CompiledModelTestBase.Enum16>)(((IProperty)enum16).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum16>(enum16)), (((IEnumerable<CompiledModelTestBase.Enum16>)(source.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16Array))) == null ? null : ((CompiledModelTestBase.Enum16[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16>>)(((IProperty)enum16Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16>)(source.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16Array))))))), ((ValueComparer<CompiledModelTestBase.Enum16>)(((IProperty)enum16AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum16>(enum16AsString)), (((IEnumerable<CompiledModelTestBase.Enum16>)(source.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16AsStringArray))) == null ? null : ((CompiledModelTestBase.Enum16[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16>>)(((IProperty)enum16AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16>)(source.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.Enum16>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.Enum16>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16>>)(((IProperty)enum16AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.Enum16>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16Collection))) == null ? null : ((List<CompiledModelTestBase.Enum16>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16>>)(((IProperty)enum16Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16Collection))))))), ((ValueComparer<CompiledModelTestBase.Enum32>)(((IProperty)enum32).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32>(enum32)), (((IEnumerable<CompiledModelTestBase.Enum32>)(source.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32Array))) == null ? null : ((CompiledModelTestBase.Enum32[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32>>)(((IProperty)enum32Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32>)(source.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32Array))))))), ((ValueComparer<CompiledModelTestBase.Enum32>)(((IProperty)enum32AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32>(enum32AsString)), (((IEnumerable<CompiledModelTestBase.Enum32>)(source.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32AsStringArray))) == null ? null : ((CompiledModelTestBase.Enum32[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32>>)(((IProperty)enum32AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32>)(source.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.Enum32>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.Enum32>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32>>)(((IProperty)enum32AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.Enum32>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32Collection))) == null ? null : ((List<CompiledModelTestBase.Enum32>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32>>)(((IProperty)enum32Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32Collection))))))), ((ValueComparer<CompiledModelTestBase.Enum64>)(((IProperty)enum64).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum64>(enum64)), (((IEnumerable<CompiledModelTestBase.Enum64>)(source.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64Array))) == null ? null : ((CompiledModelTestBase.Enum64[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64>>)(((IProperty)enum64Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64>)(source.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64Array))))))), ((ValueComparer<CompiledModelTestBase.Enum64>)(((IProperty)enum64AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum64>(enum64AsString)), (((IEnumerable<CompiledModelTestBase.Enum64>)(source.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64AsStringArray))) == null ? null : ((CompiledModelTestBase.Enum64[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64>>)(((IProperty)enum64AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64>)(source.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.Enum64>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.Enum64>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64>>)(((IProperty)enum64AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.Enum64>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64Collection))) == null ? null : ((List<CompiledModelTestBase.Enum64>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64>>)(((IProperty)enum64Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64Collection))))))), ((ValueComparer<CompiledModelTestBase.Enum8>)(((IProperty)enum8).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum8>(enum8)), (((IEnumerable<CompiledModelTestBase.Enum8>)(source.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8Array))) == null ? null : ((CompiledModelTestBase.Enum8[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8>>)(((IProperty)enum8Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8>)(source.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8Array))))))), ((ValueComparer<CompiledModelTestBase.Enum8>)(((IProperty)enum8AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum8>(enum8AsString)), (((IEnumerable<CompiledModelTestBase.Enum8>)(source.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8AsStringArray))) == null ? null : ((CompiledModelTestBase.Enum8[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8>>)(((IProperty)enum8AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8>)(source.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.Enum8>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.Enum8>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8>>)(((IProperty)enum8AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.Enum8>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8Collection))) == null ? null : ((List<CompiledModelTestBase.Enum8>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8>>)(((IProperty)enum8Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8Collection))))))), ((ValueComparer<CompiledModelTestBase.Enum32>)(((IProperty)enumToNumberConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32>(enumToNumberConverterProperty)), ((ValueComparer<CompiledModelTestBase.Enum32>)(((IProperty)enumToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32>(enumToStringConverterProperty)), ((ValueComparer<CompiledModelTestBase.EnumU16>)(((IProperty)enumU16).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU16>(enumU16)))));
+                    var liftedArg0 = ((ISnapshot)(new Snapshot<double[], double, double, CompiledModelTestBase.Enum16, CompiledModelTestBase.Enum16[], CompiledModelTestBase.Enum16, CompiledModelTestBase.Enum16[], List<CompiledModelTestBase.Enum16>, List<CompiledModelTestBase.Enum16>, CompiledModelTestBase.Enum32, CompiledModelTestBase.Enum32[], CompiledModelTestBase.Enum32, CompiledModelTestBase.Enum32[], List<CompiledModelTestBase.Enum32>, List<CompiledModelTestBase.Enum32>, CompiledModelTestBase.Enum64, CompiledModelTestBase.Enum64[], CompiledModelTestBase.Enum64, CompiledModelTestBase.Enum64[], List<CompiledModelTestBase.Enum64>, List<CompiledModelTestBase.Enum64>, CompiledModelTestBase.Enum8, CompiledModelTestBase.Enum8[], CompiledModelTestBase.Enum8, CompiledModelTestBase.Enum8[], List<CompiledModelTestBase.Enum8>, List<CompiledModelTestBase.Enum8>, CompiledModelTestBase.Enum32, CompiledModelTestBase.Enum32, CompiledModelTestBase.EnumU16>((((IEnumerable<double>)source.GetCurrentValue<double[]>(doubleArray)) == null ? null : ((double[])(((ValueComparer<IEnumerable<double>>)(((IProperty)doubleArray).GetValueComparer())).Snapshot(((IEnumerable<double>)source.GetCurrentValue<double[]>(doubleArray)))))), ((ValueComparer<double>)(((IProperty)doubleNumberToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<double>(doubleNumberToBytesConverterProperty)), ((ValueComparer<double>)(((IProperty)doubleNumberToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<double>(doubleNumberToStringConverterProperty)), ((ValueComparer<CompiledModelTestBase.Enum16>)(((IProperty)enum16).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum16>(enum16)), (((IEnumerable<CompiledModelTestBase.Enum16>)source.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16Array)) == null ? null : ((CompiledModelTestBase.Enum16[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16>>)(((IProperty)enum16Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16>)source.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16Array)))))), ((ValueComparer<CompiledModelTestBase.Enum16>)(((IProperty)enum16AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum16>(enum16AsString)), (((IEnumerable<CompiledModelTestBase.Enum16>)source.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16AsStringArray)) == null ? null : ((CompiledModelTestBase.Enum16[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16>>)(((IProperty)enum16AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16>)source.GetCurrentValue<CompiledModelTestBase.Enum16[]>(enum16AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.Enum16>)source.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.Enum16>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16>>)(((IProperty)enum16AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16>)source.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.Enum16>)source.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16Collection)) == null ? null : ((List<CompiledModelTestBase.Enum16>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16>>)(((IProperty)enum16Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16>)source.GetCurrentValue<List<CompiledModelTestBase.Enum16>>(enum16Collection)))))), ((ValueComparer<CompiledModelTestBase.Enum32>)(((IProperty)enum32).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32>(enum32)), (((IEnumerable<CompiledModelTestBase.Enum32>)source.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32Array)) == null ? null : ((CompiledModelTestBase.Enum32[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32>>)(((IProperty)enum32Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32>)source.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32Array)))))), ((ValueComparer<CompiledModelTestBase.Enum32>)(((IProperty)enum32AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32>(enum32AsString)), (((IEnumerable<CompiledModelTestBase.Enum32>)source.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32AsStringArray)) == null ? null : ((CompiledModelTestBase.Enum32[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32>>)(((IProperty)enum32AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32>)source.GetCurrentValue<CompiledModelTestBase.Enum32[]>(enum32AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.Enum32>)source.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.Enum32>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32>>)(((IProperty)enum32AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32>)source.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.Enum32>)source.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32Collection)) == null ? null : ((List<CompiledModelTestBase.Enum32>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32>>)(((IProperty)enum32Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32>)source.GetCurrentValue<List<CompiledModelTestBase.Enum32>>(enum32Collection)))))), ((ValueComparer<CompiledModelTestBase.Enum64>)(((IProperty)enum64).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum64>(enum64)), (((IEnumerable<CompiledModelTestBase.Enum64>)source.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64Array)) == null ? null : ((CompiledModelTestBase.Enum64[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64>>)(((IProperty)enum64Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64>)source.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64Array)))))), ((ValueComparer<CompiledModelTestBase.Enum64>)(((IProperty)enum64AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum64>(enum64AsString)), (((IEnumerable<CompiledModelTestBase.Enum64>)source.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64AsStringArray)) == null ? null : ((CompiledModelTestBase.Enum64[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64>>)(((IProperty)enum64AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64>)source.GetCurrentValue<CompiledModelTestBase.Enum64[]>(enum64AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.Enum64>)source.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.Enum64>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64>>)(((IProperty)enum64AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64>)source.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.Enum64>)source.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64Collection)) == null ? null : ((List<CompiledModelTestBase.Enum64>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64>>)(((IProperty)enum64Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64>)source.GetCurrentValue<List<CompiledModelTestBase.Enum64>>(enum64Collection)))))), ((ValueComparer<CompiledModelTestBase.Enum8>)(((IProperty)enum8).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum8>(enum8)), (((IEnumerable<CompiledModelTestBase.Enum8>)source.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8Array)) == null ? null : ((CompiledModelTestBase.Enum8[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8>>)(((IProperty)enum8Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8>)source.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8Array)))))), ((ValueComparer<CompiledModelTestBase.Enum8>)(((IProperty)enum8AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum8>(enum8AsString)), (((IEnumerable<CompiledModelTestBase.Enum8>)source.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8AsStringArray)) == null ? null : ((CompiledModelTestBase.Enum8[])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8>>)(((IProperty)enum8AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8>)source.GetCurrentValue<CompiledModelTestBase.Enum8[]>(enum8AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.Enum8>)source.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.Enum8>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8>>)(((IProperty)enum8AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8>)source.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.Enum8>)source.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8Collection)) == null ? null : ((List<CompiledModelTestBase.Enum8>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8>>)(((IProperty)enum8Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8>)source.GetCurrentValue<List<CompiledModelTestBase.Enum8>>(enum8Collection)))))), ((ValueComparer<CompiledModelTestBase.Enum32>)(((IProperty)enumToNumberConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32>(enumToNumberConverterProperty)), ((ValueComparer<CompiledModelTestBase.Enum32>)(((IProperty)enumToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32>(enumToStringConverterProperty)), ((ValueComparer<CompiledModelTestBase.EnumU16>)(((IProperty)enumU16).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU16>(enumU16)))));
                     var structuralType1 = ((CompiledModelTestBase.ManyTypes)(source.Entity));
-                    var liftedArg1 = ((ISnapshot)(new Snapshot<CompiledModelTestBase.EnumU16[], CompiledModelTestBase.EnumU16, CompiledModelTestBase.EnumU16[], List<CompiledModelTestBase.EnumU16>, List<CompiledModelTestBase.EnumU16>, CompiledModelTestBase.EnumU32, CompiledModelTestBase.EnumU32[], CompiledModelTestBase.EnumU32, CompiledModelTestBase.EnumU32[], List<CompiledModelTestBase.EnumU32>, List<CompiledModelTestBase.EnumU32>, CompiledModelTestBase.EnumU64, CompiledModelTestBase.EnumU64[], CompiledModelTestBase.EnumU64, CompiledModelTestBase.EnumU64[], List<CompiledModelTestBase.EnumU64>, List<CompiledModelTestBase.EnumU64>, CompiledModelTestBase.EnumU8, CompiledModelTestBase.EnumU8[], CompiledModelTestBase.EnumU8, CompiledModelTestBase.EnumU8[], List<CompiledModelTestBase.EnumU8>, List<CompiledModelTestBase.EnumU8>, float, float[], Guid, Guid[], Guid, Guid, IPAddress>((((IEnumerable<CompiledModelTestBase.EnumU16>)(source.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16Array))) == null ? null : ((CompiledModelTestBase.EnumU16[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16>>)(((IProperty)enumU16Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16>)(source.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16Array))))))), ((ValueComparer<CompiledModelTestBase.EnumU16>)(((IProperty)enumU16AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU16>(enumU16AsString)), (((IEnumerable<CompiledModelTestBase.EnumU16>)(source.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16AsStringArray))) == null ? null : ((CompiledModelTestBase.EnumU16[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16>>)(((IProperty)enumU16AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16>)(source.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.EnumU16>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.EnumU16>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16>>)(((IProperty)enumU16AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.EnumU16>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16Collection))) == null ? null : ((List<CompiledModelTestBase.EnumU16>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16>>)(((IProperty)enumU16Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16Collection))))))), ((ValueComparer<CompiledModelTestBase.EnumU32>)(((IProperty)enumU32).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU32>(enumU32)), (((IEnumerable<CompiledModelTestBase.EnumU32>)(source.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32Array))) == null ? null : ((CompiledModelTestBase.EnumU32[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32>>)(((IProperty)enumU32Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32>)(source.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32Array))))))), ((ValueComparer<CompiledModelTestBase.EnumU32>)(((IProperty)enumU32AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU32>(enumU32AsString)), (((IEnumerable<CompiledModelTestBase.EnumU32>)(source.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32AsStringArray))) == null ? null : ((CompiledModelTestBase.EnumU32[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32>>)(((IProperty)enumU32AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32>)(source.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.EnumU32>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.EnumU32>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32>>)(((IProperty)enumU32AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.EnumU32>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32Collection))) == null ? null : ((List<CompiledModelTestBase.EnumU32>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32>>)(((IProperty)enumU32Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32Collection))))))), ((ValueComparer<CompiledModelTestBase.EnumU64>)(((IProperty)enumU64).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU64>(enumU64)), (((IEnumerable<CompiledModelTestBase.EnumU64>)(source.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64Array))) == null ? null : ((CompiledModelTestBase.EnumU64[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64>>)(((IProperty)enumU64Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64>)(source.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64Array))))))), ((ValueComparer<CompiledModelTestBase.EnumU64>)(((IProperty)enumU64AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU64>(enumU64AsString)), (((IEnumerable<CompiledModelTestBase.EnumU64>)(source.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64AsStringArray))) == null ? null : ((CompiledModelTestBase.EnumU64[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64>>)(((IProperty)enumU64AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64>)(source.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.EnumU64>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.EnumU64>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64>>)(((IProperty)enumU64AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.EnumU64>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64Collection))) == null ? null : ((List<CompiledModelTestBase.EnumU64>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64>>)(((IProperty)enumU64Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64Collection))))))), ((ValueComparer<CompiledModelTestBase.EnumU8>)(((IProperty)enumU8).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU8>(enumU8)), (((IEnumerable<CompiledModelTestBase.EnumU8>)(source.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8Array))) == null ? null : ((CompiledModelTestBase.EnumU8[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8>>)(((IProperty)enumU8Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8>)(source.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8Array))))))), ((ValueComparer<CompiledModelTestBase.EnumU8>)(((IProperty)enumU8AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU8>(enumU8AsString)), (((IEnumerable<CompiledModelTestBase.EnumU8>)(source.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8AsStringArray))) == null ? null : ((CompiledModelTestBase.EnumU8[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8>>)(((IProperty)enumU8AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8>)(source.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.EnumU8>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.EnumU8>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8>>)(((IProperty)enumU8AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.EnumU8>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8Collection))) == null ? null : ((List<CompiledModelTestBase.EnumU8>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8>>)(((IProperty)enumU8Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8Collection))))))), ((ValueComparer<float>)(((IProperty)@float).GetValueComparer())).Snapshot(source.GetCurrentValue<float>(@float)), (((IEnumerable<float>)(source.GetCurrentValue<float[]>(floatArray))) == null ? null : ((float[])(((ValueComparer<IEnumerable<float>>)(((IProperty)floatArray).GetValueComparer())).Snapshot(((IEnumerable<float>)(source.GetCurrentValue<float[]>(floatArray))))))), ((ValueComparer<Guid>)(((IProperty)guid).GetValueComparer())).Snapshot(source.GetCurrentValue<Guid>(guid)), (((IEnumerable<Guid>)(source.GetCurrentValue<Guid[]>(guidArray))) == null ? null : ((Guid[])(((ValueComparer<IEnumerable<Guid>>)(((IProperty)guidArray).GetValueComparer())).Snapshot(((IEnumerable<Guid>)(source.GetCurrentValue<Guid[]>(guidArray))))))), ((ValueComparer<Guid>)(((IProperty)guidToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<Guid>(guidToBytesConverterProperty)), ((ValueComparer<Guid>)(((IProperty)guidToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<Guid>(guidToStringConverterProperty)), (source.GetCurrentValue<IPAddress>(iPAddress) == null ? null : ((ValueComparer<IPAddress>)(((IProperty)iPAddress).GetValueComparer())).Snapshot(source.GetCurrentValue<IPAddress>(iPAddress))))));
+                    var liftedArg1 = ((ISnapshot)(new Snapshot<CompiledModelTestBase.EnumU16[], CompiledModelTestBase.EnumU16, CompiledModelTestBase.EnumU16[], List<CompiledModelTestBase.EnumU16>, List<CompiledModelTestBase.EnumU16>, CompiledModelTestBase.EnumU32, CompiledModelTestBase.EnumU32[], CompiledModelTestBase.EnumU32, CompiledModelTestBase.EnumU32[], List<CompiledModelTestBase.EnumU32>, List<CompiledModelTestBase.EnumU32>, CompiledModelTestBase.EnumU64, CompiledModelTestBase.EnumU64[], CompiledModelTestBase.EnumU64, CompiledModelTestBase.EnumU64[], List<CompiledModelTestBase.EnumU64>, List<CompiledModelTestBase.EnumU64>, CompiledModelTestBase.EnumU8, CompiledModelTestBase.EnumU8[], CompiledModelTestBase.EnumU8, CompiledModelTestBase.EnumU8[], List<CompiledModelTestBase.EnumU8>, List<CompiledModelTestBase.EnumU8>, float, float[], Guid, Guid[], Guid, Guid, IPAddress>((((IEnumerable<CompiledModelTestBase.EnumU16>)source.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16Array)) == null ? null : ((CompiledModelTestBase.EnumU16[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16>>)(((IProperty)enumU16Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16>)source.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16Array)))))), ((ValueComparer<CompiledModelTestBase.EnumU16>)(((IProperty)enumU16AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU16>(enumU16AsString)), (((IEnumerable<CompiledModelTestBase.EnumU16>)source.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16AsStringArray)) == null ? null : ((CompiledModelTestBase.EnumU16[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16>>)(((IProperty)enumU16AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16>)source.GetCurrentValue<CompiledModelTestBase.EnumU16[]>(enumU16AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.EnumU16>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.EnumU16>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16>>)(((IProperty)enumU16AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.EnumU16>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16Collection)) == null ? null : ((List<CompiledModelTestBase.EnumU16>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16>>)(((IProperty)enumU16Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU16>>(enumU16Collection)))))), ((ValueComparer<CompiledModelTestBase.EnumU32>)(((IProperty)enumU32).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU32>(enumU32)), (((IEnumerable<CompiledModelTestBase.EnumU32>)source.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32Array)) == null ? null : ((CompiledModelTestBase.EnumU32[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32>>)(((IProperty)enumU32Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32>)source.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32Array)))))), ((ValueComparer<CompiledModelTestBase.EnumU32>)(((IProperty)enumU32AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU32>(enumU32AsString)), (((IEnumerable<CompiledModelTestBase.EnumU32>)source.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32AsStringArray)) == null ? null : ((CompiledModelTestBase.EnumU32[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32>>)(((IProperty)enumU32AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32>)source.GetCurrentValue<CompiledModelTestBase.EnumU32[]>(enumU32AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.EnumU32>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.EnumU32>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32>>)(((IProperty)enumU32AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.EnumU32>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32Collection)) == null ? null : ((List<CompiledModelTestBase.EnumU32>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32>>)(((IProperty)enumU32Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU32>>(enumU32Collection)))))), ((ValueComparer<CompiledModelTestBase.EnumU64>)(((IProperty)enumU64).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU64>(enumU64)), (((IEnumerable<CompiledModelTestBase.EnumU64>)source.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64Array)) == null ? null : ((CompiledModelTestBase.EnumU64[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64>>)(((IProperty)enumU64Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64>)source.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64Array)))))), ((ValueComparer<CompiledModelTestBase.EnumU64>)(((IProperty)enumU64AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU64>(enumU64AsString)), (((IEnumerable<CompiledModelTestBase.EnumU64>)source.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64AsStringArray)) == null ? null : ((CompiledModelTestBase.EnumU64[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64>>)(((IProperty)enumU64AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64>)source.GetCurrentValue<CompiledModelTestBase.EnumU64[]>(enumU64AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.EnumU64>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.EnumU64>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64>>)(((IProperty)enumU64AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.EnumU64>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64Collection)) == null ? null : ((List<CompiledModelTestBase.EnumU64>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64>>)(((IProperty)enumU64Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU64>>(enumU64Collection)))))), ((ValueComparer<CompiledModelTestBase.EnumU8>)(((IProperty)enumU8).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU8>(enumU8)), (((IEnumerable<CompiledModelTestBase.EnumU8>)source.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8Array)) == null ? null : ((CompiledModelTestBase.EnumU8[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8>>)(((IProperty)enumU8Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8>)source.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8Array)))))), ((ValueComparer<CompiledModelTestBase.EnumU8>)(((IProperty)enumU8AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU8>(enumU8AsString)), (((IEnumerable<CompiledModelTestBase.EnumU8>)source.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8AsStringArray)) == null ? null : ((CompiledModelTestBase.EnumU8[])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8>>)(((IProperty)enumU8AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8>)source.GetCurrentValue<CompiledModelTestBase.EnumU8[]>(enumU8AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.EnumU8>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.EnumU8>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8>>)(((IProperty)enumU8AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.EnumU8>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8Collection)) == null ? null : ((List<CompiledModelTestBase.EnumU8>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8>>)(((IProperty)enumU8Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU8>>(enumU8Collection)))))), ((ValueComparer<float>)(((IProperty)@float).GetValueComparer())).Snapshot(source.GetCurrentValue<float>(@float)), (((IEnumerable<float>)source.GetCurrentValue<float[]>(floatArray)) == null ? null : ((float[])(((ValueComparer<IEnumerable<float>>)(((IProperty)floatArray).GetValueComparer())).Snapshot(((IEnumerable<float>)source.GetCurrentValue<float[]>(floatArray)))))), ((ValueComparer<Guid>)(((IProperty)guid).GetValueComparer())).Snapshot(source.GetCurrentValue<Guid>(guid)), (((IEnumerable<Guid>)source.GetCurrentValue<Guid[]>(guidArray)) == null ? null : ((Guid[])(((ValueComparer<IEnumerable<Guid>>)(((IProperty)guidArray).GetValueComparer())).Snapshot(((IEnumerable<Guid>)source.GetCurrentValue<Guid[]>(guidArray)))))), ((ValueComparer<Guid>)(((IProperty)guidToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<Guid>(guidToBytesConverterProperty)), ((ValueComparer<Guid>)(((IProperty)guidToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<Guid>(guidToStringConverterProperty)), (source.GetCurrentValue<IPAddress>(iPAddress) == null ? null : ((ValueComparer<IPAddress>)(((IProperty)iPAddress).GetValueComparer())).Snapshot(source.GetCurrentValue<IPAddress>(iPAddress))))));
                     var structuralType2 = ((CompiledModelTestBase.ManyTypes)(source.Entity));
-                    var liftedArg2 = ((ISnapshot)(new Snapshot<IPAddress[], IReadOnlyCollection<IPAddress>, IPAddress, IPAddress, short, short[], int, int[], IReadOnlyCollection<int>, long, long[], sbyte, sbyte[], int, int, int?, bool?, bool? [], byte[], byte[][], char?, char? [], DateOnly?, DateOnly? [], DateTime?, DateTime? [], decimal?, decimal? [], double?, double? []>((((object)(source.GetCurrentValue<IPAddress[]>(iPAddressArray))) == null ? null : ((IPAddress[])(((ValueComparer<object>)(((IProperty)iPAddressArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IPAddress[]>(iPAddressArray))))))), (((object)(source.GetCurrentValue<IReadOnlyCollection<IPAddress>>(iPAddressReadOnlyCollection))) == null ? null : ((IReadOnlyCollection<IPAddress>)(((ValueComparer<object>)(((IProperty)iPAddressReadOnlyCollection).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IReadOnlyCollection<IPAddress>>(iPAddressReadOnlyCollection))))))), (source.GetCurrentValue<IPAddress>(iPAddressToBytesConverterProperty) == null ? null : ((ValueComparer<IPAddress>)(((IProperty)iPAddressToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<IPAddress>(iPAddressToBytesConverterProperty))), (source.GetCurrentValue<IPAddress>(iPAddressToStringConverterProperty) == null ? null : ((ValueComparer<IPAddress>)(((IProperty)iPAddressToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<IPAddress>(iPAddressToStringConverterProperty))), ((ValueComparer<short>)(((IProperty)int16).GetValueComparer())).Snapshot(source.GetCurrentValue<short>(int16)), (((IEnumerable<short>)(source.GetCurrentValue<short[]>(int16Array))) == null ? null : ((short[])(((ValueComparer<IEnumerable<short>>)(((IProperty)int16Array).GetValueComparer())).Snapshot(((IEnumerable<short>)(source.GetCurrentValue<short[]>(int16Array))))))), ((ValueComparer<int>)(((IProperty)int32).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(int32)), (((IEnumerable<int>)(source.GetCurrentValue<int[]>(int32Array))) == null ? null : ((int[])(((ValueComparer<IEnumerable<int>>)(((IProperty)int32Array).GetValueComparer())).Snapshot(((IEnumerable<int>)(source.GetCurrentValue<int[]>(int32Array))))))), (((IEnumerable<int>)(source.GetCurrentValue<IReadOnlyCollection<int>>(int32ReadOnlyCollection))) == null ? null : ((IReadOnlyCollection<int>)(((ValueComparer<IEnumerable<int>>)(((IProperty)int32ReadOnlyCollection).GetValueComparer())).Snapshot(((IEnumerable<int>)(source.GetCurrentValue<IReadOnlyCollection<int>>(int32ReadOnlyCollection))))))), ((ValueComparer<long>)(((IProperty)int64).GetValueComparer())).Snapshot(source.GetCurrentValue<long>(int64)), (((IEnumerable<long>)(source.GetCurrentValue<long[]>(int64Array))) == null ? null : ((long[])(((ValueComparer<IEnumerable<long>>)(((IProperty)int64Array).GetValueComparer())).Snapshot(((IEnumerable<long>)(source.GetCurrentValue<long[]>(int64Array))))))), ((ValueComparer<sbyte>)(((IProperty)int8).GetValueComparer())).Snapshot(source.GetCurrentValue<sbyte>(int8)), (((IEnumerable<sbyte>)(source.GetCurrentValue<sbyte[]>(int8Array))) == null ? null : ((sbyte[])(((ValueComparer<IEnumerable<sbyte>>)(((IProperty)int8Array).GetValueComparer())).Snapshot(((IEnumerable<sbyte>)(source.GetCurrentValue<sbyte[]>(int8Array))))))), ((ValueComparer<int>)(((IProperty)intNumberToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(intNumberToBytesConverterProperty)), ((ValueComparer<int>)(((IProperty)intNumberToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(intNumberToStringConverterProperty)), (source.GetCurrentValue<int?>(nullIntToNullStringConverterProperty) == null ? null : ((ValueComparer<int?>)(((IProperty)nullIntToNullStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<int?>(nullIntToNullStringConverterProperty))), (source.GetCurrentValue<bool?>(nullableBool) == null ? null : ((ValueComparer<bool?>)(((IProperty)nullableBool).GetValueComparer())).Snapshot(source.GetCurrentValue<bool?>(nullableBool))), (((IEnumerable<bool?>)(source.GetCurrentValue<bool? []>(nullableBoolArray))) == null ? null : ((bool? [])(((ValueComparer<IEnumerable<bool?>>)(((IProperty)nullableBoolArray).GetValueComparer())).Snapshot(((IEnumerable<bool?>)(source.GetCurrentValue<bool? []>(nullableBoolArray))))))), (source.GetCurrentValue<byte[]>(nullableBytes) == null ? null : ((ValueComparer<byte[]>)(((IProperty)nullableBytes).GetValueComparer())).Snapshot(source.GetCurrentValue<byte[]>(nullableBytes))), (((object)(source.GetCurrentValue<byte[][]>(nullableBytesArray))) == null ? null : ((byte[][])(((ValueComparer<object>)(((IProperty)nullableBytesArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<byte[][]>(nullableBytesArray))))))), (source.GetCurrentValue<char?>(nullableChar) == null ? null : ((ValueComparer<char?>)(((IProperty)nullableChar).GetValueComparer())).Snapshot(source.GetCurrentValue<char?>(nullableChar))), (((IEnumerable<char?>)(source.GetCurrentValue<char? []>(nullableCharArray))) == null ? null : ((char? [])(((ValueComparer<IEnumerable<char?>>)(((IProperty)nullableCharArray).GetValueComparer())).Snapshot(((IEnumerable<char?>)(source.GetCurrentValue<char? []>(nullableCharArray))))))), (source.GetCurrentValue<DateOnly?>(nullableDateOnly) == null ? null : ((ValueComparer<DateOnly?>)(((IProperty)nullableDateOnly).GetValueComparer())).Snapshot(source.GetCurrentValue<DateOnly?>(nullableDateOnly))), (((IEnumerable<DateOnly?>)(source.GetCurrentValue<DateOnly? []>(nullableDateOnlyArray))) == null ? null : ((DateOnly? [])(((ValueComparer<IEnumerable<DateOnly?>>)(((IProperty)nullableDateOnlyArray).GetValueComparer())).Snapshot(((IEnumerable<DateOnly?>)(source.GetCurrentValue<DateOnly? []>(nullableDateOnlyArray))))))), (source.GetCurrentValue<DateTime?>(nullableDateTime) == null ? null : ((ValueComparer<DateTime?>)(((IProperty)nullableDateTime).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime?>(nullableDateTime))), (((IEnumerable<DateTime?>)(source.GetCurrentValue<DateTime? []>(nullableDateTimeArray))) == null ? null : ((DateTime? [])(((ValueComparer<IEnumerable<DateTime?>>)(((IProperty)nullableDateTimeArray).GetValueComparer())).Snapshot(((IEnumerable<DateTime?>)(source.GetCurrentValue<DateTime? []>(nullableDateTimeArray))))))), (source.GetCurrentValue<decimal?>(nullableDecimal) == null ? null : ((ValueComparer<decimal?>)(((IProperty)nullableDecimal).GetValueComparer())).Snapshot(source.GetCurrentValue<decimal?>(nullableDecimal))), (((IEnumerable<decimal?>)(source.GetCurrentValue<decimal? []>(nullableDecimalArray))) == null ? null : ((decimal? [])(((ValueComparer<IEnumerable<decimal?>>)(((IProperty)nullableDecimalArray).GetValueComparer())).Snapshot(((IEnumerable<decimal?>)(source.GetCurrentValue<decimal? []>(nullableDecimalArray))))))), (source.GetCurrentValue<double?>(nullableDouble) == null ? null : ((ValueComparer<double?>)(((IProperty)nullableDouble).GetValueComparer())).Snapshot(source.GetCurrentValue<double?>(nullableDouble))), (((IEnumerable<double?>)(source.GetCurrentValue<double? []>(nullableDoubleArray))) == null ? null : ((double? [])(((ValueComparer<IEnumerable<double?>>)(((IProperty)nullableDoubleArray).GetValueComparer())).Snapshot(((IEnumerable<double?>)(source.GetCurrentValue<double? []>(nullableDoubleArray))))))))));
+                    var liftedArg2 = ((ISnapshot)(new Snapshot<IPAddress[], IReadOnlyCollection<IPAddress>, IPAddress, IPAddress, short, short[], int, int[], IReadOnlyCollection<int>, long, long[], sbyte, sbyte[], int, int, int?, bool?, bool? [], byte[], byte[][], char?, char? [], DateOnly?, DateOnly? [], DateTime?, DateTime? [], decimal?, decimal? [], double?, double? []>((((object)source.GetCurrentValue<IPAddress[]>(iPAddressArray)) == null ? null : ((IPAddress[])(((ValueComparer<object>)(((IProperty)iPAddressArray).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<IPAddress[]>(iPAddressArray)))))), (((object)source.GetCurrentValue<IReadOnlyCollection<IPAddress>>(iPAddressReadOnlyCollection)) == null ? null : ((IReadOnlyCollection<IPAddress>)(((ValueComparer<object>)(((IProperty)iPAddressReadOnlyCollection).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<IReadOnlyCollection<IPAddress>>(iPAddressReadOnlyCollection)))))), (source.GetCurrentValue<IPAddress>(iPAddressToBytesConverterProperty) == null ? null : ((ValueComparer<IPAddress>)(((IProperty)iPAddressToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<IPAddress>(iPAddressToBytesConverterProperty))), (source.GetCurrentValue<IPAddress>(iPAddressToStringConverterProperty) == null ? null : ((ValueComparer<IPAddress>)(((IProperty)iPAddressToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<IPAddress>(iPAddressToStringConverterProperty))), ((ValueComparer<short>)(((IProperty)int16).GetValueComparer())).Snapshot(source.GetCurrentValue<short>(int16)), (((IEnumerable<short>)source.GetCurrentValue<short[]>(int16Array)) == null ? null : ((short[])(((ValueComparer<IEnumerable<short>>)(((IProperty)int16Array).GetValueComparer())).Snapshot(((IEnumerable<short>)source.GetCurrentValue<short[]>(int16Array)))))), ((ValueComparer<int>)(((IProperty)int32).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(int32)), (((IEnumerable<int>)source.GetCurrentValue<int[]>(int32Array)) == null ? null : ((int[])(((ValueComparer<IEnumerable<int>>)(((IProperty)int32Array).GetValueComparer())).Snapshot(((IEnumerable<int>)source.GetCurrentValue<int[]>(int32Array)))))), (((IEnumerable<int>)source.GetCurrentValue<IReadOnlyCollection<int>>(int32ReadOnlyCollection)) == null ? null : ((IReadOnlyCollection<int>)(((ValueComparer<IEnumerable<int>>)(((IProperty)int32ReadOnlyCollection).GetValueComparer())).Snapshot(((IEnumerable<int>)source.GetCurrentValue<IReadOnlyCollection<int>>(int32ReadOnlyCollection)))))), ((ValueComparer<long>)(((IProperty)int64).GetValueComparer())).Snapshot(source.GetCurrentValue<long>(int64)), (((IEnumerable<long>)source.GetCurrentValue<long[]>(int64Array)) == null ? null : ((long[])(((ValueComparer<IEnumerable<long>>)(((IProperty)int64Array).GetValueComparer())).Snapshot(((IEnumerable<long>)source.GetCurrentValue<long[]>(int64Array)))))), ((ValueComparer<sbyte>)(((IProperty)int8).GetValueComparer())).Snapshot(source.GetCurrentValue<sbyte>(int8)), (((IEnumerable<sbyte>)source.GetCurrentValue<sbyte[]>(int8Array)) == null ? null : ((sbyte[])(((ValueComparer<IEnumerable<sbyte>>)(((IProperty)int8Array).GetValueComparer())).Snapshot(((IEnumerable<sbyte>)source.GetCurrentValue<sbyte[]>(int8Array)))))), ((ValueComparer<int>)(((IProperty)intNumberToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(intNumberToBytesConverterProperty)), ((ValueComparer<int>)(((IProperty)intNumberToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(intNumberToStringConverterProperty)), (source.GetCurrentValue<int?>(nullIntToNullStringConverterProperty) == null ? null : ((ValueComparer<int?>)(((IProperty)nullIntToNullStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<int?>(nullIntToNullStringConverterProperty))), (source.GetCurrentValue<bool?>(nullableBool) == null ? null : ((ValueComparer<bool?>)(((IProperty)nullableBool).GetValueComparer())).Snapshot(source.GetCurrentValue<bool?>(nullableBool))), (((IEnumerable<bool?>)source.GetCurrentValue<bool? []>(nullableBoolArray)) == null ? null : ((bool? [])(((ValueComparer<IEnumerable<bool?>>)(((IProperty)nullableBoolArray).GetValueComparer())).Snapshot(((IEnumerable<bool?>)source.GetCurrentValue<bool? []>(nullableBoolArray)))))), (source.GetCurrentValue<byte[]>(nullableBytes) == null ? null : ((ValueComparer<byte[]>)(((IProperty)nullableBytes).GetValueComparer())).Snapshot(source.GetCurrentValue<byte[]>(nullableBytes))), (((object)source.GetCurrentValue<byte[][]>(nullableBytesArray)) == null ? null : ((byte[][])(((ValueComparer<object>)(((IProperty)nullableBytesArray).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<byte[][]>(nullableBytesArray)))))), (source.GetCurrentValue<char?>(nullableChar) == null ? null : ((ValueComparer<char?>)(((IProperty)nullableChar).GetValueComparer())).Snapshot(source.GetCurrentValue<char?>(nullableChar))), (((IEnumerable<char?>)source.GetCurrentValue<char? []>(nullableCharArray)) == null ? null : ((char? [])(((ValueComparer<IEnumerable<char?>>)(((IProperty)nullableCharArray).GetValueComparer())).Snapshot(((IEnumerable<char?>)source.GetCurrentValue<char? []>(nullableCharArray)))))), (source.GetCurrentValue<DateOnly?>(nullableDateOnly) == null ? null : ((ValueComparer<DateOnly?>)(((IProperty)nullableDateOnly).GetValueComparer())).Snapshot(source.GetCurrentValue<DateOnly?>(nullableDateOnly))), (((IEnumerable<DateOnly?>)source.GetCurrentValue<DateOnly? []>(nullableDateOnlyArray)) == null ? null : ((DateOnly? [])(((ValueComparer<IEnumerable<DateOnly?>>)(((IProperty)nullableDateOnlyArray).GetValueComparer())).Snapshot(((IEnumerable<DateOnly?>)source.GetCurrentValue<DateOnly? []>(nullableDateOnlyArray)))))), (source.GetCurrentValue<DateTime?>(nullableDateTime) == null ? null : ((ValueComparer<DateTime?>)(((IProperty)nullableDateTime).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime?>(nullableDateTime))), (((IEnumerable<DateTime?>)source.GetCurrentValue<DateTime? []>(nullableDateTimeArray)) == null ? null : ((DateTime? [])(((ValueComparer<IEnumerable<DateTime?>>)(((IProperty)nullableDateTimeArray).GetValueComparer())).Snapshot(((IEnumerable<DateTime?>)source.GetCurrentValue<DateTime? []>(nullableDateTimeArray)))))), (source.GetCurrentValue<decimal?>(nullableDecimal) == null ? null : ((ValueComparer<decimal?>)(((IProperty)nullableDecimal).GetValueComparer())).Snapshot(source.GetCurrentValue<decimal?>(nullableDecimal))), (((IEnumerable<decimal?>)source.GetCurrentValue<decimal? []>(nullableDecimalArray)) == null ? null : ((decimal? [])(((ValueComparer<IEnumerable<decimal?>>)(((IProperty)nullableDecimalArray).GetValueComparer())).Snapshot(((IEnumerable<decimal?>)source.GetCurrentValue<decimal? []>(nullableDecimalArray)))))), (source.GetCurrentValue<double?>(nullableDouble) == null ? null : ((ValueComparer<double?>)(((IProperty)nullableDouble).GetValueComparer())).Snapshot(source.GetCurrentValue<double?>(nullableDouble))), (((IEnumerable<double?>)source.GetCurrentValue<double? []>(nullableDoubleArray)) == null ? null : ((double? [])(((ValueComparer<IEnumerable<double?>>)(((IProperty)nullableDoubleArray).GetValueComparer())).Snapshot(((IEnumerable<double?>)source.GetCurrentValue<double? []>(nullableDoubleArray)))))))));
                     var structuralType3 = ((CompiledModelTestBase.ManyTypes)(source.Entity));
-                    var liftedArg3 = ((ISnapshot)(new Snapshot<CompiledModelTestBase.Enum16?, CompiledModelTestBase.Enum16? [], CompiledModelTestBase.Enum16?, CompiledModelTestBase.Enum16? [], List<CompiledModelTestBase.Enum16?>, List<CompiledModelTestBase.Enum16?>, CompiledModelTestBase.Enum32?, CompiledModelTestBase.Enum32? [], CompiledModelTestBase.Enum32?, CompiledModelTestBase.Enum32? [], List<CompiledModelTestBase.Enum32?>, List<CompiledModelTestBase.Enum32?>, CompiledModelTestBase.Enum64?, CompiledModelTestBase.Enum64? [], CompiledModelTestBase.Enum64?, CompiledModelTestBase.Enum64? [], List<CompiledModelTestBase.Enum64?>, List<CompiledModelTestBase.Enum64?>, CompiledModelTestBase.Enum8?, CompiledModelTestBase.Enum8? [], CompiledModelTestBase.Enum8?, CompiledModelTestBase.Enum8? [], List<CompiledModelTestBase.Enum8?>, List<CompiledModelTestBase.Enum8?>, CompiledModelTestBase.EnumU16?, CompiledModelTestBase.EnumU16? [], CompiledModelTestBase.EnumU16?, CompiledModelTestBase.EnumU16? [], List<CompiledModelTestBase.EnumU16?>, List<CompiledModelTestBase.EnumU16?>>((source.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum16?>)(((IProperty)nullableEnum16).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16))), (((IEnumerable<CompiledModelTestBase.Enum16?>)(source.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16Array))) == null ? null : ((CompiledModelTestBase.Enum16? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16?>>)(((IProperty)nullableEnum16Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16?>)(source.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16Array))))))), (source.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum16?>)(((IProperty)nullableEnum16AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16AsString))), (((IEnumerable<CompiledModelTestBase.Enum16?>)(source.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16AsStringArray))) == null ? null : ((CompiledModelTestBase.Enum16? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16?>>)(((IProperty)nullableEnum16AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16?>)(source.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.Enum16?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.Enum16?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16?>>)(((IProperty)nullableEnum16AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.Enum16?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16Collection))) == null ? null : ((List<CompiledModelTestBase.Enum16?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16?>>)(((IProperty)nullableEnum16Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16Collection))))))), (source.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum32?>)(((IProperty)nullableEnum32).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32))), (((IEnumerable<CompiledModelTestBase.Enum32?>)(source.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32Array))) == null ? null : ((CompiledModelTestBase.Enum32? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32?>>)(((IProperty)nullableEnum32Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32?>)(source.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32Array))))))), (source.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum32?>)(((IProperty)nullableEnum32AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32AsString))), (((IEnumerable<CompiledModelTestBase.Enum32?>)(source.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32AsStringArray))) == null ? null : ((CompiledModelTestBase.Enum32? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32?>>)(((IProperty)nullableEnum32AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32?>)(source.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.Enum32?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.Enum32?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32?>>)(((IProperty)nullableEnum32AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.Enum32?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32Collection))) == null ? null : ((List<CompiledModelTestBase.Enum32?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32?>>)(((IProperty)nullableEnum32Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32Collection))))))), (source.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum64?>)(((IProperty)nullableEnum64).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64))), (((IEnumerable<CompiledModelTestBase.Enum64?>)(source.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64Array))) == null ? null : ((CompiledModelTestBase.Enum64? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64?>>)(((IProperty)nullableEnum64Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64?>)(source.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64Array))))))), (source.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum64?>)(((IProperty)nullableEnum64AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64AsString))), (((IEnumerable<CompiledModelTestBase.Enum64?>)(source.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64AsStringArray))) == null ? null : ((CompiledModelTestBase.Enum64? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64?>>)(((IProperty)nullableEnum64AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64?>)(source.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.Enum64?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.Enum64?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64?>>)(((IProperty)nullableEnum64AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.Enum64?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64Collection))) == null ? null : ((List<CompiledModelTestBase.Enum64?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64?>>)(((IProperty)nullableEnum64Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64Collection))))))), (source.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum8?>)(((IProperty)nullableEnum8).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8))), (((IEnumerable<CompiledModelTestBase.Enum8?>)(source.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8Array))) == null ? null : ((CompiledModelTestBase.Enum8? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8?>>)(((IProperty)nullableEnum8Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8?>)(source.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8Array))))))), (source.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum8?>)(((IProperty)nullableEnum8AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8AsString))), (((IEnumerable<CompiledModelTestBase.Enum8?>)(source.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8AsStringArray))) == null ? null : ((CompiledModelTestBase.Enum8? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8?>>)(((IProperty)nullableEnum8AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8?>)(source.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.Enum8?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.Enum8?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8?>>)(((IProperty)nullableEnum8AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.Enum8?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8Collection))) == null ? null : ((List<CompiledModelTestBase.Enum8?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8?>>)(((IProperty)nullableEnum8Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8?>)(source.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8Collection))))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU16?>)(((IProperty)nullableEnumU16).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16))), (((IEnumerable<CompiledModelTestBase.EnumU16?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16Array))) == null ? null : ((CompiledModelTestBase.EnumU16? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16?>>)(((IProperty)nullableEnumU16Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16Array))))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU16?>)(((IProperty)nullableEnumU16AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16AsString))), (((IEnumerable<CompiledModelTestBase.EnumU16?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16AsStringArray))) == null ? null : ((CompiledModelTestBase.EnumU16? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16?>>)(((IProperty)nullableEnumU16AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.EnumU16?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.EnumU16?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16?>>)(((IProperty)nullableEnumU16AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.EnumU16?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16Collection))) == null ? null : ((List<CompiledModelTestBase.EnumU16?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16?>>)(((IProperty)nullableEnumU16Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16Collection))))))))));
+                    var liftedArg3 = ((ISnapshot)(new Snapshot<CompiledModelTestBase.Enum16?, CompiledModelTestBase.Enum16? [], CompiledModelTestBase.Enum16?, CompiledModelTestBase.Enum16? [], List<CompiledModelTestBase.Enum16?>, List<CompiledModelTestBase.Enum16?>, CompiledModelTestBase.Enum32?, CompiledModelTestBase.Enum32? [], CompiledModelTestBase.Enum32?, CompiledModelTestBase.Enum32? [], List<CompiledModelTestBase.Enum32?>, List<CompiledModelTestBase.Enum32?>, CompiledModelTestBase.Enum64?, CompiledModelTestBase.Enum64? [], CompiledModelTestBase.Enum64?, CompiledModelTestBase.Enum64? [], List<CompiledModelTestBase.Enum64?>, List<CompiledModelTestBase.Enum64?>, CompiledModelTestBase.Enum8?, CompiledModelTestBase.Enum8? [], CompiledModelTestBase.Enum8?, CompiledModelTestBase.Enum8? [], List<CompiledModelTestBase.Enum8?>, List<CompiledModelTestBase.Enum8?>, CompiledModelTestBase.EnumU16?, CompiledModelTestBase.EnumU16? [], CompiledModelTestBase.EnumU16?, CompiledModelTestBase.EnumU16? [], List<CompiledModelTestBase.EnumU16?>, List<CompiledModelTestBase.EnumU16?>>((source.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum16?>)(((IProperty)nullableEnum16).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16))), (((IEnumerable<CompiledModelTestBase.Enum16?>)source.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16Array)) == null ? null : ((CompiledModelTestBase.Enum16? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16?>>)(((IProperty)nullableEnum16Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16?>)source.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16Array)))))), (source.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum16?>)(((IProperty)nullableEnum16AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum16?>(nullableEnum16AsString))), (((IEnumerable<CompiledModelTestBase.Enum16?>)source.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16AsStringArray)) == null ? null : ((CompiledModelTestBase.Enum16? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16?>>)(((IProperty)nullableEnum16AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16?>)source.GetCurrentValue<CompiledModelTestBase.Enum16? []>(nullableEnum16AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.Enum16?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.Enum16?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16?>>)(((IProperty)nullableEnum16AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.Enum16?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16Collection)) == null ? null : ((List<CompiledModelTestBase.Enum16?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum16?>>)(((IProperty)nullableEnum16Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum16?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum16?>>(nullableEnum16Collection)))))), (source.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum32?>)(((IProperty)nullableEnum32).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32))), (((IEnumerable<CompiledModelTestBase.Enum32?>)source.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32Array)) == null ? null : ((CompiledModelTestBase.Enum32? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32?>>)(((IProperty)nullableEnum32Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32?>)source.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32Array)))))), (source.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum32?>)(((IProperty)nullableEnum32AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum32?>(nullableEnum32AsString))), (((IEnumerable<CompiledModelTestBase.Enum32?>)source.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32AsStringArray)) == null ? null : ((CompiledModelTestBase.Enum32? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32?>>)(((IProperty)nullableEnum32AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32?>)source.GetCurrentValue<CompiledModelTestBase.Enum32? []>(nullableEnum32AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.Enum32?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.Enum32?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32?>>)(((IProperty)nullableEnum32AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.Enum32?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32Collection)) == null ? null : ((List<CompiledModelTestBase.Enum32?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum32?>>)(((IProperty)nullableEnum32Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum32?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum32?>>(nullableEnum32Collection)))))), (source.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum64?>)(((IProperty)nullableEnum64).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64))), (((IEnumerable<CompiledModelTestBase.Enum64?>)source.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64Array)) == null ? null : ((CompiledModelTestBase.Enum64? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64?>>)(((IProperty)nullableEnum64Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64?>)source.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64Array)))))), (source.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum64?>)(((IProperty)nullableEnum64AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum64?>(nullableEnum64AsString))), (((IEnumerable<CompiledModelTestBase.Enum64?>)source.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64AsStringArray)) == null ? null : ((CompiledModelTestBase.Enum64? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64?>>)(((IProperty)nullableEnum64AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64?>)source.GetCurrentValue<CompiledModelTestBase.Enum64? []>(nullableEnum64AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.Enum64?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.Enum64?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64?>>)(((IProperty)nullableEnum64AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.Enum64?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64Collection)) == null ? null : ((List<CompiledModelTestBase.Enum64?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum64?>>)(((IProperty)nullableEnum64Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum64?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum64?>>(nullableEnum64Collection)))))), (source.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum8?>)(((IProperty)nullableEnum8).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8))), (((IEnumerable<CompiledModelTestBase.Enum8?>)source.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8Array)) == null ? null : ((CompiledModelTestBase.Enum8? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8?>>)(((IProperty)nullableEnum8Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8?>)source.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8Array)))))), (source.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.Enum8?>)(((IProperty)nullableEnum8AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.Enum8?>(nullableEnum8AsString))), (((IEnumerable<CompiledModelTestBase.Enum8?>)source.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8AsStringArray)) == null ? null : ((CompiledModelTestBase.Enum8? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8?>>)(((IProperty)nullableEnum8AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8?>)source.GetCurrentValue<CompiledModelTestBase.Enum8? []>(nullableEnum8AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.Enum8?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.Enum8?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8?>>)(((IProperty)nullableEnum8AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.Enum8?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8Collection)) == null ? null : ((List<CompiledModelTestBase.Enum8?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.Enum8?>>)(((IProperty)nullableEnum8Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.Enum8?>)source.GetCurrentValue<List<CompiledModelTestBase.Enum8?>>(nullableEnum8Collection)))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU16?>)(((IProperty)nullableEnumU16).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16))), (((IEnumerable<CompiledModelTestBase.EnumU16?>)source.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16Array)) == null ? null : ((CompiledModelTestBase.EnumU16? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16?>>)(((IProperty)nullableEnumU16Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16?>)source.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16Array)))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU16?>)(((IProperty)nullableEnumU16AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU16?>(nullableEnumU16AsString))), (((IEnumerable<CompiledModelTestBase.EnumU16?>)source.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16AsStringArray)) == null ? null : ((CompiledModelTestBase.EnumU16? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16?>>)(((IProperty)nullableEnumU16AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16?>)source.GetCurrentValue<CompiledModelTestBase.EnumU16? []>(nullableEnumU16AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.EnumU16?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.EnumU16?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16?>>)(((IProperty)nullableEnumU16AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.EnumU16?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16Collection)) == null ? null : ((List<CompiledModelTestBase.EnumU16?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU16?>>)(((IProperty)nullableEnumU16Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU16?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU16?>>(nullableEnumU16Collection)))))))));
                     var structuralType4 = ((CompiledModelTestBase.ManyTypes)(source.Entity));
-                    var liftedArg4 = ((ISnapshot)(new Snapshot<CompiledModelTestBase.EnumU32?, CompiledModelTestBase.EnumU32? [], CompiledModelTestBase.EnumU32?, CompiledModelTestBase.EnumU32? [], List<CompiledModelTestBase.EnumU32?>, List<CompiledModelTestBase.EnumU32?>, CompiledModelTestBase.EnumU64?, CompiledModelTestBase.EnumU64? [], CompiledModelTestBase.EnumU64?, CompiledModelTestBase.EnumU64? [], List<CompiledModelTestBase.EnumU64?>, List<CompiledModelTestBase.EnumU64?>, CompiledModelTestBase.EnumU8?, CompiledModelTestBase.EnumU8? [], CompiledModelTestBase.EnumU8?, CompiledModelTestBase.EnumU8? [], List<CompiledModelTestBase.EnumU8?>, List<CompiledModelTestBase.EnumU8?>, float?, float? [], Guid?, Guid? [], IPAddress, IPAddress[], short?, short? [], int?, int? [], long?, long? []>((source.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU32?>)(((IProperty)nullableEnumU32).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32))), (((IEnumerable<CompiledModelTestBase.EnumU32?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32Array))) == null ? null : ((CompiledModelTestBase.EnumU32? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32?>>)(((IProperty)nullableEnumU32Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32Array))))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU32?>)(((IProperty)nullableEnumU32AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32AsString))), (((IEnumerable<CompiledModelTestBase.EnumU32?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32AsStringArray))) == null ? null : ((CompiledModelTestBase.EnumU32? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32?>>)(((IProperty)nullableEnumU32AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.EnumU32?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.EnumU32?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32?>>)(((IProperty)nullableEnumU32AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.EnumU32?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32Collection))) == null ? null : ((List<CompiledModelTestBase.EnumU32?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32?>>)(((IProperty)nullableEnumU32Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32Collection))))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU64?>)(((IProperty)nullableEnumU64).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64))), (((IEnumerable<CompiledModelTestBase.EnumU64?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64Array))) == null ? null : ((CompiledModelTestBase.EnumU64? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64?>>)(((IProperty)nullableEnumU64Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64Array))))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU64?>)(((IProperty)nullableEnumU64AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64AsString))), (((IEnumerable<CompiledModelTestBase.EnumU64?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64AsStringArray))) == null ? null : ((CompiledModelTestBase.EnumU64? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64?>>)(((IProperty)nullableEnumU64AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.EnumU64?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.EnumU64?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64?>>)(((IProperty)nullableEnumU64AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.EnumU64?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64Collection))) == null ? null : ((List<CompiledModelTestBase.EnumU64?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64?>>)(((IProperty)nullableEnumU64Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64Collection))))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU8?>)(((IProperty)nullableEnumU8).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8))), (((IEnumerable<CompiledModelTestBase.EnumU8?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8Array))) == null ? null : ((CompiledModelTestBase.EnumU8? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8?>>)(((IProperty)nullableEnumU8Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8Array))))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU8?>)(((IProperty)nullableEnumU8AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8AsString))), (((IEnumerable<CompiledModelTestBase.EnumU8?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8AsStringArray))) == null ? null : ((CompiledModelTestBase.EnumU8? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8?>>)(((IProperty)nullableEnumU8AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8?>)(source.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8AsStringArray))))))), (((IEnumerable<CompiledModelTestBase.EnumU8?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8AsStringCollection))) == null ? null : ((List<CompiledModelTestBase.EnumU8?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8?>>)(((IProperty)nullableEnumU8AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8AsStringCollection))))))), (((IEnumerable<CompiledModelTestBase.EnumU8?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8Collection))) == null ? null : ((List<CompiledModelTestBase.EnumU8?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8?>>)(((IProperty)nullableEnumU8Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8?>)(source.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8Collection))))))), (source.GetCurrentValue<float?>(nullableFloat) == null ? null : ((ValueComparer<float?>)(((IProperty)nullableFloat).GetValueComparer())).Snapshot(source.GetCurrentValue<float?>(nullableFloat))), (((IEnumerable<float?>)(source.GetCurrentValue<float? []>(nullableFloatArray))) == null ? null : ((float? [])(((ValueComparer<IEnumerable<float?>>)(((IProperty)nullableFloatArray).GetValueComparer())).Snapshot(((IEnumerable<float?>)(source.GetCurrentValue<float? []>(nullableFloatArray))))))), (source.GetCurrentValue<Guid?>(nullableGuid) == null ? null : ((ValueComparer<Guid?>)(((IProperty)nullableGuid).GetValueComparer())).Snapshot(source.GetCurrentValue<Guid?>(nullableGuid))), (((IEnumerable<Guid?>)(source.GetCurrentValue<Guid? []>(nullableGuidArray))) == null ? null : ((Guid? [])(((ValueComparer<IEnumerable<Guid?>>)(((IProperty)nullableGuidArray).GetValueComparer())).Snapshot(((IEnumerable<Guid?>)(source.GetCurrentValue<Guid? []>(nullableGuidArray))))))), (source.GetCurrentValue<IPAddress>(nullableIPAddress) == null ? null : ((ValueComparer<IPAddress>)(((IProperty)nullableIPAddress).GetValueComparer())).Snapshot(source.GetCurrentValue<IPAddress>(nullableIPAddress))), (((object)(source.GetCurrentValue<IPAddress[]>(nullableIPAddressArray))) == null ? null : ((IPAddress[])(((ValueComparer<object>)(((IProperty)nullableIPAddressArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IPAddress[]>(nullableIPAddressArray))))))), (source.GetCurrentValue<short?>(nullableInt16) == null ? null : ((ValueComparer<short?>)(((IProperty)nullableInt16).GetValueComparer())).Snapshot(source.GetCurrentValue<short?>(nullableInt16))), (((IEnumerable<short?>)(source.GetCurrentValue<short? []>(nullableInt16Array))) == null ? null : ((short? [])(((ValueComparer<IEnumerable<short?>>)(((IProperty)nullableInt16Array).GetValueComparer())).Snapshot(((IEnumerable<short?>)(source.GetCurrentValue<short? []>(nullableInt16Array))))))), (source.GetCurrentValue<int?>(nullableInt32) == null ? null : ((ValueComparer<int?>)(((IProperty)nullableInt32).GetValueComparer())).Snapshot(source.GetCurrentValue<int?>(nullableInt32))), (((IEnumerable<int?>)(source.GetCurrentValue<int? []>(nullableInt32Array))) == null ? null : ((int? [])(((ValueComparer<IEnumerable<int?>>)(((IProperty)nullableInt32Array).GetValueComparer())).Snapshot(((IEnumerable<int?>)(source.GetCurrentValue<int? []>(nullableInt32Array))))))), (source.GetCurrentValue<long?>(nullableInt64) == null ? null : ((ValueComparer<long?>)(((IProperty)nullableInt64).GetValueComparer())).Snapshot(source.GetCurrentValue<long?>(nullableInt64))), (((IEnumerable<long?>)(source.GetCurrentValue<long? []>(nullableInt64Array))) == null ? null : ((long? [])(((ValueComparer<IEnumerable<long?>>)(((IProperty)nullableInt64Array).GetValueComparer())).Snapshot(((IEnumerable<long?>)(source.GetCurrentValue<long? []>(nullableInt64Array))))))))));
+                    var liftedArg4 = ((ISnapshot)(new Snapshot<CompiledModelTestBase.EnumU32?, CompiledModelTestBase.EnumU32? [], CompiledModelTestBase.EnumU32?, CompiledModelTestBase.EnumU32? [], List<CompiledModelTestBase.EnumU32?>, List<CompiledModelTestBase.EnumU32?>, CompiledModelTestBase.EnumU64?, CompiledModelTestBase.EnumU64? [], CompiledModelTestBase.EnumU64?, CompiledModelTestBase.EnumU64? [], List<CompiledModelTestBase.EnumU64?>, List<CompiledModelTestBase.EnumU64?>, CompiledModelTestBase.EnumU8?, CompiledModelTestBase.EnumU8? [], CompiledModelTestBase.EnumU8?, CompiledModelTestBase.EnumU8? [], List<CompiledModelTestBase.EnumU8?>, List<CompiledModelTestBase.EnumU8?>, float?, float? [], Guid?, Guid? [], IPAddress, IPAddress[], short?, short? [], int?, int? [], long?, long? []>((source.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU32?>)(((IProperty)nullableEnumU32).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32))), (((IEnumerable<CompiledModelTestBase.EnumU32?>)source.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32Array)) == null ? null : ((CompiledModelTestBase.EnumU32? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32?>>)(((IProperty)nullableEnumU32Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32?>)source.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32Array)))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU32?>)(((IProperty)nullableEnumU32AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU32?>(nullableEnumU32AsString))), (((IEnumerable<CompiledModelTestBase.EnumU32?>)source.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32AsStringArray)) == null ? null : ((CompiledModelTestBase.EnumU32? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32?>>)(((IProperty)nullableEnumU32AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32?>)source.GetCurrentValue<CompiledModelTestBase.EnumU32? []>(nullableEnumU32AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.EnumU32?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.EnumU32?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32?>>)(((IProperty)nullableEnumU32AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.EnumU32?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32Collection)) == null ? null : ((List<CompiledModelTestBase.EnumU32?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU32?>>)(((IProperty)nullableEnumU32Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU32?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU32?>>(nullableEnumU32Collection)))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU64?>)(((IProperty)nullableEnumU64).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64))), (((IEnumerable<CompiledModelTestBase.EnumU64?>)source.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64Array)) == null ? null : ((CompiledModelTestBase.EnumU64? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64?>>)(((IProperty)nullableEnumU64Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64?>)source.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64Array)))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU64?>)(((IProperty)nullableEnumU64AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU64?>(nullableEnumU64AsString))), (((IEnumerable<CompiledModelTestBase.EnumU64?>)source.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64AsStringArray)) == null ? null : ((CompiledModelTestBase.EnumU64? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64?>>)(((IProperty)nullableEnumU64AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64?>)source.GetCurrentValue<CompiledModelTestBase.EnumU64? []>(nullableEnumU64AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.EnumU64?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.EnumU64?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64?>>)(((IProperty)nullableEnumU64AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.EnumU64?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64Collection)) == null ? null : ((List<CompiledModelTestBase.EnumU64?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU64?>>)(((IProperty)nullableEnumU64Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU64?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU64?>>(nullableEnumU64Collection)))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU8?>)(((IProperty)nullableEnumU8).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8))), (((IEnumerable<CompiledModelTestBase.EnumU8?>)source.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8Array)) == null ? null : ((CompiledModelTestBase.EnumU8? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8?>>)(((IProperty)nullableEnumU8Array).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8?>)source.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8Array)))))), (source.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8AsString) == null ? null : ((ValueComparer<CompiledModelTestBase.EnumU8?>)(((IProperty)nullableEnumU8AsString).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.EnumU8?>(nullableEnumU8AsString))), (((IEnumerable<CompiledModelTestBase.EnumU8?>)source.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8AsStringArray)) == null ? null : ((CompiledModelTestBase.EnumU8? [])(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8?>>)(((IProperty)nullableEnumU8AsStringArray).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8?>)source.GetCurrentValue<CompiledModelTestBase.EnumU8? []>(nullableEnumU8AsStringArray)))))), (((IEnumerable<CompiledModelTestBase.EnumU8?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8AsStringCollection)) == null ? null : ((List<CompiledModelTestBase.EnumU8?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8?>>)(((IProperty)nullableEnumU8AsStringCollection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8AsStringCollection)))))), (((IEnumerable<CompiledModelTestBase.EnumU8?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8Collection)) == null ? null : ((List<CompiledModelTestBase.EnumU8?>)(((ValueComparer<IEnumerable<CompiledModelTestBase.EnumU8?>>)(((IProperty)nullableEnumU8Collection).GetValueComparer())).Snapshot(((IEnumerable<CompiledModelTestBase.EnumU8?>)source.GetCurrentValue<List<CompiledModelTestBase.EnumU8?>>(nullableEnumU8Collection)))))), (source.GetCurrentValue<float?>(nullableFloat) == null ? null : ((ValueComparer<float?>)(((IProperty)nullableFloat).GetValueComparer())).Snapshot(source.GetCurrentValue<float?>(nullableFloat))), (((IEnumerable<float?>)source.GetCurrentValue<float? []>(nullableFloatArray)) == null ? null : ((float? [])(((ValueComparer<IEnumerable<float?>>)(((IProperty)nullableFloatArray).GetValueComparer())).Snapshot(((IEnumerable<float?>)source.GetCurrentValue<float? []>(nullableFloatArray)))))), (source.GetCurrentValue<Guid?>(nullableGuid) == null ? null : ((ValueComparer<Guid?>)(((IProperty)nullableGuid).GetValueComparer())).Snapshot(source.GetCurrentValue<Guid?>(nullableGuid))), (((IEnumerable<Guid?>)source.GetCurrentValue<Guid? []>(nullableGuidArray)) == null ? null : ((Guid? [])(((ValueComparer<IEnumerable<Guid?>>)(((IProperty)nullableGuidArray).GetValueComparer())).Snapshot(((IEnumerable<Guid?>)source.GetCurrentValue<Guid? []>(nullableGuidArray)))))), (source.GetCurrentValue<IPAddress>(nullableIPAddress) == null ? null : ((ValueComparer<IPAddress>)(((IProperty)nullableIPAddress).GetValueComparer())).Snapshot(source.GetCurrentValue<IPAddress>(nullableIPAddress))), (((object)source.GetCurrentValue<IPAddress[]>(nullableIPAddressArray)) == null ? null : ((IPAddress[])(((ValueComparer<object>)(((IProperty)nullableIPAddressArray).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<IPAddress[]>(nullableIPAddressArray)))))), (source.GetCurrentValue<short?>(nullableInt16) == null ? null : ((ValueComparer<short?>)(((IProperty)nullableInt16).GetValueComparer())).Snapshot(source.GetCurrentValue<short?>(nullableInt16))), (((IEnumerable<short?>)source.GetCurrentValue<short? []>(nullableInt16Array)) == null ? null : ((short? [])(((ValueComparer<IEnumerable<short?>>)(((IProperty)nullableInt16Array).GetValueComparer())).Snapshot(((IEnumerable<short?>)source.GetCurrentValue<short? []>(nullableInt16Array)))))), (source.GetCurrentValue<int?>(nullableInt32) == null ? null : ((ValueComparer<int?>)(((IProperty)nullableInt32).GetValueComparer())).Snapshot(source.GetCurrentValue<int?>(nullableInt32))), (((IEnumerable<int?>)source.GetCurrentValue<int? []>(nullableInt32Array)) == null ? null : ((int? [])(((ValueComparer<IEnumerable<int?>>)(((IProperty)nullableInt32Array).GetValueComparer())).Snapshot(((IEnumerable<int?>)source.GetCurrentValue<int? []>(nullableInt32Array)))))), (source.GetCurrentValue<long?>(nullableInt64) == null ? null : ((ValueComparer<long?>)(((IProperty)nullableInt64).GetValueComparer())).Snapshot(source.GetCurrentValue<long?>(nullableInt64))), (((IEnumerable<long?>)source.GetCurrentValue<long? []>(nullableInt64Array)) == null ? null : ((long? [])(((ValueComparer<IEnumerable<long?>>)(((IProperty)nullableInt64Array).GetValueComparer())).Snapshot(((IEnumerable<long?>)source.GetCurrentValue<long? []>(nullableInt64Array)))))))));
                     var structuralType5 = ((CompiledModelTestBase.ManyTypes)(source.Entity));
-                    var liftedArg5 = ((ISnapshot)(new Snapshot<sbyte?, sbyte? [], PhysicalAddress, PhysicalAddress[], string, string[], TimeOnly?, TimeOnly? [], TimeSpan?, TimeSpan? [], ushort?, ushort? [], uint?, uint? [], ulong?, ulong? [], byte?, byte? [], Uri, Uri[], PhysicalAddress, PhysicalAddress[], PhysicalAddress, PhysicalAddress, string, string[], IReadOnlyCollection<string>, string, string, string>((source.GetCurrentValue<sbyte?>(nullableInt8) == null ? null : ((ValueComparer<sbyte?>)(((IProperty)nullableInt8).GetValueComparer())).Snapshot(source.GetCurrentValue<sbyte?>(nullableInt8))), (((IEnumerable<sbyte?>)(source.GetCurrentValue<sbyte? []>(nullableInt8Array))) == null ? null : ((sbyte? [])(((ValueComparer<IEnumerable<sbyte?>>)(((IProperty)nullableInt8Array).GetValueComparer())).Snapshot(((IEnumerable<sbyte?>)(source.GetCurrentValue<sbyte? []>(nullableInt8Array))))))), (source.GetCurrentValue<PhysicalAddress>(nullablePhysicalAddress) == null ? null : ((ValueComparer<PhysicalAddress>)(((IProperty)nullablePhysicalAddress).GetValueComparer())).Snapshot(source.GetCurrentValue<PhysicalAddress>(nullablePhysicalAddress))), (((object)(source.GetCurrentValue<PhysicalAddress[]>(nullablePhysicalAddressArray))) == null ? null : ((PhysicalAddress[])(((ValueComparer<object>)(((IProperty)nullablePhysicalAddressArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<PhysicalAddress[]>(nullablePhysicalAddressArray))))))), (source.GetCurrentValue<string>(nullableString) == null ? null : ((ValueComparer<string>)(((IProperty)nullableString).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(nullableString))), (((object)(source.GetCurrentValue<string[]>(nullableStringArray))) == null ? null : ((string[])(((ValueComparer<object>)(((IProperty)nullableStringArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<string[]>(nullableStringArray))))))), (source.GetCurrentValue<TimeOnly?>(nullableTimeOnly) == null ? null : ((ValueComparer<TimeOnly?>)(((IProperty)nullableTimeOnly).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeOnly?>(nullableTimeOnly))), (((IEnumerable<TimeOnly?>)(source.GetCurrentValue<TimeOnly? []>(nullableTimeOnlyArray))) == null ? null : ((TimeOnly? [])(((ValueComparer<IEnumerable<TimeOnly?>>)(((IProperty)nullableTimeOnlyArray).GetValueComparer())).Snapshot(((IEnumerable<TimeOnly?>)(source.GetCurrentValue<TimeOnly? []>(nullableTimeOnlyArray))))))), (source.GetCurrentValue<TimeSpan?>(nullableTimeSpan) == null ? null : ((ValueComparer<TimeSpan?>)(((IProperty)nullableTimeSpan).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeSpan?>(nullableTimeSpan))), (((IEnumerable<TimeSpan?>)(source.GetCurrentValue<TimeSpan? []>(nullableTimeSpanArray))) == null ? null : ((TimeSpan? [])(((ValueComparer<IEnumerable<TimeSpan?>>)(((IProperty)nullableTimeSpanArray).GetValueComparer())).Snapshot(((IEnumerable<TimeSpan?>)(source.GetCurrentValue<TimeSpan? []>(nullableTimeSpanArray))))))), (source.GetCurrentValue<ushort?>(nullableUInt16) == null ? null : ((ValueComparer<ushort?>)(((IProperty)nullableUInt16).GetValueComparer())).Snapshot(source.GetCurrentValue<ushort?>(nullableUInt16))), (((IEnumerable<ushort?>)(source.GetCurrentValue<ushort? []>(nullableUInt16Array))) == null ? null : ((ushort? [])(((ValueComparer<IEnumerable<ushort?>>)(((IProperty)nullableUInt16Array).GetValueComparer())).Snapshot(((IEnumerable<ushort?>)(source.GetCurrentValue<ushort? []>(nullableUInt16Array))))))), (source.GetCurrentValue<uint?>(nullableUInt32) == null ? null : ((ValueComparer<uint?>)(((IProperty)nullableUInt32).GetValueComparer())).Snapshot(source.GetCurrentValue<uint?>(nullableUInt32))), (((IEnumerable<uint?>)(source.GetCurrentValue<uint? []>(nullableUInt32Array))) == null ? null : ((uint? [])(((ValueComparer<IEnumerable<uint?>>)(((IProperty)nullableUInt32Array).GetValueComparer())).Snapshot(((IEnumerable<uint?>)(source.GetCurrentValue<uint? []>(nullableUInt32Array))))))), (source.GetCurrentValue<ulong?>(nullableUInt64) == null ? null : ((ValueComparer<ulong?>)(((IProperty)nullableUInt64).GetValueComparer())).Snapshot(source.GetCurrentValue<ulong?>(nullableUInt64))), (((IEnumerable<ulong?>)(source.GetCurrentValue<ulong? []>(nullableUInt64Array))) == null ? null : ((ulong? [])(((ValueComparer<IEnumerable<ulong?>>)(((IProperty)nullableUInt64Array).GetValueComparer())).Snapshot(((IEnumerable<ulong?>)(source.GetCurrentValue<ulong? []>(nullableUInt64Array))))))), (source.GetCurrentValue<byte?>(nullableUInt8) == null ? null : ((ValueComparer<byte?>)(((IProperty)nullableUInt8).GetValueComparer())).Snapshot(source.GetCurrentValue<byte?>(nullableUInt8))), (((IEnumerable<byte?>)(source.GetCurrentValue<byte? []>(nullableUInt8Array))) == null ? null : ((byte? [])(((ValueComparer<IEnumerable<byte?>>)(((IProperty)nullableUInt8Array).GetValueComparer())).Snapshot(((IEnumerable<byte?>)(source.GetCurrentValue<byte? []>(nullableUInt8Array))))))), (source.GetCurrentValue<Uri>(nullableUri) == null ? null : ((ValueComparer<Uri>)(((IProperty)nullableUri).GetValueComparer())).Snapshot(source.GetCurrentValue<Uri>(nullableUri))), (((object)(source.GetCurrentValue<Uri[]>(nullableUriArray))) == null ? null : ((Uri[])(((ValueComparer<object>)(((IProperty)nullableUriArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<Uri[]>(nullableUriArray))))))), (source.GetCurrentValue<PhysicalAddress>(physicalAddress) == null ? null : ((ValueComparer<PhysicalAddress>)(((IProperty)physicalAddress).GetValueComparer())).Snapshot(source.GetCurrentValue<PhysicalAddress>(physicalAddress))), (((object)(source.GetCurrentValue<PhysicalAddress[]>(physicalAddressArray))) == null ? null : ((PhysicalAddress[])(((ValueComparer<object>)(((IProperty)physicalAddressArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<PhysicalAddress[]>(physicalAddressArray))))))), (source.GetCurrentValue<PhysicalAddress>(physicalAddressToBytesConverterProperty) == null ? null : ((ValueComparer<PhysicalAddress>)(((IProperty)physicalAddressToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<PhysicalAddress>(physicalAddressToBytesConverterProperty))), (source.GetCurrentValue<PhysicalAddress>(physicalAddressToStringConverterProperty) == null ? null : ((ValueComparer<PhysicalAddress>)(((IProperty)physicalAddressToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<PhysicalAddress>(physicalAddressToStringConverterProperty))), (source.GetCurrentValue<string>(@string) == null ? null : ((ValueComparer<string>)(((IProperty)@string).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(@string))), (((object)(source.GetCurrentValue<string[]>(stringArray))) == null ? null : ((string[])(((ValueComparer<object>)(((IProperty)stringArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<string[]>(stringArray))))))), (((object)(source.GetCurrentValue<IReadOnlyCollection<string>>(stringReadOnlyCollection))) == null ? null : ((IReadOnlyCollection<string>)(((ValueComparer<object>)(((IProperty)stringReadOnlyCollection).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IReadOnlyCollection<string>>(stringReadOnlyCollection))))))), (source.GetCurrentValue<string>(stringToBoolConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToBoolConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToBoolConverterProperty))), (source.GetCurrentValue<string>(stringToBytesConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToBytesConverterProperty))), (source.GetCurrentValue<string>(stringToCharConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToCharConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToCharConverterProperty))))));
+                    var liftedArg5 = ((ISnapshot)(new Snapshot<sbyte?, sbyte? [], PhysicalAddress, PhysicalAddress[], string, string[], TimeOnly?, TimeOnly? [], TimeSpan?, TimeSpan? [], ushort?, ushort? [], uint?, uint? [], ulong?, ulong? [], byte?, byte? [], Uri, Uri[], PhysicalAddress, PhysicalAddress[], PhysicalAddress, PhysicalAddress, string, string[], IReadOnlyCollection<string>, string, string, string>((source.GetCurrentValue<sbyte?>(nullableInt8) == null ? null : ((ValueComparer<sbyte?>)(((IProperty)nullableInt8).GetValueComparer())).Snapshot(source.GetCurrentValue<sbyte?>(nullableInt8))), (((IEnumerable<sbyte?>)source.GetCurrentValue<sbyte? []>(nullableInt8Array)) == null ? null : ((sbyte? [])(((ValueComparer<IEnumerable<sbyte?>>)(((IProperty)nullableInt8Array).GetValueComparer())).Snapshot(((IEnumerable<sbyte?>)source.GetCurrentValue<sbyte? []>(nullableInt8Array)))))), (source.GetCurrentValue<PhysicalAddress>(nullablePhysicalAddress) == null ? null : ((ValueComparer<PhysicalAddress>)(((IProperty)nullablePhysicalAddress).GetValueComparer())).Snapshot(source.GetCurrentValue<PhysicalAddress>(nullablePhysicalAddress))), (((object)source.GetCurrentValue<PhysicalAddress[]>(nullablePhysicalAddressArray)) == null ? null : ((PhysicalAddress[])(((ValueComparer<object>)(((IProperty)nullablePhysicalAddressArray).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<PhysicalAddress[]>(nullablePhysicalAddressArray)))))), (source.GetCurrentValue<string>(nullableString) == null ? null : ((ValueComparer<string>)(((IProperty)nullableString).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(nullableString))), (((object)source.GetCurrentValue<string[]>(nullableStringArray)) == null ? null : ((string[])(((ValueComparer<object>)(((IProperty)nullableStringArray).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<string[]>(nullableStringArray)))))), (source.GetCurrentValue<TimeOnly?>(nullableTimeOnly) == null ? null : ((ValueComparer<TimeOnly?>)(((IProperty)nullableTimeOnly).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeOnly?>(nullableTimeOnly))), (((IEnumerable<TimeOnly?>)source.GetCurrentValue<TimeOnly? []>(nullableTimeOnlyArray)) == null ? null : ((TimeOnly? [])(((ValueComparer<IEnumerable<TimeOnly?>>)(((IProperty)nullableTimeOnlyArray).GetValueComparer())).Snapshot(((IEnumerable<TimeOnly?>)source.GetCurrentValue<TimeOnly? []>(nullableTimeOnlyArray)))))), (source.GetCurrentValue<TimeSpan?>(nullableTimeSpan) == null ? null : ((ValueComparer<TimeSpan?>)(((IProperty)nullableTimeSpan).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeSpan?>(nullableTimeSpan))), (((IEnumerable<TimeSpan?>)source.GetCurrentValue<TimeSpan? []>(nullableTimeSpanArray)) == null ? null : ((TimeSpan? [])(((ValueComparer<IEnumerable<TimeSpan?>>)(((IProperty)nullableTimeSpanArray).GetValueComparer())).Snapshot(((IEnumerable<TimeSpan?>)source.GetCurrentValue<TimeSpan? []>(nullableTimeSpanArray)))))), (source.GetCurrentValue<ushort?>(nullableUInt16) == null ? null : ((ValueComparer<ushort?>)(((IProperty)nullableUInt16).GetValueComparer())).Snapshot(source.GetCurrentValue<ushort?>(nullableUInt16))), (((IEnumerable<ushort?>)source.GetCurrentValue<ushort? []>(nullableUInt16Array)) == null ? null : ((ushort? [])(((ValueComparer<IEnumerable<ushort?>>)(((IProperty)nullableUInt16Array).GetValueComparer())).Snapshot(((IEnumerable<ushort?>)source.GetCurrentValue<ushort? []>(nullableUInt16Array)))))), (source.GetCurrentValue<uint?>(nullableUInt32) == null ? null : ((ValueComparer<uint?>)(((IProperty)nullableUInt32).GetValueComparer())).Snapshot(source.GetCurrentValue<uint?>(nullableUInt32))), (((IEnumerable<uint?>)source.GetCurrentValue<uint? []>(nullableUInt32Array)) == null ? null : ((uint? [])(((ValueComparer<IEnumerable<uint?>>)(((IProperty)nullableUInt32Array).GetValueComparer())).Snapshot(((IEnumerable<uint?>)source.GetCurrentValue<uint? []>(nullableUInt32Array)))))), (source.GetCurrentValue<ulong?>(nullableUInt64) == null ? null : ((ValueComparer<ulong?>)(((IProperty)nullableUInt64).GetValueComparer())).Snapshot(source.GetCurrentValue<ulong?>(nullableUInt64))), (((IEnumerable<ulong?>)source.GetCurrentValue<ulong? []>(nullableUInt64Array)) == null ? null : ((ulong? [])(((ValueComparer<IEnumerable<ulong?>>)(((IProperty)nullableUInt64Array).GetValueComparer())).Snapshot(((IEnumerable<ulong?>)source.GetCurrentValue<ulong? []>(nullableUInt64Array)))))), (source.GetCurrentValue<byte?>(nullableUInt8) == null ? null : ((ValueComparer<byte?>)(((IProperty)nullableUInt8).GetValueComparer())).Snapshot(source.GetCurrentValue<byte?>(nullableUInt8))), (((IEnumerable<byte?>)source.GetCurrentValue<byte? []>(nullableUInt8Array)) == null ? null : ((byte? [])(((ValueComparer<IEnumerable<byte?>>)(((IProperty)nullableUInt8Array).GetValueComparer())).Snapshot(((IEnumerable<byte?>)source.GetCurrentValue<byte? []>(nullableUInt8Array)))))), (source.GetCurrentValue<Uri>(nullableUri) == null ? null : ((ValueComparer<Uri>)(((IProperty)nullableUri).GetValueComparer())).Snapshot(source.GetCurrentValue<Uri>(nullableUri))), (((object)source.GetCurrentValue<Uri[]>(nullableUriArray)) == null ? null : ((Uri[])(((ValueComparer<object>)(((IProperty)nullableUriArray).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<Uri[]>(nullableUriArray)))))), (source.GetCurrentValue<PhysicalAddress>(physicalAddress) == null ? null : ((ValueComparer<PhysicalAddress>)(((IProperty)physicalAddress).GetValueComparer())).Snapshot(source.GetCurrentValue<PhysicalAddress>(physicalAddress))), (((object)source.GetCurrentValue<PhysicalAddress[]>(physicalAddressArray)) == null ? null : ((PhysicalAddress[])(((ValueComparer<object>)(((IProperty)physicalAddressArray).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<PhysicalAddress[]>(physicalAddressArray)))))), (source.GetCurrentValue<PhysicalAddress>(physicalAddressToBytesConverterProperty) == null ? null : ((ValueComparer<PhysicalAddress>)(((IProperty)physicalAddressToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<PhysicalAddress>(physicalAddressToBytesConverterProperty))), (source.GetCurrentValue<PhysicalAddress>(physicalAddressToStringConverterProperty) == null ? null : ((ValueComparer<PhysicalAddress>)(((IProperty)physicalAddressToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<PhysicalAddress>(physicalAddressToStringConverterProperty))), (source.GetCurrentValue<string>(@string) == null ? null : ((ValueComparer<string>)(((IProperty)@string).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(@string))), (((object)source.GetCurrentValue<string[]>(stringArray)) == null ? null : ((string[])(((ValueComparer<object>)(((IProperty)stringArray).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<string[]>(stringArray)))))), (((object)source.GetCurrentValue<IReadOnlyCollection<string>>(stringReadOnlyCollection)) == null ? null : ((IReadOnlyCollection<string>)(((ValueComparer<object>)(((IProperty)stringReadOnlyCollection).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<IReadOnlyCollection<string>>(stringReadOnlyCollection)))))), (source.GetCurrentValue<string>(stringToBoolConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToBoolConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToBoolConverterProperty))), (source.GetCurrentValue<string>(stringToBytesConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToBytesConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToBytesConverterProperty))), (source.GetCurrentValue<string>(stringToCharConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToCharConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToCharConverterProperty))))));
                     var structuralType6 = ((CompiledModelTestBase.ManyTypes)(source.Entity));
-                    var liftedArg6 = ((ISnapshot)(new Snapshot<string, string, string, string, string, string, string, string, string, string, string, TimeOnly, TimeOnly[], TimeOnly, TimeOnly, TimeSpan, TimeSpan[], TimeSpan, TimeSpan, ushort, ushort[], uint, uint[], ulong, ulong[], byte, byte[], IReadOnlyCollection<byte>, Uri, Uri[]>((source.GetCurrentValue<string>(stringToDateOnlyConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToDateOnlyConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToDateOnlyConverterProperty))), (source.GetCurrentValue<string>(stringToDateTimeConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToDateTimeConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToDateTimeConverterProperty))), (source.GetCurrentValue<string>(stringToDateTimeOffsetConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToDateTimeOffsetConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToDateTimeOffsetConverterProperty))), (source.GetCurrentValue<string>(stringToDecimalNumberConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToDecimalNumberConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToDecimalNumberConverterProperty))), (source.GetCurrentValue<string>(stringToDoubleNumberConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToDoubleNumberConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToDoubleNumberConverterProperty))), (source.GetCurrentValue<string>(stringToEnumConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToEnumConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToEnumConverterProperty))), (source.GetCurrentValue<string>(stringToGuidConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToGuidConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToGuidConverterProperty))), (source.GetCurrentValue<string>(stringToIntNumberConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToIntNumberConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToIntNumberConverterProperty))), (source.GetCurrentValue<string>(stringToTimeOnlyConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToTimeOnlyConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToTimeOnlyConverterProperty))), (source.GetCurrentValue<string>(stringToTimeSpanConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToTimeSpanConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToTimeSpanConverterProperty))), (source.GetCurrentValue<string>(stringToUriConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToUriConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToUriConverterProperty))), ((ValueComparer<TimeOnly>)(((IProperty)timeOnly).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeOnly>(timeOnly)), (((IEnumerable<TimeOnly>)(source.GetCurrentValue<TimeOnly[]>(timeOnlyArray))) == null ? null : ((TimeOnly[])(((ValueComparer<IEnumerable<TimeOnly>>)(((IProperty)timeOnlyArray).GetValueComparer())).Snapshot(((IEnumerable<TimeOnly>)(source.GetCurrentValue<TimeOnly[]>(timeOnlyArray))))))), ((ValueComparer<TimeOnly>)(((IProperty)timeOnlyToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeOnly>(timeOnlyToStringConverterProperty)), ((ValueComparer<TimeOnly>)(((IProperty)timeOnlyToTicksConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeOnly>(timeOnlyToTicksConverterProperty)), ((ValueComparer<TimeSpan>)(((IProperty)timeSpan).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeSpan>(timeSpan)), (((IEnumerable<TimeSpan>)(source.GetCurrentValue<TimeSpan[]>(timeSpanArray))) == null ? null : ((TimeSpan[])(((ValueComparer<IEnumerable<TimeSpan>>)(((IProperty)timeSpanArray).GetValueComparer())).Snapshot(((IEnumerable<TimeSpan>)(source.GetCurrentValue<TimeSpan[]>(timeSpanArray))))))), ((ValueComparer<TimeSpan>)(((IProperty)timeSpanToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeSpan>(timeSpanToStringConverterProperty)), ((ValueComparer<TimeSpan>)(((IProperty)timeSpanToTicksConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeSpan>(timeSpanToTicksConverterProperty)), ((ValueComparer<ushort>)(((IProperty)uInt16).GetValueComparer())).Snapshot(source.GetCurrentValue<ushort>(uInt16)), (((IEnumerable<ushort>)(source.GetCurrentValue<ushort[]>(uInt16Array))) == null ? null : ((ushort[])(((ValueComparer<IEnumerable<ushort>>)(((IProperty)uInt16Array).GetValueComparer())).Snapshot(((IEnumerable<ushort>)(source.GetCurrentValue<ushort[]>(uInt16Array))))))), ((ValueComparer<uint>)(((IProperty)uInt32).GetValueComparer())).Snapshot(source.GetCurrentValue<uint>(uInt32)), (((IEnumerable<uint>)(source.GetCurrentValue<uint[]>(uInt32Array))) == null ? null : ((uint[])(((ValueComparer<IEnumerable<uint>>)(((IProperty)uInt32Array).GetValueComparer())).Snapshot(((IEnumerable<uint>)(source.GetCurrentValue<uint[]>(uInt32Array))))))), ((ValueComparer<ulong>)(((IProperty)uInt64).GetValueComparer())).Snapshot(source.GetCurrentValue<ulong>(uInt64)), (((IEnumerable<ulong>)(source.GetCurrentValue<ulong[]>(uInt64Array))) == null ? null : ((ulong[])(((ValueComparer<IEnumerable<ulong>>)(((IProperty)uInt64Array).GetValueComparer())).Snapshot(((IEnumerable<ulong>)(source.GetCurrentValue<ulong[]>(uInt64Array))))))), ((ValueComparer<byte>)(((IProperty)uInt8).GetValueComparer())).Snapshot(source.GetCurrentValue<byte>(uInt8)), (source.GetCurrentValue<byte[]>(uInt8Array) == null ? null : ((ValueComparer<byte[]>)(((IProperty)uInt8Array).GetValueComparer())).Snapshot(source.GetCurrentValue<byte[]>(uInt8Array))), (((IEnumerable<byte>)(source.GetCurrentValue<IReadOnlyCollection<byte>>(uInt8ReadOnlyCollection))) == null ? null : ((IReadOnlyCollection<byte>)(((ValueComparer<IEnumerable<byte>>)(((IProperty)uInt8ReadOnlyCollection).GetValueComparer())).Snapshot(((IEnumerable<byte>)(source.GetCurrentValue<IReadOnlyCollection<byte>>(uInt8ReadOnlyCollection))))))), (source.GetCurrentValue<Uri>(uri) == null ? null : ((ValueComparer<Uri>)(((IProperty)uri).GetValueComparer())).Snapshot(source.GetCurrentValue<Uri>(uri))), (((object)(source.GetCurrentValue<Uri[]>(uriArray))) == null ? null : ((Uri[])(((ValueComparer<object>)(((IProperty)uriArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<Uri[]>(uriArray))))))))));
+                    var liftedArg6 = ((ISnapshot)(new Snapshot<string, string, string, string, string, string, string, string, string, string, string, TimeOnly, TimeOnly[], TimeOnly, TimeOnly, TimeSpan, TimeSpan[], TimeSpan, TimeSpan, ushort, ushort[], uint, uint[], ulong, ulong[], byte, byte[], IReadOnlyCollection<byte>, Uri, Uri[]>((source.GetCurrentValue<string>(stringToDateOnlyConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToDateOnlyConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToDateOnlyConverterProperty))), (source.GetCurrentValue<string>(stringToDateTimeConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToDateTimeConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToDateTimeConverterProperty))), (source.GetCurrentValue<string>(stringToDateTimeOffsetConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToDateTimeOffsetConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToDateTimeOffsetConverterProperty))), (source.GetCurrentValue<string>(stringToDecimalNumberConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToDecimalNumberConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToDecimalNumberConverterProperty))), (source.GetCurrentValue<string>(stringToDoubleNumberConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToDoubleNumberConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToDoubleNumberConverterProperty))), (source.GetCurrentValue<string>(stringToEnumConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToEnumConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToEnumConverterProperty))), (source.GetCurrentValue<string>(stringToGuidConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToGuidConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToGuidConverterProperty))), (source.GetCurrentValue<string>(stringToIntNumberConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToIntNumberConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToIntNumberConverterProperty))), (source.GetCurrentValue<string>(stringToTimeOnlyConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToTimeOnlyConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToTimeOnlyConverterProperty))), (source.GetCurrentValue<string>(stringToTimeSpanConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToTimeSpanConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToTimeSpanConverterProperty))), (source.GetCurrentValue<string>(stringToUriConverterProperty) == null ? null : ((ValueComparer<string>)(((IProperty)stringToUriConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(stringToUriConverterProperty))), ((ValueComparer<TimeOnly>)(((IProperty)timeOnly).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeOnly>(timeOnly)), (((IEnumerable<TimeOnly>)source.GetCurrentValue<TimeOnly[]>(timeOnlyArray)) == null ? null : ((TimeOnly[])(((ValueComparer<IEnumerable<TimeOnly>>)(((IProperty)timeOnlyArray).GetValueComparer())).Snapshot(((IEnumerable<TimeOnly>)source.GetCurrentValue<TimeOnly[]>(timeOnlyArray)))))), ((ValueComparer<TimeOnly>)(((IProperty)timeOnlyToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeOnly>(timeOnlyToStringConverterProperty)), ((ValueComparer<TimeOnly>)(((IProperty)timeOnlyToTicksConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeOnly>(timeOnlyToTicksConverterProperty)), ((ValueComparer<TimeSpan>)(((IProperty)timeSpan).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeSpan>(timeSpan)), (((IEnumerable<TimeSpan>)source.GetCurrentValue<TimeSpan[]>(timeSpanArray)) == null ? null : ((TimeSpan[])(((ValueComparer<IEnumerable<TimeSpan>>)(((IProperty)timeSpanArray).GetValueComparer())).Snapshot(((IEnumerable<TimeSpan>)source.GetCurrentValue<TimeSpan[]>(timeSpanArray)))))), ((ValueComparer<TimeSpan>)(((IProperty)timeSpanToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeSpan>(timeSpanToStringConverterProperty)), ((ValueComparer<TimeSpan>)(((IProperty)timeSpanToTicksConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeSpan>(timeSpanToTicksConverterProperty)), ((ValueComparer<ushort>)(((IProperty)uInt16).GetValueComparer())).Snapshot(source.GetCurrentValue<ushort>(uInt16)), (((IEnumerable<ushort>)source.GetCurrentValue<ushort[]>(uInt16Array)) == null ? null : ((ushort[])(((ValueComparer<IEnumerable<ushort>>)(((IProperty)uInt16Array).GetValueComparer())).Snapshot(((IEnumerable<ushort>)source.GetCurrentValue<ushort[]>(uInt16Array)))))), ((ValueComparer<uint>)(((IProperty)uInt32).GetValueComparer())).Snapshot(source.GetCurrentValue<uint>(uInt32)), (((IEnumerable<uint>)source.GetCurrentValue<uint[]>(uInt32Array)) == null ? null : ((uint[])(((ValueComparer<IEnumerable<uint>>)(((IProperty)uInt32Array).GetValueComparer())).Snapshot(((IEnumerable<uint>)source.GetCurrentValue<uint[]>(uInt32Array)))))), ((ValueComparer<ulong>)(((IProperty)uInt64).GetValueComparer())).Snapshot(source.GetCurrentValue<ulong>(uInt64)), (((IEnumerable<ulong>)source.GetCurrentValue<ulong[]>(uInt64Array)) == null ? null : ((ulong[])(((ValueComparer<IEnumerable<ulong>>)(((IProperty)uInt64Array).GetValueComparer())).Snapshot(((IEnumerable<ulong>)source.GetCurrentValue<ulong[]>(uInt64Array)))))), ((ValueComparer<byte>)(((IProperty)uInt8).GetValueComparer())).Snapshot(source.GetCurrentValue<byte>(uInt8)), (source.GetCurrentValue<byte[]>(uInt8Array) == null ? null : ((ValueComparer<byte[]>)(((IProperty)uInt8Array).GetValueComparer())).Snapshot(source.GetCurrentValue<byte[]>(uInt8Array))), (((IEnumerable<byte>)source.GetCurrentValue<IReadOnlyCollection<byte>>(uInt8ReadOnlyCollection)) == null ? null : ((IReadOnlyCollection<byte>)(((ValueComparer<IEnumerable<byte>>)(((IProperty)uInt8ReadOnlyCollection).GetValueComparer())).Snapshot(((IEnumerable<byte>)source.GetCurrentValue<IReadOnlyCollection<byte>>(uInt8ReadOnlyCollection)))))), (source.GetCurrentValue<Uri>(uri) == null ? null : ((ValueComparer<Uri>)(((IProperty)uri).GetValueComparer())).Snapshot(source.GetCurrentValue<Uri>(uri))), (((object)source.GetCurrentValue<Uri[]>(uriArray)) == null ? null : ((Uri[])(((ValueComparer<object>)(((IProperty)uriArray).GetValueComparer())).Snapshot(((object)source.GetCurrentValue<Uri[]>(uriArray)))))))));
                     var structuralType7 = ((CompiledModelTestBase.ManyTypes)(source.Entity));
                     return ((ISnapshot)(new MultiSnapshot(new ISnapshot[] { liftedArg, liftedArg0, liftedArg1, liftedArg2, liftedArg3, liftedArg4, liftedArg5, liftedArg6, ((ISnapshot)(new Snapshot<Uri>((source.GetCurrentValue<Uri>(uriToStringConverterProperty) == null ? null : ((ValueComparer<Uri>)(((IProperty)uriToStringConverterProperty).GetValueComparer())).Snapshot(source.GetCurrentValue<Uri>(uriToStringConverterProperty)))))) })));
                 });
             runtimeEntityType.SetStoreGeneratedValuesFactory(
                 ISnapshot () => ((ISnapshot)(new Snapshot<CompiledModelTestBase.ManyTypesId>(((ValueComparer<CompiledModelTestBase.ManyTypesId>)(((IProperty)id).GetValueComparer())).Snapshot(default(CompiledModelTestBase.ManyTypesId))))));
             runtimeEntityType.SetTemporaryValuesFactory(
-                ISnapshot (IInternalEntry source) => ((ISnapshot)(new Snapshot<CompiledModelTestBase.ManyTypesId>(default(CompiledModelTestBase.ManyTypesId)))));
+                ISnapshot (IInternalEntry source) => ((ISnapshot)new Snapshot<CompiledModelTestBase.ManyTypesId>(default(CompiledModelTestBase.ManyTypesId))));
             runtimeEntityType.SetShadowValuesFactory(
                 ISnapshot (IDictionary<string, object> source) => Snapshot.Empty);
             runtimeEntityType.SetEmptyShadowValuesFactory(

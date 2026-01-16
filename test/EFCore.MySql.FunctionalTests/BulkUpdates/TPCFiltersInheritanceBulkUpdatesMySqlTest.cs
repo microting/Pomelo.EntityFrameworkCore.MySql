@@ -270,11 +270,11 @@ WHERE `k`.`CountryId` = 1
                 //
                 """
 @p='Kiwi' (Size = 4000)
-@p0='0'
+@p1='0'
 
 UPDATE `Kiwi` AS `k`
 SET `k`.`Name` = @p,
-    `k`.`FoundOn` = @p0
+    `k`.`FoundOn` = @p1
 WHERE `k`.`CountryId` = 1
 """,
                 //
