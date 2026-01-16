@@ -362,7 +362,7 @@ namespace TestNamespace
                     byte[] (byte[] v) => (v == null ? null : v.ToArray())),
                 keyComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<DateTime>(
                     bool (DateTime v1, DateTime v2) => v1.Equals(v2),

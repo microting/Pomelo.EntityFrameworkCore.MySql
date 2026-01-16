@@ -486,11 +486,11 @@ namespace TestNamespace
                     byte[] (byte[] v) => v),
                 keyComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()));
             bytes.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -552,11 +552,11 @@ namespace TestNamespace
                         byte[] (byte[] v) => v),
                     keyComparer: new ValueComparer<byte[]>(
                         bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                         byte[] (byte[] source) => source.ToArray()),
                     providerValueComparer: new ValueComparer<byte[]>(
                         bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                         byte[] (byte[] source) => source.ToArray())));
             var bytesArrayElementType = bytesArray.SetElementType(typeof(byte[]));
             bytesArrayElementType.TypeMapping = bytesArray.TypeMapping.ElementTypeMapping;
@@ -602,7 +602,7 @@ namespace TestNamespace
                     byte[] (byte[] v) => v),
                 keyComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -1275,7 +1275,7 @@ namespace TestNamespace
                     DateTimeOffset (DateTimeOffset v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(12)",
@@ -1674,7 +1674,7 @@ namespace TestNamespace
                     decimal (decimal v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(16)",
@@ -1908,7 +1908,7 @@ namespace TestNamespace
                     double (double v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(8)",
@@ -6036,7 +6036,7 @@ namespace TestNamespace
                     Guid (Guid v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(16)",
@@ -6387,7 +6387,7 @@ namespace TestNamespace
                     IPAddress (IPAddress v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(16)",
@@ -7032,7 +7032,7 @@ namespace TestNamespace
                     int (int v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(4)",
@@ -7327,11 +7327,11 @@ namespace TestNamespace
                     byte[] (byte[] v) => v),
                 keyComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()));
             nullableBytes.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -7393,11 +7393,11 @@ namespace TestNamespace
                         byte[] (byte[] v) => v),
                     keyComparer: new ValueComparer<byte[]>(
                         bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                         byte[] (byte[] source) => source.ToArray()),
                     providerValueComparer: new ValueComparer<byte[]>(
                         bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                        int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                         byte[] (byte[] source) => source.ToArray())));
             var nullableBytesArrayElementType = nullableBytesArray.SetElementType(typeof(byte[]),
                 nullable: true);
@@ -13890,7 +13890,7 @@ namespace TestNamespace
                     PhysicalAddress (PhysicalAddress v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 mappingInfo: new RelationalTypeMappingInfo(
                     storeTypeName: "varbinary(8)",
@@ -14253,7 +14253,7 @@ namespace TestNamespace
                     string (string v) => v),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 converter: new ValueConverter<string, byte[]>(
                     byte[] (string v) => Encoding.GetEncoding(12000).GetBytes(v),
@@ -15855,11 +15855,11 @@ namespace TestNamespace
                     byte[] (byte[] v) => v),
                 keyComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<byte[]>(
                     bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
-                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v))),
+                    int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()));
             uInt8Array.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
