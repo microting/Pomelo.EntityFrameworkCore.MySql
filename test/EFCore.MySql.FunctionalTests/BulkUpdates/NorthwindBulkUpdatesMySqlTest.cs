@@ -1780,9 +1780,10 @@ INNER JOIN (
         LIMIT 18446744073709551610 OFFSET @p
     ) AS `o1`
     INNER JOIN `Orders` AS `o0` ON `o1`.`OrderID` = `o0`.`OrderID`
-) AS `o0` ON `o2`.`OrderID` = `o0`.`OrderID` AND `o2`.`ProductID` = `o0`.`ProductID`
-SET `o2`.`Quantity` = CAST(@p2 AS signed),
-    `o2`.`UnitPrice` = `o2`.`UnitPrice`
+    WHERE `o0`.`CustomerID` = 'ALFKI'
+) AS `s` ON (`o2`.`OrderID` = `s`.`OrderID`) AND (`o2`.`ProductID` = `s`.`ProductID`)
+SET `o2`.`Quantity` = CAST(@p AS signed),
+    `o2`.`UnitPrice` = @p2
 """);
     }
 
