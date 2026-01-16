@@ -253,7 +253,7 @@ namespace TestNamespace
             runtimeEntityType.SetTemporaryValuesFactory(
                 ISnapshot (IInternalEntry source) => ((ISnapshot)(new Snapshot<int, string, string>(default(int), default(string), default(string)))));
             runtimeEntityType.SetShadowValuesFactory(
-                ISnapshot (IDictionary<string, object> source) => ((ISnapshot)(new Snapshot<int, Point, string, string>((source.ContainsKey("Id") ? ((int)source["Id"]) : 0), (source.ContainsKey("Point") ? ((Point)source["Point"]) : null), (source.ContainsKey("StringWithCharSet") ? ((string)source["StringWithCharSet"]) : null), (source.ContainsKey("StringWithCollation") ? ((string)source["StringWithCollation"]) : null)))));
+                ISnapshot (IDictionary<string, object> source) => ((ISnapshot)(new Snapshot<int, Point, string, string>((source.ContainsKey("Id") ? ((int)(source["Id"])) : 0), (source.ContainsKey("Point") ? ((Point)(source["Point"])) : null), (source.ContainsKey("StringWithCharSet") ? ((string)(source["StringWithCharSet"])) : null), (source.ContainsKey("StringWithCollation") ? ((string)(source["StringWithCollation"])) : null)))));
             runtimeEntityType.SetEmptyShadowValuesFactory(
                 ISnapshot () => ((ISnapshot)(new Snapshot<int, Point, string, string>(default(int), default(Point), default(string), default(string)))));
             runtimeEntityType.SetRelationshipSnapshotFactory(

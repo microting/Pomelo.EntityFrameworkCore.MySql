@@ -314,7 +314,7 @@ namespace TestNamespace
             runtimeEntityType.SetTemporaryValuesFactory(
                 ISnapshot (IInternalEntry source) => ((ISnapshot)(new Snapshot<long, Guid>(default(long), default(Guid)))));
             runtimeEntityType.SetShadowValuesFactory(
-                ISnapshot (IDictionary<string, object> source) => ((ISnapshot)(new Snapshot<long, Guid, CompiledModelTestBase.Enum1>((source.ContainsKey("PrincipalId") ? ((long)source["PrincipalId"]) : 0L), (source.ContainsKey("PrincipalAlternateId") ? ((Guid)source["PrincipalAlternateId"]) : new Guid("00000000-0000-0000-0000-000000000000")), (source.ContainsKey("EnumDiscriminator") ? ((CompiledModelTestBase.Enum1)source["EnumDiscriminator"]) : CompiledModelTestBase.Enum1.Default)))));
+                ISnapshot (IDictionary<string, object> source) => ((ISnapshot)(new Snapshot<long, Guid, CompiledModelTestBase.Enum1>((source.ContainsKey("PrincipalId") ? ((long)(source["PrincipalId"])) : 0L), (source.ContainsKey("PrincipalAlternateId") ? ((Guid)(source["PrincipalAlternateId"])) : new Guid("00000000-0000-0000-0000-000000000000")), (source.ContainsKey("EnumDiscriminator") ? ((CompiledModelTestBase.Enum1)(source["EnumDiscriminator"])) : CompiledModelTestBase.Enum1.Default)))));
             runtimeEntityType.SetEmptyShadowValuesFactory(
                 ISnapshot () => ((ISnapshot)(new Snapshot<long, Guid, CompiledModelTestBase.Enum1>(default(long), default(Guid), default(CompiledModelTestBase.Enum1)))));
             runtimeEntityType.SetRelationshipSnapshotFactory(

@@ -144,7 +144,7 @@ namespace TestNamespace
             runtimeEntityType.SetTemporaryValuesFactory(
                 ISnapshot (IInternalEntry source) => ((ISnapshot)(new Snapshot<long, Guid>(default(long), default(Guid)))));
             runtimeEntityType.SetShadowValuesFactory(
-                ISnapshot (IDictionary<string, object> source) => ((ISnapshot)(new Snapshot<long, Guid, CompiledModelTestBase.Enum1, decimal>((source.ContainsKey("PrincipalId") ? ((long)source["PrincipalId"]) : 0L), (source.ContainsKey("PrincipalAlternateId") ? ((Guid)source["PrincipalAlternateId"]) : new Guid("00000000-0000-0000-0000-000000000000")), (source.ContainsKey("EnumDiscriminator") ? ((CompiledModelTestBase.Enum1)source["EnumDiscriminator"]) : CompiledModelTestBase.Enum1.Default), (source.ContainsKey("Money") ? ((decimal)source["Money"]) : 0M)))));
+                ISnapshot (IDictionary<string, object> source) => ((ISnapshot)(new Snapshot<long, Guid, CompiledModelTestBase.Enum1, decimal>((source.ContainsKey("PrincipalId") ? ((long)(source["PrincipalId"])) : 0L), (source.ContainsKey("PrincipalAlternateId") ? ((Guid)(source["PrincipalAlternateId"])) : new Guid("00000000-0000-0000-0000-000000000000")), (source.ContainsKey("EnumDiscriminator") ? ((CompiledModelTestBase.Enum1)(source["EnumDiscriminator"])) : CompiledModelTestBase.Enum1.Default), (source.ContainsKey("Money") ? ((decimal)(source["Money"])) : 0M)))));
             runtimeEntityType.SetEmptyShadowValuesFactory(
                 ISnapshot () => ((ISnapshot)(new Snapshot<long, Guid, CompiledModelTestBase.Enum1, decimal>(default(long), default(Guid), default(CompiledModelTestBase.Enum1), default(decimal)))));
             runtimeEntityType.SetRelationshipSnapshotFactory(
