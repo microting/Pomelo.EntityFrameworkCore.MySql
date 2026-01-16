@@ -52,6 +52,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             typeof(AdHocPrecompiledQueryRelationalTestBase),
             typeof(PrecompiledQueryRelationalTestBase),
             typeof(PrecompiledSqlPregenerationQueryRelationalTestBase),
+            
+            // TODO: 10.0.2 - AdHocComplexTypeQueryRelationalTestBase requires NonSharedFixture infrastructure
+            typeof(AdHocComplexTypeQueryRelationalTestBase),
 
             // TODO: Reenable LoggingMySqlTest once its issue has been fixed in EF Core upstream.
             typeof(LoggingTestBase),
