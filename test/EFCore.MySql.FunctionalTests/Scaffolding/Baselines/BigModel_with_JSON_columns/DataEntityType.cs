@@ -100,15 +100,15 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             blob.TypeMapping = MySqlByteArrayTypeMapping.Default.Clone(
                 comparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => ((object)v).GetHashCode(),
                     byte[] (byte[] v) => v),
                 keyComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()),
                 providerValueComparer: new ValueComparer<byte[]>(
-                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2))),
+                    bool (byte[] v1, byte[] v2) => StructuralComparisons.StructuralEqualityComparer.Equals(((object)v1), ((object)v2)),
                     int (byte[] v) => StructuralComparisons.StructuralEqualityComparer.GetHashCode(((object)v)),
                     byte[] (byte[] source) => source.ToArray()));
             blob.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -167,13 +167,13 @@ namespace TestNamespace
                     storeTypeName: "varchar(128)",
                     size: 128),
                 converter: new ValueConverter<string, string>(
-                    string (string v) => ((string)(v)),
-                    string (string v) => ((string)(v))),
+                    string (string v) => ((string)v),
+                    string (string v) => ((string)v)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<string, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<string, string>(
-                        string (string v) => ((string)(v)),
-                        string (string v) => ((string)(v)))));
+                        string (string v) => ((string)v),
+                        string (string v) => ((string)v))));
             stringWithCharSet.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
             stringWithCharSet.AddAnnotation("Relational:ColumnType", "varchar(128)");
             stringWithCharSet.AddAnnotation("Relational:DefaultValue", "String having charset");
@@ -214,13 +214,13 @@ namespace TestNamespace
                     storeTypeName: "varchar(128)",
                     size: 128),
                 converter: new ValueConverter<string, string>(
-                    string (string v) => ((string)(v)),
-                    string (string v) => ((string)(v))),
+                    string (string v) => ((string)v),
+                    string (string v) => ((string)v)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<string, string>(
                     JsonStringReaderWriter.Instance,
                     new ValueConverter<string, string>(
-                        string (string v) => ((string)(v)),
-                        string (string v) => ((string)(v)))));
+                        string (string v) => ((string)v),
+                        string (string v) => ((string)v))));
             stringWithCollation.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
             stringWithCollation.AddAnnotation("Relational:ColumnType", "varchar(128)");
             stringWithCollation.AddAnnotation("Relational:DefaultValue", "String using collation");

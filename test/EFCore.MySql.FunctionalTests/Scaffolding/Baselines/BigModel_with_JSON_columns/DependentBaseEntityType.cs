@@ -119,11 +119,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enumDiscriminator.TypeMapping = MySqlIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.Enum1>(
-                    bool (CompiledModelTestBase.Enum1 v1, CompiledModelTestBase.Enum1 v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.Enum1 v1, CompiledModelTestBase.Enum1 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum1 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum1 (CompiledModelTestBase.Enum1 v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.Enum1>(
-                    bool (CompiledModelTestBase.Enum1 v1, CompiledModelTestBase.Enum1 v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.Enum1 v1, CompiledModelTestBase.Enum1 v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.Enum1 v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.Enum1 (CompiledModelTestBase.Enum1 v) => v),
                 providerValueComparer: new ValueComparer<int>(
@@ -131,13 +131,13 @@ namespace TestNamespace
                     int (int v) => v,
                     int (int v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.Enum1, int>(
-                    int (CompiledModelTestBase.Enum1 value) => ((int)(value)),
-                    CompiledModelTestBase.Enum1 (int value) => ((CompiledModelTestBase.Enum1)(value))),
+                    int (CompiledModelTestBase.Enum1 value) => ((int)value),
+                    CompiledModelTestBase.Enum1 (int value) => ((CompiledModelTestBase.Enum1)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.Enum1, int>(
                     JsonInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.Enum1, int>(
-                        int (CompiledModelTestBase.Enum1 value) => ((int)(value)),
-                        CompiledModelTestBase.Enum1 (int value) => ((CompiledModelTestBase.Enum1)(value)))));
+                        int (CompiledModelTestBase.Enum1 value) => ((int)value),
+                        CompiledModelTestBase.Enum1 (int value) => ((CompiledModelTestBase.Enum1)value))));
             enumDiscriminator.SetSentinelFromProviderValue(0);
             enumDiscriminator.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -176,15 +176,15 @@ namespace TestNamespace
             id.TypeMapping = MySqlByteTypeMapping.Default.Clone(
                 comparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v),
                 keyComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v),
                 providerValueComparer: new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v));
             id.SetComparer(new NullableValueComparer<byte>(id.TypeMapping.Comparer));
             id.SetKeyComparer(new NullableValueComparer<byte>(id.TypeMapping.KeyComparer));

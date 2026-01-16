@@ -634,11 +634,11 @@ namespace TestNamespace
             valueTypeEnumerable.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<byte>, byte>(new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<byte>, byte>(new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v)),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -654,15 +654,15 @@ namespace TestNamespace
                 elementMapping: MySqlByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     keyComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     providerValueComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v)));
             var valueTypeEnumerableElementType = valueTypeEnumerable.SetElementType(typeof(byte));
             valueTypeEnumerableElementType.TypeMapping = valueTypeEnumerable.TypeMapping.ElementTypeMapping;
@@ -704,11 +704,11 @@ namespace TestNamespace
             valueTypeIList.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<byte>, byte>(new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<byte>, byte>(new ValueComparer<byte>(
                     bool (byte v1, byte v2) => v1 == v2,
-                    int (byte v) => ((int)(v)),
+                    int (byte v) => ((int)v),
                     byte (byte v) => v)),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -724,15 +724,15 @@ namespace TestNamespace
                 elementMapping: MySqlByteTypeMapping.Default.Clone(
                     comparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     keyComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v),
                     providerValueComparer: new ValueComparer<byte>(
                         bool (byte v1, byte v2) => v1 == v2,
-                        int (byte v) => ((int)(v)),
+                        int (byte v) => ((int)v),
                         byte (byte v) => v)));
             var valueTypeIListElementType = valueTypeIList.SetElementType(typeof(byte));
             valueTypeIListElementType.TypeMapping = valueTypeIList.TypeMapping.ElementTypeMapping;
@@ -774,11 +774,11 @@ namespace TestNamespace
             valueTypeList.TypeMapping = MySqlStringTypeMapping.Default.Clone(
                 comparer: new ListOfValueTypesComparer<List<short>, short>(new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v)),
                 keyComparer: new ListOfValueTypesComparer<List<short>, short>(new ValueComparer<short>(
                     bool (short v1, short v2) => v1 == v2,
-                    int (short v) => ((int)(v)),
+                    int (short v) => ((int)v),
                     short (short v) => v)),
                 providerValueComparer: new ValueComparer<string>(
                     bool (string v1, string v2) => v1 == v2,
@@ -794,15 +794,15 @@ namespace TestNamespace
                 elementMapping: MySqlShortTypeMapping.Default.Clone(
                     comparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     keyComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v),
                     providerValueComparer: new ValueComparer<short>(
                         bool (short v1, short v2) => v1 == v2,
-                        int (short v) => ((int)(v)),
+                        int (short v) => ((int)v),
                         short (short v) => v)));
             var valueTypeListElementType = valueTypeList.SetElementType(typeof(short));
             valueTypeListElementType.TypeMapping = valueTypeList.TypeMapping.ElementTypeMapping;
