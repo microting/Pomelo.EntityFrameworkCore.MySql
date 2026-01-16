@@ -132,11 +132,11 @@ namespace TestNamespace
                 storeGenerationIndex: 0);
             enum1.TypeMapping = MySqlIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.AnEnum>(
-                    bool (CompiledModelTestBase.AnEnum v1, CompiledModelTestBase.AnEnum v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.AnEnum v1, CompiledModelTestBase.AnEnum v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.AnEnum v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.AnEnum (CompiledModelTestBase.AnEnum v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.AnEnum>(
-                    bool (CompiledModelTestBase.AnEnum v1, CompiledModelTestBase.AnEnum v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.AnEnum v1, CompiledModelTestBase.AnEnum v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.AnEnum v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.AnEnum (CompiledModelTestBase.AnEnum v) => v),
                 providerValueComparer: new ValueComparer<int>(
@@ -144,13 +144,13 @@ namespace TestNamespace
                     int (int v) => v,
                     int (int v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.AnEnum, int>(
-                    int (CompiledModelTestBase.AnEnum value) => ((int)(value)),
-                    CompiledModelTestBase.AnEnum (int value) => ((CompiledModelTestBase.AnEnum)(value))),
+                    int (CompiledModelTestBase.AnEnum value) => ((int)value),
+                    CompiledModelTestBase.AnEnum (int value) => ((CompiledModelTestBase.AnEnum)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.AnEnum, int>(
                     JsonInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.AnEnum, int>(
-                        int (CompiledModelTestBase.AnEnum value) => ((int)(value)),
-                        CompiledModelTestBase.AnEnum (int value) => ((CompiledModelTestBase.AnEnum)(value)))));
+                        int (CompiledModelTestBase.AnEnum value) => ((int)value),
+                        CompiledModelTestBase.AnEnum (int value) => ((CompiledModelTestBase.AnEnum)value))));
             enum1.SetSentinelFromProviderValue(1);
 
             var overrides0 = new StoreObjectDictionary<RuntimeRelationalPropertyOverrides>();
@@ -177,13 +177,13 @@ namespace TestNamespace
             enum2.SetSetter(
                 CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, CompiledModelTestBase.AnEnum? value) =>
                 {
-                    PrincipalBaseUnsafeAccessors.Enum2(instance) = (value == null ? value : ((CompiledModelTestBase.AnEnum? )(((CompiledModelTestBase.AnEnum)(value)))));
+                    PrincipalBaseUnsafeAccessors.Enum2(instance) = (value == null ? value : ((CompiledModelTestBase.AnEnum? )(((CompiledModelTestBase.AnEnum)value))));
                     return instance;
                 });
             enum2.SetMaterializationSetter(
                 CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, CompiledModelTestBase.AnEnum? value) =>
                 {
-                    PrincipalBaseUnsafeAccessors.Enum2(instance) = (value == null ? value : ((CompiledModelTestBase.AnEnum? )(((CompiledModelTestBase.AnEnum)(value)))));
+                    PrincipalBaseUnsafeAccessors.Enum2(instance) = (value == null ? value : ((CompiledModelTestBase.AnEnum? )(((CompiledModelTestBase.AnEnum)value))));
                     return instance;
                 });
             enum2.SetAccessors(
@@ -199,11 +199,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             enum2.TypeMapping = MySqlIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.AnEnum>(
-                    bool (CompiledModelTestBase.AnEnum v1, CompiledModelTestBase.AnEnum v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.AnEnum v1, CompiledModelTestBase.AnEnum v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.AnEnum v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.AnEnum (CompiledModelTestBase.AnEnum v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.AnEnum>(
-                    bool (CompiledModelTestBase.AnEnum v1, CompiledModelTestBase.AnEnum v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.AnEnum v1, CompiledModelTestBase.AnEnum v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.AnEnum v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.AnEnum (CompiledModelTestBase.AnEnum v) => v),
                 providerValueComparer: new ValueComparer<int>(
@@ -211,13 +211,13 @@ namespace TestNamespace
                     int (int v) => v,
                     int (int v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.AnEnum, int>(
-                    int (CompiledModelTestBase.AnEnum value) => ((int)(value)),
-                    CompiledModelTestBase.AnEnum (int value) => ((CompiledModelTestBase.AnEnum)(value))),
+                    int (CompiledModelTestBase.AnEnum value) => ((int)value),
+                    CompiledModelTestBase.AnEnum (int value) => ((CompiledModelTestBase.AnEnum)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.AnEnum, int>(
                     JsonInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.AnEnum, int>(
-                        int (CompiledModelTestBase.AnEnum value) => ((int)(value)),
-                        CompiledModelTestBase.AnEnum (int value) => ((CompiledModelTestBase.AnEnum)(value)))));
+                        int (CompiledModelTestBase.AnEnum value) => ((int)value),
+                        CompiledModelTestBase.AnEnum (int value) => ((CompiledModelTestBase.AnEnum)value))));
             enum2.SetComparer(new NullableValueComparer<CompiledModelTestBase.AnEnum>(enum2.TypeMapping.Comparer));
             enum2.SetKeyComparer(new NullableValueComparer<CompiledModelTestBase.AnEnum>(enum2.TypeMapping.KeyComparer));
             enum2.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
@@ -255,25 +255,25 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             flagsEnum1.TypeMapping = MySqlIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.AFlagsEnum>(
-                    bool (CompiledModelTestBase.AFlagsEnum v1, CompiledModelTestBase.AFlagsEnum v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.AFlagsEnum v1, CompiledModelTestBase.AFlagsEnum v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.AFlagsEnum v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.AFlagsEnum (CompiledModelTestBase.AFlagsEnum v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.AFlagsEnum>(
-                    bool (CompiledModelTestBase.AFlagsEnum v1, CompiledModelTestBase.AFlagsEnum v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.AFlagsEnum v1, CompiledModelTestBase.AFlagsEnum v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.AFlagsEnum v) => ((object)v).GetHashCode(),
-                    CompiledModelTestBase.AFlagsEnum v) => v),
+                    CompiledModelTestBase.AFlagsEnum (CompiledModelTestBase.AFlagsEnum v) => v),
                 providerValueComparer: new ValueComparer<int>(
                     bool (int v1, int v2) => v1 == v2,
                     int (int v) => v,
                     int (int v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.AFlagsEnum, int>(
-                    int (CompiledModelTestBase.AFlagsEnum value) => ((int)(value)),
-                    CompiledModelTestBase.AFlagsEnum (int value) => ((CompiledModelTestBase.AFlagsEnum)(value))),
+                    int (CompiledModelTestBase.AFlagsEnum value) => ((int)value),
+                    CompiledModelTestBase.AFlagsEnum (int value) => ((CompiledModelTestBase.AFlagsEnum)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.AFlagsEnum, int>(
                     JsonInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.AFlagsEnum, int>(
-                        int (CompiledModelTestBase.AFlagsEnum value) => ((int)(value)),
-                        CompiledModelTestBase.AFlagsEnum (int value) => ((CompiledModelTestBase.AFlagsEnum)(value)))));
+                        int (CompiledModelTestBase.AFlagsEnum value) => ((int)value),
+                        CompiledModelTestBase.AFlagsEnum (int value) => ((CompiledModelTestBase.AFlagsEnum)value))));
             flagsEnum1.SetSentinelFromProviderValue(0);
             flagsEnum1.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -310,11 +310,11 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             flagsEnum2.TypeMapping = MySqlIntTypeMapping.Default.Clone(
                 comparer: new ValueComparer<CompiledModelTestBase.AFlagsEnum>(
-                    bool (CompiledModelTestBase.AFlagsEnum v1, CompiledModelTestBase.AFlagsEnum v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.AFlagsEnum v1, CompiledModelTestBase.AFlagsEnum v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.AFlagsEnum v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.AFlagsEnum (CompiledModelTestBase.AFlagsEnum v) => v),
                 keyComparer: new ValueComparer<CompiledModelTestBase.AFlagsEnum>(
-                    bool (CompiledModelTestBase.AFlagsEnum v1, CompiledModelTestBase.AFlagsEnum v2) => object.Equals(((object)v1), ((object)v2))),
+                    bool (CompiledModelTestBase.AFlagsEnum v1, CompiledModelTestBase.AFlagsEnum v2) => object.Equals(((object)v1), ((object)v2)),
                     int (CompiledModelTestBase.AFlagsEnum v) => ((object)v).GetHashCode(),
                     CompiledModelTestBase.AFlagsEnum (CompiledModelTestBase.AFlagsEnum v) => v),
                 providerValueComparer: new ValueComparer<int>(
@@ -322,13 +322,13 @@ namespace TestNamespace
                     int (int v) => v,
                     int (int v) => v),
                 converter: new ValueConverter<CompiledModelTestBase.AFlagsEnum, int>(
-                    int (CompiledModelTestBase.AFlagsEnum value) => ((int)(value)),
-                    CompiledModelTestBase.AFlagsEnum (int value) => ((CompiledModelTestBase.AFlagsEnum)(value))),
+                    int (CompiledModelTestBase.AFlagsEnum value) => ((int)value),
+                    CompiledModelTestBase.AFlagsEnum (int value) => ((CompiledModelTestBase.AFlagsEnum)value)),
                 jsonValueReaderWriter: new JsonConvertedValueReaderWriter<CompiledModelTestBase.AFlagsEnum, int>(
                     JsonInt32ReaderWriter.Instance,
                     new ValueConverter<CompiledModelTestBase.AFlagsEnum, int>(
-                        int (CompiledModelTestBase.AFlagsEnum value) => ((int)(value)),
-                        CompiledModelTestBase.AFlagsEnum (int value) => ((CompiledModelTestBase.AFlagsEnum)(value)))));
+                        int (CompiledModelTestBase.AFlagsEnum value) => ((int)value),
+                        CompiledModelTestBase.AFlagsEnum (int value) => ((CompiledModelTestBase.AFlagsEnum)value))));
             flagsEnum2.SetSentinelFromProviderValue(0);
             flagsEnum2.AddAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None);
 
@@ -1055,8 +1055,8 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             deriveds.SetCollectionAccessor<CompiledModelTestBase.PrincipalBase, ICollection<CompiledModelTestBase.PrincipalBase>, CompiledModelTestBase.PrincipalBase>(
                 ICollection<CompiledModelTestBase.PrincipalBase> (CompiledModelTestBase.PrincipalBase entity) => PrincipalBaseUnsafeAccessors.Deriveds(entity),
-                (CompiledModelTestBase.PrincipalBase entity, ICollection<CompiledModelTestBase.PrincipalBase> collection) => PrincipalBaseUnsafeAccessors.Deriveds(entity) = ((ICollection<CompiledModelTestBase.PrincipalBase>)(collection)),
-                (CompiledModelTestBase.PrincipalBase entity, ICollection<CompiledModelTestBase.PrincipalBase> collection) => PrincipalBaseUnsafeAccessors.Deriveds(entity) = ((ICollection<CompiledModelTestBase.PrincipalBase>)(collection)),
+                (CompiledModelTestBase.PrincipalBase entity, ICollection<CompiledModelTestBase.PrincipalBase> collection) => PrincipalBaseUnsafeAccessors.Deriveds(entity) = ((ICollection<CompiledModelTestBase.PrincipalBase>)collection),
+                (CompiledModelTestBase.PrincipalBase entity, ICollection<CompiledModelTestBase.PrincipalBase> collection) => PrincipalBaseUnsafeAccessors.Deriveds(entity) = ((ICollection<CompiledModelTestBase.PrincipalBase>)collection),
                 ICollection<CompiledModelTestBase.PrincipalBase> (CompiledModelTestBase.PrincipalBase entity, Action<CompiledModelTestBase.PrincipalBase, ICollection<CompiledModelTestBase.PrincipalBase>> setter) => ClrCollectionAccessorFactory.CreateAndSetHashSet<CompiledModelTestBase.PrincipalBase, ICollection<CompiledModelTestBase.PrincipalBase>, CompiledModelTestBase.PrincipalBase>(entity, setter),
                 ICollection<CompiledModelTestBase.PrincipalBase> () => ((ICollection<CompiledModelTestBase.PrincipalBase>)(((ICollection<CompiledModelTestBase.PrincipalBase>)(new HashSet<CompiledModelTestBase.PrincipalBase>(ReferenceEqualityComparer.Instance))))));
             return runtimeForeignKey;
@@ -1103,8 +1103,8 @@ namespace TestNamespace
                 storeGenerationIndex: -1);
             principals.SetCollectionAccessor<CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>, ICollection<CompiledModelTestBase.PrincipalBase>, CompiledModelTestBase.PrincipalBase>(
                 ICollection<CompiledModelTestBase.PrincipalBase> (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.Principals(entity),
-                (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, ICollection<CompiledModelTestBase.PrincipalBase> collection) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.Principals(entity) = ((ICollection<CompiledModelTestBase.PrincipalBase>)(collection)),
-                (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, ICollection<CompiledModelTestBase.PrincipalBase> collection) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.Principals(entity) = ((ICollection<CompiledModelTestBase.PrincipalBase>)(collection)),
+                (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, ICollection<CompiledModelTestBase.PrincipalBase> collection) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.Principals(entity) = ((ICollection<CompiledModelTestBase.PrincipalBase>)collection),
+                (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, ICollection<CompiledModelTestBase.PrincipalBase> collection) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.Principals(entity) = ((ICollection<CompiledModelTestBase.PrincipalBase>)collection),
                 ICollection<CompiledModelTestBase.PrincipalBase> (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, Action<CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>, ICollection<CompiledModelTestBase.PrincipalBase>> setter) => ClrCollectionAccessorFactory.CreateAndSetHashSet<CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>, ICollection<CompiledModelTestBase.PrincipalBase>, CompiledModelTestBase.PrincipalBase>(entity, setter),
                 ICollection<CompiledModelTestBase.PrincipalBase> () => ((ICollection<CompiledModelTestBase.PrincipalBase>)(((ICollection<CompiledModelTestBase.PrincipalBase>)(new HashSet<CompiledModelTestBase.PrincipalBase>(ReferenceEqualityComparer.Instance))))));
             return runtimeForeignKey;
