@@ -1,5 +1,9 @@
 # JSON Owned Entity Update Issue in EF Core 10
 
+> **⚠️ IMPORTANT**: This is a known bug in EF Core 10 (not Pomelo-specific)  
+> **Track upstream fix**: [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411)  
+> **Workaround available**: See below for tested solutions
+
 ## Issue Description
 
 When using `.ToJson()` with owned entities in EF Core 10, updating individual properties within the JSON-mapped entity can fail with:
@@ -90,12 +94,17 @@ await context.Database.ExecuteSqlRawAsync(
     "New Name", userId);
 ```
 
-## Status
+## Status and Tracking
 
-- **EF Core Issue**: [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411)
-- **Affects**: EF Core 10.0+
-- **Pomelo Tracking**: This issue
-- **Resolution**: Waiting for EF Core fix
+| Item | Details |
+|------|---------|
+| **EF Core Bug** | [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411) 🔗 |
+| **Status** | Open - Waiting for EF Core fix |
+| **Affects** | EF Core 10.0+ (all database providers) |
+| **First Reported** | December 2025 |
+| **Workaround** | Available (see above) ✅ |
+
+**Check issue status**: Click the link above to see the latest updates from the EF Core team.
 
 ## Future Plans
 

@@ -120,13 +120,15 @@ var userPasskeys = await context.Set<IdentityUserPasskey<string>>()
 
 ### ⚠️ Updating JSON Owned Entities (EF Core 10 Bug)
 
+> **Upstream Issue**: [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411) - Track this for EF Core fix status
+
 When updating properties within a JSON-mapped owned entity (like renaming a passkey), you may encounter:
 
 ```
 MySqlException: Invalid JSON text: "Invalid value." at position 0 in value for column 'AspNetUserPasskeys.Data'.
 ```
 
-**This is an EF Core 10 bug** (see [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411)) that affects multiple database providers.
+**This is an EF Core 10 bug** that affects multiple database providers (not just Pomelo).
 
 **Workaround**: Use `AsNoTracking()` + `Update()` pattern:
 
