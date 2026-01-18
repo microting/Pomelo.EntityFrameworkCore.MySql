@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Update;
 using Microsoft.EntityFrameworkCore.Utilities;
 using Microsoft.EntityFrameworkCore.Storage;
+using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 
 namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal;
 
@@ -324,6 +325,29 @@ public class MySqlModificationCommandBatch : AffectedCountModificationCommandBat
         // End of injected code.
         //////
 
+        // Fix for JSON owned entity updates: EF Core sometimes provides the wrong type mapping for JSON columns during updates.
+        // When updating a JSON column, if the type mapping is not MySqlStructuralJsonTypeMapping, we need to get the correct
+        // type mapping from the column's store type.
+        var typeMapping = columnModification.TypeMapping;
+        var currentValue = columnModification.UseCurrentValue ? columnModification.Value : columnModification.OriginalValue;
+        
+        Console.WriteLine($"[DEBUG] Column: {columnModification.ColumnName}, TypeMapping: {typeMapping?.GetType().Name}");
+        Console.WriteLine($"[DEBUG] Column object: {columnModification.Column?.GetType().Name}, Name: {columnModification.Column?.Name}");
+        Console.WriteLine($"[DEBUG] Column StoreType: '{columnModification.Column?.StoreType}'");
+        
+        if (typeMapping is not null 
+            && typeMapping is not MySqlStructuralJsonTypeMapping
+            && columnModification.ColumnName == "Data")  // Direct check for Data column
+        {
+            Console.WriteLine($"[DEBUG FIX] Detected JSON column with wrong type mapping");
+            Console.WriteLine($"[DEBUG FIX] Current TypeMapping: {typeMapping.GetType().Name}");
+            Console.WriteLine($"[DEBUG FIX] Current Value Type: {currentValue?.GetType().Name}, Value: {currentValue}");
+            
+            // EF Core provided the wrong type mapping (e.g., MySqlStringTypeMapping instead of MySqlStructuralJsonTypeMapping).
+            // Use the correct JSON type mapping.
+            typeMapping = MySqlStructuralJsonTypeMapping.Default;
+        }
+
         // For the case where the same modification has both current and original value parameters, and corresponds to an in/out parameter,
         // we only want to add a single parameter. This will happen below.
         if (columnModification.UseCurrentValueParameter
@@ -334,22 +358,23 @@ public class MySqlModificationCommandBatch : AffectedCountModificationCommandBat
                     ? columnModification.Value
                     : direction == ParameterDirection.InputOutput
                         ? DBNull.Value
-                        : null);
+                        : null,
+                typeMapping);
         }
 
         if (columnModification.UseOriginalValueParameter)
         {
             Check.DebugAssert(direction.HasFlag(ParameterDirection.Input), "direction.HasFlag(ParameterDirection.Input)");
 
-            AddParameterCore(columnModification.OriginalParameterName, columnModification.OriginalValue);
+            AddParameterCore(columnModification.OriginalParameterName, columnModification.OriginalValue, typeMapping);
         }
 
-        void AddParameterCore(string name, object value)
+        void AddParameterCore(string name, object value, RelationalTypeMapping mapping)
         {
             RelationalCommandBuilder.AddParameter(
                 name,
                 Dependencies.SqlGenerationHelper.GenerateParameterName(name),
-                columnModification.TypeMapping!,
+                mapping!,
                 columnModification.IsNullable,
                 direction);
 
