@@ -106,9 +106,27 @@ await context.Database.ExecuteSqlRawAsync(
 
 **Check issue status**: Click the link above to see the latest updates from the EF Core team.
 
+## Why Pomelo Can't Implement JSON_SET (Yet)
+
+While MySQL supports `JSON_SET()` for partial JSON updates (similar to PostgreSQL's `jsonb_set()`), Pomelo cannot currently implement this feature because:
+
+1. **EF Core API Limitation**: EF Core 10 does not expose the necessary extension points for providers to intercept and modify partial JSON column updates
+2. **Missing Hooks**: The `AppendUpdateColumnValue` method that providers would need to override is not virtual in the EF Core base class
+3. **Workaround Required**: Until EF Core provides the hooks, providers must rely on the documented workarounds
+
+### What's Needed from EF Core
+
+For Pomelo (and other providers) to implement partial JSON updates using database-native functions:
+- EF Core needs to make `AppendUpdateColumnValue()` virtual or provide similar extension points
+- Providers could then detect JSON column updates with a `JsonPath` and generate `JSON_SET()` SQL instead of full column updates
+
+This would allow providers to work around the type mapping issue at the SQL generation level.
+
 ## Future Plans
 
-Pomelo may implement MySQL's `JSON_SET()` function for partial JSON updates (similar to Npgsql's `jsonb_set()` approach) to work around this EF Core limitation.
+Pomelo has added version checking infrastructure for MySQL `JSON_SET()` support (MySQL 5.7.8+, MariaDB 10.2.3+) but cannot currently implement it because EF Core 10 does not provide the necessary extension points for providers to intercept partial JSON updates. Once EF Core exposes the required hooks (e.g., virtual `AppendUpdateColumnValue` method), Pomelo can implement partial JSON updates similar to Npgsql's `jsonb_set()` approach.
+
+Until then, the documented workarounds remain the recommended approach.
 
 ## Related Issues
 
