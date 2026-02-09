@@ -37,7 +37,7 @@
     <PackageVersion Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="10.0.2" />
     <PackageVersion Include="GitHubActionsTestLogger" Version="3.0.1" />
-    <PackageVersion Include="Xunit.SkippableFact" Version="1.5.23" />
+    <PackageVersion Include="Xunit.SkippableFact" Version="1.5.61" />
     <!-- Keep at the same level that the EF Core projects use. -->
     <PackageVersion Include="xunit.assert" Version="2.9.3" />
     <PackageVersion Include="xunit.core" Version="2.9.3" />
