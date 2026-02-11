@@ -22,7 +22,7 @@
     <!--<PackageVersion Include="Microsoft.Bcl.HashCode" Version="1.1.1" />-->
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.2" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.3" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.2" />
