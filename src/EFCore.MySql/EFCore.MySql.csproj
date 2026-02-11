@@ -95,6 +95,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" VersionOverride="10.0.3" />
     <None Include="docs\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
