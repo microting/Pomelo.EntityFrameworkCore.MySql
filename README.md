@@ -19,8 +19,8 @@ The following versions of MySqlConnector, EF Core, .NET (Core), .NET Standard an
 
 Release | Branch                                                                                           | MySqlConnector     | EF Core | .NET (Core) | .NET Standard | .NET Framework
 --- |--------------------------------------------------------------------------------------------------|--------------------|:-------:|:-----------:| :---: | :---:
+[10.0.8](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.8) | [master](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/main)       | >= 2.5.0           |  1+.0.x  |    10.0+     | - | -
 [9.0.8](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/9.0.8) | [master](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/main)       | >= 2.4.0           |  9.0.x  |    9.0+     | - | -
-**Future** | [net10](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/net10)        | >= 2.4.0           |  10.0.x |    10.0+    | - | -
 [8.0.3](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/8.0.3) | [8.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/8.0-maint) | >= 2.3.5           |  8.0.x  |    8.0+     | - | -
 [7.0.0](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/7.0.0) | [7.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/7.0-maint) | >= 2.2.5           |  7.0.x  |    6.0+     | - | -
 [6.0.3](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/6.0.3) | [6.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/6.0-maint) | >= 2.1.2           |  6.0.x  |    6.0+     | - | -

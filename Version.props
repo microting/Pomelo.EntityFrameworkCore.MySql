@@ -11,8 +11,8 @@
       rules.
     -->
     <VersionPrefix>10.0.3</VersionPrefix>
-    <PreReleaseVersionLabel>rc</PreReleaseVersionLabel>
-    <PreReleaseVersionIteration>1</PreReleaseVersionIteration>
+    <PreReleaseVersionLabel></PreReleaseVersionLabel>
+    <PreReleaseVersionIteration></PreReleaseVersionIteration>
 
     <!--
       A string like `.efcore.9.0.0` or `.efcore.9.0.0.preview.1` can be added to the version suffix, to indicate that this release targets
