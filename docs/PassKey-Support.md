@@ -116,6 +116,39 @@ var userPasskeys = await context.Set<IdentityUserPasskey<string>>()
 - ✅ MariaDB 11.6.2
 - ✅ MySQL 8.0+
 
+## Known Issues
+
+### ⚠️ Updating JSON Owned Entities (EF Core 10 Bug)
+
+> **Upstream Issue**: [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411) - Track this for EF Core fix status
+
+When updating properties within a JSON-mapped owned entity (like renaming a passkey), you may encounter:
+
+```
+MySqlException: Invalid JSON text: "Invalid value." at position 0 in value for column 'AspNetUserPasskeys.Data'.
+```
+
+**This is an EF Core 10 bug** that affects multiple database providers (not just Pomelo).
+
+**Workaround**: Use `AsNoTracking()` + `Update()` pattern:
+
+```csharp
+// ❌ This fails with EF Core 10:
+var passkey = await context.UserPasskeys.FirstAsync(p => p.CredentialId == id);
+passkey.Data.Name = "New Name";
+await context.SaveChangesAsync();  // Error!
+
+// ✅ Use this workaround instead:
+var passkey = await context.UserPasskeys
+    .AsNoTracking()  // Query without tracking
+    .FirstAsync(p => p.CredentialId == id);
+passkey.Data.Name = "New Name";
+context.UserPasskeys.Update(passkey);  // Update detached entity
+await context.SaveChangesAsync();  // Works!
+```
+
+For more details and alternative workarounds, see: [JSON Owned Entity Updates](known-issues/json-owned-entity-updates.md)
+
 ## Complete Sample
 
 See `samples/PassKeyTest` for a complete, runnable example that demonstrates:

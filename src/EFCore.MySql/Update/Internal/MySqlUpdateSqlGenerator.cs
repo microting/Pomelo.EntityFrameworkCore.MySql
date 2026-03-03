@@ -307,6 +307,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
                 .Append("ROW_COUNT() = ")
                 .Append(expectedRowsAffected.ToString(CultureInfo.InvariantCulture));
 
+        // TODO: Implement JSON_SET for partial JSON updates when EF Core provides the necessary hooks
+        // Currently EF Core 10 does not expose AppendUpdateColumnValue as a virtual method we can override
+        // See: https://github.com/dotnet/efcore/issues/37411
+        // For now, users must use the AsNoTracking() + Update() workaround documented in docs/known-issues/
+
         public override ResultSetMapping AppendStoredProcedureCall(
             StringBuilder commandStringBuilder,
             IReadOnlyModificationCommand command,
