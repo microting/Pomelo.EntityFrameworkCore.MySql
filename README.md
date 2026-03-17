@@ -1,9 +1,3 @@
-## DISCLAIMER!!!
-This is a fast moving version of [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql) intented to follow .net release cycle closely!
-There are no intentions for this package to implement new features. Feature requests needs to be directed at the originating [Github repository](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)
-
-
-
 # Microting.EntityFrameworkCore.MySql
 
 [![Build status](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/actions/workflows/build.yml)
@@ -19,6 +13,7 @@ The following versions of MySqlConnector, EF Core, .NET (Core), .NET Standard an
 
 Release | Branch                                                                                           | MySqlConnector     | EF Core | .NET (Core) | .NET Standard | .NET Framework
 --- |--------------------------------------------------------------------------------------------------|--------------------|:-------:|:-----------:| :---: | :---:
+[10.0.5](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.5) | [master](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
 [10.0.3](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.3) | [master](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
 [9.0.8](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/9.0.8) | [master](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/master)       | >= 2.4.0           |  9.0.x  |    9.0+     | - | -
 [8.0.3](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/8.0.3) | [8.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/8.0-maint) | >= 2.3.5           |  8.0.x  |    8.0+     | - | -
@@ -118,7 +113,7 @@ All `.pdb` files use Source Link.
 Ensure that your `.csproj` file contains the following reference:
 
 ```xml
-<PackageReference Include="Microting.EntityFrameworkCore.MySql" Version="9.0.0" />
+<PackageReference Include="Microting.EntityFrameworkCore.MySql" Version="10.0.5" />
 ```
 
 ### 2. Services Configuration
