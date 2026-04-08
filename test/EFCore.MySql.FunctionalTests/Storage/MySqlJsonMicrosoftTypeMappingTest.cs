@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Design.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Pomelo.EntityFrameworkCore.MySql.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Json.Microsoft.Storage.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
+using Microting.EntityFrameworkCore.MySql.Internal;
+using Microting.EntityFrameworkCore.MySql.Json.Microsoft.Storage.Internal;
+using Microting.EntityFrameworkCore.MySql.Storage.Internal;
 using Xunit;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Storage
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Storage
 {
     // Disabled via internal access. JSON functionality is not currently supported.
     internal class MySqlJsonMicrosoftTypeMappingTest

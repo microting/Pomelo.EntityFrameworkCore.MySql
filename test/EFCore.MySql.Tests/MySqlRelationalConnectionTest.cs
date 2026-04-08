@@ -15,15 +15,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using MySqlConnector;
-using Pomelo.EntityFrameworkCore.MySql.Diagnostics.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Tests;
-using Pomelo.EntityFrameworkCore.MySql.TestUtilities.FakeProvider;
+using Microting.EntityFrameworkCore.MySql.Diagnostics.Internal;
+using Microting.EntityFrameworkCore.MySql.Infrastructure.Internal;
+using Microting.EntityFrameworkCore.MySql.Internal;
+using Microting.EntityFrameworkCore.MySql.Storage.Internal;
+using Microting.EntityFrameworkCore.MySql.Tests;
+using Microting.EntityFrameworkCore.MySql.TestUtilities.FakeProvider;
 using Xunit;
 
-namespace Pomelo.EntityFrameworkCore.MySql;
+namespace Microting.EntityFrameworkCore.MySql;
 
 public class MySqlRelationalConnectionTest
 {
@@ -95,7 +95,7 @@ public class MySqlRelationalConnectionTest
         var context = scope.ServiceProvider.GetRequiredService<FakeDbContext>();
 
         Assert.Equal(
-            "The connection string of a connection used by Pomelo.EntityFrameworkCore.MySql must contain \"AllowUserVariables=True;UseAffectedRows=False\".",
+            "The connection string of a connection used by Microting.EntityFrameworkCore.MySql must contain \"AllowUserVariables=True;UseAffectedRows=False\".",
             Assert.Throws<InvalidOperationException>(
                     () => (MySqlRelationalConnection)context.GetService<IRelationalConnection>()!)
                 .Message);
@@ -150,7 +150,7 @@ public class MySqlRelationalConnectionTest
         var context = scope.ServiceProvider.GetRequiredService<FakeDbContext>();
 
         Assert.Equal(
-            "The connection string of a connection used by Pomelo.EntityFrameworkCore.MySql must contain \"AllowUserVariables=True;UseAffectedRows=False\".",
+            "The connection string of a connection used by Microting.EntityFrameworkCore.MySql must contain \"AllowUserVariables=True;UseAffectedRows=False\".",
             Assert.Throws<InvalidOperationException>(
                     () => (MySqlRelationalConnection)context.GetService<IRelationalConnection>()!)
                 .Message);

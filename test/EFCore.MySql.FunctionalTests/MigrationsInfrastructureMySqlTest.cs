@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
-using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
+using Microting.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
+using Microting.EntityFrameworkCore.MySql.Infrastructure;
+using Microting.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 
 #nullable enable
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests
 {
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.RenameColumn))]
     public class MigrationsInfrastructureMySqlTest : MigrationsInfrastructureTestBase<MigrationsInfrastructureMySqlTest.MigrationsInfrastructureMySqlFixture>
@@ -505,7 +505,7 @@ DROP PROCEDURE MigrationsScript;
         {
             base.Can_get_active_provider();
 
-            Assert.Equal("Pomelo.EntityFrameworkCore.MySql", ActiveProvider);
+            Assert.Equal("Microting.EntityFrameworkCore.MySql", ActiveProvider);
         }
 
         [ConditionalFact(Skip = "TODO: Implement")]

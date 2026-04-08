@@ -18,7 +18,7 @@ using Microsoft.EntityFrameworkCore.Query.Translations.Temporal;
 using Microsoft.EntityFrameworkCore.Types;
 using Microsoft.EntityFrameworkCore.Update;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests
 {
     public class MySqlComplianceTest : RelationalComplianceTestBase
     {

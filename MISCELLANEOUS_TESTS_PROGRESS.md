@@ -89,7 +89,7 @@ Two options for completing the remaining 753 tests:
 Use the provided `fix_remaining_tests.py` tool:
 
 ```bash
-cd /home/runner/work/Pomelo.EntityFrameworkCore.MySql/Pomelo.EntityFrameworkCore.MySql
+cd /home/runner/work/Microting.EntityFrameworkCore.MySql/Microting.EntityFrameworkCore.MySql
 
 # Process in batches of 10
 python3 fix_remaining_tests.py --start-index 0 --batch-size 10

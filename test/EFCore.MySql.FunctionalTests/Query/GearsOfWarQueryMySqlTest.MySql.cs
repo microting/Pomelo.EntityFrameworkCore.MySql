@@ -11,7 +11,7 @@ using Xunit;
 // ReSharper disable RedundantBoolCompare
 // ReSharper disable NegativeEqualityExpression
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     public partial class GearsOfWarQueryMySqlTest
     {

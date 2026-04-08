@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Benchmarks;
+namespace Microting.EntityFrameworkCore.MySql.Benchmarks;
 
 /// <summary>
 /// Benchmarks for update operations

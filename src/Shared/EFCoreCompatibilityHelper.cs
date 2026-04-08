@@ -1,4 +1,4 @@
-// Copyright (c) Pomelo Foundation. All rights reserved.
+// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal
+namespace Microting.EntityFrameworkCore.MySql.Infrastructure.Internal
 {
     /// <summary>
     /// Helper class to provide version-agnostic patterns for EF Core compatibility.

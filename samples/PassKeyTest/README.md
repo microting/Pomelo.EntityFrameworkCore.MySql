@@ -1,8 +1,8 @@
-# PassKey Support Test for Pomelo.EntityFrameworkCore.MySql
+# PassKey Support Test for Microting.EntityFrameworkCore.MySql
 
 ## Overview
 
-This sample project tests the support for .NET 10 ASP.NET Core Identity PassKeys with Pomelo.EntityFrameworkCore.MySql.
+This sample project tests the support for .NET 10 ASP.NET Core Identity PassKeys with Microting.EntityFrameworkCore.MySql.
 
 ## Background
 
@@ -26,7 +26,7 @@ The `IdentityPasskeyData` class contains properties with non-primitive types, sp
 ### Example Output:
 
 ```
-=== Testing PassKey Support with Pomelo EF Core MySQL ===
+=== Testing PassKey Support with Microting EF Core MySQL ===
 
 1. Testing database connection...
    ✓ Deleted existing database (if any)
@@ -61,13 +61,13 @@ The `IdentityPasskeyData` class contains properties with non-primitive types, sp
 
 ## Conclusion
 
-**Pomelo.EntityFrameworkCore.MySql successfully supports .NET 10 Identity PassKeys!**
+**Microting.EntityFrameworkCore.MySql successfully supports .NET 10 Identity PassKeys!**
 
 The `ToJson()` method correctly handles complex types including `string[]` arrays. The implementation uses `MySqlStructuralJsonTypeMapping` which properly converts between MySQL's JSON storage (as longtext) and EF Core's `MemoryStream` representation.
 
-## How to Use PassKeys with Pomelo
+## How to Use PassKeys with Microting
 
-To use PassKeys with Pomelo.EntityFrameworkCore.MySql:
+To use PassKeys with Microting.EntityFrameworkCore.MySql:
 
 1. **Configure your DbContext** to inherit from `IdentityDbContext` with the PassKey type:
 
@@ -104,7 +104,7 @@ protected override void OnModelCreating(ModelBuilder builder)
 }
 ```
 
-3. **Use Pomelo as your database provider**:
+3. **Use Microting as your database provider**:
 
 ```csharp
 services.AddDbContext<ApplicationDbContext>(options =>
@@ -130,14 +130,14 @@ services.AddDbContext<ApplicationDbContext>(options =>
 ### JSON Type Mapping
 
 - **Storage**: MariaDB stores JSON as `longtext` with JSON validation constraints
-- **Serialization**: Pomelo uses `MySqlStructuralJsonTypeMapping` to handle JSON columns
+- **Serialization**: Microting uses `MySqlStructuralJsonTypeMapping` to handle JSON columns
 - **Reader/Writer**: The implementation reads strings from the database and converts them to `MemoryStream` for EF Core's JSON handling
 - **Arrays**: Non-primitive types like `string[]` are correctly serialized/deserialized as JSON arrays
 
 ### Tested With
 
 - .NET 10.0.101
-- Pomelo.EntityFrameworkCore.MySql (current version)
+- Microting.EntityFrameworkCore.MySql (current version)
 - Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.1
 - MariaDB 11.6.2
 - MySqlConnector 2.5.0

@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Microsoft.Extensions.DependencyInjection;
-using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
+using Microting.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 using Xunit;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests
 {
     /// <summary>
     /// Based on the MigrationsInfrastructureTestBase implementation.
@@ -50,7 +50,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
                     toMigration: "00000000000002_MigrationPrimaryKeyChange2"));
 
             // TODO: 9.0
-            // Pomelo helper stored procedure statements should be inside the transaction scope.
+            // Microting helper stored procedure statements should be inside the transaction scope.
             Assert.Equal(
 """
 CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (

@@ -17,8 +17,8 @@
     <!--
       A string like `.efcore.9.0.0` or `.efcore.9.0.0.preview.1` can be added to the version suffix, to indicate that this release targets
       a specific EF Core release.
-      This can be useful to distinguish between a release that correlates with a EF Core release (e.g. Pomelo `9.0.0-preview.1` implicitly
-      targets EF Core `9.0.0-preview.1`) and one that doesn't (e.g. Pomelo `9.0.0-preview.2.efcore.9.0.0.preview.1` explicitly targets EF
+      This can be useful to distinguish between a release that correlates with a EF Core release (e.g. Microting `9.0.0-preview.1` implicitly
+      targets EF Core `9.0.0-preview.1`) and one that doesn't (e.g. Microting `9.0.0-preview.2.efcore.9.0.0.preview.1` explicitly targets EF
       Core `9.0.0-preview.1`).
       If no EF Core release is explicitly targeted, release version correlation should be assumed.
     -->

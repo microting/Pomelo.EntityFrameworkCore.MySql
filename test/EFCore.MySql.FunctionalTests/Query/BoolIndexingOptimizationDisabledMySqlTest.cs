@@ -8,14 +8,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestModels.GearsOfWarModel;
 using System.Data.Common;
-using Pomelo.EntityFrameworkCore.MySql.Tests;
+using Microting.EntityFrameworkCore.MySql.Tests;
 using Xunit;
 using Xunit.Abstractions;
 
 // ReSharper disable NegativeEqualityExpression
 // ReSharper disable RedundantBoolCompare
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     public class BoolIndexingOptimizationDisabledMySqlTest : QueryTestBase<BoolIndexingOptimizationDisabledMySqlTest.BoolIndexingOptimizationDisabledMySqlFixture>
     {

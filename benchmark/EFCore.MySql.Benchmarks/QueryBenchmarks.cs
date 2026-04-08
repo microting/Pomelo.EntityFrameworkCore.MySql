@@ -3,7 +3,7 @@ using System.Linq;
 using BenchmarkDotNet.Attributes;
 using Microsoft.EntityFrameworkCore;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Benchmarks;
+namespace Microting.EntityFrameworkCore.MySql.Benchmarks;
 
 /// <summary>
 /// Benchmarks for query and retrieval operations

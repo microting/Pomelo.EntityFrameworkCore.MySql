@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Benchmarks;
+namespace Microting.EntityFrameworkCore.MySql.Benchmarks;
 
 /// <summary>
 /// Simple entity for basic CRUD benchmarks
