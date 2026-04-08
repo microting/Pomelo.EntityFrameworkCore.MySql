@@ -3,13 +3,26 @@
 [![Build status](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/actions/workflows/build.yml)
 [![Stable release feed for official builds](https://img.shields.io/nuget/v/Microting.EntityFrameworkCore.MySql.svg?style=flat-square&label=Stable)](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/)
 
-`Pomelo.EntityFrameworkCore.MySql` is the most popular Entity Framework Core provider for MySQL compatible databases. It supports EF Core up to its latest version and uses [MySqlConnector](https://mysqlconnector.net/) for high-performance database server communication.
+`Microting.EntityFrameworkCore.MySql` is the most popular Entity Framework Core provider for MySQL compatible databases. It supports EF Core up to its latest version and uses [MySqlConnector](https://mysqlconnector.net/) for high-performance database server communication.
+
+## ⚠️ Breaking Change: Assembly Name Renamed
+
+As of this release, the **assembly name** has been changed from `Pomelo.EntityFrameworkCore.MySql` to `Microting.EntityFrameworkCore.MySql` to match the NuGet package name.
+
+**What you need to do:**
+
+- Update any references to the provider assembly name from `Pomelo.EntityFrameworkCore.MySql` to `Microting.EntityFrameworkCore.MySql`.
+- If you use **EF Core scaffolding**, update your command:
+  ```
+  dotnet ef dbcontext scaffold "your-connection-string" "Microting.EntityFrameworkCore.MySql"
+  ```
+- The C# namespaces remain unchanged (`Pomelo.EntityFrameworkCore.MySql`), so `using` statements in your code do **not** need to change.
 
 ## Compatibility
 
 ### Dependencies
 
-The following versions of MySqlConnector, EF Core, .NET (Core), .NET Standard and .NET Framework are compatible with published releases of `Pomelo.EntityFrameworkCore.MySql`:
+The following versions of MySqlConnector, EF Core, .NET (Core), .NET Standard and .NET Framework are compatible with published releases of `Microting.EntityFrameworkCore.MySql`:
 
 Release | Branch                                                                                           | MySqlConnector     | EF Core | .NET (Core) | .NET Standard | .NET Framework
 --- |--------------------------------------------------------------------------------------------------|--------------------|:-------:|:-----------:| :---: | :---:
@@ -48,7 +61,7 @@ The codebase is prepared for EF Core 10 upgrade when .NET 10 becomes available, 
 
 ### Supported Database Servers and Versions
 
-`Pomelo.EntityFrameworkCore.MySql` is tested against all actively maintained versions of `MySQL` and `MariaDB`. Older versions (e.g. MySQL 5.7) and other server implementations (e.g. Amazon Aurora) are usually compatible to a high degree as well, but are not tested as part of our CI. You can find a list of the versions, a release was tested against, within its [release](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/releases) notes.
+`Microting.EntityFrameworkCore.MySql` is tested against all actively maintained versions of `MySQL` and `MariaDB`. Older versions (e.g. MySQL 5.7) and other server implementations (e.g. Amazon Aurora) are usually compatible to a high degree as well, but are not tested as part of our CI. You can find a list of the versions, a release was tested against, within its [release](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/releases) notes.
 
 Currently tested versions are:
 
@@ -118,7 +131,7 @@ Ensure that your `.csproj` file contains the following reference:
 
 ### 2. Services Configuration
 
-Add `Pomelo.EntityFrameworkCore.MySql` to the services configuration in your `Startup.cs` file of your ASP.NET Core project:
+Add `Microting.EntityFrameworkCore.MySql` to the services configuration in your `Startup.cs` file of your ASP.NET Core project:
 
 ```c#
 public class Startup
@@ -165,7 +178,7 @@ Refer to Microsoft's [EF Core Documentation](https://docs.microsoft.com/en-us/ef
 Use the [EF Core tools](https://docs.microsoft.com/en-us/ef/core/cli/dotnet) to execute scaffolding commands:
 
 ```
-dotnet ef dbcontext scaffold "Server=localhost;User=root;Password=1234;Database=ef" "Pomelo.EntityFrameworkCore.MySql"
+dotnet ef dbcontext scaffold "Server=localhost;User=root;Password=1234;Database=ef" "Microting.EntityFrameworkCore.MySql"
 ```
 
 ## Contribute

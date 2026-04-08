@@ -370,8 +370,8 @@ public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
     protected override BuildSource AddReferences(BuildSource build, [CallerFilePath] string filePath = "")
     {
         base.AddReferences(build);
-        build.References.Add(BuildReference.ByName("Pomelo.EntityFrameworkCore.MySql"));
-        build.References.Add(BuildReference.ByName("Pomelo.EntityFrameworkCore.MySql.NetTopologySuite"));
+        build.References.Add(BuildReference.ByName("Microting.EntityFrameworkCore.MySql"));
+        build.References.Add(BuildReference.ByName("Microting.EntityFrameworkCore.MySql.NetTopologySuite"));
         build.References.Add(BuildReference.ByName("NetTopologySuite"));
         return build;
     }

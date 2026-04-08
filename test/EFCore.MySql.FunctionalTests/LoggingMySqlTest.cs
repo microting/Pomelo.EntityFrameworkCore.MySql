@@ -27,7 +27,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         protected override TestLogger CreateTestLogger()
             => new TestLogger<MySqlLoggingDefinitions>();
 
-        protected override string ProviderName => "Pomelo.EntityFrameworkCore.MySql";
+        protected override string ProviderName => "Microting.EntityFrameworkCore.MySql";
 
         protected override string ProviderVersion => typeof(MySqlOptionsExtension).Assembly
             .GetCustomAttribute<AssemblyInformationalVersionAttribute>()

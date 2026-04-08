@@ -505,7 +505,7 @@ DROP PROCEDURE MigrationsScript;
         {
             base.Can_get_active_provider();
 
-            Assert.Equal("Pomelo.EntityFrameworkCore.MySql", ActiveProvider);
+            Assert.Equal("Microting.EntityFrameworkCore.MySql", ActiveProvider);
         }
 
         [ConditionalFact(Skip = "TODO: Implement")]

@@ -4,7 +4,7 @@
     <PackageId>Microting.EntityFrameworkCore.MySql</PackageId>
     <Description>Pomelo's MySQL database provider for Entity Framework Core.</Description>
     <TargetFramework>$(PomeloTargetFramework)</TargetFramework>
-    <AssemblyName>Pomelo.EntityFrameworkCore.MySql</AssemblyName>
+    <AssemblyName>Microting.EntityFrameworkCore.MySql</AssemblyName>
     <RootNamespace>Pomelo.EntityFrameworkCore.MySql</RootNamespace>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <NoWarn>$(NoWarn);EF9100</NoWarn> <!-- Precompiled query is experimental -->
