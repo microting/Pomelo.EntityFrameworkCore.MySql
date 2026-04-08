@@ -1,97 +1,38 @@
 # JSON Owned Entity Update Issue in EF Core 10
 
-> **⚠️ IMPORTANT**: This is a known bug in EF Core 10 (not Pomelo-specific)  
-> **Track upstream fix**: [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411)  
-> **Workaround available**: See below for tested solutions
+> **✅ FIXED in Pomelo**: Pomelo now uses `JSON_SET()` for partial JSON updates  
+> **Upstream EF Core issue**: [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411)  
+> **Minimum database version**: MySQL 5.7.8+ or MariaDB 10.2.3+
 
 ## Issue Description
 
-When using `.ToJson()` with owned entities in EF Core 10, updating individual properties within the JSON-mapped entity can fail with:
+EF Core 10 has a bug (see [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411)) where updating individual properties within JSON-mapped owned entities sends only the modified property value instead of the complete JSON object. This causes MySQL to reject it with:
 
 ```
 MySqlException: Invalid JSON text: "Invalid value." at position 0 in value for column 'TableName.ColumnName'.
 ```
 
-This is a known issue in EF Core 10 (see [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411)) that affects multiple database providers including MySQL, SQLite, and others.
+## Pomelo Fix
 
-## Root Cause
+Pomelo now works around this EF Core bug by overriding `AppendUpdateColumnValue()` to generate `JSON_SET()` SQL for partial JSON column updates. This means:
 
-EF Core 10's change tracking incorrectly handles updates to JSON-owned entities:
-- During INSERT: The entire JSON object is correctly serialized and sent to the database
-- During UPDATE: Only the modified property value is sent, with an incorrect type mapping (`MySqlStringTypeMapping` instead of `MySqlStructuralJsonTypeMapping`)
+- ✅ **Direct property updates now work** — no workaround needed
+- ✅ **Requires MySQL 5.7.8+ or MariaDB 10.2.3+** — which support `JSON_SET()`
+- ✅ **Automatic** — Pomelo detects partial JSON updates and applies `JSON_SET()` transparently
 
-This causes MySQL to receive a plain string (e.g., `"New Name"`) instead of a complete JSON object, resulting in the "Invalid JSON text" error.
-
-## Example
-
-```csharp
-public class User
-{
-    public string Id { get; set; }
-    public PasskeyData Data { get; set; }  // Mapped with .ToJson()
-}
-
-public class PasskeyData
-{
-    public string Name { get; set; }
-    public string[] Transports { get; set; }
-    // ... other properties
-}
-
-// This fails:
-var user = await context.Users.FindAsync(id);
-user.Data.Name = "New Name";
-await context.SaveChangesAsync();  // ❌ MySqlException: Invalid JSON text
-```
-
-## Workarounds
-
-Until EF Core fixes this issue, use one of these workarounds:
-
-### Workaround 1: Detach and Re-attach (RECOMMENDED)
-
-Query with `AsNoTracking()`, modify, then use `Update()`:
-
-```csharp
-// Query without tracking
-var user = await context.Users
-    .AsNoTracking()
-    .FirstAsync(u => u.Id == id);
-
-// Modify the property
-user.Data.Name = "New Name";
-
-// Update the detached entity
-context.Users.Update(user);
-await context.SaveChangesAsync();  // ✓ Works
-```
-
-### Workaround 2: Replace the Entire Object
-
-Create a new instance of the owned entity:
+### Example (now works)
 
 ```csharp
 var user = await context.Users.FindAsync(id);
-
-// Create a new instance with updated values
-user.Data = new PasskeyData
-{
-    Name = "New Name",
-    Transports = user.Data.Transports,
-    // ... copy other properties
-};
-
-await context.SaveChangesAsync();  // ✓ Works
+user.Data.Name = "New Name";
+await context.SaveChangesAsync();  // ✅ Works — Pomelo generates JSON_SET()
 ```
 
-### Workaround 3: Direct Database Update
+### Generated SQL
 
-Use a raw SQL command (not recommended as it bypasses EF Core):
-
-```csharp
-await context.Database.ExecuteSqlRawAsync(
-    @"UPDATE Users SET Data = JSON_SET(Data, '$.Name', {0}) WHERE Id = {1}",
-    "New Name", userId);
+```sql
+UPDATE `Users` SET `Data` = JSON_SET(`Data`, '$.Name', @p0)
+WHERE `Id` = @p1;
 ```
 
 ## Status and Tracking
@@ -99,34 +40,37 @@ await context.Database.ExecuteSqlRawAsync(
 | Item | Details |
 |------|---------|
 | **EF Core Bug** | [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411) 🔗 |
-| **Status** | Open - Waiting for EF Core fix |
-| **Affects** | EF Core 10.0+ (all database providers) |
-| **First Reported** | December 2025 |
-| **Workaround** | Available (see above) ✅ |
+| **EF Core Status** | Open — not yet fixed upstream |
+| **Pomelo Status** | ✅ Fixed — using `JSON_SET()` workaround |
+| **Minimum MySQL** | 5.7.8+ |
+| **Minimum MariaDB** | 10.2.3+ |
 
-**Check issue status**: Click the link above to see the latest updates from the EF Core team.
+## Older Database Versions
 
-## Why Pomelo Can't Implement JSON_SET (Yet)
+If your database does not support `JSON_SET()`, you will get an `InvalidOperationException` with a clear message. In that case, use one of these workarounds:
 
-While MySQL supports `JSON_SET()` for partial JSON updates (similar to PostgreSQL's `jsonb_set()`), Pomelo cannot currently implement this feature because:
+### Workaround 1: Detach and Re-attach
 
-1. **EF Core API Limitation**: EF Core 10 does not expose the necessary extension points for providers to intercept and modify partial JSON column updates
-2. **Missing Hooks**: The `AppendUpdateColumnValue` method that providers would need to override is not virtual in the EF Core base class
-3. **Workaround Required**: Until EF Core provides the hooks, providers must rely on the documented workarounds
+```csharp
+var user = await context.Users
+    .AsNoTracking()
+    .FirstAsync(u => u.Id == id);
+user.Data.Name = "New Name";
+context.Users.Update(user);
+await context.SaveChangesAsync();
+```
 
-### What's Needed from EF Core
+### Workaround 2: Replace the Entire Object
 
-For Pomelo (and other providers) to implement partial JSON updates using database-native functions:
-- EF Core needs to make `AppendUpdateColumnValue()` virtual or provide similar extension points
-- Providers could then detect JSON column updates with a `JsonPath` and generate `JSON_SET()` SQL instead of full column updates
-
-This would allow providers to work around the type mapping issue at the SQL generation level.
-
-## Future Plans
-
-Pomelo has added version checking infrastructure for MySQL `JSON_SET()` support (MySQL 5.7.8+, MariaDB 10.2.3+) but cannot currently implement it because EF Core 10 does not provide the necessary extension points for providers to intercept partial JSON updates. Once EF Core exposes the required hooks (e.g., virtual `AppendUpdateColumnValue` method), Pomelo can implement partial JSON updates similar to Npgsql's `jsonb_set()` approach.
-
-Until then, the documented workarounds remain the recommended approach.
+```csharp
+var user = await context.Users.FindAsync(id);
+user.Data = new PasskeyData
+{
+    Name = "New Name",
+    Transports = user.Data.Transports,
+};
+await context.SaveChangesAsync();
+```
 
 ## Related Issues
 
