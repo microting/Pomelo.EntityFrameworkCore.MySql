@@ -61,7 +61,7 @@ The codebase is prepared for EF Core 10 upgrade when .NET 10 becomes available, 
 
 ### Supported Database Servers and Versions
 
-`Microting.EntityFrameworkCore.MySql` is tested against all actively maintained versions of `MySQL` and `MariaDB`. Older versions (e.g. MySQL 5.7) and other server implementations (e.g. Amazon Aurora) are usually compatible to a high degree as well, but are not tested as part of our CI. You can find a list of the versions, a release was tested against, within its [release](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/releases) notes.
+`Microting.EntityFrameworkCore.MySql` is tested against all actively maintained versions of `MySQL` and `MariaDB`. Older versions (e.g. MySQL 5.7) and other server implementations (e.g. Amazon Aurora) are usually compatible to a high degree as well, but are not tested as part of our CI. You can find a list of the versions, a release was tested against, within its [release](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/releases) notes.
 
 Currently tested versions are:
 
