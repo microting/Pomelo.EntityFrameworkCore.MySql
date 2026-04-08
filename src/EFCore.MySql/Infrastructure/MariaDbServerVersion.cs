@@ -66,6 +66,7 @@ namespace Microsoft.EntityFrameworkCore
             public override bool CrossApply => false; // MDEV-19078, MDEV-6373
             public override bool OuterReferenceInMultiLevelSubquery => false;
             public override bool Json => ServerVersion.Version >= new Version(10, 2, 4);
+            public override bool JsonSet => ServerVersion.Version >= new Version(10, 2, 3);
             public override bool GeneratedColumns => ServerVersion.Version >= new Version(10, 2, 0);
             public override bool NullableGeneratedColumns => false;
             public override bool ParenthesisEnclosedGeneratedColumnExpressions => false;
