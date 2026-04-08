@@ -13,8 +13,8 @@ using Microsoft.EntityFrameworkCore.Scaffolding;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NetTopologySuite.Geometries;
 using Microting.EntityFrameworkCore.MySql.Storage.Internal;
+using NetTopologySuite.Geometries;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
