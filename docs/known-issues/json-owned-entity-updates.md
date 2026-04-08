@@ -6,7 +6,7 @@
 
 ## Issue Description
 
-EF Core 10 has a bug (see [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411)) where updating individual properties within JSON-mapped owned entities sends only the modified property value instead of the complete JSON object. This causes MySQL to reject it with:
+EF Core 10 has a bug (see [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411)) where updating individual properties within JSON-mapped owned entities sends only the modified property value instead of the complete JSON object. Without Pomelo's fix, this would cause MySQL to reject the value with:
 
 ```
 MySqlException: Invalid JSON text: "Invalid value." at position 0 in value for column 'TableName.ColumnName'.

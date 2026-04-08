@@ -336,12 +336,20 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
 
                 // When the value is null, EF Core doesn't produce a parameter placeholder for it.
                 // We need to use reflection to set the value to the JSON literal "null" so the base method
-                // generates the parameter correctly.
+                // generates the parameter correctly (same approach as Npgsql).
                 if (columnModification.Value is null)
                 {
                     _columnModificationValueField ??= typeof(ColumnModification).GetField(
                         "_value", BindingFlags.Instance | BindingFlags.NonPublic);
-                    _columnModificationValueField?.SetValue(columnModification, "null");
+
+                    if (_columnModificationValueField is null)
+                    {
+                        throw new InvalidOperationException(
+                            "Could not find the internal '_value' field on EF Core's ColumnModification type. " +
+                            "This is likely due to an incompatible EF Core version. Please report this issue.");
+                    }
+
+                    _columnModificationValueField.SetValue(columnModification, "null");
                 }
 
                 base.AppendUpdateColumnValue(updateSqlGeneratorHelper, columnModification, stringBuilder, name, schema);
