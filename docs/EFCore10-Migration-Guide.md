@@ -1,6 +1,6 @@
-# EF Core 10 Migration Guide for Pomelo MySQL Provider
+# EF Core 10 Migration Guide for Microting MySQL Provider
 
-This document outlines the breaking changes and migration path for upgrading to EF Core 10 with the Pomelo MySQL provider.
+This document outlines the breaking changes and migration path for upgrading to EF Core 10 with the Microting MySQL provider.
 
 ## Key Breaking Changes in EF Core 10
 
@@ -157,7 +157,7 @@ public async Task ExecuteUpdate_UpdatesSingleProperty()
 
 - [EF Core 10 Breaking Changes](https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-10.0/breaking-changes)
 - [EF Core Migration Guide](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/)
-- [Pomelo MySQL Provider Documentation](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)
+- [Microting MySQL Provider Documentation](https://github.com/microting/Microting.EntityFrameworkCore.MySql)
 
 ## Next Steps
 

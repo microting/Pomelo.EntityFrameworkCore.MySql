@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using Pomelo.EntityFrameworkCore.MySql.IntegrationTests.Commands;
+using Microting.EntityFrameworkCore.MySql.IntegrationTests.Commands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Pomelo.EntityFrameworkCore.MySql.Tests;
+using Microting.EntityFrameworkCore.MySql.Tests;
 
-namespace Pomelo.EntityFrameworkCore.MySql.IntegrationTests
+namespace Microting.EntityFrameworkCore.MySql.IntegrationTests
 {
     public class Program
     {

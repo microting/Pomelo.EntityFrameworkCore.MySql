@@ -93,7 +93,7 @@ This document tracks the progress of updating all 86 EF Core 10 compiled model b
 2. **SetSetter/SetMaterializationSetter**: Add return type and block expression with `return instance;`
 3. **SetAccessors**: 5 lambdas → 4 lambdas, change `InternalEntityEntry` to `IInternalEntry`
 4. **Type Mappings**: Replace Sqlite types with MySQL equivalents
-5. **Imports**: Update to use Pomelo MySQL namespaces
+5. **Imports**: Update to use Microting MySQL namespaces
 
 ### MySQL Type Mapping Conversions
 - `SqliteTypeMapping` → `MySqlTypeMapping`
@@ -106,8 +106,8 @@ This document tracks the progress of updating all 86 EF Core 10 compiled model b
 - `SqliteValueGenerationStrategy` → `MySqlValueGenerationStrategy`
 
 ### Import Updates
-- `using Microsoft.EntityFrameworkCore.Sqlite` → `using Pomelo.EntityFrameworkCore.MySql`
-- Add: `using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;`
+- `using Microsoft.EntityFrameworkCore.Sqlite` → `using Microting.EntityFrameworkCore.MySql`
+- Add: `using Microting.EntityFrameworkCore.MySql.Storage.Internal;`
 
 ## Next Steps
 1. ~~Update ComplexTypes directory (2 files)~~ ✅ Complete

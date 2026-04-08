@@ -1,4 +1,4 @@
-﻿// Copyright (c) Pomelo Foundation. All rights reserved.
+﻿// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Internal;
+using Microting.EntityFrameworkCore.MySql.Infrastructure.Internal;
+using Microting.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Internal;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
+namespace Microting.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
 {
     public class MySqlCompatibilityExpressionVisitor : ExpressionVisitor
     {
-        private const string Issue1792SkipFlagName = "Pomelo.EntityFrameworkCore.MySql.Issue1792.Skip";
+        private const string Issue1792SkipFlagName = "Microting.EntityFrameworkCore.MySql.Issue1792.Skip";
 
         private static readonly bool _mySql8EngineCrashWhenUsingJsonTableSkip
             = AppContext.TryGetSwitch(Issue1792SkipFlagName, out var enabled) && enabled;

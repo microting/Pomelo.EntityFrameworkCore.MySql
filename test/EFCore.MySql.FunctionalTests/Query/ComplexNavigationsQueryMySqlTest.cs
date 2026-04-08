@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
+using Microting.EntityFrameworkCore.MySql.Infrastructure;
+using Microting.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     public class ComplexNavigationsQueryMySqlTest : ComplexNavigationsQueryRelationalTestBase<ComplexNavigationsQueryMySqlFixture>
     {
@@ -57,7 +57,7 @@ LIMIT @p
             await AssertTranslationFailedWithDetails(
                 () => base.GroupJoin_client_method_in_OrderBy(async),
                 CoreStrings.QueryUnableToTranslateMethod(
-                    "Microsoft.EntityFrameworkCore.Query.ComplexNavigationsQueryTestBase<Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query.ComplexNavigationsQueryMySqlFixture>",
+                    "Microsoft.EntityFrameworkCore.Query.ComplexNavigationsQueryTestBase<Microting.EntityFrameworkCore.MySql.FunctionalTests.Query.ComplexNavigationsQueryMySqlFixture>",
                     "ClientMethodNullableInt"));
 
             AssertSql();

@@ -35,8 +35,8 @@ sudo usermod -aG docker $USER
 
 ```bash
 # Clone the repository
-git clone https://github.com/microting/Pomelo.EntityFrameworkCore.MySql.git
-cd Pomelo.EntityFrameworkCore.MySql
+git clone https://github.com/microting/Microting.EntityFrameworkCore.MySql.git
+cd Microting.EntityFrameworkCore.MySql
 
 # Switch to the feature branch
 git checkout copilot/update-baseline-files-ef-core-10
@@ -117,8 +117,8 @@ cd efcore
 ### 2. Copy SQLite Baselines as Reference
 
 ```bash
-# Navigate back to Pomelo repo
-cd ~/Pomelo.EntityFrameworkCore.MySql
+# Navigate back to repo
+cd ~/Microting.EntityFrameworkCore.MySql
 
 # Create a script to copy and adapt baselines
 cat > /tmp/copy_baselines.sh << 'EOFSCRIPT'
@@ -160,7 +160,7 @@ for dir in "${DIRS[@]}"; do
                 cp "$file" "$dest"
                 
                 # Replace Sqlite-specific imports and types
-                sed -i 's/using Microsoft.EntityFrameworkCore.Sqlite/using Pomelo.EntityFrameworkCore.MySql/g' "$dest"
+                sed -i 's/using Microsoft.EntityFrameworkCore.Sqlite/using Microting.EntityFrameworkCore.MySql/g' "$dest"
                 sed -i 's/SqliteTypeMapping/MySqlTypeMapping/g' "$dest"
                 sed -i 's/SqliteStringTypeMapping/MySqlStringTypeMapping/g' "$dest"
                 sed -i 's/SqliteIntTypeMapping/MySqlIntTypeMapping/g' "$dest"
@@ -169,11 +169,11 @@ for dir in "${DIRS[@]}"; do
                 sed -i 's/SqliteByteArrayTypeMapping/MySqlByteArrayTypeMapping/g' "$dest"
                 sed -i 's/SqliteGuidTypeMapping/MySqlGuidTypeMapping/g' "$dest"
                 sed -i 's/SqliteValueGenerationStrategy/MySqlValueGenerationStrategy/g' "$dest"
-                sed -i 's/Microsoft.EntityFrameworkCore.Sqlite.Storage.Internal/Pomelo.EntityFrameworkCore.MySql.Storage.Internal/g' "$dest"
+                sed -i 's/Microsoft.EntityFrameworkCore.Sqlite.Storage.Internal/Microting.EntityFrameworkCore.MySql.Storage.Internal/g' "$dest"
                 
                 # Add MySQL-specific import if needed
-                if grep -q "MySqlTypeMapping" "$dest" && ! grep -q "using Pomelo.EntityFrameworkCore.MySql.Storage.Internal" "$dest"; then
-                    sed -i '/using Microsoft.EntityFrameworkCore.Storage;/a using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;' "$dest"
+                if grep -q "MySqlTypeMapping" "$dest" && ! grep -q "using Microting.EntityFrameworkCore.MySql.Storage.Internal" "$dest"; then
+                    sed -i '/using Microsoft.EntityFrameworkCore.Storage;/a using Microting.EntityFrameworkCore.MySql.Storage.Internal;' "$dest"
                 fi
                 
                 echo "  ✓ Updated $basename"
@@ -237,7 +237,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Scaffolding
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Scaffolding
 {
     public static class BaselineCaptureHelper
     {
@@ -354,7 +354,7 @@ if __name__ == "__main__":
 EOFPYTHON
 
 chmod +x /tmp/update_remaining_baselines.py
-cd ~/Pomelo.EntityFrameworkCore.MySql
+cd ~/Microting.EntityFrameworkCore.MySql
 python3 /tmp/update_remaining_baselines.py
 ```
 
@@ -497,4 +497,4 @@ rm -f /tmp/copy_baselines.sh /tmp/update_remaining_baselines.py /tmp/nuget.confi
 
 - [EF Core 10 Release Notes](https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-10.0/whatsnew)
 - [EF Core Breaking Changes](https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-10.0/breaking-changes)
-- [Pomelo MySQL Provider Documentation](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)
+- [Microting MySQL Provider Documentation](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql)

@@ -7,7 +7,7 @@
 January 7, 2026
 
 ## Result
-✅ **Pomelo.EntityFrameworkCore.MySql FULLY SUPPORTS PassKeys!**
+✅ **Microting.EntityFrameworkCore.MySql FULLY SUPPORTS PassKeys!**
 
 ## What Was Tested
 
@@ -20,7 +20,7 @@ Created a complete sample application at `samples/PassKeyTest` that:
 
 ### Test Environment
 - .NET 10.0.101
-- Pomelo.EntityFrameworkCore.MySql (current master branch)
+- Microting.EntityFrameworkCore.MySql (current master branch)
 - MySqlConnector 2.5.0
 - Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.1
 - MariaDB 11.6.2
@@ -37,7 +37,7 @@ All tests passed:
 ## Technical Details
 
 ### How It Works
-Pomelo uses `MySqlStructuralJsonTypeMapping` (located in `src/EFCore.MySql/Storage/Internal/MySqlStructuralJsonTypeMapping.cs`) to handle JSON columns created by `.ToJson()`:
+Microting uses `MySqlStructuralJsonTypeMapping` (located in `src/EFCore.MySql/Storage/Internal/MySqlStructuralJsonTypeMapping.cs`) to handle JSON columns created by `.ToJson()`:
 
 1. **Type Mapping**: Implements `JsonTypeMapping` base class from EF Core
 2. **Data Reader**: Uses `DbDataReader.GetString()` to read JSON as string from database
@@ -59,15 +59,15 @@ The critical `string[] Transports` property in `IdentityPasskeyData` is correctl
 
 ## Conclusion
 
-**The issue reported in dotnet/aspnetcore#64939 does NOT affect Pomelo.EntityFrameworkCore.MySql.**
+**The issue reported in dotnet/aspnetcore#64939 does NOT affect Microting.EntityFrameworkCore.MySql.**
 
-Pomelo's implementation of `.ToJson()` is complete and robust, handling all required scenarios including:
+Microting's implementation of `.ToJson()` is complete and robust, handling all required scenarios including:
 - Non-primitive types (`string[]`, `byte[]`)
 - Complex nested objects
 - Nullable properties
 - All data types used in `IdentityPasskeyData`
 
-No code changes were needed to the Pomelo implementation. The existing code fully supports PassKeys.
+No code changes were needed to the Microting implementation. The existing code fully supports PassKeys.
 
 ## Documentation Added
 
@@ -90,7 +90,7 @@ No code changes were needed to the Pomelo implementation. The existing code full
 
 ## Recommendation
 
-Users can confidently use Pomelo.EntityFrameworkCore.MySql with ASP.NET Core Identity PassKeys in .NET 10. The provider fully supports all required functionality out of the box.
+Users can confidently use Microting.EntityFrameworkCore.MySql with ASP.NET Core Identity PassKeys in .NET 10. The provider fully supports all required functionality out of the box.
 
 ## Files Modified/Added
 
@@ -102,4 +102,4 @@ Users can confidently use Pomelo.EntityFrameworkCore.MySql with ASP.NET Core Ide
 
 ## No Breaking Changes
 
-This investigation confirmed existing functionality works correctly. No changes to the Pomelo provider implementation were needed or made.
+This investigation confirmed existing functionality works correctly. No changes to the Microting provider implementation were needed or made.

@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>JSON support using System.Text.Json for Pomelo's MySQL provider for Entity Framework Core.</Description>
-    <TargetFramework>$(PomeloTargetFramework)</TargetFramework>
+    <Description>JSON support using System.Text.Json for Microting's MySQL provider for Entity Framework Core.</Description>
+    <TargetFramework>$(MicrotingTargetFramework)</TargetFramework>
     <PackageId>Microting.EntityFrameworkCore.MySql.Json.Microsoft</PackageId>
     <AssemblyName>Microting.EntityFrameworkCore.MySql.Json.Microsoft</AssemblyName>
-    <RootNamespace>Pomelo.EntityFrameworkCore.MySql.Json.Microsoft</RootNamespace>
+    <RootNamespace>Microting.EntityFrameworkCore.MySql.Json.Microsoft</RootNamespace>
     <IsPackable>true</IsPackable>
     <PackageTags>$(PackageTags);json;system.text.json;microsoft</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>

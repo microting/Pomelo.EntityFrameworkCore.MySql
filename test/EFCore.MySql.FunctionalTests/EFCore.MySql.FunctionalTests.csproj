@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>$(PomeloTestTargetFramework)</TargetFramework>
-    <AssemblyName>Pomelo.EntityFrameworkCore.MySql.FunctionalTests</AssemblyName>
-    <RootNamespace>Pomelo.EntityFrameworkCore.MySql.FunctionalTests</RootNamespace>
+    <TargetFramework>$(MicrotingTestTargetFramework)</TargetFramework>
+    <AssemblyName>Microting.EntityFrameworkCore.MySql.FunctionalTests</AssemblyName>
+    <RootNamespace>Microting.EntityFrameworkCore.MySql.FunctionalTests</RootNamespace>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <DefaultItemExcludes>$(DefaultItemExcludes);*.trx</DefaultItemExcludes>
     <NoWarn>$(NoWarn);NU1903</NoWarn>

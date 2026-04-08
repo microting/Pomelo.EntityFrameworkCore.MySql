@@ -2,14 +2,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Associations.ComplexJson;
 using Microsoft.EntityFrameworkCore.TestUtilities;
-using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
+using Microting.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
+using Microting.EntityFrameworkCore.MySql.Infrastructure;
+using Microting.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query.Associations.ComplexJson;
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Query.Associations.ComplexJson;
 
 // Re-enabled to test JSON functionality for complex types
 //
@@ -21,7 +21,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query.Associations.Co
 // Until proper JSON-null-vs-database-NULL handling is implemented for MariaDB's LONGTEXT-based JSON storage,
 // all structural equality tests in this class will fail on MariaDB with JsonDataTypeEmulation enabled.
 //
-// See: https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/issues/151
+// See: https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/issues/151
 [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.JsonDataTypeEmulation))]
 public class ComplexJsonStructuralEqualityMySqlTest : ComplexJsonStructuralEqualityRelationalTestBase<ComplexJsonStructuralEqualityMySqlTest.ComplexJsonStructuralEqualityMySqlFixture>
 {

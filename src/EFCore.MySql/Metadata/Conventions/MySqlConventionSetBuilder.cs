@@ -1,11 +1,11 @@
-﻿// Copyright (c) Pomelo Foundation. All rights reserved.
+﻿// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
-using Pomelo.EntityFrameworkCore.MySql.Metadata.Conventions;
-using Pomelo.EntityFrameworkCore.MySql.Storage;
+using Microting.EntityFrameworkCore.MySql.Metadata.Conventions;
+using Microting.EntityFrameworkCore.MySql.Storage;
 
 namespace Microsoft.EntityFrameworkCore.Metadata.Conventions
 {

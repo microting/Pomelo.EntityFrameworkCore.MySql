@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <PackageId>Microting.EntityFrameworkCore.MySql</PackageId>
-    <Description>Pomelo's MySQL database provider for Entity Framework Core.</Description>
-    <TargetFramework>$(PomeloTargetFramework)</TargetFramework>
+    <Description>Microting's MySQL database provider for Entity Framework Core.</Description>
+    <TargetFramework>$(MicrotingTargetFramework)</TargetFramework>
     <AssemblyName>Microting.EntityFrameworkCore.MySql</AssemblyName>
-    <RootNamespace>Pomelo.EntityFrameworkCore.MySql</RootNamespace>
+    <RootNamespace>Microting.EntityFrameworkCore.MySql</RootNamespace>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <NoWarn>$(NoWarn);EF9100</NoWarn> <!-- Precompiled query is experimental -->
     <NoWarn>$(NoWarn);CS1591</NoWarn> <!-- TODO: Missing XML comment for publicly visible type or member 'Type_or_Member' -->
@@ -90,7 +90,7 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Properties\MySqlStrings.resx">
-      <CustomToolNamespace>Pomelo.EntityFrameworkCore.MySql.Internal</CustomToolNamespace>
+      <CustomToolNamespace>Microting.EntityFrameworkCore.MySql.Internal</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 

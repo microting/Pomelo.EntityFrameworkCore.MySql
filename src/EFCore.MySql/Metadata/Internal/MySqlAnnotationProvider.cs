@@ -1,4 +1,4 @@
-// Copyright (c) Pomelo Foundation. All rights reserved.
+// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -9,10 +9,10 @@ using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
+using Microting.EntityFrameworkCore.MySql.Infrastructure.Internal;
+using Microting.EntityFrameworkCore.MySql.Storage.Internal;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Internal
+namespace Microting.EntityFrameworkCore.MySql.Metadata.Internal
 {
     public class MySqlAnnotationProvider : RelationalAnnotationProvider
     {
@@ -239,7 +239,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Metadata.Internal
         protected virtual string GetActualModelCharSet(IModel model, DelegationModes currentLevel)
         {
             // If neither character set nor collation has been explicitly defined for the model, and no delegation has been setup, we use
-            // Pomelo's universal fallback default character set (which is `utf8mb4`) and apply it to all database objects.
+            // Microting's universal fallback default character set (which is `utf8mb4`) and apply it to all database objects.
             return model.GetCharSet() is null &&
                    model.GetCharSetDelegation() is null &&
                    model.GetCollation() is null &&

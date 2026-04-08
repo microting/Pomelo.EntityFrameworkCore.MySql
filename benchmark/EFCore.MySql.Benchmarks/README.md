@@ -1,6 +1,6 @@
-# Pomelo.EntityFrameworkCore.MySql Benchmarks
+# Microting.EntityFrameworkCore.MySql Benchmarks
 
-This project contains performance benchmarks for the Pomelo Entity Framework Core MySQL provider using [BenchmarkDotNet](https://benchmarkdotnet.org/).
+This project contains performance benchmarks for the Microting Entity Framework Core MySQL provider using [BenchmarkDotNet](https://benchmarkdotnet.org/).
 
 ## Purpose
 
