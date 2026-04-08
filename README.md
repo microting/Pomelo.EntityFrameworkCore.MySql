@@ -7,12 +7,12 @@
 
 ## ⚠️ Breaking Change: Fully Renamed from Pomelo to Microting
 
-As of this release, the **assembly name** and **C# namespaces** have been changed from `Microting.EntityFrameworkCore.MySql` to `Microting.EntityFrameworkCore.MySql`.
+As of this release, the **assembly name** and **C# namespaces** have been changed from `Pomelo.EntityFrameworkCore.MySql` to `Microting.EntityFrameworkCore.MySql`.
 
 **What you need to do:**
 
-- Update any references to the provider assembly name from `Microting.EntityFrameworkCore.MySql` to `Microting.EntityFrameworkCore.MySql`.
-- Update all `using` statements from `Microting.EntityFrameworkCore.MySql` to `Microting.EntityFrameworkCore.MySql`.
+- Update any references to the provider assembly name from `Pomelo.EntityFrameworkCore.MySql` to `Microting.EntityFrameworkCore.MySql`.
+- Update all `using` statements from `Pomelo.EntityFrameworkCore.MySql` to `Microting.EntityFrameworkCore.MySql`.
 - If you use **EF Core scaffolding**, update your command:
   ```
   dotnet ef dbcontext scaffold "your-connection-string" "Microting.EntityFrameworkCore.MySql"
