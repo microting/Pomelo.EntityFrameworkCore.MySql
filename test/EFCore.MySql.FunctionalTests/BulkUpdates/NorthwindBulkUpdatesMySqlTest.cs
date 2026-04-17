@@ -78,19 +78,14 @@ WHERE FALSE
     {
         if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
         {
-            // Not supported by MySQL and older MariaDB versions:
-            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
-            await Assert.ThrowsAsync<MySqlException>(
-                () => base.Delete_Where_OrderBy(async));
+            await base.Delete_Where_OrderBy(async);
 
             AssertSql(
 """
-DELETE `o`
-FROM `Order Details` AS `o`
-WHERE EXISTS (
-    SELECT 1
-    FROM `Order Details` AS `o0`
-    WHERE (`o0`.`OrderID` < 10300) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
+DELETE
+FROM `Order Details`
+WHERE `OrderID` < 10300
+ORDER BY `OrderID`
 """);
         }
         else
@@ -137,27 +132,17 @@ WHERE EXISTS (
 
     public override async Task Delete_Where_OrderBy_Take(bool async)
     {
-        // This query uses a derived table pattern which works on both MySQL and MariaDB.
-        // The derived table (AS `o1`) materializes the result, avoiding the MySQL error 1093
-        // "You can't specify target table for update in FROM clause"
         await base.Delete_Where_OrderBy_Take(async);
 
         AssertSql(
 """
 @p='100'
 
-DELETE `o`
-FROM `Order Details` AS `o`
-WHERE EXISTS (
-    SELECT 1
-    FROM (
-        SELECT `o0`.`OrderID`, `o0`.`ProductID`
-        FROM `Order Details` AS `o0`
-        WHERE `o0`.`OrderID` < 10300
-        ORDER BY `o0`.`OrderID`
-        LIMIT @p
-    ) AS `o1`
-    WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
+DELETE
+FROM `Order Details`
+WHERE `OrderID` < 10300
+ORDER BY `OrderID`
+LIMIT @p
 """);
     }
 
@@ -214,26 +199,16 @@ WHERE EXISTS (
 
     public override async Task Delete_Where_Take(bool async)
     {
-        // This query uses a derived table pattern which works on both MySQL and MariaDB.
-        // The derived table (AS `o1`) materializes the result, avoiding the MySQL error 1093
-        // "You can't specify target table for update in FROM clause"
         await base.Delete_Where_Take(async);
 
         AssertSql(
 """
 @p='100'
 
-DELETE `o`
-FROM `Order Details` AS `o`
-WHERE EXISTS (
-    SELECT 1
-    FROM (
-        SELECT `o0`.`OrderID`, `o0`.`ProductID`
-        FROM `Order Details` AS `o0`
-        WHERE `o0`.`OrderID` < 10300
-        LIMIT @p
-    ) AS `o1`
-    WHERE (`o1`.`OrderID` = `o`.`OrderID`) AND (`o1`.`ProductID` = `o`.`ProductID`))
+DELETE
+FROM `Order Details`
+WHERE `OrderID` < 10300
+LIMIT @p
 """);
     }
 
