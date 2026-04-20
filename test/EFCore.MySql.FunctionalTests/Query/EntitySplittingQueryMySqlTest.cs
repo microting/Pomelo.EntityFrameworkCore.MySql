@@ -790,7 +790,12 @@ ORDER BY `u`.`Id`, `s0`.`MiddleEntityId`
     {
         await base.Compare_split_entity_to_null(async);
 
-        AssertSql();
+        AssertSql(
+"""
+SELECT `e`.`Id`, `e`.`EntityThreeId`, `e`.`IntValue1`, `e`.`IntValue2`, `s`.`IntValue3`, `e`.`IntValue4`, `e`.`StringValue1`, `e`.`StringValue2`, `e`.`StringValue3`, `e`.`StringValue4`
+FROM `EntityOne` AS `e`
+INNER JOIN `SplitEntityOnePart` AS `s` ON `e`.`Id` = `s`.`Id`
+""");
     }
 
     protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;

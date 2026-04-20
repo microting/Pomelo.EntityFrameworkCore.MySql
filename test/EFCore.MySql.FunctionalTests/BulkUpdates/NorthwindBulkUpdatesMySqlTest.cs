@@ -1791,14 +1791,26 @@ SET `o2`.`Quantity` = CAST(@p AS signed),
     {
         await base.Update_with_select_mixed_entity_scalar_anonymous_projection(async);
 
-        AssertSql();
+        AssertExecuteUpdateSql(
+"""
+@p='Updated' (Size = 30)
+
+UPDATE `Customers` AS `c`
+SET `c`.`ContactName` = @p
+""");
     }
 
     public override async Task Update_with_select_scalar_anonymous_projection(bool async)
     {
         await base.Update_with_select_scalar_anonymous_projection(async);
 
-        AssertSql();
+        AssertExecuteUpdateSql(
+"""
+@p='Updated' (Size = 30)
+
+UPDATE `Customers` AS `c`
+SET `c`.`ContactName` = @p
+""");
     }
 
     private void AssertSql(params string[] expected)
