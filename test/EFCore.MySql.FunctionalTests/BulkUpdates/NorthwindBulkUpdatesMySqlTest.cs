@@ -1791,7 +1791,7 @@ SET `o2`.`Quantity` = CAST(@p AS signed),
     {
         await base.Update_with_select_mixed_entity_scalar_anonymous_projection(async);
 
-        AssertExecuteUpdateSql(
+        AssertSql(
 """
 @p='Updated' (Size = 30)
 
@@ -1804,7 +1804,7 @@ SET `c`.`ContactName` = @p
     {
         await base.Update_with_select_scalar_anonymous_projection(async);
 
-        AssertExecuteUpdateSql(
+        AssertSql(
 """
 @p='Updated' (Size = 30)
 
