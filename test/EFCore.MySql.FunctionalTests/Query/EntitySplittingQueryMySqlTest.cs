@@ -786,5 +786,12 @@ ORDER BY `u`.`Id`, `s0`.`MiddleEntityId`
         AssertSql();
     }
 
+    public override async Task Compare_split_entity_to_null(bool async)
+    {
+        await base.Compare_split_entity_to_null(async);
+
+        AssertSql();
+    }
+
     protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
 }
