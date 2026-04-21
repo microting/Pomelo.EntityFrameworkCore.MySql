@@ -76,32 +76,15 @@ WHERE FALSE
 
     public override async Task Delete_Where_OrderBy(bool async)
     {
-        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
-        {
-            await base.Delete_Where_OrderBy(async);
+        await base.Delete_Where_OrderBy(async);
 
-            AssertSql(
+        AssertSql(
 """
 DELETE
 FROM `Order Details`
 WHERE `OrderID` < 10300
 ORDER BY `OrderID`
 """);
-        }
-        else
-        {
-            await base.Delete_Where_OrderBy(async);
-
-            AssertSql(
-"""
-DELETE `o`
-FROM `Order Details` AS `o`
-WHERE EXISTS (
-    SELECT 1
-    FROM `Order Details` AS `o0`
-    WHERE (`o0`.`OrderID` < 10300) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
-""");
-        }
     }
 
     public override async Task Delete_Where_OrderBy_Skip(bool async)
