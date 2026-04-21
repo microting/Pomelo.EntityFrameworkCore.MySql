@@ -7393,6 +7393,20 @@ WHERE `c`.`CustomerID` LIKE 'A%'
 """);
     }
 
+    public override async Task Captured_variable_from_switch_case_pattern_matching(bool async)
+    {
+        await base.Captured_variable_from_switch_case_pattern_matching(async);
+
+        AssertSql(
+"""
+@customerId='ALFKI' (Size = 5) (DbType = StringFixedLength)
+
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+WHERE `c`.`CustomerID` = @customerId
+""");
+    }
+
         [ConditionalFact]
         public virtual void Check_all_tests_overridden()
             => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
