@@ -26,6 +26,7 @@ The following versions of MySqlConnector, EF Core, .NET (Core), .NET Standard an
 
 Release | Branch                                                                                           | MySqlConnector     | EF Core | .NET (Core) | .NET Standard | .NET Framework
 --- |--------------------------------------------------------------------------------------------------|--------------------|:-------:|:-----------:| :---: | :---:
+[10.0.7](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.7) | [master](https://github.com/microting/Microting.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
 [10.0.6](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.6) | [master](https://github.com/microting/Microting.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
 [10.0.5](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.5) | [master](https://github.com/microting/Microting.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
 [10.0.3](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.3) | [master](https://github.com/microting/Microting.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
