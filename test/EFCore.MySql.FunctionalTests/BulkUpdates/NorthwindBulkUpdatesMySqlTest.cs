@@ -1775,7 +1775,12 @@ SET `c`.`ContactName` = @p
     {
         await base.Update_Where_set_nullable_int_constant_via_discard_lambda(async);
 
-        AssertExecuteUpdateSql();
+        AssertExecuteUpdateSql(
+"""
+UPDATE `Products` AS `p`
+SET `p`.`SupplierID` = 1
+WHERE `p`.`ProductID` < 5
+""");
     }
 
     private void AssertSql(params string[] expected)
