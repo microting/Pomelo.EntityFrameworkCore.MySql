@@ -62,6 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" VersionOverride="10.0.8" />
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
   </ItemGroup>
 
