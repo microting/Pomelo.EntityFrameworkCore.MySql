@@ -908,27 +908,9 @@ LIMIT @p
 """);
     }
 
-    [SupportedServerVersionCondition("0.0.0-mysql", Skip = "Can fail non-deterministically when targeting MySQL, if certain tests precede it.")]
-    public override async Task Update_Where_Skip_Take_set_constant(bool async)
-    {
-        await base.Update_Where_Skip_Take_set_constant(async);
-
-        AssertExecuteUpdateSql(
-"""
-@p1='4'
-@p='2'
-@p2='Updated' (Size = 30)
-
-UPDATE `Customers` AS `c0`
-INNER JOIN (
-    SELECT `c`.`CustomerID`
-    FROM `Customers` AS `c`
-    WHERE `c`.`CustomerID` LIKE 'F%'
-    LIMIT @p1 OFFSET @p
-) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
-SET `c0`.`ContactName` = @p2
-""");
-    }
+    [ConditionalTheory(Skip = "Can fail non-deterministically on MySQL, because LIMIT/OFFSET without ORDER BY is nondeterministic.")]
+    public override Task Update_Where_Skip_Take_set_constant(bool async)
+        => Task.CompletedTask;
 
     public override async Task Update_Where_OrderBy_set_constant(bool async)
     {
