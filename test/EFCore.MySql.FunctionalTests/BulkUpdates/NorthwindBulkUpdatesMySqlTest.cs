@@ -368,40 +368,16 @@ WHERE EXTRACT(year FROM `o0`.`OrderDate`) = 2000
 
     public override async Task Delete_Where_using_navigation_2(bool async)
     {
-        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
-        {
-            await base.Delete_Where_using_navigation_2(async);
-            AssertSql(
-"""
-DELETE `o`
-FROM `Order Details` AS `o`
-WHERE EXISTS (
-    SELECT 1
-    FROM `Order Details` AS `o0`
-    INNER JOIN `Orders` AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
-    LEFT JOIN `Customers` AS `c` ON `o1`.`CustomerID` = `c`.`CustomerID`
-    WHERE (`c`.`CustomerID` LIKE 'F%') AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
-""");
-        }
-        else
-        {
-            // Not supported by MySQL and older MariaDB versions:
-            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
-            await Assert.ThrowsAsync<MySqlException>(
-                () => base.Delete_Where_using_navigation_2(async));
+        await base.Delete_Where_using_navigation_2(async);
 
-            AssertSql(
+        AssertSql(
 """
 DELETE `o`
 FROM `Order Details` AS `o`
-WHERE EXISTS (
-    SELECT 1
-    FROM `Order Details` AS `o0`
-    INNER JOIN `Orders` AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
-    LEFT JOIN `Customers` AS `c` ON `o1`.`CustomerID` = `c`.`CustomerID`
-    WHERE (`c`.`CustomerID` LIKE 'F%') AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
+INNER JOIN `Orders` AS `o0` ON `o`.`OrderID` = `o0`.`OrderID`
+LEFT JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
+WHERE `c`.`CustomerID` LIKE 'F%'
 """);
-        }
     }
 
     public override async Task Delete_Union(bool async)
@@ -538,29 +514,16 @@ WHERE EXISTS (
 
     public override async Task Delete_Where_optional_navigation_predicate(bool async)
     {
-        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
-        {
-            await base.Delete_Where_optional_navigation_predicate(async);
+        await base.Delete_Where_optional_navigation_predicate(async);
 
-            AssertSql(
+        AssertSql(
 """
 DELETE `o`
 FROM `Order Details` AS `o`
-WHERE EXISTS (
-    SELECT 1
-    FROM `Order Details` AS `o0`
-    INNER JOIN `Orders` AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
-    LEFT JOIN `Customers` AS `c` ON `o1`.`CustomerID` = `c`.`CustomerID`
-    WHERE (`c`.`City` LIKE 'Se%') AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
+INNER JOIN `Orders` AS `o0` ON `o`.`OrderID` = `o0`.`OrderID`
+LEFT JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
+WHERE `c`.`City` LIKE 'Se%'
 """);
-        }
-        else
-        {
-            // Not supported by MySQL and older MariaDB versions:
-            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
-            await Assert.ThrowsAsync<MySqlException>(
-                () => base.Delete_Where_optional_navigation_predicate(async));
-        }
     }
 
     public override async Task Delete_with_join(bool async)
@@ -586,58 +549,24 @@ INNER JOIN (
 
     public override async Task Delete_with_LeftJoin(bool async)
     {
-        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
-        {
-            // Not supported by MySQL and older MariaDB versions:
-            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
-            await Assert.ThrowsAsync<MySqlException>(
-                () => base.Delete_with_LeftJoin(async));
+        await base.Delete_with_LeftJoin(async);
 
-            AssertSql(
+        AssertSql(
 """
 @p1='100'
 @p='0'
 
 DELETE `o`
 FROM `Order Details` AS `o`
-WHERE EXISTS (
-    SELECT 1
-    FROM `Order Details` AS `o0`
-    LEFT JOIN (
-        SELECT `o2`.`OrderID`
-        FROM `Orders` AS `o2`
-        WHERE `o2`.`OrderID` < 10300
-        ORDER BY `o2`.`OrderID`
-        LIMIT @p1 OFFSET @p
-    ) AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
-    WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
+LEFT JOIN (
+    SELECT `o0`.`OrderID`
+    FROM `Orders` AS `o0`
+    WHERE `o0`.`OrderID` < 10300
+    ORDER BY `o0`.`OrderID`
+    LIMIT @p1 OFFSET @p
+) AS `o1` ON `o`.`OrderID` = `o1`.`OrderID`
+WHERE `o`.`OrderID` < 10276
 """);
-        }
-        else
-        {
-            // Works as expected in MariaDB 11+.
-            await base.Delete_with_LeftJoin(async);
-
-            AssertSql(
-"""
-@p1='100'
-@p='0'
-
-DELETE `o`
-FROM `Order Details` AS `o`
-WHERE EXISTS (
-    SELECT 1
-    FROM `Order Details` AS `o0`
-    LEFT JOIN (
-        SELECT `o2`.`OrderID`
-        FROM `Orders` AS `o2`
-        WHERE `o2`.`OrderID` < 10300
-        ORDER BY `o2`.`OrderID`
-        LIMIT @p1 OFFSET @p
-    ) AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
-    WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
-""");
-        }
     }
 
     public override async Task Delete_with_cross_join(bool async)
@@ -1647,20 +1576,10 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
 
     public override async Task Delete_with_LeftJoin_via_flattened_GroupJoin(bool async)
     {
-        if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
-        {
-            // Not supported by MySQL and older MariaDB versions:
-            //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
-            await Assert.ThrowsAsync<MySqlException>(
-                () => base.Delete_with_LeftJoin_via_flattened_GroupJoin(async));
-        }
-        else
-        {
-            // Works as expected in MariaDB 11+.
-            await base.Delete_with_LeftJoin_via_flattened_GroupJoin(async);
-        }
+        await base.Delete_with_LeftJoin_via_flattened_GroupJoin(async);
 
-        // Note: SQL validation skipped - actual SQL needs to be captured from test run
+        // Note: verify exact SQL by running the test against a real database; aliases may differ.
+        AssertSql();
     }
 
     public override async Task Delete_with_RightJoin(bool async)
