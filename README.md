@@ -82,6 +82,11 @@ Currently tested versions are:
 
 Milestone | Status   | Release Date
 ----------|----------|-------------
+10.0.8 | Released | 2026-05-17
+10.0.7 | Released | 2026-04-22
+10.0.6 | Released | 2026-04-21
+10.0.5 | Released | 2026-03-17
+10.0.3 | Released | 2026-02-16
 9.0.8 | Released | 2025-08-05
 9.0.0 | Released | 2025-08-05
 8.0.3 | Released | 2025-03-02
@@ -116,7 +121,7 @@ All `.pdb` files use Source Link.
 Ensure that your `.csproj` file contains the following reference:
 
 ```xml
-<PackageReference Include="Microting.EntityFrameworkCore.MySql" Version="10.0.6" />
+<PackageReference Include="Microting.EntityFrameworkCore.MySql" Version="10.0.8" />
 ```
 
 ### 2. Services Configuration
