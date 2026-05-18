@@ -1578,8 +1578,22 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
     {
         await base.Delete_with_LeftJoin_via_flattened_GroupJoin(async);
 
-        // Note: verify exact SQL by running the test against a real database; aliases may differ.
-        AssertSql();
+        AssertSql(
+"""
+@p1='100'
+@p='0'
+
+DELETE `o`
+FROM `Order Details` AS `o`
+LEFT JOIN (
+    SELECT `o0`.`OrderID`
+    FROM `Orders` AS `o0`
+    WHERE `o0`.`OrderID` < 10300
+    ORDER BY `o0`.`OrderID`
+    LIMIT @p1 OFFSET @p
+) AS `o1` ON `o`.`OrderID` = `o1`.`OrderID`
+WHERE `o`.`OrderID` < 10276
+""");
     }
 
     public override async Task Delete_with_RightJoin(bool async)
