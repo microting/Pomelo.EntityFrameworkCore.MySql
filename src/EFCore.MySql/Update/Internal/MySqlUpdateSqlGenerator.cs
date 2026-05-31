@@ -66,8 +66,10 @@ namespace Microting.EntityFrameworkCore.MySql.Update.Internal
             AppendValuesHeader(commandStringBuilder, writeOperations);
             AppendValues(commandStringBuilder, name, schema, writeOperations);
 
-            // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
-            // so we disable it for both databases to ensure consistent behavior across all DML operations.
+            // MySQL does not support RETURNING (Supports.Returning is false), so this falls back to the
+            // base INSERT + SELECT path. MariaDB 10.5+ supports INSERT RETURNING, which is required to read
+            // back database-generated key columns (e.g. a generated timestamp in a composite key) that
+            // LAST_INSERT_ID() cannot retrieve.
             if (_options.ServerVersion.Supports.Returning && readOperations.Count > 0)
             {
                 AppendReturningClause(commandStringBuilder, readOperations);
@@ -179,62 +181,10 @@ namespace Microting.EntityFrameworkCore.MySql.Update.Internal
             }
         }
 
-        public override ResultSetMapping AppendUpdateOperation(
-            StringBuilder commandStringBuilder,
-            IReadOnlyModificationCommand command,
-            int commandPosition,
-            out bool requiresTransaction)
-        {
-            var result = _options.ServerVersion.Supports.Returning
-                ? AppendUpdateReturningOperation(commandStringBuilder, command, commandPosition, out requiresTransaction)
-                : base.AppendUpdateOperation(commandStringBuilder, command, commandPosition, out requiresTransaction);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Appends SQL for updating a row to the commands being built, via an UPDATE containing a RETURNING clause
-        /// to retrieve any database-generated values or for concurrency checking.
-        /// </summary>
-        /// <param name="commandStringBuilder">The builder to which the SQL should be appended.</param>
-        /// <param name="command">The command that represents the update operation.</param>
-        /// <param name="commandPosition">The ordinal of this command in the batch.</param>
-        /// <param name="requiresTransaction">Returns whether the SQL appended must be executed in a transaction to work correctly.</param>
-        /// <returns>The <see cref="ResultSetMapping" /> for the command.</returns>
-        protected override ResultSetMapping AppendUpdateReturningOperation(
-            StringBuilder commandStringBuilder,
-            IReadOnlyModificationCommand command,
-            int commandPosition,
-            out bool requiresTransaction)
-        {
-            var name = command.TableName;
-            var schema = command.Schema;
-            var operations = command.ColumnModifications;
-
-            var writeOperations = operations.Where(o => o.IsWrite).ToList();
-            var conditionOperations = operations.Where(o => o.IsCondition).ToList();
-            var readOperations = operations.Where(o => o.IsRead).ToList();
-
-            requiresTransaction = false;
-
-            var anyReadOperations = readOperations.Count > 0;
-
-            AppendUpdateCommandHeader(commandStringBuilder, name, schema, writeOperations);
-            AppendWhereClause(commandStringBuilder, conditionOperations);
-
-            // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
-            // so we disable it for both databases to ensure consistent behavior across all DML operations.
-            if (_options.ServerVersion.Supports.Returning)
-            {
-                AppendReturningClause(commandStringBuilder, readOperations, anyReadOperations ? null : "1");
-            }
-
-            commandStringBuilder.AppendLine(SqlGenerationHelper.StatementTerminator);
-
-            return anyReadOperations
-                ? ResultSetMapping.LastInResultSet
-                : ResultSetMapping.LastInResultSet | ResultSetMapping.ResultSetWithRowsAffectedOnly;
-        }
+        // UPDATE intentionally has no RETURNING override: MySQL has no RETURNING clause at all, and MariaDB
+        // supports RETURNING only for INSERT and DELETE (not UPDATE). UPDATE therefore always uses the base
+        // UpdateAndSelectSqlGenerator behavior (UPDATE followed by a SELECT ... WHERE ROW_COUNT() = 1 ...),
+        // which works on every supported server version.
 
         public override ResultSetMapping AppendDeleteOperation(StringBuilder commandStringBuilder,
             IReadOnlyModificationCommand command,
@@ -268,8 +218,9 @@ namespace Microting.EntityFrameworkCore.MySql.Update.Internal
             AppendDeleteCommandHeader(commandStringBuilder, name, schema);
             AppendWhereClause(commandStringBuilder, conditionOperations);
 
-            // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
-            // so we disable it for both databases to ensure consistent behavior across all DML operations.
+            // MySQL does not support RETURNING (Supports.Returning is false) and falls back to the base
+            // DELETE + SELECT ROW_COUNT() path. MariaDB 10.5+ supports DELETE RETURNING, used here for the
+            // concurrency-check row count.
             if (_options.ServerVersion.Supports.Returning)
             {
                 AppendReturningClause(commandStringBuilder, [], "1");
