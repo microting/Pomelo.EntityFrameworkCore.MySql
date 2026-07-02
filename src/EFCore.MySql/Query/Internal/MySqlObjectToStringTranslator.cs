@@ -91,9 +91,7 @@ namespace Microting.EntityFrameworkCore.MySql.Query.Internal
 
             // Enums are handled by EnumMethodTranslator.
             return _supportedTypes.Contains(instance.Type)
-                ? _sqlExpressionFactory.Coalesce(
-                    _sqlExpressionFactory.Convert(instance, typeof(string)),
-                    _sqlExpressionFactory.Constant(string.Empty))
+                ? _sqlExpressionFactory.Convert(instance, typeof(string))
                 : null;
         }
     }
