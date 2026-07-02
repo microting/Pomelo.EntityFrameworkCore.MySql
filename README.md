@@ -68,10 +68,13 @@ The codebase is prepared for EF Core 10 upgrade when .NET 10 becomes available, 
 
 Currently tested versions are:
 
+- MySQL 9.0 - 9.5
 - MySQL 8.4
 - MySQL 8.0
-- MariaDB 11.6
-- MariaDB 11.5
+- MariaDB 12.1
+- MariaDB 12.0
+- MariaDB 11.8 (LTS)
+- MariaDB 11.5 - 11.7
 - MariaDB 11.4 (LTS)
 - MariaDB 11.3
 - MariaDB 10.11 (LTS)
