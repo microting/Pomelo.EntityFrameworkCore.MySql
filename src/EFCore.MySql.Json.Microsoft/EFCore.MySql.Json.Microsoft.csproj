@@ -59,6 +59,7 @@
   <!-- TODO: Can be removed because it is already contained in EFCore.MySql. -->
   <!-- TODO: Check, whether the following references are really all in use. -->
   <ItemGroup Condition="'$(LocalEFCoreRepository)' != ''">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" VersionOverride="10.0.10" />
     <Reference Include="Microsoft.EntityFrameworkCore">
       <HintPath>$(LocalEFCoreRepository)\artifacts\bin\EFCore.Relational\Debug\$(EfCoreTargetFramework)\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>
