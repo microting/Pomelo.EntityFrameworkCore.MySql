@@ -4161,12 +4161,12 @@ FROM `Customers` AS `c`
 
         AssertSql(
             """
-@NewLine='
-' (Size = 5) (DbType = StringFixedLength)
+@NewLine_contains='%
+%' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
-WHERE (LOCATE(@NewLine, `c`.`CustomerID`) > 0) OR (@NewLine LIKE '')
+WHERE `c`.`CustomerID` LIKE @NewLine_contains
 """);
     }
 
@@ -5674,11 +5674,11 @@ FROM (
 
         AssertSql(
             """
-@prefix='A' (Size = 5) (DbType = StringFixedLength)
+@prefix_startswith='A%' (Size = 5) (DbType = StringFixedLength)
 
 SELECT `c`.`CustomerID`
 FROM `Customers` AS `c`
-WHERE LEFT(`c`.`CustomerID`, CHAR_LENGTH(@prefix)) = @prefix
+WHERE `c`.`CustomerID` LIKE @prefix_startswith
 """);
     }
 

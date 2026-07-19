@@ -524,8 +524,7 @@ namespace Microting.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Intern
             RelationalTypeMapping stringTypeMapping,
             StartsEndsWithContains methodType)
         {
-            if (pattern is SqlParameterExpression patternParameter &&
-                patternParameter.Name.StartsWith("@", StringComparison.Ordinal))
+            if (pattern is SqlParameterExpression patternParameter)
             {
                 // The pattern is a parameter, register a runtime parameter that will contain the rewritten LIKE pattern, where
                 // all special characters have been escaped.

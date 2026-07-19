@@ -376,6 +376,24 @@ WHERE LCASE(`c`.`CustomerID`) LIKE CONVERT(LCASE('%nto%') USING utf8mb4) COLLATE
         }
 
         [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public async Task StringContains_parameter(bool async)
+        {
+            var pattern = "anto";
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => c.CustomerID.Contains(pattern)),
+                assertEmpty: true);
+
+            var sql = Fixture.TestSqlLoggerFactory.Sql;
+
+            // When a non-constant parameter is used, the query should still use a LIKE operator in the translation
+            // and not fall back to using a LOCATE function.
+            Assert.Contains("LIKE", sql);
+            Assert.DoesNotContain("LOCATE", sql);
+        }
+
+        [ConditionalTheory]
         [InlineData(StringComparison.OrdinalIgnoreCase, 1, false)]
         [InlineData(StringComparison.OrdinalIgnoreCase, 1, true)]
         [InlineData(StringComparison.CurrentCultureIgnoreCase, 1, false)]
@@ -496,6 +514,24 @@ WHERE LCASE(LCASE(`c`.`CustomerID`)) LIKE CONVERT(LCASE('anto%') USING utf8mb4) 
         }
 
         [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public async Task StringStartsWith_parameter(bool async)
+        {
+            var pattern = "anto";
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith(pattern)),
+                assertEmpty: true);
+
+            var sql = Fixture.TestSqlLoggerFactory.Sql;
+
+            // When a non-constant parameter is used, the query should still use a LIKE operator in the translation
+            // and not fall back to using a LEFT function.
+            Assert.Contains("LIKE", sql);
+            Assert.DoesNotContain("LEFT", sql);
+        }
+
+        [ConditionalTheory]
         [InlineData(StringComparison.OrdinalIgnoreCase, 1, false)]
         [InlineData(StringComparison.OrdinalIgnoreCase, 1, true)]
         [InlineData(StringComparison.CurrentCultureIgnoreCase, 1, false)]
@@ -611,6 +647,24 @@ WHERE LCASE(`c`.`CustomerID`) LIKE CONVERT(LCASE('%nton') USING utf8mb4) COLLATE
                 @"SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
 FROM `Customers` AS `c`
 WHERE LCASE(`c`.`CustomerID`) LIKE CONVERT(LCASE('%nton') USING utf8mb4) COLLATE utf8mb4_bin");
+        }
+
+        [ConditionalTheory]
+        [MemberData(nameof(IsAsyncData))]
+        public async Task StringEndsWith_parameter(bool async)
+        {
+            var pattern = "anto";
+            await AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Where(c => c.CustomerID.EndsWith(pattern)),
+                assertEmpty: true);
+
+            var sql = Fixture.TestSqlLoggerFactory.Sql;
+
+            // When a non-constant parameter is used, the query should still use a LIKE operator in the translation
+            // and not fall back to using a RIGHT function.
+            Assert.Contains("LIKE", sql);
+            Assert.DoesNotContain("RIGHT", sql);
         }
 
         [ConditionalTheory]
