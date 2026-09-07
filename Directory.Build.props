@@ -26,11 +26,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PomeloTargetFramework>net10.0</PomeloTargetFramework>
-    <PomeloTestTargetFramework>net10.0</PomeloTestTargetFramework>
-    <EfCoreTargetFramework>net10.0</EfCoreTargetFramework>
-    <EfCoreTestTargetFramework>net10.0</EfCoreTestTargetFramework>
-    <MySqlConnectorTargetFramework>net10.0</MySqlConnectorTargetFramework>
+    <PomeloTargetFramework>net11.0</PomeloTargetFramework>
+    <PomeloTestTargetFramework>net11.0</PomeloTestTargetFramework>
+    <EfCoreTargetFramework>net11.0</EfCoreTargetFramework>
+    <EfCoreTestTargetFramework>net11.0</EfCoreTestTargetFramework>
+    <MySqlConnectorTargetFramework>net11.0</MySqlConnectorTargetFramework>
     <MySqlConnectorDependencyInjectionTargetFramework>net8.0</MySqlConnectorDependencyInjectionTargetFramework>
   </PropertyGroup>
 
