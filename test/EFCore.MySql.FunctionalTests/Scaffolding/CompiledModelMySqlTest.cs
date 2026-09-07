@@ -387,11 +387,11 @@ public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
         RelationalModelValidatorDependencies relationalDependencies)
         : MySqlModelValidator(dependencies, relationalDependencies)
     {
-        protected override void ValidateStoredProcedures(IModel model, IDiagnosticsLogger<DbLoggerCategory.Model.Validation> logger)
+        protected override void ValidateStoredProcedures(IEntityType entityType, IDiagnosticsLogger<DbLoggerCategory.Model.Validation> logger)
         {
             try
             {
-                base.ValidateStoredProcedures(model, logger);
+                base.ValidateStoredProcedures(entityType, logger);
             }
             catch (InvalidOperationException e) when (Regex.IsMatch(e.Message, Regex.Escape(MySqlStrings.StoredProcedureResultColumnsNotSupported("::::", "::::")).Replace("::::", ".*")) ||
                                                       Regex.IsMatch(e.Message, Regex.Escape(MySqlStrings.StoredProcedureReturnValueNotSupported("::::", "::::")).Replace("::::", ".*")))
