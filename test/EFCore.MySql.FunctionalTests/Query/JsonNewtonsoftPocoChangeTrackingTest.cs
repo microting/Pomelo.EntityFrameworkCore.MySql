@@ -5,7 +5,7 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Json.Newtonsoft.Extensions.Internal;
 using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {

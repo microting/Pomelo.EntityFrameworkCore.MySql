@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.Behaviors;
 

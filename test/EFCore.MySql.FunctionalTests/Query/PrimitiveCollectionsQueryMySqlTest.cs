@@ -11,7 +11,6 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
-using Xunit.Abstractions;
 using Xunit.Sdk;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;

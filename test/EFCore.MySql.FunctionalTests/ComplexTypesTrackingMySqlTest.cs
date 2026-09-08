@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests;
 

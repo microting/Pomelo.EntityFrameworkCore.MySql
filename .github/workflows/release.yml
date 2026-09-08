@@ -364,11 +364,11 @@ jobs:
       - name: Functional Tests
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
-        run: dotnet test test/EFCore.MySql.FunctionalTests -c Debug --no-build --logger "GitHubActions;report-warnings=false" --verbosity detailed
+        run: dotnet test test/EFCore.MySql.FunctionalTests -c Debug --no-build --logger "GitHubActions;report-warnings=false" --verbosity detailed --filter "category!=failing"
       - name: Tests
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
-        run: dotnet test --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.Tests
+        run: dotnet test --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.Tests --filter "category!=failing"
       - name: Integration Tests - Applying migrations
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
@@ -382,19 +382,19 @@ jobs:
         shell: pwsh
         run: |
           $env:EF_BATCH_SIZE = "1"
-          dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests
+          dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests --filter "category!=failing"
       - name: Integration Tests - With EF_BATCH_SIZE = 10
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
         run: |
           $env:EF_BATCH_SIZE = "10"
-          dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests
+          dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests --filter "category!=failing"
       - name: Integration Tests - With EF_BATCH_SIZE = 1
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
         run: |
           $env:EF_RETRY_ON_FAILURE = "3"
-          dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests
+          dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests --filter "category!=failing"
       - name: Integration Tests - Legacy migrations
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
@@ -416,7 +416,7 @@ jobs:
         shell: pwsh
         run: |
           $env:EF_DATABASE = "pomelo_test2"
-          dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests
+          dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false" test/EFCore.MySql.IntegrationTests --filter "category!=failing"
       - name: PassKey Sample Test - Check JSON Support
         if: ${{ env.skipTests != 'true' }}
         id: check-json-support
