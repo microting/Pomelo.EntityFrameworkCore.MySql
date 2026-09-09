@@ -202,7 +202,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         }
 
         // TODO: Inherit from SpatialQueryRelationalFixture.
-        public class SpatialGeographyQueryMySqlFixture : SharedStoreFixtureBase<SpatialGeographyContext>, IQueryFixtureBase, ITestSqlLoggerFactory
+        public class SpatialGeographyQueryMySqlFixture : QueryFixtureBase<SpatialGeographyContext>, ITestSqlLoggerFactory
         {
             private GeometryFactory _geometryFactory;
 
@@ -250,22 +250,22 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             protected override Task SeedAsync(SpatialGeographyContext context)
                 => SpatialGeographyContext.SeedAsync(context, GeometryFactory);
 
-            public Func<DbContext> GetContextCreator()
+            public override Func<DbContext> GetContextCreator()
                 => CreateContext;
 
             // CHECK: Unused?
-            public ISetSource GetExpectedData()
+            public override ISetSource GetExpectedData()
                 => new SpatialGeographyData(_geometryFactory);
 
             // CHECK: Unused?
-            public IReadOnlyDictionary<Type, object> EntitySorters
+            public override IReadOnlyDictionary<Type, object> EntitySorters
                 => new Dictionary<Type, Func<object, object>>
                 {
                     { typeof(SpatialGeographyContext.City), e => ((SpatialGeographyContext.City)e)?.CityId },
                 }.ToDictionary(e => e.Key, e => (object)e.Value);
 
             // CHECK: Unused?
-            public IReadOnlyDictionary<Type, object> EntityAsserters
+            public override IReadOnlyDictionary<Type, object> EntityAsserters
                 => new Dictionary<Type, Action<object, object>>
                 {
                     {

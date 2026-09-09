@@ -534,7 +534,7 @@ WHERE MATCH (`h`.`Name`, `h`.`Garden`) AGAINST ('First' WITH QUERY EXPANSION) > 
 
         protected virtual DbContext CreateContext() => Fixture.CreateContext();
 
-        public abstract class MatchQueryMySqlFixtureBase : SharedStoreFixtureBase<PoolableDbContext>, IQueryFixtureBase, ITestSqlLoggerFactory
+        public abstract class MatchQueryMySqlFixtureBase : QueryFixtureBase<PoolableDbContext>, ITestSqlLoggerFactory
         {
             protected override string StoreName { get; } = "MatchQueryTest";
             public TestSqlLoggerFactory TestSqlLoggerFactory => (TestSqlLoggerFactory)ListLoggerFactory;
@@ -568,17 +568,17 @@ WHERE MATCH (`h`.`Name`, `h`.`Garden`) AGAINST ('First' WITH QUERY EXPANSION) > 
                 return context;
             }
 
-            public Func<DbContext> GetContextCreator()
+            public override Func<DbContext> GetContextCreator()
                 => CreateContext;
 
-            public ISetSource GetExpectedData()
+            public override ISetSource GetExpectedData()
                 => new MatchQueryData();
 
-            public IReadOnlyDictionary<Type, object> EntitySorters
+            public override IReadOnlyDictionary<Type, object> EntitySorters
                 => new Dictionary<Type, Func<object, object>> { { typeof(Herb), e => ((Herb)e)?.Id }, }.ToDictionary(e => e.Key,
                     e => (object)e.Value);
 
-            public IReadOnlyDictionary<Type, object> EntityAsserters
+            public override IReadOnlyDictionary<Type, object> EntityAsserters
                 => new Dictionary<Type, Action<object, object>>
                 {
                     {
