@@ -785,5 +785,5 @@ ORDER BY `u`.`Id`, `s0`.`MiddleEntityId`
         AssertSql();
     }
 
-    protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
+    protected override ITestStoreFactory NonSharedTestStoreFactory => MySqlTestStoreFactory.Instance;
 }

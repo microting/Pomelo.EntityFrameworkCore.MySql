@@ -84,7 +84,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public Task Can_read_write_nullable_ulong_enum_JSON_values(EnumU64? value, string json)
             => Task.CompletedTask;
 
-        protected override ITestStoreFactory TestStoreFactory
+        protected override ITestStoreFactory NonSharedTestStoreFactory
             => MySqlTestStoreFactory.Instance;
     }
 }

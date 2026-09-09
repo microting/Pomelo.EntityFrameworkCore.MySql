@@ -51,6 +51,6 @@ public class AdHocQuerySplittingQueryMySqlTest : AdHocQuerySplittingQueryTestBas
     private static readonly FieldInfo _querySplittingBehaviorFieldInfo =
         typeof(RelationalOptionsExtension).GetField("_querySplittingBehavior", BindingFlags.NonPublic | BindingFlags.Instance);
 
-    protected override ITestStoreFactory TestStoreFactory
+    protected override ITestStoreFactory NonSharedTestStoreFactory
         => MySqlTestStoreFactory.Instance;
 }

@@ -16,7 +16,7 @@ public class AdHocMiscellaneousQueryMySqlTest : AdHocMiscellaneousQueryRelationa
     {
     }
 
-    protected override ITestStoreFactory TestStoreFactory
+    protected override ITestStoreFactory NonSharedTestStoreFactory
         => MySqlTestStoreFactory.Instance;
 
     protected override DbContextOptionsBuilder SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode parameterizedCollectionMode)

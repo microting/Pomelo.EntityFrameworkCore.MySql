@@ -16,7 +16,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
         {
         }
 
-        protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
+        protected override ITestStoreFactory NonSharedTestStoreFactory => MySqlTestStoreFactory.Instance;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

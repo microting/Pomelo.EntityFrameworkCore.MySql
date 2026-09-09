@@ -16,7 +16,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         {
         }
 
-        protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
+        protected override ITestStoreFactory NonSharedTestStoreFactory => MySqlTestStoreFactory.Instance;
 
         public override async Task Multiple_single_result_in_projection_containing_owned_types(bool async)
         {

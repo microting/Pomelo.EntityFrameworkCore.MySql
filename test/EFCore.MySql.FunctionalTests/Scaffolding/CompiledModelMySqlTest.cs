@@ -351,11 +351,11 @@ public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
     }
 
     protected override TestHelpers TestHelpers => MySqlTestHelpers.Instance;
-    protected override ITestStoreFactory TestStoreFactory => MySqlTestStoreFactory.Instance;
+    protected override ITestStoreFactory NonSharedTestStoreFactory => MySqlTestStoreFactory.Instance;
 
-    protected override DbContextOptionsBuilder AddOptions(DbContextOptionsBuilder builder)
+    protected override DbContextOptionsBuilder AddNonSharedOptions(DbContextOptionsBuilder builder)
     {
-        builder = base.AddOptions(builder);
+        builder = base.AddNonSharedOptions(builder);
 
         new MySqlDbContextOptionsBuilder(builder)
             .UseNetTopologySuite()

@@ -16,7 +16,7 @@ public class NonSharedModelBulkUpdatesMySqlTest : NonSharedModelBulkUpdatesRelat
     {
     }
 
-    protected override ITestStoreFactory TestStoreFactory
+    protected override ITestStoreFactory NonSharedTestStoreFactory
         => MySqlTestStoreFactory.Instance;
 
     [Fact]

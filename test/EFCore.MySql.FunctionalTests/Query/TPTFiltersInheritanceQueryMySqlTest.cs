@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Xunit;
+using Microsoft.EntityFrameworkCore.Query.Inheritance;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {

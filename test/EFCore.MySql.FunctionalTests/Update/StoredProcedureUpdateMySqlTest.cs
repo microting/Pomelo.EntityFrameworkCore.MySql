@@ -651,6 +651,6 @@ SELECT @_out_p4;
     protected override void ConfigureStoreGeneratedConcurrencyToken(EntityTypeBuilder entityTypeBuilder, string propertyName)
         => entityTypeBuilder.Property<byte[]>(propertyName).IsRowVersion();
 
-    protected override ITestStoreFactory TestStoreFactory
+    protected override ITestStoreFactory NonSharedTestStoreFactory
         => MySqlTestStoreFactory.Instance;
 }

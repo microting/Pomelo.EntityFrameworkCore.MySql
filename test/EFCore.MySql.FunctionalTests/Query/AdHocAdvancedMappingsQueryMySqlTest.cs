@@ -37,6 +37,6 @@ public class AdHocAdvancedMappingsQueryMySqlTest : AdHocAdvancedMappingsQueryRel
         await base.Query_generates_correct_timespan_parameter_definition(fractionalSeconds, postfix);
     }
 
-    protected override ITestStoreFactory TestStoreFactory
+    protected override ITestStoreFactory NonSharedTestStoreFactory
         => MySqlTestStoreFactory.Instance;
 }

@@ -122,7 +122,7 @@ public class AdHocJsonQueryMySqlTest : AdHocJsonQueryRelationalTestBase
     public override Task Project_json_array_of_primitives_on_reference()
         => base.Project_json_array_of_primitives_on_reference();
 
-    protected override ITestStoreFactory TestStoreFactory
+    protected override ITestStoreFactory NonSharedTestStoreFactory
         => MySqlTestStoreFactory.Instance;
 
     protected override async Task SeedBadJsonProperties(ContextBadJsonProperties ctx)

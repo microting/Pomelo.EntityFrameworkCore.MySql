@@ -15,7 +15,7 @@ public class ToSqlQueryMySqlTest : ToSqlQueryTestBase
     {
     }
 
-    protected override ITestStoreFactory TestStoreFactory
+    protected override ITestStoreFactory NonSharedTestStoreFactory
         => MySqlTestStoreFactory.Instance;
 
     [Fact]

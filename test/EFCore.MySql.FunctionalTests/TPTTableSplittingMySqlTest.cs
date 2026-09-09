@@ -19,7 +19,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             return Task.CompletedTask;
         }
 
-        protected override ITestStoreFactory TestStoreFactory
+        protected override ITestStoreFactory NonSharedTestStoreFactory
             => MySqlTestStoreFactory.Instance;
     }
 }
