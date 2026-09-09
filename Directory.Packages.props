@@ -39,12 +39,15 @@
     <PackageVersion Include="GitHubActionsTestLogger" Version="3.0.1" />
     <!--
       EF Core 11 moved its specification test assemblies to xUnit v3, so the provider tests have to follow.
-      `xunit.v3` supersedes the `xunit.core`/`xunit.assert` (v2) packages, and also replaces `Xunit.SkippableFact`,
-      because xUnit v3 has skipping support built in (`Assert.Skip*`, `[Fact(SkipUnless = ...)]`).
+      `xunit.v3.core`/`xunit.v3.assert` supersede the `xunit.core`/`xunit.assert` (v2) packages, and also replace
+      `Xunit.SkippableFact`, because xUnit v3 has skipping support built in (`Assert.Skip*`, `[Fact(SkipUnless = ...)]`).
+      As before, the individual packages are referenced instead of the `xunit.v3` meta package, because the meta
+      package additionally pulls in `xunit.analyzers`, whose warnings break the build (`TreatWarningsAsErrors`).
       `xunit.runner.visualstudio` 4.x is the VSTest adapter that understands xUnit v3, which keeps `dotnet test`
       (and therefore the `GitHubActions` logger used by the workflows) working as before.
     -->
-    <PackageVersion Include="xunit.v3" Version="4.0.0" />
+    <PackageVersion Include="xunit.v3.core" Version="4.0.0" />
+    <PackageVersion Include="xunit.v3.assert" Version="4.0.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.0" />
     <PackageVersion Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />

@@ -2,14 +2,15 @@
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
-      <NoWarn>$(NoWarn);EF1001;MSB3277;xUnit1000;xUnit1003;xUnit1004;xUnit1013;xUnit1024;xUnit1051</NoWarn>
+      <NoWarn>$(NoWarn);EF1001;MSB3277;xUnit1000</NoWarn>
       <!-- xUnit v3 test projects must be executables. -->
       <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.v3.core" />
+    <PackageReference Include="xunit.v3.assert" />
     <PackageReference Include="xunit.runner.visualstudio" />
     <PackageReference Include="GitHubActionsTestLogger" />
   </ItemGroup>
