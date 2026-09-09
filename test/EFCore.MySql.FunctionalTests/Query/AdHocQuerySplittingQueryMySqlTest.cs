@@ -43,7 +43,7 @@ public class AdHocQuerySplittingQueryMySqlTest : AdHocQuerySplittingQueryTestBas
 
     protected override TestStore CreateTestStore25225()
     {
-        var testStore = MySqlTestStore.Create(StoreName);
+        var testStore = MySqlTestStore.Create(NonSharedStoreName);
         testStore.UseConnectionString = true;
         return testStore;
     }

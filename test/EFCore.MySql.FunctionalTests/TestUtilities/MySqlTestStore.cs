@@ -181,7 +181,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
                         await clean(context);
                     }
 
-                    await CleanAsync(context);
+                    await CleanAsync(context, createTables: true);
                 }
 
                 databaseSetupSql = GetAlterDatabaseStatement(Name, DatabaseCharSet, DatabaseCollation);

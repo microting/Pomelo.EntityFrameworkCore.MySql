@@ -50,7 +50,7 @@ LEFT JOIN (
         public override async Task Owned_collection_basic_split_query(bool async)
         {
             // Use custom context to set prefix length, so we don't exhaust the max. key length.
-            var contextFactory = await InitializeAsync<Context25680>(onModelCreating: modelBuilder =>
+            var contextFactory = await InitializeNonSharedTest<Context25680>(onModelCreating: modelBuilder =>
             {
                 modelBuilder.Entity<Location25680>().OwnsMany(e => e.PublishTokenTypes,
                     b =>
@@ -73,7 +73,7 @@ LEFT JOIN (
         // Use base implementation once https://github.com/dotnet/efcore/pull/32509#issuecomment-1948812777 is fixed.
         public override async Task Projecting_correlated_collection_property_for_owned_entity(bool async)
         {
-            var contextFactory = await InitializeAsync<Context18582>(seed: c => c.SeedAsync());
+            var contextFactory = await InitializeNonSharedTest<Context18582>(seed: c => c.SeedAsync());
 
             using var context = contextFactory.CreateContext();
             var query = context.Warehouses.Select(
@@ -98,7 +98,7 @@ LEFT JOIN (
         // implementation has been fixed to use a deterministic order.
         public override async Task Correlated_subquery_with_owned_navigation_being_compared_to_null_works()
         {
-            var contextFactory = await InitializeAsync<Context13157>(seed: c => c.SeedAsync());
+            var contextFactory = await InitializeNonSharedTest<Context13157>(seed: c => c.SeedAsync());
 
             using (var context = contextFactory.CreateContext())
             {

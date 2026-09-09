@@ -545,7 +545,7 @@ BEGIN
 END
 """;
 
-        var contextFactory = await InitializeAsync<DbContext>(
+        var contextFactory = await InitializeNonSharedTest<DbContext>(
             modelBuilder =>
             {
                 modelBuilder.Entity<Parent>().UseTpcMappingStrategy();

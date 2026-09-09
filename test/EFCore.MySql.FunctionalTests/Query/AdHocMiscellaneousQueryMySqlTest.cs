@@ -55,7 +55,7 @@ INSERT INTO `ZeroKey` VALUES (NULL)
         //     Changed:  SELECT cast(null as signed) AS MyValue
         // The other comments are part of the base implementation.
 
-        var contextFactory = await InitializeAsync<Context23981>();
+        var contextFactory = await InitializeNonSharedTest<Context23981>();
         using var context = contextFactory.CreateContext();
         //var good1 = context.Set<NameSpace1.TestQuery>().FromSqlRaw(@"SELECT 1 AS MyValue").ToList(); // OK
         //var good2 = context.Set<NameSpace2.TestQuery>().FromSqlRaw(@"SELECT 1 AS MyValue").ToList(); // OK

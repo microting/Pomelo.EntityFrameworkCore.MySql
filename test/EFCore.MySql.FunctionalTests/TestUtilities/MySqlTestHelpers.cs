@@ -90,7 +90,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
                             {
                                 index.SetPrefixLength(
                                     index.Properties.Select(
-                                            p => indexedStringProperties.Contains(p) && p.GetMaxLength() > safePropertyLength
+                                            p => p is IMutableProperty property
+                                                 && indexedStringProperties.Contains(property)
+                                                 && property.GetMaxLength() > safePropertyLength
                                                 ? safePropertyLength
                                                 : 0)
                                         .ToArray());
