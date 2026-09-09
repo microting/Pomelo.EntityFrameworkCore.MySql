@@ -169,11 +169,11 @@ WHERE `l1`.`Level2_Name` IS NOT NULL AND (LEFT(`l1`.`Level2_Name`, CHAR_LENGTH(`
 """);
         }
 
-        [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/26104")]
+        [Theory(Skip = "https://github.com/dotnet/efcore/issues/26104")]
         public override Task GroupBy_aggregate_where_required_relationship(bool async)
             => base.GroupBy_aggregate_where_required_relationship(async);
 
-        [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/26104")]
+        [Theory(Skip = "https://github.com/dotnet/efcore/issues/26104")]
         public override Task GroupBy_aggregate_where_required_relationship_2(bool async)
             => base.GroupBy_aggregate_where_required_relationship_2(async);
 
@@ -194,7 +194,7 @@ WHERE `l1`.`Level2_Name` IS NOT NULL AND (LEFT(`l1`.`Level2_Name`, CHAR_LENGTH(`
             AssertSql();
         }
 
-        [ConditionalTheory(Skip = "Does not throw an EqualException, but still does not work.")]
+        [Theory(Skip = "Does not throw an EqualException, but still does not work.")]
         public override async Task Nested_SelectMany_correlated_with_join_table_correctly_translated_to_apply(bool async)
         {
             // DefaultIfEmpty on child collection. Issue #19095.

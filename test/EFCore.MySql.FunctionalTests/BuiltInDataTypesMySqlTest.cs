@@ -1059,7 +1059,7 @@ WHERE `m`.`TimeSpanAsTime` = @timeSpan",
             }
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void Columns_have_expected_data_types()
         {
             var actual = QueryForColumnTypes(CreateContext());
@@ -1520,7 +1520,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
         //       Recheck/remove after `https://github.com/dotnet/efcore/issues/26068` has been fixed upstream.
         #region https://github.com/dotnet/efcore/issues/26068
 
-        [ConditionalFact]
+        [Fact]
         public override async Task Can_insert_and_read_back_all_non_nullable_data_types()
         {
             using (var context = CreateContext())
@@ -1594,7 +1594,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
             }
         }
 
-        [ConditionalFact]
+        [Fact]
         public override async Task Can_insert_and_read_back_non_nullable_backed_data_types()
         {
             using (var context = CreateContext())
@@ -1668,7 +1668,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
             }
         }
 
-        [ConditionalFact]
+        [Fact]
         public override async Task Can_insert_and_read_back_nullable_backed_data_types()
         {
             using (var context = CreateContext())
@@ -1741,7 +1741,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
             }
         }
 
-        [ConditionalFact]
+        [Fact]
         public override async Task Can_insert_and_read_back_object_backed_data_types()
         {
             using (var context = CreateContext())

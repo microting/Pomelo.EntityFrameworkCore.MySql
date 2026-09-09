@@ -352,7 +352,7 @@ LIMIT 2");
 
         #region Functions
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonOverlaps))]
         public void JsonOverlaps_with_json_element()
         {
@@ -370,7 +370,7 @@ FROM `JsonEntities` AS `j`
 WHERE JSON_OVERLAPS(`j`.`CustomerElement`, {InsertJsonConvert("@element")})");
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonOverlaps))]
         public void JsonOverlaps_with_string()
         {
@@ -385,7 +385,7 @@ FROM `JsonEntities` AS `j`
 WHERE JSON_OVERLAPS(`j`.`CustomerElement`, '{""Name"": ""Joe"", ""Age"": -1}')");
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonOverlaps))]
         public void JsonOverlaps_using_JsonExtract_with_json_element()
         {
@@ -403,7 +403,7 @@ FROM `JsonEntities` AS `j`
 WHERE JSON_OVERLAPS(JSON_EXTRACT(`j`.`CustomerElement`, '$.Statistics.Nested.IntArray'), {InsertJsonConvert("@element")})");
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonOverlaps))]
         public void JsonOverlaps_using_JsonExtract_with_json_string()
         {

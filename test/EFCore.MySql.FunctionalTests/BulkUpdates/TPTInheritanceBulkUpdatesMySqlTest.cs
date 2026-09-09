@@ -16,7 +16,7 @@ public class TPTInheritanceBulkUpdatesMySqlTest : TPTInheritanceBulkUpdatesTestB
         ClearLog();
     }
 
-    [ConditionalFact]
+    [Fact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 

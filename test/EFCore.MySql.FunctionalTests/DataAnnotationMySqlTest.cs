@@ -194,7 +194,7 @@ WHERE ROW_COUNT() = 1 AND `Unique_No` = LAST_INSERT_ID();");
             }
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual IModel CharSet_attribute_is_applied_to_column()
         {
             var modelBuilder = CreateModelBuilder();
@@ -216,7 +216,7 @@ WHERE ROW_COUNT() = 1 AND `Unique_No` = LAST_INSERT_ID();");
             public string PersonFirstName { get; set; }
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual IModel CharSet_attribute_is_applied_to_table()
         {
             var modelBuilder = CreateModelBuilder();
@@ -236,7 +236,7 @@ WHERE ROW_COUNT() = 1 AND `Unique_No` = LAST_INSERT_ID();");
             public int Id { get; set; }
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual IModel Collation_attribute_is_applied_to_column()
         {
             var modelBuilder = CreateModelBuilder();
@@ -258,7 +258,7 @@ WHERE ROW_COUNT() = 1 AND `Unique_No` = LAST_INSERT_ID();");
             public string PersonFirstName { get; set; }
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual IModel Collation_attribute_is_applied_to_table()
         {
             var modelBuilder = CreateModelBuilder();

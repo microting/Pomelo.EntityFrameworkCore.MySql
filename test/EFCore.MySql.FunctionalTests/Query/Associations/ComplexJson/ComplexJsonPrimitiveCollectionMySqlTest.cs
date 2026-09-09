@@ -21,13 +21,13 @@ public class ComplexJsonPrimitiveCollectionMySqlTest : ComplexJsonPrimitiveColle
     }
 
     // TODO: Fix query translation issues for Any/Contains with predicate on primitive collections in JSON
-    [ConditionalFact(Skip = "Query translation issue: Returns 0 results instead of expected results")]
+    [Fact(Skip = "Query translation issue: Returns 0 results instead of expected results")]
     public override Task Any_predicate()
     {
         return Task.CompletedTask;
     }
 
-    [ConditionalFact(Skip = "Query translation issue: Returns 0 results instead of expected results")]
+    [Fact(Skip = "Query translation issue: Returns 0 results instead of expected results")]
     public override Task Contains()
     {
         return Task.CompletedTask;

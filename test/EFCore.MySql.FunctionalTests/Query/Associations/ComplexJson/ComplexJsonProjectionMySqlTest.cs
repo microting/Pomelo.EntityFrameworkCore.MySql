@@ -27,7 +27,7 @@ public class ComplexJsonProjectionMySqlTest : ComplexJsonProjectionRelationalTes
     // combining table expressions with JSON_TABLE functions, resulting in invalid SQL syntax.
     // See MySqlQueryableMethodTranslatingExpressionVisitor.TransformJsonQueryToTable (line 248).
 
-    [ConditionalTheory(Skip = "SelectMany over JSON collections of structural types not yet supported")]
+    [Theory(Skip = "SelectMany over JSON collections of structural types not yet supported")]
     [MemberData(nameof(TrackingData))]
     public override Task SelectMany_associate_collection(QueryTrackingBehavior queryTrackingBehavior)
     {
@@ -35,7 +35,7 @@ public class ComplexJsonProjectionMySqlTest : ComplexJsonProjectionRelationalTes
         return Task.CompletedTask;
     }
 
-    [ConditionalTheory(Skip = "SelectMany over JSON collections of structural types not yet supported")]
+    [Theory(Skip = "SelectMany over JSON collections of structural types not yet supported")]
     [MemberData(nameof(TrackingData))]
     public override Task SelectMany_nested_collection_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
     {
@@ -43,7 +43,7 @@ public class ComplexJsonProjectionMySqlTest : ComplexJsonProjectionRelationalTes
         return Task.CompletedTask;
     }
 
-    [ConditionalTheory(Skip = "SelectMany over JSON collections of structural types not yet supported")]
+    [Theory(Skip = "SelectMany over JSON collections of structural types not yet supported")]
     [MemberData(nameof(TrackingData))]
     public override Task SelectMany_nested_collection_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
     {
@@ -51,42 +51,42 @@ public class ComplexJsonProjectionMySqlTest : ComplexJsonProjectionRelationalTes
         return Task.CompletedTask;
     }
 
-    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [Theory(Skip = "JSON operations over structural types not yet fully supported")]
     [MemberData(nameof(TrackingData))]
     public override Task Select_nested_collection_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
     {
         return Task.CompletedTask;
     }
 
-    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [Theory(Skip = "JSON operations over structural types not yet fully supported")]
     [MemberData(nameof(TrackingData))]
     public override Task Select_required_nested_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
     {
         return Task.CompletedTask;
     }
 
-    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [Theory(Skip = "JSON operations over structural types not yet fully supported")]
     [MemberData(nameof(TrackingData))]
     public override Task Select_nested_collection_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
     {
         return Task.CompletedTask;
     }
 
-    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [Theory(Skip = "JSON operations over structural types not yet fully supported")]
     [MemberData(nameof(TrackingData))]
     public override Task Select_optional_nested_on_optional_associate(QueryTrackingBehavior queryTrackingBehavior)
     {
         return Task.CompletedTask;
     }
 
-    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [Theory(Skip = "JSON operations over structural types not yet fully supported")]
     [MemberData(nameof(TrackingData))]
     public override Task Select_optional_nested_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
     {
         return Task.CompletedTask;
     }
 
-    [ConditionalTheory(Skip = "JSON operations over structural types not yet fully supported")]
+    [Theory(Skip = "JSON operations over structural types not yet fully supported")]
     [MemberData(nameof(TrackingData))]
     public override Task Select_required_nested_on_required_associate(QueryTrackingBehavior queryTrackingBehavior)
     {

@@ -26,7 +26,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void Distance()
         {
             const double expectedGreatCircleDistance = 8117916.968066435; // result of ST_Distance_Sphere() for SRID 4326
@@ -43,7 +43,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             Assert.True(deviation < 0.01);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void IsWithinDistance()
         {
             const double expectedGreatCircleDistance = 8117916.968066435 + 100_000; // +100 km
@@ -60,7 +60,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             Assert.Equal("Berlin", cities[0].Name);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void SpatialDistancePlanar()
         {
             const double expectedPlanarDistance = 135.82593753560775; // result of ST_Distance() for SRID 0
@@ -80,7 +80,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             Assert.True(deviation < 0.01);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void SpatialDistanceSphere_Native()
         {
             const double expectedGreatCircleDistance = 8117916.968066435; // result of ST_Distance_Sphere() for SRID 4326
@@ -102,7 +102,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             Assert.True(deviation < 0.01);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void SpatialDistanceSphere_Andoyer()
         {
             const double expectedGreatCircleDistance = 8117916.968066435; // result of ST_Distance_Sphere() for SRID 4326
@@ -122,7 +122,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             Assert.True(deviation < 0.01);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void SpatialDistanceSphere_Haversine()
         {
             const double expectedGreatCircleDistance = 8117916.968066435; // result of ST_Distance_Sphere() for SRID 4326

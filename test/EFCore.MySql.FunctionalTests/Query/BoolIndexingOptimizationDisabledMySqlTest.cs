@@ -25,7 +25,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        [ConditionalTheory]
+        [Theory]
         [MemberData(nameof(IsAsyncData))]
         public virtual async Task Where_bool_optimization(bool isAsync)
         {
@@ -42,7 +42,7 @@ FROM `Weapons` AS `w`
 WHERE `w`.`IsAutomatic`");
         }
 
-        [ConditionalTheory]
+        [Theory]
         [MemberData(nameof(IsAsyncData))]
         public virtual async Task Where_bool_optimization_not(bool isAsync)
         {
@@ -60,7 +60,7 @@ FROM `Weapons` AS `w`
 WHERE NOT (`w`.`IsAutomatic`)");
         }
 
-        [ConditionalTheory]
+        [Theory]
         [MemberData(nameof(IsAsyncData))]
         public virtual async Task Where_bool_optimization_equals_true(bool isAsync)
         {
@@ -82,7 +82,7 @@ WHERE `w`.`IsAutomatic`"),
                     : null);
         }
 
-        [ConditionalTheory]
+        [Theory]
         [MemberData(nameof(IsAsyncData))]
         public virtual async Task Where_bool_optimization_equals_false(bool isAsync)
         {
@@ -104,7 +104,7 @@ WHERE NOT (`w`.`IsAutomatic`)"),
                     : null);
         }
 
-        [ConditionalTheory]
+        [Theory]
         [MemberData(nameof(IsAsyncData))]
         public virtual async Task Where_bool_optimization_not_equals_true(bool isAsync)
         {
@@ -126,7 +126,7 @@ WHERE NOT (`w`.`IsAutomatic`)"),
                     : null);
         }
 
-        [ConditionalTheory]
+        [Theory]
         [MemberData(nameof(IsAsyncData))]
         public virtual async Task Where_bool_optimization_not_equals_false(bool isAsync)
         {
@@ -148,7 +148,7 @@ WHERE `w`.`IsAutomatic`"),
                     : null);
         }
 
-        [ConditionalTheory]
+        [Theory]
         [MemberData(nameof(IsAsyncData))]
         public virtual async Task Where_bool_optimization_not_parenthesis_equals_true(bool isAsync)
         {
@@ -170,7 +170,7 @@ WHERE NOT (`w`.`IsAutomatic`)"),
                     : null);
         }
 
-        [ConditionalTheory]
+        [Theory]
         [MemberData(nameof(IsAsyncData))]
         public virtual async Task Where_bool_optimization_not_parenthesis_equals_false(bool isAsync)
         {

@@ -17,7 +17,7 @@ public class TPTFiltersInheritanceBulkUpdatesMySqlTest : TPTFiltersInheritanceBu
         ClearLog();
     }
 
-    [ConditionalFact]
+    [Fact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 

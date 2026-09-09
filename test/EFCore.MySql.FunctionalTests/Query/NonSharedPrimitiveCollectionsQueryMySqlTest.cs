@@ -97,7 +97,7 @@ LIMIT 2
 """);
     }
 
-    [ConditionalFact]
+    [Fact]
     public override Task Array_of_byte()
         => base.Array_of_byte();
 
@@ -387,13 +387,13 @@ LIMIT 2
 """);
     }
 
-    [ConditionalFact]
+    [Fact]
     public override Task Multidimensional_array_is_not_supported()
         => base.Multidimensional_array_is_not_supported();
 
     #endregion Support for specific element types
 
-    [ConditionalFact]
+    [Fact]
     public override Task Column_with_custom_converter()
         => base.Column_with_custom_converter();
 
@@ -697,7 +697,7 @@ WHERE `t`.`Id` IN (@ints1, @ints2, @ints3, @ints4, @ints5, @ints6, @ints7, @ints
         AssertSql();
     }
 
-    [ConditionalFact]
+    [Fact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 

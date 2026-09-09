@@ -63,25 +63,25 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 elementAsserter: (e, a) => AssertInclude(e, a, new ExpectedInclude<Order>(o => o.OrderDetails)));
         }
 
-        [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
+        [Theory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
         public override Task Include_collection_skip_no_order_by(bool async)
         {
             return base.Include_collection_skip_no_order_by(async);
         }
 
-        [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
+        [Theory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
         public override Task Include_collection_skip_take_no_order_by(bool async)
         {
             return base.Include_collection_skip_take_no_order_by(async);
         }
 
-        [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
+        [Theory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
         public override Task Include_collection_take_no_order_by(bool async)
         {
             return base.Include_collection_take_no_order_by(async);
         }
 
-        [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
+        [Theory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
         public override Task Include_duplicate_collection_result_operator(bool async)
         {
             return base.Include_duplicate_collection_result_operator(async);

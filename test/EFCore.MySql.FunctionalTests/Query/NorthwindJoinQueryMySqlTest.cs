@@ -20,7 +20,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         /// Needs explicit ordering of views to work consistently with MySQL and MariaDB.
         /// But since CustomerViewModel is private, we can't even override the test case properly.
         /// </summary>
-        [ConditionalTheory(Skip = "Needs explicit ordering of views to work consistently with MySQL and MariaDB.")]
+        [Theory(Skip = "Needs explicit ordering of views to work consistently with MySQL and MariaDB.")]
         public override async Task SelectMany_with_client_eval_with_constructor(bool async)
         {
             // await AssertQuery(

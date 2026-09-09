@@ -3753,7 +3753,7 @@ ORDER BY `u0`.`Rank`
 """);
     }
 
-    [ConditionalTheory(Skip = "MySQL does not support LIMIT with a parameterized argument, unless the statement was prepared. The argument needs to be a numeric constant.")]
+    [Theory(Skip = "MySQL does not support LIMIT with a parameterized argument, unless the statement was prepared. The argument needs to be a numeric constant.")]
     public override async Task Take_without_orderby_followed_by_orderBy_is_pushed_down1(bool async)
     {
         await base.Take_without_orderby_followed_by_orderBy_is_pushed_down1(async);
@@ -3779,7 +3779,7 @@ ORDER BY `t0`.`Rank`
 """);
     }
 
-    [ConditionalTheory(Skip = "MySQL does not support LIMIT with a parameterized argument, unless the statement was prepared. The argument needs to be a numeric constant.")]
+    [Theory(Skip = "MySQL does not support LIMIT with a parameterized argument, unless the statement was prepared. The argument needs to be a numeric constant.")]
     public override async Task Take_without_orderby_followed_by_orderBy_is_pushed_down2(bool async)
     {
         await base.Take_without_orderby_followed_by_orderBy_is_pushed_down2(async);
@@ -3805,7 +3805,7 @@ ORDER BY `t0`.`Rank`
 """);
     }
 
-    [ConditionalTheory(Skip = "MySQL does not support LIMIT with a parameterized argument, unless the statement was prepared. The argument needs to be a numeric constant.")]
+    [Theory(Skip = "MySQL does not support LIMIT with a parameterized argument, unless the statement was prepared. The argument needs to be a numeric constant.")]
     public override async Task Take_without_orderby_followed_by_orderBy_is_pushed_down3(bool async)
     {
         await base.Take_without_orderby_followed_by_orderBy_is_pushed_down3(async);
@@ -8388,7 +8388,7 @@ WHERE ((@start <= CONVERT(`m`.`Timeline`, date)) AND (`m`.`Timeline` < @end)) AN
         }
     }
 
-    [ConditionalTheory(Skip = "TODO: Does not work as expected, probably due to some test definition issues.")]
+    [Theory(Skip = "TODO: Does not work as expected, probably due to some test definition issues.")]
     public override async Task DateTimeOffsetNow_minus_timespan(bool async)
     {
         var timeSpan = new TimeSpan(10000); // <-- changed from 1000 to 10000 ticks
@@ -11640,7 +11640,7 @@ ORDER BY `u`.`Nickname`, `u`.`SquadId`
         AssertSql();
     }
 
-    [ConditionalTheory(Skip = "Another LATERAL JOIN bug in MySQL. Grouping leads to unexpected result set.")]
+    [Theory(Skip = "Another LATERAL JOIN bug in MySQL. Grouping leads to unexpected result set.")]
     public override async Task
         Correlated_collection_with_groupby_with_complex_grouping_key_not_projecting_identifier_column_with_group_aggregate_in_final_projection(
             bool async)
@@ -11668,7 +11668,7 @@ ORDER BY `u`.`Nickname`, `u`.`SquadId`
     }
 
     // TODO: Implement strategy as discussed with @roji (including emails) for EF Core 5.
-    [ConditionalTheory(Skip = "#996")]
+    [Theory(Skip = "#996")]
     public override async Task Client_member_and_unsupported_string_Equals_in_the_same_query(bool async)
     {
         await base.Client_member_and_unsupported_string_Equals_in_the_same_query(async);
@@ -12825,7 +12825,7 @@ LEFT JOIN (
 """);
     }
 
-    [ConditionalFact]
+    [Fact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 

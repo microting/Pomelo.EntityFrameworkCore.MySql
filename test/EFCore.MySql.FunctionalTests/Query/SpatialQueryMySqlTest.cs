@@ -29,7 +29,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public override Task Distance_constant_srid_4326(bool async)
             => base.Distance_constant_srid_4326(async);
 
-        [ConditionalTheory]
+        [Theory]
         public override Task GeometryType(bool async)
             => AssertQuery(
                 async,
@@ -1091,7 +1091,7 @@ WHERE ST_Intersects(@lineString, `l`.`LineString`) IS NOT NULL
 
         #endregion
 
-        [ConditionalFact]
+        [Fact]
         public virtual void Check_all_tests_overridden()
             => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 

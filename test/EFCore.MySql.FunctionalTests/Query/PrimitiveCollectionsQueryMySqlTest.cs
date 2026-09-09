@@ -2651,7 +2651,7 @@ WHERE `p`.`Int` IN (10, 999)
 """);
     }
 
-    [ConditionalFact]
+    [Fact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 

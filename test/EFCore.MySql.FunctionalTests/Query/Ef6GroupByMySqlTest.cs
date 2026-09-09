@@ -17,7 +17,7 @@ public class Ef6GroupByMySqlTest : Ef6GroupByTestBase<Ef6GroupByMySqlTest.Ef6Gro
         // Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
-    [ConditionalFact]
+    [Fact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
@@ -495,7 +495,7 @@ ORDER BY `c`.`Id`, `s`.`Id`
 """);
     }
 
-    [ConditionalTheory(Skip = "Check why this does not throw in CI (MySQL 8.0.x), but does locally in the mysql:latest docker container.")]
+    [Theory(Skip = "Check why this does not throw in CI (MySQL 8.0.x), but does locally in the mysql:latest docker container.")]
     public override async Task Whats_new_2021_sample_3(bool async)
     {
         // GroupBy debug assert. Issue #26104.
@@ -507,7 +507,7 @@ ORDER BY `c`.`Id`, `s`.`Id`
         AssertSql();
     }
 
-    [ConditionalTheory(Skip = "Check why this does not throw in CI (MySQL 8.0.x), but does locally in the mysql:latest docker container.")]
+    [Theory(Skip = "Check why this does not throw in CI (MySQL 8.0.x), but does locally in the mysql:latest docker container.")]
     public override async Task Whats_new_2021_sample_5(bool async)
     {
         await base.Whats_new_2021_sample_5(async);
@@ -529,7 +529,7 @@ ORDER BY (
 """);
     }
 
-    [ConditionalTheory(Skip = "Check why this does not throw in CI (MySQL 8.0.x), but does locally in the mysql:latest docker container.")]
+    [Theory(Skip = "Check why this does not throw in CI (MySQL 8.0.x), but does locally in the mysql:latest docker container.")]
     public override async Task Whats_new_2021_sample_6(bool async)
     {
         // GroupBy debug assert. Issue #26104.

@@ -20,7 +20,7 @@ public class DateOnlyQueryMySqlTest : DateOnlyQueryMySqlTestBase<DateOnlyQueryMy
         //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
-    [ConditionalTheory]
+    [Theory]
     [MemberData(nameof(IsAsyncData))]
     public async Task DayNumber(bool isAsync)
     {
@@ -42,7 +42,7 @@ LIMIT 2
 """);
     }
 
-    [ConditionalTheory]
+    [Theory]
     [MemberData(nameof(IsAsyncData))]
     public async Task DayNumber_offset_same_as_CLR(bool isAsync)
     {
@@ -64,7 +64,7 @@ LIMIT 2
 """);
     }
 
-    [ConditionalTheory]
+    [Theory]
     [MemberData(nameof(IsAsyncData))]
     public async Task ToDateTime_with_nondefault_TimeOnly(bool isAsync)
     {
@@ -86,7 +86,7 @@ LIMIT 2
 """);
     }
 
-    [ConditionalTheory]
+    [Theory]
     [MemberData(nameof(IsAsyncData))]
     public async Task ToDateTime_with_default_TimeOnly(bool isAsync)
     {
@@ -108,7 +108,7 @@ LIMIT 2
 """);
     }
 
-    [ConditionalTheory]
+    [Theory]
     [MemberData(nameof(IsAsyncData))]
     public async Task DayNumber_FromDateTime(bool isAsync)
     {
@@ -124,7 +124,7 @@ WHERE ((TO_DAYS(`i`.`BestServedBefore`) - 366) - (TO_DAYS(DATE(CURDATE())) - 366
 LIMIT 2");
     }
 
-    [ConditionalTheory]
+    [Theory]
     [MemberData(nameof(IsAsyncData))]
     public async Task DateDiffDay(bool isAsync)
     {
@@ -147,7 +147,7 @@ WHERE TIMESTAMPDIFF(DAY, @todayDateOnly, `i`.`BestServedBefore`) < 30
 """);
     }
 
-    [ConditionalTheory]
+    [Theory]
     [MemberData(nameof(IsAsyncData))]
     public async Task DateDiffDay_ToDateTime(bool isAsync)
     {

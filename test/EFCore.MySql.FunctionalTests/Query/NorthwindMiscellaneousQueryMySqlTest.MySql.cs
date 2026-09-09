@@ -10,7 +10,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     public partial class NorthwindMiscellaneousQueryMySqlTest
     {
-        [ConditionalTheory]
+        [Theory]
         [MemberData(nameof(IsAsyncData))]
         [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.WindowFunctions))]
         public virtual Task RowNumberOverPartitionBy_not_supported_throws(bool async)
