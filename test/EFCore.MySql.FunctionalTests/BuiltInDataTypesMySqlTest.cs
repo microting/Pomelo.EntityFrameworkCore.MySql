@@ -875,7 +875,8 @@ WHERE `m`.`TimeSpanAsTime` = @timeSpan",
 
         // Overridden because of TestNullableDateTimeOffset, since MySQL does not offer a native data type to save a date/time with
         // timezone.
-        public override async Task Can_insert_and_read_back_all_nullable_data_types_with_values_set_to_non_null()
+        [Fact]
+        public async Task Can_insert_and_read_back_all_nullable_data_types_with_values_set_to_non_null()
         {
             using (var context = CreateContext())
             {
@@ -1521,7 +1522,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
         #region https://github.com/dotnet/efcore/issues/26068
 
         [Fact]
-        public override async Task Can_insert_and_read_back_all_non_nullable_data_types()
+        public async Task Can_insert_and_read_back_all_non_nullable_data_types()
         {
             using (var context = CreateContext())
             {
@@ -1595,7 +1596,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
         }
 
         [Fact]
-        public override async Task Can_insert_and_read_back_non_nullable_backed_data_types()
+        public async Task Can_insert_and_read_back_non_nullable_backed_data_types()
         {
             using (var context = CreateContext())
             {
@@ -1669,7 +1670,7 @@ UnicodeDataTypes.StringUnicode ---> [nullable longtext] [MaxLength = -1]
         }
 
         [Fact]
-        public override async Task Can_insert_and_read_back_nullable_backed_data_types()
+        public async Task Can_insert_and_read_back_nullable_backed_data_types()
         {
             using (var context = CreateContext())
             {

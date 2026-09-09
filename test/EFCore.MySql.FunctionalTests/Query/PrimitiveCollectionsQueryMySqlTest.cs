@@ -25,6 +25,13 @@ public class PrimitiveCollectionsQueryMySqlTest : PrimitiveCollectionsQueryRelat
         Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
+    protected override DbContextOptionsBuilder SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode parameterizedCollectionMode)
+    {
+        new MySqlDbContextOptionsBuilder(optionsBuilder).UseParameterizedCollectionMode(parameterizedCollectionMode);
+
+        return optionsBuilder;
+    }
+
     public override async Task Inline_collection_of_ints_Contains()
     {
         await base.Inline_collection_of_ints_Contains();
@@ -574,18 +581,6 @@ WHERE 10 IN (
 SELECT p."Id", p."Bool", p."Bools", p."DateTime", p."DateTimes", p."Enum", p."Enums", p."Int", p."Ints", p."NullableInt", p."NullableInts", p."NullableString", p."NullableStrings", p."String", p."Strings"
 FROM "PrimitiveCollectionsEntity" AS p
 WHERE array_position(p."NullableInts", NULL) IS NOT NULL
-""");
-    }
-
-    public override async Task Column_collection_of_strings_contains_null()
-    {
-        await base.Column_collection_of_strings_contains_null();
-
-        AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
-FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE FALSE
 """);
     }
 
@@ -2570,12 +2565,6 @@ INNER JOIN (
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Count_with_huge_number_of_values_over_2_operations_same_parameter_different_type_mapping()
-    {
-        await base.Parameter_collection_Count_with_huge_number_of_values_over_2_operations_same_parameter_different_type_mapping();
-        AssertSql();
-    }
-
     public override async Task Parameter_collection_Count_with_huge_number_of_values_over_5_operations_forced_constants()
     {
         await base.Parameter_collection_Count_with_huge_number_of_values_over_5_operations_forced_constants();
@@ -2597,12 +2586,6 @@ INNER JOIN (
     public override async Task Parameter_collection_of_ints_Contains_int_with_huge_number_of_values_over_5_operations_same_parameter()
     {
         await base.Parameter_collection_of_ints_Contains_int_with_huge_number_of_values_over_5_operations_same_parameter();
-        AssertSql();
-    }
-
-    public override async Task Parameter_collection_of_ints_Contains_int_with_huge_number_of_values_over_2_operations_same_parameter_different_type_mapping()
-    {
-        await base.Parameter_collection_of_ints_Contains_int_with_huge_number_of_values_over_2_operations_same_parameter_different_type_mapping();
         AssertSql();
     }
 
