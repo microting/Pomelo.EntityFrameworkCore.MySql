@@ -366,7 +366,7 @@ N'{"Collection":[{"Bar":21,"Foo":"c21"},{"Bar":22,"Foo":"c22"}]}',
             onConfiguring: b => b.ConfigureWarnings(ConfigureWarnings),
             seed: SeedEnumLegacyValues);
 
-        using (var context = contextFactory.CreateContext())
+        using (var context = contextFactory.CreateDbContext())
         {
             var query = context.Set<MyEntityEnumLegacyValues>().Select(
                 x => new
@@ -396,7 +396,7 @@ N'{"Collection":[{"Bar":21,"Foo":"c21"},{"Bar":22,"Foo":"c22"}]}',
             seed: SeedEnumLegacyValues,
             shouldLogCategory: c => c == DbLoggerCategory.Query.Name);
 
-        using (var context = contextFactory.CreateContext())
+        using (var context = contextFactory.CreateDbContext())
         {
             var query = context.Set<MyEntityEnumLegacyValues>().Select(x => x.Reference).AsNoTracking();
 
@@ -437,7 +437,7 @@ N'{"Collection":[{"Bar":21,"Foo":"c21"},{"Bar":22,"Foo":"c22"}]}',
             seed: SeedEnumLegacyValues,
             shouldLogCategory: c => c == DbLoggerCategory.Query.Name);
 
-        using (var context = contextFactory.CreateContext())
+        using (var context = contextFactory.CreateDbContext())
         {
             var query = context.Set<MyEntityEnumLegacyValues>().Select(x => x.Collection).AsNoTracking();
 

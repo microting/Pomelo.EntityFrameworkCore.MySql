@@ -61,7 +61,7 @@ LEFT JOIN (
                     });
             });
 
-            using var context = contextFactory.CreateContext();
+            using var context = contextFactory.CreateDbContext();
 
             var id = new Guid("6c1ae3e5-30b9-4c77-8d98-f02075974a0a");
             var query = context.Set<Location25680>().Where(e => e.Id == id).AsSplitQuery();
@@ -75,7 +75,7 @@ LEFT JOIN (
         {
             var contextFactory = await InitializeNonSharedTest<Context18582>(seed: c => c.SeedAsync());
 
-            using var context = contextFactory.CreateContext();
+            using var context = contextFactory.CreateDbContext();
             var query = context.Warehouses.Select(
                 x => new Context18582.WarehouseModel
                 {
@@ -100,7 +100,7 @@ LEFT JOIN (
         {
             var contextFactory = await InitializeNonSharedTest<Context13157>(seed: c => c.SeedAsync());
 
-            using (var context = contextFactory.CreateContext())
+            using (var context = contextFactory.CreateDbContext())
             {
                 var partners = context.Partners
                     .Select(

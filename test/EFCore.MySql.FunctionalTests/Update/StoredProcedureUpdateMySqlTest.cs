@@ -567,7 +567,7 @@ END
                     builder.Ignore(RelationalEventId.TpcStoreGeneratedIdentityWarning)); // <-- added
             });
 
-        await using var context = contextFactory.CreateContext();
+        await using var context = contextFactory.CreateDbContext();
 
         var entity1 = new Child1 { Name = "Child", Child1Property = 8 };
         context.Set<Child1>().Add(entity1);

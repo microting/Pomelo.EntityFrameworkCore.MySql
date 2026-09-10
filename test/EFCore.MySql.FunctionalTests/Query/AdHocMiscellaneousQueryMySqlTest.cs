@@ -56,7 +56,7 @@ INSERT INTO `ZeroKey` VALUES (NULL)
         // The other comments are part of the base implementation.
 
         var contextFactory = await InitializeNonSharedTest<Context23981>();
-        using var context = contextFactory.CreateContext();
+        using var context = contextFactory.CreateDbContext();
         //var good1 = context.Set<NameSpace1.TestQuery>().FromSqlRaw(@"SELECT 1 AS MyValue").ToList(); // OK
         //var good2 = context.Set<NameSpace2.TestQuery>().FromSqlRaw(@"SELECT 1 AS MyValue").ToList(); // OK
         var bad = context.Set<TestQuery>().FromSqlRaw(@"SELECT cast(null as signed) AS MyValue").ToList(); // Exception
