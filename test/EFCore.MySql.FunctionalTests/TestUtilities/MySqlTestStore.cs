@@ -239,7 +239,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
                     return 0;
                 }, string.Empty);
 
-        public override Task CleanAsync(DbContext context, bool createTables)
+        public override Task CleanAsync(DbContext context, bool createTables = true)
         {
             context.Database.EnsureClean(createTables);
             return Task.CompletedTask;
