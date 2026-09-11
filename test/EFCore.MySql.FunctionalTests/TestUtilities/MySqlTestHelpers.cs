@@ -90,7 +90,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
                             {
                                 index.SetPrefixLength(
                                     index.Properties.Select(
-                                            p => indexedStringProperties.Contains(p) && p.GetMaxLength() > safePropertyLength
+                                            p => p is IMutableProperty property
+                                                 && indexedStringProperties.Contains(property)
+                                                 && property.GetMaxLength() > safePropertyLength
                                                 ? safePropertyLength
                                                 : 0)
                                         .ToArray());
@@ -144,8 +146,8 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities
                 .GetRuntimeMethods()
                 .Where(
                     m => m.DeclaringType != testClass
-                         && (Attribute.IsDefined(m, typeof(ConditionalFactAttribute))
-                             || Attribute.IsDefined(m, typeof(ConditionalTheoryAttribute))))
+                         && (Attribute.IsDefined(m, typeof(FactAttribute))
+                             || Attribute.IsDefined(m, typeof(TheoryAttribute))))
                 .ToList();
 
             var methodCalls = new StringBuilder();

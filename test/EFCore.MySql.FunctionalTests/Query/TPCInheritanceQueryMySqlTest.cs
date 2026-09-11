@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Storage;
-using Xunit.Abstractions;
+using Xunit;
+using Microsoft.EntityFrameworkCore.Query.Inheritance;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 

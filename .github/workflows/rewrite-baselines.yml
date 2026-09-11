@@ -1,0 +1,86 @@
+name: Rewrite SQL Baselines
+
+# Manually triggered helper that regenerates the `AssertSql(...)` baselines in the functional
+# tests. EF Core's TestSqlLoggerFactory rewrites the test sources in place (using Roslyn) when
+# `EF_TEST_REWRITE_BASELINES` is set, so this workflow just runs the tests with that switch
+# enabled and publishes the result as a patch artifact.
+#
+# The patch is NOT applied automatically: review it, then apply it locally with
+#   git apply baselines.patch
+#
+# Baselines are server specific, so regenerate them against the same server the committed
+# baselines target, and afterwards run the normal build workflow across the full matrix to
+# confirm nothing version specific regressed.
+#
+# NOTE: GitHub only registers a `workflow_dispatch` workflow once the file exists on the default
+# branch, so while this branch is still open the workflow cannot be started from the Actions UI.
+# The `push` trigger below is a temporary stand in that produces the same artifact automatically.
+# Remove that trigger once this branch has been merged into the default branch.
+on:
+  push:
+    branches:
+      - copilot/dotnet-11-support
+  workflow_dispatch:
+    inputs:
+      dbImage:
+        description: 'Database server container image to generate the baselines against'
+        type: string
+        default: 'mysql:8.0.40'
+      testFilter:
+        description: 'Optional extra dotnet test arguments, e.g. --filter-class Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query.ComplexNavigationsCollectionsQueryMySqlTest'
+        type: string
+        default: ''
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+jobs:
+  RewriteBaselines:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Database Server
+        env:
+          DB_IMAGE: ${{ inputs.dbImage || 'mysql:8.0.40' }}
+        run: |
+          sudo systemctl stop mysql || true
+          docker run --name database -e MYSQL_ROOT_PASSWORD='Password12!' -p 127.0.0.1:3306:3306 -d "$DB_IMAGE"
+          for _ in $(seq 1 300); do
+            if docker exec database mysql --protocol=tcp -h localhost -P 3306 -u root -p'Password12!' -e 'select 1;' > /dev/null 2>&1; then
+              echo 'Database server is ready.'
+              exit 0
+            fi
+            sleep 1
+          done
+          echo 'Database server failed to start within 5 minutes.' >&2
+          exit 1
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Setup Solution
+        run: cp test/EFCore.MySql.FunctionalTests/config.json.example test/EFCore.MySql.FunctionalTests/config.json
+      - name: Build
+        run: dotnet build test/EFCore.MySql.FunctionalTests -c Debug
+      - name: Run Functional Tests with baseline rewriting
+        # The tests are expected to fail here: a baseline is only rewritten when it did not match.
+        continue-on-error: true
+        env:
+          EF_TEST_REWRITE_BASELINES: '1'
+          TEST_FILTER: ${{ inputs.testFilter }}
+        # $TEST_FILTER is intentionally unquoted so that it can expand into multiple arguments.
+        run: dotnet test --project test/EFCore.MySql.FunctionalTests -c Debug --no-build $TEST_FILTER
+      - name: Create patch
+        run: |
+          git diff -- test/EFCore.MySql.FunctionalTests > baselines.patch
+          echo "Rewritten files:"
+          git diff --stat -- test/EFCore.MySql.FunctionalTests
+      - name: Upload patch
+        uses: actions/upload-artifact@v4
+        with:
+          name: baselines-patch
+          path: baselines.patch
+          if-no-files-found: warn

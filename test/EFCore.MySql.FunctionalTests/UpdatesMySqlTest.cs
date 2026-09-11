@@ -21,7 +21,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
             fixture.TestSqlLoggerFactory.Clear();
         }
 
-        [ConditionalFact]
+        [Fact]
         public override void Identifiers_are_generated_correctly()
         {
             using (var context = CreateContext())

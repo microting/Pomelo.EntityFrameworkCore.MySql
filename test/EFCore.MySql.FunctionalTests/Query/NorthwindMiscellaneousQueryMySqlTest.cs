@@ -14,7 +14,6 @@ using Pomelo.EntityFrameworkCore.MySql.Internal;
 using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
@@ -30,7 +29,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
-        [ConditionalTheory]
+        [Theory]
         public override async Task Take_Skip(bool async)
         {
             await base.Take_Skip(async);
@@ -52,7 +51,7 @@ LIMIT 18446744073709551610 OFFSET @p1
 """);
         }
 
-        [ConditionalTheory]
+        [Theory]
         public override async Task Select_expression_references_are_updated_correctly_with_subquery(bool async)
         {
             await base.Select_expression_references_are_updated_correctly_with_subquery(async);
@@ -7393,7 +7392,7 @@ WHERE `c`.`CustomerID` LIKE 'A%'
 """);
     }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void Check_all_tests_overridden()
             => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 

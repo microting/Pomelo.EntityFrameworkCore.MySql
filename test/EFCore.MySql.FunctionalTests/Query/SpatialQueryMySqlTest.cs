@@ -9,7 +9,6 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
@@ -30,7 +29,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
         public override Task Distance_constant_srid_4326(bool async)
             => base.Distance_constant_srid_4326(async);
 
-        [ConditionalTheory]
+        [Theory]
         public override Task GeometryType(bool async)
             => AssertQuery(
                 async,
@@ -143,11 +142,8 @@ FROM `PointEntity` AS `p`
             await base.AsBinary_with_null_check(async);
 
             AssertSql(
-"""
-SELECT `p`.`Id`, CASE
-    WHEN `p`.`Point` IS NULL THEN NULL
-    ELSE ST_AsBinary(`p`.`Point`)
-END AS `Binary`
+                """
+SELECT `p`.`Id`, ST_AsBinary(`p`.`Point`) AS `Binary`
 FROM `PointEntity` AS `p`
 """);
         }
@@ -666,11 +662,8 @@ FROM `MultiLineStringEntity` AS `m`
             await base.IsEmpty(async);
 
             AssertSql(
-"""
-SELECT `m`.`Id`, CASE
-    WHEN `m`.`MultiLineString` IS NULL THEN NULL
-    ELSE ST_IsEmpty(`m`.`MultiLineString`)
-END AS `IsEmpty`
+                """
+SELECT `m`.`Id`, ST_IsEmpty(`m`.`MultiLineString`) AS `IsEmpty`
 FROM `MultiLineStringEntity` AS `m`
 """);
         }
@@ -702,11 +695,8 @@ FROM `LineStringEntity` AS `l`
             await base.IsSimple(async);
 
             AssertSql(
-"""
-SELECT `l`.`Id`, CASE
-    WHEN `l`.`LineString` IS NULL THEN NULL
-    ELSE ST_IsSimple(`l`.`LineString`)
-END AS `IsSimple`
+                """
+SELECT `l`.`Id`, ST_IsSimple(`l`.`LineString`) AS `IsSimple`
 FROM `LineStringEntity` AS `l`
 """);
         }
@@ -1010,13 +1000,10 @@ ORDER BY `p1`.`Id`
             await base.IsEmpty_equal_to_null(async);
 
             AssertSql(
-"""
+                """
 SELECT `p`.`Id`
 FROM `PointEntity` AS `p`
-WHERE CASE
-    WHEN `p`.`Point` IS NULL THEN NULL
-    ELSE ST_IsEmpty(`p`.`Point`)
-END IS NULL
+WHERE `p`.`Point` IS NULL
 """);
         }
 
@@ -1025,13 +1012,10 @@ END IS NULL
             await base.IsEmpty_not_equal_to_null(async);
 
             AssertSql(
-"""
+                """
 SELECT `p`.`Id`
 FROM `PointEntity` AS `p`
-WHERE CASE
-    WHEN `p`.`Point` IS NULL THEN NULL
-    ELSE ST_IsEmpty(`p`.`Point`)
-END IS NOT NULL
+WHERE `p`.`Point` IS NOT NULL
 """);
         }
 
@@ -1092,7 +1076,7 @@ WHERE ST_Intersects(@lineString, `l`.`LineString`) IS NOT NULL
 
         #endregion
 
-        [ConditionalFact]
+        [Fact]
         public virtual void Check_all_tests_overridden()
             => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
@@ -11,7 +12,6 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
-using Xunit.Abstractions;
 using Xunit.Sdk;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
@@ -24,6 +24,13 @@ public class PrimitiveCollectionsQueryMySqlTest : PrimitiveCollectionsQueryRelat
     {
         Fixture.TestSqlLoggerFactory.Clear();
         Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
+    }
+
+    protected override DbContextOptionsBuilder SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode parameterizedCollectionMode)
+    {
+        new MySqlDbContextOptionsBuilder(optionsBuilder).UseParameterizedCollectionMode(parameterizedCollectionMode);
+
+        return optionsBuilder;
     }
 
     public override async Task Inline_collection_of_ints_Contains()
@@ -575,18 +582,6 @@ WHERE 10 IN (
 SELECT p."Id", p."Bool", p."Bools", p."DateTime", p."DateTimes", p."Enum", p."Enums", p."Int", p."Ints", p."NullableInt", p."NullableInts", p."NullableString", p."NullableStrings", p."String", p."Strings"
 FROM "PrimitiveCollectionsEntity" AS p
 WHERE array_position(p."NullableInts", NULL) IS NOT NULL
-""");
-    }
-
-    public override async Task Column_collection_of_strings_contains_null()
-    {
-        await base.Column_collection_of_strings_contains_null();
-
-        AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
-FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE FALSE
 """);
     }
 
@@ -1715,14 +1710,14 @@ WHERE `p`.`Id` = @i
         await base.Inline_collection_with_single_parameter_element_Count();
 
         AssertSql(
-"""
+            """
 @i='2'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
-    FROM (SELECT CAST(@i AS signed) AS `Value`) AS `v`
+    FROM (SELECT @i AS `Value`) AS `v`
     WHERE `v`.`Value` > `p`.`Id`) = 1
 """);
     }
@@ -2571,12 +2566,6 @@ INNER JOIN (
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Count_with_huge_number_of_values_over_2_operations_same_parameter_different_type_mapping()
-    {
-        await base.Parameter_collection_Count_with_huge_number_of_values_over_2_operations_same_parameter_different_type_mapping();
-        AssertSql();
-    }
-
     public override async Task Parameter_collection_Count_with_huge_number_of_values_over_5_operations_forced_constants()
     {
         await base.Parameter_collection_Count_with_huge_number_of_values_over_5_operations_forced_constants();
@@ -2598,12 +2587,6 @@ INNER JOIN (
     public override async Task Parameter_collection_of_ints_Contains_int_with_huge_number_of_values_over_5_operations_same_parameter()
     {
         await base.Parameter_collection_of_ints_Contains_int_with_huge_number_of_values_over_5_operations_same_parameter();
-        AssertSql();
-    }
-
-    public override async Task Parameter_collection_of_ints_Contains_int_with_huge_number_of_values_over_2_operations_same_parameter_different_type_mapping()
-    {
-        await base.Parameter_collection_of_ints_Contains_int_with_huge_number_of_values_over_2_operations_same_parameter_different_type_mapping();
         AssertSql();
     }
 
@@ -2652,7 +2635,238 @@ WHERE `p`.`Int` IN (10, 999)
 """);
     }
 
-    [ConditionalFact]
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode()
+    {
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_Contains_with_default_mode()
+    {
+        await base.Parameter_collection_Contains_with_default_mode();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant()
+    {
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_Contains_with_default_mode_EF_Constant()
+    {
+        await base.Parameter_collection_Contains_with_default_mode_EF_Constant();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter()
+    {
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_Contains_with_default_mode_EF_Parameter()
+    {
+        await base.Parameter_collection_Contains_with_default_mode_EF_Parameter();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_MultipleParameters()
+    {
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_MultipleParameters();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_Contains_with_default_mode_EF_MultipleParameters()
+    {
+        await base.Parameter_collection_Contains_with_default_mode_EF_MultipleParameters();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_Contains_parameter_bucketization()
+    {
+        await base.Parameter_collection_Contains_parameter_bucketization();
+
+        AssertSql();
+    }
+
+    public override async Task Column_collection_inside_json_owned_entity()
+    {
+        await base.Column_collection_inside_json_owned_entity();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_of_enum_Cast_from_different_enum_type()
+    {
+        await base.Parameter_collection_of_enum_Cast_from_different_enum_type();
+
+        AssertSql();
+    }
+
+    public override async Task Inline_collection_in_query_filter()
+    {
+        await base.Inline_collection_in_query_filter();
+
+        AssertSql();
+    }
+
+    public override async Task Inline_collection_SelectMany_with_unreferenced_collection_value()
+    {
+        await base.Inline_collection_SelectMany_with_unreferenced_collection_value();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_FrozenSet_of_ints_Contains_int()
+    {
+        await base.Parameter_collection_FrozenSet_of_ints_Contains_int();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_IReadOnlySet_of_ints_Contains_int()
+    {
+        await base.Parameter_collection_IReadOnlySet_of_ints_Contains_int();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_ReadOnlyCollectionWithContains_of_ints_Contains_int()
+    {
+        await base.Parameter_collection_ReadOnlyCollectionWithContains_of_ints_Contains_int();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_of_nullable_ints_Contains_nullable_int_with_EF_Parameter()
+    {
+        await base.Parameter_collection_of_nullable_ints_Contains_nullable_int_with_EF_Parameter();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_Count_with_huge_number_of_values_over_2_operations_same_parameter_different_property()
+    {
+        await base.Parameter_collection_Count_with_huge_number_of_values_over_2_operations_same_parameter_different_property();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_collection_of_ints_Contains_int_with_huge_number_of_values_over_2_operations_same_parameter_different_property()
+    {
+        await base.Parameter_collection_of_ints_Contains_int_with_huge_number_of_values_over_2_operations_same_parameter_different_property();
+
+        AssertSql();
+    }
+
+    public override async Task Static_readonly_collection_List_of_ints_Contains_int()
+    {
+        await base.Static_readonly_collection_List_of_ints_Contains_int();
+
+        AssertSql();
+    }
+
+    public override async Task Static_readonly_collection_FrozenSet_of_ints_Contains_int()
+    {
+        await base.Static_readonly_collection_FrozenSet_of_ints_Contains_int();
+
+        AssertSql();
+    }
+
+    public override async Task Static_readonly_collection_ImmutableArray_of_ints_Contains_int()
+    {
+        await base.Static_readonly_collection_ImmutableArray_of_ints_Contains_int();
+
+        AssertSql();
+    }
+
+    public override async Task Column_collection_of_strings_Contains()
+    {
+        await base.Column_collection_of_strings_Contains();
+
+        AssertSql();
+    }
+
+    public override async Task Column_collection_of_strings_Contains_null()
+    {
+        await base.Column_collection_of_strings_Contains_null();
+
+        AssertSql();
+    }
+
+    public override async Task Column_with_custom_converter()
+    {
+        await base.Column_with_custom_converter();
+
+        AssertSql();
+    }
+
+    public override async Task Parameter_with_inferred_value_converter()
+    {
+        await base.Parameter_with_inferred_value_converter();
+
+        AssertSql();
+    }
+
+    public override async Task Constant_with_inferred_value_converter()
+    {
+        await base.Constant_with_inferred_value_converter();
+
+        AssertSql();
+    }
+
+    public override async Task Multidimensional_array_is_not_supported()
+    {
+        await base.Multidimensional_array_is_not_supported();
+
+        AssertSql();
+    }
+
+    public override async Task Min_on_MemoryExtensions()
+    {
+        await base.Min_on_MemoryExtensions();
+
+        AssertSql();
+    }
+
+    public override async Task Max_on_MemoryExtensions()
+    {
+        await base.Max_on_MemoryExtensions();
+
+        AssertSql();
+    }
+
+    public override async Task Compiled_query_with_uncorrelated_parameter_collection_expression()
+    {
+        await base.Compiled_query_with_uncorrelated_parameter_collection_expression();
+
+        AssertSql();
+    }
+
+    public override async Task Project_collection_from_entity_type_with_owned()
+    {
+        await base.Project_collection_from_entity_type_with_owned();
+
+        AssertSql();
+    }
+
+    public override async Task Subquery_over_primitive_collection_on_inheritance_derived_type()
+    {
+        await base.Subquery_over_primitive_collection_on_inheritance_derived_type();
+
+        AssertSql();
+    }
+
+    [Fact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
@@ -2669,6 +2883,20 @@ WHERE `p`.`Int` IN (10, 999)
 
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
+
+        public override DbContextOptionsBuilder AddOptions(DbContextOptionsBuilder builder)
+        {
+            var optionsBuilder = base.AddOptions(builder);
+
+            // The expected SQL of this test class is based on JSON_TABLE() being used for primitive collections, which the provider only
+            // emits when primitive collections support has been explicitly enabled (and the server supports JSON_TABLE() at all).
+            if (AppConfig.ServerVersion.Supports.JsonTable)
+            {
+                new MySqlDbContextOptionsBuilder(optionsBuilder).EnablePrimitiveCollectionsSupport();
+            }
+
+            return optionsBuilder;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder, DbContext context)
         {

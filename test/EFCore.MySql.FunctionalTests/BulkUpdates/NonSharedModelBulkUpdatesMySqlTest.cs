@@ -16,10 +16,10 @@ public class NonSharedModelBulkUpdatesMySqlTest : NonSharedModelBulkUpdatesRelat
     {
     }
 
-    protected override ITestStoreFactory TestStoreFactory
+    protected override ITestStoreFactory NonSharedTestStoreFactory
         => MySqlTestStoreFactory.Instance;
 
-    [ConditionalFact]
+    [Fact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
@@ -239,7 +239,28 @@ SET `b`.`Data` = @p
     {
         await base.Update_complex_type_with_view_mapping(async);
 
-        AssertSql();
+        AssertSql(
+            """
+@complex_type_p_Prop1='3' (Nullable = true)
+@complex_type_p_Prop2='4' (Nullable = true)
+
+UPDATE `Blogs` AS `b`
+SET `b`.`ComplexThing_Prop1` = @complex_type_p_Prop1,
+    `b`.`ComplexThing_Prop2` = @complex_type_p_Prop2
+""");
+    }
+
+    public override async Task Update_complex_type_property_with_view_mapping(bool async)
+    {
+        await base.Update_complex_type_property_with_view_mapping(async);
+
+        AssertSql(
+            """
+@p='6'
+
+UPDATE `Blogs` AS `b`
+SET `b`.`ComplexThing_Prop1` = @p
+""");
     }
 
     private void AssertSql(params string[] expected)
