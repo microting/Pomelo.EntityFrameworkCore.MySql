@@ -43,8 +43,11 @@
       `Xunit.SkippableFact`, because xUnit v3 has skipping support built in (`Assert.Skip*`, `[Fact(SkipUnless = ...)]`).
       As before, the individual packages are referenced instead of the `xunit.v3` meta package, because the meta
       package additionally pulls in `xunit.analyzers`, whose warnings break the build (`TreatWarningsAsErrors`).
-      `xunit.runner.visualstudio` 4.x is the VSTest adapter that understands xUnit v3, which keeps `dotnet test`
-      (and therefore the `GitHubActions` logger used by the workflows) working as before.
+      xUnit v3 builds on Microsoft.Testing.Platform (MTP), and the .NET 10+ SDK no longer supports running such
+      projects through the legacy VSTest target. The root `global.json` therefore opts `dotnet test` into the
+      `Microsoft.Testing.Platform` runner, and the workflows use MTP argument syntax: the `filter-not-trait` option
+      instead of `filter`, and `report-github` (from `GitHubActionsTestLogger`) instead of the `logger` option,
+      which MTP rejects. `GitHubActionsTestLogger` 3.x and `xunit.runner.visualstudio` 4.x both support MTP v2.
     -->
     <PackageVersion Include="xunit.v3.core" Version="4.0.0" />
     <PackageVersion Include="xunit.v3.assert" Version="4.0.0" />
