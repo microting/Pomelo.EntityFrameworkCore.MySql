@@ -215,10 +215,9 @@ WHERE `w`.`IsAutomatic` = TRUE"), keys); // Breaking change in 5.0 due to bool e
                 ss => ss.Set<Mission>().Where(e => true));
 
         AssertSql(
-"""
+            """
 SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Difficulty`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
 FROM `Missions` AS `m`
-WHERE `m`.`Timeline` = `m`.`Timeline`
 """);
         }
 
@@ -232,10 +231,9 @@ WHERE `m`.`Timeline` = `m`.`Timeline`
                 ss => ss.Set<Mission>().Where(e => true));
 
         AssertSql(
-"""
+            """
 SELECT `m`.`Id`, `m`.`CodeName`, `m`.`Date`, `m`.`Difficulty`, `m`.`Duration`, `m`.`Rating`, `m`.`Time`, `m`.`Timeline`
 FROM `Missions` AS `m`
-WHERE `m`.`Timeline` = `m`.`Timeline`
 """);
         }
     }

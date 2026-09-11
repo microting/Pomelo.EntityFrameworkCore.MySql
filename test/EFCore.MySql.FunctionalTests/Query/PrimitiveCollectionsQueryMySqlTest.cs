@@ -1710,14 +1710,14 @@ WHERE `p`.`Id` = @i
         await base.Inline_collection_with_single_parameter_element_Count();
 
         AssertSql(
-"""
+            """
 @i='2'
 
 SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
-    FROM (SELECT CAST(@i AS signed) AS `Value`) AS `v`
+    FROM (SELECT @i AS `Value`) AS `v`
     WHERE `v`.`Value` > `p`.`Id`) = 1
 """);
     }

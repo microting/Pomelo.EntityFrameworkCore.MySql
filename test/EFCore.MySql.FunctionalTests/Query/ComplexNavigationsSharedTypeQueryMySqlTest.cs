@@ -102,10 +102,10 @@ LIMIT @p
                 });
 
             AssertSql(
-"""
+                """
 @p='2'
 
-SELECT `l6`.`Id`, `s`.`Id`, `s`.`Id0`, `s`.`Id1`, `s`.`Result`, `s`.`Id2`, `s`.`Id3`, `s`.`Id4`
+SELECT `l6`.`Id`, `s`.`Id`, `s`.`Id0`, `s`.`Id1`, `s`.`Result`, `s`.`Id2`
 FROM (
     SELECT `l`.`Id`
     FROM `Level1` AS `l`
@@ -130,7 +130,7 @@ LEFT JOIN (
             WHEN `l2`.`Level2_Required_Id` IS NOT NULL AND (`l2`.`OneToMany_Required_Inverse3Id` IS NOT NULL) THEN `l2`.`Id`
         END = `l5`.`OneToMany_Optional_Inverse4Id`) OR (CASE
             WHEN `l2`.`Level2_Required_Id` IS NOT NULL AND (`l2`.`OneToMany_Required_Inverse3Id` IS NOT NULL) THEN `l2`.`Id`
-        END IS NULL AND (`l5`.`OneToMany_Optional_Inverse4Id` IS NULL))))), 0) > 1 AS `Result`, `l0`.`Id` AS `Id2`, `l2`.`Id` AS `Id3`, `l4`.`Id` AS `Id4`, `l0`.`OneToMany_Optional_Inverse2Id`
+        END IS NULL AND (`l5`.`OneToMany_Optional_Inverse4Id` IS NULL))))), 0) > 1 AS `Result`, `l0`.`Id` AS `Id2`, `l0`.`OneToMany_Optional_Inverse2Id`
     FROM `Level1` AS `l0`
     LEFT JOIN (
         SELECT `l1`.`Id`, `l1`.`Level2_Required_Id`, `l1`.`OneToMany_Required_Inverse3Id`
@@ -148,7 +148,7 @@ LEFT JOIN (
     END = `l4`.`Level3_Required_Id`
     WHERE (`l0`.`OneToOne_Required_PK_Date` IS NOT NULL AND (`l0`.`Level1_Required_Id` IS NOT NULL)) AND `l0`.`OneToMany_Required_Inverse2Id` IS NOT NULL
 ) AS `s` ON `l6`.`Id` = `s`.`OneToMany_Optional_Inverse2Id`
-ORDER BY `l6`.`Id`, `s`.`Id2`, `s`.`Id3`
+ORDER BY `l6`.`Id`
 """);
         }
 
