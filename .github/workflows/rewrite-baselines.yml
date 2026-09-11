@@ -28,6 +28,8 @@ env:
 jobs:
   RewriteBaselines:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     timeout-minutes: 90
     steps:
       - name: Checkout
