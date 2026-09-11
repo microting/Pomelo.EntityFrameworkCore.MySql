@@ -11,7 +11,15 @@ name: Rewrite SQL Baselines
 # Baselines are server specific, so regenerate them against the same server the committed
 # baselines target, and afterwards run the normal build workflow across the full matrix to
 # confirm nothing version specific regressed.
+#
+# NOTE: GitHub only registers a `workflow_dispatch` workflow once the file exists on the default
+# branch, so while this branch is still open the workflow cannot be started from the Actions UI.
+# The `push` trigger below is a temporary stand in that produces the same artifact automatically.
+# Remove that trigger once this branch has been merged into the default branch.
 on:
+  push:
+    branches:
+      - copilot/dotnet-11-support
   workflow_dispatch:
     inputs:
       dbImage:
@@ -36,7 +44,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Install Database Server
         env:
-          DB_IMAGE: ${{ inputs.dbImage }}
+          DB_IMAGE: ${{ inputs.dbImage || 'mysql:8.0.40' }}
         run: |
           sudo systemctl stop mysql || true
           docker run --name database -e MYSQL_ROOT_PASSWORD='Password12!' -p 127.0.0.1:3306:3306 -d "$DB_IMAGE"
