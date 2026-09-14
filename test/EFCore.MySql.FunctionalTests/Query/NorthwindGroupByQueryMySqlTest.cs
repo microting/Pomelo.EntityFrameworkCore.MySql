@@ -3796,84 +3796,251 @@ ORDER BY `c`.`City`
         {
             await base.GroupBy_Property_Select_MaxBy(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o3`.`OrderID`, `o3`.`CustomerID`, `o3`.`EmployeeID`, `o3`.`OrderDate`
+FROM (
+    SELECT `o`.`CustomerID`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`
+) AS `o1`
+LEFT JOIN (
+    SELECT `o2`.`OrderID`, `o2`.`CustomerID`, `o2`.`EmployeeID`, `o2`.`OrderDate`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderID` DESC) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o2`
+    WHERE `o2`.`row` <= 1
+) AS `o3` ON `o1`.`CustomerID` = `o3`.`CustomerID`
+""");
         }
 
         public override async Task GroupBy_Property_Select_MinBy(bool async)
         {
             await base.GroupBy_Property_Select_MinBy(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o3`.`OrderID`, `o3`.`CustomerID`, `o3`.`EmployeeID`, `o3`.`OrderDate`
+FROM (
+    SELECT `o`.`CustomerID`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`
+) AS `o1`
+LEFT JOIN (
+    SELECT `o2`.`OrderID`, `o2`.`CustomerID`, `o2`.`EmployeeID`, `o2`.`OrderDate`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderID`) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o2`
+    WHERE `o2`.`row` <= 1
+) AS `o3` ON `o1`.`CustomerID` = `o3`.`CustomerID`
+""");
         }
 
         public override async Task GroupBy_multiple_aggregates_sharing_same_navigation(bool async)
         {
             await base.GroupBy_multiple_aggregates_sharing_same_navigation(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o`.`EmployeeID` AS `Key`, COALESCE(SUM(CASE
+    WHEN `c`.`City` = 'London' THEN 1
+    ELSE 0
+END), 0) AS `Londons`, COALESCE(SUM(CASE
+    WHEN `c`.`City` = 'Berlin' THEN 1
+    ELSE 0
+END), 0) AS `Berlins`, COALESCE(SUM(`o`.`OrderID`), 0) AS `Total`, COUNT(*) AS `Count`
+FROM `Orders` AS `o`
+LEFT JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
+GROUP BY `o`.`EmployeeID`
+""");
         }
 
         public override async Task GroupBy_aggregate_through_two_level_navigation(bool async)
         {
             await base.GroupBy_aggregate_through_two_level_navigation(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o`.`ProductID` AS `Key`, COALESCE(SUM(CASE
+    WHEN `c`.`City` = 'London' THEN 1
+    ELSE 0
+END), 0) AS `Londons`
+FROM `Order Details` AS `o`
+INNER JOIN `Orders` AS `o0` ON `o`.`OrderID` = `o0`.`OrderID`
+LEFT JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
+GROUP BY `o`.`ProductID`
+""");
         }
 
         public override async Task GroupBy_Count_with_predicate_through_navigation_property(bool async)
         {
             await base.GroupBy_Count_with_predicate_through_navigation_property(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o`.`EmployeeID` AS `Key`, COUNT(CASE
+    WHEN `c`.`City` = 'London' THEN 1
+END) AS `Londons`
+FROM `Orders` AS `o`
+LEFT JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
+GROUP BY `o`.`EmployeeID`
+""");
         }
 
         public override async Task GroupBy_key_and_aggregate_through_same_navigation(bool async)
         {
             await base.GroupBy_key_and_aggregate_through_same_navigation(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `c`.`City` AS `Key`, COUNT(CASE
+    WHEN `c`.`City` = 'London' THEN 1
+END) AS `Londons`
+FROM `Orders` AS `o`
+LEFT JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
+GROUP BY `c`.`City`
+""");
         }
 
         public override async Task GroupBy_aggregate_through_navigation_in_intermediate_projection(bool async)
         {
             await base.GroupBy_aggregate_through_navigation_in_intermediate_projection(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o`.`EmployeeID` AS `Key`, COALESCE(SUM(CASE
+    WHEN `c`.`City` = 'London' THEN 1
+    ELSE 0
+END), 0) AS `Londons`
+FROM `Orders` AS `o`
+LEFT JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
+GROUP BY `o`.`EmployeeID`
+""");
         }
 
         public override async Task GroupBy_ValueTuple_projection_joined_on_tuple_member(bool async)
         {
             await base.GroupBy_ValueTuple_projection_joined_on_tuple_member(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `c`.`CustomerID`, `o0`.`c` AS `Count`
+FROM (
+    SELECT `o`.`CustomerID`, COUNT(*) AS `c`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`
+) AS `o0`
+INNER JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_Where(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_Where(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o4`.`OrderID`, `o4`.`CustomerID`, `o4`.`EmployeeID`, `o4`.`OrderDate`
+FROM (
+    SELECT `o`.`CustomerID`, ((
+        SELECT `o1`.`EmployeeID`
+        FROM `Orders` AS `o1`
+        WHERE (`o`.`CustomerID` = `o1`.`CustomerID`) OR (`o`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+        LIMIT 1) = 6) AND (
+        SELECT `o1`.`EmployeeID`
+        FROM `Orders` AS `o1`
+        WHERE (`o`.`CustomerID` = `o1`.`CustomerID`) OR (`o`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+        LIMIT 1) IS NOT NULL AS `c`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`, `c`
+    HAVING `c`
+) AS `o2`
+LEFT JOIN (
+    SELECT `o3`.`OrderID`, `o3`.`CustomerID`, `o3`.`EmployeeID`, `o3`.`OrderDate`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderID`) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o3`
+    WHERE `o3`.`row` <= 1
+) AS `o4` ON `o2`.`CustomerID` = `o4`.`CustomerID`
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_Where_Select(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_Where_Select(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o2`.`c`
+FROM (
+    SELECT (
+        SELECT `o1`.`EmployeeID`
+        FROM `Orders` AS `o1`
+        WHERE `o`.`OrderID` = `o1`.`OrderID`
+        LIMIT 1) AS `c`, CASE
+        WHEN (
+            SELECT `o0`.`OrderID`
+            FROM `Orders` AS `o0`
+            WHERE `o`.`OrderID` = `o0`.`OrderID`
+            LIMIT 1) > 10 THEN TRUE
+        ELSE FALSE
+    END AS `c0`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`OrderID`, `c0`
+    HAVING `c0`
+) AS `o2`
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_Select(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_Select(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT (
+    SELECT `o0`.`EmployeeID`
+    FROM `Orders` AS `o0`
+    WHERE `o`.`OrderID` = `o0`.`OrderID`
+    LIMIT 1)
+FROM `Orders` AS `o`
+GROUP BY `o`.`OrderID`
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_Order(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_Order(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o5`.`OrderID`, `o5`.`CustomerID`, `o5`.`EmployeeID`, `o5`.`OrderDate`
+FROM (
+    SELECT `o`.`CustomerID`, (
+        SELECT `o1`.`EmployeeID`
+        FROM `Orders` AS `o1`
+        WHERE (`o`.`CustomerID` = `o1`.`CustomerID`) OR (`o`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+        LIMIT 1) AS `c`, (
+        SELECT `o2`.`OrderID`
+        FROM `Orders` AS `o2`
+        WHERE (`o`.`CustomerID` = `o2`.`CustomerID`) OR (`o`.`CustomerID` IS NULL AND (`o2`.`CustomerID` IS NULL))
+        LIMIT 1) AS `c0`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`
+) AS `o3`
+LEFT JOIN (
+    SELECT `o4`.`OrderID`, `o4`.`CustomerID`, `o4`.`EmployeeID`, `o4`.`OrderDate`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderID`) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o4`
+    WHERE `o4`.`row` <= 1
+) AS `o5` ON `o3`.`CustomerID` = `o5`.`CustomerID`
+ORDER BY `o3`.`c`, `o3`.`c0`
+""");
         }
 
         public override async Task GroupBy_Select_Anonymous_Type_With_Entire_Entity(bool async)
@@ -3887,63 +4054,248 @@ ORDER BY `c`.`City`
         {
             await base.GroupBy_Select_Entire_Entity_FirstOrDefault_Where(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o4`.`OrderID`, `o4`.`CustomerID`, `o4`.`EmployeeID`, `o4`.`OrderDate`
+FROM (
+    SELECT `o`.`CustomerID`, ((
+        SELECT `o1`.`EmployeeID`
+        FROM `Orders` AS `o1`
+        WHERE (`o`.`CustomerID` = `o1`.`CustomerID`) OR (`o`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+        ORDER BY `o1`.`OrderDate` DESC
+        LIMIT 1) = 5) AND (
+        SELECT `o1`.`EmployeeID`
+        FROM `Orders` AS `o1`
+        WHERE (`o`.`CustomerID` = `o1`.`CustomerID`) OR (`o`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+        ORDER BY `o1`.`OrderDate` DESC
+        LIMIT 1) IS NOT NULL AS `c`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`, `c`
+    HAVING `c`
+) AS `o2`
+LEFT JOIN (
+    SELECT `o3`.`OrderID`, `o3`.`CustomerID`, `o3`.`EmployeeID`, `o3`.`OrderDate`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderDate` DESC) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o3`
+    WHERE `o3`.`row` <= 1
+) AS `o4` ON `o2`.`CustomerID` = `o4`.`CustomerID`
+""");
         }
 
         public override async Task GroupBy_ResultSelector_Entire_Entity_Where(bool async)
         {
             await base.GroupBy_ResultSelector_Entire_Entity_Where(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o4`.`OrderID`, `o4`.`CustomerID`, `o4`.`EmployeeID`, `o4`.`OrderDate`
+FROM (
+    SELECT `o`.`CustomerID`, ((
+        SELECT `o1`.`EmployeeID`
+        FROM `Orders` AS `o1`
+        WHERE (`o`.`CustomerID` = `o1`.`CustomerID`) OR (`o`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+        ORDER BY `o1`.`OrderDate` DESC
+        LIMIT 1) = 6) AND (
+        SELECT `o1`.`EmployeeID`
+        FROM `Orders` AS `o1`
+        WHERE (`o`.`CustomerID` = `o1`.`CustomerID`) OR (`o`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+        ORDER BY `o1`.`OrderDate` DESC
+        LIMIT 1) IS NOT NULL AS `c`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`, `c`
+    HAVING `c`
+) AS `o2`
+LEFT JOIN (
+    SELECT `o3`.`OrderID`, `o3`.`CustomerID`, `o3`.`EmployeeID`, `o3`.`OrderDate`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderDate` DESC) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o3`
+    WHERE `o3`.`row` <= 1
+) AS `o4` ON `o2`.`CustomerID` = `o4`.`CustomerID`
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_GroupBy(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_GroupBy(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o2`.`Key`, COUNT(*) AS `Count`
+FROM (
+    SELECT (
+        SELECT `o1`.`EmployeeID`
+        FROM `Orders` AS `o1`
+        WHERE ((`o0`.`CustomerID` = `o1`.`CustomerID`) OR (`o0`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))) AND ((`o0`.`EmployeeID` = `o1`.`EmployeeID`) OR (`o0`.`EmployeeID` IS NULL AND (`o1`.`EmployeeID` IS NULL)))
+        LIMIT 1) AS `Key`
+    FROM (
+        SELECT `o`.`CustomerID`, `o`.`EmployeeID`
+        FROM `Orders` AS `o`
+        GROUP BY `o`.`CustomerID`, `o`.`EmployeeID`
+    ) AS `o0`
+) AS `o2`
+GROUP BY `o2`.`Key`
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_composite_key_Select(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_composite_key_Select(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT (
+    SELECT `o0`.`OrderID`
+    FROM `Orders` AS `o0`
+    WHERE ((`o`.`CustomerID` = `o0`.`CustomerID`) OR (`o`.`CustomerID` IS NULL AND (`o0`.`CustomerID` IS NULL))) AND ((`o`.`EmployeeID` = `o0`.`EmployeeID`) OR (`o`.`EmployeeID` IS NULL AND (`o0`.`EmployeeID` IS NULL)))
+    LIMIT 1)
+FROM `Orders` AS `o`
+GROUP BY `o`.`CustomerID`, `o`.`EmployeeID`
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_OrderBy_navigation(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_OrderBy_navigation(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o4`.`OrderID`, `o4`.`CustomerID`, `o4`.`EmployeeID`, `o4`.`OrderDate`
+FROM (
+    SELECT `o`.`CustomerID`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`
+) AS `o2`
+LEFT JOIN `Customers` AS `c` ON (
+    SELECT `o1`.`CustomerID`
+    FROM `Orders` AS `o1`
+    WHERE (`o2`.`CustomerID` = `o1`.`CustomerID`) OR (`o2`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+    ORDER BY `o1`.`OrderID`
+    LIMIT 1) = `c`.`CustomerID`
+LEFT JOIN (
+    SELECT `o3`.`OrderID`, `o3`.`CustomerID`, `o3`.`EmployeeID`, `o3`.`OrderDate`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderID`) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o3`
+    WHERE `o3`.`row` <= 1
+) AS `o4` ON `o2`.`CustomerID` = `o4`.`CustomerID`
+ORDER BY `c`.`City`, `o4`.`OrderID`
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_Select_navigation_member(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_Select_navigation_member(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o4`.`OrderID`, `c`.`City`
+FROM (
+    SELECT `o`.`CustomerID`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`
+) AS `o2`
+LEFT JOIN `Customers` AS `c` ON (
+    SELECT `o1`.`CustomerID`
+    FROM `Orders` AS `o1`
+    WHERE (`o2`.`CustomerID` = `o1`.`CustomerID`) OR (`o2`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+    ORDER BY `o1`.`OrderID`
+    LIMIT 1) = `c`.`CustomerID`
+LEFT JOIN (
+    SELECT `o3`.`OrderID`, `o3`.`CustomerID`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderID`) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o3`
+    WHERE `o3`.`row` <= 1
+) AS `o4` ON `o2`.`CustomerID` = `o4`.`CustomerID`
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_Where_navigation(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_Where_navigation(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o4`.`OrderID`, `o4`.`CustomerID`, `o4`.`EmployeeID`, `o4`.`OrderDate`
+FROM (
+    SELECT `o`.`CustomerID`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`
+) AS `o2`
+LEFT JOIN `Customers` AS `c` ON (
+    SELECT `o1`.`CustomerID`
+    FROM `Orders` AS `o1`
+    WHERE (`o2`.`CustomerID` = `o1`.`CustomerID`) OR (`o2`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+    ORDER BY `o1`.`OrderID`
+    LIMIT 1) = `c`.`CustomerID`
+LEFT JOIN (
+    SELECT `o3`.`OrderID`, `o3`.`CustomerID`, `o3`.`EmployeeID`, `o3`.`OrderDate`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderID`) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o3`
+    WHERE `o3`.`row` <= 1
+) AS `o4` ON `o2`.`CustomerID` = `o4`.`CustomerID`
+WHERE `c`.`City` = 'London'
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_Select_referenced_twice(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_Select_referenced_twice(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o3`.`OrderID`, `o3`.`CustomerID`, `o3`.`EmployeeID`, `o3`.`OrderDate`
+FROM (
+    SELECT `o`.`CustomerID`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`
+) AS `o1`
+LEFT JOIN (
+    SELECT `o2`.`OrderID`, `o2`.`CustomerID`, `o2`.`EmployeeID`, `o2`.`OrderDate`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderID`) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o2`
+    WHERE `o2`.`row` <= 1
+) AS `o3` ON `o1`.`CustomerID` = `o3`.`CustomerID`
+""");
         }
 
         public override async Task GroupBy_Select_Entire_Entity_Join(bool async)
         {
             await base.GroupBy_Select_Entire_Entity_Join(async);
 
-            AssertSql();
+            AssertSql(
+                """
+SELECT `o4`.`OrderID`, `c`.`City`
+FROM (
+    SELECT `o`.`CustomerID`
+    FROM `Orders` AS `o`
+    GROUP BY `o`.`CustomerID`
+) AS `o2`
+INNER JOIN `Customers` AS `c` ON (
+    SELECT `o1`.`CustomerID`
+    FROM `Orders` AS `o1`
+    WHERE (`o2`.`CustomerID` = `o1`.`CustomerID`) OR (`o2`.`CustomerID` IS NULL AND (`o1`.`CustomerID` IS NULL))
+    ORDER BY `o1`.`OrderID`
+    LIMIT 1) = `c`.`CustomerID`
+LEFT JOIN (
+    SELECT `o3`.`OrderID`, `o3`.`CustomerID`
+    FROM (
+        SELECT `o0`.`OrderID`, `o0`.`CustomerID`, ROW_NUMBER() OVER(PARTITION BY `o0`.`CustomerID` ORDER BY `o0`.`OrderID`) AS `row`
+        FROM `Orders` AS `o0`
+    ) AS `o3`
+    WHERE `o3`.`row` <= 1
+) AS `o4` ON `o2`.`CustomerID` = `o4`.`CustomerID`
+""");
         }
 
         [Fact]

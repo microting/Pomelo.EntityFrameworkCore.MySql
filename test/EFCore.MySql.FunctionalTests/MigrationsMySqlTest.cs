@@ -2316,14 +2316,20 @@ ALTER TABLE `Customers` ADD `Numbers` longtext CHARACTER SET utf8mb4 NOT NULL DE
         {
             await base.Convert_owned_entity_with_no_schema_to_regular_entity();
 
-            AssertSql();
+            AssertSql(
+                """
+ALTER TABLE `Owned` DROP FOREIGN KEY `FK_Owned_Entity_EntityId`;
+""");
         }
 
         public override async Task Add_foreign_key_excluded_from_migrations()
         {
             await base.Add_foreign_key_excluded_from_migrations();
 
-            AssertSql();
+            AssertSql(
+                """
+CREATE INDEX `IX_Orders_CustomerId` ON `Orders` (`CustomerId`);
+""");
         }
 
         [Fact]

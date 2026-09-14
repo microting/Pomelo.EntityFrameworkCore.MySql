@@ -19,14 +19,28 @@ public class EntitySplittingQueryMySqlTest : EntitySplittingQueryTestBase
     {
         await base.Compare_split_entity_to_null(async);
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `e`.`Id`, `e`.`EntityThreeId`, `e`.`IntValue1`, `e`.`IntValue2`, `s`.`IntValue3`, `e`.`IntValue4`, `e`.`StringValue1`, `e`.`StringValue2`, `e`.`StringValue3`, `e`.`StringValue4`
+FROM `EntityOne` AS `e`
+INNER JOIN `SplitEntityOnePart` AS `s` ON `e`.`Id` = `s`.`Id`
+""");
     }
 
     public override async Task FromSql_on_split_entity_with_renamed_columns_uses_default_mappings(bool async)
     {
         await base.FromSql_on_split_entity_with_renamed_columns_uses_default_mappings(async);
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `m`.`Id`, `m`.`EntityThreeId`, `m`.`IntValue1`, `m`.`IntValue2`, `m`.`IntValue3`, `m`.`IntValue4`, `m`.`StringValue1`, `m`.`StringValue2`, `m`.`StringValue3`, `m`.`StringValue4`
+FROM (
+    SELECT `m`.*, `s`.`CustomStringValue3` AS `StringValue3`, `s`.`StringValue4`, `s`.`CustomIntValue3` AS `IntValue3`, `s`.`IntValue4`
+                  FROM `EntityOne` AS `m`
+                  INNER JOIN `SplitEntityOnePart` AS `s` ON `m`.`Id` = `s`.`Id`
+) AS `m`
+ORDER BY `m`.`Id`
+""");
     }
 
     [Fact]

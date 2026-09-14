@@ -27,28 +27,77 @@ public class NorthwindBulkUpdatesMySqlTest : NorthwindBulkUpdatesRelationalTestB
     {
         await base.Update_with_select_mixed_entity_scalar_anonymous_projection(async);
 
-        AssertSql();
+        AssertSql(
+            """
+@p='Updated' (Size = 30)
+
+UPDATE `Customers` AS `c`
+SET `c`.`ContactName` = @p
+""");
     }
 
     public override async Task Update_with_select_scalar_anonymous_projection(bool async)
     {
         await base.Update_with_select_scalar_anonymous_projection(async);
 
-        AssertSql();
+        AssertSql(
+            """
+@p='Updated' (Size = 30)
+
+UPDATE `Customers` AS `c`
+SET `c`.`ContactName` = @p
+""");
     }
 
     public override async Task Update_set_constant_TagWith_null(bool async)
     {
         await base.Update_set_constant_TagWith_null(async);
 
-        AssertSql();
+        AssertSql(
+            """
+-- MyUpdate
+
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+""",
+            //
+            """
+-- MyUpdate
+
+UPDATE `Customers` AS `c`
+SET `c`.`ContactName` = NULL
+""",
+            //
+            """
+-- MyUpdate
+
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+""");
     }
 
     public override async Task Update_Where_set_nullable_int_constant_via_discard_lambda(bool async)
     {
         await base.Update_Where_set_nullable_int_constant_via_discard_lambda(async);
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `p`.`ProductID`, `p`.`Discontinued`, `p`.`ProductName`, `p`.`SupplierID`, `p`.`UnitPrice`, `p`.`UnitsInStock`
+FROM `Products` AS `p`
+WHERE `p`.`ProductID` < 5
+""",
+            //
+            """
+UPDATE `Products` AS `p`
+SET `p`.`SupplierID` = 1
+WHERE `p`.`ProductID` < 5
+""",
+            //
+            """
+SELECT `p`.`ProductID`, `p`.`Discontinued`, `p`.`ProductName`, `p`.`SupplierID`, `p`.`UnitPrice`, `p`.`UnitsInStock`
+FROM `Products` AS `p`
+WHERE `p`.`ProductID` < 5
+""");
     }
 
     [Fact]

@@ -2989,8 +2989,12 @@ LIMIT 2
     {
         await base.Parameter_collection_of_enum_Cast_from_different_enum_type(mode);
 
-        AssertSql(
-            """
+        // This theory runs once per ParameterTranslationMode and the generated SQL differs per mode, so a single baseline cannot match.
+        switch (mode)
+        {
+            case ParameterTranslationMode.Constant:
+                AssertSql(
+                    """
 SELECT `t`.`Id`
 FROM `TestEntity38008` AS `t`
 WHERE EXISTS (
@@ -2998,6 +3002,26 @@ WHERE EXISTS (
     FROM (SELECT CAST(2 AS signed) AS `Value`) AS `f`
     WHERE `f`.`Value` = `t`.`Status`)
 """);
+                break;
+
+            case ParameterTranslationMode.MultipleParameters:
+                AssertSql(
+                    """
+@filter1='2'
+
+SELECT `t`.`Id`
+FROM `TestEntity38008` AS `t`
+WHERE EXISTS (
+    SELECT 1
+    FROM (SELECT @filter1 AS `Value`) AS `f`
+    WHERE `f`.`Value` = `t`.`Status`)
+""");
+                break;
+
+            default:
+                AssertSql();
+                break;
+        }
     }
 
     public override async Task Inline_collection_in_query_filter()
