@@ -1,5 +1,4 @@
 ﻿using Pomelo.EntityFrameworkCore.MySql.Tests;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -33,19 +32,5 @@ public class TPCInheritanceQueryMySqlFixture : TPCInheritanceQueryFixture
         {
             tpcPrimaryKey.Properties.Single().ValueGenerated = ValueGenerated.Never;
         }
-    }
-
-    public override DbContextOptionsBuilder AddOptions(DbContextOptionsBuilder builder)
-    {
-        var optionsBuilder = base.AddOptions(builder);
-
-        // `Primitive_collection_on_subtype` needs JSON_TABLE(), which the provider only emits when primitive collections
-        // support has been explicitly enabled (and the server supports JSON_TABLE() at all).
-        if (AppConfig.ServerVersion.Supports.JsonTable)
-        {
-            new MySqlDbContextOptionsBuilder(optionsBuilder).EnablePrimitiveCollectionsSupport();
-        }
-
-        return optionsBuilder;
     }
 }

@@ -32,14 +32,6 @@ public class PrimitiveCollectionsQueryMySqlTest : PrimitiveCollectionsQueryRelat
 
         mySqlOptionsBuilder.UseParameterizedCollectionMode(parameterizedCollectionMode);
 
-        // These tests build their own context through InitializeNonSharedTest(), so they never go through the fixture's AddOptions().
-        // ParameterTranslationMode.Parameter sends the collection as a single JSON parameter, which the provider only translates when
-        // primitive collections support has been explicitly enabled (and the server supports JSON_TABLE() at all).
-        if (AppConfig.ServerVersion.Supports.JsonTable)
-        {
-            mySqlOptionsBuilder.EnablePrimitiveCollectionsSupport();
-        }
-
         return optionsBuilder;
     }
 
@@ -3344,20 +3336,6 @@ WHERE JSON_LENGTH(`b`.`Ints`) > 0
 
         protected override ITestStoreFactory TestStoreFactory
             => MySqlTestStoreFactory.Instance;
-
-        public override DbContextOptionsBuilder AddOptions(DbContextOptionsBuilder builder)
-        {
-            var optionsBuilder = base.AddOptions(builder);
-
-            // The expected SQL of this test class is based on JSON_TABLE() being used for primitive collections, which the provider only
-            // emits when primitive collections support has been explicitly enabled (and the server supports JSON_TABLE() at all).
-            if (AppConfig.ServerVersion.Supports.JsonTable)
-            {
-                new MySqlDbContextOptionsBuilder(optionsBuilder).EnablePrimitiveCollectionsSupport();
-            }
-
-            return optionsBuilder;
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder, DbContext context)
         {

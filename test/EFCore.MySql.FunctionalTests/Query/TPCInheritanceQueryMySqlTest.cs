@@ -23,11 +23,4 @@ public class TPCInheritanceQueryMySqlTest : TPCInheritanceQueryTestBase<TPCInher
 
     protected override void UseTransaction(DatabaseFacade facade, IDbContextTransaction transaction)
         => facade.UseTransaction(transaction.GetDbTransaction());
-
-    // Requires JSON_TABLE(), which is only available on MySQL 8+ and MariaDB 10.6+.
-    [ConditionalTheory]
-    [MemberData(nameof(IsAsyncData))]
-    [SupportedServerVersionCondition(nameof(ServerVersionSupport.JsonTable))]
-    public override Task Primitive_collection_on_subtype(bool async)
-        => base.Primitive_collection_on_subtype(async);
 }
