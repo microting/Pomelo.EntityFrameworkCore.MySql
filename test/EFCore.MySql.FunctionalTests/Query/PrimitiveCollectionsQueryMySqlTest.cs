@@ -2635,58 +2635,58 @@ WHERE `p`.`Int` IN (10, 999)
 """);
     }
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode(ParameterTranslationMode mode)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_mode();
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode(mode);
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Contains_with_default_mode()
+    public override async Task Parameter_collection_Contains_with_default_mode(ParameterTranslationMode mode)
     {
-        await base.Parameter_collection_Contains_with_default_mode();
+        await base.Parameter_collection_Contains_with_default_mode(mode);
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant(ParameterTranslationMode mode)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant();
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant(mode);
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Contains_with_default_mode_EF_Constant()
+    public override async Task Parameter_collection_Contains_with_default_mode_EF_Constant(ParameterTranslationMode mode)
     {
-        await base.Parameter_collection_Contains_with_default_mode_EF_Constant();
+        await base.Parameter_collection_Contains_with_default_mode_EF_Constant(mode);
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter(ParameterTranslationMode mode)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter();
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter(mode);
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Contains_with_default_mode_EF_Parameter()
+    public override async Task Parameter_collection_Contains_with_default_mode_EF_Parameter(ParameterTranslationMode mode)
     {
-        await base.Parameter_collection_Contains_with_default_mode_EF_Parameter();
+        await base.Parameter_collection_Contains_with_default_mode_EF_Parameter(mode);
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_MultipleParameters()
+    public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_MultipleParameters(ParameterTranslationMode mode)
     {
-        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_MultipleParameters();
+        await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_MultipleParameters(mode);
 
         AssertSql();
     }
 
-    public override async Task Parameter_collection_Contains_with_default_mode_EF_MultipleParameters()
+    public override async Task Parameter_collection_Contains_with_default_mode_EF_MultipleParameters(ParameterTranslationMode mode)
     {
-        await base.Parameter_collection_Contains_with_default_mode_EF_MultipleParameters();
+        await base.Parameter_collection_Contains_with_default_mode_EF_MultipleParameters(mode);
 
         AssertSql();
     }
@@ -2705,9 +2705,9 @@ WHERE `p`.`Int` IN (10, 999)
         AssertSql();
     }
 
-    public override async Task Parameter_collection_of_enum_Cast_from_different_enum_type()
+    public override async Task Parameter_collection_of_enum_Cast_from_different_enum_type(ParameterTranslationMode mode)
     {
-        await base.Parameter_collection_of_enum_Cast_from_different_enum_type();
+        await base.Parameter_collection_of_enum_Cast_from_different_enum_type(mode);
 
         AssertSql();
     }
