@@ -52,12 +52,12 @@ WHERE `o`.`OrderID` IN (
         await base.SqlQuery_composed_Join(async);
 
         AssertSql(
-"""
-SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`, CAST(`s`.`Value` AS signed) AS `p`
+            """
+SELECT `o`.`OrderID`, `o`.`CustomerID`, `o`.`EmployeeID`, `o`.`OrderDate`, `s`.`Value` AS `p`
 FROM `Orders` AS `o`
 INNER JOIN (
     SELECT `ProductID` AS `Value` FROM `Products`
-) AS `s` ON `o`.`OrderID` = CAST(`s`.`Value` AS signed)
+) AS `s` ON `o`.`OrderID` = `s`.`Value`
 """);
     }
 

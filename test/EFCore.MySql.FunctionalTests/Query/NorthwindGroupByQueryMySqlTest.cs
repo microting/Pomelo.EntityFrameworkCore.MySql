@@ -26,7 +26,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
             await base.AsEnumerable_in_subquery_for_GroupBy(async);
 
         AssertSql(
-"""
+            """
 SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`, `s`.`OrderID`, `s`.`CustomerID`, `s`.`EmployeeID`, `s`.`OrderDate`, `s`.`CustomerID0`
 FROM `Customers` AS `c`
 LEFT JOIN LATERAL (
@@ -48,7 +48,7 @@ LEFT JOIN LATERAL (
     ) AS `o3` ON `o1`.`CustomerID` = `o3`.`CustomerID`
 ) AS `s` ON TRUE
 WHERE `c`.`CustomerID` LIKE 'F%'
-ORDER BY `c`.`CustomerID`, `s`.`CustomerID0`
+ORDER BY `c`.`CustomerID`
 """);
         }
 
@@ -541,10 +541,9 @@ ORDER BY `o`.`CustomerID`
             await base.Key_plus_key_in_projection(async);
 
             AssertSql(
-"""
+                """
 SELECT `o`.`OrderID` + `o`.`OrderID` AS `Value`, AVG(CAST(`o`.`OrderID` AS double)) AS `Average`
 FROM `Orders` AS `o`
-LEFT JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
 GROUP BY `o`.`OrderID`
 """);
         }
@@ -554,13 +553,10 @@ GROUP BY `o`.`OrderID`
             await base.GroupBy_with_aggregate_through_navigation_property(async);
 
             AssertSql(
-"""
-SELECT (
-    SELECT MAX(`c`.`Region`)
-    FROM `Orders` AS `o0`
-    LEFT JOIN `Customers` AS `c` ON `o0`.`CustomerID` = `c`.`CustomerID`
-    WHERE (`o`.`EmployeeID` = `o0`.`EmployeeID`) OR (`o`.`EmployeeID` IS NULL AND (`o0`.`EmployeeID` IS NULL))) AS `max`
+                """
+SELECT MAX(`c`.`Region`) AS `max`
 FROM `Orders` AS `o`
+LEFT JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
 GROUP BY `o`.`EmployeeID`
 """);
         }
@@ -1646,10 +1642,9 @@ GROUP BY `c`.`CustomerID`
             await base.GroupJoin_GroupBy_Aggregate_3(async);
 
             AssertSql(
-"""
+                """
 SELECT `o`.`CustomerID` AS `Key`, AVG(CAST(`o`.`OrderID` AS double)) AS `Average`
 FROM `Orders` AS `o`
-LEFT JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
 GROUP BY `o`.`CustomerID`
 """);
         }
@@ -1672,10 +1667,9 @@ GROUP BY `c`.`CustomerID`
             await base.GroupJoin_GroupBy_Aggregate_5(async);
 
             AssertSql(
-"""
+                """
 SELECT `o`.`OrderID` AS `Value`, AVG(CAST(`o`.`OrderID` AS double)) AS `Average`
 FROM `Orders` AS `o`
-LEFT JOIN `Customers` AS `c` ON `o`.`CustomerID` = `c`.`CustomerID`
 GROUP BY `o`.`OrderID`
 """);
         }
@@ -3115,8 +3109,8 @@ ORDER BY `c`.`City`, `c`.`CustomerID`
             await base.GroupBy_complex_key_without_aggregate(async);
 
             AssertSql(
-"""
-SELECT `s1`.`Key`, `s3`.`OrderID`, `s3`.`CustomerID`, `s3`.`EmployeeID`, `s3`.`OrderDate`, `s3`.`CustomerID0`
+                """
+SELECT `s1`.`Key`, `s3`.`OrderID`, `s3`.`CustomerID`, `s3`.`EmployeeID`, `s3`.`OrderDate`
 FROM (
     SELECT `s`.`Key`
     FROM (
@@ -3127,18 +3121,18 @@ FROM (
     GROUP BY `s`.`Key`
 ) AS `s1`
 LEFT JOIN (
-    SELECT `s2`.`OrderID`, `s2`.`CustomerID`, `s2`.`EmployeeID`, `s2`.`OrderDate`, `s2`.`CustomerID0`, `s2`.`Key`
+    SELECT `s2`.`OrderID`, `s2`.`CustomerID`, `s2`.`EmployeeID`, `s2`.`OrderDate`, `s2`.`Key`
     FROM (
-        SELECT `s0`.`OrderID`, `s0`.`CustomerID`, `s0`.`EmployeeID`, `s0`.`OrderDate`, `s0`.`CustomerID0`, `s0`.`Key`, ROW_NUMBER() OVER(PARTITION BY `s0`.`Key` ORDER BY `s0`.`OrderID`, `s0`.`CustomerID0`) AS `row`
+        SELECT `s0`.`OrderID`, `s0`.`CustomerID`, `s0`.`EmployeeID`, `s0`.`OrderDate`, `s0`.`Key`, ROW_NUMBER() OVER(PARTITION BY `s0`.`Key` ORDER BY `s0`.`OrderID`) AS `row`
         FROM (
-            SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, `c0`.`CustomerID` AS `CustomerID0`, SUBSTRING(`c0`.`CustomerID`, 0 + 1, 1) AS `Key`
+            SELECT `o0`.`OrderID`, `o0`.`CustomerID`, `o0`.`EmployeeID`, `o0`.`OrderDate`, SUBSTRING(`c0`.`CustomerID`, 0 + 1, 1) AS `Key`
             FROM `Orders` AS `o0`
             LEFT JOIN `Customers` AS `c0` ON `o0`.`CustomerID` = `c0`.`CustomerID`
         ) AS `s0`
     ) AS `s2`
     WHERE (1 < `s2`.`row`) AND (`s2`.`row` <= 3)
 ) AS `s3` ON `s1`.`Key` = `s3`.`Key`
-ORDER BY `s1`.`Key`, `s3`.`OrderID`
+ORDER BY `s1`.`Key`
 """);
         }
 
@@ -3566,28 +3560,21 @@ FROM (
             await base.Complex_query_with_groupBy_in_subquery4(async);
 
             AssertSql(
-"""
-SELECT `c`.`CustomerID`, `s1`.`Sum`, `s1`.`Count`, `s1`.`Key`
+                """
+SELECT `c`.`CustomerID`, `s0`.`Sum`, `s0`.`Count`, `s0`.`Key`
 FROM `Customers` AS `c`
 LEFT JOIN LATERAL (
-    SELECT COALESCE(SUM(`s`.`OrderID`), 0) AS `Sum`, (
-        SELECT COUNT(*)
-        FROM (
-            SELECT `o0`.`CustomerID`, CONCAT(COALESCE(`c1`.`City`, ''), COALESCE(`o0`.`CustomerID`, '')) AS `Key`
-            FROM `Orders` AS `o0`
-            LEFT JOIN `Customers` AS `c1` ON `o0`.`CustomerID` = `c1`.`CustomerID`
-            WHERE `c`.`CustomerID` = `o0`.`CustomerID`
-        ) AS `s0`
-        LEFT JOIN `Customers` AS `c2` ON `s0`.`CustomerID` = `c2`.`CustomerID`
-        WHERE ((`s`.`Key` = `s0`.`Key`) OR (`s`.`Key` IS NULL AND (`s0`.`Key` IS NULL))) AND (CONCAT(COALESCE(`c2`.`City`, ''), COALESCE(`s0`.`CustomerID`, '')) LIKE 'Lon%')) AS `Count`, `s`.`Key`
+    SELECT COALESCE(SUM(`s`.`OrderID`), 0) AS `Sum`, COUNT(CASE
+        WHEN CONCAT(COALESCE(`s`.`City`, ''), COALESCE(`s`.`CustomerID`, '')) LIKE 'Lon%' THEN 1
+    END) AS `Count`, `s`.`Key`
     FROM (
-        SELECT `o`.`OrderID`, CONCAT(COALESCE(`c0`.`City`, ''), COALESCE(`o`.`CustomerID`, '')) AS `Key`
+        SELECT `o`.`OrderID`, `o`.`CustomerID`, `c0`.`City`, CONCAT(COALESCE(`c0`.`City`, ''), COALESCE(`o`.`CustomerID`, '')) AS `Key`
         FROM `Orders` AS `o`
         LEFT JOIN `Customers` AS `c0` ON `o`.`CustomerID` = `c0`.`CustomerID`
         WHERE `c`.`CustomerID` = `o`.`CustomerID`
     ) AS `s`
     GROUP BY `s`.`Key`
-) AS `s1` ON TRUE
+) AS `s0` ON TRUE
 ORDER BY `c`.`CustomerID`
 """);
         }

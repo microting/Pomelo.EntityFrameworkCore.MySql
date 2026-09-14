@@ -276,20 +276,20 @@ FROM `Kiwi` AS `k`
         await base.Update_with_interface_in_property_expression(async);
 
         AssertSql(
-"""
-SELECT `c`.`Id`, `c`.`SortIndex`, `c`.`CaffeineGrams`, `c`.`CokeCO2`, `c`.`SugarGrams`
+            """
+SELECT `c`.`Id`, `c`.`SortIndex`, `c`.`CaffeineGrams`, `c`.`CokeCO2`, `c`.`Ints`, `c`.`SugarGrams`, `c`.`ComplexTypeCollection`, `c`.`Int`, `c`.`UniqueInt`, `c`.`NestedInt`, `c`.`NestedComplexType_UniqueInt`, `c`.`ChildComplexType_Int`, `c`.`ChildComplexType_UniqueInt`, `c`.`ChildComplexType_Nested_NestedInt`, `c`.`ChildComplexType_Nested_UniqueInt`
 FROM `Coke` AS `c`
 """,
-                //
-                """
+            //
+            """
 @p='0'
 
 UPDATE `Coke` AS `c`
 SET `c`.`SugarGrams` = @p
 """,
-                //
-                """
-SELECT `c`.`Id`, `c`.`SortIndex`, `c`.`CaffeineGrams`, `c`.`CokeCO2`, `c`.`SugarGrams`
+            //
+            """
+SELECT `c`.`Id`, `c`.`SortIndex`, `c`.`CaffeineGrams`, `c`.`CokeCO2`, `c`.`Ints`, `c`.`SugarGrams`, `c`.`ComplexTypeCollection`, `c`.`Int`, `c`.`UniqueInt`, `c`.`NestedInt`, `c`.`NestedComplexType_UniqueInt`, `c`.`ChildComplexType_Int`, `c`.`ChildComplexType_UniqueInt`, `c`.`ChildComplexType_Nested_NestedInt`, `c`.`ChildComplexType_Nested_UniqueInt`
 FROM `Coke` AS `c`
 """);
     }
@@ -299,20 +299,20 @@ FROM `Coke` AS `c`
         await base.Update_with_interface_in_EF_Property_in_property_expression(async);
 
         AssertSql(
-"""
-SELECT `c`.`Id`, `c`.`SortIndex`, `c`.`CaffeineGrams`, `c`.`CokeCO2`, `c`.`SugarGrams`
+            """
+SELECT `c`.`Id`, `c`.`SortIndex`, `c`.`CaffeineGrams`, `c`.`CokeCO2`, `c`.`Ints`, `c`.`SugarGrams`, `c`.`ComplexTypeCollection`, `c`.`Int`, `c`.`UniqueInt`, `c`.`NestedInt`, `c`.`NestedComplexType_UniqueInt`, `c`.`ChildComplexType_Int`, `c`.`ChildComplexType_UniqueInt`, `c`.`ChildComplexType_Nested_NestedInt`, `c`.`ChildComplexType_Nested_UniqueInt`
 FROM `Coke` AS `c`
 """,
-                //
-                """
+            //
+            """
 @p='0'
 
 UPDATE `Coke` AS `c`
 SET `c`.`SugarGrams` = @p
 """,
-                //
-                """
-SELECT `c`.`Id`, `c`.`SortIndex`, `c`.`CaffeineGrams`, `c`.`CokeCO2`, `c`.`SugarGrams`
+            //
+            """
+SELECT `c`.`Id`, `c`.`SortIndex`, `c`.`CaffeineGrams`, `c`.`CokeCO2`, `c`.`Ints`, `c`.`SugarGrams`, `c`.`ComplexTypeCollection`, `c`.`Int`, `c`.`UniqueInt`, `c`.`NestedInt`, `c`.`NestedComplexType_UniqueInt`, `c`.`ChildComplexType_Int`, `c`.`ChildComplexType_UniqueInt`, `c`.`ChildComplexType_Nested_NestedInt`, `c`.`ChildComplexType_Nested_UniqueInt`
 FROM `Coke` AS `c`
 """);
     }

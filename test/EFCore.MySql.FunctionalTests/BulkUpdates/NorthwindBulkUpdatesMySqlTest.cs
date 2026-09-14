@@ -635,22 +635,12 @@ INNER JOIN (
                 () => base.Delete_with_LeftJoin(async));
 
             AssertSql(
-"""
-@p1='100'
-@p='0'
-
+                """
 DELETE `o`
 FROM `Order Details` AS `o`
 WHERE EXISTS (
     SELECT 1
     FROM `Order Details` AS `o0`
-    LEFT JOIN (
-        SELECT `o2`.`OrderID`
-        FROM `Orders` AS `o2`
-        WHERE `o2`.`OrderID` < 10300
-        ORDER BY `o2`.`OrderID`
-        LIMIT @p1 OFFSET @p
-    ) AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
     WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
         }

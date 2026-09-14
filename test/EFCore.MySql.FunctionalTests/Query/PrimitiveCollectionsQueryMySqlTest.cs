@@ -289,16 +289,22 @@ WHERE (
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+@nullableInts1='10'
+@nullableInts2='999'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`Int` IN (
-    SELECT `n`.`value`
-    FROM JSON_TABLE('[10,999]', '$[*]' COLUMNS (
-        `key` FOR ORDINALITY,
-        `value` int PATH '$[0]'
-    )) AS `n`
-)
+WHERE `p`.`Int` IN (@nullableInts1, @nullableInts2)
+""",
+                //
+                """
+@nullableInts1='10'
+@nullableInts2='999'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` NOT IN (@nullableInts1, @nullableInts2)
 """);
         }
         else
@@ -331,16 +337,20 @@ WHERE `p`.`Int` NOT IN (@nullableInts1, @nullableInts2)
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+@nullableInts1='999'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE EXISTS (
-    SELECT 1
-    FROM JSON_TABLE('[null,999]', '$[*]' COLUMNS (
-        `key` FOR ORDINALITY,
-        `value` int PATH '$[0]'
-    )) AS `n`
-    WHERE (`n`.`value` = `p`.`NullableInt`) OR (`n`.`value` IS NULL AND (`p`.`NullableInt` IS NULL)))
+WHERE `p`.`NullableInt` IS NULL OR (`p`.`NullableInt` = @nullableInts1)
+""",
+                //
+                """
+@nullableInts1='999'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`NullableInt` IS NOT NULL AND (`p`.`NullableInt` <> @nullableInts1)
 """);
         }
         else
@@ -371,16 +381,22 @@ WHERE `p`.`NullableInt` IS NOT NULL AND (`p`.`NullableInt` <> @nullableInts1)
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+@strings1='10' (Size = 4000)
+@strings2='999' (Size = 4000)
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE EXISTS (
-    SELECT 1
-    FROM JSON_TABLE('["999",null]', '$[*]' COLUMNS (
-        `key` FOR ORDINALITY,
-        `value` longtext PATH '$[0]'
-    )) AS `s`
-    WHERE (`s`.`value` = `p`.`NullableString`) OR (`s`.`value` IS NULL AND (`p`.`NullableString` IS NULL)))
+WHERE `p`.`NullableString` IN (@strings1, @strings2)
+""",
+                //
+                """
+@strings1='10' (Size = 4000)
+@strings2='999' (Size = 4000)
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`NullableString` NOT IN (@strings1, @strings2) OR (`p`.`NullableString` IS NULL)
 """);
         }
         else
@@ -413,16 +429,13 @@ WHERE `p`.`NullableString` NOT IN (@strings1, @strings2) OR (`p`.`NullableString
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+@dateTimes1='2020-01-10T12:30:00.0000000Z' (DbType = DateTime)
+@dateTimes2='9999-01-01T00:00:00.0000000Z' (DbType = DateTime)
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`DateTime` IN (
-    SELECT `d`.`value`
-    FROM JSON_TABLE('["2020-01-10T12:30:00Z","9999-01-01T00:00:00Z"]', '$[*]' COLUMNS (
-        `key` FOR ORDINALITY,
-        `value` datetime(6) PATH '$[0]'
-    )) AS `d`
-)
+WHERE `p`.`DateTime` IN (@dateTimes1, @dateTimes2)
 """);
         }
         else
@@ -446,16 +459,12 @@ WHERE `p`.`DateTime` IN (@dateTimes1, @dateTimes2)
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+@bools1='True'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`Bool` IN (
-    SELECT `b`.`value`
-    FROM JSON_TABLE('[true]', '$[*]' COLUMNS (
-        `key` FOR ORDINALITY,
-        `value` tinyint(1) PATH '$[0]'
-    )) AS `b`
-)
+WHERE `p`.`Bool` = @bools1
 """);
         }
         else
@@ -478,16 +487,13 @@ WHERE `p`.`Bool` = @bools1
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+@enums1='0'
+@enums2='3'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`Enum` IN (
-    SELECT `e`.`value`
-    FROM JSON_TABLE('[0,3]', '$[*]' COLUMNS (
-        `key` FOR ORDINALITY,
-        `value` int PATH '$[0]'
-    )) AS `e`
-)
+WHERE `p`.`Enum` IN (@enums1, @enums2)
 """);
         }
         else
@@ -511,16 +517,10 @@ WHERE `p`.`Enum` IN (@enums1, @enums2)
         if (MySqlTestHelpers.HasPrimitiveCollectionsSupport(Fixture))
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
-WHERE `p`.`Int` IN (
-    SELECT `i`.`value`
-    FROM JSON_TABLE(NULL, '$[*]' COLUMNS (
-        `key` FOR ORDINALITY,
-        `value` int PATH '$[0]'
-    )) AS `i`
-)
+WHERE FALSE
 """);
         }
         else
@@ -622,8 +622,8 @@ WHERE TRUE IN (
         await base.Column_collection_Count_method();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
@@ -639,8 +639,8 @@ WHERE (
         await base.Column_collection_Length();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
@@ -658,8 +658,8 @@ WHERE (
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE CAST(JSON_VALUE(`p`.`Ints`, '$[1]') AS signed) = 10
 """);
@@ -682,8 +682,8 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`Ints`, '$[1]')) AS signed) = 10
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE CAST(JSON_VALUE(`p`.`Strings`, '$[1]') AS char) = '10'
 """);
@@ -706,8 +706,8 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`Strings`, '$[1]')) AS char) = '10'
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE CAST(JSON_VALUE(`p`.`DateTimes`, '$[1]') AS datetime(6)) = TIMESTAMP '2020-01-10 12:30:00'
 """);
@@ -730,8 +730,8 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`DateTimes`, '$[1]')) AS datetime(6)) =
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE CAST(JSON_VALUE(`p`.`Ints`, '$[999]') AS signed) = 10
 """);
@@ -753,8 +753,8 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`Ints`, '$[999]')) AS signed) = 10
         await base.Nullable_reference_column_collection_index_equals_nullable_column();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (CAST(JSON_VALUE(`p`.`NullableStrings`, '$[2]') AS char) = `p`.`NullableString`) OR ((CAST(JSON_VALUE(`p`.`NullableStrings`, '$[2]') AS char)) IS NULL AND (`p`.`NullableString` IS NULL))
 """);
@@ -767,8 +767,8 @@ WHERE (CAST(JSON_VALUE(`p`.`NullableStrings`, '$[2]') AS char) = `p`.`NullableSt
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (JSON_LENGTH(`p`.`Strings`) > 0) AND (CAST(JSON_VALUE(`p`.`Strings`, '$[1]') AS char) = `p`.`NullableString`)
 """);
@@ -820,8 +820,8 @@ WHERE (
         if (AppConfig.ServerVersion.Supports.JsonValue)
         {
             AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+                """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE CAST(JSON_VALUE(`p`.`Ints`, '$[1]') AS signed) = 10
 """);
@@ -842,20 +842,20 @@ WHERE CAST(JSON_UNQUOTE(JSON_EXTRACT(`p`.`Ints`, '$[1]')) AS signed) = 10
         await base.Column_collection_Skip();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
     FROM (
-        SELECT `i`.`key`
+        SELECT 1
         FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
             `key` FOR ORDINALITY,
             `value` int PATH '$[0]'
         )) AS `i`
         ORDER BY `i`.`key`
         LIMIT 18446744073709551610 OFFSET 1
-    ) AS `t`) = 2
+    ) AS `i0`) = 2
 """);
     }
 
@@ -890,8 +890,8 @@ WHERE 11 = ANY (p."Ints"[2:3])
         await base.Column_collection_OrderByDescending_ElementAt();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT `i`.`value`
@@ -909,8 +909,8 @@ WHERE (
         await base.Column_collection_Any();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE JSON_LENGTH(`p`.`Ints`) > 0
 """);
@@ -921,8 +921,8 @@ WHERE JSON_LENGTH(`p`.`Ints`) > 0
         await base.Column_collection_Distinct();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
@@ -932,7 +932,7 @@ WHERE (
             `key` FOR ORDINALITY,
             `value` int PATH '$[0]'
         )) AS `i`
-    ) AS `t`) = 3
+    ) AS `i0`) = 3
 """);
     }
 
@@ -953,8 +953,11 @@ ORDER BY `p`.`Id`
         await base.Column_collection_Join_parameter_collection();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+@ints1='11'
+@ints2='111'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
@@ -962,10 +965,7 @@ WHERE (
         `key` FOR ORDINALITY,
         `value` int PATH '$[0]'
     )) AS `i`
-    INNER JOIN JSON_TABLE('[11,111]', '$[*]' COLUMNS (
-        `key` FOR ORDINALITY,
-        `value` int PATH '$[0]'
-    )) AS `i0` ON `i`.`value` = `i0`.`value`) = 2
+    INNER JOIN (SELECT @ints1 AS `Value` UNION ALL VALUES ROW(@ints2)) AS `i0` ON `i`.`value` = `i0`.`Value`) = 2
 """);
     }
 
@@ -974,8 +974,8 @@ WHERE (
         await base.Inline_collection_Join_ordered_column_collection();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
@@ -992,24 +992,24 @@ WHERE (
         await base.Parameter_collection_Concat_column_collection();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+@p1='11'
+@p2='111'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
     FROM (
-        SELECT `i`.`value`
-        FROM JSON_TABLE('[11,111]', '$[*]' COLUMNS (
-            `key` FOR ORDINALITY,
-            `value` int PATH '$[0]'
-        )) AS `i`
+        SELECT 1
+        FROM (SELECT @p1 AS `Value` UNION ALL VALUES ROW(@p2)) AS `p0`
         UNION ALL
-        SELECT `i0`.`value`
+        SELECT 1
         FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
             `key` FOR ORDINALITY,
             `value` int PATH '$[0]'
-        )) AS `i0`
-    ) AS `t`) = 2
+        )) AS `i`
+    ) AS `u`) = 2
 """);
     }
 
@@ -1018,8 +1018,11 @@ WHERE (
         await base.Column_collection_Union_parameter_collection();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+@ints1='11'
+@ints2='111'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
@@ -1030,12 +1033,8 @@ WHERE (
             `value` int PATH '$[0]'
         )) AS `i`
         UNION
-        SELECT `i0`.`value`
-        FROM JSON_TABLE('[11,111]', '$[*]' COLUMNS (
-            `key` FOR ORDINALITY,
-            `value` int PATH '$[0]'
-        )) AS `i0`
-    ) AS `t`) = 2
+        SELECT @ints1 AS `Value` UNION ALL VALUES ROW(@ints2)
+    ) AS `u`) = 2
 """);
     }
 
@@ -1044,17 +1043,20 @@ WHERE (
         await base.Column_collection_Intersect_inline_collection();
 
         AssertSql(
-"""
-SELECT p."Id", p."Bool", p."Bools", p."DateTime", p."DateTimes", p."Enum", p."Enums", p."Int", p."Ints", p."NullableInt", p."NullableInts", p."NullableString", p."NullableStrings", p."String", p."Strings"
-FROM "PrimitiveCollectionsEntity" AS p
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
-    SELECT count(*)::int
+    SELECT COUNT(*)
     FROM (
-        SELECT i.value
-        FROM unnest(p."Ints") AS i(value)
+        SELECT `i`.`value`
+        FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+            `key` FOR ORDINALITY,
+            `value` int PATH '$[0]'
+        )) AS `i`
         INTERSECT
-        VALUES (11::int), (111)
-    ) AS t) = 2
+        SELECT CAST(11 AS signed) AS `Value` UNION ALL VALUES ROW(111)
+    ) AS `i0`) = 2
 """);
     }
 
@@ -1063,19 +1065,21 @@ WHERE (
         await base.Inline_collection_Except_column_collection();
 
         AssertSql(
-"""
-SELECT p."Id", p."Bool", p."Bools", p."DateTime", p."DateTimes", p."Enum", p."Enums", p."Int", p."Ints", p."NullableInt", p."NullableInts", p."NullableString", p."NullableStrings", p."String", p."Strings"
-FROM "PrimitiveCollectionsEntity" AS p
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
-    SELECT count(*)::int
+    SELECT COUNT(*)
     FROM (
-        SELECT v."Value"
-        FROM (VALUES (11::int), (111)) AS v("Value")
+        SELECT CAST(11 AS signed) AS `Value` UNION ALL VALUES ROW(111)
         EXCEPT
-        SELECT i.value AS "Value"
-        FROM unnest(p."Ints") AS i(value)
-    ) AS t
-    WHERE t."Value" % 2 = 1) = 2
+        SELECT `i`.`value` AS `Value`
+        FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+            `key` FOR ORDINALITY,
+            `value` int PATH '$[0]'
+        )) AS `i`
+    ) AS `e`
+    WHERE (`e`.`Value` % 2) = 1) = 2
 """);
     }
 
@@ -1118,29 +1122,29 @@ WHERE `p`.`Ints` = '[1,10]'
         await base.Parameter_collection_in_subquery_Union_column_collection_as_compiled_query();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+@ints1='10'
+@ints2='111'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
     FROM (
-        SELECT `t`.`value`
+        SELECT `i1`.`Value`
         FROM (
-            SELECT `i`.`value`, `i`.`key`
-            FROM JSON_TABLE('[10,111]', '$[*]' COLUMNS (
-                `key` FOR ORDINALITY,
-                `value` int PATH '$[0]'
-            )) AS `i`
-            ORDER BY `i`.`key`
+            SELECT `i`.`Value`
+            FROM (SELECT 0 AS `_ord`, @ints1 AS `Value` UNION ALL VALUES ROW(1, @ints2)) AS `i`
+            ORDER BY `i`.`_ord`
             LIMIT 18446744073709551610 OFFSET 1
-        ) AS `t`
+        ) AS `i1`
         UNION
-        SELECT `i0`.`value`
+        SELECT `i0`.`value` AS `Value`
         FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
             `key` FOR ORDINALITY,
             `value` int PATH '$[0]'
         )) AS `i0`
-    ) AS `t0`) = 3
+    ) AS `u`) = 3
 """);
     }
 
@@ -1149,24 +1153,22 @@ WHERE (
         await base.Parameter_collection_in_subquery_Union_column_collection();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+@Skip1='111'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
     FROM (
-        SELECT `s`.`value`
-        FROM JSON_TABLE('[111]', '$[*]' COLUMNS (
-            `key` FOR ORDINALITY,
-            `value` int PATH '$[0]'
-        )) AS `s`
+        SELECT @Skip1 AS `Value`
         UNION
-        SELECT `i`.`value`
+        SELECT `i`.`value` AS `Value`
         FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
             `key` FOR ORDINALITY,
             `value` int PATH '$[0]'
         )) AS `i`
-    ) AS `t`) = 3
+    ) AS `u`) = 3
 """);
     }
 
@@ -1175,37 +1177,35 @@ WHERE (
         await base.Parameter_collection_in_subquery_Union_column_collection_nested();
 
         AssertSql(
-"""
-SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`String`, `p`.`Strings`
+            """
+@Skip1='111'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
 FROM `PrimitiveCollectionsEntity` AS `p`
 WHERE (
     SELECT COUNT(*)
     FROM (
-        SELECT `s`.`value`
-        FROM JSON_TABLE('[111]', '$[*]' COLUMNS (
-            `key` FOR ORDINALITY,
-            `value` int PATH '$[0]'
-        )) AS `s`
+        SELECT @Skip1 AS `Value`
         UNION
-        SELECT `t1`.`value`
+        SELECT `i2`.`value` AS `Value`
         FROM (
-            SELECT `t0`.`value`
+            SELECT `i1`.`value`
             FROM (
-                SELECT DISTINCT `t2`.`value`
+                SELECT DISTINCT `i0`.`value`
                 FROM (
-                    SELECT `i`.`value`, `i`.`key`
+                    SELECT `i`.`value`
                     FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
                         `key` FOR ORDINALITY,
                         `value` int PATH '$[0]'
                     )) AS `i`
                     ORDER BY `i`.`value`
                     LIMIT 18446744073709551610 OFFSET 1
-                ) AS `t2`
-            ) AS `t0`
-            ORDER BY `t0`.`value` DESC
+                ) AS `i0`
+            ) AS `i1`
+            ORDER BY `i1`.`value` DESC
             LIMIT 20
-        ) AS `t1`
-    ) AS `t`) = 3
+        ) AS `i2`
+    ) AS `u`) = 3
 """);
     }
 
@@ -2176,14 +2176,36 @@ WHERE `p`.`Int` NOT IN (@ints1, @ints2)
     {
         await base.Column_collection_Count_with_predicate();
 
-        AssertSql("");
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE (
+    SELECT COUNT(*)
+    FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+        `key` FOR ORDINALITY,
+        `value` int PATH '$[0]'
+    )) AS `i`
+    WHERE `i`.`value` > 1) = 2
+""");
     }
 
     public override async Task Column_collection_Where_Count()
     {
         await base.Column_collection_Where_Count();
 
-        AssertSql("");
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE (
+    SELECT COUNT(*)
+    FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+        `key` FOR ORDINALITY,
+        `value` int PATH '$[0]'
+    )) AS `i`
+    WHERE `i`.`value` > 1) = 2
+""");
     }
 
     [SupportedServerVersionCondition(nameof(ServerVersionSupport.WhereSubqueryReferencesOuterQuery))]
@@ -2206,49 +2228,145 @@ WHERE `p`.`Int` NOT IN (@ints1, @ints2)
     {
         await base.Column_collection_First();
 
-        AssertSql("");
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE (
+    SELECT `i`.`value`
+    FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+        `key` FOR ORDINALITY,
+        `value` int PATH '$[0]'
+    )) AS `i`
+    ORDER BY `i`.`key`
+    LIMIT 1) = 1
+""");
     }
 
     public override async Task Column_collection_FirstOrDefault()
     {
         await base.Column_collection_FirstOrDefault();
 
-        AssertSql("");
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE COALESCE((
+    SELECT `i`.`value`
+    FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+        `key` FOR ORDINALITY,
+        `value` int PATH '$[0]'
+    )) AS `i`
+    ORDER BY `i`.`key`
+    LIMIT 1), 0) = 1
+""");
     }
 
     public override async Task Column_collection_Single()
     {
         await base.Column_collection_Single();
 
-        AssertSql("");
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE (
+    SELECT `i`.`value`
+    FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+        `key` FOR ORDINALITY,
+        `value` int PATH '$[0]'
+    )) AS `i`
+    ORDER BY `i`.`key`
+    LIMIT 1) = 1
+""");
     }
 
     public override async Task Column_collection_SingleOrDefault()
     {
         await base.Column_collection_SingleOrDefault();
 
-        AssertSql("");
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE COALESCE((
+    SELECT `i`.`value`
+    FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+        `key` FOR ORDINALITY,
+        `value` int PATH '$[0]'
+    )) AS `i`
+    ORDER BY `i`.`key`
+    LIMIT 1), 0) = 1
+""");
     }
 
     public override async Task Column_collection_Where_Skip()
     {
         await base.Column_collection_Where_Skip();
 
-        AssertSql("");
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE (
+    SELECT COUNT(*)
+    FROM (
+        SELECT 1
+        FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+            `key` FOR ORDINALITY,
+            `value` int PATH '$[0]'
+        )) AS `i`
+        WHERE `i`.`value` > 1
+        ORDER BY `i`.`key`
+        LIMIT 18446744073709551610 OFFSET 1
+    ) AS `i0`) = 3
+""");
     }
 
     public override async Task Column_collection_Where_Take()
     {
         await base.Column_collection_Where_Take();
 
-        AssertSql("");
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE (
+    SELECT COUNT(*)
+    FROM (
+        SELECT 1
+        FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+            `key` FOR ORDINALITY,
+            `value` int PATH '$[0]'
+        )) AS `i`
+        WHERE `i`.`value` > 1
+        ORDER BY `i`.`key`
+        LIMIT 2
+    ) AS `i0`) = 2
+""");
     }
 
     public override async Task Column_collection_Where_Skip_Take()
     {
         await base.Column_collection_Where_Skip_Take();
 
-        AssertSql("");
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE (
+    SELECT COUNT(*)
+    FROM (
+        SELECT 1
+        FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+            `key` FOR ORDINALITY,
+            `value` int PATH '$[0]'
+        )) AS `i`
+        WHERE `i`.`value` > 1
+        ORDER BY `i`.`key`
+        LIMIT 2 OFFSET 1
+    ) AS `i0`) = 1
+""");
     }
 
     public override async Task Column_collection_Contains_over_subquery()
@@ -2289,7 +2407,23 @@ WHERE `p`.`Int` NOT IN (@ints1, @ints2)
     {
         await base.Column_collection_Where_Union();
 
-        AssertSql("");
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE (
+    SELECT COUNT(*)
+    FROM (
+        SELECT `i`.`value`
+        FROM JSON_TABLE(`p`.`Ints`, '$[*]' COLUMNS (
+            `key` FOR ORDINALITY,
+            `value` int PATH '$[0]'
+        )) AS `i`
+        WHERE `i`.`value` > 100
+        UNION
+        SELECT CAST(50 AS signed) AS `Value`
+    ) AS `u`) = 2
+""");
     }
 
     public override async Task Project_inline_collection()
@@ -2639,28 +2773,57 @@ WHERE `p`.`Int` IN (10, 999)
     {
         await base.Parameter_collection_Count_with_column_predicate_with_default_mode(mode);
 
-        AssertSql();
+        AssertSql(
+            """
+@ids1='2'
+@ids2='999'
+
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT @ids1 AS `Value` UNION ALL VALUES ROW(@ids2)) AS `i`
+    WHERE `i`.`Value` > `t`.`Id`) = 1
+""");
     }
 
     public override async Task Parameter_collection_Contains_with_default_mode(ParameterTranslationMode mode)
     {
         await base.Parameter_collection_Contains_with_default_mode(mode);
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE `t`.`Id` IN (2, 999)
+""");
     }
 
     public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant(ParameterTranslationMode mode)
     {
         await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant(mode);
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES ROW(999)) AS `i`
+    WHERE `i`.`Value` > `t`.`Id`) = 1
+""");
     }
 
     public override async Task Parameter_collection_Contains_with_default_mode_EF_Constant(ParameterTranslationMode mode)
     {
         await base.Parameter_collection_Contains_with_default_mode_EF_Constant(mode);
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE `t`.`Id` IN (2, 999)
+""");
     }
 
     public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Parameter(ParameterTranslationMode mode)
@@ -2681,70 +2844,206 @@ WHERE `p`.`Int` IN (10, 999)
     {
         await base.Parameter_collection_Count_with_column_predicate_with_default_mode_EF_MultipleParameters(mode);
 
-        AssertSql();
+        AssertSql(
+            """
+@ids1='2'
+@ids2='999'
+
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT @ids1 AS `Value` UNION ALL VALUES ROW(@ids2)) AS `i`
+    WHERE `i`.`Value` > `t`.`Id`) = 1
+""");
     }
 
     public override async Task Parameter_collection_Contains_with_default_mode_EF_MultipleParameters(ParameterTranslationMode mode)
     {
         await base.Parameter_collection_Contains_with_default_mode_EF_MultipleParameters(mode);
 
-        AssertSql();
+        AssertSql(
+            """
+@ints1='2'
+@ints2='999'
+
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE `t`.`Id` IN (@ints1, @ints2)
+""");
     }
 
     public override async Task Parameter_collection_Contains_parameter_bucketization()
     {
         await base.Parameter_collection_Contains_parameter_bucketization();
 
-        AssertSql();
+        AssertSql(
+            """
+@ints1='2'
+@ints2='999'
+@ints3='2'
+@ints4='2'
+@ints5='2'
+@ints6='2'
+@ints7='2'
+@ints8='2'
+@ints9='2'
+@ints10='2'
+@ints11='2'
+@ints12='2'
+@ints13='2'
+@ints14='2'
+@ints15='2'
+@ints16='2'
+@ints17='2'
+@ints18='2'
+@ints19='2'
+@ints20='2'
+
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE `t`.`Id` IN (@ints1, @ints2, @ints3, @ints4, @ints5, @ints6, @ints7, @ints8, @ints9, @ints10, @ints11, @ints12, @ints13, @ints14, @ints15, @ints16, @ints17, @ints18, @ints19, @ints20)
+""");
     }
 
     public override async Task Column_collection_inside_json_owned_entity()
     {
         await base.Column_collection_inside_json_owned_entity();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `t`.`Id`, `t`.`Owned`
+FROM `TestOwner` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM JSON_TABLE(CAST(JSON_VALUE(`t`.`Owned`, '$.Strings') AS char), '$[*]' COLUMNS (
+        `key` FOR ORDINALITY,
+        `value` longtext PATH '$[0]'
+    )) AS `s`) = 2
+LIMIT 2
+""",
+            //
+            """
+SELECT `t`.`Id`, `t`.`Owned`
+FROM `TestOwner` AS `t`
+WHERE CAST(JSON_VALUE(CAST(JSON_VALUE(`t`.`Owned`, '$.Strings') AS char), '$[1]') AS char) = 'bar'
+LIMIT 2
+""");
     }
 
     public override async Task Parameter_collection_of_enum_Cast_from_different_enum_type(ParameterTranslationMode mode)
     {
         await base.Parameter_collection_of_enum_Cast_from_different_enum_type(mode);
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `t`.`Id`
+FROM `TestEntity38008` AS `t`
+WHERE EXISTS (
+    SELECT 1
+    FROM (SELECT CAST(2 AS signed) AS `Value`) AS `f`
+    WHERE `f`.`Value` = `t`.`Status`)
+""");
     }
 
     public override async Task Inline_collection_in_query_filter()
     {
         await base.Inline_collection_in_query_filter();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `t`.`Id`, `t`.`Ints`
+FROM `TestEntity` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT CAST(1 AS signed) AS `Value` UNION ALL VALUES ROW(2), ROW(3)) AS `v`
+    WHERE `v`.`Value` > `t`.`Id`) = 1
+LIMIT 2
+""");
     }
 
     public override async Task Inline_collection_SelectMany_with_unreferenced_collection_value()
     {
         await base.Inline_collection_SelectMany_with_unreferenced_collection_value();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+JOIN LATERAL (SELECT CAST('a' AS char) AS `Value` UNION ALL VALUES ROW('b')) AS `v` ON TRUE
+""");
     }
 
     public override async Task Parameter_collection_FrozenSet_of_ints_Contains_int()
     {
         await base.Parameter_collection_FrozenSet_of_ints_Contains_int();
 
-        AssertSql();
+        AssertSql(
+            """
+@ints1='10'
+@ints2='999'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` IN (@ints1, @ints2)
+""",
+            //
+            """
+@ints1='10'
+@ints2='999'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` NOT IN (@ints1, @ints2)
+""");
     }
 
     public override async Task Parameter_collection_IReadOnlySet_of_ints_Contains_int()
     {
         await base.Parameter_collection_IReadOnlySet_of_ints_Contains_int();
 
-        AssertSql();
+        AssertSql(
+            """
+@ints1='10'
+@ints2='999'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` IN (@ints1, @ints2)
+""",
+            //
+            """
+@ints1='10'
+@ints2='999'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` NOT IN (@ints1, @ints2)
+""");
     }
 
     public override async Task Parameter_collection_ReadOnlyCollectionWithContains_of_ints_Contains_int()
     {
         await base.Parameter_collection_ReadOnlyCollectionWithContains_of_ints_Contains_int();
 
-        AssertSql();
+        AssertSql(
+            """
+@ints1='10'
+@ints2='999'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` IN (@ints1, @ints2)
+""",
+            //
+            """
+@ints1='10'
+@ints2='999'
+
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` NOT IN (@ints1, @ints2)
+""");
     }
 
     public override async Task Parameter_collection_of_nullable_ints_Contains_nullable_int_with_EF_Parameter()
@@ -2772,21 +3071,54 @@ WHERE `p`.`Int` IN (10, 999)
     {
         await base.Static_readonly_collection_List_of_ints_Contains_int();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` IN (10, 999)
+""",
+            //
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` NOT IN (10, 999)
+""");
     }
 
     public override async Task Static_readonly_collection_FrozenSet_of_ints_Contains_int()
     {
         await base.Static_readonly_collection_FrozenSet_of_ints_Contains_int();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` IN (10, 999)
+""",
+            //
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` NOT IN (10, 999)
+""");
     }
 
     public override async Task Static_readonly_collection_ImmutableArray_of_ints_Contains_int()
     {
         await base.Static_readonly_collection_ImmutableArray_of_ints_Contains_int();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` IN (10, 999)
+""",
+            //
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE `p`.`Int` NOT IN (10, 999)
+""");
     }
 
     public override async Task Column_collection_of_strings_Contains()
@@ -2800,14 +3132,27 @@ WHERE `p`.`Int` IN (10, 999)
     {
         await base.Column_collection_of_strings_Contains_null();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE FALSE
+""");
     }
 
     public override async Task Column_with_custom_converter()
     {
         await base.Column_with_custom_converter();
 
-        AssertSql();
+        AssertSql(
+            """
+@ints='1,2,3' (Size = 4000)
+
+SELECT `t`.`Id`, `t`.`Ints`
+FROM `TestEntity` AS `t`
+WHERE `t`.`Ints` = @ints
+LIMIT 2
+""");
     }
 
     public override async Task Parameter_with_inferred_value_converter()
@@ -2821,7 +3166,16 @@ WHERE `p`.`Int` IN (10, 999)
     {
         await base.Constant_with_inferred_value_converter();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `t`.`Id`, `t`.`Ints`, `t`.`PropertyWithValueConverter`
+FROM `TestEntity` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT CAST(1 AS signed) AS `Value` UNION ALL VALUES ROW(8)) AS `v`
+    WHERE `v`.`Value` = `t`.`PropertyWithValueConverter`) = 1
+LIMIT 2
+""");
     }
 
     public override async Task Multidimensional_array_is_not_supported()
@@ -2835,35 +3189,64 @@ WHERE `p`.`Int` IN (10, 999)
     {
         await base.Min_on_MemoryExtensions();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE LEAST(30, `p`.`Int`) = 30
+""");
     }
 
     public override async Task Max_on_MemoryExtensions()
     {
         await base.Max_on_MemoryExtensions();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE GREATEST(30, `p`.`Int`) = 30
+""");
     }
 
     public override async Task Compiled_query_with_uncorrelated_parameter_collection_expression()
     {
         await base.Compiled_query_with_uncorrelated_parameter_collection_expression();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `p`.`Id`, `p`.`Bool`, `p`.`Bools`, `p`.`DateTime`, `p`.`DateTimes`, `p`.`Enum`, `p`.`Enums`, `p`.`Int`, `p`.`Ints`, `p`.`NullableInt`, `p`.`NullableInts`, `p`.`NullableString`, `p`.`NullableStrings`, `p`.`NullableWrappedId`, `p`.`NullableWrappedIdWithNullableComparer`, `p`.`String`, `p`.`Strings`, `p`.`WrappedId`
+FROM `PrimitiveCollectionsEntity` AS `p`
+WHERE EXISTS (
+    SELECT 1
+    FROM (
+        SELECT NULL AS `Value`
+        WHERE FALSE
+    ) AS `i`)
+""");
     }
 
     public override async Task Project_collection_from_entity_type_with_owned()
     {
         await base.Project_collection_from_entity_type_with_owned();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `t`.`Ints`
+FROM `TestEntityWithOwned` AS `t`
+""");
     }
 
     public override async Task Subquery_over_primitive_collection_on_inheritance_derived_type()
     {
         await base.Subquery_over_primitive_collection_on_inheritance_derived_type();
 
-        AssertSql();
+        AssertSql(
+            """
+SELECT `b`.`Id`, `b`.`Discriminator`, `b`.`Ints`
+FROM `BaseType` AS `b`
+WHERE JSON_LENGTH(`b`.`Ints`) > 0
+""");
     }
 
     [Fact]

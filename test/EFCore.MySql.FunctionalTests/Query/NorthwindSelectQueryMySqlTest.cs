@@ -113,24 +113,22 @@ FROM `Orders` AS `o`");
             await base.Correlated_collection_after_distinct_not_containing_original_identifier(async);
 
             AssertSql(
-"""
-SELECT `t`.`OrderDate`, `t`.`CustomerID`, `t0`.`Outer1`, `t0`.`Outer2`, `t0`.`Inner`, `t0`.`OrderDate`
+                """
+@filteredOrderIds1='10248'
+@filteredOrderIds2='10249'
+@filteredOrderIds3='10250'
+
+SELECT `o0`.`OrderDate`, `o0`.`CustomerID`, `o2`.`Outer1`, `o2`.`Outer2`, `o2`.`Inner`, `o2`.`OrderDate`
 FROM (
     SELECT DISTINCT `o`.`OrderDate`, `o`.`CustomerID`
     FROM `Orders` AS `o`
-) AS `t`
+) AS `o0`
 LEFT JOIN LATERAL (
-    SELECT `t`.`OrderDate` AS `Outer1`, `t`.`CustomerID` AS `Outer2`, `o0`.`OrderID` AS `Inner`, `o0`.`OrderDate`
-    FROM `Orders` AS `o0`
-    WHERE ((`o0`.`CustomerID` = `t`.`CustomerID`) OR (`o0`.`CustomerID` IS NULL AND (`t`.`CustomerID` IS NULL))) AND `o0`.`OrderID` IN (
-        SELECT `f`.`value`
-        FROM JSON_TABLE('[10248,10249,10250]', '$[*]' COLUMNS (
-            `key` FOR ORDINALITY,
-            `value` int PATH '$[0]'
-        )) AS `f`
-    )
-) AS `t0` ON TRUE
-ORDER BY `t`.`OrderDate`, `t`.`CustomerID`
+    SELECT `o0`.`OrderDate` AS `Outer1`, `o0`.`CustomerID` AS `Outer2`, `o1`.`OrderID` AS `Inner`, `o1`.`OrderDate`
+    FROM `Orders` AS `o1`
+    WHERE ((`o1`.`CustomerID` = `o0`.`CustomerID`) OR (`o1`.`CustomerID` IS NULL AND (`o0`.`CustomerID` IS NULL))) AND `o1`.`OrderID` IN (@filteredOrderIds1, @filteredOrderIds2, @filteredOrderIds3)
+) AS `o2` ON TRUE
+ORDER BY `o0`.`OrderDate`, `o0`.`CustomerID`
 """);
         }
 
@@ -140,28 +138,26 @@ ORDER BY `t`.`OrderDate`, `t`.`CustomerID`
             await base.Correlated_collection_after_groupby_with_complex_projection_not_containing_original_identifier(async);
 
             AssertSql(
-"""
-                SELECT `t0`.`CustomerID`, `t0`.`Complex`, `t1`.`Outer`, `t1`.`Inner`, `t1`.`OrderDate`
-                FROM (
-                    SELECT `t`.`CustomerID`, `t`.`Complex`
-                    FROM (
-                        SELECT `o`.`CustomerID`, EXTRACT(month FROM `o`.`OrderDate`) AS `Complex`
-                        FROM `Orders` AS `o`
-                    ) AS `t`
-                    GROUP BY `t`.`CustomerID`, `t`.`Complex`
-                ) AS `t0`
-                LEFT JOIN LATERAL (
-                    SELECT `t0`.`CustomerID` AS `Outer`, `o0`.`OrderID` AS `Inner`, `o0`.`OrderDate`
-                    FROM `Orders` AS `o0`
-                    WHERE ((`o0`.`CustomerID` = `t0`.`CustomerID`) OR (`o0`.`CustomerID` IS NULL AND (`t0`.`CustomerID` IS NULL))) AND `o0`.`OrderID` IN (
-                        SELECT `f`.`value`
-                        FROM JSON_TABLE('[10248,10249,10250]', '$[*]' COLUMNS (
-                            `key` FOR ORDINALITY,
-                            `value` int PATH '$[0]'
-                        )) AS `f`
-                    )
-                ) AS `t1` ON TRUE
-                ORDER BY `t0`.`CustomerID`, `t0`.`Complex`
+                """
+@filteredOrderIds1='10248'
+@filteredOrderIds2='10249'
+@filteredOrderIds3='10250'
+
+SELECT `o2`.`CustomerID`, `o2`.`Complex`, `o3`.`Outer`, `o3`.`Inner`, `o3`.`OrderDate`
+FROM (
+    SELECT `o0`.`CustomerID`, `o0`.`Complex`
+    FROM (
+        SELECT `o`.`CustomerID`, EXTRACT(month FROM `o`.`OrderDate`) AS `Complex`
+        FROM `Orders` AS `o`
+    ) AS `o0`
+    GROUP BY `o0`.`CustomerID`, `o0`.`Complex`
+) AS `o2`
+LEFT JOIN LATERAL (
+    SELECT `o2`.`CustomerID` AS `Outer`, `o1`.`OrderID` AS `Inner`, `o1`.`OrderDate`
+    FROM `Orders` AS `o1`
+    WHERE ((`o1`.`CustomerID` = `o2`.`CustomerID`) OR (`o1`.`CustomerID` IS NULL AND (`o2`.`CustomerID` IS NULL))) AND `o1`.`OrderID` IN (@filteredOrderIds1, @filteredOrderIds2, @filteredOrderIds3)
+) AS `o3` ON TRUE
+ORDER BY `o2`.`CustomerID`, `o2`.`Complex`
 """);
         }
 
