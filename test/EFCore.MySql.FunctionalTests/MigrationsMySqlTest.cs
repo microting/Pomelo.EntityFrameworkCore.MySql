@@ -308,7 +308,7 @@ SELECT ROW_COUNT();",
                     });
         }
 
-        [Theory(Skip = "For this to work, either MySqlMigrator needs to be involved, or the primary key related stored procedures need to be handled by MySqlMigrationsSqlGenerator instead. The later is probably the way to go. We should move the primary key related stored procedures to its own service, so ti can be potentially be customized by users.")]
+        [Fact(Skip = "For this to work, either MySqlMigrator needs to be involved, or the primary key related stored procedures need to be handled by MySqlMigrationsSqlGenerator instead. The later is probably the way to go. We should move the primary key related stored procedures to its own service, so ti can be potentially be customized by users.")]
         public override async Task Add_primary_key_string()
         {
             await base.Add_primary_key_string();
@@ -326,7 +326,7 @@ ALTER TABLE `People` ADD CONSTRAINT `PK_Foo` PRIMARY KEY (`SomeField1`, `SomeFie
 """);
         }
 
-        [Theory(Skip = "For this to work, either MySqlMigrator needs to be involved, or the primary key related stored procedures need to be handled by MySqlMigrationsSqlGenerator instead. The later is probably the way to go. We should move the primary key related stored procedures to its own service, so ti can be potentially be customized by users.")]
+        [Fact(Skip = "For this to work, either MySqlMigrator needs to be involved, or the primary key related stored procedures need to be handled by MySqlMigrationsSqlGenerator instead. The later is probably the way to go. We should move the primary key related stored procedures to its own service, so ti can be potentially be customized by users.")]
         public override async Task Add_primary_key_with_name()
         {
             await base.Add_primary_key_with_name();
@@ -334,7 +334,7 @@ ALTER TABLE `People` ADD CONSTRAINT `PK_Foo` PRIMARY KEY (`SomeField1`, `SomeFie
             AssertSql("");
         }
 
-        [Theory(Skip = "Are we not scaffolding unique constraints yet?")]
+        [Fact(Skip = "Are we not scaffolding unique constraints yet?")]
         public override async Task Add_unique_constraint()
         {
             await base.Add_unique_constraint();
@@ -342,7 +342,7 @@ ALTER TABLE `People` ADD CONSTRAINT `PK_Foo` PRIMARY KEY (`SomeField1`, `SomeFie
             AssertSql("");
         }
 
-        [Theory(Skip = "Are we not scaffolding unique constraints yet?")]
+        [Fact(Skip = "Are we not scaffolding unique constraints yet?")]
         public override async Task Add_unique_constraint_composite_with_name()
         {
             await base.Add_unique_constraint_composite_with_name();
