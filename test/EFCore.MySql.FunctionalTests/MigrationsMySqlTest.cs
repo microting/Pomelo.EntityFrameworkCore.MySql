@@ -2312,6 +2312,20 @@ ALTER TABLE `Customers` ADD `Numbers` longtext CHARACTER SET utf8mb4 NOT NULL DE
 
         #endregion ToJson
 
+        public override async Task Convert_owned_entity_with_no_schema_to_regular_entity()
+        {
+            await base.Convert_owned_entity_with_no_schema_to_regular_entity();
+
+            AssertSql();
+        }
+
+        public override async Task Add_foreign_key_excluded_from_migrations()
+        {
+            await base.Add_foreign_key_excluded_from_migrations();
+
+            AssertSql();
+        }
+
         [Fact]
         public virtual void Check_all_tests_overridden()
             => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());

@@ -7419,6 +7419,13 @@ WHERE `c`.`CustomerID` LIKE 'A%'
 """);
     }
 
+        public override async Task Captured_variable_from_switch_case_pattern_matching(bool async)
+        {
+            await base.Captured_variable_from_switch_case_pattern_matching(async);
+
+            AssertSql();
+        }
+
         [Fact]
         public virtual void Check_all_tests_overridden()
             => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());

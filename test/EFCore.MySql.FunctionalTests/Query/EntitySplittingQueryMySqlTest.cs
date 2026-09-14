@@ -15,6 +15,20 @@ public class EntitySplittingQueryMySqlTest : EntitySplittingQueryTestBase
         // Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
+    public override async Task Compare_split_entity_to_null(bool async)
+    {
+        await base.Compare_split_entity_to_null(async);
+
+        AssertSql();
+    }
+
+    public override async Task FromSql_on_split_entity_with_renamed_columns_uses_default_mappings(bool async)
+    {
+        await base.FromSql_on_split_entity_with_renamed_columns_uses_default_mappings(async);
+
+        AssertSql();
+    }
+
     [Fact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());

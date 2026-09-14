@@ -1680,6 +1680,34 @@ WHERE `c`.`City` = @city
 
         // END GENERATED METHODS
 
+        public override async Task Where_Queryable_conditional_not_null_check_with_Contains(bool async, bool withNull)
+        {
+            await base.Where_Queryable_conditional_not_null_check_with_Contains(async, withNull);
+
+            AssertSql();
+        }
+
+        public override async Task Where_Queryable_conditional_null_check_with_Contains(bool async, bool withNull)
+        {
+            await base.Where_Queryable_conditional_null_check_with_Contains(async, withNull);
+
+            AssertSql();
+        }
+
+        public override async Task Where_Enumerable_conditional_not_null_check_with_Contains(bool async, bool withNull)
+        {
+            await base.Where_Enumerable_conditional_not_null_check_with_Contains(async, withNull);
+
+            AssertSql();
+        }
+
+        public override async Task Where_Enumerable_conditional_null_check_with_Contains(bool async, bool withNull)
+        {
+            await base.Where_Enumerable_conditional_null_check_with_Contains(async, withNull);
+
+            AssertSql();
+        }
+
         [Fact]
         public virtual void Check_all_tests_overridden()
             => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());

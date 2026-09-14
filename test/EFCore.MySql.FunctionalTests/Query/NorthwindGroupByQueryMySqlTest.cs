@@ -3792,6 +3792,160 @@ ORDER BY `c`.`City`
 """);
         }
 
+        public override async Task GroupBy_Property_Select_MaxBy(bool async)
+        {
+            await base.GroupBy_Property_Select_MaxBy(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Property_Select_MinBy(bool async)
+        {
+            await base.GroupBy_Property_Select_MinBy(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_multiple_aggregates_sharing_same_navigation(bool async)
+        {
+            await base.GroupBy_multiple_aggregates_sharing_same_navigation(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_aggregate_through_two_level_navigation(bool async)
+        {
+            await base.GroupBy_aggregate_through_two_level_navigation(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Count_with_predicate_through_navigation_property(bool async)
+        {
+            await base.GroupBy_Count_with_predicate_through_navigation_property(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_key_and_aggregate_through_same_navigation(bool async)
+        {
+            await base.GroupBy_key_and_aggregate_through_same_navigation(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_aggregate_through_navigation_in_intermediate_projection(bool async)
+        {
+            await base.GroupBy_aggregate_through_navigation_in_intermediate_projection(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_ValueTuple_projection_joined_on_tuple_member(bool async)
+        {
+            await base.GroupBy_ValueTuple_projection_joined_on_tuple_member(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_Where(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_Where(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_Where_Select(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_Where_Select(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_Select(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_Select(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_Order(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_Order(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Anonymous_Type_With_Entire_Entity(bool async)
+        {
+            await base.GroupBy_Select_Anonymous_Type_With_Entire_Entity(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_FirstOrDefault_Where(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_FirstOrDefault_Where(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_ResultSelector_Entire_Entity_Where(bool async)
+        {
+            await base.GroupBy_ResultSelector_Entire_Entity_Where(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_GroupBy(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_GroupBy(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_composite_key_Select(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_composite_key_Select(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_OrderBy_navigation(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_OrderBy_navigation(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_Select_navigation_member(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_Select_navigation_member(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_Where_navigation(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_Where_navigation(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_Select_referenced_twice(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_Select_referenced_twice(async);
+
+            AssertSql();
+        }
+
+        public override async Task GroupBy_Select_Entire_Entity_Join(bool async)
+        {
+            await base.GroupBy_Select_Entire_Entity_Join(async);
+
+            AssertSql();
+        }
+
         [Fact]
         public virtual void Check_all_tests_overridden()
             => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());

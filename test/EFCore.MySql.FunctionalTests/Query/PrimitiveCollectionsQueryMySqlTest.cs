@@ -28,7 +28,17 @@ public class PrimitiveCollectionsQueryMySqlTest : PrimitiveCollectionsQueryRelat
 
     protected override DbContextOptionsBuilder SetParameterizedCollectionMode(DbContextOptionsBuilder optionsBuilder, ParameterTranslationMode parameterizedCollectionMode)
     {
-        new MySqlDbContextOptionsBuilder(optionsBuilder).UseParameterizedCollectionMode(parameterizedCollectionMode);
+        var mySqlOptionsBuilder = new MySqlDbContextOptionsBuilder(optionsBuilder);
+
+        mySqlOptionsBuilder.UseParameterizedCollectionMode(parameterizedCollectionMode);
+
+        // These tests build their own context through InitializeNonSharedTest(), so they never go through the fixture's AddOptions().
+        // ParameterTranslationMode.Parameter sends the collection as a single JSON parameter, which the provider only translates when
+        // primitive collections support has been explicitly enabled (and the server supports JSON_TABLE() at all).
+        if (AppConfig.ServerVersion.Supports.JsonTable)
+        {
+            mySqlOptionsBuilder.EnablePrimitiveCollectionsSupport();
+        }
 
         return optionsBuilder;
     }
@@ -2773,8 +2783,24 @@ WHERE `p`.`Int` IN (10, 999)
     {
         await base.Parameter_collection_Count_with_column_predicate_with_default_mode(mode);
 
-        AssertSql(
-            """
+        // This theory runs once per ParameterTranslationMode and the generated SQL differs per mode, so a single baseline cannot match.
+        switch (mode)
+        {
+            case ParameterTranslationMode.Constant:
+                AssertSql(
+                    """
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE (
+    SELECT COUNT(*)
+    FROM (SELECT CAST(2 AS signed) AS `Value` UNION ALL VALUES ROW(999)) AS `i`
+    WHERE `i`.`Value` > `t`.`Id`) = 1
+""");
+                break;
+
+            case ParameterTranslationMode.MultipleParameters:
+                AssertSql(
+                    """
 @ids1='2'
 @ids2='999'
 
@@ -2785,18 +2811,46 @@ WHERE (
     FROM (SELECT @ids1 AS `Value` UNION ALL VALUES ROW(@ids2)) AS `i`
     WHERE `i`.`Value` > `t`.`Id`) = 1
 """);
+                break;
+
+            default:
+                AssertSql();
+                break;
+        }
     }
 
     public override async Task Parameter_collection_Contains_with_default_mode(ParameterTranslationMode mode)
     {
         await base.Parameter_collection_Contains_with_default_mode(mode);
 
-        AssertSql(
-            """
+        // This theory runs once per ParameterTranslationMode and the generated SQL differs per mode, so a single baseline cannot match.
+        switch (mode)
+        {
+            case ParameterTranslationMode.Constant:
+                AssertSql(
+                    """
 SELECT `t`.`Id`
 FROM `TestEntity` AS `t`
 WHERE `t`.`Id` IN (2, 999)
 """);
+                break;
+
+            case ParameterTranslationMode.MultipleParameters:
+                AssertSql(
+                    """
+@ints1='2'
+@ints2='999'
+
+SELECT `t`.`Id`
+FROM `TestEntity` AS `t`
+WHERE `t`.`Id` IN (@ints1, @ints2)
+""");
+                break;
+
+            default:
+                AssertSql();
+                break;
+        }
     }
 
     public override async Task Parameter_collection_Count_with_column_predicate_with_default_mode_EF_Constant(ParameterTranslationMode mode)
