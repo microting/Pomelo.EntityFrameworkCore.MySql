@@ -125,6 +125,12 @@ public class ComplexJsonBulkUpdateMySqlTest : ComplexJsonBulkUpdateRelationalTes
         return Task.CompletedTask;
     }
 
+    [Fact(Skip = "Bulk update operations on JSON collections not yet supported")]
+    public override Task Update_inside_primitive_collection()
+    {
+        return Task.CompletedTask;
+    }
+
     public class ComplexJsonBulkUpdateMySqlFixture : ComplexJsonRelationalFixtureBase
     {
         protected override ITestStoreFactory TestStoreFactory

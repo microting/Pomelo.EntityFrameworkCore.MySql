@@ -75,6 +75,10 @@ jobs:
         run: dotnet test --project test/EFCore.MySql.FunctionalTests -c Debug --no-build $TEST_FILTER
       - name: Create patch
         run: |
+          # Compiled-model baselines for brand new tests are written as *new* files into
+          # Scaffolding/Baselines/<TestName>/. `git diff` ignores untracked files, so stage
+          # them with --intent-to-add first, otherwise those baselines are silently dropped.
+          git add --intent-to-add -- test/EFCore.MySql.FunctionalTests
           git diff -- test/EFCore.MySql.FunctionalTests > baselines.patch
           echo "Rewritten files:"
           git diff --stat -- test/EFCore.MySql.FunctionalTests

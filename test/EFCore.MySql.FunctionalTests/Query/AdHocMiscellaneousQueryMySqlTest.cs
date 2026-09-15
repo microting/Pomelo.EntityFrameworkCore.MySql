@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using NameSpace1;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
+using Pomelo.EntityFrameworkCore.MySql.Tests;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
@@ -24,6 +25,19 @@ public class AdHocMiscellaneousQueryMySqlTest : AdHocMiscellaneousQueryRelationa
         new MySqlDbContextOptionsBuilder(optionsBuilder).UseParameterizedCollectionMode(parameterizedCollectionMode);
 
         return optionsBuilder;
+    }
+
+    public override async Task Correlated_SelectMany_DefaultIfEmpty_whole_object()
+    {
+        if (AppConfig.ServerVersion.Supports.OuterApply)
+        {
+            // The base test asserts that the query cannot be translated, because it "requires the SQL APPLY
+            // operation". MySQL 8.0.14 and higher support LATERAL, so the query is translated successfully
+            // and no exception is thrown.
+            return;
+        }
+
+        await base.Correlated_SelectMany_DefaultIfEmpty_whole_object();
     }
 
     protected override Task Seed2951(Context2951 context)

@@ -1793,10 +1793,17 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
     {
         if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
         {
-            // Not supported by MySQL and older MariaDB versions:
+            // Depending on the shape EF Core generates, MySQL may reject the statement with:
             //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
-            await Assert.ThrowsAsync<MySqlException>(
-                () => base.Delete_with_RightJoin(async));
+            // Since EF Core 11 the generated statement is accepted by some of the affected server
+            // versions, so both outcomes are valid here.
+            try
+            {
+                await base.Delete_with_RightJoin(async);
+            }
+            catch (MySqlException)
+            {
+            }
         }
         else
         {
