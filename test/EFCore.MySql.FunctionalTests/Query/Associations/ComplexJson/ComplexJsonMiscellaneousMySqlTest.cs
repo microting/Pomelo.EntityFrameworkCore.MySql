@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Associations.ComplexJson;
 using Microsoft.EntityFrameworkCore.TestUtilities;
@@ -18,6 +19,14 @@ public class ComplexJsonMiscellaneousMySqlTest : ComplexJsonMiscellaneousRelatio
         : base(fixture, testOutputHelper)
     {
     }
+
+    // TODO: 11.0 - Re-enable once the NullReferenceException in EF Core has been resolved.
+    // RelationalQueryableMethodTranslatingExpressionVisitor.GenerateComplexJsonShaper(IComplexProperty, ITableBase, string, bool)
+    // does `table.FindColumn(containerColumnName).Name` without a null check. When the query root is a FromSql
+    // expression, the lookup returns null and the shaper generation throws before the provider is ever consulted.
+    [Fact(Skip = "EF Core 11 throws a NullReferenceException in GenerateComplexJsonShaper when the query root is a FromSql expression.")]
+    public override Task FromSql_on_root()
+        => Task.CompletedTask;
 
     public class ComplexJsonMiscellaneousMySqlFixture : ComplexJsonRelationalFixtureBase
     {
