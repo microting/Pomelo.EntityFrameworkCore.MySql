@@ -8,9 +8,11 @@ name: Rewrite SQL Baselines
 # The patch is NOT applied automatically: review it, then apply it locally with
 #   git apply baselines.patch
 #
-# Baselines are server specific, so regenerate them against the same server the committed
-# baselines target, and afterwards run the normal build workflow across the full matrix to
-# confirm nothing version specific regressed.
+# Baselines are server specific, so this workflow regenerates them against both a MySQL and a
+# MariaDB server and uploads one patch per server. Some `AssertSql(...)` baselines are guarded by
+# `AppConfig.ServerVersion.Supports.*`, so only the branch matching the server that produced a
+# patch is rewritten in it; apply each patch to the branch it belongs to. Afterwards run the
+# normal build workflow across the full matrix to confirm nothing version specific regressed.
 #
 # NOTE: GitHub only registers a `workflow_dispatch` workflow once the file exists on the default
 # branch, so while this branch is still open the workflow cannot be started from the Actions UI.
@@ -39,17 +41,24 @@ jobs:
     permissions:
       contents: read
     timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      # Baselines are server specific, so by default regenerate them against both a MySQL and a
+      # MariaDB server. A `workflow_dispatch` run may pin a single image through the input.
+      matrix:
+        dbImage: ${{ fromJSON(inputs.dbImage && format('["{0}"]', inputs.dbImage) || '["mysql:8.0.40","mariadb:11.8.5"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install Database Server
         env:
-          DB_IMAGE: ${{ inputs.dbImage || 'mysql:8.0.40' }}
+          DB_IMAGE: ${{ matrix.dbImage }}
         run: |
           sudo systemctl stop mysql || true
           docker run --name database -e MYSQL_ROOT_PASSWORD='Password12!' -p 127.0.0.1:3306:3306 -d "$DB_IMAGE"
           for _ in $(seq 1 300); do
-            if docker exec database mysql --protocol=tcp -h localhost -P 3306 -u root -p'Password12!' -e 'select 1;' > /dev/null 2>&1; then
+            # MariaDB 11+ renames the client to `mariadb`; the `mysql` alias is being phased out.
+            if docker exec database sh -c "(mariadb || mysql) --protocol=tcp -h localhost -P 3306 -u root -p'Password12!' -e 'select 1;'" > /dev/null 2>&1; then
               echo 'Database server is ready.'
               exit 0
             fi
@@ -79,12 +88,15 @@ jobs:
           # Scaffolding/Baselines/<TestName>/. `git diff` ignores untracked files, so stage
           # them with --intent-to-add first, otherwise those baselines are silently dropped.
           git add --intent-to-add -- test/EFCore.MySql.FunctionalTests
-          git diff -- test/EFCore.MySql.FunctionalTests > baselines.patch
+          # JsonStringQueryTestBase.cs is deliberately excluded: its rewritten baselines encode
+          # unrelated, still unreviewed JSON casting changes.
+          git diff -- test/EFCore.MySql.FunctionalTests \
+            ':(exclude)test/EFCore.MySql.FunctionalTests/Query/JsonStringQueryTestBase.cs' > baselines.patch
           echo "Rewritten files:"
           git diff --stat -- test/EFCore.MySql.FunctionalTests
       - name: Upload patch
         uses: actions/upload-artifact@v4
         with:
-          name: baselines-patch
+          name: baselines-patch-${{ strategy.job-index }}
           path: baselines.patch
           if-no-files-found: warn
