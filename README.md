@@ -26,6 +26,8 @@ The following versions of MySqlConnector, EF Core, .NET (Core), .NET Standard an
 
 Release | Branch                                                                                           | MySqlConnector     | EF Core | .NET (Core) | .NET Standard | .NET Framework
 --- |--------------------------------------------------------------------------------------------------|--------------------|:-------:|:-----------:| :---: | :---:
+[10.0.12](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.12) | [master](https://github.com/microting/Microting.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
+[10.0.11](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.11) | [master](https://github.com/microting/Microting.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
 [10.0.10](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.10) | [master](https://github.com/microting/Microting.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
 [10.0.8](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.8) | [master](https://github.com/microting/Microting.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
 [10.0.7](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.7) | [master](https://github.com/microting/Microting.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
@@ -83,6 +85,8 @@ Currently tested versions are:
 
 Milestone | Status   | Release Date
 ----------|----------|-------------
+10.0.12 | Released | 2026-09-17
+10.0.11 | Released | 2026-08-27
 10.0.10 | Released | 2026-07-16
 10.0.8 | Released | 2026-05-17
 10.0.7 | Released | 2026-04-22
@@ -123,7 +127,7 @@ All `.pdb` files use Source Link.
 Ensure that your `.csproj` file contains the following reference:
 
 ```xml
-<PackageReference Include="Microting.EntityFrameworkCore.MySql" Version="10.0.10" />
+<PackageReference Include="Microting.EntityFrameworkCore.MySql" Version="10.0.12" />
 ```
 
 ### 2. Services Configuration
