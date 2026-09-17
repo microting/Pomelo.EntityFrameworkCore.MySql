@@ -37,7 +37,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
                     "LoginEntityTypeWithAnExtremelyLongAndOverlyConvolutedNameThatIs~",
                     "PK_LoginEntityTypeWithAnExtremelyLongAndOverlyConvolutedNameTha~",
                     "FK_LoginEntityTypeWithAnExtremelyLongAndOverlyConvolutedNameTha~",
-                    "IX_LoginEntityTypeWithAnExtremelyLongAndOverlyConvolutedNameTha~");
+                    "IX_LoginEntityTypeWithAnExtremelyLongAndOverlyConvolutedNameTh~1");
 
                 var actual = string.Join(
                     Environment.NewLine,

@@ -4043,7 +4043,9 @@ ORDER BY `o3`.`c`, `o3`.`c0`
 """);
         }
 
-        [SupportedServerVersionCondition("0.0.0-mysql", Skip = "MySQL does not guarantee which row of a group is returned for a non-aggregated column, so the entity picked for each group is non-deterministic.")]
+        // Note: `SupportedServerVersionLessThanCondition` is the way to express "skip on MySQL, run on MariaDB".
+        // `SupportedServerVersionCondition("0.0.0-mysql")` means the opposite ("only run on MySQL").
+        [SupportedServerVersionLessThanCondition("0.0.0-mysql", Skip = "MySQL does not guarantee which row of a group is returned for a non-aggregated column, so the entity picked for each group is non-deterministic.")]
         public override async Task GroupBy_Select_Anonymous_Type_With_Entire_Entity(bool async)
         {
             await base.GroupBy_Select_Anonymous_Type_With_Entire_Entity(async);
