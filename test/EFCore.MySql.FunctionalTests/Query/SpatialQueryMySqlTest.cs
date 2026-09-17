@@ -663,7 +663,10 @@ FROM `MultiLineStringEntity` AS `m`
 
             AssertSql(
                 """
-SELECT `m`.`Id`, ST_IsEmpty(`m`.`MultiLineString`) AS `IsEmpty`
+SELECT `m`.`Id`, CASE
+    WHEN `m`.`MultiLineString` IS NULL THEN NULL
+    ELSE ST_IsEmpty(`m`.`MultiLineString`)
+END AS `IsEmpty`
 FROM `MultiLineStringEntity` AS `m`
 """);
         }
@@ -1006,7 +1009,10 @@ ORDER BY `p1`.`Id`
                 """
 SELECT `p`.`Id`
 FROM `PointEntity` AS `p`
-WHERE `p`.`Point` IS NULL
+WHERE CASE
+    WHEN `p`.`Point` IS NULL THEN NULL
+    ELSE ST_IsEmpty(`p`.`Point`)
+END IS NULL
 """);
         }
 
@@ -1018,7 +1024,10 @@ WHERE `p`.`Point` IS NULL
                 """
 SELECT `p`.`Id`
 FROM `PointEntity` AS `p`
-WHERE `p`.`Point` IS NOT NULL
+WHERE CASE
+    WHEN `p`.`Point` IS NULL THEN NULL
+    ELSE ST_IsEmpty(`p`.`Point`)
+END IS NOT NULL
 """);
         }
 
