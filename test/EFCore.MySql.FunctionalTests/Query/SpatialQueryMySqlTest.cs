@@ -696,7 +696,10 @@ FROM `LineStringEntity` AS `l`
 
             AssertSql(
                 """
-SELECT `l`.`Id`, ST_IsSimple(`l`.`LineString`) AS `IsSimple`
+SELECT `l`.`Id`, CASE
+    WHEN `l`.`LineString` IS NULL THEN NULL
+    ELSE ST_IsSimple(`l`.`LineString`)
+END AS `IsSimple`
 FROM `LineStringEntity` AS `l`
 """);
         }
