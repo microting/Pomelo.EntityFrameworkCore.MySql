@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.TestModels.Northwind;
 using Microsoft.EntityFrameworkCore.TestUtilities;
+using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
@@ -33,6 +34,14 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 ss => ss.Set<Customer>().OrderBy(c => c.CustomerID).Take(3),
                 selector: c => (decimal)c.Orders.Average(o => 5 + o.OrderDetails.Average(od => od.ProductID)),
                 asserter: (a, b) => Assert.Equal(a, b, 12)); // added flouting point precision tolerance
+
+        // The base test does MinBy(c => c.Orders.Sum(o => o.OrderID)) over all customers. Northwind contains two
+        // customers with no orders at all (FISSA and PARIS), so both tie on a sum of 0 and which one MinBy returns is
+        // arbitrary. The expected result is produced in memory, where the first match wins; MariaDB happens to return
+        // the other one. The tie makes the test inherently server-dependent, so only run it on MySQL.
+        [SupportedServerVersionCondition("0.0.0-mysql", Skip = "Result is ambiguous: two Northwind customers have no orders, so they tie for the minimum.")]
+        public override Task MinBy_over_subquery(bool async)
+            => base.MinBy_over_subquery(async);
 
         public override async Task Type_casting_inside_sum(bool async)
         {
