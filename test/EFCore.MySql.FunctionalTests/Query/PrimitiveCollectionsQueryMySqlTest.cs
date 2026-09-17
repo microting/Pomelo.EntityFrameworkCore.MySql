@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -3324,7 +3325,32 @@ WHERE JSON_LENGTH(`b`.`Ints`) > 0
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
     private void AssertSql(params string[] expected)
-        => Fixture.TestSqlLoggerFactory.AssertBaseline(expected);
+        => Fixture.TestSqlLoggerFactory.AssertBaseline(AdjustValuesSyntax(expected));
+
+    /// <summary>
+    ///     The baselines in this class are captured against MySQL, which since 8.0.19 requires each row of a table value
+    ///     constructor to be introduced by the <c>ROW</c> keyword (<c>VALUES ROW(1), ROW(2)</c>). MariaDB implements the
+    ///     standard form instead (<c>VALUES (1), (2)</c>), and <c>MySqlQuerySqlGenerator.VisitRowValue</c> emits
+    ///     whichever form the target server supports. Both are correct, so rather than duplicating every baseline, adapt
+    ///     the expected SQL to the syntax of the server under test. The row values themselves are still fully asserted.
+    /// </summary>
+    private static string[] AdjustValuesSyntax(string[] expected)
+    {
+        var support = AppConfig.ServerVersion.Supports;
+
+        if (!support.Values || support.ValuesWithRows)
+        {
+            return expected;
+        }
+
+        var adjusted = new string[expected.Length];
+        for (var i = 0; i < expected.Length; i++)
+        {
+            adjusted[i] = Regex.Replace(expected[i], @"(\bVALUES |,\s*)ROW(?=\()", "$1");
+        }
+
+        return adjusted;
+    }
 
     private PrimitiveCollectionsContext CreateContext()
         => Fixture.CreateContext();
