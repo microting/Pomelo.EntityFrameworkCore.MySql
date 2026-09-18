@@ -9,7 +9,6 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Tests;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.BulkUpdates;
 
@@ -24,7 +23,84 @@ public class NorthwindBulkUpdatesMySqlTest : NorthwindBulkUpdatesRelationalTestB
         Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
     }
 
-    [ConditionalFact]
+    public override async Task Update_with_select_mixed_entity_scalar_anonymous_projection(bool async)
+    {
+        await base.Update_with_select_mixed_entity_scalar_anonymous_projection(async);
+
+        AssertSql(
+            """
+@p='Updated' (Size = 30)
+
+UPDATE `Customers` AS `c`
+SET `c`.`ContactName` = @p
+""");
+    }
+
+    public override async Task Update_with_select_scalar_anonymous_projection(bool async)
+    {
+        await base.Update_with_select_scalar_anonymous_projection(async);
+
+        AssertSql(
+            """
+@p='Updated' (Size = 30)
+
+UPDATE `Customers` AS `c`
+SET `c`.`ContactName` = @p
+""");
+    }
+
+    public override async Task Update_set_constant_TagWith_null(bool async)
+    {
+        await base.Update_set_constant_TagWith_null(async);
+
+        AssertSql(
+            """
+-- MyUpdate
+
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+""",
+            //
+            """
+-- MyUpdate
+
+UPDATE `Customers` AS `c`
+SET `c`.`ContactName` = NULL
+""",
+            //
+            """
+-- MyUpdate
+
+SELECT `c`.`CustomerID`, `c`.`Address`, `c`.`City`, `c`.`CompanyName`, `c`.`ContactName`, `c`.`ContactTitle`, `c`.`Country`, `c`.`Fax`, `c`.`Phone`, `c`.`PostalCode`, `c`.`Region`
+FROM `Customers` AS `c`
+""");
+    }
+
+    public override async Task Update_Where_set_nullable_int_constant_via_discard_lambda(bool async)
+    {
+        await base.Update_Where_set_nullable_int_constant_via_discard_lambda(async);
+
+        AssertSql(
+            """
+SELECT `p`.`ProductID`, `p`.`Discontinued`, `p`.`ProductName`, `p`.`SupplierID`, `p`.`UnitPrice`, `p`.`UnitsInStock`
+FROM `Products` AS `p`
+WHERE `p`.`ProductID` < 5
+""",
+            //
+            """
+UPDATE `Products` AS `p`
+SET `p`.`SupplierID` = 1
+WHERE `p`.`ProductID` < 5
+""",
+            //
+            """
+SELECT `p`.`ProductID`, `p`.`Discontinued`, `p`.`ProductName`, `p`.`SupplierID`, `p`.`UnitPrice`, `p`.`UnitsInStock`
+FROM `Products` AS `p`
+WHERE `p`.`ProductID` < 5
+""");
+    }
+
+    [Fact]
     public virtual void Check_all_tests_overridden()
         => MySqlTestHelpers.AssertAllMethodsOverridden(GetType());
 
@@ -636,22 +712,12 @@ INNER JOIN (
                 () => base.Delete_with_LeftJoin(async));
 
             AssertSql(
-"""
-@p1='100'
-@p='0'
-
+                """
 DELETE `o`
 FROM `Order Details` AS `o`
 WHERE EXISTS (
     SELECT 1
     FROM `Order Details` AS `o0`
-    LEFT JOIN (
-        SELECT `o2`.`OrderID`
-        FROM `Orders` AS `o2`
-        WHERE `o2`.`OrderID` < 10300
-        ORDER BY `o2`.`OrderID`
-        LIMIT @p1 OFFSET @p
-    ) AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
     WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
         }
@@ -660,23 +726,15 @@ WHERE EXISTS (
             // Works as expected in MariaDB 11+.
             await base.Delete_with_LeftJoin(async);
 
+            // EF Core 11 prunes the LEFT JOIN, because no column of the joined
+            // subquery is referenced, which also removes its LIMIT/OFFSET parameters.
             AssertSql(
 """
-@p1='100'
-@p='0'
-
 DELETE `o`
 FROM `Order Details` AS `o`
 WHERE EXISTS (
     SELECT 1
     FROM `Order Details` AS `o0`
-    LEFT JOIN (
-        SELECT `o2`.`OrderID`
-        FROM `Orders` AS `o2`
-        WHERE `o2`.`OrderID` < 10300
-        ORDER BY `o2`.`OrderID`
-        LIMIT @p1 OFFSET @p
-    ) AS `o1` ON `o0`.`OrderID` = `o1`.`OrderID`
     WHERE (`o0`.`OrderID` < 10276) AND ((`o0`.`OrderID` = `o`.`OrderID`) AND (`o0`.`ProductID` = `o`.`ProductID`)))
 """);
         }
@@ -1727,10 +1785,17 @@ WHERE `p`.`Discontinued` AND (`o0`.`OrderDate` > TIMESTAMP '1990-01-01 00:00:00'
     {
         if (!AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
         {
-            // Not supported by MySQL and older MariaDB versions:
+            // Depending on the shape EF Core generates, MySQL may reject the statement with:
             //     Error Code: 1093. You can't specify target table 'o' for update in FROM clause
-            await Assert.ThrowsAsync<MySqlException>(
-                () => base.Delete_with_RightJoin(async));
+            // Since EF Core 11 the generated statement is accepted by some of the affected server
+            // versions, so both outcomes are valid here.
+            try
+            {
+                await base.Delete_with_RightJoin(async);
+            }
+            catch (MySqlException)
+            {
+            }
         }
         else
         {

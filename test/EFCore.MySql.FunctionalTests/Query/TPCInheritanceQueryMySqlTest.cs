@@ -1,8 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Storage;
-using Xunit.Abstractions;
+using Xunit;
+using Microsoft.EntityFrameworkCore.Query.Inheritance;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
 

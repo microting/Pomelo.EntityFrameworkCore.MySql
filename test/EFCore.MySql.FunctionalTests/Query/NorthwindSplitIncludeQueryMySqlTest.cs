@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.TestModels.Northwind;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
@@ -124,19 +123,19 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
                 });
         }
 
-        [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
+        [Theory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
         public override Task Include_collection_skip_no_order_by(bool async)
         {
             return base.Include_collection_skip_no_order_by(async);
         }
 
-        [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
+        [Theory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
         public override Task Include_collection_skip_take_no_order_by(bool async)
         {
             return base.Include_collection_skip_take_no_order_by(async);
         }
 
-        [ConditionalTheory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
+        [Theory(Skip = "https://github.com/dotnet/efcore/issues/21202")]
         public override Task Include_collection_take_no_order_by(bool async)
         {
             return base.Include_collection_take_no_order_by(async);

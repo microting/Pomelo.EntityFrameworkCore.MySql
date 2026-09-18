@@ -19,6 +19,7 @@ The following versions of MySqlConnector, EF Core, .NET (Core), .NET Standard an
 
 Release | Branch                                                                                           | MySqlConnector     | EF Core | .NET (Core) | .NET Standard | .NET Framework
 --- |--------------------------------------------------------------------------------------------------|--------------------|:-------:|:-----------:| :---: | :---:
+[11.0.0-preview.1](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/11.0.0-preview.1) | [net11](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/net11)       | >= 2.5.0           |  11.0.x  |    11.0+     | - | -
 [10.0.3](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.3) | [master](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/master)       | >= 2.5.0           |  10.0.x  |    10.0+     | - | -
 [9.0.8](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/9.0.8) | [master](https://github.com/microting/Pomelo.EntityFrameworkCore.MySql/tree/master)       | >= 2.4.0           |  9.0.x  |    9.0+     | - | -
 [8.0.3](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/8.0.3) | [8.0-maint](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/tree/8.0-maint) | >= 2.3.5           |  8.0.x  |    8.0+     | - | -
