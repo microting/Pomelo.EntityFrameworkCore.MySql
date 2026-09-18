@@ -92,7 +92,7 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
            } &&
            (selectExpression.Tables.Count == 1 || (selectExpression.Orderings.Count == 0 && selectExpression.Limit is null)) &&
            selectExpression.Tables[0] is TableExpression &&
-           selectExpression.Tables.Skip(1).All(t => t is InnerJoinExpression);
+           selectExpression.Tables.Skip(1).All(t => t is InnerJoinExpression or LeftJoinExpression);
 
     protected override bool IsValidSelectExpressionForExecuteUpdate(
         SelectExpression selectExpression,
