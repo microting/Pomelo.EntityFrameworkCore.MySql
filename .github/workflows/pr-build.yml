@@ -397,19 +397,19 @@ jobs:
         shell: pwsh
         run: |
           $env:EF_BATCH_SIZE = "1"
-          dotnet test -c Release --no-build --report-github --project test/EFCore.MySql.IntegrationTests --filter-not-trait category=failing
+          dotnet test -c Release --no-build --no-launch-profile --report-github --project test/EFCore.MySql.IntegrationTests --filter-not-trait category=failing
       - name: Integration Tests - With EF_BATCH_SIZE = 10
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
         run: |
           $env:EF_BATCH_SIZE = "10"
-          dotnet test -c Release --no-build --report-github --project test/EFCore.MySql.IntegrationTests --filter-not-trait category=failing
+          dotnet test -c Release --no-build --no-launch-profile --report-github --project test/EFCore.MySql.IntegrationTests --filter-not-trait category=failing
       - name: Integration Tests - With EF_BATCH_SIZE = 1
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
         run: |
           $env:EF_RETRY_ON_FAILURE = "3"
-          dotnet test -c Release --no-build --report-github --project test/EFCore.MySql.IntegrationTests --filter-not-trait category=failing
+          dotnet test -c Release --no-build --no-launch-profile --report-github --project test/EFCore.MySql.IntegrationTests --filter-not-trait category=failing
       - name: Integration Tests - Legacy migrations
         if: ${{ env.skipTests != 'true' }}
         shell: pwsh
@@ -431,7 +431,7 @@ jobs:
         shell: pwsh
         run: |
           $env:EF_DATABASE = "pomelo_test2"
-          dotnet test -c Release --no-build --report-github --project test/EFCore.MySql.IntegrationTests --filter-not-trait category=failing
+          dotnet test -c Release --no-build --no-launch-profile --report-github --project test/EFCore.MySql.IntegrationTests --filter-not-trait category=failing
       - name: PassKey Sample Test - Check JSON Support
         if: ${{ env.skipTests != 'true' }}
         id: check-json-support
