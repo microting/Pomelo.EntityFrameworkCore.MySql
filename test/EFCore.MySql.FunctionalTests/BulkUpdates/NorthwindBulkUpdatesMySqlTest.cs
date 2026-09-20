@@ -7,7 +7,6 @@ using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Tests;
-using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
 using Xunit;
 
 namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.BulkUpdates;
@@ -966,6 +965,12 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 """);
     }
 
+    // `Skip`/`Take` are applied without an `OrderBy`, so the server is free to return any rows for the given window
+    // and the base assertion cannot know which rows the update touched. EF itself warns about this ("The query uses
+    // a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable
+    // results."). It has been observed failing on MySQL 8.0.40 and 9.3.0 on Linux while passing on those very same
+    // versions on Windows in the same run. The generated SQL is still recorded below for when this can be re-enabled.
+    [Theory(Skip = "Can fail non-deterministically, because LIMIT/OFFSET without ORDER BY is non-deterministic.")]
     public override async Task Update_Where_Skip_set_constant(bool async)
     {
         await base.Update_Where_Skip_set_constant(async);
@@ -1008,7 +1013,11 @@ LIMIT @p
 """);
     }
 
-    [SupportedServerVersionCondition("0.0.0-mysql", Skip = "Can fail non-deterministically when targeting MySQL, if certain tests precede it.")]
+    // See the note on Update_Where_Skip_set_constant above. This was previously annotated with
+    // `SupportedServerVersionCondition("0.0.0-mysql")`, which means "only run on MySQL" and so had the opposite
+    // effect of the intent stated in its own message: it ran the test exclusively on the server where it is known to
+    // be unreliable, and excluded it on MariaDB where it was passing.
+    [Theory(Skip = "Can fail non-deterministically, because LIMIT/OFFSET without ORDER BY is non-deterministic.")]
     public override async Task Update_Where_Skip_Take_set_constant(bool async)
     {
         await base.Update_Where_Skip_Take_set_constant(async);
