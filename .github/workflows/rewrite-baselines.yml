@@ -15,13 +15,8 @@ name: Rewrite SQL Baselines
 # normal build workflow across the full matrix to confirm nothing version specific regressed.
 #
 # NOTE: GitHub only registers a `workflow_dispatch` workflow once the file exists on the default
-# branch, so while this branch is still open the workflow cannot be started from the Actions UI.
-# The `push` trigger below is a temporary stand in that produces the same artifact automatically.
-# Remove that trigger once this branch has been merged into the default branch.
+# branch, so this workflow can only be started from the Actions UI after it has been merged there.
 on:
-  push:
-    branches:
-      - copilot/dotnet-11-support
   workflow_dispatch:
     inputs:
       dbImage:
@@ -58,7 +53,9 @@ jobs:
           docker run --name database -e MYSQL_ROOT_PASSWORD='Password12!' -p 127.0.0.1:3306:3306 -d "$DB_IMAGE"
           for _ in $(seq 1 300); do
             # MariaDB 11+ renames the client to `mariadb`; the `mysql` alias is being phased out.
-            if docker exec database sh -c "(mariadb || mysql) --protocol=tcp -h localhost -P 3306 -u root -p'Password12!' -e 'select 1;'" > /dev/null 2>&1; then
+            # Each client needs its own full command: `(mariadb || mysql) --args` is a shell syntax
+            # error, because arguments cannot be appended to a `( ... )` compound command.
+            if docker exec database sh -c "mariadb --protocol=tcp -h localhost -P 3306 -u root -p'Password12!' -e 'select 1;' || mysql --protocol=tcp -h localhost -P 3306 -u root -p'Password12!' -e 'select 1;'" > /dev/null 2>&1; then
               echo 'Database server is ready.'
               exit 0
             fi
