@@ -532,7 +532,9 @@ jobs:
           }
       - name: Get the version
         id: get_version
-        run: echo "VERSION=$(echo $GITHUB_REF | cut -d / -f 3 | cut -d 'v' -f 2)" >> $GITHUB_OUTPUT
+        # Strip the leading `refs/tags/v` only. Splitting on `v` (as this previously did) truncates
+        # any tag whose version contains that letter: `v11.0.0-preview.1` became `11.0.0-pre`.
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
       - name: NuGet Pack
         shell: pwsh
         run: |
