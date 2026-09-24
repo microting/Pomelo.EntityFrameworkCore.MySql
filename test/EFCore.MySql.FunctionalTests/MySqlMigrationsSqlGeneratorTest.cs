@@ -439,7 +439,7 @@ SELECT ROW_COUNT();");
 );");
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionLessThanCondition(nameof(ServerVersionSupport.DefaultExpression), nameof(ServerVersionSupport.AlternativeDefaultExpression))]
         public virtual void DefaultValue_not_generated_for_unlimited_text_column_missing_default_expression_support()
         {
@@ -468,7 +468,7 @@ SELECT ROW_COUNT();");
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.DefaultExpression), nameof(ServerVersionSupport.AlternativeDefaultExpression))]
         public virtual void DefaultValue_generated_for_unlimited_text_column()
         {
@@ -497,7 +497,7 @@ SELECT ROW_COUNT();");
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void DefaultValue_generated_for_limited_text_column()
         {
             Generate(
@@ -526,7 +526,7 @@ SELECT ROW_COUNT();");
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void DefaultValue_formats_literal_correctly()
         {
             Generate(
@@ -554,7 +554,7 @@ SELECT ROW_COUNT();");
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateDatabaseOperation()
         {
             Generate(new MySqlCreateDatabaseOperation { Name = "Northwind" });
@@ -564,7 +564,7 @@ SELECT ROW_COUNT();");
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateDatabaseOperation_with_charset()
         {
             Generate(new MySqlCreateDatabaseOperation { Name = "Northwind", CharSet = "latin1"});
@@ -574,7 +574,7 @@ SELECT ROW_COUNT();");
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateDatabaseOperation_with_collation()
         {
             Generate(new MySqlCreateDatabaseOperation { Name = "Northwind", Collation = "latin1_general_ci"});
@@ -584,7 +584,7 @@ SELECT ROW_COUNT();");
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AlterDatabaseOperation_with_charset()
         {
             Generate(
@@ -598,7 +598,7 @@ ALTER DATABASE CHARACTER SET utf8mb4;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AlterDatabaseOperation_with_collation()
         {
             Generate(
@@ -612,7 +612,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateTableUlongAutoincrement()
         {
             Generate(
@@ -645,7 +645,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalTheory]
+        [Theory]
         [InlineData(false, false, "Latin1")]
         [InlineData(false, false, null)]
         [InlineData(false, true, "Latin1")]
@@ -707,7 +707,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public override void AddColumnOperation_without_column_type()
         {
             base.AddColumnOperation_without_column_type();
@@ -717,7 +717,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AddColumnOperation_with_datetime6()
         {
             Generate(new AddColumnOperation
@@ -737,7 +737,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public override void AddColumnOperation_with_maxLength_overridden()
         {
             base.AddColumnOperation_with_maxLength_overridden();
@@ -747,7 +747,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AddColumnOperation_with_computed_column()
         {
             Generate(
@@ -767,7 +767,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AddColumnOperation_serial()
         {
             Generate(new AddColumnOperation
@@ -785,7 +785,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AddColumnOperation_with_int_defaultValue_isnt_serial()
         {
             Generate(
@@ -804,7 +804,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AddColumnOperation_with_dbgenerated_uuid()
         {
             Generate(
@@ -822,7 +822,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AddDefaultDatetimeOperation_with_valueOnUpdate()
         {
             Generate(
@@ -842,7 +842,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AddDefaultBooleanOperation()
         {
             Generate(
@@ -862,7 +862,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
         }
 
 
-        [ConditionalTheory]
+        [Theory]
         [InlineData("tinyblob")]
         [InlineData("blob")]
         [InlineData("mediumblob")]
@@ -923,7 +923,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public void AlterColumnOperation_type_with_index()
         {
             Generate(
@@ -955,7 +955,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public void AlterColumnOperation_ComputedColumnSql_with_index()
         {
             Generate(
@@ -983,7 +983,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public void AlterColumnOperation_ComputedColumnSql_stored()
         {
             Generate(
@@ -1002,7 +1002,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AddForeignKeyOperation_with_long_name()
         {
             Generate(
@@ -1022,7 +1022,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateIndexOperation_fulltext()
         {
             Generate(
@@ -1039,7 +1039,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateIndexOperation_fulltext_with_parser()
         {
             Generate(
@@ -1057,7 +1057,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.SpatialIndexes))]
         public virtual void CreateIndexOperation_spatial()
         {
@@ -1076,7 +1076,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateIndexOperation_with_long_name()
         {
             Generate(
@@ -1093,7 +1093,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.RenameIndex))]
         public virtual void RenameIndexOperation()
         {
@@ -1111,7 +1111,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void RenameIndexOperations_throws_when_no_table()
         {
             var migrationBuilder = new MigrationBuilder("MySql");
@@ -1126,7 +1126,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
             Assert.Equal(MySqlStrings.IndexTableRequired, ex.Message);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void DropIndexOperations_throws_when_no_table()
         {
             var migrationBuilder = new MigrationBuilder("MySql");
@@ -1140,7 +1140,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
             Assert.Equal(MySqlStrings.IndexTableRequired, ex.Message);
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.RenameColumn))]
         public virtual void RenameColumnOperation()
         {
@@ -1158,7 +1158,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void RenameColumnOperation_with_model()
         {
             var migrationBuilder = new MigrationBuilder("MySql");
@@ -1185,7 +1185,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void RenameColumnOperation_with_model_required_without_default_value()
         {
             var migrationBuilder = new MigrationBuilder("MySql");
@@ -1214,7 +1214,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public override void SqlOperation()
         {
             base.SqlOperation();
@@ -1227,7 +1227,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
         protected override string GetGeometryCollectionStoreType()
             => "geometrycollection";
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AddColumnOperation_with_charset_annotation()
         {
             Generate(
@@ -1247,7 +1247,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateIndexOperation_with_prefix_lengths()
         {
             Generate(
@@ -1276,7 +1276,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateTableOperation_with_collation()
         {
             Generate(
@@ -1317,7 +1317,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AlterTableOperation_with_collation()
         {
             Generate(
@@ -1352,7 +1352,7 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AlterTableOperation_with_collation_reset()
         {
             Generate(
@@ -1401,7 +1401,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateTableOperation_with_charset()
         {
             Generate(
@@ -1442,7 +1442,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AlterTableOperation_with_charset()
         {
             Generate(
@@ -1477,7 +1477,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AlterTableOperation_with_charset_reset()
         {
             Generate(
@@ -1527,7 +1527,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
         }
 
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateTableOperation_with_table_options()
         {
             Generate(
@@ -1559,7 +1559,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void AlterTableOperation_with_table_options()
         {
             Generate(
@@ -1591,7 +1591,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         public virtual void CreateTableOperation_primary_key_with_prefix_lengths()
         {
             Generate(
@@ -1641,7 +1641,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
                 ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.Sequences))]
         public virtual void AlterSequenceOperation_with_minValue_and_maxValue()
         {
@@ -1661,7 +1661,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
                ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.Sequences))]
         public virtual void AlterSequenceOperation_without_minValue_and_maxValue()
         {
@@ -1681,7 +1681,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
 
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.Sequences))]
         public virtual void CreateSequenceOperation_with_minValue_and_maxValue()
         {
@@ -1704,7 +1704,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
                ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.Sequences))]
         public virtual void CreateSequenceOperation_without_minValue_and_maxValue()
         {
@@ -1723,7 +1723,7 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
                ignoreLineEndingDifferences: true);
         }
 
-        [ConditionalFact]
+        [Fact]
         [SupportedServerVersionCondition(nameof(ServerVersionSupport.Sequences))]
         public virtual void DropSequenceOperation()
         {
