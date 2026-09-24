@@ -54,29 +54,15 @@ FROM `Owner` AS `o`
 
     public override async Task Delete_predicate_based_on_optional_navigation(bool async)
     {
-        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
-        {
-            await base.Delete_predicate_based_on_optional_navigation(async);
+        await base.Delete_predicate_based_on_optional_navigation(async);
 
-            AssertSql(
+        AssertSql(
 """
 DELETE `p`
 FROM `Posts` AS `p`
-WHERE `p`.`Id` IN (
-    SELECT `p0`.`Id`
-    FROM `Posts` AS `p0`
-    LEFT JOIN `Blogs` AS `b` ON `p0`.`BlogId` = `b`.`Id`
-    WHERE `b`.`Title` LIKE 'Arthur%'
-)
+LEFT JOIN `Blogs` AS `b` ON `p`.`BlogId` = `b`.`Id`
+WHERE `b`.`Title` LIKE 'Arthur%'
 """);
-        }
-        else
-        {
-            // Not supported by MySQL and older MariaDB versions:
-            //     Error Code: 1093. You can't specify target table 'p' for update in FROM clause
-            await Assert.ThrowsAsync<MySqlException>(
-                () => base.Delete_predicate_based_on_optional_navigation(async));
-        }
     }
 
     public override async Task Update_non_owned_property_on_entity_with_owned(bool async)
@@ -141,28 +127,14 @@ SET `b0`.`Title` = CAST(`b0`.`Rating` AS char),
 
     public override async Task Delete_entity_with_auto_include(bool async)
     {
-        if (AppConfig.ServerVersion.Supports.DeleteWithSelfReferencingSubquery)
-        {
-            await base.Delete_entity_with_auto_include(async);
+        await base.Delete_entity_with_auto_include(async);
 
-            AssertSql(
+        AssertSql(
 """
 DELETE `c`
 FROM `Context30572_Principal` AS `c`
-WHERE `c`.`Id` IN (
-    SELECT `c0`.`Id`
-    FROM `Context30572_Principal` AS `c0`
-    LEFT JOIN `Context30572_Dependent` AS `c1` ON `c0`.`DependentId` = `c1`.`Id`
-)
+LEFT JOIN `Context30572_Dependent` AS `c0` ON `c`.`DependentId` = `c0`.`Id`
 """);
-        }
-        else
-        {
-            // Not supported by MySQL and older MariaDB versions:
-            //     Error Code: 1093. You can't specify target table 'c' for update in FROM clause
-            await Assert.ThrowsAsync<MySqlException>(
-                () => base.Delete_entity_with_auto_include(async));
-        }
     }
 
     public override async Task Update_with_alias_uniquification_in_setter_subquery(bool async)
