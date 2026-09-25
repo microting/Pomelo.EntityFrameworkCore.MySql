@@ -707,6 +707,31 @@ ALTER DATABASE COLLATE latin1_swedish_ci;" + EOL,
                 Sql);
         }
 
+        [ConditionalTheory]
+        [InlineData("vector(312)")]
+        [InlineData("uuid")]
+        [InlineData("inet6")]
+        public virtual void AddColumnOperation_with_charset_and_collation_on_non_character_store_type(string storeType)
+        {
+            // Non-character based store types do not support the `CHARACTER SET` and `COLLATE` column attributes and
+            // will throw an error, if they are applied to them.
+            Generate(
+                new AddColumnOperation
+                {
+                    Table = "People",
+                    Name = "Embedding",
+                    ClrType = typeof(string),
+                    ColumnType = storeType,
+                    IsNullable = false,
+                    Collation = "utf8mb4_bin",
+                    [MySqlAnnotationNames.CharSet] = "utf8mb4",
+                });
+
+            Assert.Equal(
+                $"ALTER TABLE `People` ADD `Embedding` {storeType} NOT NULL;" + EOL,
+                Sql);
+        }
+
         [ConditionalFact]
         public override void AddColumnOperation_without_column_type()
         {
