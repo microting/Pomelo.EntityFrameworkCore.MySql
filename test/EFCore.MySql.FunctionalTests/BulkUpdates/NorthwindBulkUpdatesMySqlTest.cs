@@ -1770,44 +1770,6 @@ SET `o2`.`Quantity` = CAST(@p AS signed),
 """);
     }
 
-    public override async Task Update_with_select_mixed_entity_scalar_anonymous_projection(bool async)
-    {
-        await base.Update_with_select_mixed_entity_scalar_anonymous_projection(async);
-
-        AssertSql(
-"""
-@p='Updated' (Size = 30)
-
-UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = @p
-""");
-    }
-
-    public override async Task Update_with_select_scalar_anonymous_projection(bool async)
-    {
-        await base.Update_with_select_scalar_anonymous_projection(async);
-
-        AssertSql(
-"""
-@p='Updated' (Size = 30)
-
-UPDATE `Customers` AS `c`
-SET `c`.`ContactName` = @p
-""");
-    }
-
-    public override async Task Update_Where_set_nullable_int_constant_via_discard_lambda(bool async)
-    {
-        await base.Update_Where_set_nullable_int_constant_via_discard_lambda(async);
-
-        AssertExecuteUpdateSql(
-"""
-UPDATE `Products` AS `p`
-SET `p`.`SupplierID` = 1
-WHERE `p`.`ProductID` < 5
-""");
-    }
-
     private void AssertSql(params string[] expected)
         => Fixture.TestSqlLoggerFactory.AssertBaseline(expected);
 
