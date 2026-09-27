@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.TestModels.Northwind;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using MySqlConnector;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
