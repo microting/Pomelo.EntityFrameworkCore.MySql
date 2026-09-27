@@ -129,14 +129,12 @@ SET `b0`.`Title` = CAST(`b0`.`Rating` AS char),
     {
         await base.Delete_entity_with_auto_include(async);
 
+        // EF Core 11 prunes the auto-included LEFT JOIN, because the joined table is not
+        // referenced by the DELETE.
         AssertSql(
 """
 DELETE `c`
 FROM `Context30572_Principal` AS `c`
-WHERE `c`.`Id` IN (
-    SELECT `c0`.`Id`
-    FROM `Context30572_Principal` AS `c0`
-)
 """);
     }
 
