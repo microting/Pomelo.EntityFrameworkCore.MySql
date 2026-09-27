@@ -182,8 +182,8 @@ SELECT ROW_COUNT();
     [SupportedServerVersionCondition("Returning")]
     public async Task Insert_reads_back_database_generated_key_in_composite_key()
     {
-        var contextFactory = await InitializeAsync<DownloadContext>();
-        await using var context = contextFactory.CreateContext();
+        var contextFactory = await InitializeNonSharedTest<DownloadContext>();
+        await using var context = contextFactory.CreateDbContext();
 
         var download = new Download { UserId = 1, Version = 1 };
         context.Add(download);
