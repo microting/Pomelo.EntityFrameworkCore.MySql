@@ -1350,7 +1350,9 @@ DEALLOCATE PREPARE __pomelo_SqlExprExecute;
 
         private static string GetColumnTypeWithCharSetAndCollation(ColumnOperation operation, string columnType)
         {
-            if (columnType.IndexOf("json", StringComparison.OrdinalIgnoreCase) >= 0)
+            // Only character based store types support the `CHARACTER SET` and `COLLATE` column attributes.
+            // Applying them to other store types (e.g. `json`, `vector`, `uuid` or `inet6`) results in a server error.
+            if (!MySqlStoreTypeSupport.SupportsCharSetAndCollation(columnType))
             {
                 return columnType;
             }
