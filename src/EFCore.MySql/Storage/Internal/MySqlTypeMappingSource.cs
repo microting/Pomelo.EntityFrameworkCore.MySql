@@ -86,6 +86,7 @@ namespace Microting.EntityFrameworkCore.MySql.Storage.Internal
 
         // guid
         private GuidTypeMapping _guid;
+        private readonly MySqlUuidTypeMapping _uuid = MySqlUuidTypeMapping.Default;
 
         // JSON default mapping for regular JSON columns mapped to string
         private MySqlJsonTypeMapping<string> _jsonDefaultString;
@@ -272,6 +273,13 @@ namespace Microting.EntityFrameworkCore.MySql.Storage.Internal
             {
                 _storeTypeMappings[_guid.StoreType] = new RelationalTypeMapping[]{ _guid };
                 _clrTypeMappings[typeof(Guid)] = _guid;
+            }
+
+            // The native `uuid` store type is only supported by MariaDB 10.7 and higher. It is never used as the default
+            // store type for `Guid` properties, but can be explicitly specified by the user.
+            if (_options.ServerVersion.Supports.Uuid)
+            {
+                _storeTypeMappings[_uuid.StoreType] = new RelationalTypeMapping[] { _uuid };
             }
 
             // Type mappings that only exist to work around the limited code generation capabilites when scaffolding:

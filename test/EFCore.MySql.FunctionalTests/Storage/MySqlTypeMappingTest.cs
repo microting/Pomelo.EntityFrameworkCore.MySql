@@ -427,6 +427,57 @@ namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Storage
             Assert.Equal(typeof(ulong), mapping.ClrType);
         }
 
+        [Fact]
+        public void Guid_with_uuid_store_type_maps_to_uuid_without_size_on_MariaDb_10_7_and_higher()
+        {
+            var options = GetOptions(new MariaDbServerVersion(new Version(10, 7, 0)));
+            var mapping = GetMapper(options).FindMapping(typeof(Guid), "uuid");
+
+            Assert.NotNull(mapping);
+            Assert.Equal("uuid", mapping.StoreType);
+            Assert.Equal(typeof(Guid), mapping.ClrType);
+            Assert.Null(mapping.Size);
+        }
+
+        [Fact]
+        public void Uuid_store_type_maps_to_Guid_on_MariaDb_10_7_and_higher()
+        {
+            var options = GetOptions(new MariaDbServerVersion(new Version(10, 7, 0)));
+            var mapping = GetMapping("uuid", options);
+
+            Assert.NotNull(mapping);
+            Assert.Equal("uuid", mapping.StoreType);
+            Assert.Equal(typeof(Guid), mapping.ClrType);
+        }
+
+        [Fact]
+        public void Uuid_generates_char36_sql_literal()
+        {
+            var options = GetOptions(new MariaDbServerVersion(new Version(10, 7, 0)));
+            var mapping = GetMapping("uuid", options);
+
+            Assert.Equal(
+                "'850368d8-93ea-4023-acc7-6fa6e4c3b27f'",
+                mapping.GenerateSqlLiteral(new Guid("850368D8-93EA-4023-ACC7-6FA6E4C3B27F")));
+        }
+
+        [Fact]
+        public void Guid_without_store_type_still_maps_to_char36_on_MariaDb_10_7_and_higher()
+        {
+            var options = GetOptions(new MariaDbServerVersion(new Version(10, 7, 0)));
+            var mapping = GetMapping(typeof(Guid), options);
+
+            Assert.Equal("char(36)", mapping.StoreType);
+        }
+
+        [Fact]
+        public void Uuid_store_type_is_not_supported_before_MariaDb_10_7()
+        {
+            var options = GetOptions(new MariaDbServerVersion(new Version(10, 6, 0)));
+
+            Assert.Null(GetMapping("uuid", options));
+        }
+
         #region Support
 
         private static MySqlTypeMappingSource GetMapper(MySqlOptions options = null)
@@ -452,11 +503,14 @@ namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Storage
             => GetCsHelper(options).UnknownLiteral(value);
 
         private static MySqlOptions GetOptions(Action<MySqlDbContextOptionsBuilder> builder)
+            => GetOptions(AppConfig.ServerVersion, builder);
+
+        private static MySqlOptions GetOptions(ServerVersion serverVersion, Action<MySqlDbContextOptionsBuilder> builder = null)
         {
             var mySqlOptions = new MySqlOptions();
             mySqlOptions.Initialize(
                 new DbContextOptionsBuilder()
-                    .UseMySql("Server=foo", AppConfig.ServerVersion, builder)
+                    .UseMySql("Server=foo", serverVersion, builder)
                     .Options);
 
             return mySqlOptions;
