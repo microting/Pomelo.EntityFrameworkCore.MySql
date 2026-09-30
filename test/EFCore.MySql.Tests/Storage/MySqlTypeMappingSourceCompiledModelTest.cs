@@ -1,4 +1,4 @@
-// Copyright (c) Pomelo Foundation. All rights reserved.
+// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Xunit;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Storage
+namespace Microting.EntityFrameworkCore.MySql.Storage
 {
     /// <summary>
     ///     Guards the invariant that EF Core 11 compiled models rely on.

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes
+namespace Microting.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes
 {
     /// <summary>
     /// Helpers for xUnit v3 trait based test filtering.

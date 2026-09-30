@@ -2,7 +2,7 @@
 
 ## Overview
 
-Starting with EF Core 10, complex collections (collections of complex types within an entity) **must** be mapped to JSON columns. This document explains how to use this feature with the Pomelo MySQL provider.
+Starting with EF Core 10, complex collections (collections of complex types within an entity) **must** be mapped to JSON columns. This document explains how to use this feature with the Microting MySQL provider.
 
 ## What are Complex Collections?
 
@@ -75,7 +75,7 @@ public class MyComplexCollectionTests
 
 ## Implementation Details
 
-The Pomelo provider now:
+The Microting provider now:
 1. Allows JSON-mapped entities (previously blocked with an error)
 2. Delegates validation to EF Core's base `RelationalModelValidator`
 3. Supports complex collections mapped to JSON columns

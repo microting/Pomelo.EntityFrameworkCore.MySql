@@ -18,7 +18,7 @@ Used EF Core SQL Server baselines (release/10.0) as reference:
 - Copied baseline files from dotnet/efcore repository
 - Applied automated sed transformations for type mappings
 - Replaced SQL Server types with MySQL equivalents
-- Updated imports to Pomelo namespaces
+- Updated imports to Microting namespaces
 
 ### 2. Manual Conversion (1 file)
 No_NativeAOT/DataEntityType.cs required special handling:
@@ -91,8 +91,8 @@ property.SetAccessors(
 
 ### 5. Imports
 **Updated:**
-- `using Microsoft.EntityFrameworkCore.SqlServer` → `using Pomelo.EntityFrameworkCore.MySql`
-- Added: `using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;`
+- `using Microsoft.EntityFrameworkCore.SqlServer` → `using Microting.EntityFrameworkCore.MySql`
+- Added: `using Microting.EntityFrameworkCore.MySql.Storage.Internal;`
 - Added: `using Microsoft.EntityFrameworkCore.ChangeTracking;`
 - Added: `using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;`
 
@@ -175,7 +175,7 @@ property.SetAccessors(
 
 ### Testing Command:
 ```bash
-cd Pomelo.EntityFrameworkCore.MySql
+cd Microting.EntityFrameworkCore.MySql
 export PATH="$HOME/.dotnet:$PATH"
 
 # Run all scaffolding tests
@@ -201,7 +201,7 @@ dotnet test test/EFCore.MySql.FunctionalTests -c Debug \
 
 3. **Import Statements**
    - All files now have proper EF Core 10 namespaces
-   - Pomelo MySQL Storage.Internal imports added
+   - Microting MySQL Storage.Internal imports added
    - ChangeTracking and ChangeTracking.Internal added where needed
 
 ## Success Metrics

@@ -1,9 +1,9 @@
-﻿// Copyright (c) Pomelo Foundation. All rights reserved.
+﻿// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
 using JetBrains.Annotations;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microting.EntityFrameworkCore.MySql.Infrastructure;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.EntityFrameworkCore
@@ -64,6 +64,7 @@ namespace Microsoft.EntityFrameworkCore
             public override bool CrossApply => ServerVersion.Version >= new Version(8, 0, 14);
             public override bool OuterReferenceInMultiLevelSubquery => ServerVersion.Version >= new Version(8, 0, 14);
             public override bool Json => ServerVersion.Version >= new Version(5, 7, 8);
+            public override bool JsonSet => ServerVersion.Version >= new Version(5, 7, 8);
             public override bool GeneratedColumns => ServerVersion.Version >= new Version(5, 7, 6);
             public override bool NullableGeneratedColumns => ServerVersion.Version >= new Version(5, 7, 0);
             public override bool ParenthesisEnclosedGeneratedColumnExpressions => GeneratedColumns;

@@ -1,14 +1,14 @@
 using System;
 using BenchmarkDotNet.Running;
-using Pomelo.EntityFrameworkCore.MySql.Benchmarks;
+using Microting.EntityFrameworkCore.MySql.Benchmarks;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Benchmarks;
+namespace Microting.EntityFrameworkCore.MySql.Benchmarks;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Pomelo.EntityFrameworkCore.MySql Benchmarks");
+        Console.WriteLine("Microting.EntityFrameworkCore.MySql Benchmarks");
         Console.WriteLine("===========================================");
         Console.WriteLine();
         Console.WriteLine("Database Connection:");

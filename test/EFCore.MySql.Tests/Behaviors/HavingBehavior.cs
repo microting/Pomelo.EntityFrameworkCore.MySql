@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using Xunit;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Behaviors;
+namespace Microting.EntityFrameworkCore.MySql.Behaviors;
 
 // See https://bugs.mysql.com/bug.php?id=103961.
 public class HavingBehavior : RawSqlTestWithFixture<HavingBehavior.HavingBehaviorFixture>

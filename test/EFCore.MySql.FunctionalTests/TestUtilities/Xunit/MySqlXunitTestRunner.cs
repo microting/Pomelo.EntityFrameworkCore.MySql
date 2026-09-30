@@ -1,11 +1,11 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Pomelo.EntityFrameworkCore.MySql.Tests;
+using Microting.EntityFrameworkCore.MySql.Tests;
 using Xunit;
 using Xunit.v3;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities.Xunit
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities.Xunit
 {
     /// <summary>
     /// Replaces the default xUnit.net v3 test runner, to report tests as 'Skipped' instead of 'Failed', if they failed because they use an

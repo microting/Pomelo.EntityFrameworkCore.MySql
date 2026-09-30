@@ -1,5 +1,5 @@
-﻿using Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+﻿using Microting.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes;
+using Microting.EntityFrameworkCore.MySql.Infrastructure;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Xunit;
 using Microsoft.EntityFrameworkCore.Query.Inheritance;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query;
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Query;
 
 public class TPCInheritanceQueryMySqlTest : TPCInheritanceQueryTestBase<TPCInheritanceQueryMySqlFixture>
 {

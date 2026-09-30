@@ -1,9 +1,9 @@
-﻿// Copyright (c) Pomelo Foundation. All rights reserved.
+﻿// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
 using JetBrains.Annotations;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microting.EntityFrameworkCore.MySql.Infrastructure;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.EntityFrameworkCore
@@ -66,6 +66,7 @@ namespace Microsoft.EntityFrameworkCore
             public override bool CrossApply => false; // MDEV-19078, MDEV-6373
             public override bool OuterReferenceInMultiLevelSubquery => false;
             public override bool Json => ServerVersion.Version >= new Version(10, 2, 4);
+            public override bool JsonSet => ServerVersion.Version >= new Version(10, 2, 3);
             public override bool GeneratedColumns => ServerVersion.Version >= new Version(10, 2, 0);
             public override bool NullableGeneratedColumns => false;
             public override bool ParenthesisEnclosedGeneratedColumnExpressions => false;
@@ -88,7 +89,7 @@ namespace Microsoft.EntityFrameworkCore
                                                                            ServerVersion.Version.Major == 10 && ServerVersion.Version.Minor == 2 && ServerVersion.Version.Build >= 22; // MySQL is missing the explicit TABLE_NAME column that MariaDB supports, so always join the TABLE_CONSTRAINTS table when accessing CHECK_CONSTRAINTS for any database server that supports CHECK_CONSTRAINTS.
             public override bool IdentifyJsonColumsByCheckConstraints => true;
             public override bool MySqlBugLimit0Offset0ExistsWorkaround => ServerVersion.Version < new Version(11, 6, 2); // MariaDB versions before 11.6.2 have a bug with LIMIT 0 OFFSET 0 in EXISTS subqueries
-            public override bool Returning => false; // MariaDB does not support the RETURNING clause
+            public override bool Returning => ServerVersion.Version >= new Version(10, 5, 0); // MariaDB supports INSERT/DELETE RETURNING since 10.5 (UPDATE RETURNING is not supported)
             public override bool CommonTableExpressions => ServerVersion.Version >= new Version(10, 2, 1);
             public override bool LimitWithinInAllAnySomeSubquery => false;
             public override bool LimitWithNonConstantValue => false;

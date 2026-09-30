@@ -1,4 +1,4 @@
-// Copyright (c) Pomelo Foundation. All rights reserved.
+// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -6,7 +6,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Infrastructure
+namespace Microting.EntityFrameworkCore.MySql.Infrastructure
 {
     public class ServerVersionSupport
     {
@@ -59,6 +59,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Infrastructure
         public virtual bool CrossApply => false;
         public virtual bool OuterReferenceInMultiLevelSubquery => false;
         public virtual bool Json => false;
+        public virtual bool JsonSet => false;
         public virtual bool JsonOverlaps => false;
         public virtual bool GeneratedColumns => false;
         public virtual bool NullableGeneratedColumns => false;

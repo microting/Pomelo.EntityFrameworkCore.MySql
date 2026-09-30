@@ -1,4 +1,4 @@
-// Copyright (c) Pomelo Foundation. All rights reserved.
+// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -6,15 +6,17 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Update;
 using Microsoft.EntityFrameworkCore.Utilities;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal;
+using Microting.EntityFrameworkCore.MySql.Infrastructure.Internal;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
+namespace Microting.EntityFrameworkCore.MySql.Update.Internal
 {
     public class MySqlUpdateSqlGenerator : UpdateAndSelectSqlGenerator, IMySqlUpdateSqlGenerator
     {
@@ -64,8 +66,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             AppendValuesHeader(commandStringBuilder, writeOperations);
             AppendValues(commandStringBuilder, name, schema, writeOperations);
 
-            // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
-            // so we disable it for both databases to ensure consistent behavior across all DML operations.
+            // MySQL does not support RETURNING (Supports.Returning is false), so this falls back to the
+            // base INSERT + SELECT path. MariaDB 10.5+ supports INSERT RETURNING, which is required to read
+            // back database-generated key columns (e.g. a generated timestamp in a composite key) that
+            // LAST_INSERT_ID() cannot retrieve.
             if (_options.ServerVersion.Supports.Returning && readOperations.Count > 0)
             {
                 AppendReturningClause(commandStringBuilder, readOperations);
@@ -177,69 +181,10 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             }
         }
 
-        public override ResultSetMapping AppendUpdateOperation(
-            StringBuilder commandStringBuilder,
-            IReadOnlyModificationCommand command,
-            int commandPosition,
-            out bool requiresTransaction)
-        {
-            // var startLength = commandStringBuilder.Length;
-            var result = _options.ServerVersion.Supports.Returning
-                ? AppendUpdateReturningOperation(commandStringBuilder, command, commandPosition, out requiresTransaction)
-                : base.AppendUpdateOperation(commandStringBuilder, command, commandPosition, out requiresTransaction);
-
-            // Debug: Log the generated SQL
-            // var generatedSql = commandStringBuilder.ToString(startLength, commandStringBuilder.Length - startLength);
-            // Console.WriteLine($"[DEBUG SQL Generated] AppendUpdateOperation:");
-            // Console.WriteLine(generatedSql);
-            // Console.WriteLine($"[DEBUG SQL Generated] Table: {command.TableName}, Columns: {command.ColumnModifications.Count}");
-
-            return result;
-        }
-
-        /// <summary>
-        /// Appends SQL for updating a row to the commands being built, via an UPDATE containing a RETURNING clause
-        /// to retrieve any database-generated values or for concurrency checking.
-        /// </summary>
-        /// <param name="commandStringBuilder">The builder to which the SQL should be appended.</param>
-        /// <param name="command">The command that represents the update operation.</param>
-        /// <param name="commandPosition">The ordinal of this command in the batch.</param>
-        /// <param name="requiresTransaction">Returns whether the SQL appended must be executed in a transaction to work correctly.</param>
-        /// <returns>The <see cref="ResultSetMapping" /> for the command.</returns>
-        protected override ResultSetMapping AppendUpdateReturningOperation(
-            StringBuilder commandStringBuilder,
-            IReadOnlyModificationCommand command,
-            int commandPosition,
-            out bool requiresTransaction)
-        {
-            var name = command.TableName;
-            var schema = command.Schema;
-            var operations = command.ColumnModifications;
-
-            var writeOperations = operations.Where(o => o.IsWrite).ToList();
-            var conditionOperations = operations.Where(o => o.IsCondition).ToList();
-            var readOperations = operations.Where(o => o.IsRead).ToList();
-
-            requiresTransaction = false;
-
-            var anyReadOperations = readOperations.Count > 0;
-
-            AppendUpdateCommandHeader(commandStringBuilder, name, schema, writeOperations);
-            AppendWhereClause(commandStringBuilder, conditionOperations);
-
-            // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
-            // so we disable it for both databases to ensure consistent behavior across all DML operations.
-            if (_options.ServerVersion.Supports.Returning)
-            {
-                AppendReturningClause(commandStringBuilder, readOperations, anyReadOperations ? null : "1");
-            }
-
-            commandStringBuilder.AppendLine(SqlGenerationHelper.StatementTerminator);
-
-            return anyReadOperations
-                ? ResultSetMapping.LastInResultSet
-                : ResultSetMapping.LastInResultSet | ResultSetMapping.ResultSetWithRowsAffectedOnly;
-        }
+        // UPDATE intentionally has no RETURNING override: MySQL has no RETURNING clause at all, and MariaDB
+        // supports RETURNING only for INSERT and DELETE (not UPDATE). UPDATE therefore always uses the base
+        // UpdateAndSelectSqlGenerator behavior (UPDATE followed by a SELECT ... WHERE ROW_COUNT() = 1 ...),
+        // which works on every supported server version.
 
         public override ResultSetMapping AppendDeleteOperation(StringBuilder commandStringBuilder,
             IReadOnlyModificationCommand command,
@@ -273,8 +218,9 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             AppendDeleteCommandHeader(commandStringBuilder, name, schema);
             AppendWhereClause(commandStringBuilder, conditionOperations);
 
-            // RETURNING is not supported by MySQL. MariaDB supports INSERT/DELETE RETURNING but not UPDATE RETURNING,
-            // so we disable it for both databases to ensure consistent behavior across all DML operations.
+            // MySQL does not support RETURNING (Supports.Returning is false) and falls back to the base
+            // DELETE + SELECT ROW_COUNT() path. MariaDB 10.5+ supports DELETE RETURNING, used here for the
+            // concurrency-check row count.
             if (_options.ServerVersion.Supports.Returning)
             {
                 AppendReturningClause(commandStringBuilder, [], "1");
@@ -306,6 +252,68 @@ namespace Pomelo.EntityFrameworkCore.MySql.Update.Internal
             => commandStringBuilder
                 .Append("ROW_COUNT() = ")
                 .Append(expectedRowsAffected.ToString(CultureInfo.InvariantCulture));
+
+        /// <summary>
+        ///     Appends the SQL representation of a column value being updated, with support for partial JSON
+        ///     updates using <c>JSON_SET()</c> when the database version supports it.
+        /// </summary>
+        protected override void AppendUpdateColumnValue(
+            ISqlGenerationHelper updateSqlGeneratorHelper,
+            IColumnModification columnModification,
+            StringBuilder stringBuilder,
+            string name,
+            string schema)
+        {
+            if (columnModification.JsonPath is { IsRoot: false })
+            {
+                if (!_options.ServerVersion.Supports.JsonSet)
+                {
+                    throw new InvalidOperationException(
+                        "Cannot perform a partial JSON update because the current database server version does not support JSON_SET(). " +
+                        "Upgrade to MySQL 5.7.8+ or MariaDB 10.2.3+, or use a workaround such as AsNoTracking() + Update() to replace the entire JSON value.");
+                }
+
+                // Use JSON_SET for partial JSON updates.
+                // EF Core provides JsonPath in the format: $.PropertyName or $.PropertyName[0].SubProperty
+                // MySQL's JSON_SET uses the same path format.
+                stringBuilder
+                    .Append("JSON_SET(")
+                    .Append(updateSqlGeneratorHelper.DelimitIdentifier(columnModification.ColumnName))
+                    .Append(", '");
+
+                stringBuilder.Append(columnModification.JsonPath);
+
+                stringBuilder.Append("', ");
+
+                // When the value is null, EF Core doesn't produce a parameter placeholder for it.
+                // We need to use reflection to set the value to the JSON literal "null" so the base method
+                // generates the parameter correctly (same approach as Npgsql).
+                if (columnModification.Value is null)
+                {
+                    _columnModificationValueField ??= typeof(ColumnModification).GetField(
+                        "_value", BindingFlags.Instance | BindingFlags.NonPublic);
+
+                    if (_columnModificationValueField is null)
+                    {
+                        throw new InvalidOperationException(
+                            "Could not find the internal '_value' field on EF Core's ColumnModification type. " +
+                            "This is likely due to an incompatible EF Core version. Please report this issue.");
+                    }
+
+                    _columnModificationValueField.SetValue(columnModification, "null");
+                }
+
+                base.AppendUpdateColumnValue(updateSqlGeneratorHelper, columnModification, stringBuilder, name, schema);
+
+                stringBuilder.Append(')');
+            }
+            else
+            {
+                base.AppendUpdateColumnValue(updateSqlGeneratorHelper, columnModification, stringBuilder, name, schema);
+            }
+        }
+
+        private FieldInfo _columnModificationValueField;
 
         public override ResultSetMapping AppendStoredProcedureCall(
             StringBuilder commandStringBuilder,

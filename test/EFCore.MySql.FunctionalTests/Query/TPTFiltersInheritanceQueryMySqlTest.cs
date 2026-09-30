@@ -2,7 +2,7 @@
 using Xunit;
 using Microsoft.EntityFrameworkCore.Query.Inheritance;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     public class TPTFiltersInheritanceQueryMySqlTest : TPTFiltersInheritanceQueryTestBase<TPTFiltersInheritanceQueryMySqlFixture>
     {

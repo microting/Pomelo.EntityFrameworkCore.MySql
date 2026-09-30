@@ -1,4 +1,4 @@
-// Copyright (c) Pomelo Foundation. All rights reserved.
+// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -16,14 +16,14 @@ using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Utilities;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Internal;
+using Microting.EntityFrameworkCore.MySql.Infrastructure.Internal;
+using Microting.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Internal;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal;
+namespace Microting.EntityFrameworkCore.MySql.Query.Internal;
 
 public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQueryableMethodTranslatingExpressionVisitor
 {
-    private const string Issue1792SkipWithParameterFlagName = "Pomelo.EntityFrameworkCore.MySql.Issue1792.SkipWithParameter";
+    private const string Issue1792SkipWithParameterFlagName = "Microting.EntityFrameworkCore.MySql.Issue1792.SkipWithParameter";
 
     private static readonly bool _mySql8EngineCrashWhenUsingJsonTableWithPrimitiveCollectionInParametersSkip
         = AppContext.TryGetSwitch(Issue1792SkipWithParameterFlagName, out var enabled) && enabled;
@@ -86,14 +86,13 @@ public class MySqlQueryableMethodTranslatingExpressionVisitor : RelationalQuerya
     protected override bool IsValidSelectExpressionForExecuteDelete(SelectExpression selectExpression)
         => selectExpression is
            {
-               Orderings: [],
                Offset: null,
-               Limit: null,
                GroupBy: [],
                Having: null
            } &&
+           (selectExpression.Tables.Count == 1 || (selectExpression.Orderings.Count == 0 && selectExpression.Limit is null)) &&
            selectExpression.Tables[0] is TableExpression &&
-           selectExpression.Tables.Skip(1).All(t => t is InnerJoinExpression);
+           selectExpression.Tables.Skip(1).All(t => t is InnerJoinExpression or LeftJoinExpression);
 
     protected override bool IsValidSelectExpressionForExecuteUpdate(
         SelectExpression selectExpression,
