@@ -99,6 +99,7 @@ namespace Microting.EntityFrameworkCore.MySql.Infrastructure
         public virtual bool FieldReferenceInTableValueConstructor => false;
         public virtual bool CollationCharacterSetApplicabilityWithFullCollationNameColumn => false;
         public virtual bool DeleteWithSelfReferencingSubquery => false;
+        public virtual bool Uuid => false; // The native `uuid` store type is MariaDB 10.7+ only.
 
         public virtual bool JsonTableImplementationStable => JsonTable;
         public virtual bool JsonTableImplementationWithoutMySqlBugs => JsonTable;
