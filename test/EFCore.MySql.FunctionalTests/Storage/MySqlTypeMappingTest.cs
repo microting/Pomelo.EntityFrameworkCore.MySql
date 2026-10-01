@@ -478,6 +478,34 @@ namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Storage
             Assert.Null(GetMapping("uuid", options));
         }
 
+        [Fact]
+        public void Mappings_can_be_resolved_without_a_ServerVersion()
+        {
+            // `MySqlOptions.ServerVersion` is null when the type mapping source is used without a configured
+            // connection, e.g. at design time when generating a model snapshot. Resolving any mapping must not throw.
+            var options = new MySqlOptions();
+
+            Assert.Null(options.ServerVersion);
+            Assert.Equal("longtext", GetMapping(typeof(string), options).StoreType);
+            Assert.NotNull(GetMapping(typeof(Guid), options));
+
+            // Without a server version, we don't know whether the target server supports the native `uuid` store type.
+            Assert.Null(GetMapping("uuid", options));
+        }
+
+        [Fact]
+        public void String_property_with_uuid_store_type_falls_back_to_a_character_based_mapping()
+        {
+            // The `uuid` store type is only resolved for `Guid`. A `string` property explicitly mapped to `uuid` must
+            // keep falling back to a character based mapping, like it does for other non-character store types.
+            var options = GetOptions(new MariaDbServerVersion(new Version(10, 7, 0)));
+            var mapping = GetMapper(options).FindMapping(typeof(string), "uuid");
+
+            Assert.NotNull(mapping);
+            Assert.Equal(typeof(string), mapping.ClrType);
+            Assert.Equal("uuid", mapping.StoreType);
+        }
+
         #region Support
 
         private static MySqlTypeMappingSource GetMapper(MySqlOptions options = null)
