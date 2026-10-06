@@ -447,6 +447,9 @@ jobs:
     needs: BuildAndTest
     if: github.repository == 'Microting/Pomelo.EntityFrameworkCore.MySql'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -582,7 +585,12 @@ jobs:
         with:
           name: nupkgs
           path: nupkgs
+      - name: NuGet login (OIDC trusted publishing)
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: microtingas
       - name: "NuGet Push - nuget.org - Release"
         working-directory: nupkgs
         shell: pwsh
-        run: dotnet nuget push './Release/default/**/*.nupkg' -k '${{ secrets.NUGET_SECRET_KEY }}' -s 'https://api.nuget.org/v3/index.json' 
+        run: dotnet nuget push './Release/default/**/*.nupkg' -k '${{ steps.nuget-login.outputs.NUGET_API_KEY }}' -s 'https://api.nuget.org/v3/index.json' 
