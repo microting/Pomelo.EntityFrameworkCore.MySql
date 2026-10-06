@@ -86,6 +86,7 @@ namespace Microting.EntityFrameworkCore.MySql.Storage.Internal
 
         // guid
         private GuidTypeMapping _guid;
+        private readonly MySqlUuidTypeMapping _uuid = MySqlUuidTypeMapping.Default;
 
         // JSON default mapping for regular JSON columns mapped to string
         private MySqlJsonTypeMapping<string> _jsonDefaultString;
@@ -344,6 +345,18 @@ namespace Microting.EntityFrameworkCore.MySql.Storage.Internal
                             .WithTypeMappingInfo(in mappingInfo)
                         : mappings.FirstOrDefault(m => m.ClrType == clrType)
                             ?.WithTypeMappingInfo(in mappingInfo);
+                }
+
+                // The native `uuid` store type has been introduced in MariaDB 10.7. It is only resolved for `Guid` (or
+                // when no CLR type was provided, i.e. when scaffolding), so that `string` properties explicitly mapped
+                // to `uuid` keep falling back to a character based mapping, as they did before the store type was
+                // supported. `ServerVersion` is null at design time (e.g. when generating a model snapshot), in which
+                // case we don't know the capabilities of the target server and therefore don't resolve the store type.
+                if ((clrType is null || clrType == typeof(Guid)) &&
+                    string.Equals(storeTypeNameBase, "uuid", StringComparison.OrdinalIgnoreCase) &&
+                    _options.ServerVersion?.Supports.Uuid == true)
+                {
+                    return _uuid;
                 }
 
                 // Handle JSON store type for any CLR type
