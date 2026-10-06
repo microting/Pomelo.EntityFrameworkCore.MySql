@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes
+namespace Microting.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes
 {
     /// <remarks>
     /// When the condition is not met, the test (or test class) gets the `category=failing` trait, which the test runner

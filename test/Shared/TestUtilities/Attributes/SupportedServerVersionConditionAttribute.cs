@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes
+namespace Microting.EntityFrameworkCore.MySql.Tests.TestUtilities.Attributes
 {
     /// <summary>
     /// Use the `propertiesOrVersions` constructor parameter, for OR conditions.

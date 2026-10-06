@@ -1,4 +1,4 @@
-﻿// Copyright (c) Pomelo Foundation. All rights reserved.
+﻿// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -14,13 +14,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.EntityFrameworkCore.Storage;
-using Pomelo.EntityFrameworkCore.MySql.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Query.Expressions.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Query.Internal;
-using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
+using Microting.EntityFrameworkCore.MySql.Internal;
+using Microting.EntityFrameworkCore.MySql.Query.Expressions.Internal;
+using Microting.EntityFrameworkCore.MySql.Query.ExpressionTranslators.Internal;
+using Microting.EntityFrameworkCore.MySql.Query.Internal;
+using Microting.EntityFrameworkCore.MySql.Storage.Internal;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
+namespace Microting.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
 {
     public class MySqlSqlTranslatingExpressionVisitor : RelationalSqlTranslatingExpressionVisitor
     {
@@ -168,7 +168,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             //     TimeOnly = TimeOnly + TimeSpan
             //
             // TODO: Add support for DateTime and DateTimeOffset.
-            // To support DateTime and DateTimeOffset in Pomelo, we need propert TimeSpan support (representing MICROSECONDS or Ticks stored
+            // To support DateTime and DateTimeOffset in Microting, we need propert TimeSpan support (representing MICROSECONDS or Ticks stored
             // as BIGINT, not just a simple mapping to TIME, which is very limited in its range).
             // if (binaryExpression.NodeType == ExpressionType.Add &&
             //     Visit(binaryExpression.Left) is SqlExpression addLeftVisited &&
@@ -214,7 +214,7 @@ namespace Pomelo.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
             //     TimeSpan = DateOnly - DateOnly
             //
             // TODO: Add support for DateTime and DateTimeOffset.
-            // To support DateTime and DateTimeOffset in Pomelo, we need propert TimeSpan support (representing MICROSECONDS or Ticks stored
+            // To support DateTime and DateTimeOffset in Microting, we need propert TimeSpan support (representing MICROSECONDS or Ticks stored
             // as BIGINT, not just a simple mapping to TIME, which is very limited in its range).
             if (binaryExpression.NodeType == ExpressionType.Subtract &&
                 Visit(binaryExpression.Left) is SqlExpression subtractLeftVisited &&

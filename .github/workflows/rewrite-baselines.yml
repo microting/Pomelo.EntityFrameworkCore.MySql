@@ -24,7 +24,7 @@ on:
         type: string
         default: 'mysql:8.0.40'
       testFilter:
-        description: 'Optional extra dotnet test arguments, e.g. --filter-class Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query.ComplexNavigationsCollectionsQueryMySqlTest'
+        description: 'Optional extra dotnet test arguments, e.g. --filter-class Microting.EntityFrameworkCore.MySql.FunctionalTests.Query.ComplexNavigationsCollectionsQueryMySqlTest'
         type: string
         default: ''
 env:

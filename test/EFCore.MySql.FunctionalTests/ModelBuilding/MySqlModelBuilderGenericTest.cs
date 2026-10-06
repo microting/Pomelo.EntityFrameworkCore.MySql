@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ModelBuilding;
 using Xunit;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.ModelBuilding;
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.ModelBuilding;
 
 public class MySqlModelBuilderGenericTest : MySqlModelBuilderTestBase
 {

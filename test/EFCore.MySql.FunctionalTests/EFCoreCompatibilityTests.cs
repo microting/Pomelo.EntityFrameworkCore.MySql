@@ -1,14 +1,14 @@
-// // Copyright (c) Pomelo Foundation. All rights reserved.
+// // Copyright (c) Microting. All rights reserved.
 // // Licensed under the MIT. See LICENSE in the project root for license information.
 //
 // using System;
 // using System.Linq;
 // using System.Threading.Tasks;
 // using Microsoft.EntityFrameworkCore;
-// using Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal;
+// using Microting.EntityFrameworkCore.MySql.Infrastructure.Internal;
 // using Xunit;
 //
-// namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests
+// namespace Microting.EntityFrameworkCore.MySql.FunctionalTests
 // {
 //     /// <summary>
 //     /// Tests demonstrating EF Core version compatibility patterns,
@@ -27,7 +27,7 @@
 //         public void EFCoreVersion_IsDetected()
 //         {
 //             // Verify that version detection works
-//             var version = Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal.EFCoreCompatibilityHelper.EFCoreVersion;
+//             var version = Microting.EntityFrameworkCore.MySql.Infrastructure.Internal.EFCoreCompatibilityHelper.EFCoreVersion;
 //             Assert.NotNull(version);
 //             Assert.True(version.Major >= 8, "Should be using EF Core 8 or greater");
 //         }

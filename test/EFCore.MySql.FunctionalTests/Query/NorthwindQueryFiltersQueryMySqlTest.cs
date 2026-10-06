@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query;
 using Xunit;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     public class NorthwindQueryFiltersQueryMySqlTest : NorthwindQueryFiltersQueryTestBase<
         NorthwindQueryMySqlFixture<NorthwindQueryFiltersCustomizer>>
@@ -22,11 +22,11 @@ namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
 
         AssertSql(
 """
-@ef_filter__TenantPrefix='B' (Size = 40)
+@ef_filter__TenantPrefix_startswith='B%' (Size = 40)
 
 SELECT COUNT(*)
 FROM `Customers` AS `c`
-WHERE LEFT(`c`.`CompanyName`, CHAR_LENGTH(@ef_filter__TenantPrefix)) = @ef_filter__TenantPrefix
+WHERE `c`.`CompanyName` LIKE @ef_filter__TenantPrefix_startswith
 """);
         }
 

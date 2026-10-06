@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microting.EntityFrameworkCore.MySql.Infrastructure;
 
-Console.WriteLine("=== Testing PassKey Support with Pomelo EF Core MySQL ===\n");
+Console.WriteLine("=== Testing PassKey Support with Microting EF Core MySQL ===\n");
 
 // Connection string to MariaDB
 var connectionString = "server=127.0.0.1;port=3306;database=passkey_test;user=root;password=Password12!";
@@ -174,7 +174,7 @@ try
     
     Console.WriteLine("\n=== ✓ ALL TESTS PASSED! ===");
     Console.WriteLine("\nConclusion:");
-    Console.WriteLine("Pomelo.EntityFrameworkCore.MySql successfully supports .NET 10 Identity PassKeys!");
+    Console.WriteLine("Microting.EntityFrameworkCore.MySql successfully supports .NET 10 Identity PassKeys!");
     Console.WriteLine("The ToJson() method correctly handles complex types including string[] arrays.");
 }
 catch (Exception ex)

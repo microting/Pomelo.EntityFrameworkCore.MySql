@@ -1,6 +1,6 @@
 # Benchmark Implementation Summary
 
-This document provides an overview of the benchmark implementation for the Pomelo.EntityFrameworkCore.MySql project.
+This document provides an overview of the benchmark implementation for the Microting.EntityFrameworkCore.MySql project.
 
 ## What Was Implemented
 
@@ -168,7 +168,7 @@ The benchmarks are designed to:
 - **BenchmarkDotNet 0.14.0**: Industry-standard .NET benchmarking library
 - **Entity Framework Core 10.0**: Latest EF Core version
 - **MySqlConnector 2.5.0**: MySQL ADO.NET driver
-- **Pomelo.EntityFrameworkCore.MySql**: The provider being benchmarked
+- **Microting.EntityFrameworkCore.MySql**: The provider being benchmarked
 
 ### Benchmark Configuration
 - **Warmup iterations**: 1 (for faster CI execution)

@@ -22,15 +22,15 @@ using Microsoft.EntityFrameworkCore.TestUtilities;
 using Microsoft.Extensions.DependencyInjection;
 using NetTopologySuite.Geometries;
 using NetTopologySuite;
-using Pomelo.EntityFrameworkCore.MySql.Design.Internal;
-using Pomelo.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Pomelo.EntityFrameworkCore.MySql.Internal;
+using Microting.EntityFrameworkCore.MySql.Design.Internal;
+using Microting.EntityFrameworkCore.MySql.FunctionalTests.TestUtilities;
+using Microting.EntityFrameworkCore.MySql.Infrastructure;
+using Microting.EntityFrameworkCore.MySql.Internal;
 using Xunit;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Scaffolding;
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Scaffolding;
 
-// TODO: Add more Pomelo specific cases.
+// TODO: Add more Microting specific cases.
 public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
 {
     public CompiledModelMySqlTest(NonSharedFixture fixture)
@@ -370,8 +370,8 @@ public class CompiledModelMySqlTest : CompiledModelRelationalTestBase
     protected override BuildSource AddReferences(BuildSource build, [CallerFilePath] string filePath = "")
     {
         base.AddReferences(build);
-        build.References.Add(BuildReference.ByName("Pomelo.EntityFrameworkCore.MySql"));
-        build.References.Add(BuildReference.ByName("Pomelo.EntityFrameworkCore.MySql.NetTopologySuite"));
+        build.References.Add(BuildReference.ByName("Microting.EntityFrameworkCore.MySql"));
+        build.References.Add(BuildReference.ByName("Microting.EntityFrameworkCore.MySql.NetTopologySuite"));
         build.References.Add(BuildReference.ByName("NetTopologySuite"));
         return build;
     }

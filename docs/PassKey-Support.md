@@ -2,7 +2,7 @@
 
 ## Overview
 
-Pomelo.EntityFrameworkCore.MySql fully supports ASP.NET Core Identity PassKeys (WebAuthn credentials) introduced in .NET 10 / ASP.NET Core Identity Schema Version 3.
+Microting.EntityFrameworkCore.MySql fully supports ASP.NET Core Identity PassKeys (WebAuthn credentials) introduced in .NET 10 / ASP.NET Core Identity Schema Version 3.
 
 ## Background
 
@@ -10,7 +10,7 @@ There was a concern raised in [dotnet/aspnetcore#64939](https://github.com/dotne
 
 ## Verification Results
 
-✅ **Pomelo.EntityFrameworkCore.MySql works perfectly with PassKeys!**
+✅ **Microting.EntityFrameworkCore.MySql works perfectly with PassKeys!**
 
 We've created and tested a complete sample application (`samples/PassKeyTest`) that demonstrates:
 
@@ -22,7 +22,7 @@ We've created and tested a complete sample application (`samples/PassKeyTest`) t
 
 ## How It Works
 
-Pomelo uses `MySqlStructuralJsonTypeMapping` to handle JSON columns created by `.ToJson()`:
+Microting uses `MySqlStructuralJsonTypeMapping` to handle JSON columns created by `.ToJson()`:
 
 - **Storage**: JSON data is stored as `longtext` (MariaDB) or `json` (MySQL) column type
 - **Serialization**: Automatic conversion between .NET objects and JSON strings
@@ -111,10 +111,29 @@ var userPasskeys = await context.Set<IdentityUserPasskey<string>>()
 
 - ✅ .NET 10.0.101
 - ✅ Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.1
-- ✅ Pomelo.EntityFrameworkCore.MySql (current version)
+- ✅ Microting.EntityFrameworkCore.MySql (current version)
 - ✅ MySqlConnector 2.5.0
 - ✅ MariaDB 11.6.2
 - ✅ MySQL 8.0+
+
+## Known Issues
+
+### ✅ Updating JSON Owned Entities (Fixed)
+
+> **Upstream Issue**: [dotnet/efcore#37411](https://github.com/dotnet/efcore/issues/37411)
+
+EF Core 10 has a bug where updating properties within JSON-mapped owned entities would fail. **Pomelo now fixes this** by generating `JSON_SET()` SQL for partial JSON updates. This works transparently:
+
+```csharp
+// ✅ This now works with Pomelo's JSON_SET fix:
+var passkey = await context.UserPasskeys.FirstAsync(p => p.CredentialId == id);
+passkey.Data.Name = "New Name";
+await context.SaveChangesAsync();  // Works! Generates JSON_SET()
+```
+
+**Requirements**: MySQL 5.7.8+ or MariaDB 10.2.3+
+
+For more details, see: [JSON Owned Entity Updates](known-issues/json-owned-entity-updates.md)
 
 ## Complete Sample
 
@@ -143,7 +162,7 @@ See `samples/PassKeyTest` for a complete, runnable example that demonstrates:
 
 If you're migrating from a different MySQL provider (like MySQL.EntityFrameworkCore) that doesn't support PassKeys:
 
-1. Update your package reference to Pomelo.EntityFrameworkCore.MySql
+1. Update your package reference to Microting.EntityFrameworkCore.MySql
 2. Configure the DbContext as shown above
 3. Create and apply migrations
 4. Your PassKey data will work immediately!

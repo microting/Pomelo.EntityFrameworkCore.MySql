@@ -1,7 +1,7 @@
 using System;
 using BenchmarkDotNet.Attributes;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Benchmarks;
+namespace Microting.EntityFrameworkCore.MySql.Benchmarks;
 
 /// <summary>
 /// Benchmarks for insert operations

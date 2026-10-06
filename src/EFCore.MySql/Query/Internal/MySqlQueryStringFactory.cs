@@ -1,4 +1,4 @@
-﻿// Copyright (c) Pomelo Foundation. All rights reserved.
+﻿// Copyright (c) Microting. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -11,7 +11,7 @@ using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Query.Internal
+namespace Microting.EntityFrameworkCore.MySql.Query.Internal
 {
     // Based on: System.Data.Jet.JetCommandParser (EntityFrameworkCore.Jet)
     public class MySqlQueryStringFactory : IRelationalQueryStringFactory

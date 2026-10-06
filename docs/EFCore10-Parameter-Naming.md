@@ -211,4 +211,4 @@ As of the migration to EF Core 10, the test suite has been updated to use the co
 
 - EF Core 10 Release Notes
 - Microsoft.EntityFrameworkCore.Relational 10.0.0
-- Pomelo.EntityFrameworkCore.MySql test suite
+- Microting.EntityFrameworkCore.MySql test suite

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.TestModels.ConcurrencyModel;
 using MySqlConnector;
 using Xunit;
 
-namespace Pomelo.EntityFrameworkCore.MySql.FunctionalTests.Query
+namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Query
 {
     public class SqlExecutorMySqlTest : SqlExecutorTestBase<NorthwindQueryMySqlFixture<SqlExecutorModelCustomizer>>
     {

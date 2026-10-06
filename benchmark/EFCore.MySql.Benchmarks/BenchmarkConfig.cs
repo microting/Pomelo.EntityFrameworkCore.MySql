@@ -5,7 +5,7 @@ using BenchmarkDotNet.Toolchains.InProcess.Emit;
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 
-namespace Pomelo.EntityFrameworkCore.MySql.Benchmarks;
+namespace Microting.EntityFrameworkCore.MySql.Benchmarks;
 
 /// <summary>
 /// Configuration for benchmarks
