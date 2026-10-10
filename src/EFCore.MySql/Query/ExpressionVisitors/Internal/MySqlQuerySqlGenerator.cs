@@ -1032,10 +1032,26 @@ namespace Microting.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
         }
 
         /// <inheritdoc />
-        protected override void CheckComposableSql(string sql)
+        protected override void CheckComposableSqlTrimmed(ReadOnlySpan<char> sql)
         {
-            // MySQL supports CTE (WITH) expressions within subqueries, as well as others,
-            // so we allow any raw SQL to be composed over.
+            // The base implementation accepts SELECT and WITH. MySQL and MariaDB can also compose over parenthesized query expressions
+            // and over TABLE and VALUES statements. Everything else (e.g. CALL) cannot be used as a derived table.
+            if (sql.StartsWith("(") ||
+                StartsWithKeyword(sql, "TABLE") ||
+                StartsWithKeyword(sql, "VALUES"))
+            {
+                return;
+            }
+
+            base.CheckComposableSqlTrimmed(sql);
+
+            static bool StartsWithKeyword(ReadOnlySpan<char> sql, string keyword)
+                => sql.StartsWith(keyword, StringComparison.OrdinalIgnoreCase) &&
+                   sql.Length > keyword.Length &&
+                   (char.IsWhiteSpace(sql[keyword.Length]) ||
+                    sql[keyword.Length] == '(' ||
+                    sql[keyword.Length..].StartsWith("--") ||
+                    sql[keyword.Length..].StartsWith("/*"));
         }
 
         protected override Expression VisitSelect(SelectExpression selectExpression)
