@@ -19,6 +19,8 @@ namespace Microting.EntityFrameworkCore.MySql.Storage.Internal
         // boolean
         private readonly MySqlBoolTypeMapping _bit1 = new MySqlBoolTypeMapping("bit", size: 1);
         private readonly MySqlBoolTypeMapping _tinyint1 = MySqlBoolTypeMapping.Default;
+        private readonly MySqlBoolTypeMapping _bool = new MySqlBoolTypeMapping("bool");
+        private readonly MySqlBoolTypeMapping _boolean = new MySqlBoolTypeMapping("boolean");
 
         // bit
         private readonly MySqlULongTypeMapping _bit = new MySqlULongTypeMapping("bit");
@@ -265,6 +267,11 @@ namespace Microting.EntityFrameworkCore.MySql.Storage.Internal
 
                 _storeTypeMappings[bit1AsBool ? "bit(1)" : "tinyint(1)"] = new RelationalTypeMapping[] { bit1AsBool ? _bit1 : _tinyint1 };
                 _clrTypeMappings[typeof(bool)] = bit1AsBool ? _bit1 : _tinyint1;
+
+                // BOOL and BOOLEAN are synonyms for TINYINT(1), that do not accept a display width. Without their own mappings, they
+                // would fall back to the default CLR type mapping and inherit its size postfix (resulting in e.g. `boolean(1)`).
+                _storeTypeMappings["bool"] = new RelationalTypeMapping[] { _bool };
+                _storeTypeMappings["boolean"] = new RelationalTypeMapping[] { _boolean };
             }
 
             // Guid
