@@ -797,7 +797,16 @@ WHERE `c`.`CustomerID` LIKE 'F%'
 
     public override async Task Update_Where_Skip_set_constant(bool async)
     {
-        await base.Update_Where_Skip_set_constant(async);
+        // LIMIT/OFFSET without ORDER BY is nondeterministic on MySQL. The derived table of the UPDATE statement only selects the key
+        // column and can therefore be read through a different (covering) index than the query that is used to verify the changed
+        // rows, in which case both skip different rows. So we only verify the number of affected rows here, instead of their content.
+        await AssertUpdate(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")).Skip(4),
+            e => e,
+            s => s.SetProperty(c => c.ContactName, "Updated"),
+            rowsAffectedCount: 4,
+            (b, a) => { });
 
         AssertExecuteUpdateSql(
 """
@@ -837,9 +846,33 @@ LIMIT @p
 """);
     }
 
-    [ConditionalTheory(Skip = "Can fail non-deterministically on MySQL, because LIMIT/OFFSET without ORDER BY is nondeterministic.")]
-    public override Task Update_Where_Skip_Take_set_constant(bool async)
-        => Task.CompletedTask;
+    public override async Task Update_Where_Skip_Take_set_constant(bool async)
+    {
+        // See Update_Where_Skip_set_constant: without ORDER BY, only the number of affected rows is deterministic.
+        await AssertUpdate(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")).Skip(2).Take(4),
+            e => e,
+            s => s.SetProperty(c => c.ContactName, "Updated"),
+            rowsAffectedCount: 4,
+            (b, a) => { });
+
+        AssertExecuteUpdateSql(
+"""
+@p1='4'
+@p='2'
+@p2='Updated' (Size = 30)
+
+UPDATE `Customers` AS `c0`
+INNER JOIN (
+    SELECT `c`.`CustomerID`
+    FROM `Customers` AS `c`
+    WHERE `c`.`CustomerID` LIKE 'F%'
+    LIMIT @p1 OFFSET @p
+) AS `c1` ON `c0`.`CustomerID` = `c1`.`CustomerID`
+SET `c0`.`ContactName` = @p2
+""");
+    }
 
     public override async Task Update_Where_OrderBy_set_constant(bool async)
     {
