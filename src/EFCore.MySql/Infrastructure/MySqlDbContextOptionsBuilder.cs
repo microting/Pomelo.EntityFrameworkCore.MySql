@@ -130,5 +130,19 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
         /// </summary>
         public virtual MySqlDbContextOptionsBuilder EnablePrimitiveCollectionsSupport(bool enable = true)
             => WithOption(e => e.WithPrimitiveCollectionsSupport(enable));
+
+        /// <summary>
+        ///     Configures the context to map primitive collections (e.g. <c>string[]</c> or <c>List&lt;int&gt;</c> properties that are
+        ///     stored as JSON) to columns of the <c>json</c> store type by default, instead of <c>longtext</c>.
+        ///     The database then validates the content natively: MySQL's <c>JSON</c> type rejects invalid documents, and MariaDB
+        ///     (where <c>JSON</c> is an alias for <c>LONGTEXT</c>) automatically adds a <c>CHECK (json_valid(...))</c> constraint to
+        ///     columns declared as <c>JSON</c>.
+        ///     Has no effect if the server does not support the <c>JSON</c> type (MySQL &lt; 5.7.8, MariaDB &lt; 10.2.4) or if a store
+        ///     type has been explicitly configured for the property.
+        ///     This option is disabled by default, because enabling it changes the store type of existing primitive collection
+        ///     columns, which results in a migration (<c>ALTER COLUMN ... json</c>) that fails if a column contains invalid JSON.
+        /// </summary>
+        public virtual MySqlDbContextOptionsBuilder EnableJsonColumnsForPrimitiveCollections(bool enable = true)
+            => WithOption(e => e.WithJsonColumnsForPrimitiveCollections(enable));
     }
 }
