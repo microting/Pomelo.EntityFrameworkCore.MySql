@@ -17,3 +17,4 @@ options.UseMySql(connectionString, serverVersion, b => b.EnableJsonColumnsForPri
 - Off by default: it changes the store type of existing columns, so the next migration contains an `ALTER COLUMN ... json`, which fails if a column holds invalid JSON.
 - A property with an explicit `HasColumnType(...)` is never changed (`HasColumnType("json")` already works per property).
 - Independent of `EnablePrimitiveCollectionsSupport()` (query translation).
+- Not covered by functional tests yet: on MySQL, comparing a whole collection to a parameter/constant (`e.Roles == arr`) compares a native `JSON` value with a string, which may not match; same as an explicit `HasColumnType("json")`.
