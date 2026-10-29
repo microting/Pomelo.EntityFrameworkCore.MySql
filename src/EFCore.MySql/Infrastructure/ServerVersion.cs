@@ -22,6 +22,8 @@ namespace Microsoft.EntityFrameworkCore
     {
         private static readonly Regex _versionRegex = new Regex(@"\d+\.\d+\.?(?:\d+)?");
 
+        private const string MariaDbVersionPrefixHack = "5.5.5";
+
         protected ServerVersion(Version version, ServerType type, string typeIdentifier = null)
         {
             Version = version;
@@ -319,8 +321,11 @@ namespace Microsoft.EntityFrameworkCore
                                ? ServerType.MariaDb
                                : ServerType.MySql);
 
+                // MariaDB versions before 11.0.0 prefix their version string with the legacy `5.5.5-` version hack, that needs to be
+                // skipped. Later versions removed the prefix (MDEV-28910), in which case the first version fragment is the actual version.
                 var version = type == ServerType.MariaDb &&
-                              semanticVersion.Count > 1
+                              semanticVersion.Count > 1 &&
+                              semanticVersion[0].Value == MariaDbVersionPrefixHack
                     ? Version.Parse(semanticVersion[1].Value)
                     : Version.Parse(semanticVersion[0].Value);
 
