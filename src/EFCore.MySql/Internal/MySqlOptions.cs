@@ -51,6 +51,7 @@ namespace Microting.EntityFrameworkCore.MySql.Internal
             LimitKeyedOrIndexedStringColumnLength = true;
             StringComparisonTranslations = false;
             PrimitiveCollectionsSupport = false;
+            JsonColumnsForPrimitiveCollections = false;
         }
 
         public virtual void Initialize(IDbContextOptions options)
@@ -72,6 +73,7 @@ namespace Microting.EntityFrameworkCore.MySql.Internal
             LimitKeyedOrIndexedStringColumnLength = mySqlOptions.LimitKeyedOrIndexedStringColumnLength;
             StringComparisonTranslations = mySqlOptions.StringComparisonTranslations;
             PrimitiveCollectionsSupport = mySqlOptions.PrimitiveCollectionsSupport;
+            JsonColumnsForPrimitiveCollections = mySqlOptions.JsonColumnsForPrimitiveCollections;
         }
 
         public virtual void Validate(IDbContextOptions options)
@@ -197,6 +199,14 @@ namespace Microting.EntityFrameworkCore.MySql.Internal
                         nameof(MySqlDbContextOptionsBuilder.EnablePrimitiveCollectionsSupport),
                         nameof(DbContextOptionsBuilder.UseInternalServiceProvider)));
             }
+
+            if (!Equals(JsonColumnsForPrimitiveCollections, mySqlOptions.JsonColumnsForPrimitiveCollections))
+            {
+                throw new InvalidOperationException(
+                    CoreStrings.SingletonOptionChanged(
+                        nameof(MySqlDbContextOptionsBuilder.EnableJsonColumnsForPrimitiveCollections),
+                        nameof(DbContextOptionsBuilder.UseInternalServiceProvider)));
+            }
         }
 
         protected virtual MySqlDefaultDataTypeMappings ApplyDefaultDataTypeMappings(MySqlDefaultDataTypeMappings defaultDataTypeMappings, MySqlConnectionSettings connectionSettings)
@@ -271,7 +281,8 @@ namespace Microting.EntityFrameworkCore.MySql.Internal
                    JsonChangeTrackingOptions == other.JsonChangeTrackingOptions &&
                    LimitKeyedOrIndexedStringColumnLength == other.LimitKeyedOrIndexedStringColumnLength &&
                    StringComparisonTranslations == other.StringComparisonTranslations &&
-                   PrimitiveCollectionsSupport == other.PrimitiveCollectionsSupport;
+                   PrimitiveCollectionsSupport == other.PrimitiveCollectionsSupport &&
+                   JsonColumnsForPrimitiveCollections == other.JsonColumnsForPrimitiveCollections;
         }
 
         public override bool Equals(object obj)
@@ -313,6 +324,7 @@ namespace Microting.EntityFrameworkCore.MySql.Internal
             hashCode.Add(LimitKeyedOrIndexedStringColumnLength);
             hashCode.Add(StringComparisonTranslations);
             hashCode.Add(PrimitiveCollectionsSupport);
+            hashCode.Add(JsonColumnsForPrimitiveCollections);
 
             return hashCode.ToHashCode();
         }
@@ -337,5 +349,6 @@ namespace Microting.EntityFrameworkCore.MySql.Internal
         public virtual bool LimitKeyedOrIndexedStringColumnLength { get; private set; }
         public virtual bool StringComparisonTranslations { get; private set; }
         public virtual bool PrimitiveCollectionsSupport { get; private set; }
+        public virtual bool JsonColumnsForPrimitiveCollections { get; private set; }
     }
 }
