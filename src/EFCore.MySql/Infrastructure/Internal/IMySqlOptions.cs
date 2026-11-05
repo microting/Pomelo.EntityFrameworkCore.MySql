@@ -30,5 +30,6 @@ namespace Microting.EntityFrameworkCore.MySql.Infrastructure.Internal
         bool LimitKeyedOrIndexedStringColumnLength { get; }
         bool StringComparisonTranslations { get; }
         bool PrimitiveCollectionsSupport { get; }
+        bool JsonColumnsForPrimitiveCollections { get; }
     }
 }

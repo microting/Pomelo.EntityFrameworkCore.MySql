@@ -43,6 +43,8 @@ namespace Microting.EntityFrameworkCore.MySql.Infrastructure.Internal
             IndexOptimizedBooleanColumns = copyFrom.IndexOptimizedBooleanColumns;
             LimitKeyedOrIndexedStringColumnLength = copyFrom.LimitKeyedOrIndexedStringColumnLength;
             StringComparisonTranslations = copyFrom.StringComparisonTranslations;
+            PrimitiveCollectionsSupport = copyFrom.PrimitiveCollectionsSupport;
+            JsonColumnsForPrimitiveCollections = copyFrom.JsonColumnsForPrimitiveCollections;
         }
 
         /// <summary>
@@ -91,6 +93,7 @@ namespace Microting.EntityFrameworkCore.MySql.Infrastructure.Internal
         public virtual bool LimitKeyedOrIndexedStringColumnLength { get; private set; }
         public virtual bool StringComparisonTranslations { get; private set; }
         public virtual bool PrimitiveCollectionsSupport { get; private set; }
+        public virtual bool JsonColumnsForPrimitiveCollections { get; private set; }
 
         /// <summary>
         ///     Creates a new instance with all options the same as for this instance, but with the given option changed.
@@ -215,6 +218,13 @@ namespace Microting.EntityFrameworkCore.MySql.Infrastructure.Internal
             return clone;
         }
 
+        public virtual MySqlOptionsExtension WithJsonColumnsForPrimitiveCollections(bool enable)
+        {
+            var clone = (MySqlOptionsExtension)Clone();
+            clone.JsonColumnsForPrimitiveCollections = enable;
+            return clone;
+        }
+
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
         ///     the same compatibility standards as public APIs. It may be changed or removed without notice in
@@ -281,6 +291,7 @@ namespace Microting.EntityFrameworkCore.MySql.Infrastructure.Internal
                     hashCode.Add(Extension.LimitKeyedOrIndexedStringColumnLength);
                     hashCode.Add(Extension.StringComparisonTranslations);
                     hashCode.Add(Extension.PrimitiveCollectionsSupport);
+                    hashCode.Add(Extension.JsonColumnsForPrimitiveCollections);
 
                     _serviceProviderHash = hashCode.ToHashCode();
                 }
@@ -302,7 +313,8 @@ namespace Microting.EntityFrameworkCore.MySql.Infrastructure.Internal
                    Extension.IndexOptimizedBooleanColumns == otherInfo.Extension.IndexOptimizedBooleanColumns &&
                    Extension.LimitKeyedOrIndexedStringColumnLength == otherInfo.Extension.LimitKeyedOrIndexedStringColumnLength &&
                    Extension.StringComparisonTranslations == otherInfo.Extension.StringComparisonTranslations &&
-                   Extension.PrimitiveCollectionsSupport == otherInfo.Extension.PrimitiveCollectionsSupport;
+                   Extension.PrimitiveCollectionsSupport == otherInfo.Extension.PrimitiveCollectionsSupport &&
+                   Extension.JsonColumnsForPrimitiveCollections == otherInfo.Extension.JsonColumnsForPrimitiveCollections;
 
             public override void PopulateDebugInfo(IDictionary<string, string> debugInfo)
             {
@@ -317,6 +329,7 @@ namespace Microting.EntityFrameworkCore.MySql.Infrastructure.Internal
                 debugInfo["Microting.EntityFrameworkCore.MySql:" + nameof(MySqlDbContextOptionsBuilder.LimitKeyedOrIndexedStringColumnLength)] = HashCode.Combine(Extension.LimitKeyedOrIndexedStringColumnLength).ToString(CultureInfo.InvariantCulture);
                 debugInfo["Microting.EntityFrameworkCore.MySql:" + nameof(MySqlDbContextOptionsBuilder.EnableStringComparisonTranslations)] = HashCode.Combine(Extension.StringComparisonTranslations).ToString(CultureInfo.InvariantCulture);
                 debugInfo["Microting.EntityFrameworkCore.MySql:" + nameof(MySqlDbContextOptionsBuilder.EnablePrimitiveCollectionsSupport)] = HashCode.Combine(Extension.PrimitiveCollectionsSupport).ToString(CultureInfo.InvariantCulture);
+                debugInfo["Microting.EntityFrameworkCore.MySql:" + nameof(MySqlDbContextOptionsBuilder.EnableJsonColumnsForPrimitiveCollections)] = HashCode.Combine(Extension.JsonColumnsForPrimitiveCollections).ToString(CultureInfo.InvariantCulture);
             }
         }
     }
