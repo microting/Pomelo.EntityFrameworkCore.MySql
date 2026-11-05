@@ -66,6 +66,9 @@ namespace Microting.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
         private readonly IMySqlOptions _options;
         private string _removeTableAliasOld;
         private string _removeTableAliasNew;
+        private string _removeTableAliasTableName;
+        private string _removeTableAliasTableSchema;
+        private int _removeTableAliasSubqueryDepth;
 
         /// <summary>
         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used
@@ -192,6 +195,15 @@ namespace Microting.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                 if (_removeTableAliasNew is not null)
                 {
                     Sql.Append(Dependencies.SqlGenerationHelper.DelimitIdentifier(_removeTableAliasNew))
+                        .Append(".");
+                }
+                else if (_removeTableAliasSubqueryDepth > 0)
+                {
+                    // A column of the table that has lost its alias, which is referenced from inside a subquery, has to stay
+                    // qualified (with the name of the table, which is the only qualifier left). Unqualified, it would be bound to
+                    // the innermost table in scope that has a column with the same name, so that `s`.`GroupId` = `GroupId`
+                    // would be evaluated as `s`.`GroupId` = `s`.`GroupId` and the correlation would be lost.
+                    Sql.Append(Dependencies.SqlGenerationHelper.DelimitIdentifier(_removeTableAliasTableName, _removeTableAliasTableSchema))
                         .Append(".");
                 }
 
@@ -377,6 +389,9 @@ namespace Microting.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
                 {
                     _removeTableAliasOld = selectExpression.Tables[0].Alias;
                     _removeTableAliasNew = null;
+                    _removeTableAliasTableName = deleteExpression.Table.Name;
+                    _removeTableAliasTableSchema = deleteExpression.Table.Schema;
+                    _removeTableAliasSubqueryDepth = 0;
                 }
 
                 GenerateList(selectExpression.Tables, e => Visit(e), sql => sql.AppendLine());
@@ -1056,7 +1071,22 @@ namespace Microting.EntityFrameworkCore.MySql.Query.ExpressionVisitors.Internal
 
         protected override Expression VisitSelect(SelectExpression selectExpression)
         {
-            return base.VisitSelect(selectExpression);
+            if (_removeTableAliasOld is null)
+            {
+                return base.VisitSelect(selectExpression);
+            }
+
+            // Only subqueries of a DELETE that has lost its table alias get here (the outermost SELECT of a DELETE is never visited).
+            _removeTableAliasSubqueryDepth++;
+
+            try
+            {
+                return base.VisitSelect(selectExpression);
+            }
+            finally
+            {
+                _removeTableAliasSubqueryDepth--;
+            }
         }
     }
 }
