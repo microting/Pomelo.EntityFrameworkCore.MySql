@@ -48,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(LocalEFCoreRepository)' != ''">
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" />
     <Reference Include="Microsoft.EntityFrameworkCore">
       <HintPath>$(LocalEFCoreRepository)\artifacts\bin\EFCore.Relational.Tests\Debug\$(EfCoreTestTargetFramework)\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>
