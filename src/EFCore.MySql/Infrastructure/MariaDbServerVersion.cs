@@ -102,6 +102,7 @@ namespace Microsoft.EntityFrameworkCore
             public override bool FieldReferenceInTableValueConstructor => false;
             public override bool CollationCharacterSetApplicabilityWithFullCollationNameColumn => ServerVersion.Version >= new Version(10, 10, 1);
             public override bool DeleteWithSelfReferencingSubquery => ServerVersion.Version >= new Version(11, 0, 0); // MariaDB 11+ supports DELETE with self-referencing subqueries
+            public override bool Uuid => ServerVersion.Version >= new Version(10, 7, 0); // The native `uuid` store type has been added in MariaDB 10.7
 
             public override bool JsonTableImplementationStable => ServerVersion.Version >= new Version(10, 6, 0); // MariaDB 10.6+ has stable JSON_TABLE support
             public override bool JsonTableImplementationWithoutMariaDbBugs => ServerVersion.Version >= new Version(10, 6, 0);

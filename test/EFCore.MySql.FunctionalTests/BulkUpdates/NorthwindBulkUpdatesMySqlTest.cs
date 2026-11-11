@@ -870,7 +870,16 @@ WHERE `c`.`CustomerID` LIKE 'F%'
     [Theory(Skip = "Can fail non-deterministically, because LIMIT/OFFSET without ORDER BY is non-deterministic.")]
     public override async Task Update_Where_Skip_set_constant(bool async)
     {
-        await base.Update_Where_Skip_set_constant(async);
+        // LIMIT/OFFSET without ORDER BY is nondeterministic on MySQL. The derived table of the UPDATE statement only selects the key
+        // column and can therefore be read through a different (covering) index than the query that is used to verify the changed
+        // rows, in which case both skip different rows. So we only verify the number of affected rows here, instead of their content.
+        await AssertUpdate(
+            async,
+            ss => ss.Set<Customer>().Where(c => c.CustomerID.StartsWith("F")).Skip(4),
+            e => e,
+            s => s.SetProperty(c => c.ContactName, "Updated"),
+            rowsAffectedCount: 4,
+            (b, a) => { });
 
         AssertExecuteUpdateSql(
 """
