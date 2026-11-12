@@ -27,6 +27,13 @@ namespace Microting.EntityFrameworkCore.MySql.FunctionalTests
                 Assert.Throws<InvalidOperationException>(() => base.Value_conversion_on_enum_collection_contains()).Message);
         }
 
+        public override async Task Optional_owned_with_converter_reading_non_nullable_column()
+        {
+            using var context = CreateContext();
+            await Assert.ThrowsAsync<InvalidOperationException>(
+                () => context.Set<Parent>().Select(e => new { e.OwnedWithConverter!.Value }).ToListAsync());
+        }
+
         // TODO: Needed to customize:
         //          `private bool Equal(DateTimeOffset left, DateTimeOffset right)` Recheck/remove once fixed upstream.
         //       Recheck/remove after `https://github.com/dotnet/efcore/issues/26068` has been fixed upstream.

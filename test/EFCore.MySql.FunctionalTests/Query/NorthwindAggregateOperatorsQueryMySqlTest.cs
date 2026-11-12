@@ -21,6 +21,31 @@ namespace Microting.EntityFrameworkCore.MySql.FunctionalTests.Query
             //Fixture.TestSqlLoggerFactory.SetTestOutputHelper(testOutputHelper);
         }
 
+        public override Task Min_no_data_subquery(bool async)
+            => Assert.ThrowsAsync<InvalidOperationException>(() => AssertQueryScalar(
+                async,
+                ss => ss.Set<Customer>().Select(c => c.Orders.Where(o => o.OrderID == -1).Min(o => o.OrderID))));
+
+        public override Task Max_no_data_subquery(bool async)
+            => Assert.ThrowsAsync<InvalidOperationException>(() => AssertQueryScalar(
+                async,
+                ss => ss.Set<Customer>().Select(c => c.Orders.Where(o => o.OrderID == -1).Max(o => o.OrderID))));
+
+        public override Task MinBy_no_data_subquery_value_type(bool async)
+            => Assert.ThrowsAsync<InvalidOperationException>(() => AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Select(c => c.Orders.Where(o => o.OrderID == -1).Select(o => o.OrderID).MinBy(o => o))));
+
+        public override Task MaxBy_no_data_subquery_value_type(bool async)
+            => Assert.ThrowsAsync<InvalidOperationException>(() => AssertQuery(
+                async,
+                ss => ss.Set<Customer>().Select(c => c.Orders.Where(o => o.OrderID == -1).Select(o => o.OrderID).MaxBy(o => o))));
+
+        public override Task Average_no_data_subquery(bool async)
+            => Assert.ThrowsAsync<InvalidOperationException>(() => AssertQueryScalar(
+                async,
+                ss => ss.Set<Customer>().Select(c => c.Orders.Where(o => o.OrderID == -1).Average(o => o.OrderID))));
+
         public override Task Average_over_max_subquery(bool async)
             => AssertAverage(
                 async,
