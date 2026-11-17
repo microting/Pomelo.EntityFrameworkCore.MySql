@@ -23,8 +23,8 @@
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="11.0.0-preview.7.26381.103" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="11.0.0-preview.7.26381.103" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="11.0.0-preview.7.26381.103" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="11.0.0-preview.7.26381.103" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="11.0.0-preview.7.26381.103" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="11.0.0-preview.7.26381.103" />
     <!-- CHECK: used? -->
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0-preview.7.26381.103" />
