@@ -19,19 +19,10 @@
     <Compile Include="..\Shared\*.cs" />
   </ItemGroup>
 
-  <!-- CHECK: What is this doing? -->
   <ItemGroup>
-    <None Include="build\**\*">
-      <Pack>True</Pack>
-      <PackagePath>build</PackagePath>
-    </None>
-    <None Update="build\netstandard2.0\Microting.EntityFrameworkCore.MySql.Json.Microsoft.targets">
-      <Pack>True</Pack>
-      <PackagePath>build</PackagePath>
-    </None>
     <None Update="build\Microting.EntityFrameworkCore.MySql.Json.Microsoft.targets">
       <Pack>True</Pack>
-      <PackagePath>build</PackagePath>
+      <PackagePath>build\Microting.EntityFrameworkCore.MySql.Json.Microsoft.targets</PackagePath>
     </None>
   </ItemGroup>
 
