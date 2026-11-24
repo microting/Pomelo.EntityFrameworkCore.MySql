@@ -8,6 +8,9 @@ using Microting.EntityFrameworkCore.MySql.Infrastructure.Internal;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Json;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.EntityFrameworkCore.Utilities;
 using Microting.EntityFrameworkCore.MySql.Infrastructure;
 using Microting.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
@@ -298,6 +301,48 @@ namespace Microting.EntityFrameworkCore.MySql.Storage.Internal
             // first, try any plugins, allowing them to override built-in mappings
             base.FindMapping(mappingInfo) ??
             FindRawMapping(mappingInfo)?.Clone(mappingInfo);
+
+        /// <summary>
+        ///     Maps primitive collections (stored as a JSON string). By default, they are stored as <c>longtext</c>. If the
+        ///     <c>EnableJsonColumnsForPrimitiveCollections</c> option is set, the server supports the <c>JSON</c> type and no store type
+        ///     has been configured explicitly, the <c>json</c> store type is used, so that the database validates the content natively
+        ///     (MySQL's <c>JSON</c> type, or the <c>json_valid()</c> check constraint that MariaDB adds for columns declared as <c>JSON</c>).
+        /// </summary>
+#pragma warning disable EF1001 // Internal EF Core API usage.
+        protected override RelationalTypeMapping FindCollectionMapping(
+            RelationalTypeMappingInfo info,
+            Type modelType,
+            Type providerType,
+            CoreTypeMapping elementMapping)
+        {
+            if (_options.JsonColumnsForPrimitiveCollections &&
+                _options.ServerVersion?.Supports.Json == true &&
+                info.StoreTypeName is null &&
+                TryFindJsonCollectionMapping(
+                    info.CoreTypeMappingInfo,
+                    modelType,
+                    providerType,
+                    ref elementMapping,
+                    out var elementComparer,
+                    out var collectionReaderWriter))
+            {
+                var jsonMapping = FindMapping(
+                    (info with { StoreTypeName = "json", StoreTypeNameBase = "json" })
+                    .WithConverter(new ValueConverterInfo(modelType, typeof(string), _ => null)));
+
+                return (RelationalTypeMapping)jsonMapping?.WithComposedConverter(
+                    (ValueConverter)Activator.CreateInstance(
+                        typeof(CollectionToJsonStringConverter<>).MakeGenericType(modelType.TryGetElementType(typeof(IEnumerable<>))),
+                        collectionReaderWriter),
+                    elementComparer,
+                    elementComparer,
+                    elementMapping,
+                    collectionReaderWriter);
+            }
+
+            return base.FindCollectionMapping(info, modelType, providerType, elementMapping);
+        }
+#pragma warning restore EF1001
 
         private RelationalTypeMapping FindRawMapping(RelationalTypeMappingInfo mappingInfo)
         {
